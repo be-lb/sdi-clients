@@ -1,0 +1,242 @@
+/*
+ *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, version 3 of the License.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+import * as debug from 'debug';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { DIV, H1, P, IMG, INPUT } from './../elements';
+import queries from '../../queries/app';
+import events, { toDataURL } from '../../events/app';
+import mapInfoQueries from '../../queries/map-info';
+import mapInfoEvents from '../../events/map-info';
+import tr, { formatDate, fromRecord } from '../../locale';
+import editable from '../editable';
+import { IMapInfo } from 'sdi/source';
+import { FormEvent } from 'react';
+import { DataUrl, FileOrNull, MapInfoIllustrationState } from '../../shape/index';
+import button, { remove } from '../button';
+
+const logger = debug('sdi:map-info/info');
+
+let selectedImage: FileOrNull;
+let selectedImageDataUrl: DataUrl | null;
+
+const getInfo = <T>(a: (b: IMapInfo) => T, c: T): T => {
+    const minfo = queries.getMapInfo();
+    if (minfo) {
+        return a(minfo);
+    }
+    return c;
+};
+
+const getTitle = () => getInfo(m => m.title, { fr: '', nl: '' });
+
+const getDescription = () => getInfo(m => m.description, { fr: '', nl: '' });
+
+const toP = (p: string) => P({}, p);
+
+const uploadButton = button('upload', 'validate');
+
+const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
+    const isEmpty = title.trim().length === 0;
+    const text = isEmpty ? tr('emptyTitle') : title;
+    return H1(props, text);
+};
+
+
+const formatDescription = (props: React.ClassAttributes<Element>, description: string) => {
+    const isEmpty = description.trim().length === 0;
+    const elems = isEmpty ? tr('emptyDescription') : description.split('\n').map(toP);
+    const html = renderToStaticMarkup(DIV({}, ...elems));
+    return DIV({
+        className: 'map-description',
+        dangerouslySetInnerHTML: { __html: html },
+        ...props,
+    });
+};
+
+const clearSelectedImage = () => {
+    selectedImage = null;
+    selectedImageDataUrl = null;
+    mapInfoEvents.showImg();
+};
+
+const uploadSelectedImage = () => {
+    if (selectedImage !== null) {
+        mapInfoEvents.uploadImg(selectedImage);
+    }
+};
+
+const setSelectedImage = (img: File) => {
+    selectedImageDataUrl = null;
+    selectedImage = img;
+
+    toDataURL(selectedImage)
+        .then((dataUrl: DataUrl) => {
+            selectedImageDataUrl = dataUrl;
+            mapInfoEvents.showSelectedImg();
+        })
+        .catch(() => mapInfoEvents.showImg());
+
+    mapInfoEvents.generatingSelectedImgPreview();
+};
+
+const renderMapIllustrationToolbar = (src: string | undefined) => {
+    const state = mapInfoQueries.getState();
+
+    if (state === MapInfoIllustrationState.showSelectedImage) {
+        const clearPreviewButton = remove(`renderMapIllustrationToolbar-clear-${src}`, 'cancel')(() => clearSelectedImage());
+
+        const label = DIV({ className: 'label' }, tr('imagePreview'));
+
+        const validatePreviewButton = uploadButton(() => uploadSelectedImage());
+
+        return DIV({ className: 'uploader-wrapper' },
+            clearPreviewButton,
+            label,
+            validatePreviewButton,
+        );
+    }
+    else if (state === MapInfoIllustrationState.generateSelectedImagePreview) {
+        const label = DIV({ className: 'label' }, tr('imageGeneratingPreview'));
+        return DIV({ className: 'uploader-wrapper' }, label);
+    }
+    else if (state === MapInfoIllustrationState.uploadSelectedImage) {
+        const label = DIV({ className: 'label' }, tr('imageUploading'));
+        return DIV({ className: 'uploader-wrapper' }, label);
+    }
+    else {
+        const uploadField = INPUT({
+            type: 'file',
+            name: 'map-info-illustration-image',
+            onChange: (e: FormEvent<HTMLInputElement>) => {
+                if (e && e.currentTarget.files && e.currentTarget.files.length > 0) {
+                    setSelectedImage(e.currentTarget.files[0]);
+                }
+                else {
+                    clearSelectedImage();
+                }
+            },
+        });
+
+        if (src && src !== '') {
+            const removeIllustrationButton = remove(`renderMapIllustrationToolbar-remove-${src}`)(() => events.removeMapInfoIllustration());
+
+            const label = DIV({ className: 'label' }, tr('mapInfoChangeIllustration'));
+
+            return DIV({ className: 'uploader-wrapper' },
+                removeIllustrationButton,
+                label,
+                uploadField,
+            );
+        }
+        else {
+            const label = DIV({ className: 'label' }, tr('mapInfoAddIllustration'));
+
+            return DIV({ className: 'uploader-wrapper' },
+                label,
+                uploadField,
+            );
+        }
+
+    }
+};
+
+
+const renderMapIllustrationImg = (src: DataUrl | string | undefined | null) => {
+    const state = mapInfoQueries.getState();
+    let className = '';
+
+    if (state === MapInfoIllustrationState.showSelectedImage
+        || state === MapInfoIllustrationState.uploadSelectedImage) {
+        className = 'preview';
+        src = selectedImageDataUrl;
+        if (src) {
+            return DIV({ className: 'map-illustration' }, IMG({ className, src }));
+        }
+        else {
+            return DIV({ className: 'map-illustration' }, IMG({ className }));
+        }
+    }
+    else if (state === MapInfoIllustrationState.generateSelectedImagePreview) {
+        return DIV({ className: 'empty-image' }, '');
+    }
+    else if (src && src !== '') {
+        return DIV({ className: 'map-illustration' }, IMG({ className, src }));
+    }
+    else {
+        return DIV({ className: 'empty-image' }, '');
+    }
+};
+
+
+const renderMapIllustration = (src: string | undefined) => {
+    return DIV({ className: 'editable-wrapper' },
+        DIV({ className: 'map-illustration' },
+            renderMapIllustrationImg(src),
+            renderMapIllustrationToolbar(src)));
+};
+
+
+const hasCategory =
+    (c: string, info: IMapInfo) => info.categories.indexOf(c) >= 0;
+
+const renderCategories =
+    (info: IMapInfo) => {
+        const categories = queries.getCategories();
+        const elements = categories.map((cat) => {
+            if (hasCategory(cat.id, info)) {
+                return (
+                    DIV({
+                        className: 'category selected interactive',
+                        onClick: () => events.removeCategory(cat.id),
+                    }, fromRecord(cat.name)));
+            }
+            return (
+                DIV({
+                    className: 'category interactive',
+                    onClick: () => events.addCategory(cat.id),
+                }, fromRecord(cat.name)));
+        });
+
+        return (
+            DIV({ className: 'category-wrapper' }, ...elements));
+    };
+
+const render = () => {
+    const mapInfo = queries.getMapInfo();
+    if (null === mapInfo) {
+        return DIV();
+    }
+    return (
+        DIV({ className: 'map-infos' },
+            renderCategories(mapInfo),
+
+            editable(`map_info_title`, getTitle, events.setMapTitle, formatTitle)(),
+
+            DIV({ className: 'map-date' },
+                DIV({ className: 'map-date-label' }, tr('lastModified')),
+                DIV({ className: 'map-date-value' },
+                    formatDate(new Date(mapInfo.lastModified)))),
+
+            renderMapIllustration(mapInfo.imageUrl),
+
+            editable(`map_info_description`, getDescription, events.setMapDescription, formatDescription)())
+    );
+};
+
+export default render;
+
+logger('loaded');

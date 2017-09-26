@@ -1,0 +1,62 @@
+*[class^="btn-"] {
+    // font-size: 0.8em;
+    display: inline-block;
+    padding: 4px;
+    cursor: default;
+    // background: @extra-light-grey;
+    color: @grey;
+    font-size: 11px;
+
+    &:hover {
+        // background: @extra-light-grey - 7%;
+        color: #000;
+    }
+
+    &:before,
+    &:after {
+        .awsomefont;
+        padding: 0 @small-margin;
+        font-size: 13px;
+    }
+
+    &.icon-only {
+        // .interactive;
+        padding: 0;
+        background: transparent;
+        &:before {
+            padding: 0;
+            margin-left: @small-margin;
+}
+    }
+
+    &.active {
+        color: @green;
+    }
+}
+
+.btn {
+    &-cancel{}
+    &-close:before {content: @fa-var-times-circle;}
+    &-connect:before {content: @fa-var-ellipsis-h;}
+    &-gps:before {content: @fa-var-crosshairs;}
+    &-measure:before {content: @fa-var-arrows-h;}
+    &-save:before {content: @fa-var-save;}
+    &-start:before {}
+    &-stop:before {content: @fa-var-stop;}
+    &-search:before {content: @fa-var-search;}
+    &-prev:before {content: @fa-var-chevron-up;}
+    &-next:before {content: @fa-var-chevron-down;}
+    &-sort-asc:before {content: @fa-var-sort-asc;}
+    &-sort-desc:before {content: @fa-var-sort-desc;}
+    &-validate{}
+}
+
+
+// HIGH LEVEL BUTTONS SIZE AND COLORS
+
+
+.btn-close {
+    color: #000;
+    &:before {font-size: 18px !important;}
+    &:hover {color: @green;}
+}

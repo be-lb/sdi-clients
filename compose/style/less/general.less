@@ -1,0 +1,51 @@
+body {
+    font-family: @gui-font;
+    font-size: @gui-font-size;
+}
+
+h1 {
+    font-weight: @extra-bold;
+    font-size: 330%;
+    line-height: 90%;
+    letter-spacing: -1.5px;
+}
+
+h2 {
+    font-size: 150%;
+    font-weight: @bold;
+}
+
+h3 {
+    font-weight: @bold;
+}
+
+a {
+    color: #000;
+    text-decoration-color: @light-grey;
+
+    &:hover {
+        color: @blue;
+    }
+}
+
+
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+input[type="text"],
+input[type="number"] {
+    border: 1px solid #e6e6e6;
+    // border-bottom: 1px solid @grey;
+    font-size: 1em;
+    padding: .3em;
+
+    &::-webkit-input-placeholder{
+        color:@grey;
+    }
+}
+
+
+.map-wrapper {
+    border: 1px solid @grey;
+}

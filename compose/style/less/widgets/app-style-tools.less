@@ -1,0 +1,165 @@
+
+
+////////// APP HEADER TITLE
+.app-split-header .legend-type-value {
+    &:before, &:after {content: "\00a0";}
+}
+
+
+
+//////////     LAYER INFOS
+
+.layer-infos {
+
+    h1 {
+        font-size: 200%;
+        margin-top: -2px;
+        margin-bottom: @margin;
+        letter-spacing: -0.75px;
+        overflow-wrap: break-word;
+        line-height: 100%;
+        }
+
+    .table, .map {
+        float: right;
+        &:before {
+            .awsomefont;
+            content: @fa-var-table;
+        }
+    }
+    .map:before {content: @fa-var-map-o;}
+
+    .btn-remove:before {content: @fa-var-undo;} //Other icon
+    .btn-settings {font-size : 100%;}
+    .btn-remove, .btn-settings { //align on left
+        padding-left: 0px;
+        &:before{padding-left: 0px}
+    }
+
+    .column-toolbox {
+        margin: @margin 0;
+
+        .help {
+            .flex(center, initial, initial);
+            height: @headerH;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}
+
+
+//////////     PICKER
+
+
+.picker {
+    .group {
+        .widgetActiveBackground;
+        position: sticky;
+
+        &.folded {
+            color: @black;
+        }
+        &.active {
+            .flex(initial, initial, wrap);
+        }
+    }
+
+    .value-selector-title {
+        margin-bottom: @small-margin;
+    }
+
+    .selected-items {
+        .flex(initial, initial, wrap);
+        margin-top: @margin;
+        width: 100%;
+
+        .value-name {
+            position: relative;
+            font-size: 80%;
+            cursor: default;
+            padding: 3px;
+            margin-right: 10px;
+            background-color: @editable;
+
+            .btn-remove {
+                margin: 0;
+                margin-right: @small-margin;
+                &:before {
+                    margin-left: 0px;
+                }
+            }
+        }
+    }
+
+    .add-term {
+        .flex(center, initial, initial);
+        width: 100%;
+    }
+
+    input {
+        margin: @small-margin 0;
+        width: calc(~"100% - 2 * @{small-margin}");
+    }
+
+    .btn-remove {margin-left: auto;}
+
+    .group-add {
+    background-color: @extra-light-grey;
+    padding: @small-margin;
+    margin-bottom: @small-margin;
+    text-align: center;
+    }
+
+//////////     PICKER - CONTINUOUS
+
+    .interval {
+        .flex(initial, space-between, initial);
+        margin-top: @margin;
+
+        > div {width: calc(~"50% - @{small-margin} / 2");}
+        input {margin-top: @small-margin;}
+    }
+}
+
+
+
+//////////     COLUMN PICKER
+
+.column-picker{
+    .column-picker-infos {
+        width: 100%;
+        margin-bottom: @margin;
+    }
+    .column-name {
+        .widgetActiveBackground;
+        cursor: default;
+        margin-right: @small-margin * 2;
+        margin-bottom: @small-margin * 2;
+        overflow-wrap: break-word;
+        display: inline-block;
+    }
+}
+
+
+
+//////////     LEGEND PICKER
+
+.legend-picker {
+    & > div {
+        .widgetActiveBackground;
+        padding: @margin;
+        margin-bottom: @margin;
+        cursor: default;
+
+        &::before {
+            .awsomefont;
+            content: @fa-var-square-o;
+            margin-right: @small-margin;
+        }
+        &.active::before {
+            .awsomefont;
+            content: @fa-var-check-square-o;
+        }
+    }
+}

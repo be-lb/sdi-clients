@@ -1,0 +1,54 @@
+
+
+/*
+ *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, version 3 of the License.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+import tr from '../../locale';
+import { DIV, H2 } from '.././elements';
+import appEvents from '../../events/app';
+import mapEvents from '../../events/map';
+import { AppLayout } from '../../shape/index';
+
+const measureLength = () => {
+    appEvents.setLayout(AppLayout.MapAndMeasure);
+    mapEvents.startMeasureLength();
+};
+
+
+const measureArea = () => {
+    appEvents.setLayout(AppLayout.MapAndMeasure);
+    mapEvents.startMeasureArea();
+};
+
+
+const render = () => {
+    return (
+        DIV({ className: 'tool measure' },
+            H2({}, tr('measure')),
+            DIV({ className: 'tool-body' },
+                DIV({
+                    className: 'btn-measure',
+                    onClick: measureLength,
+                },  tr('measureLength')),
+                DIV({
+                    className: 'btn-measure',
+                    onClick: measureArea,
+                },  tr('measureArea'))))
+    );
+};
+
+
+export default render;
