@@ -1,0 +1,48 @@
+// LEGEND : DATA VIEW
+
+.datas-wrapper {
+    .layer-item {
+        .flex(baseline, flex-start, initial);
+        overflow-wrap: break-word;
+        margin: @small-margin 0;
+    }
+
+    .layer-actions {
+        .awsomefont;
+        .legendItemPosition;
+        margin-top: @small-margin;
+        > span {
+            cursor: default;
+            .interactive;
+        }
+    }
+
+    .visible:before {content: @fa-var-eye;}
+    .table:before {content: @fa-var-table;}
+    .hidden {
+        color:@grey;
+        .interactive-light;
+
+        &:before {
+            content: @fa-var-eye-slash;
+        }
+    }
+
+    .visible:before,
+    .hidden:before {
+        padding-right: @small-margin;
+    }
+}
+
+
+
+.datas-download-wrapper {
+    margin-top: @margin;
+
+    .download-title{}
+
+    .dl-item {
+        .link;
+        margin-left: @small-margin;
+    }
+}

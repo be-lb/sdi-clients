@@ -1,0 +1,62 @@
+.inspire-wrapper {
+    font-family: @content-font;
+    font-size: 0.8em;
+    overflow: auto;
+    overflow-wrap: break-word;
+    height: 100%;
+
+    h1 {
+        font-size: 200%;
+        margin-top: @small-margin;
+        letter-spacing: -0.75px;
+    }
+
+    .inspire-content {
+        height: calc(~"100% - @{margin} * 2 - @{small-margin}");
+        overflow-y: auto;
+    }
+
+    .inspire-selected-items {
+        > div:nth-child(2) { //////////////////////  topic
+            font-weight: @extra-bold;
+            font-size: 120%;
+            margin-top: @small-margin;
+            letter-spacing: -0.5px;
+
+        }
+
+        > div:nth-child(3){ //////////////////////  feature type
+            text-transform: uppercase;
+            margin-top: @small-margin;
+            margin-bottom: @margin;
+        }
+        > div:nth-child(4){ //////////////////////  updated date
+            font-style: italic;
+            margin-bottom: @margin;
+        }
+
+        .label {
+            .labelStyle;
+            margin-top: @margin;
+        }
+
+        .ro-block {
+            margin-bottom: @small-margin;
+
+            .ro-org-name,
+            .ro-contact-name,
+            .ro-role-code {
+                display: block;
+            }
+        }
+    }
+
+    .btn-add {
+        .absolute(initial, 0, 0, initial);
+        font-size: 100%;
+    }
+    .btn-view {
+        .absolute(initial, initial, 0, 0);
+        font-size: 100%;
+    }
+}

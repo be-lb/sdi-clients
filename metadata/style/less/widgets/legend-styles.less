@@ -1,0 +1,41 @@
+
+.map-legend {
+    .styles-wrapper {
+        .flex(center, space-between, wrap);
+
+        & > div {
+            .flex(center, initial, initial);
+            width: 100%;
+            margin-bottom: @small-margin;
+            height: 20px;
+            &:last-child {margin-bottom: 0px;}
+        }
+    }
+
+    .legend-item {
+        display: flex;
+
+        .item-style {
+            .legendItemPosition;
+            margin-top: @small-margin;
+            img {
+                width: 100%;
+                height:auto;
+            }
+        }
+        .item-label {
+            .flex(center, initial, initial);
+            min-height: 20px;
+            overflow-wrap: break-word;
+        }
+    }
+
+    .spinner{
+        .awsomefont-spin;
+        margin-left: @margin;
+        &:before {
+            color: @green;
+            content: @fa-var-circle-o-notch;
+        }
+    }
+}

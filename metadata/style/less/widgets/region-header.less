@@ -1,0 +1,56 @@
+.header {
+    .flex(center, initial, initial);
+    padding: 0 @margin;
+    font-size: 80%;
+
+    img {
+        height: 17px;
+        margin-right: 5px ;
+    }
+
+    > div {
+        .flex(center, initial, initial);
+        height: @headerH;
+    }
+
+    .app-title {
+        font-weight: @bold;
+        font-size: 150%;
+        // position: relative;
+    }
+
+    .dashboard-link-wrapper {
+        .absolute(initial, @panel-rightW, initial, initial);
+        .dashboard-link {
+            margin-left: @margin;
+        }
+
+    }
+
+    .header-toolbar {
+        .absolute(initial, @margin, initial, initial);
+
+        .login {
+            display: none; // TEMPORARY
+            .interactive;
+            padding: 0 @margin;
+
+            &:after {
+                .awsomefont;
+                content: @fa-var-user;
+                margin-left: @small-margin;
+            }
+        }
+
+        .lang-switch {
+            .interactive;
+
+            &:after {
+                .awsomefont;
+                content: @fa-var-globe;
+                margin-left: @small-margin;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,29 @@
+.feature-form {
+    .widgetBackground;
+    overflow-y: auto;
+    font-size: 80%;
+
+    > div {
+        .widgetActiveBackground;
+    }
+
+    .input-label {
+        .labelStyle;
+    }
+
+    input {
+        width: calc(~"100% - @{small-margin} * 2");
+    }
+
+    .buttons {
+        .flex;
+        position: sticky;
+        bottom: -@small-margin;
+        left: 0;
+        right: 0;
+        &:hover {
+            background: @extra-light-grey;
+            border: 1px solid @extra-light-grey;
+        }
+    }
+}

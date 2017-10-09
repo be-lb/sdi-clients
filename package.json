@@ -7,7 +7,9 @@
         "watch:view": "webpack --config view/webpack.config.js --watch",
         "build:compose": "webpack --config compose/webpack.config.js",
         "watch:compose": "webpack --config compose/webpack.config.js --watch",
-        "build": "npm run build:view && npm run build:compose"
+        "build:metadata": "webpack --config metadata/webpack.config.js",
+        "watch:metadata": "webpack --config metadata/webpack.config.js --watch",
+        "build": "npm run build:view && npm run build:compose && npm run metadata"
     },
     "repository": {
         "type": "git",
