@@ -13,11 +13,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 
 import { i, a, p, l, u, MessageRecordIO, TypeOf } from './io';
 import { StyleConfigIO } from './style';
-import { RowConfigIO, NullConfigIO } from './row-config';
+import { RowConfigIO } from './row-config';
 import * as io from 'io-ts';
 
 
@@ -28,7 +28,7 @@ export type FeatureViewDefault = TypeOf<typeof FeatureViewDefaultIO>;
 
 export const FeatureViewConfigIO = i({
     type: l('config'),
-    rows: a(u([RowConfigIO, NullConfigIO])),
+    rows: a(RowConfigIO),
 }, 'FeatureViewConfigIO');
 export type FeatureViewConfig = TypeOf<typeof FeatureViewConfigIO>;
 

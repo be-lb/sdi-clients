@@ -16,7 +16,7 @@
 
 import { query } from './index';
 import appQueries from './app';
-import { FeatureCollection, RowConfig, NullConfig } from 'sdi/source';
+import { FeatureCollection, RowConfig } from 'sdi/source';
 import { getLayerPropertiesKeys } from '../util/app';
 
 
@@ -37,7 +37,7 @@ const queries = {
             && info.featureViewOptions.type === 'config') {
             return info.featureViewOptions;
         }
-        const rows: (RowConfig | NullConfig)[] = [];
+        const rows: RowConfig[] = [];
         return { type: 'config', rows };
     },
 

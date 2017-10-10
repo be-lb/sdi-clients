@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import { DIV, SPAN, INPUT } from '../elements';
 import tr from '../../locale';
@@ -25,7 +25,23 @@ import queries from '../../queries/feature-config';
 import button, { remove } from '../button';
 import { MessageKey } from '../../locale/message-db';
 import { ReactNode, ChangeEvent } from 'react';
-import { PropType, StringOptionStyle, StringOptionLevel, StringConfig, NumberConfig, BooleanConfig, URLConfig, RowConfig, ImageConfig, TimeserieConfig, PiechartConfig, NullConfig, ConfigWithLabel, ConfigWithLevel, ConfigWithStyle, PiechartPiece } from 'sdi/source';
+import {
+    BooleanConfig,
+    ConfigWithLabel,
+    ConfigWithLevel,
+    ConfigWithStyle,
+    ImageConfig,
+    NumberConfig,
+    PiechartConfig,
+    PiechartPiece,
+    PropType,
+    RowConfig,
+    StringConfig,
+    StringOptionLevel,
+    StringOptionStyle,
+    TimeserieConfig,
+    URLConfig,
+} from 'sdi/source';
 import { isENTER } from '../keycodes';
 
 const logger = debug('sdi:feature-config/config');
@@ -89,7 +105,7 @@ const inputWithLabel =
     );
 
 const inputType =
-    (row: RowConfig | NullConfig) => {
+    (row: RowConfig) => {
         return (
             renderSelect<PropType>(propType, row.type,
                 v => events.setPropTypeForConfig(row.propName, v))
@@ -310,16 +326,14 @@ const renderTimeserieEditor =
 
 
 const renderTypeSelector =
-    (config: RowConfig | NullConfig) => {
+    (config: RowConfig) => {
         return DIV({ className: 'item' }, label('dataType'), inputType(config));
     };
 
 const renderRowEditor =
-    (row: RowConfig | NullConfig) => {
+    (row: RowConfig) => {
         const elements: ReactNode[] = [];
         switch (row.type) {
-            case null: elements.push(renderTypeSelector(row));
-                break;
             case 'string': elements.push(
                 renderTypeSelector(row), ...renderStringEditor(row));
                 break;

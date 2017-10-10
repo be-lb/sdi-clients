@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { i, u, l, a, TypeOf, p } from './io';
 import * as io from 'io-ts';
 
@@ -140,13 +140,13 @@ export const BaseConfigIO = i({
     propName: io.string,
 }, 'BaseConfigIO');
 
-export const NullConfigIO = io.intersection([
-    BaseConfigIO,
-    i({
-        type: io.null,
-    }),
-], 'NullConfigIO');
-export type NullConfig = TypeOf<typeof NullConfigIO>;
+// export const NullConfigIO = io.intersection([
+//     BaseConfigIO,
+//     i({
+//         type: io.null,
+//     }),
+// ], 'NullConfigIO');
+// export type NullConfig = TypeOf<typeof NullConfigIO>;
 
 
 export const StringConfigIO = io.intersection([
