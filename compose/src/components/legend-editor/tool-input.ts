@@ -213,9 +213,9 @@ const renderInputAlphaColor =
 const renderInputText =
     (className: string, label: string, get: TextGetter, set: TextSetter) => {
         const value = get();
-        logger(`renderInputText ${value}`);
+        // logger(`renderInputText ${value}`);
         const update = (e: React.ChangeEvent<HTMLInputElement>) => {
-            logger(`renderInputText update ${e.currentTarget.value}`);
+            // logger(`renderInputText update ${e.currentTarget.value}`);
             const newVal = e.currentTarget.value;
             set(newVal);
         };

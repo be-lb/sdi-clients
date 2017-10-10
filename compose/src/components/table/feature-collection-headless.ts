@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import base, { SelectRowHandler, TableDataRow } from './base';
 import queries from '../../queries/table';
@@ -34,9 +34,9 @@ const toolbar = () => {
 
 const onRowSelect: SelectRowHandler =
     (row: TableDataRow) => {
-        const lid = appQueries.getCurrentLayerId();
-        if (lid) {
-            const layer = appQueries.getLayerData(lid);
+        const { metadata } = appQueries.getCurrentLayerInfo();
+        if (metadata) {
+            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
             if (layer) {
                 const feature = layer.features[row.from];
                 appEvents.setCurrentFeatureData(feature);

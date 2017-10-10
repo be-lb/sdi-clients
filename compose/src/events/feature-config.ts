@@ -19,13 +19,44 @@ import { syncMap } from '../util/app';
 import queries from '../queries/app';
 import appEvents from '../events/app';
 import { initialFeatureConfigState } from '../components/feature-config/index';
-import { FeatureViewConfig, FeatureViewOptions, FeatureViewDefault, RowConfig, NullConfig, PropType, StringOptionLevel, ConfigWithLevel, StringOptionStyle, ConfigWithStyle, ConfigWithLabel, TimeserieConfig, BooleanConfig, StringConfig, defaultStringOptions, defaultNumberOptions, NumberConfig, defaultBooleanOptions, defaultURLOptions, URLConfig, ImageConfig, defaultImageOptions, defaultPiechartOptions, defaultTimeserieOptions, PiechartConfig, PiechartPiece } from 'sdi/source';
+import {
+    BooleanConfig,
+    ConfigWithLabel,
+    ConfigWithLevel,
+    ConfigWithStyle,
+    defaultBooleanOptions,
+    defaultImageOptions,
+    defaultNumberOptions,
+    defaultPiechartOptions,
+    defaultStringOptions,
+    defaultTimeserieOptions,
+    defaultURLOptions,
+    FeatureViewConfig,
+    FeatureViewDefault,
+    FeatureViewOptions,
+    ImageConfig,
+    NumberConfig,
+    PiechartConfig,
+    PiechartPiece,
+    PropType,
+    RowConfig,
+    StringConfig,
+    StringOptionLevel,
+    StringOptionStyle,
+    TimeserieConfig,
+    URLConfig,
+} from 'sdi/source';
 
 const defaultRowConfig =
-    (pn: string): NullConfig => ({
+    (pn: string): StringConfig => ({
         propName: pn,
-        type: null,
+        type: 'string',
         lang: queries.getLang(),
+        options: {
+            level: 'normal',
+            withLabel: true,
+            style: 'normal',
+        },
     });
 
 const configDefaultOptions =
@@ -38,7 +69,7 @@ const defaultDefaultOptions =
 type UpdateFn<T extends FeatureViewOptions> = (a: T) => T;
 type DefaultFn<T extends FeatureViewOptions> = () => T;
 
-type UpdateConfigRowFn = (a: RowConfig | NullConfig) => void;
+type UpdateConfigRowFn = (a: RowConfig) => void;
 
 export const validConfigRow = (r: RowConfig) => r.propName.length > 0;
 
