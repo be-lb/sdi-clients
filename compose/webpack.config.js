@@ -121,7 +121,8 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("[name].css"),
     ],
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'cheap-module-eval-source-map',
 };
 
 

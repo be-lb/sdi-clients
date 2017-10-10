@@ -443,7 +443,7 @@ const events = {
 
     setPropNameForLabel(pn: string) {
         updatePointStyleLabel((s: PointStyleConfig) => {
-            logger(`setPropNameForLabel ${pn} ${isLabeled(s)}`);
+            // logger(`setPropNameForLabel ${pn} ${isLabeled(s)}`);
             if (isLabeled(s)) {
                 s.label.propName[appQueries.getLang()] = pn;
             }

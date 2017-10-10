@@ -13,12 +13,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { query } from './index';
 import appQueries from './app';
-import { FeatureCollection } from 'sdi/source';
+import { FeatureCollection, RowConfig, NullConfig } from 'sdi/source';
 import { getLayerPropertiesKeys } from '../util/app';
-import { RowConfig, NullConfig } from 'sdi/source';
 
 
 const queries = {
@@ -53,9 +52,9 @@ const queries = {
     // Layer / FeatureCollection
 
     getLayer(): FeatureCollection {
-        const id = appQueries.getCurrentLayerId();
-        if (id !== null) {
-            const layer = appQueries.getLayerData(id);
+        const { metadata } = appQueries.getCurrentLayerInfo();
+        if (metadata !== null) {
+            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
 
             if (layer !== null) {
                 return layer;
