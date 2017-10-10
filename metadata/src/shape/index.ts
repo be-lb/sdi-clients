@@ -56,7 +56,7 @@ export const appShape: IShapeApp = {
     'app/user': null,
     'app/api-root': 'http://localhost:3000/',
     'app/lang': 'fr',
-    'app/layout': [AppLayout.List],
+    'app/layout': [AppLayout.Single],
     'app/current-metadata': null,
     'app/csrf': null,
 

@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { MessageRecord } from 'sdi/source';
 
 
@@ -97,6 +97,7 @@ export type MessageKey =
     | 'latitude'
     | 'label'
     | 'layer'
+    | 'layerList'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -128,6 +129,11 @@ export type MessageKey =
     | 'measure'
     | 'measureArea'
     | 'measureLength'
+    | 'metadataEditor'
+    | 'metaCommon'
+    | 'metaDutch'
+    | 'metaFrench'
+    | 'metadataEditor'
     | 'newLayer'
     | 'newMap'
     | 'noResults'
@@ -143,6 +149,7 @@ export type MessageKey =
     | 'remove'
     | 'resetLegend'
     | 'responsibleAndContact'
+    | 'responsiblePerson'
     | 'rowNumberColTitle'
     | 'save'
     | 'search'
@@ -812,6 +819,11 @@ export const messages: MessageDB = {
         nl: 'Verantwoordelijke organisatie',
     },
 
+    responsiblePerson: {
+        fr: 'Personne responsable',
+        nl: 'Verantwoordelijke persoon',
+    },
+
     size: {
         fr: 'Taille (px)',
         nl: 'Grootte (px)',
@@ -1006,4 +1018,30 @@ export const messages: MessageDB = {
         fr: 'Upload de données',
         nl: 'Upload datas',
     },
+
+    metadataEditor: {
+        fr: 'Éditeur de métadonnées',
+        nl: 'Metadatas editor',
+    },
+
+    layerList: {
+        fr: 'Liste des couches',
+        nl: 'Layers list',
+    },
+
+    metaCommon: {
+        fr: 'Métadonnées bilingues',
+        nl: 'Tweetalige metadata',
+    },
+
+    metaFrench: {
+        fr: 'Métadonnées françaises',
+        nl: 'Frans metadata',
+    },
+
+    metaDutch: {
+        fr: 'Métadonnées Néerlandaises',
+        nl: 'Nederlands metadata',
+    },
+
 };
