@@ -14,6 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 import { dispatch } from './index';
 import appQueries from '../queries/app';
 import queries from '../queries/legend-editor';
@@ -49,7 +50,7 @@ import {
 } from 'sdi/source';
 
 
-
+const logger = debug('sdi:events/legend-editor');
 const saveMap = saveStyle(dispatch);
 
 
@@ -169,8 +170,10 @@ const updateStyle = (f: StyleEditFn) => {
 
 const updatePointStyleLabel = (f: PointStyleEditFn) => {
     updateStyle((s, lid) => {
-        if (isPointStyle(s) && !s.label) {
-            s.label = defaultPointLabel();
+        if (isPointStyle(s)) {
+            if (!s.label) {
+                s.label = defaultPointLabel();
+            }
             f(s, lid);
         }
     });
@@ -440,6 +443,7 @@ const events = {
 
     setPropNameForLabel(pn: string) {
         updatePointStyleLabel((s: PointStyleConfig) => {
+            logger(`setPropNameForLabel ${pn} ${isLabeled(s)}`);
             if (isLabeled(s)) {
                 s.label.propName[appQueries.getLang()] = pn;
             }
@@ -713,3 +717,5 @@ const events = {
 
 
 export default events;
+
+logger('loaded');

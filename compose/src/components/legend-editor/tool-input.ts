@@ -13,7 +13,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
+import * as debug from 'debug';
 import * as Color from 'color';
 import tr from '../../locale';
 import { DIV, SPAN, INPUT } from '../elements';
@@ -21,6 +22,8 @@ import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 // import slider from '../slider';
 // import { ReactNode } from 'react';
+
+const logger = debug(`sdi:legend-editor/tool-input`);
 
 type NumberGetter = () => number;
 type NumberSetter = (a: number) => void;
@@ -210,7 +213,9 @@ const renderInputAlphaColor =
 const renderInputText =
     (className: string, label: string, get: TextGetter, set: TextSetter) => {
         const value = get();
+        logger(`renderInputText ${value}`);
         const update = (e: React.ChangeEvent<HTMLInputElement>) => {
+            logger(`renderInputText update ${e.currentTarget.value}`);
             const newVal = e.currentTarget.value;
             set(newVal);
         };
@@ -343,3 +348,5 @@ export const markerCodepoint =
             () => queries.getMarkerCodepoint(),
             (n: number) => events.setMarkerCodepoint(n));
     };
+
+logger('loaded');

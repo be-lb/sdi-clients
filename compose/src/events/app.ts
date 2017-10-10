@@ -62,6 +62,7 @@ export const toDataURL = (f: File) => {
 
 observe('data/user', (user: IUser) => {
     if (user) {
+        logger(`user changed, loading maps ${user.maps}`);
         user.maps.forEach((mid) => {
             events.loadMap(queries.getApiUrl(`maps/${mid}`));
         });
