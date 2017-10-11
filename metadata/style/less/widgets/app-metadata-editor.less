@@ -1,0 +1,26 @@
+.metadata-editor {
+    * {box-sizing: border-box;}
+
+    h1 {padding: @margin;}
+
+    .meta-wrapper {
+        .flex(@wrap:nowrap, @align:flex-start);
+        .widgetBackground;
+        // width: 75%;
+        // margin: auto;
+
+        .meta-fr,
+        .meta-nl,
+        .meta-common {
+            max-width: 400px;
+            padding: @margin;
+            flex: 1;
+
+            * {
+                display: block;
+                width: 100%;
+                margin-bottom: @margin;
+            }
+        }
+    }
+}
