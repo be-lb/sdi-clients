@@ -13,9 +13,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { dispatch, observe } from './index';
-import { LoadDataFn, LoadKeysFn, LoadTypesFn, initialSearchState, initialSortState, SortDirection, initialTableState, TableDataRow } from '../components/table/base';
+import { LoadDataFn, LoadKeysFn, LoadTypesFn, initialSearchState, initialSortState, SortDirection, initialTableState, TableDataRow, Filter } from '../components/table/base';
 
 interface numberSortMapEntry { index: number; value: number; }
 interface stringSortMapEntry { index: number; value: string; }
@@ -100,8 +100,15 @@ const selectFrom = (from: number) => {
 
 const searchActivate = (col: number) => {
     dispatch('component/table', (state) => {
-        state.search = initialSearchState(col);
-        return state;
+        const { search } = state;
+        const filter: Filter = [col, ''];
+        return {
+            ...state,
+            search: {
+                ...search,
+                filters: search.filters.concat([filter]),
+            }
+        };
     });
 };
 
@@ -230,37 +237,26 @@ const sortData = (col: number | null, direction: SortDirection) => {
     });
 };
 
-const searchData = (query: string) => {
+
+
+const filterData = (col: number, query: string) => {
     dispatch('component/table', (state) => {
-        const col = state.search.col;
-
-        if (col !== null && query.match(/\S+/)) {
-            const patt = new RegExp(`.*${query}.*`, 'i');
-
-            /**
-             * Find indexes of rows which match query
-             */
-            const resultMap = state.data.reduce<number[]>(
-                (m, r, k: number) => {
-                    if (patt.test(r.cells[col])) {
-                        m.push(k);
-                    }
-
-                    return m;
-                },
-                []);
-
-            state.search = { col, query, resultMap, activeResult: 0 };
-
-            if (resultMap.length > 0) {
-                events.highlightRow(state.search.resultMap[0], true);
+        const { search } = state;
+        const filters: Filter[] = search.filters.map((f) => {
+            if (f[0] === col) {
+                return [col, query] as Filter;
             }
-        }
-        else {
-            state.search = initialSearchState();
-        }
+            return f;
+        });
 
-        return state;
+
+        return {
+            ...state,
+            search: {
+                ...search,
+                filters,
+            },
+        };
     });
 };
 
@@ -278,7 +274,7 @@ const events = {
     reset,
     searchActivate,
     searchClose,
-    searchData,
+    filterData,
     searchNext,
     searchPrev,
     select,

@@ -13,16 +13,38 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { query } from './index';
 import appQueries from './app';
-import { TableWindow, TableDataRow, ITableSort, TableDataType } from '../components/table/base';
+import { TableWindow, TableDataRow, ITableSort, TableDataType, Filter } from '../components/table/base';
 import { getLayerPropertiesKeys } from '../util/app';
 import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
 import { fromRecord, formatDate } from '../locale';
 
 
 type ObjOrNull = { [k: string]: any } | null;
+type RFilter = {
+    col: number;
+    pat: RegExp;
+};
+const filter =
+    (data: TableDataRow[], filters: Filter[]) => {
+        const fs: RFilter[] = filters.map(f => ({
+            col: f[0],
+            pat: new RegExp(`.*${f[1]}.*`, 'i'),
+        }));
+        return data.filter(row =>
+            fs.map((f) => {
+                const cell = row.cells[f.col];
+                return f.pat.test(cell);
+            }).reduce((acc, v) => !v ? v : acc, true));
+    };
+
+const getFilteredData =
+    () => {
+        const { search, data } = query('component/table');
+        return filter(data, search.filters);
+    }
 
 const queries = {
 
@@ -34,8 +56,9 @@ const queries = {
         return query('component/table').keys;
     },
 
-    getSearchCol(): number | null {
-        return query('component/table').search.col;
+    getFilters() {
+        const { search } = query('component/table');
+        return search.filters;
     },
 
 
@@ -49,12 +72,11 @@ const queries = {
     },
 
     getData(window?: TableWindow): TableDataRow[] {
-        const data = query('component/table').data;
         if (window) {
-            return data.slice(window.offset, window.offset + window.size);
+            return getFilteredData().slice(window.offset, window.offset + window.size);
         }
         else {
-            return data;
+            return getFilteredData();
         }
     },
 

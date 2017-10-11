@@ -13,14 +13,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import { DIV, INPUT, SPAN } from './../elements';
 import events from '../../events/table';
 import queries from '../../queries/table';
-import { ChangeEvent, KeyboardEvent, DOMElement } from 'react';
+import { DOMElement } from 'react';
 import tr from '../../locale';
-import { isESCAPE } from '../keycodes';
+import { optESCAPE } from '../keycodes';
 import button from '../button';
 
 const logger = debug('sdi:table/base');
@@ -48,9 +48,10 @@ export interface ITableSort {
     direction: SortDirection;
 }
 
+export type Filter = [number, string];
+
 export interface ITableSearch {
-    col: number | null;
-    query: string;
+    filters: Filter[];
     activeResult: number;
     resultMap: number[];
 }
@@ -88,9 +89,8 @@ export interface Config {
 }
 
 
-export const initialSearchState = (col: number | null = null): ITableSearch => ({
-    col,
-    query: '',
+export const initialSearchState = (): ITableSearch => ({
+    filters: [],
     activeResult: -1,
     resultMap: [],
 });
@@ -113,8 +113,8 @@ export const initialTableState = (): IDataTable => ({
 
 
 const closeButton = button('close');
-const prevButton = button('prev');
-const nextButton = button('next');
+// const prevButton = button('prev');
+// const nextButton = button('next');
 const searchButton = button('search');
 
 
@@ -128,23 +128,38 @@ const scroll = (e: React.UIEvent<Element>): void => {
 
 
 
-const cellWidth = (types: string[]): string => `${100 / (types.length)}%`;
+// const cellWidth = (types: string[]): string => `${100 / (types.length)}%`;
+type Width = [number, string];
+const cellWidths =
+    () => queries.getKeys().map<Width>(k => [k.length * 2, 'rem']);
 
+const rowWidth =
+    () => cellWidths().reduce(
+        (acc, w) => [acc[0] + w[0], w[1]], [0, ''] as Width);
+
+const cwString =
+    (cw: Width) => `${cw[0]}${cw[1]}`;
+
+// const randColor =
+//     () => Color(Math.round(Math.random() * 0xffffff)).string();
 
 const renderCell =
-    (types: string[], width: string, onSelect: (a: number) => void) =>
+    (types: string[], widths: Width[], onSelect: (a: number) => void) =>
         (data: TableDataCell, idx: number) => (
             DIV({
                 key: idx.toString(),
                 title: data,
                 className: `table-cell data-type-${types[idx]}`,
-                style: { width },
+                style: {
+                    width: cwString(widths[idx]),
+                    // backgroundColor: randColor(),
+                },
                 onClick: () => onSelect(idx),
             }, data));
 
 
 const renderRowNum =
-    (rowNum: number, _width: string) => (
+    (rowNum: number) => (
         DIV(
             {
                 key: '#',
@@ -182,7 +197,7 @@ const selectCell =
 
 
 const renderRow =
-    (offset: number, types: string[], cellWidth: string, config: Config) =>
+    (offset: number, types: string[], widths: Width[], config: Config) =>
         (data: TableDataRow, idx: number) => {
             const rowNum = offset + idx;
             const selected = queries.isSelected(rowNum) ? 'active' : '';
@@ -193,57 +208,59 @@ const renderRow =
                     className: `${evenOdd} ${selected}`,
                     onClick: selectRow(config, rowNum),
                 },
-                renderRowNum(rowNum, cellWidth),
+                renderRowNum(rowNum),
                 ...data.cells.map(
-                    renderCell(types, cellWidth, selectCell(config, rowNum))));
+                    renderCell(types, widths, selectCell(config, rowNum))));
         };
 
 
 
-const renderTableHeaderCellWithSearch =
-    (idx: number, width: string, col: string, type: string) => {
-        const resultCount = queries.getResultCount();
+const renderFilter =
+    (filter: Filter) => {
+        const [col, query] = filter;
+        const colName = queries.getKeys()[col];
+        // const resultCount = queries.getResultCount();
+
+        const fieldName = SPAN({ className: 'search-field' }, colName);
 
         const searchField = INPUT({
             autoFocus: true,
             type: 'search',
             name: 'search',
             className: 'table-header-search-field',
-            onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => { if (isESCAPE(e)) { events.searchClose(); } },
-            onChange: (e: ChangeEvent<HTMLInputElement>) => events.searchData(e.target.value),
+            defaultValue: query,
+            onKeyDown: e => optESCAPE(e).map(() => events.searchClose()),
+            onChange: e => events.filterData(col, e.target.value),
         });
 
         const close = closeButton(() => events.searchClose());
 
-        let resultIndicator: DOMElement<{}, Element>[];
+        // let resultIndicator: DOMElement<{}, Element>[];
 
-        if (resultCount > 0) {
-            const activeResultLabel = (queries.getActiveResult() + 1).toString();
+        // if (resultCount > 0) {
+        //     const activeResultLabel = (queries.getActiveResult() + 1).toString();
 
-            resultIndicator = [
-                DIV({}, `${activeResultLabel} / ${queries.getResultCount()}`),
-                prevButton(events.searchPrev),
-                nextButton(events.searchNext),
-            ];
-        }
-        else {
-            resultIndicator = [DIV({}, tr('noResults'))];
-        }
+        //     resultIndicator = [
+        //         DIV({
+        //             className: 'search-result',
+        //         }, `${activeResultLabel} / ${queries.getResultCount()}`),
+        //         prevButton(events.searchPrev),
+        //         nextButton(events.searchNext),
+        //     ];
+        // }
+        // else {
+        //     resultIndicator = [DIV({}, tr('noResults'))];
+        // }
 
         return DIV({
-            className: `table-cell table-header-cell data-type-${type}`,
-            style: { width, position: 'relative' },
-            key: `${idx.toString()}}`,
-        },
-            SPAN({}, col),
-            DIV({
-                className: 'table-header-search-box',
-            }, searchField, resultIndicator, close));
+            className: `table-search-item`,
+            key: `${colName}`,
+        }, fieldName, searchField, close);
     };
 
 
 const renderTableHeaderCell =
-    (idx: number, width: string, col: string, type: string) => {
+    (idx: number, width: Width, col: string, type: string) => {
         const sort = queries.getSort();
         let newSortDirection: SortDirection;
         let className = `table-cell table-header-cell data-type-${type}`;
@@ -264,30 +281,30 @@ const renderTableHeaderCell =
 
         return DIV({
             className,
-            style: { width },
+            style: { width: cwString(width) },
             key: idx.toString(),
             onClick: () => events.sortData(idx, newSortDirection),
         },
             SPAN({}, col),
-            searchButton(() => { events.searchActivate(idx); }));
+            searchButton(() => events.searchActivate(idx)));
     };
 
 
 
 export const renderTableHeader =
-    (types: string[], width: string) => {
-        const searchCol = queries.getSearchCol();
-        return DIV({ className: 'table-header', key: 'table-header' },
-            ...queries.getKeys().map(
-                (h: string, idx: number) => {
-                    const type = types[idx];
-                    if (searchCol === idx) {
-                        return renderTableHeaderCellWithSearch(idx, width, h, type);
-                    }
-                    else {
-                        return renderTableHeaderCell(idx, width, h, type);
-                    }
-                }));
+    (types: string[], widths: Width[]) => {
+        const keys = queries.getKeys();
+        const elems = keys.map(
+            (h: string, idx: number) =>
+                renderTableHeaderCell(idx, widths[idx], h, types[idx]));
+
+        return DIV({
+            className: 'table-header',
+            key: 'table-header',
+            style: {
+                width: cwString(rowWidth()),
+            },
+        }, ...elems);
     };
 
 
@@ -297,33 +314,34 @@ export const renderTableHeader =
 const renderTableBody =
     (setTableSize: (a: Element | null) => void, config: Config) =>
         (data: TableDataRow[], offset: number, types: string[]) => {
-            const widths = cellWidth(types);
+            const widths = cellWidths();
             const rowCount = queries.rowCount();
             const rowHeight = queries.rowHeight();
+            const width = cwString(rowWidth());
             logger(`sizer = ${rowCount} * ${rowHeight}`);
             return DIV({
                 key: 'table-body',
                 className: 'table-body',
-                style: { overflow: 'auto' },
                 onScroll: scroll,
                 ref: setTableSize,
+                style: { width },
             },
                 DIV({
+                    className: 'table-body-sizer',
                     style: {
                         minHeight: rowCount * rowHeight,
                     },
-                    className: 'table-body-sizer',
                 },
                     DIV({
+                        className: 'table-body-fragment',
                         style: {
                             position: 'relative',
                             top: queries.position().y,
+                            width,
                         },
                         key: `table-body-fragment|${offset}`,
-                        className: 'table-body-fragment',
-                    },
-                        ...data.map(
-                            renderRow(offset, types, widths, config)))));
+                    }, ...data.map(
+                        renderRow(offset, types, widths, config)))));
         };
 
 
@@ -357,6 +375,7 @@ export const render =
                 const window = queries.tableWindow();
                 const data = queries.getData(window);
                 const types = queries.getTypes();
+                const filters = queries.getFilters();
 
                 if (scrollWrapperRef && window.autoScroll) {
                     scrollWrapperRef.scrollTop = window.offset * queries.rowHeight();
@@ -366,13 +385,21 @@ export const render =
                 if (config.toolbar) {
                     children.push(config.toolbar());
                 }
-                children.push(
-                    renderTableHeader(types, cellWidth(types)),
-                    renderBody(data, window.offset, types));
 
-                return DIV(
-                    { className: `${config.className} infinite-table` },
-                    ...children);
+                if (filters.length > 0) {
+                    children.push(
+                        DIV({ className: 'table-search' },
+                            ...filters.map(renderFilter)));
+                }
+
+                children.push(
+                    DIV({ className: 'table-main' },
+                        renderTableHeader(types, cellWidths()),
+                        renderBody(data, window.offset, types)));
+
+                return (
+                    DIV({ className: 'infinite-table' },
+                        ...children));
             }
             else {
                 const { loadData, loadKeys, loadTypes } = config;

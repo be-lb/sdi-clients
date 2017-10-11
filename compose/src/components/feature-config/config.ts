@@ -211,16 +211,6 @@ const renderPiechartPiece =
             const removeButton = remove(
                 `renderStyleGroupValue-${piece.propName}-${key}`);
 
-            // const inputColor = DIV({ className: `style-tool color` },
-            //     INPUT({
-            //         value: piece.color,
-            //         type: 'color',
-            //         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-            //             const newVal = e.currentTarget.value;
-            //             events.setPiechartPieceColor(pn, piece.propName, newVal);
-            //         },
-            //     }));
-
             const inputColor = renderInputAlphaColor('style-tool color', '',
                 () => Color(piece.color),
                 c => events.setPiechartPieceColor(

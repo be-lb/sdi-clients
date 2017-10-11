@@ -13,8 +13,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { KeyboardEvent } from 'react';
+import { fromPredicate } from 'fp-ts/lib/Option';
+
 
 export const isKeyCode =
     (kc: KeyCode) => (event: KeyboardEvent<Element>) => {
@@ -230,3 +232,102 @@ export const isBACK_SLASH = isKeyCode(KeyCode.BACK_SLASH);
 export const isCLOSE_BRACKET = isKeyCode(KeyCode.CLOSE_BRACKET);
 export const isSINGLE_QUOTE = isKeyCode(KeyCode.SINGLE_QUOTE);
 
+export const optBACKSPACE = fromPredicate(isKeyCode(KeyCode.BACKSPACE));
+export const optTAB = fromPredicate(isKeyCode(KeyCode.TAB));
+export const optENTER = fromPredicate(isKeyCode(KeyCode.ENTER));
+export const optSHIFT = fromPredicate(isKeyCode(KeyCode.SHIFT));
+export const optCTRL = fromPredicate(isKeyCode(KeyCode.CTRL));
+export const optALT = fromPredicate(isKeyCode(KeyCode.ALT));
+export const optPAUSE = fromPredicate(isKeyCode(KeyCode.PAUSE));
+export const optCAPS_LOCK = fromPredicate(isKeyCode(KeyCode.CAPS_LOCK));
+export const optESCAPE = fromPredicate(isKeyCode(KeyCode.ESCAPE));
+export const optSPACE = fromPredicate(isKeyCode(KeyCode.SPACE));
+export const optPAGE_UP = fromPredicate(isKeyCode(KeyCode.PAGE_UP));
+export const optPAGE_DOWN = fromPredicate(isKeyCode(KeyCode.PAGE_DOWN));
+export const optEND = fromPredicate(isKeyCode(KeyCode.END));
+export const optHOME = fromPredicate(isKeyCode(KeyCode.HOME));
+export const optLEFT_ARROW = fromPredicate(isKeyCode(KeyCode.LEFT_ARROW));
+export const optUP_ARROW = fromPredicate(isKeyCode(KeyCode.UP_ARROW));
+export const optRIGHT_ARROW = fromPredicate(isKeyCode(KeyCode.RIGHT_ARROW));
+export const optDOWN_ARROW = fromPredicate(isKeyCode(KeyCode.DOWN_ARROW));
+export const optINSERT = fromPredicate(isKeyCode(KeyCode.INSERT));
+export const optDELETE = fromPredicate(isKeyCode(KeyCode.DELETE));
+export const optKEY_0 = fromPredicate(isKeyCode(KeyCode.KEY_0));
+export const optKEY_1 = fromPredicate(isKeyCode(KeyCode.KEY_1));
+export const optKEY_2 = fromPredicate(isKeyCode(KeyCode.KEY_2));
+export const optKEY_3 = fromPredicate(isKeyCode(KeyCode.KEY_3));
+export const optKEY_4 = fromPredicate(isKeyCode(KeyCode.KEY_4));
+export const optKEY_5 = fromPredicate(isKeyCode(KeyCode.KEY_5));
+export const optKEY_6 = fromPredicate(isKeyCode(KeyCode.KEY_6));
+export const optKEY_7 = fromPredicate(isKeyCode(KeyCode.KEY_7));
+export const optKEY_8 = fromPredicate(isKeyCode(KeyCode.KEY_8));
+export const optKEY_9 = fromPredicate(isKeyCode(KeyCode.KEY_9));
+export const optKEY_A = fromPredicate(isKeyCode(KeyCode.KEY_A));
+export const optKEY_B = fromPredicate(isKeyCode(KeyCode.KEY_B));
+export const optKEY_C = fromPredicate(isKeyCode(KeyCode.KEY_C));
+export const optKEY_D = fromPredicate(isKeyCode(KeyCode.KEY_D));
+export const optKEY_E = fromPredicate(isKeyCode(KeyCode.KEY_E));
+export const optKEY_F = fromPredicate(isKeyCode(KeyCode.KEY_F));
+export const optKEY_G = fromPredicate(isKeyCode(KeyCode.KEY_G));
+export const optKEY_H = fromPredicate(isKeyCode(KeyCode.KEY_H));
+export const optKEY_I = fromPredicate(isKeyCode(KeyCode.KEY_I));
+export const optKEY_J = fromPredicate(isKeyCode(KeyCode.KEY_J));
+export const optKEY_K = fromPredicate(isKeyCode(KeyCode.KEY_K));
+export const optKEY_L = fromPredicate(isKeyCode(KeyCode.KEY_L));
+export const optKEY_M = fromPredicate(isKeyCode(KeyCode.KEY_M));
+export const optKEY_N = fromPredicate(isKeyCode(KeyCode.KEY_N));
+export const optKEY_O = fromPredicate(isKeyCode(KeyCode.KEY_O));
+export const optKEY_P = fromPredicate(isKeyCode(KeyCode.KEY_P));
+export const optKEY_Q = fromPredicate(isKeyCode(KeyCode.KEY_Q));
+export const optKEY_R = fromPredicate(isKeyCode(KeyCode.KEY_R));
+export const optKEY_S = fromPredicate(isKeyCode(KeyCode.KEY_S));
+export const optKEY_T = fromPredicate(isKeyCode(KeyCode.KEY_T));
+export const optKEY_U = fromPredicate(isKeyCode(KeyCode.KEY_U));
+export const optKEY_V = fromPredicate(isKeyCode(KeyCode.KEY_V));
+export const optKEY_W = fromPredicate(isKeyCode(KeyCode.KEY_W));
+export const optKEY_X = fromPredicate(isKeyCode(KeyCode.KEY_X));
+export const optKEY_Y = fromPredicate(isKeyCode(KeyCode.KEY_Y));
+export const optKEY_Z = fromPredicate(isKeyCode(KeyCode.KEY_Z));
+export const optLEFT_META = fromPredicate(isKeyCode(KeyCode.LEFT_META));
+export const optRIGHT_META = fromPredicate(isKeyCode(KeyCode.RIGHT_META));
+export const optSELECT = fromPredicate(isKeyCode(KeyCode.SELECT));
+export const optNUMPAD_0 = fromPredicate(isKeyCode(KeyCode.NUMPAD_0));
+export const optNUMPAD_1 = fromPredicate(isKeyCode(KeyCode.NUMPAD_1));
+export const optNUMPAD_2 = fromPredicate(isKeyCode(KeyCode.NUMPAD_2));
+export const optNUMPAD_3 = fromPredicate(isKeyCode(KeyCode.NUMPAD_3));
+export const optNUMPAD_4 = fromPredicate(isKeyCode(KeyCode.NUMPAD_4));
+export const optNUMPAD_5 = fromPredicate(isKeyCode(KeyCode.NUMPAD_5));
+export const optNUMPAD_6 = fromPredicate(isKeyCode(KeyCode.NUMPAD_6));
+export const optNUMPAD_7 = fromPredicate(isKeyCode(KeyCode.NUMPAD_7));
+export const optNUMPAD_8 = fromPredicate(isKeyCode(KeyCode.NUMPAD_8));
+export const optNUMPAD_9 = fromPredicate(isKeyCode(KeyCode.NUMPAD_9));
+export const optMULTIPLY = fromPredicate(isKeyCode(KeyCode.MULTIPLY));
+export const optADD = fromPredicate(isKeyCode(KeyCode.ADD));
+export const optSUBTRACT = fromPredicate(isKeyCode(KeyCode.SUBTRACT));
+export const optDECIMAL = fromPredicate(isKeyCode(KeyCode.DECIMAL));
+export const optDIVIDE = fromPredicate(isKeyCode(KeyCode.DIVIDE));
+export const optF1 = fromPredicate(isKeyCode(KeyCode.F1));
+export const optF2 = fromPredicate(isKeyCode(KeyCode.F2));
+export const optF3 = fromPredicate(isKeyCode(KeyCode.F3));
+export const optF4 = fromPredicate(isKeyCode(KeyCode.F4));
+export const optF5 = fromPredicate(isKeyCode(KeyCode.F5));
+export const optF6 = fromPredicate(isKeyCode(KeyCode.F6));
+export const optF7 = fromPredicate(isKeyCode(KeyCode.F7));
+export const optF8 = fromPredicate(isKeyCode(KeyCode.F8));
+export const optF9 = fromPredicate(isKeyCode(KeyCode.F9));
+export const optF10 = fromPredicate(isKeyCode(KeyCode.F10));
+export const optF11 = fromPredicate(isKeyCode(KeyCode.F11));
+export const optF12 = fromPredicate(isKeyCode(KeyCode.F12));
+export const optNUM_LOCK = fromPredicate(isKeyCode(KeyCode.NUM_LOCK));
+export const optSCROLL_LOCK = fromPredicate(isKeyCode(KeyCode.SCROLL_LOCK));
+export const optSEMICOLON = fromPredicate(isKeyCode(KeyCode.SEMICOLON));
+export const optEQUALS = fromPredicate(isKeyCode(KeyCode.EQUALS));
+export const optCOMMA = fromPredicate(isKeyCode(KeyCode.COMMA));
+export const optDASH = fromPredicate(isKeyCode(KeyCode.DASH));
+export const optPERIOD = fromPredicate(isKeyCode(KeyCode.PERIOD));
+export const optFORWARD_SLASH = fromPredicate(isKeyCode(KeyCode.FORWARD_SLASH));
+export const optGRAVE_ACCENT = fromPredicate(isKeyCode(KeyCode.GRAVE_ACCENT));
+export const optOPEN_BRACKET = fromPredicate(isKeyCode(KeyCode.OPEN_BRACKET));
+export const optBACK_SLASH = fromPredicate(isKeyCode(KeyCode.BACK_SLASH));
+export const optCLOSE_BRACKET = fromPredicate(isKeyCode(KeyCode.CLOSE_BRACKET));
+export const optSINGLE_QUOTE = fromPredicate(isKeyCode(KeyCode.SINGLE_QUOTE));

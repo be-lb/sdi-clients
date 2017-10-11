@@ -1,12 +1,13 @@
 
-.attr-table-wrapper {
-    // font-size: 80%;
-}
 
 div.infinite-table {
     font-size: 80%;
     display: flex;
     flex-direction: column;
+
+    .attr-headless-wrapper {
+        .absolute(0,0,0,0);
+    }
 
     .table-toolbar {
         flex: 0 0 auto;
@@ -90,45 +91,55 @@ div.infinite-table {
         }
     }
 
-    .table-header {
+    .table-search {
         flex: 0 0 auto;
-        font-weight: @bold;
-        border-top: 1px solid @grey;
-        text-align: center !important;
-
-        .table-header-cell {
-            overflow: initial;
+        .flex(flex-start, flex-start, wrap);
+        
+        input {
+            // TODO
         }
-    }
-
-    .table-body {
-        flex: 1 1 auto;
-    }
-
-    .table-row {
-        &.active, &.active:hover {
-            background-color: @light-green;
-        }
-
-        &:hover {
-            background-color: @light-grey;
-        }
-    }
-
-    .table-header-search-box {
-        .shadow;
-        .absolute(initial, initial, 0px, initial);
-        .flex(center, space-between, wrap);
-        z-index: 1;
-        padding: 5px;
-        background: white;
-
-        input {width: 100%;}
 
         div {
             margin-top: @small-margin;
         }
     }
+
+    
+    .table-main {
+        overflow-x: auto;
+        display: flex;
+        flex-direction: column;
+
+        .table-header {
+            flex: 0 0 auto;
+            font-weight: @bold;
+            border-top: 1px solid @grey;
+            // text-align: center !important;
+            min-width: 100%;
+    
+            .table-header-cell {
+                overflow: initial;
+            }
+        }
+
+        .table-body {
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-width: 100%;
+        }
+
+        .table-row {
+            &.active, &.active:hover {
+                background-color: @light-green;
+            }
+
+            &:hover {
+                background-color: @light-grey;
+            }
+        }
+    }
+
+   
 
     .btn-next{
     margin: 0 @small-margin;
