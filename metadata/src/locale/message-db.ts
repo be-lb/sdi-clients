@@ -97,7 +97,6 @@ export type MessageKey =
     | 'latitude'
     | 'label'
     | 'layer'
-    | 'layerList'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -160,6 +159,7 @@ export type MessageKey =
     | 'setLongitude'
     | 'share'
     | 'shareWithView'
+    | 'sheetList'
     | 'size'
     | 'skipFirstLine'
     | 'space'
@@ -1024,9 +1024,9 @@ export const messages: MessageDB = {
         nl: 'Metadatas editor',
     },
 
-    layerList: {
-        fr: 'Liste des couches',
-        nl: 'Layers list',
+    sheetList: {
+        fr: 'Liste des fiches',
+        nl: 'Lijst van de sheets',
     },
 
     metaCommon: {
