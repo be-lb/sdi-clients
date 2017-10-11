@@ -1,26 +1,67 @@
 .metadata-editor {
+    width: calc(~"100% - @{margin} * 2");
+    height: 100%;
+    overflow-y: auto;
+    margin: auto;
+    border: 1px solid @grey;
+    padding: @margin;
+
+
     * {box-sizing: border-box;}
 
-    h1 {padding: @margin;}
+    h1 {
+        margin-bottom: @margin * 2;
+    }
 
     .meta-wrapper {
-        .flex(@wrap:nowrap, @align:flex-start);
-        .widgetBackground;
-        // width: 75%;
-        // margin: auto;
+        .flex(@justify: flex-start, @align:flex-start);
+
+        .meta-edit {
+            .flex(@wrap:nowrap, @align:flex-start, @justify:initial);
+            .widgetBackground;
+            padding: @margin * 2 0;
+            width: calc(~"70vw - 2 * @{margin}");
+
+            > div {flex: 1;}
+        }
 
         .meta-fr,
         .meta-nl,
-        .meta-common {
-            max-width: 400px;
-            padding: @margin;
-            flex: 1;
+        .meta-common,
+        .meta-action {
+            padding: 0 @margin * 2;
 
             * {
                 display: block;
                 width: 100%;
                 margin-bottom: @margin;
             }
+
+            .app-col-header {
+                font-size: 0.8em;
+                text-align: center;
+            }
+        }
+        .meta-nl {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .meta-action {
+            padding-left: @margin;
+            // padding-top: @margin * 2;
+            .sheet-title {
+                font-weight: 100;
+                font-size: 2em;
+                padding: @margin 0;
+            }
+            .btn-validate,
+            .btn-table {
+                .high-btn;
+                font-size: 18px!important;
+                width: 100%;
+            }
         }
     }
+
 }
