@@ -17,6 +17,7 @@
  */
 
 import * as debug from 'debug';
+import * as Color from 'color';
 import { DIV, SPAN, INPUT } from '../elements';
 import tr from '../../locale';
 import events from '../../events/feature-config';
@@ -43,6 +44,7 @@ import {
     URLConfig,
 } from 'sdi/source';
 import { isENTER } from '../keycodes';
+import { renderInputAlphaColor } from '../legend-editor/tool-input'
 
 const logger = debug('sdi:feature-config/config');
 
@@ -209,15 +211,20 @@ const renderPiechartPiece =
             const removeButton = remove(
                 `renderStyleGroupValue-${piece.propName}-${key}`);
 
-            const inputColor = DIV({ className: `style-tool color` },
-                INPUT({
-                    value: piece.color,
-                    type: 'color',
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        const newVal = e.currentTarget.value;
-                        events.setPiechartPieceColor(pn, piece.propName, newVal);
-                    },
-                }));
+            // const inputColor = DIV({ className: `style-tool color` },
+            //     INPUT({
+            //         value: piece.color,
+            //         type: 'color',
+            //         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+            //             const newVal = e.currentTarget.value;
+            //             events.setPiechartPieceColor(pn, piece.propName, newVal);
+            //         },
+            //     }));
+
+            const inputColor = renderInputAlphaColor('style-tool color', '',
+                () => Color(piece.color),
+                c => events.setPiechartPieceColor(
+                    pn, piece.propName, c.string()));
 
             const inputLabel = DIV({ className: `style-tool label` },
                 INPUT({
