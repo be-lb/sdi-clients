@@ -33,6 +33,7 @@ export type ButtonType =
     | 'close'
     | 'confirm'
     | 'edit'
+    | 'filter'
     | 'move-down'
     | 'move-up'
     | 'navigate'

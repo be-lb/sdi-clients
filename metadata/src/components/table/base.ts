@@ -114,7 +114,7 @@ export const initialTableState = (): IDataTable => ({
 const closeButton = button('clear', 'clear');
 // const prevButton = button('prev');
 // const nextButton = button('next');
-const searchButton = button('search');
+const filterButton = button('filter');
 
 
 const scroll = (e: React.UIEvent<Element>): void => {
@@ -284,7 +284,7 @@ const renderTableHeaderCell =
             onClick: () => events.sortData(idx, newSortDirection),
         },
             SPAN({}, col),
-            searchButton(() => events.searchActivate(idx)));
+            filterButton(() => events.searchActivate(idx)));
     };
 
 
