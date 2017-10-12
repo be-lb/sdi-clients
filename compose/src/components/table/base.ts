@@ -20,7 +20,6 @@ import events from '../../events/table';
 import queries from '../../queries/table';
 import { DOMElement } from 'react';
 import tr from '../../locale';
-import { optESCAPE } from '../keycodes';
 import button from '../button';
 
 const logger = debug('sdi:table/base');
@@ -112,7 +111,7 @@ export const initialTableState = (): IDataTable => ({
 });
 
 
-const closeButton = button('close');
+const closeButton = button('clear', 'clear');
 // const prevButton = button('prev');
 // const nextButton = button('next');
 const searchButton = button('search');
@@ -229,11 +228,10 @@ const renderFilter =
             name: 'search',
             className: 'table-header-search-field',
             defaultValue: query,
-            onKeyDown: e => optESCAPE(e).map(() => events.searchClose()),
+            // onKeyDown: e => optESCAPE(e).map(() => events.searchClose()),
             onChange: e => events.filterData(col, e.target.value),
         });
 
-        const close = closeButton(() => events.searchClose());
 
         // let resultIndicator: DOMElement<{}, Element>[];
 
@@ -255,7 +253,7 @@ const renderFilter =
         return DIV({
             className: `table-search-item`,
             key: `${colName}`,
-        }, fieldName, searchField, close);
+        }, fieldName, searchField);
     };
 
 
@@ -387,9 +385,10 @@ export const render =
                 }
 
                 if (filters.length > 0) {
+                    const close = closeButton(() => events.searchClose());
                     children.push(
                         DIV({ className: 'table-search' },
-                            ...filters.map(renderFilter)));
+                            ...filters.map(renderFilter), close));
                 }
 
                 children.push(
