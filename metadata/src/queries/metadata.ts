@@ -84,6 +84,8 @@ export const getMdTitle =
 export const getMdDescription =
     (l: 'fr' | 'nl') => () => getMdForm().description[l];
 
+export const formIsSaving =
+    () => getMdForm().saving;
 
 export const getMetadataId =
     () => query('app/current-metadata');

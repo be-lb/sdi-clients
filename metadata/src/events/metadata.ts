@@ -25,7 +25,8 @@ export const selectMetadata =
     (id: string) => {
         dispatch('app/current-metadata', () => id);
         getDatasetMetadata(id)
-            .map(md => dispatch('component/single', () => ({
+            .map(md => dispatch('component/single', s => ({
+                ...s,
                 title: getMessageRecord(md.resourceTitle),
                 description: getMessageRecord(md.resourceAbstract),
             })));
@@ -53,10 +54,15 @@ export const saveMdForm =
         return fromNullable(getMetadataId())
             .map(id =>
                 getDatasetMetadata(id)
-                    .map(md => putMetadata(
-                        apiUrl(`metadatas/${id}`), updatedMd(md))
-                        .then(newMd =>
-                            dispatch('data/datasetMetadata',
-                                collection => updateLocalSet(collection, newMd)))
-                        .catch()));
+                    .map((md) => {
+                        single(s => ({ ...s, saving: true }));
+                        return putMetadata(
+                            apiUrl(`metadatas/${id}`), updatedMd(md))
+                            .then((newMd) => {
+                                single(s => ({ ...s, saving: false }));
+                                dispatch('data/datasetMetadata',
+                                    collection => updateLocalSet(collection, newMd))
+                            })
+                            .catch(() => single(s => ({ ...s, saving: false })));
+                    }));
     };

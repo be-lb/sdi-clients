@@ -158,6 +158,7 @@ export type MessageKey =
     | 'responsiblePerson'
     | 'rowNumberColTitle'
     | 'save'
+    | 'saving'
     | 'search'
     | 'selectLayer'
     | 'semicolon'
@@ -1092,5 +1093,10 @@ export const messages: MessageDB = {
     publicationStatus: {
         fr: 'État de publication',
         nl: 'Publicatie status',
+    },
+
+    saving: {
+        fr: 'Mise à jour des données',
+        nl: 'Gegevens bijwerken',
     },
 };

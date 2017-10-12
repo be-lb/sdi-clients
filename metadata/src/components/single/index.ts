@@ -1,15 +1,27 @@
 import { DIV, H1, INPUT, TEXTAREA } from '../elements';
 import tr from '../../locale';
-import { getMdTitle, getMdDescription, getCurrentDatasetMetadata } from '../../queries/metadata';
-import { setMdTitle, setMdDescription, saveMdForm } from '../../events/metadata';
+import {
+    formIsSaving,
+    getCurrentDatasetMetadata,
+    getMdDescription,
+    getMdTitle,
+} from '../../queries/metadata';
+import {
+    saveMdForm,
+    setMdDescription,
+    setMdTitle,
+} from '../../events/metadata';
 import { Inspire, MessageRecord } from 'sdi/source';
 import button from '../button';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape';
+import { fromPredicate } from 'fp-ts/lib/Either';
+
 
 export interface MdForm {
     title: MessageRecord;
     description: MessageRecord;
+    saving: boolean;
 }
 
 const toListButton = button('table', 'sheetList');
@@ -21,11 +33,14 @@ export const defaultMdFormState =
     (): MdForm => ({
         title: defaultMessage(),
         description: defaultMessage(),
+        saving: false,
     });
 
 
 type TextGetter = () => string;
 type TextSetter = (a: string) => void;
+
+const isNotSaving = fromPredicate<void, React.ReactNode>(() => !formIsSaving(), () => { });
 
 
 const renderInputText =
@@ -100,9 +115,12 @@ const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
             DIV({ className: 'app-col-main' },
-                saveButton(saveMdForm),
+                isNotSaving(saveButton(saveMdForm)).fold(
+                    () => DIV({}, tr('saving')),
+                    e => e
+                ),
                 toListButton(() => appEvents.setLayout(AppLayout.List)),
-                DIV({}, 'save should display a message...'))));
+            )));
 
 
 const renderEditor =
