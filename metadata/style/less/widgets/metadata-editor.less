@@ -13,6 +13,12 @@
         margin-bottom: @margin * 2;
     }
 
+    .sheet-title {
+        font-weight: 100;
+        font-size: 1.2em;
+        padding: 0 0 @margin 0;
+    }
+
     .meta-wrapper {
         .flex(@justify: flex-start, @align:flex-start);
 
@@ -56,11 +62,7 @@
         .meta-action {
             width: calc(~"30vw - 3 * @{margin}");
             padding-left: @margin;
-            .sheet-title {
-                font-weight: 100;
-                font-size: 2em;
-                padding: @margin 0;
-            }
+           
             .btn-validate,
             .btn-table {
                 .high-btn;

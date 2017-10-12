@@ -97,9 +97,8 @@ const renderCommon =
 
 
 const renderAction =
-    (m: Inspire) => (
+    (_m: Inspire) => (
         DIV({ className: 'meta-action' },
-            DIV({ className: 'sheet-title' }, m.id),
             DIV({ className: 'app-col-main' },
                 saveButton(saveMdForm),
                 toListButton(() => appEvents.setLayout(AppLayout.List)),
@@ -110,7 +109,7 @@ const renderEditor =
     (m: Inspire) => (
         DIV({ className: 'metadata-editor' },
             H1({}, tr('metadataEditor')),
-
+            DIV({ className: 'metadata-id sheet-title' }, m.id),
             DIV({ className: 'meta-wrapper' },
                 renderEdit(m),
                 renderAction(m))));
