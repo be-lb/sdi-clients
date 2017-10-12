@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { DIV } from '../elements';
 import { MessageKey } from '../../locale/message-db';
 import tr from '../../locale';
@@ -29,6 +29,7 @@ export type ButtonType =
     | 'arrow-right'
     | 'bar-chart'
     | 'cancel'
+    | 'clear'
     | 'close'
     | 'confirm'
     | 'edit'
@@ -111,11 +112,11 @@ export const remove = (key: string, label?: MessageKey) => {
     const activeButton = (action: () => void) => {
         return DIV({ className: 'remove-confirm' },
             cancel(() => { events.setStep(key, 'initial'); }),
-            DIV({ className: 'label' },tr('confirmDelete')),
-                confirm(() => {
-                    events.setStep(key, 'initial');
-                    action();
-                }));
+            DIV({ className: 'label' }, tr('confirmDelete')),
+            confirm(() => {
+                events.setStep(key, 'initial');
+                action();
+            }));
     };
 
     return ((action: () => void) => {

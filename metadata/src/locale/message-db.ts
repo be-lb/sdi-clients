@@ -84,6 +84,7 @@ export type MessageKey =
     | 'fontColor'
     | 'fontSize'
     | 'geocode'
+    | 'geometryType'
     | 'go'
     | 'gpsTracker'
     | 'highValue'
@@ -97,6 +98,7 @@ export type MessageKey =
     | 'latitude'
     | 'label'
     | 'layer'
+    | 'layerId'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -142,12 +144,14 @@ export type MessageKey =
     | 'piechartRadius'
     | 'pointColor'
     | 'pointLabelHelp'
+    | 'pointOfContact'
     | 'propName'
     | 'propNameForLabel'
     | 'quotationMark'
     | 'remove'
     | 'resetLegend'
     | 'responsibleAndContact'
+    | 'responsibleOrganisation'
     | 'responsiblePerson'
     | 'rowNumberColTitle'
     | 'save'
@@ -175,6 +179,7 @@ export type MessageKey =
     | 'switchMarker'
     | 'tab'
     | 'templateEditorExplanation'
+    | 'temporalReference'
     | 'textDelimiter'
     | 'textFormat'
     | 'textStyle'
@@ -183,6 +188,7 @@ export type MessageKey =
     | 'timeserieFeaturePropertyNone'
     | 'timeserieTemplateURL'
     | 'timeserieURL'
+    | 'title'
     | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
@@ -1044,4 +1050,30 @@ export const messages: MessageDB = {
         nl: 'Nederlands metadata',
     },
 
+    title: {
+        fr: 'Titre',
+        nl: 'Title',
+    },
+
+    geometryType: {
+        fr: 'Geométrie',
+        nl: 'Type Meetkunde',
+    },
+
+    layerId: {
+        fr: 'Identifiant',
+        nl: 'Identifier',
+    },
+    temporalReference: {
+        fr: 'Référence temporelle',
+        nl: 'Tijdelijke referentie',
+    },
+    pointOfContact: {
+        fr: 'Point de contact',
+        nl: 'Contactpunt',
+    },
+    responsibleOrganisation: {
+        fr: 'Organisation responsable',
+        nl: 'Verantwoordelijke organisatie',
+    },
 };

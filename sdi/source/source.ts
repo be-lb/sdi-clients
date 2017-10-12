@@ -18,6 +18,9 @@
 
 
 import { Lens } from 'monocle-ts';
+import * as debug from 'debug';
+
+const logger = debug('sdi:source/source');
 
 export type KeyOfIShape<IShape> = keyof IShape;
 export type SubTypeOfIShape<IShape> = IShape[KeyOfIShape<IShape>];
@@ -157,7 +160,9 @@ export const source =
 
                 const observe =
                     <K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void): void => {
-                        if (observers.findIndex(o => o.handler === handler) === -1) {
+                        logger(`observe ${key}`);
+                        const alreadyRegistered = observers.find(o => o.handler === handler && o.key === key);
+                        if (!alreadyRegistered) {
                             observers.push({ key, handler });
                         }
                     };

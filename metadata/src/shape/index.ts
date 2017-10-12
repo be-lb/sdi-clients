@@ -15,10 +15,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IUser } from 'sdi/source';
-import { Inspire } from 'sdi/source';
+import { IUser, Inspire } from 'sdi/source';
 import { EditableState } from '../components/editable';
 import { ButtonComponent } from '../components/button';
+import { IDataTable, initialTableState } from '../components/table/base';
 
 export enum AppLayout {
     List,
@@ -37,6 +37,7 @@ export interface IShapeApp {
     'app/csrf': string | null;
     'component/editable': EditableState;
     'component/button': ButtonComponent;
+    'component/table': IDataTable;
 }
 
 export interface IDatasetMetadataCollection {
@@ -56,12 +57,13 @@ export const appShape: IShapeApp = {
     'app/user': null,
     'app/api-root': 'http://localhost:3000/',
     'app/lang': 'fr',
-    'app/layout': [AppLayout.Single],
+    'app/layout': [AppLayout.List],
     'app/current-metadata': null,
     'app/csrf': null,
 
 
     'component/editable': {},
     'component/button': {},
+    'component/table': initialTableState(),
 
 };
