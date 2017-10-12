@@ -29,7 +29,14 @@ export interface IEventData { }
 //     (handler: IReducer): void;
 // }
 
+interface Observer<K extends keyof IShape> {
+    key: K;
+    handler(a: IShape[K]): void;
+}
+
 let storeRef: IStoreInteractions<IShape>;
+
+const pendingObservers: Observer<keyof IShape>[] = [];
 
 export const configure = (store: IStoreInteractions<IShape>) => {
     logger('configure');
@@ -37,21 +44,19 @@ export const configure = (store: IStoreInteractions<IShape>) => {
         throw (new Error('DispatchAlreadyConfigured'));
     }
     storeRef = store;
+    pendingObservers.forEach(o => storeRef.observe(o.key, o.handler));
 };
 
 export const dispatch = <K extends keyof IShape>(key: K, handler: IReducer<IShape, IShape[K]>): void => {
     if (!storeRef) {
         throw (new Error('DispatchNotConfigured'));
     }
-
     storeRef.dispatch(key, handler);
 };
 
 export const observe = <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void): void => {
     if (!storeRef) {
-        setTimeout(() => {
-            observe(key, handler);
-        }, 1);
+        pendingObservers.push({ key, handler });
     }
     else {
         storeRef.observe(key, handler);
