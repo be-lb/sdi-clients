@@ -28,11 +28,11 @@ const logger = debug('sdi:table/layers');
 
 // const closeButton = button('close');
 
-const toolbar = () => {
-    return DIV({
-        className: 'table-toolbar',
-    }, H1({}, tr('sheetList')));
-};
+// const toolbar = () => {
+//     return DIV({
+//         className: 'table-toolbar',
+//     }, H1({}, tr('sheetList')));
+// };
 
 const onRowSelect: SelectRowHandler =
     () => {
@@ -46,7 +46,7 @@ const render = base({
     loadKeys: queries.loadLayerListKeys,
     loadTypes: queries.loadLayerListTypes,
     onRowSelect,
-    toolbar,
+    // toolbar,
 });
 
 export default render;
