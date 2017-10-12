@@ -25,10 +25,6 @@ import events from '../events/app';
 import queries from '../queries/app';
 import { AppLayout } from '../shape';
 
-// const arbreBe = require('../../style/imgs/logo-be-arbre.png');
-// const imageFr = require('../../style/imgs/be-header-iris-fr.png');
-// const imageNl = require('../../style/imgs/be-header-iris-nl.png');
-
 const logger = debug('sdi:header');
 
 
@@ -48,11 +44,6 @@ const renderDashboardButton =
 
 const render =
     () => {
-        // const lc = queries.getLang();
-        // const headerImgRecord = {
-        //     fr: imageFr,
-        //     nl: imageNl,
-        // };
         return DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
