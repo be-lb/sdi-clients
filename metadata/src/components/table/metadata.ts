@@ -19,8 +19,8 @@ import * as debug from 'debug';
 import base, { SelectRowHandler } from './base';
 import queries from '../../queries/table';
 import appEvents from '../../events/app';
-import { H1, DIV } from '../elements';
-import tr from '../../locale';
+// import { H1, DIV } from '../elements';
+// import tr from '../../locale';
 import { AppLayout } from '../../shape';
 // import button from '../button';
 
@@ -52,4 +52,3 @@ const render = base({
 export default render;
 
 logger('loaded');
-
