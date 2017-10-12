@@ -144,6 +144,7 @@ const events = {
     loadUser(url: string) {
         fetchUser(url)
             .then((user) => {
+                logger(`got user`)
                 dispatch('data/user', () => user);
             });
     },

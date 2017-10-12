@@ -1,11 +1,28 @@
+
+body[lang="fr"] .be-name {background-image: url(imgs/be-header-iris-fr.png);}
+body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
+
+
 .header {
     .flex(center, initial, initial);
     padding: 0 @margin;
     font-size: 80%;
 
-    img {
-        height: 17px;
-        margin-right: 5px ;
+    .be-logo {
+        > div {
+            height: 17px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .be-tree {
+            width: 17px;
+            background-image: url(imgs/be-tree.png);
+            margin-right: 5px;
+        }
+        .be-name {
+            width: 350px;
+        }
     }
 
     > div {
@@ -52,5 +69,4 @@
             }
         }
     }
-
 }
