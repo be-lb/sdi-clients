@@ -61,6 +61,7 @@ export type MessageKey =
     | 'datas'
     | 'dataType'
     | 'displayLabel'
+    | 'draft'
     | 'editFeatureTemplate'
     | 'editLayer'
     | 'editLegend'
@@ -147,6 +148,8 @@ export type MessageKey =
     | 'pointOfContact'
     | 'propName'
     | 'propNameForLabel'
+    | 'published'
+    | 'publicationStatus'
     | 'quotationMark'
     | 'remove'
     | 'resetLegend'
@@ -1075,5 +1078,19 @@ export const messages: MessageDB = {
     responsibleOrganisation: {
         fr: 'Organisation responsable',
         nl: 'Verantwoordelijke organisatie',
+    },
+    draft: {
+        fr: 'Brouillon',
+        nl: 'Ontwerp',
+    },
+
+    published: {
+        fr: 'Publié',
+        nl: 'Gepubliceerd',
+    },
+
+    publicationStatus: {
+        fr: 'État de publication',
+        nl: 'Publicatie status',
     },
 };

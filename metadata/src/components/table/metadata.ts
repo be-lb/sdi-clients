@@ -21,17 +21,8 @@ import appEvents from '../../events/app';
 import { AppLayout } from '../../shape';
 import { loadLayerListData, loadLayerListKeys, loadLayerListTypes } from '../../queries/metadata';
 import { selectMetadata } from '../../events/metadata';
-// import button from '../button';
 
 const logger = debug('sdi:table/layers');
-
-// const closeButton = button('close');
-
-// const toolbar = () => {
-//     return DIV({
-//         className: 'table-toolbar',
-//     }, H1({}, tr('sheetList')));
-// };
 
 const onRowSelect: SelectRowHandler =
     (row) => {
@@ -47,7 +38,6 @@ const render = base({
     loadKeys: loadLayerListKeys,
     loadTypes: loadLayerListTypes,
     onRowSelect,
-    // toolbar,
 });
 
 export default render;

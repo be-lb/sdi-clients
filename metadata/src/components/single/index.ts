@@ -1,7 +1,7 @@
 import { DIV, H1, INPUT, TEXTAREA } from '../elements';
 import tr from '../../locale';
 import { getMdTitle, getMdDescription, getCurrentDatasetMetadata } from '../../queries/metadata';
-import { setMdTitle, setMdDescription } from '../../events/metadata';
+import { setMdTitle, setMdDescription, saveMdForm } from '../../events/metadata';
 import { Inspire, MessageRecord } from 'sdi/source';
 import button from '../button';
 import appEvents from '../../events/app';
@@ -13,6 +13,7 @@ export interface MdForm {
 }
 
 const toListButton = button('table', 'sheetList');
+const saveButton = button('validate', 'save');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -29,14 +30,14 @@ type TextSetter = (a: string) => void;
 
 const renderInputText =
     (label: string, get: TextGetter, set: TextSetter) => {
-        const value = get();
+        const defaultValue = get();
         const update = (e: React.ChangeEvent<HTMLInputElement>) => {
             const newVal = e.currentTarget.value;
             set(newVal);
         };
         return (
             INPUT({
-                value,
+                defaultValue,
                 placeholder: label,
                 type: 'text',
                 onChange: update,
@@ -46,14 +47,14 @@ const renderInputText =
 
 const renderTextArea =
     (label: string, get: TextGetter, set: TextSetter) => {
-        const value = get();
+        const defaultValue = get();
         const update = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             const newVal = e.currentTarget.value;
             set(newVal);
         };
         return (
             TEXTAREA({
-                value,
+                defaultValue,
                 placeholder: label,
                 onChange: update,
             })
@@ -100,9 +101,8 @@ const renderAction =
         DIV({ className: 'meta-action' },
             DIV({ className: 'sheet-title' }, m.id),
             DIV({ className: 'app-col-main' },
-                DIV({ className: 'btn-validate' }, tr('save')),
-                DIV({ className: 'btn-table' },
-                    toListButton(() => appEvents.setLayout(AppLayout.List))),
+                saveButton(saveMdForm),
+                toListButton(() => appEvents.setLayout(AppLayout.List)),
                 DIV({}, 'save should display a message...'))));
 
 

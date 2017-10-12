@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 
 import { i, u, l, a, p, MessageRecordIO, MessageRecord, TypeOf } from './io';
 import { Type, _A } from 'io-ts/lib';
@@ -513,6 +513,7 @@ export const InspireIO = io.intersection([
         // << our little requirement(s)
         id: io.string,
         geometryType: GeometryTypeIO,
+        published: io.boolean,
         // >>
 
         resourceTitle: ResourceTitleIO,

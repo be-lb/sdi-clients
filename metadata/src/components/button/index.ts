@@ -41,6 +41,7 @@ export type ButtonType =
     | 'pie-chart'
     | 'prev'
     | 'remove'
+    | 'save'
     | 'search'
     | 'select'
     | 'settings'

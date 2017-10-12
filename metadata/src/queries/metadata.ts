@@ -11,6 +11,7 @@ const logger = debug('sdi:queries/metadata');
 export const loadLayerListKeys =
     () => ([
         tr('layerId'),
+        tr('publicationStatus'),
         tr('geometryType'),
         tr('title'),
         tr('temporalReference'),
@@ -20,6 +21,7 @@ export const loadLayerListKeys =
 
 export const loadLayerListTypes =
     (): TableDataType[] => ([
+        'string',
         'string',
         'string',
         'string',
@@ -56,6 +58,7 @@ export const loadLayerListData =
                 const md = mds[id];
                 const cells = [
                     md.uniqueResourceIdentifier,
+                    md.published ? tr('published') : tr('draft'),
                     md.geometryType,
                     getFreeText(md.resourceTitle),
                     getTemporalReference(md.temporalReference),
@@ -72,12 +75,18 @@ export const loadLayerListData =
             }));
     };
 
+export const getMdForm =
+    () => query('component/single');
+
 export const getMdTitle =
-    (l: 'fr' | 'nl') => () => query('component/single').title[l];
+    (l: 'fr' | 'nl') => () => getMdForm().title[l];
 
 export const getMdDescription =
-    (l: 'fr' | 'nl') => () => query('component/single').description[l];
+    (l: 'fr' | 'nl') => () => getMdForm().description[l];
 
+
+export const getMetadataId =
+    () => query('app/current-metadata');
 
 export const getDatasetMetadata =
     (id: string) => {
@@ -90,12 +99,10 @@ export const getDatasetMetadata =
 
 export const getCurrentDatasetMetadata =
     () => {
-        const id = query('app/current-metadata');
-        logger(`getCurrentDatasetMetadata ${id}`);
+        const id = getMetadataId();
         if (id) {
             return getDatasetMetadata(id);
         }
-        logger(`failed ${id}`)
         return none;
     };
 

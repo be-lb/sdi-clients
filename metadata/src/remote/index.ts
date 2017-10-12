@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import {
     Category,
     CategoryCollectionIO,
@@ -22,8 +22,6 @@ import {
     fetchIO,
     IAliasCollection,
     IAliasCollectionIO,
-    ILayerInfo,
-    ILayerInfoIO,
     IMapInfo,
     IMapInfoIO,
     Inspire,
@@ -72,16 +70,6 @@ export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITim
 export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
 
 
-export const putMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, putOptions());
-export const postMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, fetchOptions());
-
-export const postLayerInfo =
-    (url: string, data: ILayerInfo): Promise<ILayerInfo> => postIO(ILayerInfoIO, url, data, fetchOptions());
-
-export const postLayer = (url: string, data: FeatureCollection): Promise<FeatureCollection> => postIO(FeatureCollectionIO, url, data, fetchOptions());
-export const postUser = (url: string, data: IUser): Promise<IUser> => postIO(IUserIO, url, data, fetchOptions());
-
-
 
 // tslint:disable-next-line:variable-name
 const UploadedIO = io.interface({
@@ -109,3 +97,7 @@ export const upload =
 
         return postIO(UploadedIO, url, null, options);
     };
+
+
+export const putMetadata = (url: string, data: Inspire): Promise<Inspire> => postIO(InspireIO, url, data, putOptions());
+// export const postMetadata = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, fetchOptions());
