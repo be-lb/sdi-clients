@@ -17,17 +17,17 @@
  */
 
 import * as debug from 'debug';
-import { SPAN, DIV, IMG } from './elements';
+import { SPAN, DIV } from './elements';
 import langSwitch from './lang-switch';
-import tr, { fromRecord } from '../locale';
+import tr from '../locale';
 import button from './button';
 import events from '../events/app';
 import queries from '../queries/app';
 import { AppLayout } from '../shape';
 
-const arbreBe = require('../../style/imgs/logo-be-arbre.png');
-const imageFr = require('../../style/imgs/be-header-iris-fr.png');
-const imageNl = require('../../style/imgs/be-header-iris-nl.png');
+// const arbreBe = require('../../style/imgs/logo-be-arbre.png');
+// const imageFr = require('../../style/imgs/be-header-iris-fr.png');
+// const imageNl = require('../../style/imgs/be-header-iris-nl.png');
 
 const logger = debug('sdi:header');
 
@@ -48,16 +48,15 @@ const renderDashboardButton =
 
 const render =
     () => {
-        const headerImgRecord = {
-            fr: imageFr,
-            nl: imageNl,
-        };
+        // const lc = queries.getLang();
+        // const headerImgRecord = {
+        //     fr: imageFr,
+        //     nl: imageNl,
+        // };
         return DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
-                SPAN({},
-                    IMG({ src: arbreBe, alt: '' })),
-                SPAN({},
-                    IMG({ src: fromRecord(headerImgRecord), alt: '' }))),
+                DIV({ className: 'be-tree' }),
+                DIV({ className: 'be-name'})),
             renderDashboardButton(),
             DIV({ className: 'header-toolbar' },
                 SPAN({ className: 'login' }, tr('login')),
