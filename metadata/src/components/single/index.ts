@@ -12,7 +12,7 @@ export interface MdForm {
     description: MessageRecord;
 }
 
-const toListButton = button('navigate', 'sheetList');
+const toListButton = button('table', 'sheetList');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 

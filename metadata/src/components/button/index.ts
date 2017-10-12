@@ -45,6 +45,7 @@ export type ButtonType =
     | 'select'
     | 'settings'
     | 'switch'
+    | 'table'
     | 'text'
     | 'translate'
     | 'upload'
