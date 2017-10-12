@@ -89,17 +89,23 @@
 
 // HIGH LEVEL BUTTONS SIZE AND COLORS
 
+// variable :
+
+.high-btn {
+    color: #000;
+    &:before {font-size: 18px !important;}
+    &:hover {color: @green;}
+}
+
 .style-toolbox-main .btn-switch,
 .inspire-wrapper .btn-add,
 .inspire-wrapper .btn-view,
-     .map-legend .btn-add,
+.map-legend .btn-add,
 .layer-infos .table,
 .layer-infos .map,
 .layer-infos .btn-settings,
 .btn-close {
-    color: #000;
-    &:before {font-size: 18px !important;}
-    &:hover {color: @green;}
+    .high-btn;
 }
 .column-settings .btn-remove:hover {color: red;}
 .style-toolbox-main .btn-switch {font-size: 100%;}

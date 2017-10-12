@@ -17,48 +17,38 @@
  */
 
 import * as debug from 'debug';
-import { SPAN, DIV, IMG } from './elements';
+import { SPAN, DIV } from './elements';
 import langSwitch from './lang-switch';
-import tr, { fromRecord } from '../locale';
-import button from './button';
-import events from '../events/app';
-import queries from '../queries/app';
-import { AppLayout } from '../shape';
-
-const arbreBe = require('../../style/imgs/logo-be-arbre.png');
-const imageFr = require('../../style/imgs/be-header-iris-fr.png');
-const imageNl = require('../../style/imgs/be-header-iris-nl.png');
+import tr from '../locale';
+// import button from './button';
+// import events from '../events/app';
+// import queries from '../queries/app';
+// import { AppLayout } from '../shape';
 
 const logger = debug('sdi:header');
 
 
-const dashboardButton = button('settings', 'dashboard');
+// const dashboardButton = button('settings', 'dashboard');
 
-const renderDashboardButton =
-    () => {
-        if (AppLayout.List === queries.getLayout()) {
-            return DIV();
-        }
-        return (
-            DIV({ className: 'dashboard-link-wrapper' },
-                DIV({ className: 'dashboard-link' },
-                    dashboardButton(() => events.setLayout(AppLayout.List))))
-        );
-    };
+// const renderDashboardButton =
+//     () => {
+//         if (AppLayout.Dashboard === queries.getLayout()) {
+//             return DIV();
+//         }
+//         return (
+//             DIV({ className: 'dashboard-link-wrapper' },
+//                 DIV({ className: 'dashboard-link' },
+//                     dashboardButton(() => events.setLayout(AppLayout.Dashboard))))
+//         );
+//     };
 
 const render =
     () => {
-        const headerImgRecord = {
-            fr: imageFr,
-            nl: imageNl,
-        };
         return DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
-                SPAN({},
-                    IMG({ src: arbreBe, alt: '' })),
-                SPAN({},
-                    IMG({ src: fromRecord(headerImgRecord), alt: '' }))),
-            renderDashboardButton(),
+                DIV({ className: 'be-tree' }),
+                DIV({ className: 'be-name'})),
+            // renderDashboardButton(),
             DIV({ className: 'header-toolbar' },
                 SPAN({ className: 'login' }, tr('login')),
                 langSwitch()));
