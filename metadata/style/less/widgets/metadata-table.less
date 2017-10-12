@@ -4,14 +4,14 @@
     overflow-y: hidden;
     margin: auto;
     border: 1px solid @grey;
-    // padding: @margin;
+    padding: @margin;
 
     h1 {
         margin-bottom: @margin * 2;
     }
 
     .infinite-table {
-        height: 100%;
+        height: calc(~"100% - 47px - 2 * @{margin}");
         .table-toolbar {border-top: 0px;}
     }
 }
