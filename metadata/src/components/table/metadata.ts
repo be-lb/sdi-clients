@@ -53,4 +53,3 @@ const render = base({
 export default render;
 
 logger('loaded');
-
