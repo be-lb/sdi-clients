@@ -19,6 +19,7 @@ import { IUser, Inspire } from 'sdi/source';
 import { EditableState } from '../components/editable';
 import { ButtonComponent } from '../components/button';
 import { IDataTable, initialTableState } from '../components/table/base';
+import { MdForm, defaultMdFormState } from '../components/single';
 
 export enum AppLayout {
     List,
@@ -35,9 +36,11 @@ export interface IShapeApp {
     'app/layout': AppLayout[];
     'app/current-metadata': string | null;
     'app/csrf': string | null;
+
     'component/editable': EditableState;
     'component/button': ButtonComponent;
     'component/table': IDataTable;
+    'component/single': MdForm;
 }
 
 export interface IDatasetMetadataCollection {
@@ -65,5 +68,5 @@ export const appShape: IShapeApp = {
     'component/editable': {},
     'component/button': {},
     'component/table': initialTableState(),
-
+    'component/single': defaultMdFormState(),
 };

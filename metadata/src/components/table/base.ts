@@ -36,7 +36,7 @@ export type TableDataType = 'string' | 'number' | 'boolean' | 'null' | 'invalid'
 export type TableDataCell = string;
 
 export interface TableDataRow {
-    from: number;
+    from: number | string;
     cells: TableDataCell[];
 }
 

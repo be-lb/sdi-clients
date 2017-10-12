@@ -17,8 +17,6 @@
 import { query } from './index';
 // import appQueries from './app';
 import { TableWindow, TableDataRow, ITableSort, TableDataType, Filter } from '../components/table/base';
-import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
-import tr, { fromRecord, formatDate } from '../locale';
 
 
 // type ObjOrNull = { [k: string]: any } | null;
@@ -126,73 +124,6 @@ const queries = {
         }
         return data[selected];
     },
-
-
-    // metadata list
-    loadLayerListKeys(): string[] {
-        return ([
-            tr('layerId'),
-            tr('geometryType'),
-            tr('title'),
-            tr('temporalReference'),
-            tr('pointOfContact'),
-            tr('responsibleOrganisation'),
-        ]);
-    },
-
-    loadLayerListTypes(): TableDataType[] {
-        return ([
-            'string',
-            'string',
-            'string',
-            'string',
-            'string',
-            'string',
-        ]);
-    },
-
-    loadLayerListData(): TableDataRow[] | null {
-        const mds = query('data/datasetMetadata');
-        if (Object.keys(mds).length < 1) {
-            return null;
-        }
-        const getFreeText = (ft: FreeText) => {
-            if (isAnchor(ft)) {
-                return fromRecord(ft.text);
-            }
-
-            return fromRecord(ft);
-        };
-
-        const getTemporalReference = (t: TemporalReference) => {
-            if (isTemporalExtent(t)) {
-                return formatDate(new Date(Date.parse(t.end)));
-            }
-            return formatDate(new Date(Date.parse(t.revision)));
-
-        };
-
-        return (
-            Object.keys(mds).map((id, from) => {
-                const md = mds[id];
-                const cells = [
-                    md.uniqueResourceIdentifier,
-                    md.geometryType,
-                    getFreeText(md.resourceTitle),
-                    getTemporalReference(md.temporalReference),
-                    md.metadataPointOfContact.reduce((acc, poc, idx) => {
-                        const sep = idx === 0 ? '' : ', ';
-                        return `${acc}${sep}${poc.contactName}`;
-                    }, ''),
-                    md.responsibleOrganisation.reduce((acc, ri, idx) => {
-                        const sep = idx === 0 ? '' : '; ';
-                        return acc + sep + getFreeText(ri.organisationName);
-                    }, ''),
-                ];
-                return { from, cells };
-            }));
-    },
-
 };
 
 export default queries;

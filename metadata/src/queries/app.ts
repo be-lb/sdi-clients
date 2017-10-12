@@ -55,15 +55,6 @@ const queries = {
         return query('app/csrf');
     },
 
-
-    getDatasetMetadata(id: string) {
-        const collection = query('data/datasetMetadata');
-        if (id in collection) {
-            return collection[id];
-        }
-        return null;
-    },
-
 };
 
 export default queries;

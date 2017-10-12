@@ -54,6 +54,12 @@ export const dispatch = <K extends keyof IShape>(key: K, handler: IReducer<IShap
     storeRef.dispatch(key, handler);
 };
 
+export const dispatchK =
+    <K extends keyof IShape>(key: K) =>
+        (handler: IReducer<IShape, IShape[K]>) => {
+            storeRef.dispatch(key, handler);
+        };
+
 export const observe = <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void): void => {
     if (!storeRef) {
         pendingObservers.push({ key, handler });

@@ -17,11 +17,10 @@
 
 import * as debug from 'debug';
 import base, { SelectRowHandler } from './base';
-import queries from '../../queries/table';
 import appEvents from '../../events/app';
-import { H1, DIV } from '../elements';
-import tr from '../../locale';
 import { AppLayout } from '../../shape';
+import { loadLayerListData, loadLayerListKeys, loadLayerListTypes } from '../../queries/metadata';
+import { selectMetadata } from '../../events/metadata';
 // import button from '../button';
 
 const logger = debug('sdi:table/layers');
@@ -35,16 +34,18 @@ const logger = debug('sdi:table/layers');
 // };
 
 const onRowSelect: SelectRowHandler =
-    () => {
+    (row) => {
+        const id = row.from as string;
+        selectMetadata(id);
         appEvents.setLayout(AppLayout.Single);
     };
 
 
 const render = base({
     className: 'layer-select-wrapper',
-    loadData: queries.loadLayerListData,
-    loadKeys: queries.loadLayerListKeys,
-    loadTypes: queries.loadLayerListTypes,
+    loadData: loadLayerListData,
+    loadKeys: loadLayerListKeys,
+    loadTypes: loadLayerListTypes,
     onRowSelect,
     // toolbar,
 });
