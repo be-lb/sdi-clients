@@ -41,15 +41,21 @@
                 font-size: 0.8em;
                 text-align: center;
             }
+
+            textarea {
+                resize: vertical;
+                height: 200px;
+            }
         }
+
+        .meta-fr,
         .meta-nl {
-            border-left: 1px solid #000;
             border-right: 1px solid #000;
         }
 
         .meta-action {
+            width: calc(~"30vw - 3 * @{margin}");
             padding-left: @margin;
-            // padding-top: @margin * 2;
             .sheet-title {
                 font-weight: 100;
                 font-size: 2em;
