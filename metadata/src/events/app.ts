@@ -51,8 +51,8 @@ const events = {
     },
 
     setLang(lc: 'fr' | 'nl') {
-        dispatch('app/lang', () => lc);
         document.body.setAttribute('lang', lc);
+        dispatch('app/lang', () => lc);
     },
 
     setLayout(l: AppLayout) {
