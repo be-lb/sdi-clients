@@ -126,13 +126,13 @@ const renderAction =
 const labeledString =
     (l: string, v: string) => (
         DIV({ className: 'metadata-label' },
-            SPAN({ className: 'label' }, l),
-            SPAN({ className: 'value' }, v)));
+            DIV({ className: 'label' }, l),
+            DIV({ className: 'value' }, v)));
 
 const labeledNode =
     (l: string, v: React.ReactNode) => (
         DIV({ className: 'metadata-label' },
-            SPAN({ className: 'label' }, l), v));
+            DIV({ className: 'label' }, l), v));
 
 const renderInfo =
     (m: Inspire) => (
