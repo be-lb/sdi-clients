@@ -13,13 +13,11 @@
         margin-bottom: @margin * 2;
     }
 
-    .metadata-label {
-        margin-bottom: @margin;
-        .label {
-            font-weight: 100;
-            text-transform: uppercase;
-        }
-        // .point-of-contact > * {display: block;}
+    .label {
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        margin-bottom: @margin / 4;
     }
 
     .meta-wrapper {
@@ -35,6 +33,15 @@
             > div {flex: 1;}
         }
 
+
+        .metadata-label {
+            margin-bottom: @margin;
+            .value,
+            .point-of-contact {
+                font-size: 0.8em;
+            }
+        }
+
         .metadata-info,
         .meta-fr,
         .meta-nl,
@@ -47,8 +54,11 @@
             }
 
             .app-col-header {
-                font-size: 0.8em;
+                // font-size: 0.8em;
+                display: flex;
+                font-weight: 100;
                 text-align: center;
+                margin-bottom: @margin;
             }
 
             .app-col-main {
