@@ -104,6 +104,7 @@ const renderEdit =
 const renderPoc =
     (m: Inspire) => m.metadataPointOfContact.map(poc => DIV({ className: 'point-of-contact' }, SPAN({ className: 'contact-name' }, poc.contactName), SPAN({ className: 'contact-email' }, poc.email), SPAN({ className: 'contact-organisation' }, fromRecord(getMessageRecord(poc.organisationName)))));
 
+
 const renderCommon =
     (_m: Inspire) => (
         DIV({ className: 'app-col-wrapper meta-common' },
@@ -133,17 +134,23 @@ const labeledNode =
         DIV({ className: 'metadata-label' },
             SPAN({ className: 'label' }, l), v));
 
-const renderEditor =
+const renderLabeledDatas =
     (m: Inspire) => (
-        DIV({ className: 'metadata-editor' },
-            H1({}, tr('metadataEditor')),
+        DIV({ className: 'labeled-datas' },
             labeledString(tr('identifier'), m.id),
             labeledString(tr('layerId'), m.uniqueResourceIdentifier),
             labeledString(tr('geometryType'), m.geometryType),
             labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
-            labeledNode(tr('pointOfContact'), renderPoc(m)),
+            labeledNode(tr('pointOfContact'), renderPoc(m))));
+
+const renderEditor =
+    (m: Inspire) => (
+        DIV({ className: 'metadata-editor' },
+            H1({}, tr('metadataEditor')),
             DIV({ className: 'meta-wrapper' },
-                renderEdit(m),
+                renderLabeledDatas(m),
+                renderEdit(m)),
+            DIV({ className: 'metadata-actions' },
                 renderAction(m))));
 
 
