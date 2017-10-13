@@ -94,17 +94,34 @@ div.infinite-table {
     .table-search {
         flex: 0 0 auto;
         .flex(flex-start, flex-start, wrap);
-        
-        input {
-            // TODO
+
+        .table-search-item {
+            margin-bottom: @margin / 2;
+
+            &:nth-child(n+2) {
+                &:before {
+                    content: ' & ';
+                    font-weight: 100;
+                    display: inline-block;
+                    width: 30px;
+                    text-align: center;                   }
+            }
+            .search-field {
+                font-weight: 100;
+                text-transform: uppercase;
+                // margin-right: @margin / 2;
+                &:after {
+                    content: ' = ';
+                    width: 20px;
+                    display: inline-block;
+                    text-align: center;
+                }
+            }
         }
 
-        div {
-            margin-top: @small-margin;
-        }
     }
 
-    
+
     .table-main {
         overflow-x: auto;
         display: flex;
@@ -116,7 +133,7 @@ div.infinite-table {
             border-top: 1px solid @grey;
             // text-align: center !important;
             min-width: 100%;
-    
+
             .table-header-cell {
                 overflow: initial;
             }
@@ -139,7 +156,7 @@ div.infinite-table {
         }
     }
 
-   
+
 
     .btn-next{
     margin: 0 @small-margin;
