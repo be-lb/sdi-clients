@@ -22,6 +22,8 @@ import {
     fetchAllDatasetMetadata,
     fetchDatasetMetadata,
     fetchUser,
+    fetchAllTopic,
+    fetchAllKeyword,
 } from '../remote';
 import queries from '../queries/app';
 
@@ -87,6 +89,16 @@ const events = {
                     });
                 });
             });
+    },
+
+    loadAllTopic() {
+        fetchAllTopic(queries.getApiUrl('topics'))
+            .then(topics => dispatch('data/topics', () => topics));
+    },
+
+    loadAllKeyword() {
+        fetchAllKeyword(queries.getApiUrl('keywords'))
+            .then(keywords => dispatch('data/keywords', () => keywords));
     },
 };
 

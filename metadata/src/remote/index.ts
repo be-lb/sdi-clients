@@ -31,6 +31,10 @@ import {
     IUser,
     IUserIO,
     postIO,
+    TopicCategoryIO,
+    TopicCategory,
+    KeywordIO,
+    Keyword,
 } from 'sdi/source';
 
 import queries from '../queries/app';
@@ -100,4 +104,6 @@ export const upload =
 
 
 export const putMetadata = (url: string, data: Inspire): Promise<Inspire> => postIO(InspireIO, url, data, putOptions());
-// export const postMetadata = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, fetchOptions());
+
+export const fetchAllTopic = (url: string): Promise<TopicCategory[]> => fetchIO(io.array(TopicCategoryIO), url, fetchOptions());
+export const fetchAllKeyword = (url: string): Promise<Keyword[]> => fetchIO(io.array(KeywordIO), url, fetchOptions());

@@ -6,11 +6,16 @@ import {
     getMdDescription,
     getMdTitle,
     getTemporalReference,
+    getKeywordList,
+    getKeywords,
+    isSelectedKeyword,
 } from '../../queries/metadata';
 import {
     saveMdForm,
     setMdDescription,
     setMdTitle,
+    removeKeyword,
+    addKeyword,
 } from '../../events/metadata';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import button from '../button';
@@ -22,11 +27,14 @@ import { fromPredicate } from 'fp-ts/lib/Either';
 export interface MdForm {
     title: MessageRecord;
     description: MessageRecord;
+    topics: string[];
+    keywords: string[];
     saving: boolean;
 }
 
 const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
+const removeButton = button('remove');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -34,6 +42,8 @@ export const defaultMdFormState =
     (): MdForm => ({
         title: defaultMessage(),
         description: defaultMessage(),
+        topics: [],
+        keywords: [],
         saving: false,
     });
 
@@ -110,12 +120,30 @@ const renderPoc =
     (m: Inspire) => m.metadataPointOfContact.map(poc => DIV({ className: 'point-of-contact' }, SPAN({ className: 'contact-name' }, poc.contactName), SPAN({ className: 'contact-email' }, poc.email), SPAN({ className: 'contact-organisation' }, fromRecord(getMessageRecord(poc.organisationName)))));
 
 
+const renderSelect =
+    () => {
+        const selected = getKeywords().map(kw => DIV({ className: 'keyword' }, SPAN({ className: 'value' }, fromRecord(kw.name)), removeButton(() => removeKeyword(kw.id))));
+
+        const choice = getKeywordList().filter(kw => !isSelectedKeyword(kw.id)).map(k => DIV({
+            key: k.id,
+            onClick: () => isSelectedKeyword(k.id) ? removeKeyword(k.id) : addKeyword(k.id),
+        }, fromRecord(k.name)));
+
+        return (
+            DIV({ className: 'keywords-wrapper' },
+                DIV({
+                    className: 'selected-keyword',
+                }, ...selected),
+                DIV({
+                    className: 'select-keyword',
+                }, ...choice)));
+    }
+
 const renderCommon =
     (_m: Inspire) => (
         DIV({ className: 'app-col-wrapper meta-common' },
             DIV({ className: 'app-col-header' }, 'FR & NL'),
-            DIV({ className: 'app-col-main' },
-                DIV({ className: 'keywords-wrapper' }, 'le truc des keywords'))));
+            DIV({ className: 'app-col-main' }, renderSelect())));
 
 
 const renderAction =

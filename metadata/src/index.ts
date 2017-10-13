@@ -67,6 +67,8 @@ export const main =
             const initialState: IShape = {
                 'data/user': null,
                 'data/datasetMetadata': {},
+                'data/keywords': [],
+                'data/topics': [],
                 ...appShape,
             };
             const start = source<IShape, keyof IShape>(['app/lang']);
