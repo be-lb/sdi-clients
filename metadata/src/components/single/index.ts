@@ -122,7 +122,7 @@ const renderPoc =
 
 const renderSelect =
     () => {
-        const selected = getKeywords().map(kw => DIV({ className: 'keyword' }, SPAN({ className: 'value' }, fromRecord(kw.name)), removeButton(() => removeKeyword(kw.id))));
+        const selected = getKeywords().map(kw => DIV({ className: 'keyword' }, removeButton(() => removeKeyword(kw.id)), SPAN({ className: 'value' }, fromRecord(kw.name))));
 
         const choice = getKeywordList().filter(kw => !isSelectedKeyword(kw.id)).map(k => DIV({
             key: k.id,
@@ -131,6 +131,7 @@ const renderSelect =
 
         return (
             DIV({ className: 'keywords-wrapper' },
+                DIV({ className: 'label' }, tr('keywords')),
                 DIV({
                     className: 'selected-keyword',
                 }, ...selected),

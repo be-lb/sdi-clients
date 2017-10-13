@@ -95,6 +95,7 @@ export type MessageKey =
     | 'imageUploading'
     | 'infoChoice'
     | 'infoReorder'
+    | 'keywords'
     | 'labelPostion'
     | 'lastModified'
     | 'latitude'
@@ -1074,6 +1075,7 @@ export const messages: MessageDB = {
         fr: 'Informations sur la ressource',
         nl: 'Informatie over hulpbronnen',
     },
+
     temporalReference: {
         fr: 'Référence temporelle',
         nl: 'Tijdelijke referentie',
@@ -1109,5 +1111,10 @@ export const messages: MessageDB = {
     identifier: {
         fr: 'Identifiant',
         nl: 'Identifier',
+    },
+
+    keywords: {
+        fr: 'Mots clés',
+        nl: 'Trefwoorden',
     },
 };
