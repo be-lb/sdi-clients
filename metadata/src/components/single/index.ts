@@ -83,6 +83,7 @@ const renderTextArea =
 
 const renderEdit =
     (m: Inspire) => (DIV({ className: 'meta-edit' },
+        renderInfo(m),
         DIV({ className: 'app-col-wrapper meta-fr' },
             DIV({ className: 'app-col-header' }, 'FR'),
             DIV({ className: 'app-col-main' },
@@ -116,12 +117,11 @@ const renderCommon =
 const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
-            DIV({ className: 'app-col-main' },
-                isNotSaving(saveButton(saveMdForm)).fold(
-                    () => DIV({}, tr('saving')),
-                    e => e),
-                toListButton(() => appEvents.setLayout(AppLayout.List)),
-            )));
+            isNotSaving(saveButton(saveMdForm)).fold(
+                () => DIV({}, tr('saving')),
+                e => e),
+            toListButton(() => appEvents.setLayout(AppLayout.List)),
+        ));
 
 const labeledString =
     (l: string, v: string) => (
@@ -134,21 +134,22 @@ const labeledNode =
         DIV({ className: 'metadata-label' },
             SPAN({ className: 'label' }, l), v));
 
-const renderLabeledDatas =
+const renderInfo =
     (m: Inspire) => (
-        DIV({ className: 'labeled-datas' },
-            labeledString(tr('identifier'), m.id),
-            labeledString(tr('layerId'), m.uniqueResourceIdentifier),
-            labeledString(tr('geometryType'), m.geometryType),
-            labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
-            labeledNode(tr('pointOfContact'), renderPoc(m))));
+        DIV({ className: 'app-col-wrapper metadata-info' },
+            DIV({ className: 'app-col-header' }, tr('layerInfo')),
+            DIV({ className: 'app-col-main' },
+                labeledString(tr('identifier'), m.id),
+                labeledString(tr('layerId'), m.uniqueResourceIdentifier),
+                labeledString(tr('geometryType'), m.geometryType),
+                labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
+                labeledNode(tr('pointOfContact'), renderPoc(m)))));
 
 const renderEditor =
     (m: Inspire) => (
         DIV({ className: 'metadata-editor' },
             H1({}, tr('metadataEditor')),
             DIV({ className: 'meta-wrapper' },
-                renderLabeledDatas(m),
                 renderEdit(m)),
             DIV({ className: 'metadata-actions' },
                 renderAction(m))));

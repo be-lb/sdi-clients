@@ -101,6 +101,7 @@ export type MessageKey =
     | 'label'
     | 'layer'
     | 'layerId'
+    | 'layerInfo'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -1068,6 +1069,10 @@ export const messages: MessageDB = {
     layerId: {
         fr: 'Identifiant de la ressource',
         nl: 'Bronidentificatie',
+    },
+    layerInfo: {
+        fr: 'Informations sur la ressource',
+        nl: 'Informatie over hulpbronnen',
     },
     temporalReference: {
         fr: 'Référence temporelle',
