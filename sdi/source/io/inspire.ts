@@ -345,7 +345,13 @@ export const GEMET = {
         nl: 'Bodemgebruik',
     },
 };
-export const KeywordIO = io.keyof(GEMET);
+// export const KeywordIO = io.keyof(GEMET);
+export const KeywordIO = i({
+    id: io.string,
+    code: io.string,
+    name: MessageRecordIO,
+    thesaurus: io.string,
+}, 'KeywordIO');
 export type Keyword = TypeOf<typeof KeywordIO>;
 
 // metadata/2.0/req/common/keyword-originating-cv
@@ -456,27 +462,33 @@ export const DatasetUIDIO = io.string;
 // metadata/2.0/req/datasets-and-series/resource-language
 
 // metadata/2.0/req/datasets-and-series/topic-category
-export const TopicCategoryIO = u([
-    l('farming'),
-    l('biota'),
-    l('boundaries'),
-    l('climatologyMeteorologyAtmosphere'),
-    l('economy'),
-    l('elevation'),
-    l('environment'),
-    l('geoscientificInformation'),
-    l('health'),
-    l('imageryBaseMapsEarthCover'),
-    l('intelligenceMilitary'),
-    l('inlandWaters'),
-    l('location'),
-    l('oceans'),
-    l('planningCadastre'),
-    l('society'),
-    l('structure'),
-    l('transportation'),
-    l('utilitiesCommunication'),
-], 'TopicCategoryIO');
+// export const TopicCategoryIO = u([
+//     l('farming'),
+//     l('biota'),
+//     l('boundaries'),
+//     l('climatologyMeteorologyAtmosphere'),
+//     l('economy'),
+//     l('elevation'),
+//     l('environment'),
+//     l('geoscientificInformation'),
+//     l('health'),
+//     l('imageryBaseMapsEarthCover'),
+//     l('intelligenceMilitary'),
+//     l('inlandWaters'),
+//     l('location'),
+//     l('oceans'),
+//     l('planningCadastre'),
+//     l('society'),
+//     l('structure'),
+//     l('transportation'),
+//     l('utilitiesCommunication'),
+// ], 'TopicCategoryIO');
+export const TopicCategoryIO = i({
+    id: io.string,
+    code: io.string,
+    name: MessageRecordIO,
+    thesaurus: io.string,
+}, 'TopicCategoryIO');
 export type TopicCategory = TypeOf<typeof TopicCategoryIO>;
 
 // metadata/2.0/req/datasets-and-series/resource-locator

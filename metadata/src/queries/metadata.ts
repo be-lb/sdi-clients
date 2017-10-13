@@ -1,6 +1,6 @@
 import * as debug from 'debug';
 import { query } from './index';
-import { some, none } from 'fp-ts/lib/Option';
+import { some, none, fromNullable } from 'fp-ts/lib/Option';
 import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
 import tr, { fromRecord, formatDate } from '../locale';
 import { TableDataType, TableDataRow } from '../components/table/base';
@@ -108,5 +108,24 @@ export const getCurrentDatasetMetadata =
         }
         return none;
     };
+
+const withoutNull =
+    <T>(ts: (T | null)[]) => {
+        const r: T[] = [];
+        ts.forEach(t => !!t ? r.push(t) : null);
+        return r;
+    }
+
+export const getKeywordList =
+    () => query('data/keywords');
+
+export const getKeywordDataOpt =
+    (id: string) => fromNullable(query('data/keywords').find(k => k.id === id));
+
+export const getKeywords =
+    () => withoutNull(getMdForm().keywords.map(getKeywordDataOpt).map(o => o.fold(() => null, k => k)));
+
+export const isSelectedKeyword =
+    (id: string) => getMdForm().keywords.indexOf(id) >= 0;
 
 logger('loaded');

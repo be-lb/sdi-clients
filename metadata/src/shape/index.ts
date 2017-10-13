@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IUser, Inspire } from 'sdi/source';
+import { IUser, Inspire, TopicCategory, Keyword } from 'sdi/source';
 import { EditableState } from '../components/editable';
 import { ButtonComponent } from '../components/button';
 import { IDataTable, initialTableState } from '../components/table/base';
@@ -50,6 +50,8 @@ export interface IDatasetMetadataCollection {
 export interface IShapeData {
     'data/user': IUser | null;
     'data/datasetMetadata': IDatasetMetadataCollection;
+    'data/keywords': Keyword[];
+    'data/topics': TopicCategory[];
 }
 
 export type IShape = IShapeApp & IShapeData;

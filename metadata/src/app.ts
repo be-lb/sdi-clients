@@ -104,6 +104,8 @@ export default (store: IStoreInteractions<IShape>) => {
         events.loadUser(
             queries.getApiUrl(`users/${queries.getUserId()}`));
         events.loadAllDatasetMetadata();
+        events.loadAllTopic();
+        events.loadAllKeyword();
     };
 
     return { start };

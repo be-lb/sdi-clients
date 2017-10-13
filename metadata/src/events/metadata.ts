@@ -1,6 +1,6 @@
 
 import { dispatchK, dispatch } from './index';
-import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
+import { getDatasetMetadata, getMdForm, getMetadataId, getKeywords } from '../queries/metadata';
 import { getMessageRecord, Inspire } from 'sdi/source';
 import { putMetadata } from '../remote';
 import appQueries from '../queries/app';
@@ -38,6 +38,7 @@ const updatedMd =
         const { title, description } = getMdForm();
         return {
             ...md,
+            keyword: getKeywords(),
             resourceTitle: title,
             resourceAbstract: description,
         };
@@ -66,3 +67,11 @@ export const saveMdForm =
                             .catch(() => single(s => ({ ...s, saving: false })));
                     }));
     };
+
+export const addKeyword =
+    (id: string) => single(s => ({ ...s, keywords: s.keywords.concat([id]) }));
+
+export const removeKeyword =
+    (_id: string) => {
+
+    }
