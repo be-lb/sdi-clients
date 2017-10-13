@@ -29,28 +29,19 @@
             height: 100%;
             padding: @margin 0 @margin * 2 0;
             width: calc(~"100vw - 2 * @{margin}");
-
-            > div {flex: 1;}
-        }
-
-
-        .metadata-label {
-            margin-bottom: @margin;
-            .value,
-            .point-of-contact {
-                // font-size: 0.8em;
-            }
         }
 
         .metadata-info,
         .meta-fr,
         .meta-nl,
         .meta-common {
+            flex: 1;
             padding: 0 @margin * 2;
 
             * {
                 display: block;
                 width: 100%;
+                word-break: break-word;
             }
 
             .app-col-header {
@@ -81,6 +72,8 @@
         .meta-nl {
             border-right: 1px solid #000;
         }
+
+        .metadata-label {margin-bottom: @margin;}
     }
 
     .meta-action {
