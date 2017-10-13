@@ -540,7 +540,7 @@ export const InspireIO = io.intersection([
         topicCategory: a(TopicCategoryIO),
 
         // keyword: Multiplicity1Star<Keyword>('Keyword', KeywordIO),
-        keyword: a(KeywordIO),
+        keywords: a(io.string),
 
         // geographicBoundingBox: Multiplicity1Star<BoundingBox>('BoundingBox', BoundingBoxIO),
         geographicBoundingBox: BoundingBoxIO,
