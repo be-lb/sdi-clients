@@ -30,6 +30,14 @@ export const loadLayerListTypes =
         'string',
     ]);
 
+export const getTemporalReference = (t: TemporalReference) => {
+    if (isTemporalExtent(t)) {
+        return formatDate(new Date(Date.parse(t.end)));
+    }
+    return formatDate(new Date(Date.parse(t.revision)));
+
+};
+
 export const loadLayerListData =
     (): TableDataRow[] | null => {
         const mds = query('data/datasetMetadata');
@@ -45,13 +53,6 @@ export const loadLayerListData =
             return fromRecord(ft);
         };
 
-        const getTemporalReference = (t: TemporalReference) => {
-            if (isTemporalExtent(t)) {
-                return formatDate(new Date(Date.parse(t.end)));
-            }
-            return formatDate(new Date(Date.parse(t.revision)));
-
-        };
 
         return (
             keys.map((id) => {

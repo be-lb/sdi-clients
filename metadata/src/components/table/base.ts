@@ -130,7 +130,7 @@ const scroll = (e: React.UIEvent<Element>): void => {
 // const cellWidth = (types: string[]): string => `${100 / (types.length)}%`;
 type Width = [number, string];
 const cellWidths =
-    () => queries.getKeys().map<Width>(k => [k.length * 1.5, 'rem']);
+    () => queries.getKeys().map<Width>(k => [Math.max(13, k.length * .7), 'em']);
 
 const rowWidth =
     () => cellWidths().reduce(

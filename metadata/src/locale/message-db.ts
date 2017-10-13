@@ -89,6 +89,7 @@ export type MessageKey =
     | 'go'
     | 'gpsTracker'
     | 'highValue'
+    | 'identifier'
     | 'imageGeneratingPreview'
     | 'imagePreview'
     | 'imageUploading'
@@ -1065,8 +1066,8 @@ export const messages: MessageDB = {
     },
 
     layerId: {
-        fr: 'Identifiant',
-        nl: 'Identifier',
+        fr: 'Identifiant de la ressource',
+        nl: 'Bronidentificatie',
     },
     temporalReference: {
         fr: 'Référence temporelle',
@@ -1098,5 +1099,10 @@ export const messages: MessageDB = {
     saving: {
         fr: 'Mise à jour des données',
         nl: 'Gegevens bijwerken',
+    },
+
+    identifier: {
+        fr: 'Identifiant',
+        nl: 'Identifier',
     },
 };

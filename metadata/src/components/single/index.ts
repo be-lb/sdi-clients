@@ -1,17 +1,18 @@
-import { DIV, H1, INPUT, TEXTAREA } from '../elements';
-import tr from '../../locale';
+import { DIV, H1, INPUT, TEXTAREA, SPAN } from '../elements';
+import tr, { fromRecord } from '../../locale';
 import {
     formIsSaving,
     getCurrentDatasetMetadata,
     getMdDescription,
     getMdTitle,
+    getTemporalReference,
 } from '../../queries/metadata';
 import {
     saveMdForm,
     setMdDescription,
     setMdTitle,
 } from '../../events/metadata';
-import { Inspire, MessageRecord } from 'sdi/source';
+import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import button from '../button';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape';
@@ -100,15 +101,15 @@ const renderEdit =
     ));
 
 
+const renderPoc =
+    (m: Inspire) => m.metadataPointOfContact.map(poc => DIV({ className: 'point-of-contact' }, SPAN({ className: 'contact-name' }, poc.contactName), SPAN({ className: 'contact-email' }, poc.email), SPAN({ className: 'contact-organisation' }, fromRecord(getMessageRecord(poc.organisationName)))));
+
 const renderCommon =
     (_m: Inspire) => (
         DIV({ className: 'app-col-wrapper meta-common' },
             DIV({ className: 'app-col-header' }, 'FR & NL'),
             DIV({ className: 'app-col-main' },
-                DIV({ className: 'keywords-wrapper' }, 'le truc des keywords'),
-                DIV({ className: 'responsible-person' },
-                    DIV({ className: 'label' }, tr('responsiblePerson')),
-                    INPUT({ type: 'text', value: '$UserName' })))));
+                DIV({ className: 'keywords-wrapper' }, 'le truc des keywords'))));
 
 
 const renderAction =
@@ -117,17 +118,30 @@ const renderAction =
             DIV({ className: 'app-col-main' },
                 isNotSaving(saveButton(saveMdForm)).fold(
                     () => DIV({}, tr('saving')),
-                    e => e
-                ),
+                    e => e),
                 toListButton(() => appEvents.setLayout(AppLayout.List)),
             )));
 
+const labeledString =
+    (l: string, v: string) => (
+        DIV({ className: 'metadata-label' },
+            SPAN({ className: 'label' }, l),
+            SPAN({ className: 'value' }, v)));
+
+const labeledNode =
+    (l: string, v: React.ReactNode) => (
+        DIV({ className: 'metadata-label' },
+            SPAN({ className: 'label' }, l), v));
 
 const renderEditor =
     (m: Inspire) => (
         DIV({ className: 'metadata-editor' },
             H1({}, tr('metadataEditor')),
-            DIV({ className: 'metadata-id sheet-title' }, m.id),
+            labeledString(tr('identifier'), m.id),
+            labeledString(tr('layerId'), m.uniqueResourceIdentifier),
+            labeledString(tr('geometryType'), m.geometryType),
+            labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
+            labeledNode(tr('pointOfContact'), renderPoc(m)),
             DIV({ className: 'meta-wrapper' },
                 renderEdit(m),
                 renderAction(m))));
