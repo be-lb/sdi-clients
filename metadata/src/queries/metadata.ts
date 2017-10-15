@@ -123,9 +123,29 @@ export const getKeywordDataOpt =
     (id: string) => fromNullable(query('data/keywords').find(k => k.id === id));
 
 export const getKeywords =
-    () => withoutNull(getMdForm().keywords.map(getKeywordDataOpt).map(o => o.fold(() => null, k => k)));
+    () => withoutNull(
+        getMdForm()
+            .keywords.map(getKeywordDataOpt)
+            .map(o => o.fold(() => null, k => k)));
 
 export const isSelectedKeyword =
     (id: string) => getMdForm().keywords.indexOf(id) >= 0;
+
+
+export const getTopicList =
+    () => query('data/topics');
+
+export const getTopicDataOpt =
+    (id: string) => fromNullable(query('data/topics').find(k => k.id === id));
+
+export const getTopics =
+    () => withoutNull(
+        getMdForm()
+            .topics.map(getTopicDataOpt)
+            .map(o => o.fold(() => null, k => k)));
+
+export const isSelectedTopic =
+    (id: string) => getMdForm().topics.indexOf(id) >= 0;
+
 
 logger('loaded');

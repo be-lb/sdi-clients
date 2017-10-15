@@ -9,6 +9,9 @@ import {
     getKeywordList,
     getKeywords,
     isSelectedKeyword,
+    getTopics,
+    getTopicList,
+    isSelectedTopic,
 } from '../../queries/metadata';
 import {
     saveMdForm,
@@ -16,6 +19,8 @@ import {
     setMdTitle,
     removeKeyword,
     addKeyword,
+    removeTopic,
+    addTopic,
 } from '../../events/metadata';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import button from '../button';
@@ -112,22 +117,35 @@ const renderEdit =
                 DIV({ className: 'label' }, 'Overzicht'),
                 renderTextArea('Overzicht',
                     getMdDescription('nl'), setMdDescription('nl')))),
-        renderCommon(m)
-    ));
+        renderCommon(m)));
 
 
 const renderPoc =
-    (m: Inspire) => m.metadataPointOfContact.map(poc => DIV({ className: 'point-of-contact' }, SPAN({ className: 'contact-name' }, poc.contactName), SPAN({ className: 'contact-email' }, poc.email), SPAN({ className: 'contact-organisation' }, fromRecord(getMessageRecord(poc.organisationName)))));
+    (m: Inspire) => m.metadataPointOfContact.map(
+        poc => (
+            DIV({ className: 'point-of-contact' },
+                SPAN({ className: 'contact-name' }, poc.contactName),
+                SPAN({ className: 'contact-email' }, poc.email),
+                SPAN({ className: 'contact-organisation' },
+                    fromRecord(getMessageRecord(poc.organisationName))))));
 
 
-const renderSelect =
+const renderSelectKeyword =
     () => {
-        const selected = getKeywords().map(kw => DIV({ className: 'keyword' }, removeButton(() => removeKeyword(kw.id)), SPAN({ className: 'value' }, fromRecord(kw.name))));
+        const selected =
+            getKeywords()
+                .map(kw => (
+                    DIV({ className: 'keyword' },
+                        removeButton(() => removeKeyword(kw.id)),
+                        SPAN({ className: 'value' }, fromRecord(kw.name)))));
 
-        const choice = getKeywordList().filter(kw => !isSelectedKeyword(kw.id)).map(k => DIV({
-            key: k.id,
-            onClick: () => isSelectedKeyword(k.id) ? removeKeyword(k.id) : addKeyword(k.id),
-        }, fromRecord(k.name)));
+        const choice =
+            getKeywordList()
+                .filter(kw => !isSelectedKeyword(kw.id))
+                .map(k => DIV({
+                    key: k.id,
+                    onClick: () => isSelectedKeyword(k.id) ? removeKeyword(k.id) : addKeyword(k.id),
+                }, fromRecord(k.name)));
 
         return (
             DIV({ className: 'keywords-wrapper' },
@@ -138,13 +156,45 @@ const renderSelect =
                 DIV({
                     className: 'select-keyword',
                 }, ...choice)));
-    }
+    };
+
+const renderSelectTopic =
+    () => {
+        const selected =
+            getTopics()
+                .map(topic => (
+                    DIV({ className: 'topic' },
+                        removeButton(() => removeTopic(topic.id)),
+                        SPAN({ className: 'value' }, fromRecord(topic.name)))));
+
+        const choice =
+            getTopicList()
+                .filter(topic => !isSelectedTopic(topic.id))
+                .map(t => DIV({
+                    key: t.id,
+                    onClick: () => isSelectedTopic(t.id) ? removeTopic(t.id) : addTopic(t.id),
+                }, fromRecord(t.name)));
+
+        return (
+            DIV({ className: 'topics-wrapper' },
+                DIV({ className: 'label' }, tr('topics')),
+                DIV({
+                    className: 'selected-topic',
+                }, ...selected),
+                DIV({
+                    className: 'select-topic',
+                }, ...choice)));
+    };
+
+
 
 const renderCommon =
     (_m: Inspire) => (
         DIV({ className: 'app-col-wrapper meta-common' },
             DIV({ className: 'app-col-header' }, 'FR & NL'),
-            DIV({ className: 'app-col-main' }, renderSelect())));
+            DIV({ className: 'app-col-main' },
+                renderSelectTopic(),
+                renderSelectKeyword())));
 
 
 const renderAction =

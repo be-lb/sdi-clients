@@ -196,6 +196,7 @@ export type MessageKey =
     | 'timeserieTemplateURL'
     | 'timeserieURL'
     | 'title'
+    | 'topics'
     | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
@@ -1116,5 +1117,10 @@ export const messages: MessageDB = {
     keywords: {
         fr: 'Mots clés',
         nl: 'Trefwoorden',
+    },
+
+    topics: {
+        fr: 'Thème',
+        nl: 'Thema',
     },
 };

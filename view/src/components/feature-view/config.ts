@@ -15,11 +15,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import queries from '../../queries/feature-config';
 import appQueries from '../../queries/app';
 import { DIV, A, IMG } from '../elements';
-import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel, NullConfig } from 'sdi/source';
+import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel } from 'sdi/source';
 import piechart from './piechart';
 import timeserie from './timeserie';
 import { formatNumber } from '../../locale/index';
@@ -98,17 +98,15 @@ const renderConfiguredRowBody =
 
 const renderConfiguredRow =
     (props: NotNullProperties) =>
-        (row: RowConfig | NullConfig) => {
+        (row: RowConfig) => {
             const className = 'feature-field';
             const elements: ReactNode[] = [];
-            if (row.type !== null) {
-                if (withLabel(row)) {
-                    if (row.options.withLabel) {
-                        elements.push(renderConfiguredRowLabel(row));
-                    }
+            if (withLabel(row)) {
+                if (row.options.withLabel) {
+                    elements.push(renderConfiguredRowLabel(row));
                 }
-                elements.push(renderConfiguredRowBody(props, row));
             }
+            elements.push(renderConfiguredRowBody(props, row));
 
             return DIV({ className }, ...elements);
         };

@@ -262,9 +262,12 @@ const queries = {
                     id,
                     getFreeText(md.resourceTitle),
                     getTemporalReference(md.temporalReference),
-                    md.topicCategory[0],
+                    md.topicCategory.reduce((acc, t, i) => {
+                        const sep = i === 0 ? '' : ', ';
+                        return acc + sep + getFreeText(t.name);
+                    }, ''),
                     md.responsibleOrganisation.reduce((acc, ri, idx) => {
-                        const sep = idx === 0 ? '' : '; ';
+                        const sep = idx === 0 ? '' : ', ';
                         return acc + sep + getFreeText(ri.organisationName);
                     }, ''),
                 ];

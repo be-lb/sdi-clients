@@ -73,3 +73,9 @@ export const addKeyword =
 
 export const removeKeyword =
     (id: string) => single(s => ({ ...s, keywords: s.keywords.filter(k => k !== id) }));
+
+export const addTopic =
+    (id: string) => single(s => ({ ...s, topics: s.topics.concat([id]) }));
+
+export const removeTopic =
+    (id: string) => single(s => ({ ...s, topics: s.topics.filter(k => k !== id) }));
