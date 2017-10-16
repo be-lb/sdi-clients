@@ -56,6 +56,7 @@ export type MessageKey =
     | 'confirm'
     | 'confirmDelete'
     | 'connect'
+    | 'connectionSDI'
     | 'copy'
     | 'dashboard'
     | 'datas'
@@ -144,6 +145,7 @@ export type MessageKey =
     | 'noResults'
     | 'offsetX'
     | 'offsetY'
+    | 'password'
     | 'piechartScale'
     | 'piechartRadius'
     | 'pointColor'
@@ -202,6 +204,7 @@ export type MessageKey =
     | 'unpublish'
     | 'uploadDatas'
     | 'uploadShpInfos'
+    | 'userName'
     | 'validate'
     | 'valuesCovered'
     | 'viewLayer'
@@ -1135,4 +1138,21 @@ export const messages: MessageDB = {
         fr: 'Dépublier',
         nl: 'Unpublish',
     },
+
+    userName: {
+        fr: 'Nom d\'utilisateur',
+        nl: 'Gebruikersnaam',
+    },
+
+    password: {
+        fr: 'Mot de passe',
+        nl: 'Wachtwoord',
+    },
+
+    connectionSDI: {
+        fr: 'Connection au SDI',
+        nl: 'Verbinding met SDI',
+    },
+
+
 };

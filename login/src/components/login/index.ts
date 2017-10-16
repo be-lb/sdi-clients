@@ -1,8 +1,10 @@
 import { Credentials } from 'sdi/source';
-import { DIV, INPUT } from '../elements';
+import { DIV, H1, INPUT } from '../elements';
 import { getUsername, getPassword } from '../../queries/login';
 import { setUsername, setPassword, tryLogin } from '../../events/login';
 import button from '../button';
+import tr from '../../locale';
+
 
 
 export interface LoginForm {
@@ -23,6 +25,7 @@ const loginButton = button('login', 'login');
 const renderUsername =
     () => (
         DIV({ className: 'username' },
+            DIV({ className: 'label' }, tr('userName')),
             INPUT({
                 type: 'text',
                 defaultValue: getUsername(),
@@ -33,6 +36,7 @@ const renderUsername =
 const renderPassword =
     () => (
         DIV({ className: 'password' },
+            DIV({ className: 'label' }, tr('password')),
             INPUT({
                 type: 'password',
                 defaultValue: getPassword(),
@@ -42,9 +46,11 @@ const renderPassword =
 
 const render =
     () => (
-        DIV({},
-            renderUsername(),
-            renderPassword(),
-            loginButton(tryLogin)));
+        DIV({ className: 'login-wrapper' },
+            H1({}, tr('connectionSDI')),
+            DIV({ className: 'login-widget' },
+                renderUsername(),
+                renderPassword(),
+                loginButton(tryLogin))));
 
 export default render;
