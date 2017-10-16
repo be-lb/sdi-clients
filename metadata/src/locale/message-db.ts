@@ -118,6 +118,7 @@ export type MessageKey =
     | 'location'
     | 'locationHelp'
     | 'login'
+    | 'logout'
     | 'longitude'
     | 'lowValue'
     | 'map'
@@ -481,6 +482,11 @@ export const messages: MessageDB = {
     login: {
         fr: 'Se connecter',
         nl: 'Inloggen',
+    },
+
+    logout: {
+        fr: 'Se déconnecter',
+        nl: 'Uitloggen',
     },
 
     location: {

@@ -47,26 +47,18 @@ body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
     .header-toolbar {
         .absolute(initial, @margin, initial, initial);
 
-        .login {
-            display: none; // TEMPORARY
+        > * {
             .interactive;
-            padding: 0 @margin;
+            padding-right: @margin;
 
             &:after {
-                .awsomefont;
-                content: @fa-var-user;
-                margin-left: @small-margin;
+            .awsomefont;
+            margin-left: @small-margin;
             }
         }
-
-        .lang-switch {
-            .interactive;
-
-            &:after {
-                .awsomefont;
-                content: @fa-var-globe;
-                margin-left: @small-margin;
-            }
-        }
+        
+        .login:after {content: @fa-var-user;}
+        .my-apps:after {content: @fa-var-wrench;}
+        .lang-switch:after {content: @fa-var-globe;}
     }
 }

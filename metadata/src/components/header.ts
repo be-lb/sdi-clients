@@ -47,10 +47,13 @@ const render =
         return DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
-                DIV({ className: 'be-name'})),
+                DIV({ className: 'be-name' })),
             // renderDashboardButton(),
             DIV({ className: 'header-toolbar' },
-                SPAN({ className: 'login' }, tr('login')),
+                SPAN({ className: 'my-apps' },
+                    tr('dashboard')),
+                SPAN({ className: 'login' },
+                    tr('logout')),
                 langSwitch()));
 
     };
