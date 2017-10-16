@@ -37,7 +37,7 @@ export const setPassword =
 
 export const tryLogin =
     () => (
-        loginUser(queries.getApiUrl('api_login'), getCredentials())
+        loginUser(queries.getApiUrl('auth/login'), getCredentials())
             .then(u => dispatch('data/user', () => u)));
 
 logger('loaded');

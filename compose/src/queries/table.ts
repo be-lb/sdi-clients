@@ -222,7 +222,7 @@ const queries = {
             'id',
             'resourceTitle',
             'temporalReference',
-            'topicCategory',
+            // 'topicCategory',
             'responsibleOrganisation',
         ]);
     },
@@ -231,7 +231,7 @@ const queries = {
         return ([
             'string',
             'string',
-            'string',
+            // 'string',
             'string',
             'string',
         ]);
@@ -262,10 +262,10 @@ const queries = {
                     id,
                     getFreeText(md.resourceTitle),
                     getTemporalReference(md.temporalReference),
-                    md.topicCategory.reduce((acc, t, i) => {
-                        const sep = i === 0 ? '' : ', ';
-                        return acc + sep + getFreeText(t.name);
-                    }, ''),
+                    // md.topicCategory.reduce((acc, t, i) => {
+                    //     const sep = i === 0 ? '' : ', ';
+                    //     return acc + sep + getFreeText(t.name);
+                    // }, ''),
                     md.responsibleOrganisation.reduce((acc, ri, idx) => {
                         const sep = idx === 0 ? '' : ', ';
                         return acc + sep + getFreeText(ri.organisationName);
