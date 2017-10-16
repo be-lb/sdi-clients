@@ -13,31 +13,36 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+
+import * as debug from 'debug';
+import { IStoreInteractions } from 'sdi/source';
+import { IShape } from '../shape';
+
+const logger = debug('sdi:queries');
+let storeRef: IStoreInteractions<IShape>;
 
 
-import { i, a, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
-
-export const IRoleIO = i({
-    id: io.string,
-    label: MessageRecordIO,
-}, 'IRoleIO');
-export type IRole = TypeOf<typeof IRoleIO>;
+export type IQuery<K extends keyof IShape> = (key: K) => IShape[K];
+export interface IQueryOptions { }
 
 
-
-export const IUserIO = i({
-    id: io.string,
-    name: io.string,
-    roles: a(IRoleIO),
-    maps: a(io.string),
-    layers: a(io.string),
-}, 'IUserIO');
-export type IUser = TypeOf<typeof IUserIO>;
+export const configure = (store: IStoreInteractions<IShape>) => {
+    logger('configure');
+    if (storeRef) {
+        throw (new Error('GetPathAlreadyConfigured'));
+    }
+    storeRef = store;
+};
 
 
-export const CredentialsIO = i({
-    username: io.string,
-    password: io.string,
-});
-export type Credentials = TypeOf<typeof CredentialsIO>;
+export const query = <K extends keyof IShape>(key: K): IShape[K] => {
+    if (!storeRef) {
+        throw (new Error('GetPathNotConfigured'));
+    }
+
+    return (storeRef.get(key));
+};
+
+
+logger('loaded');

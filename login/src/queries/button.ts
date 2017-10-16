@@ -13,31 +13,34 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+import { query } from './index';
+import { MAX_DURATION } from '../components/button';
 
+const queries = {
+    allButtons() {
+        return query('component/button');
+    },
 
-import { i, a, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
+    hasKey(k: string) {
+        const s = query('component/button');
+        return (k in s);
+    },
 
-export const IRoleIO = i({
-    id: io.string,
-    label: MessageRecordIO,
-}, 'IRoleIO');
-export type IRole = TypeOf<typeof IRoleIO>;
+    isActive(k: string) {
+        const s = query('component/button')[k];
+        const n = Date.now();
+        return (
+            (s)
+                ? ((s.step === 'active') && (n - s.since < MAX_DURATION))
+                : false);
+    },
 
+    duration(k: string) {
+        const s = query('component/button')[k];
+        return (s) ? Date.now() - s.since : Date.now();
+    },
+};
 
+export default queries;
 
-export const IUserIO = i({
-    id: io.string,
-    name: io.string,
-    roles: a(IRoleIO),
-    maps: a(io.string),
-    layers: a(io.string),
-}, 'IUserIO');
-export type IUser = TypeOf<typeof IUserIO>;
-
-
-export const CredentialsIO = i({
-    username: io.string,
-    password: io.string,
-});
-export type Credentials = TypeOf<typeof CredentialsIO>;

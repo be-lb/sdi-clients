@@ -1,3 +1,6 @@
+
+
+
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -13,31 +16,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
+import { DIV } from './elements';
 
+const render = () => (
+    DIV({ className: 'footer' },
+        DIV({}, 'Spatial Data Infrastructure © atelier cartographique'))
+);
 
-import { i, a, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
-
-export const IRoleIO = i({
-    id: io.string,
-    label: MessageRecordIO,
-}, 'IRoleIO');
-export type IRole = TypeOf<typeof IRoleIO>;
-
-
-
-export const IUserIO = i({
-    id: io.string,
-    name: io.string,
-    roles: a(IRoleIO),
-    maps: a(io.string),
-    layers: a(io.string),
-}, 'IUserIO');
-export type IUser = TypeOf<typeof IUserIO>;
-
-
-export const CredentialsIO = i({
-    username: io.string,
-    password: io.string,
-});
-export type Credentials = TypeOf<typeof CredentialsIO>;
+export default render;

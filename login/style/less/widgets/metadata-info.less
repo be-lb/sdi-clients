@@ -1,0 +1,37 @@
+.metadata-editor .metadata-info {
+    .app-col-main {
+        font-size: 0.8rem;
+    }
+
+    .toggle {
+        .flex(@justify: flex-start);
+
+        .active, .no-active {font-weight: 500;}
+        .active {color:@green;}
+        .no-active {color:@light-grey;}
+
+        .icon-only:before {
+            font-size: 18px;
+            color: @green;
+            margin: 0 @small-margin;
+        }
+    }
+
+    .keyword,
+    .topic{
+        margin-bottom: @small-margin;
+
+        .btn-remove.icon-only {
+            margin-left: 0px;
+            margin-right: @small-margin;
+            &:before {margin-left: 0px;}
+        }
+    }
+
+
+    .point-of-contact {
+        > * {
+            display: block;
+        }
+    }
+}
