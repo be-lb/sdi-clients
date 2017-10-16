@@ -2,7 +2,7 @@
 .metadata-editor .meta-fr,
 .metadata-editor .meta-nl {
     input {
-        padding: @small-margin;
+        padding: @small-margin * 2;
         margin-bottom: @margin;
         width: 100%;
 
@@ -11,8 +11,14 @@
     textarea {
         width: 100%;
         resize: vertical;
-        height: 200px;
+        height: 100%;
         padding: @small-margin;
         margin-bottom: 0;
+    }
+
+    .app-col-main {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: @margin;
     }
 }
