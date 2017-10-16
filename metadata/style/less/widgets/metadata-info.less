@@ -1,17 +1,37 @@
-.metadata-editor .meta-fr,
-.metadata-editor .meta-nl {
-    input {
-        padding: @small-margin;
-        margin-bottom: @margin;
-        width: 100%;
-
+.metadata-editor .metadata-info {
+    .app-col-main {
+        font-size: 0.8rem;
     }
 
-    textarea {
-        width: 100%;
-        resize: vertical;
-        height: 200px;
-        padding: @small-margin;
-        margin-bottom: 0;
+    .toggle {
+        .flex(@justify: flex-start);
+
+        .active, .no-active {font-weight: 500;}
+        .active {color:@green;}
+        .no-active {color:@light-grey;}
+
+        .icon-only:before {
+            font-size: 18px;
+            color: @green;
+            margin: 0 @small-margin;
+        }
+    }
+
+    .keyword,
+    .topic{
+        margin-bottom: @small-margin;
+
+        .btn-remove.icon-only {
+            margin-left: 0px;
+            margin-right: @small-margin;
+            &:before {margin-left: 0px;}
+        }
+    }
+
+
+    .point-of-contact {
+        > * {
+            display: block;
+        }
     }
 }

@@ -7,6 +7,7 @@
         .labelStyle;
         text-align: center;
         font-size: 1rem;
+        margin-bottom: @margin;
     }
 
     .keywords-wrapper,
@@ -17,13 +18,6 @@
         flex-direction: column;
         padding-bottom: @margin;
         // overflow-y: auto;
-
-        .selected-keyword,
-        .selected-topic{
-            flex: 1;
-            margin-bottom: @margin;
-            > div {padding-bottom: @small-margin;}
-        }
 
         .select-keyword,
         .select-topic {
@@ -36,11 +30,6 @@
                     .interactive-light ;
                 }
             }
-        }
-
-        .btn-remove.icon-only {
-            margin-left: 0px;
-            margin-right: @small-margin;
         }
     }
     .topics-wrapper {

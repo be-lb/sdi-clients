@@ -43,8 +43,8 @@ export interface MdForm {
 const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
 const removeButton = button('remove');
-const publishButton = button('publish');
-const unpublishButton = button('unpublish');
+const publishButton = button('unpublish');
+const unpublishButton = button('publish');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -187,7 +187,6 @@ const renderCommon =
 const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
-            renderPublishState(_m),
             isNotSaving(saveButton(saveMdForm)).fold(
                 () => DIV({}, tr('saving')),
                 e => e),
@@ -209,14 +208,14 @@ const renderPublishState =
     ({ published }: Inspire) => {
         if (published) {
             return DIV({ className: 'toggle' },
-                DIV({ className: 'active' }, tr('published')),
+                DIV({ className: 'no-active' }, tr('draft')),
                 unpublishButton(mdDraft),
-                DIV({ className: 'no-active' }, tr('draft')));
+                DIV({ className: 'active' }, tr('published')));
         }
         return DIV({ className: 'toggle' },
-            DIV({ className: 'no-active' }, tr('published')),
+            DIV({ className: 'active' }, tr('draft')),
             publishButton(mdPublish),
-            DIV({ className: 'active' }, tr('draft')));
+            DIV({ className: 'no-active' }, tr('published')));
     };
 
 const renderTopics =
