@@ -1,0 +1,50 @@
+.metadata-editor .meta-common {
+    .app-col-main {
+        max-height: 100% !important;
+    }
+
+    .label {
+        .labelStyle;
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .keywords-wrapper,
+    .topics-wrapper  {
+        height: calc(~"50% - @{margin} / 2");
+        // height: 50%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: @margin;
+        // overflow-y: auto;
+
+        .selected-keyword,
+        .selected-topic{
+            flex: 1;
+            margin-bottom: @margin;
+            > div {padding-bottom: @small-margin;}
+        }
+
+        .select-keyword,
+        .select-topic {
+            overflow-y: auto;
+            font-size: 0.8em;
+
+            > div {
+                padding-bottom: @small-margin;
+                &:hover {
+                    .interactive-light ;
+                }
+            }
+        }
+
+        .btn-remove.icon-only {
+            margin-left: 0px;
+            margin-right: @small-margin;
+        }
+    }
+    .topics-wrapper {
+        border-bottom: 1px solid #000;
+        margin-bottom: @margin;
+    }
+}
