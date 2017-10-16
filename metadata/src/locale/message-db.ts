@@ -1075,8 +1075,8 @@ export const messages: MessageDB = {
         nl: 'Bronidentificatie',
     },
     layerInfo: {
-        fr: 'Informations sur la ressource',
-        nl: 'Informatie over hulpbronnen',
+        fr: 'Informations',
+        nl: 'Informatie',
     },
 
     temporalReference: {

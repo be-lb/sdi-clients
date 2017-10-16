@@ -199,7 +199,7 @@ const renderSelectTopic =
 const renderCommon =
     (_m: Inspire) => (
         DIV({ className: 'app-col-wrapper meta-common' },
-            DIV({ className: 'app-col-header' }, 'FR & NL'),
+            // DIV({ className: 'app-col-header' }, 'FR & NL'),
             DIV({ className: 'app-col-main' },
                 renderSelectTopic(),
                 renderSelectKeyword())));
