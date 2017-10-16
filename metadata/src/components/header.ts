@@ -28,19 +28,15 @@ import tr from '../locale';
 const logger = debug('sdi:header');
 
 
-// const dashboardButton = button('settings', 'dashboard');
 
-// const renderDashboardButton =
-//     () => {
-//         if (AppLayout.Dashboard === queries.getLayout()) {
-//             return DIV();
-//         }
-//         return (
-//             DIV({ className: 'dashboard-link-wrapper' },
-//                 DIV({ className: 'dashboard-link' },
-//                     dashboardButton(() => events.setLayout(AppLayout.Dashboard))))
-//         );
-//     };
+
+const renderAppListingButton =
+    () => {
+        return DIV({ className: 'app-listview' }, tr('sheetList'));
+    };
+
+
+
 
 const render =
     () => {
@@ -48,12 +44,12 @@ const render =
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
                 DIV({ className: 'be-name' })),
-            // renderDashboardButton(),
+            renderAppListingButton(),
             DIV({ className: 'header-toolbar' },
-                SPAN({ className: 'my-apps' },
+                SPAN({ className: 'dashboard' },
                     tr('dashboard')),
-                SPAN({ className: 'login' },
-                    tr('logout')),
+                // SPAN({ className: 'login' },
+                //     tr('dashboard')),
                 langSwitch()));
 
     };

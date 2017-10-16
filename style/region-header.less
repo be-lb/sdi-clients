@@ -36,12 +36,24 @@ body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
         // position: relative;
     }
 
-    .dashboard-link-wrapper {
+    .dashboard-link-wrapper,
+    .app-listview {
         .absolute(initial, @panel-rightW, initial, initial);
         .dashboard-link {
             margin-left: @margin;
         }
 
+    }
+
+    .app-listview {
+        .interactive;
+        padding-right: @margin;
+
+        &:after {
+        .awsomefont;
+        content: @fa-var-table;
+        margin-left: @small-margin;
+        }
     }
 
     .header-toolbar {
@@ -56,9 +68,9 @@ body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
             margin-left: @small-margin;
             }
         }
-        
+
         .login:after {content: @fa-var-user;}
-        .my-apps:after {content: @fa-var-wrench;}
+        .dashboard:after {content: @fa-var-dot-circle-o;}
         .lang-switch:after {content: @fa-var-globe;}
     }
 }
