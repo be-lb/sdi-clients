@@ -35,10 +35,12 @@ export const selectMetadata =
 
 const updatedMd =
     (md: Inspire): Inspire => {
-        const { title, description, keywords } = getMdForm();
+        const { title, description, keywords, topics, published } = getMdForm();
         return {
             ...md,
             keywords,
+            published,
+            topicCategory: topics,
             resourceTitle: title,
             resourceAbstract: description,
         };
@@ -79,3 +81,14 @@ export const addTopic =
 
 export const removeTopic =
     (id: string) => single(s => ({ ...s, topics: s.topics.filter(k => k !== id) }));
+
+export const mdPublish =
+    () => {
+        single(s => ({ ...s, published: true }));
+        saveMdForm();
+    };
+export const mdDraft =
+    () => {
+        single(s => ({ ...s, published: false }));
+        saveMdForm();
+    }; 

@@ -537,7 +537,8 @@ export const InspireIO = io.intersection([
         uniqueResourceIdentifier: DatasetUIDIO, // should be an array though, but we're going to refernce only one layer per md.
 
         // topicCategory: Multiplicity1Star<TopicCategory>('TopicCategory', TopicCategoryIO),
-        topicCategory: a(TopicCategoryIO),
+        // topicCategory: a(TopicCategoryIO),
+        topicCategory: a(io.string),
 
         // keyword: Multiplicity1Star<Keyword>('Keyword', KeywordIO),
         keywords: a(io.string),

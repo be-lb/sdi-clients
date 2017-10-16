@@ -21,6 +21,8 @@ import {
     addKeyword,
     removeTopic,
     addTopic,
+    mdPublish,
+    mdDraft,
 } from '../../events/metadata';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import button from '../button';
@@ -34,12 +36,15 @@ export interface MdForm {
     description: MessageRecord;
     topics: string[];
     keywords: string[];
+    published: boolean;
     saving: boolean;
 }
 
 const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
 const removeButton = button('remove');
+const publishButton = button('publish', 'publish');
+const draftButton = button('draft', 'draft');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -49,6 +54,7 @@ export const defaultMdFormState =
         description: defaultMessage(),
         topics: [],
         keywords: [],
+        published: false,
         saving: false,
     });
 
@@ -57,6 +63,7 @@ type TextGetter = () => string;
 type TextSetter = (a: string) => void;
 
 const isNotSaving = fromPredicate<void, React.ReactNode>(() => !formIsSaving(), () => { });
+
 
 
 const renderInputText =
@@ -228,10 +235,19 @@ const renderInfo =
                 labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
                 labeledNode(tr('pointOfContact'), renderPoc(m)))));
 
+const renderPublishState =
+    ({ published }: Inspire) => {
+        if (published) {
+            return draftButton(mdDraft);
+        }
+        return publishButton(mdPublish);
+    };
+
 const renderEditor =
     (m: Inspire) => (
         DIV({ className: 'metadata-editor' },
             H1({}, tr('metadataEditor')),
+            renderPublishState(m),
             DIV({ className: 'meta-wrapper' },
                 renderEdit(m)),
             DIV({ className: 'metadata-actions' },

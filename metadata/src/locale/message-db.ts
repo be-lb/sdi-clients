@@ -151,6 +151,7 @@ export type MessageKey =
     | 'pointOfContact'
     | 'propName'
     | 'propNameForLabel'
+    | 'publish'
     | 'published'
     | 'publicationStatus'
     | 'quotationMark'
@@ -1097,6 +1098,11 @@ export const messages: MessageDB = {
     published: {
         fr: 'Publié',
         nl: 'Gepubliceerd',
+    },
+
+    publish: {
+        fr: 'Publier',
+        nl: 'Publiceren',
     },
 
     publicationStatus: {
