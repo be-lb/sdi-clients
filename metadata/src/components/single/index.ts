@@ -187,10 +187,10 @@ const renderCommon =
 const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
+            toListButton(() => appEvents.setLayout(AppLayout.List)),
             isNotSaving(saveButton(saveMdForm)).fold(
                 () => DIV({}, tr('saving')),
                 e => e),
-            toListButton(() => appEvents.setLayout(AppLayout.List)),
         ));
 
 const labeledString =
