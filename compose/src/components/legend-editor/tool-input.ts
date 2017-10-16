@@ -139,36 +139,39 @@ const updateColor =
 const renderRGB =
     (get: AlphaColorGetter, set: AlphaColorSetter) => {
         const color = get();
-        const r = INPUT({
-            type: 'number',
-            value: Math.round(color.red()),
-            onChange: e => set(color.red(e.currentTarget.valueAsNumber)),
-        });
-        const g = INPUT({
-            type: 'number',
-            value: Math.round(color.green()),
-            onChange: e => set(color.green(e.currentTarget.valueAsNumber)),
-        });
-        const b = INPUT({
-            type: 'number',
-            value: Math.round(color.blue()),
-            onChange: e => set(color.blue(e.currentTarget.valueAsNumber)),
-        });
+        const r = SPAN({ className: 'red' },
+            INPUT({
+                type: 'number',
+                value: Math.round(color.red()),
+                onChange: e => set(color.red(e.currentTarget.valueAsNumber)),
+            }));
+        const g = SPAN({ className: 'green' },
+            INPUT({
+                type: 'number',
+                value: Math.round(color.green()),
+                onChange: e => set(color.green(e.currentTarget.valueAsNumber)),
+            }));
+        const b = SPAN({ className: 'blue' },
+            INPUT({
+                type: 'number',
+                value: Math.round(color.blue()),
+                onChange: e => set(color.blue(e.currentTarget.valueAsNumber)),
+            }));
 
-        return DIV({ className: 'color-rgb' }, r, g, b);
-    };
-
-export const renderInputAlphaColor =
-    (className: string, label: string, get: AlphaColorGetter, set: AlphaColorSetter) => {
-        const color = get();
-
-        const preview = DIV({ className: 'color-preview' },
-            DIV({
+        const preview = SPAN({ className: 'color-preview' },
+            SPAN({
                 className: 'color-color',
                 style: {
                     backgroundColor: color.toString(),
                 },
             }));
+
+        return DIV({ className: 'color-rgb' }, r, g, b, preview);
+    };
+
+export const renderInputAlphaColor =
+    (className: string, label: string, get: AlphaColorGetter, set: AlphaColorSetter) => {
+        const color = get();
 
         const updateHue = updateColor((val: number) => {
             set(color.hue(val * 360));
@@ -229,7 +232,7 @@ export const renderInputAlphaColor =
         return (
             DIV({ className: `style-tool alpha-color ${className}` },
                 SPAN({ className: 'input-label' }, label),
-                renderRGB(get, set), preview,
+                renderRGB(get, set),
                 hue, saturation, lightness, alpha)
         );
     };

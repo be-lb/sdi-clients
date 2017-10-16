@@ -43,15 +43,41 @@
     background: url(~"../../imgs/color-bg.png") repeat;
 }
 
-.color-preview {
-    width: 50%;
-    height: 32px;
-    background: url(~"../../imgs/color-bg.png") repeat;
-    .color-color{
-    width: 100%;
-    height: 100%;
+
+.color-rgb {
+    display: flex;
+
+
+    span {
+        flex: 3;
+        display: flex;
+        align-items: center;
+
+        &:before {
+            padding: 0 @small-margin;
+        }
+
+        input {
+            flex: 1;
+        }
+
+        &.color-preview {
+            flex: 1;
+            margin-left: @small-margin;
+            background: url(~"../../imgs/color-bg.png") repeat;
+            .color-color{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+
+        &:first-child:before {
+            padding-left: 0px;
+        }
     }
+
+    .red:before {content: 'R : '}
+    .green:before {content: 'G : '}
+    .blue:before {content: 'B : '}
 }
-
-
-
