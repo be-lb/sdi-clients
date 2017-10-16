@@ -51,6 +51,7 @@ export type ButtonType =
     | 'table'
     | 'text'
     | 'translate'
+    | 'unpublish'
     | 'upload'
     | 'validate'
     | 'view'

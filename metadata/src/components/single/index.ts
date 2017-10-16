@@ -44,7 +44,8 @@ const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
 const removeButton = button('remove');
 const publishButton = button('publish', 'publish');
-const draftButton = button('draft', 'draft');
+const unpublishButton = button('unpublish', 'unpublish');
+// const draftButton = button('draft', 'draft');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -207,6 +208,7 @@ const renderCommon =
 const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
+            renderPublishState(_m),
             isNotSaving(saveButton(saveMdForm)).fold(
                 () => DIV({}, tr('saving')),
                 e => e),
@@ -238,7 +240,7 @@ const renderInfo =
 const renderPublishState =
     ({ published }: Inspire) => {
         if (published) {
-            return draftButton(mdDraft);
+            return unpublishButton(mdDraft);
         }
         return publishButton(mdPublish);
     };
@@ -247,7 +249,6 @@ const renderEditor =
     (m: Inspire) => (
         DIV({ className: 'metadata-editor' },
             H1({}, tr('metadataEditor')),
-            renderPublishState(m),
             DIV({ className: 'meta-wrapper' },
                 renderEdit(m)),
             DIV({ className: 'metadata-actions' },

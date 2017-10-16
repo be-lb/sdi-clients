@@ -199,6 +199,7 @@ export type MessageKey =
     | 'title'
     | 'topics'
     | 'upload'
+    | 'unpublish'
     | 'uploadDatas'
     | 'uploadShpInfos'
     | 'validate'
@@ -1128,5 +1129,10 @@ export const messages: MessageDB = {
     topics: {
         fr: 'Thème',
         nl: 'Thema',
+    },
+
+    unpublish: {
+        fr: 'Dépublier',
+        nl: 'Unpublish',
     },
 };

@@ -16,7 +16,10 @@
     }
 
     .label {
-        .labelStyle;
+        // .labelStyle;
+        font-weight: 100;
+        text-transform: uppercase;
+        // font-size: 0.8em;
     }
 
     .meta-wrapper {
@@ -45,9 +48,10 @@
             }
 
             .app-col-header {
+                .labelStyle;
                 // font-size: 0.8em;
                 display: flex;
-                font-weight: 100;
+                // font-weight: 100;
                 text-align: center;
                 margin-bottom: @margin;
             }
@@ -80,16 +84,23 @@
 
         .metadata-label {margin-bottom: @margin;}
 
-        .keywords-wrapper {
+        .metadata-info .app-col-main {
+            font-size: 0.8em;
+        }
+
+        .keywords-wrapper,
+        .topics-wrapper  {
             height: 50%;
             overflow-y: auto;
 
-            .selected-keyword {
+            .selected-keyword,
+            .selected-topic{
                 margin-bottom: @margin;
                 > div {padding-bottom: @small-margin;}
             }
 
-            .select-keyword {
+            .select-keyword,
+            .select-topic {
                 font-size: 0.8em;
 
                 > div {
