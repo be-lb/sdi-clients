@@ -203,7 +203,7 @@ const renderRow =
             const evenOdd = ((rowNum % 2) > 0) ? 'odd table-row' : 'even table-row';
             return DIV(
                 {
-                    key: rowNum.toString(),
+                    key: data.from,
                     className: `${evenOdd} ${selected}`,
                     onClick: selectRow(config, rowNum),
                 },

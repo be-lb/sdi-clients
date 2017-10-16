@@ -43,9 +43,8 @@ export interface MdForm {
 const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
 const removeButton = button('remove');
-const publishButton = button('publish', 'publish');
-const unpublishButton = button('unpublish', 'unpublish');
-// const draftButton = button('draft', 'draft');
+const publishButton = button('publish');
+const unpublishButton = button('unpublish');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
@@ -140,13 +139,6 @@ const renderPoc =
 
 const renderSelectKeyword =
     () => {
-        const selected =
-            getKeywords()
-                .map(kw => (
-                    DIV({ className: 'keyword' },
-                        removeButton(() => removeKeyword(kw.id)),
-                        SPAN({ className: 'value' }, fromRecord(kw.name)))));
-
         const choice =
             getKeywordList()
                 .filter(kw => !isSelectedKeyword(kw.id))
@@ -159,22 +151,12 @@ const renderSelectKeyword =
             DIV({ className: 'keywords-wrapper' },
                 DIV({ className: 'label' }, tr('keywords')),
                 DIV({
-                    className: 'selected-keyword',
-                }, ...selected),
-                DIV({
                     className: 'select-keyword',
                 }, ...choice)));
     };
 
 const renderSelectTopic =
     () => {
-        const selected =
-            getTopics()
-                .map(topic => (
-                    DIV({ className: 'topic' },
-                        removeButton(() => removeTopic(topic.id)),
-                        SPAN({ className: 'value' }, fromRecord(topic.name)))));
-
         const choice =
             getTopicList()
                 .filter(topic => !isSelectedTopic(topic.id))
@@ -186,9 +168,6 @@ const renderSelectTopic =
         return (
             DIV({ className: 'topics-wrapper' },
                 DIV({ className: 'label' }, tr('topics')),
-                DIV({
-                    className: 'selected-topic',
-                }, ...selected),
                 DIV({
                     className: 'select-topic',
                 }, ...choice)));
@@ -226,24 +205,49 @@ const labeledNode =
         DIV({ className: 'metadata-label' },
             DIV({ className: 'label' }, l), v));
 
+const renderPublishState =
+    ({ published }: Inspire) => {
+        if (published) {
+            return DIV({ className: 'toggle' },
+                DIV({ className: 'active' }, tr('published')),
+                unpublishButton(mdDraft),
+                DIV({ className: 'no-active' }, tr('draft')));
+        }
+        return DIV({ className: 'toggle' },
+            DIV({ className: 'no-active' }, tr('published')),
+            publishButton(mdPublish),
+            DIV({ className: 'active' }, tr('draft')));
+    };
+
+const renderTopics =
+    () => DIV({}, ...getTopics()
+        .map(topic => (
+            DIV({ className: 'topic' },
+                removeButton(() => removeTopic(topic.id)),
+                SPAN({ className: 'value' }, fromRecord(topic.name))))));
+
+const renderKeywords =
+    () => DIV({}, ...getKeywords()
+        .map(kw => (
+            DIV({ className: 'keyword' },
+                removeButton(() => removeKeyword(kw.id)),
+                SPAN({ className: 'value' }, fromRecord(kw.name))))));
+
 const renderInfo =
     (m: Inspire) => (
         DIV({ className: 'app-col-wrapper metadata-info' },
             DIV({ className: 'app-col-header' }, tr('layerInfo')),
             DIV({ className: 'app-col-main' },
-                labeledString(tr('identifier'), m.id),
+                labeledNode(tr('publicationStatus'), renderPublishState(m)),
                 labeledString(tr('layerId'), m.uniqueResourceIdentifier),
+                labeledNode(tr('topics'), renderTopics()),
+                labeledNode(tr('keywords'), renderKeywords()),
                 labeledString(tr('geometryType'), m.geometryType),
                 labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
-                labeledNode(tr('pointOfContact'), renderPoc(m)))));
+                labeledNode(tr('pointOfContact'), renderPoc(m)),
+                labeledString(tr('identifier'), m.id))));
 
-const renderPublishState =
-    ({ published }: Inspire) => {
-        if (published) {
-            return unpublishButton(mdDraft);
-        }
-        return publishButton(mdPublish);
-    };
+
 
 const renderEditor =
     (m: Inspire) => (
