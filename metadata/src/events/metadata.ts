@@ -27,6 +27,8 @@ export const selectMetadata =
         getDatasetMetadata(id)
             .map(md => dispatch('component/single', s => ({
                 ...s,
+                keywords: md.keywords,
+                topics: md.topicCategory,
                 title: getMessageRecord(md.resourceTitle),
                 description: getMessageRecord(md.resourceAbstract),
             })));
