@@ -16,7 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import './polyfill';
+import 'sdi/polyfill';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
 import App from './app';

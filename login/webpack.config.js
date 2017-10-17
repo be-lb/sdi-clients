@@ -15,7 +15,8 @@ const STYLE_ENTRY_PATH = resolve(ROOT, 'style/index.js');
 const OUTPUT_DIR = resolve(ROOT, 'dist');
 const SDI_ALIAS_ROOT = resolve(ROOT, '../sdi/');
 const SDI_ALIAS = {
-    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source')
+    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
+    'sdi/polyfill': resolve(SDI_ALIAS_ROOT, 'polyfill'),
 };
 
 console.log(`ROOT ${ROOT}`);
