@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -17,9 +15,9 @@
  */
 
 import * as debug from 'debug';
-import { SPAN, DIV } from './elements';
+import { DIV } from './elements';
 import langSwitch from './lang-switch';
-import tr from '../locale';
+// import tr from '../locale';
 // import button from './button';
 // import events from '../events/app';
 // import queries from '../queries/app';
@@ -47,10 +45,10 @@ const render =
         return DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
-                DIV({ className: 'be-name'})),
+                DIV({ className: 'be-name' })),
             // renderDashboardButton(),
             DIV({ className: 'header-toolbar' },
-                SPAN({ className: 'login' }, tr('login')),
+                // SPAN({ className: 'login' }, tr('login')),
                 langSwitch()));
 
     };
