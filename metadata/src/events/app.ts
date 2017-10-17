@@ -61,6 +61,9 @@ const events = {
         dispatch('app/layout', state => state.concat([l]));
     },
 
+    navigateRoot() {
+        window.location.assign(queries.getRoot());
+    },
 
 
     loadDatasetMetadata(id: string, url: string) {

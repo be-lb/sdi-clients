@@ -55,11 +55,11 @@ export const main =
             appShape['app/user'] = SDI.user;
         }
         else {
-            const hereUrl = document.location.href;
-            const loginUrl = `/login?next=${hereUrl}`;
+            const loginUrl = `${SDI.root}login/metadata`;
             window.location.assign(loginUrl);
         }
 
+        appShape['app/root'] = SDI.root;
         appShape['app/api-root'] = SDI.api;
         appShape['app/csrf'] = SDI.csrf;
 

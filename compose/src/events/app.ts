@@ -149,6 +149,10 @@ const events = {
             });
     },
 
+    navigateRoot() {
+        window.location.assign(queries.getRoot());
+    },
+
     setLang(lc: 'fr' | 'nl') {
         dispatch('app/lang', () => lc);
         document.body.setAttribute('lang', lc);

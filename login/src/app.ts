@@ -24,6 +24,7 @@ import { DIV } from './components/elements';
 import header from './components/header';
 import footer from './components/footer';
 import login from './components/login';
+import logout from './components/logout';
 import events from './events/app';
 import queries from './queries/app';
 
@@ -40,6 +41,7 @@ const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[])
 );
 
 const renderLogin = () => wrappedMain('login', login());
+const renderLogout = () => wrappedMain('logout', logout());
 
 
 const renderMain = (): React.DOMElement<{}, Element> => {
@@ -47,6 +49,7 @@ const renderMain = (): React.DOMElement<{}, Element> => {
     const layout = queries.getLayout();
     switch (layout) {
         case AppLayout.Login: return renderLogin();
+        case AppLayout.Logout: return renderLogout();
     }
 };
 

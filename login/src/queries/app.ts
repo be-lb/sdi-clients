@@ -39,6 +39,10 @@ const queries = {
         return `${query('app/api-root')}${s}`;
     },
 
+    getRoot() {
+        return query('app/root');
+    },
+
     getLang() {
         return query('app/lang');
     },

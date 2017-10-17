@@ -21,7 +21,7 @@ import {
     IUserIO,
     postIO,
 } from 'sdi/source';
-
+import * as io from 'io-ts';
 import queries from '../queries/app';
 
 
@@ -43,6 +43,9 @@ const fetchOptions =
 
 
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
+// export const logoutUser = (url: string): Promise<string> => fetchIO(io.string, url);
+
+export const logoutUser = (url: string): Promise<string> => postIO(io.string, url, null, fetchOptions());
 export const loginUser = (url: string, data: Credentials): Promise<IUser> => postIO(IUserIO, url, data, fetchOptions());
 
 

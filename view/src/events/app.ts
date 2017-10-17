@@ -88,6 +88,10 @@ const events = {
         dispatch('app/map-ready', () => true);
     },
 
+    navigateRoot() {
+        window.location.assign(queries.getRoot());
+    },
+
     bootMap() {
         const mid = queries.getCurrentMap();
         if (mid) {

@@ -21,6 +21,7 @@ import { LoginForm, defaultLoginForm } from '../components/login';
 
 export enum AppLayout {
     Login,
+    Logout,
 }
 
 // State Interface
@@ -32,6 +33,8 @@ export interface IShapeApp {
     'app/lang': 'fr' | 'nl';
     'app/layout': AppLayout[];
     'app/csrf': string | null;
+    'app/root': string;
+    'app/next': string | null;
 
     'component/button': ButtonComponent;
     'component/login': LoginForm;
@@ -52,6 +55,8 @@ export const appShape: IShapeApp = {
     'app/lang': 'fr',
     'app/layout': [AppLayout.Login],
     'app/csrf': null,
+    'app/root': '/',
+    'app/next': null,
 
     'component/button': {},
     'component/login': defaultLoginForm(),

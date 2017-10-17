@@ -36,6 +36,7 @@ export interface IShapeApp {
     'app/layout': AppLayout[];
     'app/current-metadata': string | null;
     'app/csrf': string | null;
+    'app/root': string;
 
     'component/editable': EditableState;
     'component/button': ButtonComponent;
@@ -65,6 +66,7 @@ export const appShape: IShapeApp = {
     'app/layout': [AppLayout.List],
     'app/current-metadata': null,
     'app/csrf': null,
+    'app/root': '/',
 
 
     'component/editable': {},

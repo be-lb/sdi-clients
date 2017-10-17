@@ -18,10 +18,11 @@
 import * as debug from 'debug';
 import { dispatchK, dispatch } from './index';
 import {
-    loginUser,
+    loginUser, logoutUser,
 } from '../remote';
 import queries from '../queries/app';
-import { getCredentials } from '../queries/login';
+import { getCredentials, getNext } from '../queries/login';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:events/login');
 
@@ -38,6 +39,14 @@ export const setPassword =
 export const tryLogin =
     () => (
         loginUser(queries.getApiUrl('auth/login'), getCredentials())
-            .then(u => dispatch('data/user', () => u)));
+            .then(u => dispatch('data/user', () => u))
+            .then(() => {
+                fromNullable(getNext()).map(next => window.location.assign(next));
+            }));
+
+export const tryLogout =
+    () => (
+        logoutUser(queries.getApiUrl('auth/logout'))
+            .then(() => window.location.assign(queries.getRoot())));
 
 logger('loaded');

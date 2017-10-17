@@ -54,12 +54,11 @@ export const main =
         if (SDI.user) {
             appShape['app/user'] = SDI.user;
         }
-        else {
-            const hereUrl = document.location.href;
-            const loginUrl = `/login?next=${hereUrl}`;
-            window.location.assign(loginUrl);
+        if (('args' in SDI) && (SDI.args.length > 0)) {
+            appShape['app/next'] = `${SDI.root}${SDI.args.join('/')}`;
         }
 
+        appShape['app/root'] = SDI.root;
         appShape['app/api-root'] = SDI.api;
         appShape['app/csrf'] = SDI.csrf;
 

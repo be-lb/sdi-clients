@@ -26,8 +26,6 @@ import {
 } from '../../events/metadata';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import button from '../button';
-import appEvents from '../../events/app';
-import { AppLayout } from '../../shape';
 import { fromPredicate } from 'fp-ts/lib/Either';
 
 
@@ -40,7 +38,6 @@ export interface MdForm {
     saving: boolean;
 }
 
-const toListButton = button('table', 'sheetList');
 const saveButton = button('validate', 'save');
 const removeButton = button('remove');
 const publishButton = button('unpublish');
@@ -187,7 +184,6 @@ const renderCommon =
 const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
-            toListButton(() => appEvents.setLayout(AppLayout.List)),
             isNotSaving(saveButton(saveMdForm)).fold(
                 () => DIV({}, tr('saving')),
                 e => e),

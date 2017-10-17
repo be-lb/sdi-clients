@@ -22,6 +22,9 @@ const state =
 export const getCredentials =
     () => state().credentials;
 
+export const getNext =
+    () => query('app/next');
+
 export const getUsername =
     () => getCredentials().username;
 

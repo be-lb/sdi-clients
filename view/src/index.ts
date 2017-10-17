@@ -56,6 +56,7 @@ const displayException = (err: string) => {
 export const main =
     (SDI: any) => {
         appShape['app/api-root'] = SDI.api;
+        appShape['app/root'] = SDI.root;
         if (SDI.args.length > 0) {
             appShape['app/current-map'] = SDI.args[0];
         }

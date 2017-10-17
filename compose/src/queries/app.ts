@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { query } from './index';
 import { fromRecord } from '../locale/index';
 import { getMessageRecord, MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
@@ -38,6 +38,10 @@ const queries = {
 
     getApiUrl(s: string) {
         return `${query('app/api-root')}${s}`;
+    },
+
+    getRoot() {
+        return query('app/root');
     },
 
     mapReady() {

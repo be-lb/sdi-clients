@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { Coordinate } from 'openlayers';
 import { Feature, GeometryType } from 'sdi/source';
 import { IUgWsResponse } from '../ports/geocoder';
@@ -187,6 +187,7 @@ export interface IShapeApp {
     'app/map-ready': boolean;
     'app/map-info/illustration': MapInfoIllustrationState;
     'app/csrf': string | null;
+    'app/root': string;
 
     'component/table': IDataTable;
     'component/legend-editor': ILegendEditor;
@@ -240,6 +241,7 @@ export const appShape: IShapeApp = {
     'app/map-info/illustration': MapInfoIllustrationState.showImage,
     'app/current-metadata': null,
     'app/csrf': null,
+    'app/root': '/',
 
 
     'component/table': initialTableState(),

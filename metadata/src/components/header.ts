@@ -17,42 +17,39 @@
  */
 
 import * as debug from 'debug';
-import { SPAN, DIV } from './elements';
+import { DIV } from './elements';
 import langSwitch from './lang-switch';
-import tr from '../locale';
-// import button from './button';
-// import events from '../events/app';
-// import queries from '../queries/app';
-// import { AppLayout } from '../shape';
+import button from './button';
+import events from '../events/app';
+import queries from '../queries/app';
+import { AppLayout } from '../shape';
 
 const logger = debug('sdi:header');
 
-
+const rootButton = button('navigate', 'dashboard');
+const toListButton = button('navigate', 'sheetList');
 
 
 const renderAppListingButton =
     () => {
-        return DIV({ className: 'app-listview' }, tr('sheetList'));
+        if (queries.getLayout() !== AppLayout.List) {
+            return toListButton(() => events.setLayout(AppLayout.List), 'app-listview');
+        }
+        return DIV();
     };
 
 
-
-
 const render =
-    () => {
-        return DIV({ className: 'header' },
+    () => (
+        DIV({ className: 'header' },
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
                 DIV({ className: 'be-name' })),
             renderAppListingButton(),
             DIV({ className: 'header-toolbar' },
-                SPAN({ className: 'dashboard' },
-                    tr('dashboard')),
-                // SPAN({ className: 'login' },
-                //     tr('dashboard')),
-                langSwitch()));
+                rootButton(() => events.navigateRoot(), 'dashboard'),
+                langSwitch())));
 
-    };
 
 export default render;
 

@@ -32,6 +32,11 @@ const queries = {
         return `${query('app/api-root')}${s}`;
     },
 
+    getRoot() {
+        return query('app/root');
+    },
+
+
     mapReady() {
         return query('app/map-ready');
     },

@@ -165,6 +165,7 @@ export interface IShapeApp {
     'app/current-layer': string | null;
     'app/current-feature': Feature | null;
     'app/map-ready': boolean;
+    'app/root': string;
 
     'component/legend': ILegend;
     'component/menu': IMenuData;
@@ -221,6 +222,7 @@ export const appShape: IShapeApp = {
     'app/current-map': null,
     'app/current-layer': null,
     'app/current-feature': null,
+    'app/root': '/',
 
     'component/legend': {
         currentPage: 'legend',

@@ -66,6 +66,7 @@ export const saveMdForm =
                                 dispatch('data/datasetMetadata',
                                     collection => updateLocalSet(collection, newMd))
                             })
+                            .then(() => dispatch('component/table', ts => ({ ...ts, loaded: false })))
                             .catch(() => single(s => ({ ...s, saving: false })));
                     }));
     };

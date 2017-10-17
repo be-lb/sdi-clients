@@ -17,6 +17,7 @@
 
 import * as debug from 'debug';
 import { dispatch } from './index';
+import queries from '../queries/app';
 import { AppLayout } from '../shape';
 import {
     fetchUser,
@@ -44,6 +45,7 @@ const events = {
         fetchUser(url)
             .then((user) => {
                 dispatch('data/user', () => user);
+                events.setLayout(AppLayout.Logout);
             });
     },
 
@@ -55,6 +57,11 @@ const events = {
     setLayout(l: AppLayout) {
         dispatch('app/layout', state => state.concat([l]));
     },
+
+    navigateRoot() {
+        window.location.assign(queries.getRoot());
+    },
+
 
 };
 
