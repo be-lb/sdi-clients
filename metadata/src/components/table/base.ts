@@ -404,7 +404,7 @@ export const render =
                 const { loadData, loadKeys, loadTypes } = config;
                 events.loadData(loadData, loadKeys, loadTypes);
                 return DIV({ className: 'infinite-table loading' },
-                    SPAN({ className: 'spinner' }),
+                    SPAN({ className: 'loader-spinner' }),
                     SPAN({ className: 'loading-label' },
                         tr('loadingData')));
             }

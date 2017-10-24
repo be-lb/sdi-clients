@@ -10,7 +10,7 @@ import { fromNullable } from 'fp-ts/lib/Option';
 
 
 const logoutButton = button('logout', 'logout');
-const username = () => DIV({ className: 'username' }, fromNullable(appQueries.getUserData()).fold(
+const username = () => DIV({ className: 'logout-username' }, fromNullable(appQueries.getUserData()).fold(
     () => '',
     u => u.name
 ));
