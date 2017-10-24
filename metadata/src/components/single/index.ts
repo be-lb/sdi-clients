@@ -185,7 +185,7 @@ const renderAction =
     (_m: Inspire) => (
         DIV({ className: 'meta-action' },
             isNotSaving(saveButton(saveMdForm)).fold(
-                () => DIV({}, tr('saving')),
+                () => DIV({ className: 'saving' }, SPAN({ className: 'loader-spinner' }), SPAN({}, tr('saving'))),
                 e => e),
         ));
 
