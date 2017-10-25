@@ -1,6 +1,7 @@
 
 
 div.infinite-table {
+    .widgetBackground;
     font-size: 80%;
     display: flex;
     flex-direction: column;
@@ -76,14 +77,16 @@ div.infinite-table {
              &.sorted {
                 background: @light-grey;
 
-                &.sorted-asc:after {
+                &.sorted-asc:before {
                     .awsomefont;
                     content: @fa-var-sort-asc;
+                    padding: 0 @small-margin;
                 }
 
-                &.sorted-desc:after {
+                &.sorted-desc:before {
                     .awsomefont;
                     content: @fa-var-sort-desc;
+                    padding: 0 @small-margin;
                 }
             }
 
@@ -94,6 +97,7 @@ div.infinite-table {
     .table-search {
         flex: 0 0 auto;
         .flex(flex-start, flex-start, wrap);
+        padding-top: @small-margin;
 
         .table-search-item {
             margin-bottom: @margin / 2;
@@ -126,6 +130,7 @@ div.infinite-table {
         overflow-x: auto;
         display: flex;
         flex-direction: column;
+        flex: 1;
 
         .table-header {
             flex: 0 0 auto;

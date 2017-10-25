@@ -8,10 +8,20 @@ body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
     padding: 0 @margin;
     font-size: 80%;
 
+    > div {
+        .flex(center, initial, initial);
+        height: @headerH;
+    }
+
+    * {
+        font-size: inherit !important;
+        color: #000;
+    }
+
     .be-logo {
         > div {
             height: 17px;
-            background-position: center;
+            background-position: left;
             background-repeat: no-repeat;
             background-size: contain;
         }
@@ -21,60 +31,37 @@ body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
             margin-right: 5px;
         }
         .be-name {
-            width: 350px;
+            width: 420px;
         }
     }
 
-
-    .btn-navigate{
-     color: #000;   
-    }
-
-    > div {
-        .flex(center, initial, initial);
-        height: @headerH;
-    }
-
-    .app-title {
-        font-weight: @bold;
-        font-size: 150%;
-        // position: relative;
-    }
-
-    .dashboard-link-wrapper,
-    .app-listview {
-        .absolute(initial, @panel-rightW, initial, initial);
-        .dashboard-link {
-            margin-left: @margin;
-        }
-
-    }
-
-    .app-listview {
-        .interactive;
-        padding-right: @margin;
+    .btn-navigate,
+    .lang-switch{
+        cursor: default;
+        margin-left: @margin;
+        padding: 0 !important;
 
         &:after {
         .awsomefont;
-        content: @fa-var-table;
-        margin-left: @small-margin;
+        margin-left: @small-margin !important;
+        padding: 0 !important;
         }
+
+        &:hover {
+            color: #000;
+            &:after{color: @green;}
+        }
+    }
+
+
+    .app-listview {
+        .absolute(initial, @panel-rightW, initial, initial);
+        &:after {content: @fa-var-table;}
     }
 
     .header-toolbar {
         .absolute(initial, @margin, initial, initial);
 
-        > * {
-            .interactive;
-            padding-right: @margin;
-
-            &:after {
-            .awsomefont;
-            margin-left: @small-margin;
-            }
-        }
-
-        .login:after {content: @fa-var-user;}
         .dashboard:after {content: @fa-var-dot-circle-o;}
         .lang-switch:after {content: @fa-var-globe;}
     }

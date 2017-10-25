@@ -50,7 +50,7 @@ const render =
             DIV({ className: 'be-logo' },
                 DIV({ className: 'be-tree' }),
                 DIV({ className: 'be-name' })),
-            renderAppListingButton(),
+            DIV({className: 'app-listwrapper'},  renderAppListingButton()),
             DIV({ className: 'header-toolbar' },
                 rootButton(() => events.navigateRoot(), 'dashboard'),
                 langSwitch())));

@@ -16,16 +16,7 @@
 
         &.loading {
             .flex(@justify: center; );
-            .spinner{
-                .awsomefont-spin;
-                width: 15px;
-                height: 15px;
-                margin-bottom: @margin;
-                &:before {
-                    color: @green;
-                    content: @fa-var-circle-o-notch;
-                }
-            }
+            flex-direction: row;
         }
 
         .table-header {

@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { ILayerInfo, getMessageRecord, Inspire } from 'sdi/source';
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
@@ -43,7 +43,7 @@ const wrapItem =
                 }
             }
             return nodes.concat(SPAN({
-                className: 'spinner',
+                className: 'loader-spinner',
             }));
         };
 

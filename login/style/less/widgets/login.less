@@ -39,8 +39,21 @@
         padding: @small-margin * 3;
         width: 30vw;
     }
-    .btn-login {
+    .btn-login,
+    .btn-logout {
         .high-btn;
         font-size: 16px;
+    }
+
+    .logout-username {
+        margin-bottom: @margin * 2;
+        padding: @margin;
+        border: 1px solid @light-grey;
+        background: #fff;
+        &:before {
+            .awsomefont;
+            content: @fa-var-user;
+            margin-right: @margin;
+        }
     }
 }
