@@ -32,8 +32,6 @@ const queries = {
         return query('data/user');
     },
 
-
-
     getLayout() {
         const ll = query('app/layout');
         if (ll.length === 0) {

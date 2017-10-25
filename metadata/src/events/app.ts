@@ -24,8 +24,8 @@ import {
     fetchAllTopic,
     fetchAllKeyword,
 } from '../remote';
-import { getRoot, getApiUrl } from 'sdi/app';
-import { AppLayout } from '../components/app';
+import { getApiUrl } from 'sdi/app';
+import { AppLayout } from '../app';
 
 const logger = debug('sdi:events/app');
 
@@ -57,9 +57,7 @@ const events = {
         dispatch('app/layout', state => state.concat([l]));
     },
 
-    navigateRoot() {
-        window.location.assign(getRoot());
-    },
+
 
 
     loadDatasetMetadata(id: string, url: string) {

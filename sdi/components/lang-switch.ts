@@ -15,9 +15,9 @@
  */
 
 import * as debug from 'debug';
-import { SPAN } from 'sdi/components/elements';
-import tr from 'sdi/locale';
-import { getLang, setLang } from 'sdi/app';
+import { SPAN } from './elements';
+import tr from '../locale';
+import { getLang, setLang } from '../app';
 
 const logger = debug('sdi:lang-switch');
 

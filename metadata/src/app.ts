@@ -16,26 +16,50 @@
  */
 
 import * as debug from 'debug';
-import { render } from 'react-dom';
-import { IShape } from 'sdi/shape';
-import { IStoreInteractions } from 'sdi/source';
-// import { addLayer } from './ports/map';
-import { DIV } from 'sdi/components/elements';
-import header from './components/header';
-import footer from './components/footer';
+import { loop, getUserId, getApiUrl } from 'sdi/app';
+import { DIV, SPAN } from 'sdi/components/elements';
+import header from 'sdi/components/header';
+import footer from 'sdi/components/footer';
+import tr from 'sdi/locale';
+import { Inspire } from 'sdi/source';
+
 import list from './components/list';
 import single from './components/single';
 import events from './events/app';
 import queries from './queries/app';
-import { getLang, getUserId, getApiUrl } from 'sdi/app';
+
+
 const logger = debug('sdi:app');
 
 
+export type AppLayout =
+    | 'List'
+    | 'Single';
+
+export interface IDatasetMetadataCollection {
+    [id: string]: Inspire;
+}
+
+
+const renderAppListingButton =
+    () => {
+        if (queries.getLayout() !== 'List') {
+            return (
+                DIV({
+                    className: 'navigate ',
+                    onClick: () => events.setLayout('List'),
+                }, SPAN({ className: 'app-listview' }, tr('sheetList'))));
+        }
+        return DIV();
+    };
+
+
+const renderHeader = header(renderAppListingButton);
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header(),
+        renderHeader(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
@@ -52,64 +76,17 @@ const renderMain = () => {
     }
 };
 
-const MIN_FRAME_RATE = 16;
 
-export default (store: IStoreInteractions<IShape>) => {
-
-    let lastFrameRequest: number | null = null;
-    let version: number = -1;
-    let frameRate = MIN_FRAME_RATE;
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-
-    const updateState = (ts: number) => {
-        let offset: number = 0;
-        const stateVersion = store.version();
-        if (lastFrameRequest !== null) {
-            offset = ts - lastFrameRequest;
-        }
-        else {
-            lastFrameRequest = ts;
-        }
-
-        if (offset >= frameRate && (version !== stateVersion)) {
-            version = stateVersion;
-            lastFrameRequest = ts;
-            logger(`render version ${stateVersion}`);
-            try {
-                const startRenderTime = performance.now();
-                render(renderMain(), root);
-                const renderTime = performance.now() - startRenderTime;
-                if (renderTime > frameRate) {
-                    frameRate = renderTime;
-                }
-                else if (frameRate > MIN_FRAME_RATE) {
-                    frameRate -= 1;
-                }
-            }
-            catch (err) {
-                logger(`could not render ${err}`);
-                throw err;
-                // requestAnimationFrame(updateState);
-            }
-        }
-        requestAnimationFrame(updateState);
-    };
-
-    const start = () => {
-        document.body.setAttribute('lang', getLang());
-        requestAnimationFrame(updateState);
-        getUserId()
-            .map(userId =>
-                events.loadUser(getApiUrl(`users/${userId}`)));
-        events.loadAllDatasetMetadata();
-        events.loadAllTopic();
-        events.loadAllKeyword();
-    };
-
-    return { start };
+const effects = () => {
+    getUserId()
+        .map(userId =>
+            events.loadUser(getApiUrl(`users/${userId}`)));
+    events.loadAllDatasetMetadata();
+    events.loadAllTopic();
+    events.loadAllKeyword();
 };
 
+const app = loop(renderMain, effects);
+export default app;
 
 logger('loaded');

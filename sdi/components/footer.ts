@@ -17,7 +17,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV } from 'sdi/components/elements';
+import { DIV } from './elements';
 
 const render = () => (
     DIV({ className: 'footer' },
