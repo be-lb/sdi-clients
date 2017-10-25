@@ -16,7 +16,7 @@
  */
 
 import * as debug from 'debug';
-import { AppLayout, dispatch } from 'sdi/shape';
+import { dispatch } from 'sdi/shape';
 import {
     fetchAllDatasetMetadata,
     fetchDatasetMetadata,
@@ -25,6 +25,7 @@ import {
     fetchAllKeyword,
 } from '../remote';
 import { getRoot, getApiUrl } from 'sdi/app';
+import { AppLayout } from '../components/app';
 
 const logger = debug('sdi:events/app');
 

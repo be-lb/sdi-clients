@@ -3,8 +3,9 @@ import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadat
 import { getMessageRecord, Inspire } from 'sdi/source';
 import { putMetadata } from '../remote';
 import { fromNullable } from 'fp-ts/lib/Option';
-import { dispatchK, dispatch, IDatasetMetadataCollection } from 'sdi/shape';
+import { dispatchK, dispatch } from 'sdi/shape';
 import { getApiUrl } from 'sdi/app';
+import { IDatasetMetadataCollection } from '../components/app';
 
 const single = dispatchK('component/single');
 const apiUrl = (s: string) => getApiUrl(s);
