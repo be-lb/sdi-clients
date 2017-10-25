@@ -13,18 +13,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV, SPAN, INPUT } from '../elements';
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
 import events from '../../events/legend-editor';
 import editable from '../editable';
-import tr, { fromRecord } from '../../locale';
-import { isENTER } from '../keycodes';
+import tr, { fromRecord } from 'sdi/locale';
+import { isENTER } from 'sdi/components/keycodes';
 import queries from '../../queries/legend-editor';
 // import { LegendEditorLayout } from './index';
 import { ClassAttributes, KeyboardEvent, ChangeEvent, ReactNode } from 'react';
 import { isDiscrete, MessageRecord, DiscreteGroup } from 'sdi/source';
-import button, { remove } from '../button';
+import { button, remove } from '../button';
 
 
 const logger = debug('sdi:legend-editor/select-type');

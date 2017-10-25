@@ -15,8 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
-import { fromRecord } from '../locale/index';
+import { query } from 'sdi/shape';
+import { fromRecord } from 'sdi/locale';
 import { getMessageRecord, MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
 
 export interface SyntheticLayerInfo {
@@ -28,29 +28,18 @@ export interface SyntheticLayerInfo {
 
 const queries = {
 
-    getUserId() {
-        return query('app/user');
-    },
+   
 
     getUserData() {
         return query('data/user');
     },
 
-    getApiUrl(s: string) {
-        return `${query('app/api-root')}${s}`;
-    },
-
-    getRoot() {
-        return query('app/root');
-    },
+   
 
     mapReady() {
         return query('app/map-ready');
     },
 
-    getLang() {
-        return query('app/lang');
-    },
 
     getLayout() {
         const ll = query('app/layout');
@@ -60,9 +49,6 @@ const queries = {
         return ll[ll.length - 1];
     },
 
-    getCSRF() {
-        return query('app/csrf');
-    },
 
     getLayerData(id: string) {
         const layers = query('data/layers');

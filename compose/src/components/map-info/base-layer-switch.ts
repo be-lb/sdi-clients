@@ -13,11 +13,11 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import events from '../../events/app';
 import queries from '../../queries/app';
-import { DIV } from './../elements';
+import { DIV } from 'sdi/components/elements';
 // import { fromRecord } from '../../locale';
 import { IMapBaseLayer } from 'sdi/source';
 import { hashMapBaseLayer } from '../../util/app';

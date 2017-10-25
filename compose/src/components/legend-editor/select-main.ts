@@ -15,12 +15,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV } from '../elements';
+
+import { DIV } from 'sdi/components/elements';
 import appQueries from '../../queries/app';
 import events from '../../events/legend-editor';
 import { getLayerPropertiesKeys } from '../../util/app';
-import tr from '../../locale';
+import tr from 'sdi/locale';
 
 const renderKeys = (keys: string[]) => {
     return (

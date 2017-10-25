@@ -13,8 +13,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, SPAN, INPUT } from '../elements';
+
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
 import events from '../../events/layer-editor';
 import queries from '../../queries/layer-editor';
 import appQueries from '../../queries/app';
@@ -22,8 +22,8 @@ import appEvents from '../../events/app';
 // import { Feature } from 'sdi/source';
 import { ReactNode } from 'react';
 import { getLayerPropertiesKeys } from '../../util/app';
-import button, { remove } from '../button';
-import { AppLayout } from '../../shape/index';
+import { button, remove } from '../button';
+import { AppLayout } from '../../shape/types';
 
 type NumberGetter = () => number;
 type NumberSetter = (a: number) => void;

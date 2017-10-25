@@ -14,16 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV } from './elements';
+import { ReactNode } from 'react';
+
+import { DIV } from 'sdi/components/elements';
+
 import { create } from '../ports/map';
 import mapQueries from '../queries/map';
 import layerQueries from '../queries/layer-editor';
 import layerEvents from '../events/layer-editor';
 import appEvents from '../events/app';
-import { ReactNode } from 'react';
-import button from './button';
+import { button } from './button';
 
 const logger = debug('sdi:comp:map');
 const mapId = 'be-sdi-this-is-the-map';

@@ -16,12 +16,13 @@
  */
 
 import * as debug from 'debug';
-import base, { SelectRowHandler, TableDataRow } from './base';
+import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
+import { base } from './base';
 import queries from '../../queries/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import { fromRecord } from '../../locale/index';
-import { DIV } from '../elements';
+import { fromRecord } from 'sdi/locale';
+import { DIV } from 'sdi/components/elements';
 
 const logger = debug('sdi:table/feature-collection');
 

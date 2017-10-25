@@ -14,119 +14,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
+import { query } from 'sdi/shape';
+import { TableDataRow, TableDataType } from 'sdi/components/table';
+import { fromRecord, formatDate } from 'sdi/locale';
+import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent, Properties } from 'sdi/source';
+
 import appQueries from './app';
-import { TableWindow, TableDataRow, ITableSort, TableDataType, Filter } from '../components/table/base';
 import { getLayerPropertiesKeys } from '../util/app';
-import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
-import { fromRecord, formatDate } from '../locale';
 
 
-type ObjOrNull = { [k: string]: any } | null;
-type RFilter = {
-    col: number;
-    pat: RegExp;
-};
-const filter =
-    (data: TableDataRow[], filters: Filter[]) => {
-        const fs: RFilter[] = filters.map(f => ({
-            col: f[0],
-            pat: new RegExp(`.*${f[1]}.*`, 'i'),
-        }));
-        return data.filter(row =>
-            fs.map((f) => {
-                const cell = row.cells[f.col];
-                return f.pat.test(cell);
-            }).reduce((acc, v) => !v ? v : acc, true));
-    };
-
-const getFilteredData =
-    () => {
-        const { search, data } = query('component/table');
-        return filter(data, search.filters);
-    }
 
 const queries = {
 
-    isLoaded() {
-        return query('component/table').loaded;
-    },
-
-    getKeys(): string[] {
-        return query('component/table').keys;
-    },
-
-    getFilters() {
-        const { search } = query('component/table');
-        return search.filters;
-    },
-
-
-
-    getTypes(): TableDataType[] {
-        return query('component/table').types;
-    },
-
-    getSort(): ITableSort {
-        return query('component/table').sort;
-    },
-
-    getData(window?: TableWindow): TableDataRow[] {
-        if (window) {
-            return getFilteredData().slice(window.offset, window.offset + window.size);
-        }
-        else {
-            return getFilteredData();
-        }
-    },
-
-
-    getActiveResult(): number {
-        return query('component/table').search.activeResult;
-    },
-
-    getResultCount(): number {
-        return query('component/table').search.resultMap.length;
-    },
-
-
-    rowCount() {
-        const rows = queries.getData();
-        return rows.length;
-    },
-
-    tableWindow() {
-        return query('component/table').window;
-    },
-
-    rowHeight() {
-        return query('component/table').rowHeight;
-    },
-
-    viewHeight() {
-        return query('component/table').viewHeight;
-    },
-
-    position() {
-        return query('component/table').position;
-    },
-
-    isSelected(idx: number) {
-        return (query('component/table').selected === idx);
-    },
-
-    getSelected() {
-        return query('component/table').selected;
-    },
-
-    getRow(idx?: number) {
-        const selected = (idx !== undefined) ? idx : queries.getSelected();
-        const data = queries.getData();
-        if (selected < 0 || selected >= data.length) {
-            return null;
-        }
-        return data[selected];
-    },
 
 
     // Layer / FeatureCollection
@@ -168,7 +67,7 @@ const queries = {
             return (
                 features.map<TableDataRow>((f, idx) => {
                     if ('properties' in f) {
-                        const props: ObjOrNull = f.properties;
+                        const props: Properties = f.properties;
                         const row = keys.map((k) => {
                             if (props && props[k] && props[k] != null) {
                                 return props[k].toString();

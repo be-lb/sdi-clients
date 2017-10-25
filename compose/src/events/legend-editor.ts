@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { dispatch } from './index';
+import { dispatch } from 'sdi/shape';
 import appQueries from '../queries/app';
 import queries from '../queries/legend-editor';
 import { saveStyle, syncMap } from '../util/app';

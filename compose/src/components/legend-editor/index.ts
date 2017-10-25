@@ -15,14 +15,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, H1, SPAN, INPUT } from '../elements';
+
+import { DIV, H1, SPAN, INPUT } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import featureConfigEvents from '../../events/feature-config';
-import tr, { fromRecord } from '../../locale';
+import tr, { fromRecord } from 'sdi/locale';
 import selectMain from './select-main';
 // import selectItem from './select-item';
 import selectType from './select-type';
@@ -31,8 +31,8 @@ import toolsMain from './tools-main';
 import continuous from './select-item-continuous';
 import discrete from './select-item-discrete';
 import { StyleConfig, SubType, isContinuous } from 'sdi/source';
-import { AppLayout } from '../../shape/index';
-import button, { remove } from '../button';
+import { AppLayout } from '../../shape/types';
+import { button, remove } from '../button';
 import { renderLabelOnly } from './tool-point';
 import { ChangeEvent } from 'react';
 

@@ -14,8 +14,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV } from '../elements';
+
+import { DIV } from 'sdi/components/elements';
 import { lineColorForGroup, lineWidthForGroup, lineWidth, lineColor } from './tool-input';
 
 export const renderLineForGroup =

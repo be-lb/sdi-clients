@@ -14,13 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import appQueries from '../../queries/app';
-import { DIV, SPAN, H1, A } from '../elements';
+import { DIV, SPAN, H1, A } from 'sdi/components/elements';
 import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
-import { fromRecord } from '../../locale';
-import tr, { formatDate } from '../../locale';
+import tr, { formatDate, fromRecord } from 'sdi/locale';
 
 const logger = debug('sdi:layer/view-inspire');
 

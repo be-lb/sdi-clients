@@ -16,14 +16,14 @@
  */
 
 import * as debug from 'debug';
-import { render } from 'react-dom';
-import { IShape, AppLayout } from './shape';
-import { IStoreInteractions } from 'sdi/source';
-// import { addLayer } from './ports/map';
-import { DIV } from './components/elements';
+import { loop, getUserId, getApiUrl } from 'sdi/app';
+import { DIV, SPAN } from 'sdi/components/elements';
+import header from 'sdi/components/header';
+import footer from 'sdi/components/footer';
+import tr from 'sdi/locale';
+
+
 import map from './components/map';
-import header from './components/header';
-import footer from './components/footer';
 import tableAttributes from './components/table/feature-collection-headless';
 import tableAttributesEditable from './components/table/feature-collection-editable';
 import tableLayers from './components/table/layers';
@@ -42,16 +42,29 @@ import viewInspire from './components/layer/view-inspire';
 import featureEdit from './components/layer/edit';
 
 import upload from './components/upload';
+import { AppLayout } from './shape/types';
 
 
 const logger = debug('sdi:app');
 
+const renderAppListingButton =
+    () => {
+        if (queries.getLayout() !== AppLayout.Dashboard) {
+            return (
+                DIV({
+                    className: 'navigate app-listview',
+                    onClick: () => events.setLayout(AppLayout.Dashboard),
+                }, SPAN({ className: 'label' }, tr('dashboard'))));
+        }
+        return DIV();
+    };
 
 
+const renderHeader = header(renderAppListingButton);
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header(),
+        renderHeader(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
@@ -109,7 +122,8 @@ const renderLayerViewAndInfo = () => wrappedMain(
 const renderUpload = () => wrappedMain('upload', upload());
 
 
-const renderMain = (): React.DOMElement<{}, Element> => {
+const renderMain = 
+()=> {
 
     const layout = queries.getLayout();
     switch (layout) {
@@ -134,64 +148,20 @@ const renderMain = (): React.DOMElement<{}, Element> => {
     }
 };
 
-const MIN_FRAME_RATE = 16;
 
-export default (store: IStoreInteractions<IShape>) => {
-
-    let lastFrameRequest: number | null = null;
-    let version: number = -1;
-    let frameRate = MIN_FRAME_RATE;
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-
-    const updateState = (ts: number) => {
-        let offset: number = 0;
-        const stateVersion = store.version();
-        if (lastFrameRequest !== null) {
-            offset = ts - lastFrameRequest;
-        }
-        else {
-            lastFrameRequest = ts;
-        }
-
-        if (offset >= frameRate && (version !== stateVersion)) {
-            version = stateVersion;
-            lastFrameRequest = ts;
-            logger(`render version ${stateVersion}`);
-            try {
-                const startRenderTime = performance.now();
-                render(renderMain(), root);
-                const renderTime = performance.now() - startRenderTime;
-                if (renderTime > frameRate) {
-                    frameRate = renderTime;
-                }
-                else if (frameRate > MIN_FRAME_RATE) {
-                    frameRate -= 1;
-                }
-            }
-            catch (err) {
-                logger(`could not render ${err}`);
-                throw err;
-                // requestAnimationFrame(updateState);
-            }
-        }
-        requestAnimationFrame(updateState);
-    };
-
-    const start = () => {
-        document.body.setAttribute('lang', queries.getLang());
-        mapEvents.updateMapView({ dirty: true });
-        requestAnimationFrame(updateState);
-        events.loadUser(
-            queries.getApiUrl(`users/${queries.getUserId()}`));
-        events.loadCategories(queries.getApiUrl(`categories`));
-        events.loadAlias(queries.getApiUrl(`alias`));
-        events.loadAllDatasetMetadata();
-    };
-
-    return { start };
+const effects = 
+() => {
+    mapEvents.updateMapView({ dirty: true });
+    getUserId()
+        .map(userId =>
+            events.loadUser(getApiUrl(`users/${userId}`)));
+    events.loadCategories(getApiUrl(`categories`));
+    events.loadAlias(getApiUrl(`alias`));
+    events.loadAllDatasetMetadata();
 };
 
+
+const app = loop(renderMain, effects);
+export default app;
 
 logger('loaded');

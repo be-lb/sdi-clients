@@ -13,9 +13,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { dispatch } from './index';
-import { MapInfoIllustrationState } from '../shape';
+
+import { dispatch } from 'sdi/shape';
+import { MapInfoIllustrationState } from '../shape/types';
 import appQueries from '../queries/app';
 import { putMap, upload } from '../remote';
 

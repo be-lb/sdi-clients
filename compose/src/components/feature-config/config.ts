@@ -18,13 +18,12 @@
 
 import * as debug from 'debug';
 import * as Color from 'color';
-import { DIV, SPAN, INPUT } from '../elements';
-import tr from '../../locale';
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 import events from '../../events/feature-config';
-import appQueries from '../../queries/app';
 import queries from '../../queries/feature-config';
-import button, { remove } from '../button';
-import { MessageKey } from '../../locale/message-db';
+import { button, remove } from '../button';
+import { MessageKey } from 'sdi/locale/message-db';
 import { ReactNode, ChangeEvent } from 'react';
 import {
     BooleanConfig,
@@ -43,8 +42,11 @@ import {
     TimeserieConfig,
     URLConfig,
 } from 'sdi/source';
-import { isENTER } from '../keycodes';
-import { renderInputAlphaColor } from '../legend-editor/tool-input'
+import { isENTER } from 'sdi/components/keycodes';
+import { renderInputAlphaColor } from '../legend-editor/tool-input';
+import { getLang } from 'sdi/app';
+
+
 
 const logger = debug('sdi:feature-config/config');
 
@@ -365,7 +367,7 @@ const renderPanel =
 
 const render =
     () => {
-        const lc = appQueries.getLang();
+        const lc = getLang();
         const propNames = queries.getKeys();
         const config = queries.getConfig();
         const currentPropName = queries.getCurrentPropName();

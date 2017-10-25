@@ -13,16 +13,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV } from '../elements';
-import { createElement as s } from 'react';
-import { MouseEvent } from 'react';
+import { DIV } from 'sdi/components/elements';
+import { MouseEvent, createElement as s } from 'react';
 import queries from '../../queries/timeserie';
 import events from '../../events/timeserie';
 import { ITimeserie, ITimeserieRow } from 'sdi/source';
-import { IChartScale, IDimensions, IChartWindow, ITimeserieInteractive } from '../../shape';
-import { formatDate } from '../../locale/index';
+import { IChartScale, IDimensions, IChartWindow, ITimeserieInteractive } from '../../shape/types';
+import { formatDate } from 'sdi/locale';
 
 const logger = debug('sdi:components/timeserie');
 
@@ -33,7 +32,7 @@ interface IPadding {
     left: number;
 }
 
-export const initialState = (): ITimeserieInteractive => ({
+export const initialTimeserieState = (): ITimeserieInteractive => ({
     cursorPosition: -1,
     selection: { start: -1, width: 0 },
     window: { start: 0, width: 100 },

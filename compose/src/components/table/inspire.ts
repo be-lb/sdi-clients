@@ -14,19 +14,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import tableQueries from '../../queries/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import layerEvents from '../../events/layer-editor';
-import { DIV, SPAN, H1, A } from '../elements';
+import { DIV, SPAN, H1, A } from 'sdi/components/elements';
 import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
-import { AppLayout } from '../../shape/index';
-// import { AppLayout } from '../../shape';
-import button from '../button';
-import { fromRecord } from '../../locale/index';
-import tr, { formatDate } from '../../locale';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
+import tr, { fromRecord, formatDate } from 'sdi/locale';
 
 const logger = debug('sdi:table/inspire');
 

@@ -14,17 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import base, { SelectRowHandler, TableDataRow } from './base';
+import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
+import { base } from './base';
 import queries from '../../queries/table';
 import events from '../../events/layer-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import { fromRecord } from '../../locale/index';
-import { DIV, A, SPAN } from '../elements';
-import { AppLayout } from '../../shape';
-import button from '../button';
+import { fromRecord } from 'sdi/locale';
+import { DIV, A, SPAN } from 'sdi/components/elements';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
 import { isAnchor, FreeText } from 'sdi/source';
 
 const logger = debug('sdi:table/feature-collection-editable');
@@ -60,6 +61,7 @@ const onRowSelect: SelectRowHandler =
     (row: TableDataRow) => {
         events.editRow(row);
     };
+
 
 
 const render = base({

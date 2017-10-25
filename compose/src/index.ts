@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -17,17 +15,20 @@
  */
 
 import 'sdi/polyfill';
+import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
+import { initialTableState } from 'sdi/components/table';
+import { IShape, configure } from 'sdi/shape';
 import App from './app';
-import { appShape, IShape } from './shape';
-import { configure as configureEvents } from './events';
-import { configure as configureQueries } from './queries';
-import { processQuery } from './util/app';
+import { AppLayout, MapInfoIllustrationState } from './shape/types';
+import { initialLegendEditorState } from './components/legend-editor';
+import { initialFeatureConfigState } from './components/feature-config';
+import { initialLayerEditorState } from './components/layer';
+import { initialTimeserieState } from './components/timeserie';
 
 const logger = debug('sdi:index');
 
-processQuery(appShape);
 
 const displayException = (err: string) => {
     const title = document.createElement('h1');
@@ -54,40 +55,76 @@ const displayException = (err: string) => {
 
 export const main =
     (SDI: any) => {
-        if (SDI.user) {
-            appShape['app/user'] = SDI.user;
-        }
-        else {
-            const loginUrl = `${SDI.root}login/compose`;
+        if (!SDI.user) {
+            const loginUrl = `${SDI.root}login/metadata`;
             window.location.assign(loginUrl);
+            return;
         }
 
-        appShape['app/root'] = SDI.root;
-        appShape['app/api-root'] = SDI.api;
-        appShape['app/csrf'] = SDI.csrf;
+
+        const initialState: IShape = {
+            'app/user': SDI.user,
+            'app/root': SDI.root,
+            'app/api-root': SDI.api,
+            'app/csrf': SDI.csrf,
+            'app/lang': 'fr',
+            'app/layout': [AppLayout.Dashboard],
+            'app/map-ready': false,
+            'app/current-map': null,
+            'app/current-layer': null,
+            'app/current-feature': null,
+            'app/map-info/illustration': MapInfoIllustrationState.showImage,
+            'app/current-metadata': null,
+
+            'component/table': initialTableState(),
+            'component/legend-editor': initialLegendEditorState(),
+            'component/editable': {},
+            'component/button': {},
+            'component/feature-config': initialFeatureConfigState(),
+            'component/layer-editor': initialLayerEditorState(),
+            'component/timeserie': initialTimeserieState(),
+
+            'data/user': null,
+            'data/layers': {},
+            'data/maps': [],
+            'data/alias': null,
+            'data/datasetMetadata': {},
+            'data/timeseries': {},
+            'data/categories': [],
+
+            'port/map/scale': {
+                count: 0,
+                unit: '',
+                width: 0,
+            },
+
+            'port/map/view': {
+                dirty: true,
+                srs: 'EPSG:31370',
+                center: [149546.27830713114, 169775.91753364357],
+                rotation: 0,
+                zoom: 6,
+            },
+
+            'port/map/editable': {
+                mode: 'select',
+                selected: null,
+                geometryType: 'Point',
+            },
+        };
+
 
         try {
-            const initialState: IShape = {
-                'data/user': null,
-                'data/layers': {},
-                'data/maps': [],
-                'data/alias': null,
-                'data/datasetMetadata': {},
-                'data/timeseries': {},
-                'data/categories': [],
-                ...appShape,
-            };
+
             const start = source<IShape, keyof IShape>(['app/lang']);
             const store = start(initialState);
-            configureEvents(store);
-            configureQueries(store);
+            configure(store);
             const app = App(store);
             logger('start rendering');
-            app.start();
+            app();
         }
         catch (err) {
             displayException(`${err}`);
-            throw (err);
         }
     };
 

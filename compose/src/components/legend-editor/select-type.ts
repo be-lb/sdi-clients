@@ -13,12 +13,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV } from '../elements';
+import { DIV } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
-import tr from '../../locale';
+import tr from 'sdi/locale';
 import { StyleConfig } from 'sdi/source';
 
 const logger = debug('sdi:legend-editor/select-type');

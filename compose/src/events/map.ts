@@ -13,19 +13,19 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { observe, dispatch, IEventData } from './index';
-import { Coordinate } from 'openlayers';
-import { AppLayout } from '../shape/index';
 
-export interface IViewEvent extends IEventData {
+import { observe, dispatch } from 'sdi/shape';
+import { Coordinate } from 'openlayers';
+import { AppLayout } from '../shape/types';
+
+export interface IViewEvent {
     dirty?: boolean;
     center?: Coordinate;
     rotation?: number;
     zoom?: number;
 }
 
-export interface ILayerIdentifier extends IEventData {
+export interface ILayerIdentifier {
     name: string;
 }
 

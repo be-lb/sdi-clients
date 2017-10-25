@@ -13,15 +13,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV } from '../elements';
+import { DIV } from 'sdi/components/elements';
 import { graph, absoluteWindow } from '../timeserie';
 import { TimeserieConfig } from 'sdi/source';
 import queries from '../../queries/timeserie';
 import events from '../../events/timeserie';
-import { IChartWindow } from '../../shape';
-import tr from '../../locale';
+import { IChartWindow } from '../../shape/types';
+import tr from 'sdi/locale';
 
 const logger = debug('sdi:component/feature-view/timeserie');
 

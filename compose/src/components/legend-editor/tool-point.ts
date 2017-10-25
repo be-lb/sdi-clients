@@ -13,13 +13,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, SPAN } from '../elements';
+
+import { DIV, SPAN } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import { propName, fontSize, fontColor, markerCodepointForGroup, markerSizeForGroup, markerColorForGroup, markerCodepoint, markerSize, markerColor, offsetX, offsetY } from './tool-input';
-import button from '../button';
-import tr from '../../locale';
+import { button } from '../button';
+import tr from 'sdi/locale';
 
 const markerButton = button('switch', 'switchMarker');
 const labelButton = button('switch', 'switchLabel');

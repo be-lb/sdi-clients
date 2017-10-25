@@ -16,8 +16,8 @@
 
 import * as debug from 'debug';
 import * as Color from 'color';
-import tr from '../../locale';
-import { DIV, SPAN, INPUT } from '../elements';
+import tr from 'sdi/locale';
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 // import slider from '../slider';

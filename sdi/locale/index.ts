@@ -33,6 +33,14 @@ export interface Parameters {
     [p: string]: string | number | Date;
 }
 
+export type FileOrNull = File | null;
+
+
+export interface FileRecord {
+    nl: FileOrNull;
+    fr: FileOrNull;
+}
+
 export const fromRecordTemplated = <T>(r: { fr: T, nl: T }) => {
     const lc = getLang();
     return r[lc];
@@ -69,6 +77,16 @@ export const formatNumber = (n: number) => {
     return imf.format({ number_option: n });
 };
 
+export const fromFileRecord = (r: FileRecord) => fromRecordTemplated<FileOrNull>(r);
+
+export const updateFileRecord = (r: FileRecord, f: FileOrNull) => {
+    const lc = getLang();
+    const n: FileRecord = { ...r };
+    n[lc] = f;
+    return n;
+};
+
+
 export const getMessage = (k: MessageKey, params?: Parameters) => {
     const lc = getLang();
     const template = messages[k][lc];
@@ -79,8 +97,6 @@ export const getMessage = (k: MessageKey, params?: Parameters) => {
 
     return imf.format(messages[k].parameters);
 };
-
-
 
 export default getMessage;
 

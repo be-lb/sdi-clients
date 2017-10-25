@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import {
     Category,
     CategoryCollectionIO,
@@ -35,19 +35,15 @@ import {
     postIO,
 } from 'sdi/source';
 
-import queries from '../queries/app';
 
 import * as io from 'io-ts';
+import { getCSRF } from 'sdi/app';
 
 
 const fetchOptions =
     (): RequestInit => {
         const headers = new Headers();
-        const csrf = queries.getCSRF();
-        headers.append('Content-Type', 'application/json');
-        if (csrf) {
-            headers.append('X-CSRFToken', csrf);
-        }
+        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
 
         return {
             credentials: 'same-origin',
@@ -95,12 +91,8 @@ export const upload =
         const data = new FormData();
         const headers = new Headers();
         const options: RequestInit = {};
-        const csrf = queries.getCSRF();
-        if (csrf) {
-            headers.append('X-CSRFToken', csrf);
-        }
 
-
+        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
         data.append('file', f);
         // headers.append('Content-Type', null);
         options.credentials = 'same-origin';

@@ -15,14 +15,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, INPUT } from '../elements';
+
+import { DIV, INPUT } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import editable from '../editable';
 import { MessageRecord, isContinuous, ContinuousInterval } from 'sdi/source';
-import tr, { fromRecord } from '../../locale';
-import button, { remove } from '../button';
+import tr, { fromRecord } from 'sdi/locale';
+import { button, remove } from '../button';
 
 
 const addGroupButton = button('add', 'addInterval');

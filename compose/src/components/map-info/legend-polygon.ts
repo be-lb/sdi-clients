@@ -13,12 +13,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
 import { polygonStyle, getContext, IOLContext } from '../../ports/map-style';
-import { DIV, SPAN, IMG } from '../elements';
-import { fromRecord } from '../../locale/index';
+import { DIV, SPAN, IMG } from 'sdi/components/elements';
+import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PolygonStyleConfig, PolygonStyleConfigSimple, PolygonStyleConfigDiscrete, PolygonStyleConfigContinuous } from 'sdi/source';
 import appQueries from '../../queries/app';
 

@@ -15,8 +15,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV, H1 } from '../elements';
-import tr from '../../locale';
+import { DIV, H1 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 import maps from './map-list';
 
 

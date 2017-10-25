@@ -14,16 +14,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import base, { SelectRowHandler } from './base';
+import { SelectRowHandler } from 'sdi/components/table';
+import { base } from './base';
 import queries from '../../queries/table';
 // import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import { DIV } from '../elements';
-import tr from '../../locale';
-import { AppLayout } from '../../shape';
-import button from '../button';
+import { DIV } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
 
 const logger = debug('sdi:table/layers');
 

@@ -17,8 +17,8 @@
 
 import * as debug from 'debug';
 import * as uuid from 'uuid';
-import { dispatch, observe } from './index';
-import { AppLayout } from '../shape';
+import { dispatch, observe } from 'sdi/shape';
+import { AppLayout } from '../shape/types';
 import {
     fetchAlias,
     fetchAllDatasetMetadata,
@@ -149,14 +149,8 @@ const events = {
             });
     },
 
-    navigateRoot() {
-        window.location.assign(queries.getRoot());
-    },
 
-    setLang(lc: 'fr' | 'nl') {
-        dispatch('app/lang', () => lc);
-        document.body.setAttribute('lang', lc);
-    },
+
 
     setLayout(l: AppLayout) {
         dispatch('app/layout', state => state.concat([l]));

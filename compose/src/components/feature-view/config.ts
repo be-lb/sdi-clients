@@ -18,11 +18,11 @@
 
 import queries from '../../queries/feature-config';
 import appQueries from '../../queries/app';
-import { DIV, A, IMG } from '../elements';
+import { DIV, A, IMG } from 'sdi/components/elements';
 import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel } from 'sdi/source';
 import piechart from './piechart';
 import timeserie from './timeserie';
-import { formatNumber } from '../../locale/index';
+import { formatNumber } from 'sdi/locale';
 import { ReactNode } from 'react';
 
 interface NotNullProperties {

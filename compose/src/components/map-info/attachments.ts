@@ -13,16 +13,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import events from '../../events/app';
 import queries from '../../queries/app';
-import { A, DIV, H2, INPUT, SPAN } from './../elements';
-import tr, { fromRecord, FileRecord, fromFileRecord, updateFileRecord } from '../../locale';
+import { A, DIV, H2, INPUT, SPAN } from 'sdi/components/elements';
+import tr, { fromRecord, FileRecord, fromFileRecord, updateFileRecord } from 'sdi/locale';
 import { MessageRecord, IAttachment } from 'sdi/source';
 import editable from '../editable';
 import { FormEvent } from 'react';
-import button, { remove } from '../button';
+import { button, remove } from '../button';
 
 const logger = debug('sdi:map-info/attachments');
 

@@ -15,7 +15,7 @@
  */
  
 import * as debug from 'debug';
-import { query } from './index';
+import { query } from 'sdi/shape';
 import { Map as OLMap, layer, Feature } from 'openlayers';
 
 const logger = debug('sdi:queries:map');

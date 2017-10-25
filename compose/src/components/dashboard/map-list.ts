@@ -15,13 +15,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV, SPAN } from '../elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events from '../../events/app';
-import tr, { fromRecord, formatDate } from '../../locale';
-import { AppLayout } from '../../shape/index';
-import button from '../button';
+import tr, { fromRecord, formatDate } from 'sdi/locale';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
 import { ReactNode } from 'react';
+
 
 const selectMap = (mid?: string) => () => {
     if (mid) {

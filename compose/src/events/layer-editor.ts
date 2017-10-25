@@ -14,18 +14,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch } from './index';
+import { dispatch } from 'sdi/shape';
+import { TableDataRow } from 'sdi/components/table';
+import {
+    defaultStyle,
+    DirectGeometryObject,
+    Feature,
+    IMapInfo,
+    Inspire,
+} from 'sdi/source';
 import tableEvents from './table';
 import appEvents from './app';
 import queries from '../queries/layer-editor';
 import appQueries from '../queries/app';
-import { AppLayout } from '../shape';
+import { AppLayout } from '../shape/types';
 import { removeLayerAll, addLayer } from '../ports/map';
-import { defaultStyle, Inspire, Feature, DirectGeometryObject } from 'sdi/source';
-import { IMapInfo } from 'sdi/source';
 import * as uuid from 'uuid';
 import { syncLayer } from '../util/app';
-import { TableDataRow } from '../components/table/base';
 
 type NotNullProperties = { [k: string]: any };
 

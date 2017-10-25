@@ -13,10 +13,10 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { query } from './index';
-import appQueries from './app';
+
+import { query } from 'sdi/shape';
 import { TimeserieConfig } from 'sdi/source';
+import appQueries from './app';
 
 
 interface NotNullProperties {

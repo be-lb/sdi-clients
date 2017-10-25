@@ -14,33 +14,26 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { parse as parseUrl } from 'url';
-import { IShapeApp, IMapBaseLayerTranslated, IShape } from '../shape';
-import { Feature, Properties, FeatureCollection } from 'sdi/source';
-import { IMapBaseLayer, IMapInfo } from 'sdi/source';
-import { fromRecord } from '../locale/index';
+
+import { IShape } from 'sdi/shape';
+import { fromRecord } from 'sdi/locale';
+import { Feature, Properties, FeatureCollection, IMapBaseLayer, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
+
+import { IMapBaseLayerTranslated } from '../shape/types';
 import { putMap, postLayer } from '../remote';
-import { IReducer } from 'sdi/source';
-import { StyleConfig } from 'sdi/source';
 import queries from '../queries/app';
 import mapEvents from '../events/map';
 
-export const processQuery = (state: IShapeApp) => {
+export const processQuery = (state: IShape) => {
     const location = document.location;
     const url = parseUrl(location.href, true);
 
     if (url.query) {
         const q = url.query;
 
-        // API Root URL
-        if ('api' in q) {
-            let apiRoot = q.api;
-            if (apiRoot[apiRoot.length - 1] !== '/') {
-                apiRoot = apiRoot + '/';
-            }
-            state['app/api-root'] = apiRoot;
-        }
+
 
         // // Current User
         // if ('user' in q) {

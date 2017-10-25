@@ -18,14 +18,14 @@ import { ILayerInfo, getMessageRecord, Inspire } from 'sdi/source';
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
-import { DIV, H2, SPAN } from '../elements';
+import { DIV, H2, SPAN } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events from '../../events/app';
 import tableEvents from '../../events/table';
 import legendEvents from '../../events/legend-editor';
-import tr, { fromRecord } from '../../locale';
-import { AppLayout } from '../../shape/index';
-import button, { remove } from '../button';
+import tr, { fromRecord } from 'sdi/locale';
+import { AppLayout } from '../../shape/types';
+import { button, remove } from '../button';
 
 
 const addButton = button('add');

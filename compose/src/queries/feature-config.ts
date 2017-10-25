@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
+import { query } from 'sdi/shape';
 import appQueries from './app';
 import { FeatureCollection, RowConfig } from 'sdi/source';
 import { getLayerPropertiesKeys } from '../util/app';

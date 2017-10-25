@@ -86,7 +86,11 @@ const button =
                 });
             };
 
-        return { make, makeRemove };
+        return {
+            make, makeRemove,
+            // lagcy? seriously? 
+            button: make, remove: makeRemove,
+        };
 
     };
 

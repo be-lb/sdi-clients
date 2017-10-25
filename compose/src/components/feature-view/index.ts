@@ -21,10 +21,10 @@ import appEvents from '../../events/app';
 import tableQueries from '../../queries/table';
 import tableEvents from '../../events/table';
 import config from './config';
-import { DIV } from '../elements';
+import { DIV } from 'sdi/components/elements';
 import { ReactNode } from 'react';
 import { getFeatureProperties } from '../../util/app';
-import { TableDataRow } from '../table/base';
+import { TableDataRow } from 'sdi/components/table';
 
 interface NotNullProperties {
     [key: string]: any;

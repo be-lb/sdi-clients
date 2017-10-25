@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch } from './index';
+import { dispatch } from 'sdi/shape';
 import { syncMap } from '../util/app';
 import queries from '../queries/app';
 import appEvents from '../events/app';

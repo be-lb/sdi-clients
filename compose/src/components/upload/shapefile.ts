@@ -14,9 +14,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, INPUT } from '../elements';
-import tr from '../../locale';
+
+import { DIV, INPUT } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 
 const render =
     () => {

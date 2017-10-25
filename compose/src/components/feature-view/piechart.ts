@@ -13,8 +13,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV } from '../elements';
+
+import { DIV } from 'sdi/components/elements';
 import { PiechartConfig, PiechartPiece } from 'sdi/source';
 import { createElement as s } from 'react';
 import appQueries from '../../queries/app';

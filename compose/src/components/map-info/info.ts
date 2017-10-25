@@ -13,24 +13,24 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { DIV, H1, P, IMG, INPUT } from './../elements';
+import { DIV, H1, P, IMG, INPUT } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events, { toDataURL } from '../../events/app';
 import mapInfoQueries from '../../queries/map-info';
 import mapInfoEvents from '../../events/map-info';
-import tr, { formatDate, fromRecord } from '../../locale';
+import tr, { formatDate, fromRecord } from 'sdi/locale';
 import editable from '../editable';
 import { IMapInfo } from 'sdi/source';
 import { FormEvent } from 'react';
-import { DataUrl, FileOrNull, MapInfoIllustrationState } from '../../shape/index';
-import button, { remove } from '../button';
+import { DataUrl, MapInfoIllustrationState } from '../../shape/types';
+import { button, remove } from '../button';
 
 const logger = debug('sdi:map-info/info');
 
-let selectedImage: FileOrNull;
+let selectedImage: File | null;
 let selectedImageDataUrl: DataUrl | null;
 
 const getInfo = <T>(a: (b: IMapInfo) => T, c: T): T => {

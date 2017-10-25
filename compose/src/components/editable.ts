@@ -15,15 +15,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import appQueries from '../queries/app';
-import appEvents from '../events/app';
-import { fromRecord } from '../locale/index';
+import { ReactNode } from 'react';
+
+import { getLang, setLang } from 'sdi/app';
+import { fromRecord } from 'sdi/locale';
 import { MessageRecord } from 'sdi/source';
-import { DIV } from './elements';
+import { DIV } from 'sdi/components/elements';
+
 import queries from '../queries/editable';
 import events from '../events/editable';
-import button from './button';
-import { ReactNode } from 'react';
+import { button } from './button';
 
 export type EditableState = {
     [k: string]: {
@@ -36,7 +37,7 @@ type GetFn = () => MessageRecord;
 type SetFn = (a: MessageRecord) => void;
 
 const sl = (lc: 'fr' | 'nl') => () => {
-    appEvents.setLang(lc);
+    setLang(lc);
 };
 
 const getText = (node: Element | Node): string => {
@@ -57,7 +58,7 @@ const getText = (node: Element | Node): string => {
 };
 
 const edit = (get: GetFn, set: SetFn) => (event: React.SyntheticEvent<Element>) => {
-    const lc = appQueries.getLang();
+    const lc = getLang();
     const rec = { ...get() };
     const text = getText(event.currentTarget);
 
@@ -75,14 +76,14 @@ const isTranslated = (rec: MessageRecord) => {
 };
 
 const isEmpty = (rec: MessageRecord) => {
-    const lc = appQueries.getLang();
+    const lc = getLang();
 
     return (rec[lc].length === 0);
 };
 
 
 const langSwitch = () => {
-    const lc = appQueries.getLang();
+    const lc = getLang();
     switch (lc) {
         case 'fr': return sl('nl');
         case 'nl': return sl('fr');

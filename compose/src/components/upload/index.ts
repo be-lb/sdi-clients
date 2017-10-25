@@ -14,12 +14,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import gpx from './gpx';
 import csv from './csv';
 import shapefile from './shapefile';
-import { DIV, H1 } from '../elements';
-import tr from '../../locale';
+import { DIV, H1 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 
 
 const render =

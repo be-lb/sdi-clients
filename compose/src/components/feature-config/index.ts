@@ -15,26 +15,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import config from './config';
-// import template from './template';
-// import timeserie from './timeserie';
-// import queries from '../../queries/feature-config';
-// import events from '../../events/feature-config';
-// import appQueries from '../../queries/app';
-import { AppLayout } from '../../shape';
-import { DIV } from '../elements';
-import button from '../button';
-import tr from '../../locale';
-// import { MessageKey } from '../../locale/message-db';
+import { AppLayout } from '../../shape/types';
+import { DIV } from 'sdi/components/elements';
+import { button } from '../button';
+import tr from 'sdi/locale';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import tableQueries from '../../queries/table';
 import tableEvents from '../../events/table';
 import * as debug from 'debug';
 
-
 const logger = debug('sdi:feature-config');
+
+
 
 const ensureTableSelection = () => {
     if (tableQueries.getSelected() < 0) {
