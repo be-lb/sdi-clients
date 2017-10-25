@@ -46,9 +46,9 @@ const renderAppListingButton =
         if (queries.getLayout() !== 'List') {
             return (
                 DIV({
-                    className: 'navigate ',
+                    className: 'navigate app-listview',
                     onClick: () => events.setLayout('List'),
-                }, SPAN({ className: 'app-listview' }, tr('sheetList'))));
+                }, SPAN({ className: 'label' }, tr('sheetList'))));
         }
         return DIV();
     };
