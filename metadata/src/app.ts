@@ -17,17 +17,17 @@
 
 import * as debug from 'debug';
 import { render } from 'react-dom';
-import { IShape, AppLayout } from './shape';
+import { IShape } from 'sdi/shape';
 import { IStoreInteractions } from 'sdi/source';
 // import { addLayer } from './ports/map';
-import { DIV } from './components/elements';
+import { DIV } from 'sdi/components/elements';
 import header from './components/header';
 import footer from './components/footer';
 import list from './components/list';
 import single from './components/single';
 import events from './events/app';
 import queries from './queries/app';
-
+import { getLang, getUserId, getApiUrl } from 'sdi/app';
 const logger = debug('sdi:app');
 
 
@@ -44,12 +44,11 @@ const renderList = () => wrappedMain('list', list());
 const renderSingle = () => wrappedMain('single', single());
 
 
-const renderMain = (): React.DOMElement<{}, Element> => {
-
+const renderMain = () => {
     const layout = queries.getLayout();
     switch (layout) {
-        case AppLayout.List: return renderList();
-        case AppLayout.Single: return renderSingle();
+        case 'List': return renderList();
+        case 'Single': return renderSingle();
     }
 };
 
@@ -99,10 +98,11 @@ export default (store: IStoreInteractions<IShape>) => {
     };
 
     const start = () => {
-        document.body.setAttribute('lang', queries.getLang());
+        document.body.setAttribute('lang', getLang());
         requestAnimationFrame(updateState);
-        events.loadUser(
-            queries.getApiUrl(`users/${queries.getUserId()}`));
+        getUserId()
+            .map(userId =>
+                events.loadUser(getApiUrl(`users/${userId}`)));
         events.loadAllDatasetMetadata();
         events.loadAllTopic();
         events.loadAllKeyword();

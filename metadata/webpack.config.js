@@ -15,8 +15,12 @@ const STYLE_ENTRY_PATH = resolve(ROOT, 'style/index.js');
 const OUTPUT_DIR = resolve(ROOT, 'dist');
 const SDI_ALIAS_ROOT = resolve(ROOT, '../sdi/');
 const SDI_ALIAS = {
-    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
+    'sdi/app': resolve(SDI_ALIAS_ROOT, 'app'),
+    'sdi/components': resolve(SDI_ALIAS_ROOT, 'components'),
+    'sdi/locale': resolve(SDI_ALIAS_ROOT, 'locale'),
     'sdi/polyfill': resolve(SDI_ALIAS_ROOT, 'polyfill'),
+    'sdi/shape': resolve(SDI_ALIAS_ROOT, 'shape'),
+    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
 };
 
 console.log(`ROOT ${ROOT}`);

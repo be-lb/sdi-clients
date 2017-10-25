@@ -1,5 +1,5 @@
-import { DIV, H1 } from '../elements';
-import tr from '../../locale';
+import { DIV, H1 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 import metadata from '../table/metadata';
 
 

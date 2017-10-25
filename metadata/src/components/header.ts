@@ -17,23 +17,28 @@
  */
 
 import * as debug from 'debug';
-import { DIV } from './elements';
+import { DIV } from 'sdi/components/elements';
 import langSwitch from './lang-switch';
-import button from './button';
+import buttonFactory from 'sdi/components/button';
 import events from '../events/app';
 import queries from '../queries/app';
-import { AppLayout } from '../shape';
+import {
+    queryK,
+    dispatchK,
+} from 'sdi/shape';
 
 const logger = debug('sdi:header');
 
-const rootButton = button('navigate', 'dashboard');
-const toListButton = button('navigate', 'sheetList');
+const button = buttonFactory(
+    queryK('component/button'), dispatchK('component/button'));
+const rootButton = button.make('navigate', 'dashboard');
+const toListButton = button.make('navigate', 'sheetList');
 
 
 const renderAppListingButton =
     () => {
-        if (queries.getLayout() !== AppLayout.List) {
-            return toListButton(() => events.setLayout(AppLayout.List), 'app-listview');
+        if (queries.getLayout() !== 'List') {
+            return toListButton(() => events.setLayout('List'), 'app-listview');
         }
         return DIV();
     };

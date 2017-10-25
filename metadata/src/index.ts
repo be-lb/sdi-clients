@@ -17,12 +17,13 @@
  */
 
 import 'sdi/polyfill';
+import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
+import { initialTableState } from 'sdi/components/table';
+import { IShape, configure } from 'sdi/shape';
 import App from './app';
-import { appShape, IShape } from './shape';
-import { configure as configureEvents } from './events';
-import { configure as configureQueries } from './queries';
+import { defaultMdFormState } from './components/single';
 
 const logger = debug('sdi:index');
 
@@ -52,37 +53,45 @@ const displayException = (err: string) => {
 
 export const main =
     (SDI: any) => {
-        if (SDI.user) {
-            appShape['app/user'] = SDI.user;
-        }
-        else {
+        if (!SDI.user) {
             const loginUrl = `${SDI.root}login/metadata`;
             window.location.assign(loginUrl);
+            return;
         }
 
-        appShape['app/root'] = SDI.root;
-        appShape['app/api-root'] = SDI.api;
-        appShape['app/csrf'] = SDI.csrf;
+
+        const initialState: IShape = {
+            'app/user': SDI.user,
+            'app/root': SDI.root,
+            'app/api-root': SDI.api,
+            'app/csrf': SDI.csrf,
+            'app/lang': 'fr',
+
+            'app/layout': ['List'],
+            'app/current-metadata': null,
+
+
+            'component/button': {},
+            'component/table': initialTableState(),
+            'component/single': defaultMdFormState(),
+
+            'data/user': null,
+            'data/datasetMetadata': {},
+            'data/keywords': [],
+            'data/topics': [],
+        };
 
         try {
-            const initialState: IShape = {
-                'data/user': null,
-                'data/datasetMetadata': {},
-                'data/keywords': [],
-                'data/topics': [],
-                ...appShape,
-            };
+
             const start = source<IShape, keyof IShape>(['app/lang']);
             const store = start(initialState);
-            configureEvents(store);
-            configureQueries(store);
+            configure(store);
             const app = App(store);
             logger('start rendering');
             app.start();
         }
         catch (err) {
             displayException(`${err}`);
-            throw (err);
         }
     };
 

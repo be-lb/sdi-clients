@@ -15,62 +15,28 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IUser, Inspire, TopicCategory, Keyword } from 'sdi/source';
-import { EditableState } from '../components/editable';
-import { ButtonComponent } from '../components/button';
-import { IDataTable, initialTableState } from '../components/table/base';
-import { MdForm, defaultMdFormState } from '../components/single';
+import { IUser, TopicCategory, Keyword } from 'sdi/source';
+import { ButtonComponent } from 'sdi/components/button';
+import { IDataTable } from 'sdi/components/table';
+import { MdForm } from '../components/single';
+import { AppLayout, IDatasetMetadataCollection } from '../components/app';
 
-export enum AppLayout {
-    List,
-    Single,
+
+
+// State Augmentation
+
+declare module 'sdi/shape' {
+    export interface IShape {
+        'app/layout': AppLayout[];
+        'app/current-metadata': string | null;
+
+        'component/button': ButtonComponent;
+        'component/table': IDataTable;
+        'component/single': MdForm;
+
+        'data/user': IUser | null;
+        'data/datasetMetadata': IDatasetMetadataCollection;
+        'data/keywords': Keyword[];
+        'data/topics': TopicCategory[];
+    }
 }
-
-// State Interface
-
-
-export interface IShapeApp {
-    'app/user': string | null;
-    'app/api-root': string;
-    'app/lang': 'fr' | 'nl';
-    'app/layout': AppLayout[];
-    'app/current-metadata': string | null;
-    'app/csrf': string | null;
-    'app/root': string;
-
-    'component/editable': EditableState;
-    'component/button': ButtonComponent;
-    'component/table': IDataTable;
-    'component/single': MdForm;
-}
-
-export interface IDatasetMetadataCollection {
-    [id: string]: Inspire;
-}
-
-export interface IShapeData {
-    'data/user': IUser | null;
-    'data/datasetMetadata': IDatasetMetadataCollection;
-    'data/keywords': Keyword[];
-    'data/topics': TopicCategory[];
-}
-
-export type IShape = IShapeApp & IShapeData;
-
-// Initial Application State 
-
-export const appShape: IShapeApp = {
-    'app/user': null,
-    'app/api-root': 'http://localhost:3000/',
-    'app/lang': 'fr',
-    'app/layout': [AppLayout.List],
-    'app/current-metadata': null,
-    'app/csrf': null,
-    'app/root': '/',
-
-
-    'component/editable': {},
-    'component/button': {},
-    'component/table': initialTableState(),
-    'component/single': defaultMdFormState(),
-};

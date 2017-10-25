@@ -16,8 +16,7 @@
  */
 
 import * as debug from 'debug';
-import { dispatch } from './index';
-import { AppLayout } from '../shape';
+import { AppLayout, dispatch } from 'sdi/shape';
 import {
     fetchAllDatasetMetadata,
     fetchDatasetMetadata,
@@ -25,7 +24,7 @@ import {
     fetchAllTopic,
     fetchAllKeyword,
 } from '../remote';
-import queries from '../queries/app';
+import { getRoot, getApiUrl } from 'sdi/app';
 
 const logger = debug('sdi:events/app');
 
@@ -52,17 +51,13 @@ const events = {
             });
     },
 
-    setLang(lc: 'fr' | 'nl') {
-        document.body.setAttribute('lang', lc);
-        dispatch('app/lang', () => lc);
-    },
 
     setLayout(l: AppLayout) {
         dispatch('app/layout', state => state.concat([l]));
     },
 
     navigateRoot() {
-        window.location.assign(queries.getRoot());
+        window.location.assign(getRoot());
     },
 
 
@@ -80,7 +75,7 @@ const events = {
     },
 
     loadAllDatasetMetadata() {
-        fetchAllDatasetMetadata(queries.getApiUrl('metadatas'))
+        fetchAllDatasetMetadata(getApiUrl('metadatas'))
             .then((mds) => {
                 mds.forEach((md) => {
                     dispatch('data/datasetMetadata', (state) => {
@@ -95,12 +90,12 @@ const events = {
     },
 
     loadAllTopic() {
-        fetchAllTopic(queries.getApiUrl('topics'))
+        fetchAllTopic(getApiUrl('topics'))
             .then(topics => dispatch('data/topics', () => topics));
     },
 
     loadAllKeyword() {
-        fetchAllKeyword(queries.getApiUrl('keywords'))
+        fetchAllKeyword(getApiUrl('keywords'))
             .then(keywords => dispatch('data/keywords', () => keywords));
     },
 };
