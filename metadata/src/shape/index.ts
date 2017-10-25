@@ -19,7 +19,7 @@ import { IUser, TopicCategory, Keyword } from 'sdi/source';
 import { ButtonComponent } from 'sdi/components/button';
 import { IDataTable } from 'sdi/components/table';
 import { MdForm } from '../components/single';
-import { AppLayout, IDatasetMetadataCollection } from '../components/app';
+import { AppLayout, IDatasetMetadataCollection } from '../app';
 
 
 

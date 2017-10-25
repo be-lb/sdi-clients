@@ -14,15 +14,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, query } from '../shape';
+import { IShape, dispatch, query } from '../shape';
 import { fromNullable } from 'fp-ts/lib/Option';
+import { render } from 'react-dom';
+import { IStoreInteractions } from '../source';
 
 
-// events
-export const setLang = (l: 'fr' | 'nl') => {
-    document.body.setAttribute('lang', l);
-    dispatch('app/lang', () => l);
-};
 
 
 // queries
@@ -36,3 +33,72 @@ export const getCSRF = () => fromNullable(query('app/csrf'));
 
 export const getRoot = () => query('app/root');
 
+// events
+export const setLang = (l: 'fr' | 'nl') => {
+    document.body.setAttribute('lang', l);
+    dispatch('app/lang', () => l);
+};
+
+export const navigateRoot =
+    () => window.location.assign(getRoot());
+
+// main loop
+
+const MIN_FRAME_RATE = 16;
+
+
+export type RenderMain = () => React.ReactElement<any>;
+
+export const loop =
+    (renderMain: RenderMain, effects?: () => void) =>
+        (store: IStoreInteractions<IShape>) => {
+
+            let lastFrameRequest: number | null = null;
+            let version: number = -1;
+            let frameRate = MIN_FRAME_RATE;
+            const root = document.createElement('div');
+            document.body.appendChild(root);
+
+
+            const updateState = (ts: number) => {
+                let offset: number = 0;
+                const stateVersion = store.version();
+                if (lastFrameRequest !== null) {
+                    offset = ts - lastFrameRequest;
+                }
+                else {
+                    lastFrameRequest = ts;
+                }
+
+                if (offset >= frameRate && (version !== stateVersion)) {
+                    version = stateVersion;
+                    lastFrameRequest = ts;
+                    try {
+                        const startRenderTime = performance.now();
+                        render(renderMain(), root);
+                        const renderTime = performance.now() - startRenderTime;
+                        if (renderTime > frameRate) {
+                            frameRate = renderTime;
+                        }
+                        else if (frameRate > MIN_FRAME_RATE) {
+                            frameRate -= 1;
+                        }
+                    }
+                    catch (err) {
+                        throw err;
+                        // requestAnimationFrame(updateState);
+                    }
+                }
+                requestAnimationFrame(updateState);
+            };
+
+            const start = () => {
+                document.body.setAttribute('lang', getLang());
+                requestAnimationFrame(updateState);
+                if (effects) {
+                    effects();
+                }
+            };
+
+            return start;
+        };

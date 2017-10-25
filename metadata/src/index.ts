@@ -88,7 +88,7 @@ export const main =
             configure(store);
             const app = App(store);
             logger('start rendering');
-            app.start();
+            app();
         }
         catch (err) {
             displayException(`${err}`);
