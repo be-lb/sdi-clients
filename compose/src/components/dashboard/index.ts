@@ -14,20 +14,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV } from '../elements';
-import user from './user';
+
+import { DIV, H1 } from '../elements';
+import tr from '../../locale';
 import maps from './map-list';
-import layers from './layer-list';
 
 
 const render = () => {
     return (
         DIV({ className: 'dashboard-wrapper' },
-            user(),
-            maps(),
-            layers())
-    );
+            H1({ className: 'dashboard-title' }, tr('dashboard')),
+            maps()));
 };
 
 export default render;
