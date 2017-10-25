@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import { fromRecord } from '../locale/index';
@@ -97,8 +97,8 @@ const wrapEditable = (rec: MessageRecord, k: string, child: ReactNode) => {
             className: (
                 (isEmpty(rec) && !queries.isFirstEditing(k)) ? 'editable-wrapper empty-content' : 'editable-wrapper'),
         },
-            trButton(langSwitch(), isTranslated(rec) ? 'translated' : 'not-translated'),
-            child)
+            child,
+            trButton(langSwitch(), isTranslated(rec) ? 'translated' : 'not-translated'))
     );
 };
 
