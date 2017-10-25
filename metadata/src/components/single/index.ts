@@ -1,5 +1,5 @@
-import { DIV, H1, INPUT, TEXTAREA, SPAN } from '../elements';
-import tr, { fromRecord } from '../../locale';
+import { DIV, H1, INPUT, TEXTAREA, SPAN } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
 import {
     formIsSaving,
     getCurrentDatasetMetadata,
@@ -25,8 +25,12 @@ import {
     mdDraft,
 } from '../../events/metadata';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
-import button from '../button';
+import buttonFactory from 'sdi/components/button';
 import { fromPredicate } from 'fp-ts/lib/Either';
+import {
+    queryK,
+    dispatchK,
+} from 'sdi/shape';
 
 
 export interface MdForm {
@@ -38,10 +42,12 @@ export interface MdForm {
     saving: boolean;
 }
 
-const saveButton = button('validate', 'save');
-const removeButton = button('remove');
-const publishButton = button('unpublish');
-const unpublishButton = button('publish');
+const button = buttonFactory(
+    queryK('component/button'), dispatchK('component/button'));
+const saveButton = button.make('validate', 'save');
+const removeButton = button.make('remove');
+const publishButton = button.make('unpublish');
+const unpublishButton = button.make('publish');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 

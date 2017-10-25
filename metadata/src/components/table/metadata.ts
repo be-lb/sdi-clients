@@ -16,10 +16,22 @@
  */
 
 import * as debug from 'debug';
-import base, { SelectRowHandler } from './base';
+import {
+    SelectRowHandler,
+    baseTable,
+    tableQueries,
+    tableEvents,
+} from 'sdi/components/table';
 import appEvents from '../../events/app';
-import { AppLayout } from '../../shape';
-import { loadLayerListData, loadLayerListKeys, loadLayerListTypes } from '../../queries/metadata';
+import {
+    queryK,
+    dispatchK,
+} from 'sdi/shape';
+import {
+    loadLayerListData,
+    loadLayerListKeys,
+    loadLayerListTypes,
+} from '../../queries/metadata';
 import { selectMetadata } from '../../events/metadata';
 
 const logger = debug('sdi:table/layers');
@@ -28,9 +40,14 @@ const onRowSelect: SelectRowHandler =
     (row) => {
         const id = row.from as string;
         selectMetadata(id);
-        appEvents.setLayout(AppLayout.Single);
+        appEvents.setLayout('Single');
     };
 
+
+const tq = queryK('component/table');
+const te = dispatchK('component/table');
+
+const base = baseTable(tableQueries(tq), tableEvents(te));
 
 const render = base({
     className: 'layer-select-wrapper',

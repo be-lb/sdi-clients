@@ -19,9 +19,9 @@ import * as debug from 'debug';
 import setupNl from './nl';
 import setupFr from './fr';
 import { messages, MessageKey } from './message-db';
-import queries from '../queries/app';
+import { getLang } from '../app';
 import IntlMessageFormat from 'intl-messageformat';
-import { MessageRecord } from 'sdi/source';
+import { MessageRecord } from '../source';
 
 const logger = debug('sdi:locale');
 setupNl();
@@ -34,43 +34,43 @@ export interface Parameters {
 }
 
 export const fromRecordTemplated = <T>(r: { fr: T, nl: T }) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     return r[lc];
 };
 
 export const fromRecord = (r: MessageRecord, params?: Parameters) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     const template = r[lc].replace(rEsc, '\\\\');
     const imf = new IntlMessageFormat(template, lc);
     return imf.format(params);
 };
 
 export const updateRecordRaw = (r: MessageRecord, value: string) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     const n = { ...r };
     n[lc] = value;
     return n;
 };
 
 export const fromRecordRaw = (r: MessageRecord) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     return r[lc];
 };
 
 export const formatDate = (d: Date) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     const imf = new IntlMessageFormat(`{date_option, date}`, lc);
     return imf.format({ date_option: d });
 };
 
 export const formatNumber = (n: number) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     const imf = new IntlMessageFormat(`{number_option, number}`, lc);
     return imf.format({ number_option: n });
 };
 
 export const getMessage = (k: MessageKey, params?: Parameters) => {
-    const lc = queries.getLang();
+    const lc = getLang();
     const template = messages[k][lc];
     const imf = new IntlMessageFormat(template, lc);
     if (params) {

@@ -13,15 +13,26 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { query } from './index';
 
-const queries = {
-    isFirstEditing(k: string) {
-        const s = query('component/editable')[k];
-        return (s) ? s.isFirstEditing : false;
-    },
+import { dispatch, query } from '../shape';
+import { fromNullable } from 'fp-ts/lib/Option';
+
+
+// events
+export const setLang = (l: 'fr' | 'nl') => {
+    document.body.setAttribute('lang', l);
+    dispatch('app/lang', () => l);
 };
 
-export default queries;
+
+// queries
+export const getUserId = () => fromNullable(query('app/user'));
+
+export const getApiUrl = (path: string) => `${query('app/api-root')}${path}`;
+
+export const getLang = () => query('app/lang');
+
+export const getCSRF = () => fromNullable(query('app/csrf'));
+
+export const getRoot = () => query('app/root');
 

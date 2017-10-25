@@ -13,21 +13,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { SPAN } from './elements';
-import queries from '../queries/app';
-import events from '../events/app';
-import tr from '../locale';
+import { SPAN } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+import { getLang, setLang } from 'sdi/app';
 
 const logger = debug('sdi:lang-switch');
 
 const sl = (lc: 'fr' | 'nl') => () => {
-    events.setLang(lc);
+    setLang(lc);
 };
 
 export default () => {
-    const lc = queries.getLang();
+    const lc = getLang();
     switch (lc) {
         case 'fr':
             return (SPAN({

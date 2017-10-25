@@ -1,14 +1,14 @@
 
-import { dispatchK, dispatch } from './index';
 import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
 import { getMessageRecord, Inspire } from 'sdi/source';
 import { putMetadata } from '../remote';
-import appQueries from '../queries/app';
 import { fromNullable } from 'fp-ts/lib/Option';
-import { IDatasetMetadataCollection } from '../shape';
+import { dispatchK, dispatch } from 'sdi/shape';
+import { getApiUrl } from 'sdi/app';
+import { IDatasetMetadataCollection } from '../components/app';
 
 const single = dispatchK('component/single');
-const apiUrl = (s: string) => appQueries.getApiUrl(s);
+const apiUrl = (s: string) => getApiUrl(s);
 
 export const setMdTitle =
     (l: 'fr' | 'nl') =>

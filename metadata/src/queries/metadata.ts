@@ -1,9 +1,9 @@
 import * as debug from 'debug';
-import { query } from './index';
+import { query } from 'sdi/shape';
 import { some, none, fromNullable } from 'fp-ts/lib/Option';
 import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
-import tr, { fromRecord, formatDate } from '../locale';
-import { TableDataType, TableDataRow } from '../components/table/base';
+import tr, { fromRecord, formatDate } from 'sdi/locale';
+import { TableDataType, TableDataRow } from 'sdi/components/table';
 
 const logger = debug('sdi:queries/metadata');
 
