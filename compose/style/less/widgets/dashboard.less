@@ -8,11 +8,6 @@
 
     h1 {
         margin-bottom: @margin * 2;
-
-        .user{
-            float: right;
-            font-weight:100;
-        }
     }
 
     .btn-add,
@@ -20,32 +15,16 @@
         padding: @margin;
         width: 100%;
     }
-
-    .category-title {
-        position: absolute;
-        top: -6px;
-        padding: 0 @small-margin;
-        font-weight: @light;
-        font-size: 0.8em;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background: #fff;
-    }
 }
 
 
-.dashboard-maps,
-.dashboard-layers {
+.dashboard-maps{
     .flex(flex-start, initial, wrap);
-    position: relative;
-    min-height: 50%;
-    border-top: 1px solid @light-grey;
+    // position: relative;
     padding: @margin * 2 0;
 }
 
-.dashboard-map-item,
-.dashboard-layer-item {
+.dashboard-map-item {
     .widgetActiveBackground;
     position: relative;
     width: calc(~"25% - @{margin}");
@@ -69,8 +48,7 @@
     }
 }
 
-.dashboard-map-title,
-.dashboard-table-name {
+.dashboard-map-title {
         font-size: 1.6em;
         font-weight: @extra-bold;
         margin: @margin 0;

@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { DIV, SPAN } from '../elements';
 import queries from '../../queries/app';
 import events from '../../events/app';
@@ -82,7 +82,6 @@ const render = () => {
     const maps = user.maps;
     return (
         DIV({ className: 'dashboard-maps' },
-            DIV({ className: 'category-title' }, tr('map', { n: maps.length })),
             renderAdd(),
             ...renderItems(maps),
         )
