@@ -20,7 +20,7 @@ import queries from '../../queries/app';
 import { DIV } from 'sdi/components/elements';
 // import { fromRecord } from '../../locale';
 import { IMapBaseLayer } from 'sdi/source';
-import { hashMapBaseLayer } from '../../util/app';
+import { hashMapBaseLayer } from 'sdi/util';
 
 const logger = debug('sdi:map-info/base-layer-switch');
 

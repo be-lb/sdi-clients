@@ -20,22 +20,37 @@ import { ReactNode } from 'react';
 
 import { DIV } from 'sdi/components/elements';
 
-import { create } from '../ports/map';
+import { IMapOptions, create } from 'sdi/map';
+import appQueries from '../queries/app';
+import appEvents from '../events/app';
 import mapQueries from '../queries/map';
+import mapEvents from '../events/map';
 import layerQueries from '../queries/layer-editor';
 import layerEvents from '../events/layer-editor';
-import appEvents from '../events/app';
 import { button } from './button';
 
 const logger = debug('sdi:comp:map');
 const mapId = 'be-sdi-this-is-the-map';
+
+const options: IMapOptions = {
+    element: null,
+    getBaseLayer: appQueries.getCurrentBaseLayer,
+    getView: mapQueries.getView,
+    getMapInfo: appQueries.getMapInfo,
+
+    updateView: mapEvents.updateMapView,
+    setScaleLine: mapEvents.setScaleLine,
+};
 
 let mapSetTarget: (t: string | Element) => void;
 let mapUpdate: () => void;
 
 const attachMap = (element: Element | null) => {
     if (!mapUpdate) {
-        const { update, setTarget } = create();
+        const { update, setTarget } = create({
+            ...options,
+            element,
+        });
         mapSetTarget = setTarget;
         mapUpdate = update;
         appEvents.signalReadyMap();

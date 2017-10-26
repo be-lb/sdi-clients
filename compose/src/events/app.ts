@@ -30,6 +30,7 @@ import {
     MessageRecord,
 } from 'sdi/source';
 import { getApiUrl, getLang } from 'sdi/app';
+import { addLayer, removeLayerAll } from 'sdi/map';
 
 import {
     fetchAlias,
@@ -47,7 +48,6 @@ import {
 } from '../remote';
 import queries from '../queries/app';
 import { AppLayout } from '../shape/types';
-import { addLayer, removeLayerAll } from '../ports/map';
 import { initialLegendEditorState } from '../components/legend-editor/index';
 
 const logger = debug('sdi:events/app');
@@ -98,13 +98,14 @@ observe('app/current-map', () => {
     if (info) {
         removeLayerAll();
         info.layers.forEach((l) => {
-            // events.loadLayer(l.id, getApiUrl(`layers/${l.id}`));
-            // addLayer(() => queries.getLayerInfo(l.id));
             fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
                 .then((md) => {
                     events.loadLayer(md.uniqueResourceIdentifier,
                         getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
-                    addLayer(() => queries.getLayerInfo(l.id));
+                    addLayer(
+                        () => queries.getLayerInfo(l.id),
+                        () => queries.getLayerData(md.uniqueResourceIdentifier)
+                    );
                 })
                 .catch(err => logger(`observe(app/current-map) ${err}`));
         });
@@ -330,7 +331,10 @@ const events = {
                         m.layers.push(result);
                         putMap(getApiUrl(`maps/${mid}`), m)
                             .then(() => {
-                                addLayer(() => queries.getLayerInfo(result.id));
+                                addLayer(
+                                    () => queries.getLayerInfo(result.id),
+                                    () => queries.getLayerData(i.uniqueResourceIdentifier)
+                                );
                                 events.setCurrentLayerId(result.id);
                             })
                             .catch(err => logger(`addMapLayer map ${err}`));

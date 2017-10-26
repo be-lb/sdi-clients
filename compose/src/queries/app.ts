@@ -17,24 +17,20 @@
 
 import { query } from 'sdi/shape';
 import { fromRecord } from 'sdi/locale';
-import { getMessageRecord, MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
+import { getMessageRecord } from 'sdi/source';
+import { SyntheticLayerInfo } from 'sdi/app';
 
-export interface SyntheticLayerInfo {
-    name: MessageRecord | null;
-    info: ILayerInfo | null;
-    metadata: Inspire | null;
-}
 
 
 const queries = {
 
-   
+
 
     getUserData() {
         return query('data/user');
     },
 
-   
+
 
     mapReady() {
         return query('app/map-ready');

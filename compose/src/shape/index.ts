@@ -18,13 +18,12 @@
 import { Feature, IUser, IMapInfo, IAliasCollection, Category } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ButtonComponent } from 'sdi/components/button';
+import { IMapViewData, IMapScale, IMapEditable } from 'sdi/map';
+
 import {
     AppLayout,
     IDatasetMetadataCollection,
     ILayerCollection,
-    IMapEditable,
-    IMapScale,
-    IMapViewData,
     ITimeserieCollection,
     ITimeserieInteractive,
     MapInfoIllustrationState,

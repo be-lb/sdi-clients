@@ -15,19 +15,10 @@
  */
 
 import { observe, dispatch } from 'sdi/shape';
-import { Coordinate } from 'openlayers';
+import { IViewEvent } from 'sdi/map';
+
 import { AppLayout } from '../shape/types';
 
-export interface IViewEvent {
-    dirty?: boolean;
-    center?: Coordinate;
-    rotation?: number;
-    zoom?: number;
-}
-
-export interface ILayerIdentifier {
-    name: string;
-}
 
 
 export default {

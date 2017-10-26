@@ -18,11 +18,9 @@
 import { parse as parseUrl } from 'url';
 
 import { IShape } from 'sdi/shape';
-import { fromRecord } from 'sdi/locale';
-import { Feature, Properties, FeatureCollection, IMapBaseLayer, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
+import { Feature, Properties, FeatureCollection, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import { IMapBaseLayerTranslated } from '../shape/types';
 import { putMap, postLayer } from '../remote';
 import queries from '../queries/app';
 import mapEvents from '../events/map';
@@ -119,21 +117,6 @@ export const getLayerPropertiesKeys = (fc: FeatureCollection): string[] => {
             return acc;
         }, []));
 };
-
-export const hashMapBaseLayer = (l: IMapBaseLayer) => {
-    return `${fromRecord(l.name)}|${fromRecord(l.url)}|${fromRecord(l.params.LAYERS)}`;
-};
-
-
-export const translateMapBaseLayer = (l: IMapBaseLayer): IMapBaseLayerTranslated => ({
-    name: fromRecord(l.name),
-    srs: l.srs,
-    params: {
-        LAYERS: fromRecord(l.params.LAYERS),
-        VERSION: l.params.VERSION,
-    },
-    url: fromRecord(l.url),
-});
 
 
 

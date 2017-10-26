@@ -26,13 +26,13 @@ import {
     Inspire,
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
+import { removeLayerAll, addLayer } from 'sdi/map';
 
 import { resetTable } from './table';
 import appEvents from './app';
 import queries from '../queries/layer-editor';
 import appQueries from '../queries/app';
 import { AppLayout } from '../shape/types';
-import { removeLayerAll, addLayer } from '../ports/map';
 import { syncLayer } from '../util/app';
 
 type NotNullProperties = { [k: string]: any };
@@ -88,7 +88,10 @@ const showLayer =
         appEvents.loadLayer(i.uniqueResourceIdentifier,
             getApiUrl(`layers/${i.uniqueResourceIdentifier}`));
         removeLayerAll();
-        addLayer(() => appQueries.getLayerInfo(makeLayerMapId(i)));
+        addLayer(
+            () => appQueries.getLayerInfo(makeLayerMapId(i)),
+            () => appQueries.getLayerData(i.uniqueResourceIdentifier),
+        );
     };
 
 
@@ -286,7 +289,10 @@ const events = {
 
             resetTable();
             removeLayerAll();
-            addLayer(() => appQueries.getLayerInfo(lid));
+            addLayer(
+                () => appQueries.getLayerInfo(lid),
+                () => appQueries.getLayerData(lid)
+            );
         }
     },
 

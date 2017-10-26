@@ -16,10 +16,12 @@
 
 import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
-import { pointStyle, getContext, IOLContext } from '../../ports/map-style';
+
+import { pointStyle, getContext, IOLContext } from 'sdi/map/style';
 import { DIV, SPAN, IMG } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PointStyleConfig, PointStyleConfigDiscrete, PointStyleConfigSimple, PointStyleConfigContinuous } from 'sdi/source';
+
 import appQueries from '../../queries/app';
 
 const logger = debug('sdi:legend-point');

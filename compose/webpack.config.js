@@ -18,9 +18,11 @@ const SDI_ALIAS = {
     'sdi/app': resolve(SDI_ALIAS_ROOT, 'app'),
     'sdi/components': resolve(SDI_ALIAS_ROOT, 'components'),
     'sdi/locale': resolve(SDI_ALIAS_ROOT, 'locale'),
+    'sdi/map': resolve(SDI_ALIAS_ROOT, 'map'),
     'sdi/polyfill': resolve(SDI_ALIAS_ROOT, 'polyfill'),
     'sdi/shape': resolve(SDI_ALIAS_ROOT, 'shape'),
     'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
+    'sdi/util': resolve(SDI_ALIAS_ROOT, 'util'),
 };
 
 console.log(`ROOT ${ROOT}`);

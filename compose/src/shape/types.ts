@@ -1,7 +1,6 @@
 import { Coordinate } from 'openlayers';
 import {
     FeatureCollection,
-    GeometryType,
     IMapBaseLayer,
     Inspire,
     ITimeserie,
@@ -56,38 +55,6 @@ export interface IToolWebServices extends IFoldable {
     layers: IMapBaseLayer[];
 }
 
-export interface IMapScale {
-    count: number;
-    unit: string;
-    width: number;
-}
-
-export interface IMapViewData {
-    dirty: boolean;
-    srs: string;
-    center: Coordinate;
-    rotation: number;
-    zoom: number;
-}
-
-
-export type MapEditableMode = 'none' | 'select' | 'create' | 'modify';
-
-export interface IMapEditable {
-    mode: MapEditableMode;
-    selected: string | number | null;
-    geometryType: GeometryType;
-}
-
-export interface IMapBaseLayerTranslated {
-    name: string;
-    srs: string;
-    params: {
-        LAYERS: string;
-        VERSION: string;
-    };
-    url: string;
-}
 
 
 export interface TrackerCoordinate {
