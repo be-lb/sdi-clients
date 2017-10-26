@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { DIV, H1, P, IMG, INPUT } from 'sdi/components/elements';
+import { DIV, H1, P, IMG, INPUT, SPAN } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events, { toDataURL } from '../../events/app';
 import mapInfoQueries from '../../queries/map-info';
@@ -51,14 +51,14 @@ const uploadButton = button('upload', 'validate');
 
 const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
     const isEmpty = title.trim().length === 0;
-    const text = isEmpty ? tr('emptyTitle') : title;
+    const text = isEmpty ? tr('emptyMapTitle') : title;
     return H1(props, text);
 };
 
 
 const formatDescription = (props: React.ClassAttributes<Element>, description: string) => {
     const isEmpty = description.trim().length === 0;
-    const elems = isEmpty ? tr('emptyDescription') : description.split('\n').map(toP);
+    const elems = isEmpty ? tr('emptyMapDescription') : description.split('\n').map(toP);
     const html = renderToStaticMarkup(DIV({}, ...elems));
     return DIV({
         className: 'map-description',
@@ -111,11 +111,15 @@ const renderMapIllustrationToolbar = (src: string | undefined) => {
     }
     else if (state === MapInfoIllustrationState.generateSelectedImagePreview) {
         const label = DIV({ className: 'label' }, tr('imageGeneratingPreview'));
-        return DIV({ className: 'uploader-wrapper' }, label);
+        return DIV({ className: 'uploader-wrapper' },
+            SPAN({ className: 'loader-spinner' }),
+            label);
     }
     else if (state === MapInfoIllustrationState.uploadSelectedImage) {
         const label = DIV({ className: 'label' }, tr('imageUploading'));
-        return DIV({ className: 'uploader-wrapper' }, label);
+        return DIV({ className: 'uploader-wrapper' },
+            SPAN({ className: 'loader-spinner' }),
+            label);
     }
     else {
         const uploadField = INPUT({

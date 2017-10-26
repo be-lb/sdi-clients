@@ -93,6 +93,7 @@ const renderAttachmentEditable =
 
 const renderAttachmentUploading = (name: string) => {
     return DIV({ className: 'map-file' },
+        SPAN({ className: 'loader-spinner' }),
         SPAN({}, `${name} (${tr('attachmentUploadActive')})`));
 };
 

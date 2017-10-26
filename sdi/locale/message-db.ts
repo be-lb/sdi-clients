@@ -69,6 +69,8 @@ export type MessageKey =
     | 'embed'
     | 'emptyDescription'
     | 'emptyTitle'
+    | 'emptyMapDescription'
+    | 'emptyMapTitle'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -140,6 +142,7 @@ export type MessageKey =
     | 'metaDutch'
     | 'metaFrench'
     | 'metadataEditor'
+    | 'myMaps'
     | 'newLayer'
     | 'newMap'
     | 'noResults'
@@ -418,9 +421,19 @@ export const messages: MessageDB = {
         nl: 'Beschrijving',
     },
 
+    emptyMapDescription: {
+        fr: 'Description de la carte',
+        nl: 'Kaart beschrijving',
+    },
+
     emptyTitle: {
         fr: 'Titre',
         nl: 'Titel',
+    },
+
+    emptyMapTitle: {
+        fr: 'Titre de la carte',
+        nl: 'Kaarttitel',
     },
 
     export: {
@@ -1140,5 +1153,10 @@ export const messages: MessageDB = {
     unpublish: {
         fr: 'Dépublier',
         nl: 'Unpublish',
+    },
+
+    myMaps: {
+        fr: 'Mes cartes',
+        nl: 'Mijn kaarten',
     },
 };
