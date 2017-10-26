@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -16,14 +14,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import queries from '../../queries/feature-config';
-import appQueries from '../../queries/app';
+import { ReactNode } from 'react';
+
+import { getLang } from 'sdi/app';
+import { formatNumber } from 'sdi/locale';
 import { DIV, A, IMG } from 'sdi/components/elements';
 import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel } from 'sdi/source';
+
+import queries from '../../queries/feature-config';
+import appQueries from '../../queries/app';
 import piechart from './piechart';
 import timeserie from './timeserie';
-import { formatNumber } from 'sdi/locale';
-import { ReactNode } from 'react';
 
 interface NotNullProperties {
     [key: string]: any;
@@ -114,7 +115,7 @@ const renderConfiguredRow =
 const render =
     () => {
         const feature = appQueries.getCurrentFeature();
-        const lc = appQueries.getLang();
+        const lc = getLang();
         const config = queries.getConfig();
         const lines: ReactNode[] = [];
         if (config && feature) {

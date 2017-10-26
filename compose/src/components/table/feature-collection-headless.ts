@@ -39,7 +39,7 @@ const onRowSelect: SelectRowHandler =
         if (metadata) {
             const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
             if (layer) {
-                const feature = layer.features[row.from];
+                const feature = layer.features[row.from as number];
                 appEvents.setCurrentFeatureData(feature);
             }
         }

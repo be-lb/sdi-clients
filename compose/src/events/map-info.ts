@@ -15,6 +15,8 @@
  */
 
 import { dispatch } from 'sdi/shape';
+import { getApiUrl } from 'sdi/app';
+
 import { MapInfoIllustrationState } from '../shape/types';
 import appQueries from '../queries/app';
 import { putMap, upload } from '../remote';
@@ -44,7 +46,7 @@ const events = {
 
                             if (idx >= 0) {
                                 const map = maps[idx];
-                                const endpoint = appQueries.getApiUrl(`maps/${mid}`);
+                                const endpoint = getApiUrl(`maps/${mid}`);
                                 map.imageUrl = data.url;
                                 setTimeout(() => {
                                     putMap(endpoint, map);

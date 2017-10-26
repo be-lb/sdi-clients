@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as uuid from 'uuid';
+
 import { dispatch } from 'sdi/shape';
 import { TableDataRow } from 'sdi/components/table';
 import {
@@ -23,13 +25,14 @@ import {
     IMapInfo,
     Inspire,
 } from 'sdi/source';
-import tableEvents from './table';
+import { getApiUrl } from 'sdi/app';
+
+import { resetTable } from './table';
 import appEvents from './app';
 import queries from '../queries/layer-editor';
 import appQueries from '../queries/app';
 import { AppLayout } from '../shape/types';
 import { removeLayerAll, addLayer } from '../ports/map';
-import * as uuid from 'uuid';
 import { syncLayer } from '../util/app';
 
 type NotNullProperties = { [k: string]: any };
@@ -79,11 +82,11 @@ const showLayer =
         const mid = uuid();
         const lm = makeLayerMap(mid, i);
         dispatch('data/maps', maps => maps.concat(lm));
-        tableEvents.reset();
+        resetTable();
         appEvents.setCurrentMapId(mid);
         appEvents.setCurrentLayerId(makeLayerMapId(i));
         appEvents.loadLayer(i.uniqueResourceIdentifier,
-            appQueries.getApiUrl(`layers/${i.uniqueResourceIdentifier}`));
+            getApiUrl(`layers/${i.uniqueResourceIdentifier}`));
         removeLayerAll();
         addLayer(() => appQueries.getLayerInfo(makeLayerMapId(i)));
     };
@@ -171,7 +174,7 @@ const events = {
 
     // When it comes from table
     editRow(row: TableDataRow) {
-        editFeature(row.from);
+        editFeature(row.from as number);
     },
 
     // When it comes from map
@@ -254,7 +257,7 @@ const events = {
                 state.selected = null;
                 return state;
             });
-            tableEvents.reset();
+            resetTable();
             appEvents.setLayout(AppLayout.LayerEditAndInfo);
         }
     },
@@ -281,7 +284,7 @@ const events = {
                 return state;
             });
 
-            tableEvents.reset();
+            resetTable();
             removeLayerAll();
             addLayer(() => appQueries.getLayerInfo(lid));
         }
@@ -309,7 +312,7 @@ const events = {
             });
             appEvents.setCurrentFeatureData(feature);
             appEvents.setLayout(AppLayout.LayerEditAndRow);
-            tableEvents.reset();
+            resetTable();
         }
     },
 };

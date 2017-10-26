@@ -18,8 +18,8 @@
 import * as debug from 'debug';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import tableQueries from '../../queries/table';
-import tableEvents from '../../events/table';
+import { getRow, getSelected } from '../../queries/table';
+import { selectRow } from '../../events/table';
 import config from './config';
 import { DIV } from 'sdi/components/elements';
 import { ReactNode } from 'react';
@@ -61,13 +61,13 @@ const renderDefault =
     };
 
 
-const selectRow =
+const selectRowFeature =
     (row: TableDataRow) => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata) {
             const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
             if (layer) {
-                const feature = layer.features[row.from];
+                const feature = layer.features[row.from as number];
                 appEvents.setCurrentFeatureData(feature);
             }
         }
@@ -75,12 +75,12 @@ const selectRow =
 
 const checkSelected =
     () => {
-        const selected = tableQueries.getSelected();
+        const selected = getSelected();
         if (selected < 0) {
-            tableEvents.select(0);
-            const row = tableQueries.getRow();
+            selectRow(0);
+            const row = getRow(0);
             if (row) {
-                selectRow(row);
+                selectRowFeature(row);
             }
         }
     };

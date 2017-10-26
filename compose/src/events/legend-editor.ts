@@ -15,10 +15,9 @@
  */
 
 import * as debug from 'debug';
+
 import { dispatch } from 'sdi/shape';
-import appQueries from '../queries/app';
-import queries from '../queries/legend-editor';
-import { saveStyle, syncMap } from '../util/app';
+import { getLang } from 'sdi/app';
 import {
     addDefaultGroupStyle,
     addDefaultIntervalStyle,
@@ -48,6 +47,10 @@ import {
     PolygonInterval,
     StyleConfig,
 } from 'sdi/source';
+
+import appQueries from '../queries/app';
+import queries from '../queries/legend-editor';
+import { saveStyle, syncMap } from '../util/app';
 
 
 const logger = debug('sdi:events/legend-editor');
@@ -445,7 +448,7 @@ const events = {
         updatePointStyleLabel((s: PointStyleConfig) => {
             // logger(`setPropNameForLabel ${pn} ${isLabeled(s)}`);
             if (isLabeled(s)) {
-                s.label.propName[appQueries.getLang()] = pn;
+                s.label.propName[getLang()] = pn;
             }
         });
     },

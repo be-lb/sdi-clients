@@ -14,20 +14,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from 'sdi/shape';
-import { TableDataRow, TableDataType } from 'sdi/components/table';
+import { query, queryK } from 'sdi/shape';
+import { TableDataRow, TableDataType, tableQueries } from 'sdi/components/table';
 import { fromRecord, formatDate } from 'sdi/locale';
 import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent, Properties } from 'sdi/source';
 
 import appQueries from './app';
 import { getLayerPropertiesKeys } from '../util/app';
 
+const table = queryK('component/table');
 
+export const getSelected =
+    () => tableQueries(table).getSelected();
+
+export const getRow =
+    (idx: number) => tableQueries(table).getRow(idx);
+
+
+export const getSelectedRow =
+    () => getRow(getSelected());
 
 const queries = {
-
-
-
     // Layer / FeatureCollection
 
     getLayer(): FeatureCollection | null {

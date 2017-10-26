@@ -16,15 +16,18 @@
  */
 
 import * as debug from 'debug';
-import tableQueries from '../../queries/table';
+
+import tr, { fromRecord, formatDate } from 'sdi/locale';
+import { DIV, SPAN, H1, A } from 'sdi/components/elements';
+import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
+import { getApiUrl } from 'sdi/app';
+
+import  { getSelectedRow } from '../../queries/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import layerEvents from '../../events/layer-editor';
-import { DIV, SPAN, H1, A } from 'sdi/components/elements';
-import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
-import tr, { fromRecord, formatDate } from 'sdi/locale';
 
 const logger = debug('sdi:table/inspire');
 
@@ -81,14 +84,14 @@ const renderInspireMD = (i: Inspire) => {
                 appEvents.resetLegendEditor();
                 appEvents.setLayout(AppLayout.LegendEditor);
                 appEvents.loadLayer(i.uniqueResourceIdentifier,
-                    appQueries.getApiUrl(
+                    getApiUrl(
                         `layers/${i.uniqueResourceIdentifier}`));
             }))
     );
 };
 
 const render = () => {
-    const row = tableQueries.getRow();
+    const row = getSelectedRow();
     if (null === row) {
         return DIV({ className: 'inspire-wrapper' });
     }

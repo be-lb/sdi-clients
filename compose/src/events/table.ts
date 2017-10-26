@@ -14,9 +14,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, observe } from 'sdi/shape';
-import { initialTableState } from 'sdi/components/table';
+import { dispatchK, observe } from 'sdi/shape';
+import { initialTableState, tableEvents } from 'sdi/components/table';
+
+const table = dispatchK('component/table');
 
 observe('app/current-layer', () => {
-    dispatch('component/table', initialTableState);
+    table(initialTableState);
 });
+
+
+export const selectRow =
+    (idx: number) => tableEvents(table).select(idx);
+
+
+export const resetTable=
+    () => tableEvents(table).reset();

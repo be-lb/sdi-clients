@@ -17,8 +17,20 @@
 
 import * as debug from 'debug';
 import * as uuid from 'uuid';
+
 import { dispatch, observe } from 'sdi/shape';
-import { AppLayout } from '../shape/types';
+import {
+    defaultStyle,
+    Feature,
+    ILayerInfo,
+    IMapBaseLayer,
+    IMapInfo,
+    Inspire,
+    IUser,
+    MessageRecord,
+} from 'sdi/source';
+import { getApiUrl, getLang } from 'sdi/app';
+
 import {
     fetchAlias,
     fetchAllDatasetMetadata,
@@ -33,17 +45,8 @@ import {
     putMap,
     upload,
 } from '../remote';
-import {
-    defaultStyle,
-    Feature,
-    ILayerInfo,
-    IMapBaseLayer,
-    IMapInfo,
-    Inspire,
-    IUser,
-    MessageRecord,
-} from 'sdi/source';
 import queries from '../queries/app';
+import { AppLayout } from '../shape/types';
 import { addLayer, removeLayerAll } from '../ports/map';
 import { initialLegendEditorState } from '../components/legend-editor/index';
 
@@ -64,10 +67,10 @@ observe('data/user', (user: IUser) => {
     if (user) {
         logger(`user changed, loading maps ${user.maps}`);
         user.maps.forEach((mid) => {
-            events.loadMap(queries.getApiUrl(`maps/${mid}`));
+            events.loadMap(getApiUrl(`maps/${mid}`));
         });
         user.layers.forEach((lid) => {
-            events.loadDatasetMetadata(lid, queries.getApiUrl(`dataset-metadata/${lid}`));
+            events.loadDatasetMetadata(lid, getApiUrl(`dataset-metadata/${lid}`));
         });
     }
 });
@@ -79,10 +82,10 @@ observe('data/maps', () => {
     const info = queries.getMapInfo();
     if (info) {
         info.layers.forEach((l) => {
-            fetchDatasetMetadata(queries.getApiUrl(`metadatas/${l.metadataId}`))
+            fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
                 .then((md) => {
                     events.loadLayer(md.uniqueResourceIdentifier,
-                        queries.getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
+                        getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
                 })
                 .catch(err => logger(`observe(data/maps) ${err}`));
         });
@@ -95,12 +98,12 @@ observe('app/current-map', () => {
     if (info) {
         removeLayerAll();
         info.layers.forEach((l) => {
-            // events.loadLayer(l.id, queries.getApiUrl(`layers/${l.id}`));
+            // events.loadLayer(l.id, getApiUrl(`layers/${l.id}`));
             // addLayer(() => queries.getLayerInfo(l.id));
-            fetchDatasetMetadata(queries.getApiUrl(`metadatas/${l.metadataId}`))
+            fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
                 .then((md) => {
                     events.loadLayer(md.uniqueResourceIdentifier,
-                        queries.getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
+                        getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
                     addLayer(() => queries.getLayerInfo(l.id));
                 })
                 .catch(err => logger(`observe(app/current-map) ${err}`));
@@ -222,7 +225,7 @@ const events = {
     },
 
     loadAllDatasetMetadata() {
-        fetchAllDatasetMetadata(queries.getApiUrl('metadatas'))
+        fetchAllDatasetMetadata(getApiUrl('metadatas'))
             .then((mds) => {
                 mds.forEach((md) => {
                     dispatch('data/datasetMetadata', (state) => {
@@ -285,7 +288,7 @@ const events = {
                 const m = maps[idx];
                 m.title = r;
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
             return maps;
@@ -300,7 +303,7 @@ const events = {
                 const m = maps[idx];
                 m.description = r;
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
             return maps;
@@ -321,11 +324,11 @@ const events = {
                     featureViewOptions: { type: 'default' },
                     style: defaultStyle(i.geometryType),
                 };
-                postLayerInfo(queries.getApiUrl(`layerinfos`), info)
+                postLayerInfo(getApiUrl(`layerinfos`), info)
                     .then((result) => {
                         logger(`Recorded Layer ${result.id} / ${result.metadataId}`);
                         m.layers.push(result);
-                        putMap(queries.getApiUrl(`maps/${mid}`), m)
+                        putMap(getApiUrl(`maps/${mid}`), m)
                             .then(() => {
                                 addLayer(() => queries.getLayerInfo(result.id));
                                 events.setCurrentLayerId(result.id);
@@ -341,7 +344,7 @@ const events = {
     },
 
     newMap() {
-        postMap(queries.getApiUrl(`maps`), makeMap())
+        postMap(getApiUrl(`maps`), makeMap())
             .then((map) => {
                 if (map.id) {
                     const mid = map.id;
@@ -350,7 +353,7 @@ const events = {
                         if (user && user.id) {
                             user.maps = user.maps.concat([mid]);
                             postUser(
-                                queries.getApiUrl(`users/${user.id}`), user);
+                                getApiUrl(`users/${user.id}`), user);
                         }
                         return user;
                     });
@@ -370,7 +373,7 @@ const events = {
                     m.attachments[k].name = name;
                 }
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
             return maps;
@@ -387,7 +390,7 @@ const events = {
                     m.attachments.splice(k, 1);
                 }
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
             return maps;
@@ -407,7 +410,7 @@ const events = {
                 });
 
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
 
@@ -423,7 +426,7 @@ const events = {
                 const m = maps[idx];
                 m.categories = m.categories.filter(mc => mc !== c);
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
             return maps;
@@ -438,7 +441,7 @@ const events = {
                 const m = maps[idx];
                 m.categories.push(c);
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
 
@@ -449,7 +452,7 @@ const events = {
     uploadAttachmentFile(k: number, f: File) {
         const mid = queries.getCurrentMap();
         const name = f.name;
-        const lc = queries.getLang();
+        const lc = getLang();
         const ts = Date.now().toString();
 
         dispatch('data/maps', (maps) => {
@@ -475,7 +478,7 @@ const events = {
                                     m.attachments[aidx].url[lc] = url;
 
                                     setTimeout(() => {
-                                        putMap(queries.getApiUrl(`maps/${mid}`), m);
+                                        putMap(getApiUrl(`maps/${mid}`), m);
                                     }, 1);
                                 }
                             }
@@ -495,7 +498,7 @@ const events = {
                                     m.attachments[aidx].url[lc] = '';
 
                                     setTimeout(() => {
-                                        putMap(queries.getApiUrl(`maps/${mid}`), m);
+                                        putMap(getApiUrl(`maps/${mid}`), m);
                                     }, 1);
                                 }
                             }
@@ -520,7 +523,7 @@ const events = {
                 maps[idx].imageUrl = undefined;
 
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), maps[idx]);
+                    putMap(getApiUrl(`maps/${mid}`), maps[idx]);
                 }, 1);
             }
 
@@ -539,7 +542,7 @@ const events = {
                 m.baseLayer = l;
 
                 setTimeout(() => {
-                    putMap(queries.getApiUrl(`maps/${mid}`), m);
+                    putMap(getApiUrl(`maps/${mid}`), m);
                 }, 1);
             }
 

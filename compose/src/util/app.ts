@@ -20,6 +20,7 @@ import { parse as parseUrl } from 'url';
 import { IShape } from 'sdi/shape';
 import { fromRecord } from 'sdi/locale';
 import { Feature, Properties, FeatureCollection, IMapBaseLayer, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
+import { getApiUrl } from 'sdi/app';
 
 import { IMapBaseLayerTranslated } from '../shape/types';
 import { putMap, postLayer } from '../remote';
@@ -140,7 +141,7 @@ export const syncMap =
     (m: IMapInfo) => {
         m.lastModified = Date.now();
         setTimeout(() => {
-            putMap(queries.getApiUrl(`maps/${m.id}`), m);
+            putMap(getApiUrl(`maps/${m.id}`), m);
         }, 1);
     };
 
@@ -148,7 +149,7 @@ export const syncMap =
 export const syncLayer =
     (id: string, fc: FeatureCollection) => {
         setTimeout(() => {
-            postLayer(queries.getApiUrl(`layers/${id}`), fc);
+            postLayer(getApiUrl(`layers/${id}`), fc);
         }, 1);
     };
 

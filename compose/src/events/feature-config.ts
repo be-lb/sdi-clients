@@ -15,10 +15,6 @@
  */
 
 import { dispatch } from 'sdi/shape';
-import { syncMap } from '../util/app';
-import queries from '../queries/app';
-import appEvents from '../events/app';
-import { initialFeatureConfigState } from '../components/feature-config/index';
 import {
     BooleanConfig,
     ConfigWithLabel,
@@ -46,12 +42,19 @@ import {
     TimeserieConfig,
     URLConfig,
 } from 'sdi/source';
+import { getLang } from 'sdi/app';
+
+import { syncMap } from '../util/app';
+import queries from '../queries/app';
+import appEvents from '../events/app';
+import { initialFeatureConfigState } from '../components/feature-config/index';
+
 
 const defaultRowConfig =
     (pn: string): StringConfig => ({
         propName: pn,
         type: 'string',
-        lang: queries.getLang(),
+        lang: getLang(),
         options: {
             level: 'normal',
             withLabel: true,
@@ -121,7 +124,7 @@ const updateConfig =
 const updateConfigRow =
     (pn: string, fn: UpdateConfigRowFn) => {
         updateConfig((c) => {
-            const lc = queries.getLang();
+            const lc = getLang();
             const rows = c.rows;
             const row = rows.find(r => r.propName === pn && r.lang === lc);
             if (row) {
@@ -170,7 +173,7 @@ const events = {
 
     removePropFromConfig(pn: string) {
         updateConfig((c) => {
-            const lc = queries.getLang();
+            const lc = getLang();
             c.rows = c.rows.filter(r => !(r.propName === pn && r.lang === lc));
             return c;
         });
@@ -182,7 +185,7 @@ const events = {
 
     movePropUp(pn: string) {
         updateConfig((conf) => {
-            const lc = queries.getLang();
+            const lc = getLang();
             const rows = conf.rows.filter(r => r.lang === lc);
             const rest = conf.rows.filter(r => r.lang !== lc);
             const idx = rows.findIndex(r => r.propName === pn);
@@ -200,7 +203,7 @@ const events = {
 
     movePropDown(pn: string) {
         updateConfig((conf) => {
-            const lc = queries.getLang();
+            const lc = getLang();
             const rows = conf.rows.filter(r => r.lang === lc);
             const rest = conf.rows.filter(r => r.lang !== lc);
             const idx = rows.findIndex(r => r.propName === pn);

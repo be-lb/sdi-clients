@@ -38,6 +38,7 @@ import {
     StyleConfig,
     StyleGroupType,
 } from 'sdi/source';
+import { getLang } from 'sdi/app';
 
 type ValueType = string | boolean | number;
 
@@ -210,7 +211,7 @@ const queries = {
     getPropNameForLabel(l = '') {
         return getFromStyle(l, (s: PointStyleConfig) => {
             if (isLabeled(s)) {
-                return s.label.propName[appQueries.getLang()];
+                return s.label.propName[getLang()];
             }
             return l;
         });

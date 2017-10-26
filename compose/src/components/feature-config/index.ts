@@ -23,8 +23,8 @@ import { button } from '../button';
 import tr from 'sdi/locale';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import tableQueries from '../../queries/table';
-import tableEvents from '../../events/table';
+import { getSelected, getRow } from '../../queries/table';
+import { selectRow } from '../../events/table';
 import * as debug from 'debug';
 
 const logger = debug('sdi:feature-config');
@@ -32,15 +32,16 @@ const logger = debug('sdi:feature-config');
 
 
 const ensureTableSelection = () => {
-    if (tableQueries.getSelected() < 0) {
-        const row = tableQueries.getRow(0);
+    if (getSelected() < 0) {
+        const row = getRow(0);
         if (row) {
             const lid = appQueries.getCurrentLayerId();
             if (lid) {
                 const layer = appQueries.getLayerData(lid);
                 if (layer) {
-                    tableEvents.select(0);
-                    const feature = layer.features[row.from];
+                    selectRow(0);
+                    const idx= row.from as number;
+                    const feature = layer.features[idx];
                     appEvents.setCurrentFeatureData(feature);
                 }
             }
