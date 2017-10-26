@@ -51,14 +51,14 @@ const uploadButton = button('upload', 'validate');
 
 const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
     const isEmpty = title.trim().length === 0;
-    const text = isEmpty ? tr('emptyTitle') : title;
+    const text = isEmpty ? tr('emptyMapTitle') : title;
     return H1(props, text);
 };
 
 
 const formatDescription = (props: React.ClassAttributes<Element>, description: string) => {
     const isEmpty = description.trim().length === 0;
-    const elems = isEmpty ? tr('emptyDescription') : description.split('\n').map(toP);
+    const elems = isEmpty ? tr('emptyMapDescription') : description.split('\n').map(toP);
     const html = renderToStaticMarkup(DIV({}, ...elems));
     return DIV({
         className: 'map-description',

@@ -69,6 +69,8 @@ export type MessageKey =
     | 'embed'
     | 'emptyDescription'
     | 'emptyTitle'
+    | 'emptyMapDescription'
+    | 'emptyMapTitle'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -419,9 +421,19 @@ export const messages: MessageDB = {
         nl: 'Beschrijving',
     },
 
+    emptyMapDescription: {
+        fr: 'Description de la carte',
+        nl: 'Kaart beschrijving',
+    },
+
     emptyTitle: {
         fr: 'Titre',
         nl: 'Titel',
+    },
+
+    emptyMapTitle: {
+        fr: 'Titre de la carte',
+        nl: 'Kaarttitel',
     },
 
     export: {
