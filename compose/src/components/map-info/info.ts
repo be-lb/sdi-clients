@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { DIV, H1, P, IMG, INPUT } from 'sdi/components/elements';
+import { DIV, H1, P, IMG, INPUT, SPAN } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events, { toDataURL } from '../../events/app';
 import mapInfoQueries from '../../queries/map-info';
@@ -111,11 +111,15 @@ const renderMapIllustrationToolbar = (src: string | undefined) => {
     }
     else if (state === MapInfoIllustrationState.generateSelectedImagePreview) {
         const label = DIV({ className: 'label' }, tr('imageGeneratingPreview'));
-        return DIV({ className: 'uploader-wrapper' }, label);
+        return DIV({ className: 'uploader-wrapper' },
+            SPAN({ className: 'loader-spinner' }),
+            label);
     }
     else if (state === MapInfoIllustrationState.uploadSelectedImage) {
         const label = DIV({ className: 'label' }, tr('imageUploading'));
-        return DIV({ className: 'uploader-wrapper' }, label);
+        return DIV({ className: 'uploader-wrapper' },
+            SPAN({ className: 'loader-spinner' }),
+            label);
     }
     else {
         const uploadField = INPUT({
