@@ -17,9 +17,15 @@
 import { IShape, dispatch, query } from '../shape';
 import { fromNullable } from 'fp-ts/lib/Option';
 import { render } from 'react-dom';
-import { IStoreInteractions } from '../source';
+import { IStoreInteractions, MessageRecord, ILayerInfo, Inspire } from '../source';
 
+// types
 
+export interface SyntheticLayerInfo {
+    name: MessageRecord | null;
+    info: ILayerInfo | null;
+    metadata: Inspire | null;
+}
 
 
 // queries
