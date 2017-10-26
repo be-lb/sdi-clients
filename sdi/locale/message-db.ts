@@ -140,6 +140,7 @@ export type MessageKey =
     | 'metaDutch'
     | 'metaFrench'
     | 'metadataEditor'
+    | 'myMaps'
     | 'newLayer'
     | 'newMap'
     | 'noResults'
@@ -1140,5 +1141,10 @@ export const messages: MessageDB = {
     unpublish: {
         fr: 'Dépublier',
         nl: 'Unpublish',
+    },
+
+    myMaps: {
+        fr: 'Mes cartes',
+        nl: 'Mijn kaarten',
     },
 };

@@ -54,7 +54,7 @@ const renderAppListingButton =
                 DIV({
                     className: 'navigate app-listview',
                     onClick: () => events.setLayout(AppLayout.Dashboard),
-                }, SPAN({ className: 'label' }, tr('dashboard'))));
+                }, SPAN({ className: 'label' }, tr('myMaps'))));
         }
         return DIV();
     };
@@ -122,43 +122,43 @@ const renderLayerViewAndInfo = () => wrappedMain(
 const renderUpload = () => wrappedMain('upload', upload());
 
 
-const renderMain = 
-()=> {
+const renderMain =
+    () => {
 
-    const layout = queries.getLayout();
-    switch (layout) {
-        case AppLayout.Dashboard: return renderDashboard();
-        case AppLayout.MapFS: return renderMapFs();
-        case AppLayout.MapAndTable: return renderMapAndTable();
-        case AppLayout.MapAndInfo: return renderMapAndInfo();
-        case AppLayout.TableFs: return renderTableFs();
-        case AppLayout.LayerSelect: return renderLayerSelect();
-        case AppLayout.LayerSelectAndInspire: return renderLayerSelectAndInspire();
-        case AppLayout.LegendEditor: return renderLegendEditor();
-        case AppLayout.LegendEditorAndTable: return renderLegendEditorAndTable();
-        case AppLayout.FeatureConfig: return renderFeatureConfig();
+        const layout = queries.getLayout();
+        switch (layout) {
+            case AppLayout.Dashboard: return renderDashboard();
+            case AppLayout.MapFS: return renderMapFs();
+            case AppLayout.MapAndTable: return renderMapAndTable();
+            case AppLayout.MapAndInfo: return renderMapAndInfo();
+            case AppLayout.TableFs: return renderTableFs();
+            case AppLayout.LayerSelect: return renderLayerSelect();
+            case AppLayout.LayerSelectAndInspire: return renderLayerSelectAndInspire();
+            case AppLayout.LegendEditor: return renderLegendEditor();
+            case AppLayout.LegendEditorAndTable: return renderLegendEditorAndTable();
+            case AppLayout.FeatureConfig: return renderFeatureConfig();
 
-        case AppLayout.LayerEditAndInfo: return renderLayerEditAndInfo();
-        case AppLayout.LayerEditAndRow: return renderLayerEditAndRow();
+            case AppLayout.LayerEditAndInfo: return renderLayerEditAndInfo();
+            case AppLayout.LayerEditAndRow: return renderLayerEditAndRow();
 
-        case AppLayout.LayerViewAndInfo: return renderLayerViewAndInfo();
-        case AppLayout.LayerViewAndRow: return renderLayerViewAndInfo();
+            case AppLayout.LayerViewAndInfo: return renderLayerViewAndInfo();
+            case AppLayout.LayerViewAndRow: return renderLayerViewAndInfo();
 
-        case AppLayout.Upload: return renderUpload();
-    }
-};
+            case AppLayout.Upload: return renderUpload();
+        }
+    };
 
 
-const effects = 
-() => {
-    mapEvents.updateMapView({ dirty: true });
-    getUserId()
-        .map(userId =>
-            events.loadUser(getApiUrl(`users/${userId}`)));
-    events.loadCategories(getApiUrl(`categories`));
-    events.loadAlias(getApiUrl(`alias`));
-    events.loadAllDatasetMetadata();
-};
+const effects =
+    () => {
+        mapEvents.updateMapView({ dirty: true });
+        getUserId()
+            .map(userId =>
+                events.loadUser(getApiUrl(`users/${userId}`)));
+        events.loadCategories(getApiUrl(`categories`));
+        events.loadAlias(getApiUrl(`alias`));
+        events.loadAllDatasetMetadata();
+    };
 
 
 const app = loop(renderMain, effects);

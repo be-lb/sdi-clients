@@ -23,7 +23,7 @@ import maps from './map-list';
 const render = () => {
     return (
         DIV({ className: 'dashboard-wrapper' },
-            H1({ className: 'dashboard-title' }, tr('dashboard')),
+            H1({ className: 'dashboard-title' }, tr('myMaps')),
             maps()));
 };
 
