@@ -21,6 +21,7 @@ import { source } from 'sdi/source';
 import { initialTableState } from 'sdi/components/table';
 import { initialTimeserieState } from 'sdi/components/timeserie';
 import { IShape, configure } from 'sdi/shape';
+
 import App from './app';
 import { AppLayout, MapInfoIllustrationState } from './shape/types';
 import { initialLegendEditorState } from './components/legend-editor';
@@ -115,7 +116,6 @@ export const main =
 
 
         try {
-
             const start = source<IShape, keyof IShape>(['app/lang']);
             const store = start(initialState);
             configure(store);

@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
+import { query } from 'sdi/shape';
 import { IMapInfo } from 'sdi/source';
 
 const queries = {

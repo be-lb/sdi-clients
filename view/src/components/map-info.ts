@@ -15,10 +15,12 @@
  */
 
 import * as debug from 'debug';
-import { DIV, H2, P, A, IMG } from './elements';
-import queries from '../queries/app';
-import tr, { fromRecord, formatDate } from '../locale';
+
+import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { IAttachment, IMapInfo } from 'sdi/source';
+import { DIV, H2, P, A, IMG } from 'sdi/components/elements';
+
+import queries from '../queries/app';
 
 const logger = debug('sdi:map-info');
 

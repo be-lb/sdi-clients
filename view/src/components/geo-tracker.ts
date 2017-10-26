@@ -16,12 +16,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, SPAN } from './elements';
-import tr from '../locale';
+
+import { DIV, SPAN } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+
 import appEvents from '../events/app';
 import mapEvents from '../events/map';
-import { AppLayout } from '../shape/index';
+import { AppLayout } from '../shape/types';
 
 const stopTracker = () => {
     appEvents.setLayout(AppLayout.MapFS);

@@ -16,12 +16,13 @@
  */
 
 import * as debug from 'debug';
-import { render } from 'react-dom';
-import { IStoreInteractions } from 'sdi/source';
+import { loop, getApiUrl } from 'sdi/app';
+import { DIV, SPAN } from 'sdi/components/elements';
+import header from 'sdi/components/header';
+import footer from 'sdi/components/footer';
+import tr from 'sdi/locale';
+
 import map from './components/map';
-import header from './components/header';
-import footer from './components/footer';
-import { DIV } from './components/elements';
 import table from './components/table/feature-collection';
 import feature, { renderDefault } from './components/feature-view';
 import legend, { switcher } from './components/legend';
@@ -31,109 +32,90 @@ import measure from './components/geo-measure';
 import events from './events/app';
 import queries from './queries/app';
 import mapEvents from './events/map';
-import { AppLayout, IShape } from './shape';
+import { AppLayout } from './shape/types';
 
 const logger = debug('sdi:app');
 
-
-
-const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
-        header(),
-        DIV({ className: `main ${name}` }, ...elements),
-        footer())
-);
-
-const renderMapFs = () => wrappedMain('map-fs', map(), switcher(), legend());
-
-const renderMapAndInfo = () => wrappedMain('map-and-info', map(), switcher(), legend());
-
-const renderMapAndFeature = () => wrappedMain('map-and-feature', map(), feature());
-
-const renderTableFs = () => wrappedMain('table-fs', table());
-
-const renderMapAndTable = () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), switcher(), legend());
-
-const renderMapNavigatorFS = () => wrappedMain('map-navigator-fs', mapnavigator());
-
-const renderMapAndTableAndFeature = () => wrappedMain('map-and-table-and-feature', DIV({ className: 'vertical-split' }, DIV({ className: 'snail' }, DIV({ className: 'feature-view config' }, renderDefault()), map()), table()), switcher(), legend());
-
-const renderMapAndTracker = () => wrappedMain('map-and-tracker', map(), tracker());
-
-const renderMapAndMeasure = () => wrappedMain('map-and-measure', map(), measure());
-
-const renderMain = () => {
-    const layout = queries.getLayout();
-    switch (layout) {
-        case AppLayout.MapFS: return renderMapFs();
-        case AppLayout.MapAndTable: return renderMapAndTable();
-        case AppLayout.MapAndTableAndFeature: return renderMapAndTableAndFeature();
-        case AppLayout.MapAndInfo: return renderMapAndInfo();
-        case AppLayout.MapAndFeature: return renderMapAndFeature();
-        case AppLayout.TableFs: return renderTableFs();
-        case AppLayout.MapNavigatorFS: return renderMapNavigatorFS();
-        case AppLayout.MapAndTracker: return renderMapAndTracker();
-        case AppLayout.MapAndMeasure: return renderMapAndMeasure();
-        default: throw (new Error(`UnsupportedLayout ${AppLayout[layout]}`));
-    }
-};
-
-const MIN_FRAME_RATE = 16;
-
-export default (store: IStoreInteractions<IShape>) => {
-
-    let lastFrameRequest: number | null = null;
-    let version: number = -1;
-    let frameRate = MIN_FRAME_RATE;
-    const root = document.createElement('div');
-    document.body.appendChild(root);
-
-
-    const updateState = (ts: number) => {
-        let offset: number = 0;
-        const stateVersion = store.version();
-        if (lastFrameRequest !== null) {
-            offset = ts - lastFrameRequest;
+const renderAppListingButton =
+    () => {
+        if (queries.getLayout() !== AppLayout.MapNavigatorFS) {
+            return (
+                DIV({
+                    className: 'navigate app-listview',
+                    onClick: () => events.setLayout(AppLayout.MapNavigatorFS),
+                }, SPAN({ className: 'label' }, tr('browseMaps'))));
         }
-        else {
-            lastFrameRequest = ts;
-        }
-
-        if (offset >= frameRate && (version !== stateVersion)) {
-            version = stateVersion;
-            lastFrameRequest = ts;
-            logger(`render version ${stateVersion}`);
-            try {
-                const startRenderTime = performance.now();
-                render(renderMain(), root);
-                const renderTime = performance.now() - startRenderTime;
-                if (renderTime > frameRate) {
-                    frameRate = renderTime;
-                }
-                else if (frameRate > MIN_FRAME_RATE) {
-                    frameRate -= 1;
-                }
-            }
-            catch (err) {
-                requestAnimationFrame(updateState);
-            }
-        }
-        requestAnimationFrame(updateState);
+        return DIV();
     };
 
-    const start = () => {
+
+const renderHeader = header(renderAppListingButton);
+
+
+const wrappedMain =
+    (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
+        DIV({},
+            renderHeader(),
+            DIV({ className: `main ${name}` }, ...elements),
+            footer())
+    );
+
+const renderMapFs =
+    () => wrappedMain('map-fs', map(), switcher(), legend());
+
+const renderMapAndInfo =
+    () => wrappedMain('map-and-info', map(), switcher(), legend());
+
+const renderMapAndFeature =
+    () => wrappedMain('map-and-feature', map(), feature());
+
+const renderTableFs =
+    () => wrappedMain('table-fs', table());
+
+const renderMapAndTable =
+    () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), switcher(), legend());
+
+const renderMapNavigatorFS =
+    () => wrappedMain('map-navigator-fs', mapnavigator());
+
+const renderMapAndTableAndFeature =
+    () => wrappedMain('map-and-table-and-feature', DIV({ className: 'vertical-split' }, DIV({ className: 'snail' }, DIV({ className: 'feature-view config' }, renderDefault()), map()), table()), switcher(), legend());
+
+const renderMapAndTracker =
+    () => wrappedMain('map-and-tracker', map(), tracker());
+
+const renderMapAndMeasure =
+    () => wrappedMain('map-and-measure', map(), measure());
+
+const renderMain =
+    () => {
+        const layout = queries.getLayout();
+        switch (layout) {
+            case AppLayout.MapFS: return renderMapFs();
+            case AppLayout.MapAndTable: return renderMapAndTable();
+            case AppLayout.MapAndTableAndFeature: return renderMapAndTableAndFeature();
+            case AppLayout.MapAndInfo: return renderMapAndInfo();
+            case AppLayout.MapAndFeature: return renderMapAndFeature();
+            case AppLayout.TableFs: return renderTableFs();
+            case AppLayout.MapNavigatorFS: return renderMapNavigatorFS();
+            case AppLayout.MapAndTracker: return renderMapAndTracker();
+            case AppLayout.MapAndMeasure: return renderMapAndMeasure();
+            default: throw (new Error(`UnsupportedLayout ${AppLayout[layout]}`));
+        }
+    };
+
+const effects =
+    () => {
         mapEvents.updateMapView({
             dirty: true,
         });
-        requestAnimationFrame(updateState);
-        events.loadCategories(queries.getApiUrl(`categories`));
-        events.loadMaps(queries.getApiUrl(`maps`));
-        events.loadAlias(queries.getApiUrl(`alias`));
+        events.loadCategories(getApiUrl(`categories`));
+        events.loadMaps(getApiUrl(`maps`));
+        events.loadAlias(getApiUrl(`alias`));
         events.bootMap();
     };
 
-    return { start };
-};
-
+const app = loop(renderMain, effects);
+export default app;
 
 logger('loaded');

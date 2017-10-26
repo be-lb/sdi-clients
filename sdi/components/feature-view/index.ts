@@ -44,7 +44,7 @@ const renderRow =
                     DIV({ className: 'feature-field-value' }, val)));
         };
 
-const renderDefault =
+export const renderDefault =
     (feature: Feature) => {
         const lines: ReactNode[] = [];
         if (feature) {
@@ -84,7 +84,7 @@ const renderDefault =
 //         }
 //     };
 
-const render =
+export const renderConfig =
     (viewOptions: FeatureViewOptions, feature: Feature, tsPlotter: TimeseriePlotter) => {
 
         // checkSelected();
@@ -94,6 +94,6 @@ const render =
         }
 
     };
-export default render;
+export default renderConfig;
 
 logger('loaded');

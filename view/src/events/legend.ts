@@ -15,10 +15,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch } from './index';
-import { LegendPage } from '../shape';
-import { IUgWsResponse } from '../ports/geocoder';
+import { dispatch } from 'sdi/shape';
 import { IMapBaseLayer } from 'sdi/source';
+
+import { LegendPage } from '../shape/types';
+import { IUgWsResponse } from '../ports/geocoder';
 
 
 

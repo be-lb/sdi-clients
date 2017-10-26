@@ -14,14 +14,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, observe } from './index';
-import { AppLayout } from '../shape';
+import * as debug from 'debug';
+
+import { dispatch, observe } from 'sdi/shape';
 import { Feature, IMapInfo } from 'sdi/source';
+import { removeLayerAll, addLayer } from 'sdi/map';
+import { getApiUrl } from 'sdi/app';
+
+import { AppLayout } from '../shape/types';
 import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
-import { removeLayerAll, addLayer } from '../ports/map';
 import queries from '../queries/app';
-import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:events/app');
 
@@ -31,11 +35,11 @@ const loadMap =
         logger(`loadMap ${info.id} ${mapIsReady} ${delay}`);
         if (mapIsReady) {
             info.layers.forEach((l) => {
-                const url = queries.getApiUrl(`metadatas/${l.metadataId}`);
+                const url = getApiUrl(`metadatas/${l.metadataId}`);
                 fetchDatasetMetadata(url)
                     .then((md) => {
                         const ruid = md.uniqueResourceIdentifier;
-                        const url = queries.getApiUrl(`layers/${ruid}`);
+                        const url = getApiUrl(`layers/${ruid}`);
                         dispatch('data/datasetMetadata', (state) => {
                             state[md.id] = md;
                             return state;
@@ -65,9 +69,11 @@ const reloadLayers =
         logger(`reload layers ${info}`);
         if (info) {
             removeLayerAll();
-            info.layers.forEach((l) => {
-                addLayer(() => queries.getLayerInfo(l.id));
-            });
+            info.layers.forEach(
+                l => fromNullable(queries.getDatasetMetadata(l.metadataId))
+                    .map(md => addLayer(
+                        () => queries.getLayerInfo(l.id),
+                        () => queries.getLayerData(md.uniqueResourceIdentifier))));
         }
     };
 
@@ -75,9 +81,7 @@ observe('data/layers', reloadLayers);
 observe('data/datasetMetadata', reloadLayers);
 
 const events = {
-    setLang(lc: 'fr' | 'nl') {
-        dispatch('app/lang', () => lc);
-    },
+
 
     setLayout(l: AppLayout) {
         logger(`setLayout ${AppLayout[l]}`);
@@ -88,9 +92,6 @@ const events = {
         dispatch('app/map-ready', () => true);
     },
 
-    navigateRoot() {
-        window.location.assign(queries.getRoot());
-    },
 
     bootMap() {
         const mid = queries.getCurrentMap();
@@ -117,7 +118,6 @@ const events = {
         fetchLayer(url)
             .then((layer) => {
                 dispatch('data/layers', (state) => {
-                    // layer.features.forEach(addAppIdToFeature);
                     logger(`Put layer ${id} ${url} on state`);
                     state[id] = layer;
                     return state;

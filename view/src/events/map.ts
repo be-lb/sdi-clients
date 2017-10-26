@@ -13,24 +13,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { dispatch, IEventData } from './index';
+
 import { Coordinate } from 'openlayers';
-import { TrackerCoordinate } from '../shape';
+
+import { dispatch } from 'sdi/shape';
+import { hashMapBaseLayer } from 'sdi/util';
+import { IViewEvent } from 'sdi/map';
+
+import { TrackerCoordinate } from '../shape/types';
 import appQueries from '../queries/app';
 import mapQueries from '../queries/map';
-import { hashMapBaseLayer } from '../util/app';
-
-export interface IViewEvent extends IEventData {
-    dirty?: boolean;
-    center?: Coordinate;
-    rotation?: number;
-    zoom?: number;
-}
-
-export interface ILayerIdentifier extends IEventData {
-    name: string;
-}
 
 
 export default {

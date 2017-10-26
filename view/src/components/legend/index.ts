@@ -13,19 +13,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV, SPAN, H1, H2 } from '../elements';
+import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
+import { IMapInfo, getMessageRecord } from 'sdi/source';
+import tr, { fromRecord } from 'sdi/locale';
+
 import queries from '../../queries/legend';
 import events from '../../events/legend';
 import appEvents from '../../events/app';
 import appQueries from '../../queries/app';
-import tr, { fromRecord } from '../../locale';
-import { AppLayout, LegendPage } from '../../shape';
 import legendItem from './legend-item';
 import legendTools from './../legend-tools';
 import info from './../map-info';
-import { IMapInfo, getMessageRecord } from 'sdi/source';
+import { AppLayout, LegendPage } from '../../shape/types';
 
 const logger = debug('sdi:legend');
 

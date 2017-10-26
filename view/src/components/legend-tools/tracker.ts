@@ -14,12 +14,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, H2 } from '../elements';
-import tr from '../../locale';
+
+import { DIV, H2 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+
 import mapEvents from '../../events/map';
 import appEvents from '../../events/app';
-import { AppLayout } from '../../shape/index';
+import { AppLayout } from '../../shape/types';
 
 const startTracker = () => {
     appEvents.setLayout(AppLayout.MapAndTracker);
@@ -35,7 +36,7 @@ const render = () => {
                 DIV({
                     className: 'btn-gps',
                     onClick: startTracker,
-                },  tr('start'))))
+                }, tr('start'))))
     );
 };
 

@@ -15,34 +15,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
-import { fromRecord } from '../locale/index';
-import { getMessageRecord, MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
-
-export interface SyntheticLayerInfo {
-    name: MessageRecord | null;
-    info: ILayerInfo | null;
-    metadata: Inspire | null;
-}
+import { query } from 'sdi/shape';
+import { getMessageRecord } from 'sdi/source';
+import { SyntheticLayerInfo } from 'sdi/app';
 
 
 const queries = {
 
-    getApiUrl(s: string) {
-        return `${query('app/api-root')}${s}`;
-    },
-
-    getRoot() {
-        return query('app/root');
-    },
 
 
     mapReady() {
         return query('app/map-ready');
-    },
-
-    getLang() {
-        return query('app/lang');
     },
 
     getLayout() {
@@ -129,17 +112,6 @@ const queries = {
         return null;
     },
 
-
-    getAlias(k: string) {
-        const dict = query('data/alias');
-        if (dict) {
-            const alias = dict.find(alias => alias.select === k);
-            if (alias) {
-                return fromRecord(alias.replace);
-            }
-        }
-        return k;
-    },
 };
 
 export default queries;

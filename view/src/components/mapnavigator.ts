@@ -17,16 +17,16 @@
  */
 
 import * as debug from 'debug';
-import { DIV, INPUT, A, IMG, P, H1 } from './elements';
-import { AppLayout } from '../shape';
+import { ChangeEvent } from 'react';
+
+import { DIV, INPUT, A, IMG, P, H1 } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
+import { IMapInfo, Category } from 'sdi/source';
+
+import { AppLayout } from '../shape/types';
 import events from '../events/mapnavigator';
 import appEvents from '../events/app';
-// import appQueries from '../queries/app';
 import queries from '../queries/mapnavigator';
-import tr, { fromRecord } from '../locale';
-import { ChangeEvent } from 'react';
-import { IMapInfo, Category } from 'sdi/source';
-// import { stringify } from 'qs';
 
 const logger = debug('sdi:mapnavigator');
 

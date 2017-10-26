@@ -14,16 +14,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, INPUT, SPAN, H2 } from '../elements';
-import tr from '../../locale';
+
+import { ChangeEvent, KeyboardEvent } from 'react';
+
+import { DIV, INPUT, SPAN, H2 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+import { isENTER } from 'sdi/components/keycodes';
+import { getLang } from 'sdi/app';
+
 import events from '../../events/legend';
 import queries from '../../queries/legend';
-import appQueries from '../../queries/app';
 import mapEvent from '../../events/map';
 import { queryService, IUgWsResult, IUgWsAddress } from '../../ports/geocoder';
-import { ChangeEvent, KeyboardEvent } from 'react';
-import { isENTER } from '../keycodes';
 
 const updateAddress = (e: ChangeEvent<HTMLInputElement>) => {
     events.updateGeocoderTerm(e.target.value);
@@ -31,7 +33,7 @@ const updateAddress = (e: ChangeEvent<HTMLInputElement>) => {
 
 const searchAddress = () => {
     const state = queries.toolsGeocoder();
-    const lang = appQueries.getLang();
+    const lang = getLang();
     queryService(state.address, lang)
         .then(events.updateGeocoderResponse)
         .then(events.unfoldGeocoder);

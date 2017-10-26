@@ -3,7 +3,6 @@ const { resolve, basename } = require('path');
 const { readdirSync } = require('fs');
 const webpack = require('webpack');
 
-
 // const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -16,8 +15,14 @@ const STYLE_ENTRY_PATH = resolve(ROOT, 'style/index.js');
 const OUTPUT_DIR = resolve(ROOT, 'dist');
 const SDI_ALIAS_ROOT = resolve(ROOT, '../sdi/');
 const SDI_ALIAS = {
-    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
+    'sdi/app': resolve(SDI_ALIAS_ROOT, 'app'),
+    'sdi/components': resolve(SDI_ALIAS_ROOT, 'components'),
+    'sdi/locale': resolve(SDI_ALIAS_ROOT, 'locale'),
+    'sdi/map': resolve(SDI_ALIAS_ROOT, 'map'),
     'sdi/polyfill': resolve(SDI_ALIAS_ROOT, 'polyfill'),
+    'sdi/shape': resolve(SDI_ALIAS_ROOT, 'shape'),
+    'sdi/source': resolve(SDI_ALIAS_ROOT, 'source'),
+    'sdi/util': resolve(SDI_ALIAS_ROOT, 'util'),
 };
 
 console.log(`ROOT ${ROOT}`);
@@ -123,7 +128,8 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("[name].css"),
     ],
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'cheap-module-eval-source-map',
 };
 
 

@@ -14,19 +14,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV, H2, INPUT } from '../elements';
+import { format } from 'openlayers';
+
+import { DIV, H2, INPUT } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
+import { hashMapBaseLayer, translateMapBaseLayer } from 'sdi/util';
+import { IMapBaseLayer } from 'sdi/source';
+
 import queries from '../../queries/legend';
 import events from '../../events/legend';
 import mapQueries from '../../queries/map';
 import mapEvents from '../../events/map';
-import tr, { fromRecord } from '../../locale';
 import { ChangeEvent } from 'react';
-import { IToolWebServices } from '../../shape/index';
-import { format } from 'openlayers';
-import { hashMapBaseLayer, translateMapBaseLayer } from '../../util/app';
-import { IMapBaseLayer } from 'sdi/source';
+import { IToolWebServices } from '../../shape/types';
 
 const logger = debug('sdi:webservices');
 

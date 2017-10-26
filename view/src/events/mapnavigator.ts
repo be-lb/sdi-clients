@@ -13,8 +13,8 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { dispatch } from './index';
+
+import { dispatch } from 'sdi/shape';
 
 const events = {
     query(q: string | null) {

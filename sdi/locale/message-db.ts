@@ -33,6 +33,7 @@ export type MessageKey =
     | 'addToLegend'
     | 'all'
     | 'apostrophe'
+    | 'atlasEnv'
     | 'attachedFiles'
     | 'attachmentAdd'
     | 'attachmentUpload'
@@ -1158,5 +1159,10 @@ export const messages: MessageDB = {
     myMaps: {
         fr: 'Mes cartes',
         nl: 'Mijn kaarten',
+    },
+
+    atlasEnv: {
+        fr: 'Atlas de l\'environnement',
+        nl: 'Milieu-Atlas',
     },
 };

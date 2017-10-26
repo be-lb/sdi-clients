@@ -17,17 +17,18 @@
  */
 
 import 'sdi/polyfill';
+import './shape';
 import * as debug from 'debug';
-import App from './app';
-import { appShape, IShape } from './shape';
 import { source } from 'sdi/source';
-import { configure as configureEvents } from './events';
-import { configure as configureQueries } from './queries';
+import { initialTableState } from 'sdi/components/table';
+import { IShape, configure } from 'sdi/shape';
+
+import App from './app';
+import { AppLayout } from './shape/types';
 import { applyQueryView } from './util/app';
 
 const logger = debug('sdi:index');
 
-applyQueryView(appShape);
 
 const displayException = (err: string) => {
     const title = document.createElement('h1');
@@ -55,28 +56,146 @@ const displayException = (err: string) => {
 
 export const main =
     (SDI: any) => {
-        appShape['app/api-root'] = SDI.api;
-        appShape['app/root'] = SDI.root;
-        if (SDI.args.length > 0) {
-            appShape['app/current-map'] = SDI.args[0];
-        }
+
+        const initialState: IShape = {
+            'app/user': SDI.user,
+            'app/root': SDI.root,
+            'app/api-root': SDI.api,
+            'app/csrf': SDI.csrf,
+            'app/lang': 'fr',
+            'app/layout': [AppLayout.MapNavigatorFS],
+            'app/map-ready': false,
+            'app/current-map': null,
+            'app/current-layer': null,
+            'app/current-feature': null,
+
+            'component/legend': {
+                currentPage: 'legend',
+            },
+
+            'component/menu': {
+                folded: true,
+            },
+
+            'component/mapnavigator': {
+                query: '',
+            },
+
+            'component/table': initialTableState(),
+
+            'component/timeserie': {
+                cursorPosition: 35,
+                selection: { start: 20, width: 20 },
+                window: { start: 0, width: 100 },
+                active: false,
+                editingSelection: false,
+            },
+
+            'component/legend/webservices': {
+                folded: true,
+                url: '',
+                layers: [],
+            },
+
+            'component/legend/geocoder': {
+                folded: true,
+                address: '',
+                serviceResponse: null,
+            },
+
+            'component/legend/positioner': {
+                point: {
+                    latitude: 0,
+                    longitude: 0,
+                },
+            },
+
+            'component/legend/share': {
+                withView: false,
+            },
+
+            'component/button': {},
+
+            'port/map/measure': {
+                active: false,
+                coordinates: [],
+                geometryType: 'LineString',
+            },
+
+            'port/map/tracker': {
+                active: false,
+                track: [],
+            },
+
+            'port/map/scale': {
+                count: 0,
+                unit: '',
+                width: 0,
+            },
+
+            'port/map/view': {
+                dirty: true,
+                srs: 'EPSG:31370',
+                center: [149546.27830713114, 169775.91753364357],
+                rotation: 0,
+                zoom: 6,
+            },
+
+            'port/map/baseLayers': [
+                {
+                    name: {
+                        fr: 'urbisFRGray',
+                        nl: 'urbisNLGray',
+                    },
+                    srs: 'EPSG:31370',
+                    params: {
+                        LAYERS: {
+                            fr: 'urbisFRGray',
+                            nl: 'urbisNLGray',
+                        },
+                        VERSION: '1.1.1',
+                    },
+                    url: {
+                        fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+                        nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+                    },
+                },
+                {
+                    name: {
+                        fr: 'Ortho2016',
+                        nl: 'Ortho2016',
+                    },
+                    srs: 'EPSG:31370',
+                    params: {
+                        LAYERS: {
+                            fr: 'Urbis:Ortho2016',
+                            nl: 'Urbis:Ortho2016',
+                        },
+                        VERSION: '1.1.1',
+                    },
+                    url: {
+                        fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+                        nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+                    },
+                },
+            ],
+            'data/layers': {},
+            'data/maps': [],
+            'data/alias': null,
+            'data/timeseries': {},
+            'data/categories': [],
+            'data/datasetMetadata': {},
+        };
+
+        applyQueryView(initialState);
+
         try {
-            const initialState: IShape = {
-                'data/layers': {},
-                'data/maps': [],
-                'data/alias': null,
-                'data/timeseries': {},
-                'data/categories': [],
-                'data/datasetMetadata': {},
-                ...appShape,
-            };
             const start = source<IShape, keyof IShape>(['app/lang']);
             const store = start(initialState);
-            configureEvents(store);
-            configureQueries(store);
+            configure(store);
             const app = App(store);
             logger('start rendering');
-            app.start();
+            app();
         }
         catch (err) {
             displayException(`${err}`);

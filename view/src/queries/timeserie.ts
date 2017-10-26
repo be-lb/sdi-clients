@@ -14,90 +14,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
-import appQueries from './app';
-import { TimeserieConfig } from 'sdi/source';
+import { query, queryK } from 'sdi/shape';
 
+export const queryTimeserie = queryK('component/timeserie');
 
-interface NotNullProperties {
-    [key: string]: any;
-}
-
-const extractPropNamePat = new RegExp('.*\{(.+)\}.*');
-const replacePropNamePat = new RegExp('(.*)\{.+\}(.*)');
-
-
-const getPropName =
-    (template: string) => {
-        const result = extractPropNamePat.exec(template);
-        if (!result) {
-            return template;
-        }
-        if (result.length !== 2) {
-            return template;
-        }
-        return result[1];
-    };
-
-const buildURL =
-    (template: string, props: NotNullProperties) => {
-
-        const propName = getPropName(template);
-        const value = props[propName];
-
-        return template.replace(replacePropNamePat,
-            (_m: string, p1: string, p2: string) => (
-                `${p1}${value}${p2}`
-            ));
-    };
-
-
-
-
-const queries = {
-    // Id hash layerName | featurePropertyValue
-    getData(props: NotNullProperties, config: TimeserieConfig) {
+export const getData =
+    (id: string) => {
         const series = query('data/timeseries');
-        const id = queries.getTimeserieId(props, config);
-
-        if (id && id in series) {
+        if (id in series) {
             return series[id];
         }
-
         return null;
-    },
-
-    getTimeserieId(props: NotNullProperties, config: TimeserieConfig) {
-        const layer = appQueries.getCurrentLayer();
-        if (layer !== null) {
-            const propVal = props[getPropName(config.options.urlTemplate)];
-            if (propVal) {
-                return `${layer}|${propVal}`;
-            }
-        }
-
-        return null;
-    },
-
-    getTimeserieUrl(props: NotNullProperties, config: TimeserieConfig) {
-        return buildURL(config.options.urlTemplate, props);
-    },
-
-    getSelection() {
-        return query('component/timeserie').selection;
-    },
-
-    isEditing() {
-        return query('component/timeserie').editingSelection;
-    },
-
-    isActive() {
-        return query('component/timeserie').active;
-    },
-
-    getCursorPosition() {
-        return query('component/timeserie').cursorPosition;
-    },
-};
-
-export default queries;
+    };

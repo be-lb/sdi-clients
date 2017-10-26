@@ -15,14 +15,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { DIV, INPUT, H2 } from '../elements';
+
 import { ChangeEvent, KeyboardEvent } from 'react';
+
+import { DIV, INPUT, H2 } from 'sdi/components/elements';
+import { isENTER } from 'sdi/components/keycodes';
+import tr from 'sdi/locale';
+
 import queries from '../../queries/legend';
 import events from '../../events/legend';
 import mapEvents from '../../events/map';
-import tr from '../../locale';
-import { isENTER } from '../keycodes';
 
 const latChange = (e: ChangeEvent<HTMLInputElement>) => {
     const latitude = parseFloat(e.target.value);
@@ -75,7 +77,7 @@ const render = () => {
                 DIV({
                     className: 'btn-search',
                     onClick: position,
-                },  tr('go'))))
+                }, tr('go'))))
     );
 };
 

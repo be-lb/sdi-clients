@@ -15,10 +15,12 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import tr from '../../locale';
-import { DIV, H2, SPAN } from '../elements';
+
+import tr from 'sdi/locale';
+import { DIV, H2, SPAN } from 'sdi/components/elements';
+
 import mapQueries from '../../queries/map';
 
 const logger = debug('sdi:tool-share');
@@ -30,7 +32,7 @@ const path = location.pathname;
 const queryString = (o: { [k: string]: any }) => {
     return Object.keys(o).reduce((a, k) => {
         return `${a}&${k}=${o[k].toString()}`;
-    },                           '');
+    }, '');
 };
 
 
@@ -56,7 +58,7 @@ const copyToClipBoard = (s: string) => {
                 document.body.removeChild(ta);
                 logger(`text copied: ${copied}`);
             },
-        },   tr('copy'))
+        }, tr('copy'))
     );
 };
 

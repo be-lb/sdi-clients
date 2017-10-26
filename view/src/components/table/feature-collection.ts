@@ -14,17 +14,20 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import base, { SelectRowHandler, TableDataRow } from './base';
+
+import { getMessageRecord } from 'sdi/source';
+import { fromRecord } from 'sdi/locale';
+import { DIV, SPAN } from 'sdi/components/elements';
+import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
+
+import { base } from './base';
 import queries from '../../queries/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import { DIV, SPAN } from '../elements';
-import { fromRecord } from '../../locale';
-import { AppLayout } from '../../shape';
-import button from '../button';
-import { getMessageRecord } from 'sdi/source';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
 
 const logger = debug('sdi:table/feature-collection');
 
@@ -54,7 +57,7 @@ const onRowSelect: SelectRowHandler =
         if (lid) {
             const layer = appQueries.getLayerData(lid);
             if (layer) {
-                const feature = layer.features[row.from];
+                const feature = layer.features[row.from as number];
                 appEvents.setCurrentFeature(feature);
                 appEvents.setLayout(AppLayout.MapAndTableAndFeature);
             }
