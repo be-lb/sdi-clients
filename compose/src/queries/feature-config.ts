@@ -17,7 +17,7 @@
 import { query } from 'sdi/shape';
 import appQueries from './app';
 import { FeatureCollection, RowConfig } from 'sdi/source';
-import { getLayerPropertiesKeys } from '../util/app';
+import { getLayerPropertiesKeys } from 'sdi/util';
 
 
 const queries = {

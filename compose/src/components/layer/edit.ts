@@ -21,7 +21,7 @@ import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 // import { Feature } from 'sdi/source';
 import { ReactNode } from 'react';
-import { getLayerPropertiesKeys } from '../../util/app';
+import { getLayerPropertiesKeys } from 'sdi/util';
 import { button, remove } from '../button';
 import { AppLayout } from '../../shape/types';
 

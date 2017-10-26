@@ -18,9 +18,9 @@ import { query, queryK } from 'sdi/shape';
 import { TableDataRow, TableDataType, tableQueries } from 'sdi/components/table';
 import { fromRecord, formatDate } from 'sdi/locale';
 import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent, Properties } from 'sdi/source';
+import { getLayerPropertiesKeys } from 'sdi/util';
 
 import appQueries from './app';
-import { getLayerPropertiesKeys } from '../util/app';
 
 const table = queryK('component/table');
 

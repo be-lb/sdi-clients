@@ -18,7 +18,7 @@
 import { parse as parseUrl } from 'url';
 
 import { IShape } from 'sdi/shape';
-import { Feature, Properties, FeatureCollection, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
+import { FeatureCollection, IMapInfo, IReducer, StyleConfig } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
 import { putMap, postLayer } from '../remote';
@@ -59,64 +59,6 @@ export const processQuery = (state: IShape) => {
 };
 
 
-
-export const uniqIdGen = (prefix = '') => {
-    let counter = 0;
-    return () => {
-        counter += 1;
-        return `${prefix}${counter}`;
-    };
-};
-
-export const uniqId = uniqIdGen('sdi-');
-
-const APP_ID_KEY = '__app_id__';
-
-export const addAppIdToFeature = (f: Feature) => {
-    f.properties = {
-        [APP_ID_KEY]: uniqId(),
-        ...f.properties,
-    };
-};
-
-const FEATURE_PROPS_BLACKLIST = new Set([APP_ID_KEY]);
-
-export const getFeatureProperties = (f: Feature): Properties => {
-    const props = f.properties;
-    if (!props) {
-        return null;
-    }
-    return (
-        Object.keys(props).reduce<Properties>((acc, k) => {
-            if (FEATURE_PROPS_BLACKLIST.has(k)) {
-                return acc;
-            }
-            return {
-                [k]: props[k],
-                ...acc,
-            };
-        }, {}));
-};
-
-
-export const getLayerPropertiesKeys = (fc: FeatureCollection): string[] => {
-    if (fc.features.length === 0) {
-        return [];
-    }
-    const f = fc.features[0];
-    const props = f.properties;
-    if (!props) {
-        return [];
-    }
-    return (
-        Object.keys(props).reduce<string[]>((acc, k) => {
-            if (FEATURE_PROPS_BLACKLIST.has(k)) {
-                return acc;
-            }
-            acc.push(k);
-            return acc;
-        }, []));
-};
 
 
 

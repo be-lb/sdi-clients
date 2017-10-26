@@ -17,11 +17,12 @@
  */
 
 import { DIV, INPUT } from 'sdi/components/elements';
+import { MessageRecord, isContinuous, ContinuousInterval } from 'sdi/source';
+import tr, { fromRecord } from 'sdi/locale';
+
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import editable from '../editable';
-import { MessageRecord, isContinuous, ContinuousInterval } from 'sdi/source';
-import tr, { fromRecord } from 'sdi/locale';
 import { button, remove } from '../button';
 
 

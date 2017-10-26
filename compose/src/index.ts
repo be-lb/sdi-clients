@@ -19,13 +19,13 @@ import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
 import { initialTableState } from 'sdi/components/table';
+import { initialTimeserieState } from 'sdi/components/timeserie';
 import { IShape, configure } from 'sdi/shape';
 import App from './app';
 import { AppLayout, MapInfoIllustrationState } from './shape/types';
 import { initialLegendEditorState } from './components/legend-editor';
 import { initialFeatureConfigState } from './components/feature-config';
 import { initialLayerEditorState } from './components/layer';
-import { initialTimeserieState } from './components/timeserie';
 
 const logger = debug('sdi:index');
 

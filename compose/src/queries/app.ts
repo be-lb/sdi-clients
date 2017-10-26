@@ -16,7 +16,6 @@
  */
 
 import { query } from 'sdi/shape';
-import { fromRecord } from 'sdi/locale';
 import { getMessageRecord } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
 
@@ -122,17 +121,6 @@ const queries = {
         return null;
     },
 
-
-    getAlias(k: string) {
-        const dict = query('data/alias');
-        if (dict) {
-            const alias = dict.find(alias => alias.select === k);
-            if (alias) {
-                return fromRecord(alias.replace);
-            }
-        }
-        return k;
-    },
 
     getCategories() {
         return query('data/categories');

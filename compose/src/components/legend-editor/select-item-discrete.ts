@@ -15,15 +15,16 @@
  */
 
 import * as debug from 'debug';
+import { ClassAttributes, KeyboardEvent, ChangeEvent, ReactNode } from 'react';
+
 import { DIV, SPAN, INPUT } from 'sdi/components/elements';
-import events from '../../events/legend-editor';
-import editable from '../editable';
 import tr, { fromRecord } from 'sdi/locale';
 import { isENTER } from 'sdi/components/keycodes';
-import queries from '../../queries/legend-editor';
-// import { LegendEditorLayout } from './index';
-import { ClassAttributes, KeyboardEvent, ChangeEvent, ReactNode } from 'react';
 import { isDiscrete, MessageRecord, DiscreteGroup } from 'sdi/source';
+
+import events from '../../events/legend-editor';
+import editable from '../editable';
+import queries from '../../queries/legend-editor';
 import { button, remove } from '../button';
 
 

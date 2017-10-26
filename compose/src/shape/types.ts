@@ -3,7 +3,6 @@ import {
     FeatureCollection,
     IMapBaseLayer,
     Inspire,
-    ITimeserie,
 } from 'sdi/source';
 import { IUgWsResponse } from '../ports/geocoder';
 
@@ -81,28 +80,7 @@ export interface IGeoMeasure {
 }
 
 
-export interface IDimensions {
-    width: number;
-    height: number;
-}
 
-export interface IChartScale {
-    min: number;
-    max: number;
-}
-
-export interface IChartWindow {
-    start: number;
-    width: number;
-}
-
-export interface ITimeserieInteractive {
-    cursorPosition: number;
-    window: IChartWindow;
-    selection: IChartWindow;
-    active: Boolean;
-    editingSelection: Boolean;
-}
 
 export interface IToolGeocoder extends IFoldable {
     address: string;
@@ -121,7 +99,5 @@ export interface IDatasetMetadataCollection {
     [id: string]: Inspire;
 }
 
-export interface ITimeserieCollection {
-    [id: string]: ITimeserie;
-}
+
 

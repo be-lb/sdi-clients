@@ -15,11 +15,13 @@
  */
 
 import * as debug from 'debug';
+
 import { DIV } from 'sdi/components/elements';
-import queries from '../../queries/legend-editor';
-import events from '../../events/legend-editor';
 import tr from 'sdi/locale';
 import { StyleConfig } from 'sdi/source';
+
+import queries from '../../queries/legend-editor';
+import events from '../../events/legend-editor';
 
 const logger = debug('sdi:legend-editor/select-type');
 

@@ -19,7 +19,7 @@
 import { DIV } from 'sdi/components/elements';
 import appQueries from '../../queries/app';
 import events from '../../events/legend-editor';
-import { getLayerPropertiesKeys } from '../../util/app';
+import { getLayerPropertiesKeys } from 'sdi/util';
 import tr from 'sdi/locale';
 
 const renderKeys = (keys: string[]) => {
