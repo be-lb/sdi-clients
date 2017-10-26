@@ -17,7 +17,8 @@
 import { IShape, dispatch, query } from '../shape';
 import { fromNullable } from 'fp-ts/lib/Option';
 import { render } from 'react-dom';
-import { IStoreInteractions, MessageRecord, ILayerInfo, Inspire } from '../source';
+import { IStoreInteractions, MessageRecord, ILayerInfo, Inspire, IAliasCollection } from '../source';
+import { fromRecord } from '../locale';
 
 // types
 
@@ -38,6 +39,22 @@ export const getLang = () => query('app/lang');
 export const getCSRF = () => fromNullable(query('app/csrf'));
 
 export const getRoot = () => query('app/root');
+
+
+const getAliasInDict =
+    (dict: IAliasCollection, k: string) =>
+        fromNullable(dict.find(alias => alias.select === k))
+            .fold(
+            () => k,
+            alias => fromRecord(alias.replace));
+
+export const getAlias =
+    (k: string) =>
+        fromNullable(query('data/alias'))
+            .fold(
+            () => k,
+            dict => getAliasInDict(dict, k));
+
 
 // events
 export const setLang = (l: 'fr' | 'nl') => {

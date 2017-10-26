@@ -15,7 +15,7 @@
  */
 
 
-import { IStoreInteractions, IReducer } from '../source';
+import { IStoreInteractions, IReducer, IAliasCollection } from '../source';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 export interface IShape {
@@ -24,6 +24,8 @@ export interface IShape {
     'app/lang': 'fr' | 'nl';
     'app/csrf': string | null;
     'app/root': string;
+
+    'data/alias': IAliasCollection | null;
 }
 
 interface Observer<K extends keyof IShape> {
