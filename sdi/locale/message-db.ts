@@ -1180,7 +1180,7 @@ export const messages: MessageDB = {
     },
 
     connectionSDI: {
-        fr: 'Connection au SDI',
-        nl: 'Verbinding met SDI',
+        fr: 'Connection',
+        nl: 'Verbinding',
     },
 };
