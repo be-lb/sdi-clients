@@ -34,7 +34,7 @@ export type AppLayout = 'Login' | 'Logout';
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header(() => DIV()),
+        header(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
