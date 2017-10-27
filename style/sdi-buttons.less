@@ -140,16 +140,35 @@
 
 // REMOVE - CONFIRMATION WIDGET
 .remove-confirm {
-    .shadow;
     .absolute(0,0,0,0);
     .flex(center, space-between, nowrap);
     z-index: 1000;
-    background: @pink;
-    color: red;
+    background: @white;
     padding: 5px;
-    font-size: 12px;
+    border: 2px solid red;
 
-    .label {text-align: center;}
+    > div {
+        flex: 1;
+        font-size: 12px !important;
+    }
+
+    .label {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .btn-cancel {color: @green; text-align: left;}
+    .btn-confirm {color: red; text-align: right;}
+
+    .btn-cancel,
+    .btn-confirm {
+        &::before {
+            color: #000;
+        }
+        &:hover:before {
+            color: inherit;
+        }
+    }
 }
 
 

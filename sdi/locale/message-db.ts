@@ -784,8 +784,8 @@ export const messages: MessageDB = {
     },
 
     confirmDelete: {
-        fr: 'Confirmer la suppression.',
-        nl: 'Bevestig de verwijdering.',
+        fr: 'Confirmer la suppression ?',
+        nl: 'Bevestig de verwijdering ?',
     },
 
     propName: {
