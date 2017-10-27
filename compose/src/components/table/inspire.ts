@@ -22,17 +22,15 @@ import { DIV, SPAN, H1, A } from 'sdi/components/elements';
 import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import  { getSelectedRow } from '../../queries/table';
+import { getSelectedRow } from '../../queries/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import layerEvents from '../../events/layer-editor';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
 
 const logger = debug('sdi:table/inspire');
 
 const okButton = button('add', 'addToLegend');
-const goButton = button('view', 'viewLayer');
 
 const renderFreeText = (ft: FreeText, className?: string) => {
     if (isAnchor(ft)) {
@@ -76,9 +74,9 @@ const renderInspireMD = (i: Inspire) => {
                         i.responsibleOrganisation.map(renderContact))),
                 // DIV({ className: 'inspire-other-items' }, 'TODO')
             ),
-            goButton(() => {
-                layerEvents.view(i);
-            }),
+            // goButton(() => {
+            //     layerEvents.view(i);
+            // }),
             okButton(() => {
                 appEvents.addMapLayer(i);
                 appEvents.resetLegendEditor();
