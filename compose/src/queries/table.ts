@@ -143,8 +143,12 @@ const queries = {
         ]);
     },
 
-    loadLayerListData(): TableDataRow[] {
+    loadLayerListData(): TableDataRow[] | null {
         const mds = query('data/datasetMetadata');
+        const keys = Object.keys(mds);
+        if (0 === keys.length) {
+            return null;
+        }
         const getFreeText = (ft: FreeText) => {
             if (isAnchor(ft)) {
                 return fromRecord(ft.text);
@@ -162,7 +166,7 @@ const queries = {
         };
 
         return (
-            Object.keys(mds).map((id, from) => {
+            keys.map((id, from) => {
                 const md = mds[id];
                 const cells = [
                     id,
