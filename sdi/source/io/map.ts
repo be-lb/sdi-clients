@@ -18,6 +18,7 @@
 import { i, a, p, l, u, MessageRecordIO, TypeOf } from './io';
 import { StyleConfigIO } from './style';
 import { RowConfigIO } from './row-config';
+import { uuid } from './uuid';
 import * as io from 'io-ts';
 
 
@@ -49,11 +50,7 @@ export const ILayerInfoIO = i({
 export type ILayerInfo = TypeOf<typeof ILayerInfoIO>;
 
 
-export const IAttachmentIO = i({
-    name: MessageRecordIO,
-    url: MessageRecordIO,
-}, 'IAttachmentIO');
-export type IAttachment = TypeOf<typeof IAttachmentIO>;
+
 
 export const IMapBaseLayerIO = i({
     name: MessageRecordIO,
@@ -72,7 +69,7 @@ export const IMapInfoIO = io.intersection([
         url: io.string,
         lastModified: io.number,
         description: MessageRecordIO,
-        attachments: a(IAttachmentIO),
+        attachments: a(uuid),
         layers: a(ILayerInfoIO),
         baseLayer: IMapBaseLayerIO,
         categories: a(io.string),

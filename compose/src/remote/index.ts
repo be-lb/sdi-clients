@@ -33,6 +33,8 @@ import {
     IUser,
     IUserIO,
     postIO,
+    Attachment,
+    AttachmentIO,
 } from 'sdi/source';
 
 
@@ -67,6 +69,8 @@ export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(I
 export const fetchAllDatasetMetadata = (url: string): Promise<Inspire[]> => fetchIO(io.array(InspireIO), url, fetchOptions());
 export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url, fetchOptions());
 export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
+
+export const fetchAttachment = (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url, fetchOptions());
 
 
 export const putMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, putOptions());

@@ -29,7 +29,7 @@ import {
     IUser,
     MessageRecord,
 } from 'sdi/source';
-import { getApiUrl, getLang } from 'sdi/app';
+import { getApiUrl } from 'sdi/app';
 import { addLayer, removeLayerAll } from 'sdi/map';
 
 import {
@@ -43,7 +43,6 @@ import {
     postLayerInfo,
     postMap,
     putMap,
-    upload,
 } from '../remote';
 import queries from '../queries/app';
 import { AppLayout } from '../shape/types';
@@ -450,69 +449,6 @@ const events = {
         });
     },
 
-    uploadAttachmentFile(k: number, f: File) {
-        const mid = queries.getCurrentMap();
-        const name = f.name;
-        const lc = getLang();
-        const ts = Date.now().toString();
-
-        dispatch('data/maps', (maps) => {
-            const idx = maps.findIndex(m => m.id === mid);
-
-            if (idx !== -1) {
-                const m = maps[idx];
-                const attachment = m.attachments[k];
-                attachment.name[lc] = name;
-                attachment.url[lc] = ts;
-
-                upload('/documents/documents/', f)
-                    .then((data) => {
-                        const { url } = data;
-                        dispatch('data/maps', (maps) => {
-                            const idx = maps.findIndex(m => m.id === mid);
-
-                            if (idx !== -1) {
-                                const m = maps[idx];
-                                const aidx = m.attachments.findIndex(a => a.url[lc] === ts);
-
-                                if (aidx !== -1) {
-                                    m.attachments[aidx].url[lc] = url;
-
-                                    setTimeout(() => {
-                                        putMap(getApiUrl(`maps/${mid}`), m);
-                                    }, 1);
-                                }
-                            }
-
-                            return maps;
-                        });
-                    }).catch(() => {
-                        dispatch('data/maps', (maps) => {
-                            const idx = maps.findIndex(m => m.id === mid);
-
-                            if (idx !== -1) {
-                                const m = maps[idx];
-                                const aidx = m.attachments.findIndex(a => a.url[lc] === ts);
-
-                                if (aidx !== -1) {
-                                    m.attachments[aidx].name[lc] = '';
-                                    m.attachments[aidx].url[lc] = '';
-
-                                    setTimeout(() => {
-                                        putMap(getApiUrl(`maps/${mid}`), m);
-                                    }, 1);
-                                }
-                            }
-
-                            return maps;
-                        });
-                    });
-            }
-
-            return maps;
-        });
-
-    },
 
 
     removeMapInfoIllustration() {

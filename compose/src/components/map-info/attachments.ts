@@ -15,11 +15,14 @@
  */
 
 import * as debug from 'debug';
-import events from '../../events/app';
-import queries from '../../queries/app';
+
 import { A, DIV, H2, INPUT, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord, FileRecord, fromFileRecord, updateFileRecord } from 'sdi/locale';
 import { MessageRecord, IAttachment } from 'sdi/source';
+import { uploadAttachmentFile } from '../../events/attachments';
+
+import events from '../../events/app';
+import queries from '../../queries/app';
 import editable from '../editable';
 import { FormEvent } from 'react';
 import { button, remove } from '../button';
@@ -57,8 +60,8 @@ const uploadAttachment = (k: number) => {
         const record = selectedFiles[k];
         const selectedFile = fromFileRecord(record);
         if (selectedFile !== null) {
-            events.uploadAttachmentFile(k, selectedFile);
-            updateFileRecord(record, null);
+            uploadAttachmentFile(k, selectedFile);
+            // updateFileRecord(record, null);
         }
     }
 };

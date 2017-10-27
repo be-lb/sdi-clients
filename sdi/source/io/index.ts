@@ -17,6 +17,7 @@
  */
 
 export * from './alias';
+export * from './attachment';
 export * from './chart';
 export * from './dataset-metadata';
 export * from './geojson';

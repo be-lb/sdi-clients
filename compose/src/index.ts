@@ -92,6 +92,7 @@ export const main =
             'data/datasetMetadata': {},
             'data/timeseries': {},
             'data/categories': [],
+            'data/attachments': [],
 
             'port/map/scale': {
                 count: 0,
