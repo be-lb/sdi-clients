@@ -50,22 +50,25 @@
 
     span {
         flex: 3;
-        display: flex;
-        align-items: center;
+        // display: flex;
+        // align-items: center;
 
-        &:before {
-            padding: 0 @small-margin;
-        }
+        // &:before {
+        //     padding: 0 @small-margin;
+        // }
 
         input {
             flex: 1;
+            width: calc(~"50% - @{small-margin}") !important;
         }
 
         &.color-preview {
+            position: relative;
             flex: 1;
             margin-left: @small-margin;
             background: url(~"../../imgs/color-bg.png") repeat;
             .color-color{
+                position: absolute;
                 width: 100%;
                 height: 100%;
             }
