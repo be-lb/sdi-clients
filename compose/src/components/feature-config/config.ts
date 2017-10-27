@@ -217,6 +217,7 @@ const renderPiechartPiece =
                     pn, piece.propName, c.string()));
 
             const inputLabel = DIV({ className: `style-tool label` },
+                SPAN({ className: 'label' }, tr('alias')),
                 INPUT({
                     value: (piece.label === undefined) ? piece.propName : piece.label,
                     type: 'text',
@@ -231,10 +232,10 @@ const renderPiechartPiece =
                     DIV({ className: 'piece-header' },
                         removeButton(
                             () => events.removePieChartPiece(pn, piece.propName)),
-                        SPAN({}, piece.propName)),
+                        SPAN({}, piece.propName),
+                        inputLabel),
                     DIV({ className: 'piece-body' },
-                        inputColor,
-                        inputLabel)));
+                        inputColor)));
         };
 
 const pieceAdd =

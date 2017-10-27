@@ -31,6 +31,7 @@ export type MessageKey =
     | 'address'
     | 'addTerm'
     | 'addToLegend'
+    | 'alias'
     | 'all'
     | 'apostrophe'
     | 'atlasEnv'
@@ -1182,5 +1183,10 @@ export const messages: MessageDB = {
     connectionSDI: {
         fr: 'Connection',
         nl: 'Verbinding',
+    },
+
+    alias: {
+        fr: 'Alias',
+        nl: 'Alias',
     },
 };
