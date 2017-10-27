@@ -25,7 +25,6 @@ import { IShape, configure } from 'sdi/shape';
 
 import App from './app';
 import { AppLayout } from './shape/types';
-import { applyQueryView } from './util/app';
 
 const logger = debug('sdi:index');
 
@@ -57,6 +56,8 @@ const displayException = (err: string) => {
 export const main =
     (SDI: any) => {
 
+        const currentMap = (SDI.args.length > 0) ? SDI.args[0] : null;
+
         const initialState: IShape = {
             'app/user': SDI.user,
             'app/root': SDI.root,
@@ -65,7 +66,7 @@ export const main =
             'app/lang': 'fr',
             'app/layout': [AppLayout.MapNavigatorFS],
             'app/map-ready': false,
-            'app/current-map': null,
+            'app/current-map': currentMap,
             'app/current-layer': null,
             'app/current-feature': null,
 
@@ -186,8 +187,6 @@ export const main =
             'data/categories': [],
             'data/datasetMetadata': {},
         };
-
-        applyQueryView(initialState);
 
         try {
             const start = source<IShape, keyof IShape>(['app/lang']);

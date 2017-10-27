@@ -14,15 +14,32 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as debug from 'debug';
-import { DIV } from './elements';
-import { create } from '../ports/map';
-import mapQueries from '../queries/map';
+
+import { DIV } from 'sdi/components/elements';
+import { create, IMapOptions } from 'sdi/map';
+
+
+
+import appQueries from '../queries/app';
 import appEvents from '../events/app';
+import mapQueries from '../queries/map';
+import mapEvents from '../events/map';
 
 const logger = debug('sdi:comp/map');
 // const mapId = 'be-sdi-this-is-the-map';
+
+
+const options: IMapOptions = {
+    element: null,
+    getBaseLayer: appQueries.getCurrentBaseLayer,
+    getView: mapQueries.getView,
+    getMapInfo: appQueries.getMapInfo,
+
+    updateView: mapEvents.updateMapView,
+    setScaleLine: mapEvents.setScaleLine,
+};
 
 let mapSetTarget: (t: string | Element | undefined) => void;
 let mapUpdate: () => void;
@@ -49,7 +66,10 @@ const attachMap =
         (element: Element | null) => {
             // logger(`attachMap ${typeof element}`);
             if (!mapUpdate) {
-                const { update, setTarget } = create();
+                const { update, setTarget } = create({
+                    ...options,
+                    element,
+                });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
                 appEvents.signalReadyMap();

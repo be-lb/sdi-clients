@@ -22,7 +22,7 @@ import { removeLayerAll, addLayer } from 'sdi/map';
 import { getApiUrl } from 'sdi/app';
 
 import { AppLayout } from '../shape/types';
-import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata } from '../remote';
+import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
 import { fromNullable } from 'fp-ts/lib/Option';
@@ -96,14 +96,15 @@ const events = {
     bootMap() {
         const mid = queries.getCurrentMap();
         if (mid) {
-            const info = queries.getMap(mid);
-            events.setLayout(AppLayout.MapAndInfo);
-            if (!info) {
-                setTimeout(events.bootMap, 100);
-            }
-            else {
-                loadMap(info);
-            }
+            fetchMap(getApiUrl(`maps/${mid}`))
+                .then((info) => {
+                    dispatch('data/maps', () => [info]);
+                    events.setLayout(AppLayout.MapAndInfo);
+                    loadMap(info);
+                });
+        }
+        else {
+            events.loadMaps(getApiUrl(`maps`));
         }
     },
 

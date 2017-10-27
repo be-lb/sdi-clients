@@ -106,11 +106,8 @@ const renderMain =
 
 const effects =
     () => {
-        mapEvents.updateMapView({
-            dirty: true,
-        });
+        mapEvents.updateMapView({ dirty: true });
         events.loadCategories(getApiUrl(`categories`));
-        events.loadMaps(getApiUrl(`maps`));
         events.loadAlias(getApiUrl(`alias`));
         events.bootMap();
     };

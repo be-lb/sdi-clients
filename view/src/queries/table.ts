@@ -14,102 +14,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
-import appQueries from './app';
 import { FeatureCollection, Feature } from 'sdi/source';
-import { TableWindow, TableDataRow, ITableSort, TableDataType } from '../components/table/base';
-import { getLayerPropertiesKeys } from '../util/app';
-// import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
-// import { fromRecord, formatDate } from '../locale';
+import { getLayerPropertiesKeys } from 'sdi/util';
+import { TableDataRow, TableDataType } from 'sdi/components/table';
+
+import appQueries from './app';
 
 
 type ObjOrNull = { [k: string]: any } | null;
 
 const queries = {
 
-    isLoaded() {
-        return query('component/table').loaded;
-    },
-
-    getKeys(): string[] {
-        return query('component/table').keys;
-    },
-
-    getSearchCol(): number | null {
-        return query('component/table').search.col;
-    },
-
-
-
-    getTypes(): TableDataType[] {
-        return query('component/table').types;
-    },
-
-    getSort(): ITableSort {
-        return query('component/table').sort;
-    },
-
-    getData(window?: TableWindow): TableDataRow[] {
-        const data = query('component/table').data;
-        if (window) {
-            return data.slice(window.offset, window.offset + window.size);
-        }
-        else {
-            return data;
-        }
-    },
-
-
-    getActiveResult(): number {
-        return query('component/table').search.activeResult;
-    },
-
-    getResultCount(): number {
-        return query('component/table').search.resultMap.length;
-    },
-
-
-    rowCount() {
-        const layer = queries.getLayer();
-        if (!layer) {
-            return 0;
-        }
-
-        return layer.features.length;
-    },
-
-    tableWindow() {
-        return query('component/table').window;
-    },
-
-    rowHeight() {
-        return query('component/table').rowHeight;
-    },
-
-    viewHeight() {
-        return query('component/table').viewHeight;
-    },
-
-    position() {
-        return query('component/table').position;
-    },
-
-    isSelected(idx: number) {
-        return (query('component/table').selected === idx);
-    },
-
-    getSelected() {
-        return query('component/table').selected;
-    },
-
-    getRow(idx?: number) {
-        const selected = (idx !== undefined) ? idx : queries.getSelected();
-        const data = queries.getData();
-        if (selected < 0 || selected >= data.length) {
-            return null;
-        }
-        return data[selected];
-    },
 
 
     // Layer / FeatureCollection
