@@ -42,7 +42,6 @@ import {
     fetchUser,
     postLayerInfo,
     postMap,
-    postUser,
     putMap,
     upload,
 } from '../remote';
@@ -115,8 +114,8 @@ observe('app/current-map', () => {
 
 const makeMap = (): IMapInfo => {
     return {
-        title: { fr: '.', nl: '.' },
-        description: { fr: '.', nl: '.' },
+        title: { fr: '', nl: '' },
+        description: { fr: '', nl: '' },
         attachments: [],
         layers: [],
         categories: [],
@@ -356,8 +355,6 @@ const events = {
                     dispatch('data/user', (user) => {
                         if (user && user.id) {
                             user.maps = user.maps.concat([mid]);
-                            postUser(
-                                getApiUrl(`users/${user.id}`), user);
                         }
                         return user;
                     });
