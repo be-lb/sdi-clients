@@ -186,10 +186,7 @@ export const renderInputAlphaColor =
             set(color.alpha(val));
         });
 
-        const hue = DIV({
-            className: 'color-hue',
-            onClick: updateHue,
-        });
+
 
         const wrap =
             (v: number, e: React.ReactNode) => (
@@ -201,6 +198,12 @@ export const renderInputAlphaColor =
                             left: `${v}%`,
                         },
                     })));
+
+        const hue = wrap(color.hue() / 360 * 100,
+            DIV({
+                className: 'color-hue',
+                onClick: updateHue,
+            }));
 
         const saturation = wrap(color.saturationl(),
             DIV({
