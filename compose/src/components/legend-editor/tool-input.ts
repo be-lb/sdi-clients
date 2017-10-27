@@ -201,27 +201,27 @@ export const renderInputAlphaColor =
 
         const hue = wrap(color.hue() / 360 * 100,
             DIV({
-                className: 'color-hue',
+                className: 'picker color-hue',
                 onClick: updateHue,
             }));
 
         const saturation = wrap(color.saturationl(),
-            DIV({
+            DIV({ className: 'saturation-preview' }, DIV({
                 className: 'picker',
                 style: {
                     background: `linear-gradient(to right, ${color.saturationl(0)}, ${color.saturationl(50)}, ${color.saturationl(100)})`,
                 },
                 onClick: updateSaturation,
-            }));
+            })));
 
         const lightness = wrap(color.lightness(),
-            DIV({
-                className: 'picker',
+            DIV({ className: 'lightness-preview' }, DIV({
+                className: 'picker ',
                 style: {
                     background: `linear-gradient(to right, ${color.lightness(0)}, ${color.lightness(50)}, ${color.lightness(100)})`,
                 },
                 onClick: updateLightness,
-            }));
+            })));
 
         const alpha = wrap(color.alpha() * 100,
             DIV({ className: 'alpha-preview' }, DIV({
