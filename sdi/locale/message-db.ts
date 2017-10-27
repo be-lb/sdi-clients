@@ -969,7 +969,7 @@ export const messages: MessageDB = {
     },
 
     autoClass: {
-        fr: 'Création de automatique classes',
+        fr: 'Création automatique de classes',
         nl: 'Automatic klassen',
     },
 
