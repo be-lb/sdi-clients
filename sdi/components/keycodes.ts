@@ -13,20 +13,22 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { KeyboardEvent } from 'react';
 
 export const isKeyCode =
-    (kc: KeyCode) => (event: KeyboardEvent<Element>) => {
-        return kc === event.which || kc === event.keyCode;
-    };
+    (kc: KeyCode) =>
+        (event: KeyboardEvent<Element>) =>
+            kc === event.which || kc === event.keyCode;
+
 
 export const hasKeyCode =
-    (kcs: KeyCode[]) => (event: KeyboardEvent<Element>) => {
-        return kcs.some(kc => (
-            kc === event.which || kc === event.keyCode
-        ));
-    };
+    (kcs: KeyCode[]) =>
+        (event: KeyboardEvent<Element>) =>
+            kcs.some(kc => (
+                kc === event.which || kc === event.keyCode
+            ));
+
 
 export enum KeyCode {
     BACKSPACE = 8,

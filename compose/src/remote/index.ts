@@ -43,6 +43,7 @@ import { getCSRF } from 'sdi/app';
 const fetchOptions =
     (): RequestInit => {
         const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
         getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
 
         return {
