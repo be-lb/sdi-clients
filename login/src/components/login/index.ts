@@ -1,6 +1,7 @@
 import { Credentials } from 'sdi/source';
 import tr from 'sdi/locale';
 import { DIV, H1, INPUT } from 'sdi/components/elements';
+import { isENTER } from 'sdi/components/keycodes';
 
 import { getUsername, getPassword } from '../../queries/login';
 import { setUsername, setPassword, tryLogin } from '../../events/login';
@@ -20,6 +21,12 @@ export const defaultLoginForm =
         },
     });
 
+const tryOnReturn =
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (isENTER(e)) {
+            tryLogin();
+        }
+    };
 
 const loginButton = button('login', 'login');
 
@@ -31,6 +38,7 @@ const renderUsername =
                 type: 'text',
                 defaultValue: getUsername(),
                 onChange: e => setUsername(e.currentTarget.value),
+                onKeyUp: tryOnReturn,
             })));
 
 
@@ -42,6 +50,7 @@ const renderPassword =
                 type: 'password',
                 defaultValue: getPassword(),
                 onChange: e => setPassword(e.currentTarget.value),
+                onKeyUp: tryOnReturn,
             })));
 
 
