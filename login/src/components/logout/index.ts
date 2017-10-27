@@ -1,19 +1,21 @@
-import { DIV, H1 } from '../elements';
-import { tryLogout } from '../../events/login';
-import button from '../button';
-import tr from '../../locale';
-import appQueries from '../../queries/app';
+
 import { fromNullable } from 'fp-ts/lib/Option';
+
+import { DIV, H1 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+
+import { tryLogout } from '../../events/login';
+import { button } from '../button';
+import { getUserData } from '../../queries/app';
 
 
 
 
 
 const logoutButton = button('logout', 'logout');
-const username = () => DIV({ className: 'logout-username' }, fromNullable(appQueries.getUserData()).fold(
+const username = () => DIV({ className: 'logout-username' }, fromNullable(getUserData()).fold(
     () => '',
-    u => u.name
-));
+    u => u.name));
 
 
 const render =

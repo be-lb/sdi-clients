@@ -15,50 +15,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query } from './index';
-import { MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
+import { query } from 'sdi/shape';
 
-export interface SyntheticLayerInfo {
-    name: MessageRecord | null;
-    info: ILayerInfo | null;
-    metadata: Inspire | null;
-}
+export const getUserData =
+    () => query('data/user');
 
 
-const queries = {
-
-    getUserId() {
-        return query('app/user');
-    },
-
-    getUserData() {
-        return query('data/user');
-    },
-
-    getApiUrl(s: string) {
-        return `${query('app/api-root')}${s}`;
-    },
-
-    getRoot() {
-        return query('app/root');
-    },
-
-    getLang() {
-        return query('app/lang');
-    },
-
-    getLayout() {
+export const getLayout =
+    () => {
         const ll = query('app/layout');
         if (ll.length === 0) {
             throw (new Error('PoppingEmptyLayoutList'));
         }
         return ll[ll.length - 1];
-    },
+    };
 
-    getCSRF() {
-        return query('app/csrf');
-    },
 
-};
-
-export default queries;

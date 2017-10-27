@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as io from 'io-ts';
+
 import {
     Credentials,
     fetchIO,
@@ -21,18 +23,14 @@ import {
     IUserIO,
     postIO,
 } from 'sdi/source';
-import * as io from 'io-ts';
-import queries from '../queries/app';
+import { getCSRF } from 'sdi/app';
 
 
 const fetchOptions =
     (): RequestInit => {
         const headers = new Headers();
-        const csrf = queries.getCSRF();
         headers.append('Content-Type', 'application/json');
-        if (csrf) {
-            headers.append('X-CSRFToken', csrf);
-        }
+        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
 
         return {
             credentials: 'same-origin',

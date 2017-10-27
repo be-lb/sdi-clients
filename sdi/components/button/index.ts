@@ -46,6 +46,8 @@ export type ButtonType =
     | 'draft'
     | 'edit'
     | 'filter'
+    | 'login'
+    | 'logout'
     | 'move-down'
     | 'move-up'
     | 'navigate'

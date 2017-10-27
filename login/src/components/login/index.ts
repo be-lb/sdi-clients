@@ -1,9 +1,10 @@
 import { Credentials } from 'sdi/source';
-import { DIV, H1, INPUT } from '../elements';
+import tr from 'sdi/locale';
+import { DIV, H1, INPUT } from 'sdi/components/elements';
+
 import { getUsername, getPassword } from '../../queries/login';
 import { setUsername, setPassword, tryLogin } from '../../events/login';
-import button from '../button';
-import tr from '../../locale';
+import { button } from '../button';
 
 
 

@@ -57,6 +57,7 @@ export type MessageKey =
     | 'confirm'
     | 'confirmDelete'
     | 'connect'
+    | 'connectionSDI'
     | 'copy'
     | 'dashboard'
     | 'datas'
@@ -69,9 +70,9 @@ export type MessageKey =
     | 'editMap'
     | 'embed'
     | 'emptyDescription'
-    | 'emptyTitle'
     | 'emptyMapDescription'
     | 'emptyMapTitle'
+    | 'emptyTitle'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -99,10 +100,10 @@ export type MessageKey =
     | 'infoChoice'
     | 'infoReorder'
     | 'keywords'
+    | 'label'
     | 'labelPostion'
     | 'lastModified'
     | 'latitude'
-    | 'label'
     | 'layer'
     | 'layerId'
     | 'layerInfo'
@@ -138,27 +139,28 @@ export type MessageKey =
     | 'measure'
     | 'measureArea'
     | 'measureLength'
-    | 'metadataEditor'
     | 'metaCommon'
+    | 'metadataEditor'
+    | 'metadataEditor'
     | 'metaDutch'
     | 'metaFrench'
-    | 'metadataEditor'
     | 'myMaps'
     | 'newLayer'
     | 'newMap'
     | 'noResults'
     | 'offsetX'
     | 'offsetY'
-    | 'piechartScale'
+    | 'password'
     | 'piechartRadius'
+    | 'piechartScale'
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'propName'
     | 'propNameForLabel'
+    | 'publicationStatus'
     | 'publish'
     | 'published'
-    | 'publicationStatus'
     | 'quotationMark'
     | 'remove'
     | 'resetLegend'
@@ -203,10 +205,11 @@ export type MessageKey =
     | 'timeserieURL'
     | 'title'
     | 'topics'
-    | 'upload'
     | 'unpublish'
+    | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
+    | 'userName'
     | 'validate'
     | 'valuesCovered'
     | 'viewLayer'
@@ -1164,5 +1167,20 @@ export const messages: MessageDB = {
     atlasEnv: {
         fr: 'Atlas de l\'environnement',
         nl: 'Milieu-Atlas',
+    },
+
+    userName: {
+        fr: 'Nom d\'utilisateur',
+        nl: 'Gebruikersnaam',
+    },
+
+    password: {
+        fr: 'Mot de passe',
+        nl: 'Wachtwoord',
+    },
+
+    connectionSDI: {
+        fr: 'Connection au SDI',
+        nl: 'Verbinding met SDI',
     },
 };
