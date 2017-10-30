@@ -325,6 +325,12 @@ const events = {
         });
     },
 
+    setLabelForStyleInterval(idx: number, r: MessageRecord) {
+        updateIntervalStyle(idx, (i) => {
+            i.label = r;
+        });
+    },
+
     setInterval(idx: number, low: number, high: number) {
         updateIntervalStyle(idx, (g) => {
             g.low = low;
@@ -680,7 +686,11 @@ const events = {
             dispatch('data/maps', (maps) => {
                 const layer = getLayer(getCurrentMap(maps), lid);
                 if (layer) {
-                    const data = appQueries.getLayerData(layer.id);
+                    const { metadata } = appQueries.getCurrentLayerInfo();
+                    const data = metadata ?
+                        appQueries.getLayerData(metadata.uniqueResourceIdentifier) :
+                        null;
+
                     if (data) {
                         const style = { ...layer.style };
                         if (isContinuous(style)) {

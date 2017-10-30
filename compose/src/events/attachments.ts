@@ -83,10 +83,6 @@ export const removeAttachment =
                 attachments: m.attachments.filter(a => a !== k),
             })));
 
-// updateMapInfo(m => ({
-//     ...m,
-//     attachments: m.attachments.filter(a => a !== k),
-// }));
 
 
 export const addAttachment =

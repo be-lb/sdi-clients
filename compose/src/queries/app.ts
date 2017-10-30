@@ -45,9 +45,9 @@ const queries = {
     },
 
 
-    getLayerData(id: string) {
+    getLayerData(id: string | null) {
         const layers = query('data/layers');
-        if (id in layers) {
+        if (id && id in layers) {
             return layers[id];
         }
         return null;
