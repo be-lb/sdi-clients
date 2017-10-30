@@ -25,7 +25,7 @@ const makeStyle =
             return new style.Style({ fill });
         }
         return new style.Style({ fill, stroke });
-    }
+    };
 
 const polygonStyleSimple =
     (config: PolygonStyleConfigSimple) => {
