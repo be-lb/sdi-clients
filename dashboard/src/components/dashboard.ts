@@ -21,6 +21,8 @@ import apps from './apps';
 import logout from './logout';
 
 const render =
-    () => DIV({}, logout(), apps());
+    () => DIV({ className: 'dashboard-wrapper' },
+        logout(),
+        apps());
 
 export default render;

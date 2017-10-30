@@ -1,8 +1,7 @@
 
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV, H1 } from 'sdi/components/elements';
-import tr from 'sdi/locale';
+import { DIV } from 'sdi/components/elements';
 
 import { tryLogout } from '../../events/login';
 import { button } from '../button';
@@ -20,10 +19,8 @@ const username = () => DIV({ className: 'logout-username' }, fromNullable(getUse
 
 const render =
     () => (
-        DIV({ className: 'login-wrapper' },
-            H1({}, tr('connectionSDI')),
-            DIV({ className: 'login-widget' },
-                username(),
-                logoutButton(tryLogout))));
+        DIV({ className: 'login-widget' },
+            username(),
+            logoutButton(tryLogout)));
 
 export default render;
