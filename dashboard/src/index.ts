@@ -1,3 +1,5 @@
+
+
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -18,15 +20,9 @@ import 'sdi/polyfill';
 import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
-import { initialTableState } from 'sdi/components/table';
-import { initialTimeserieState } from 'sdi/components/timeserie';
 import { IShape, configure } from 'sdi/shape';
 
 import App from './app';
-import { AppLayout, MapInfoIllustrationState } from './shape/types';
-import { initialLegendEditorState } from './components/legend-editor';
-import { initialFeatureConfigState } from './components/feature-config';
-import { initialLayerEditorState } from './components/layer';
 
 const logger = debug('sdi:index');
 
@@ -56,11 +52,6 @@ const displayException = (err: string) => {
 
 export const main =
     (SDI: any) => {
-        if (!SDI.user) {
-            const loginUrl = `${SDI.root}login/metadata`;
-            window.location.assign(loginUrl);
-            return;
-        }
 
 
         const initialState: IShape = {
@@ -69,53 +60,14 @@ export const main =
             'app/api-root': SDI.api,
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
-            'app/layout': [AppLayout.Dashboard],
-            'app/map-ready': false,
-            'app/current-map': null,
-            'app/current-layer': null,
-            'app/current-feature': null,
-            'app/map-info/illustration': MapInfoIllustrationState.showImage,
-            'app/current-metadata': null,
+            'app/layout': ['Dashboard'],
 
-            'component/table': initialTableState(),
-            'component/legend-editor': initialLegendEditorState(),
-            'component/editable': {},
             'component/button': {},
-            'component/feature-config': initialFeatureConfigState(),
-            'component/layer-editor': initialLayerEditorState(),
-            'component/timeserie': initialTimeserieState(),
-            'component/attachments': [],
+            'component/apps': SDI.apps,
 
             'data/user': null,
-            'data/layers': {},
-            'data/maps': [],
             'data/alias': null,
-            'data/datasetMetadata': {},
-            'data/timeseries': {},
-            'data/categories': [],
-            'data/attachments': [],
-
-            'port/map/scale': {
-                count: 0,
-                unit: '',
-                width: 0,
-            },
-
-            'port/map/view': {
-                dirty: true,
-                srs: 'EPSG:31370',
-                center: [149546.27830713114, 169775.91753364357],
-                rotation: 0,
-                zoom: 6,
-            },
-
-            'port/map/editable': {
-                mode: 'select',
-                selected: null,
-                geometryType: 'Point',
-            },
-        };
-
+        }
 
         try {
             const start = source<IShape, keyof IShape>(['app/lang']);

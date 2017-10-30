@@ -1,0 +1,7 @@
+{
+    "name": {
+        "fr": "Tableau de bord",
+        "nl": "Dashboard"
+    },
+    "root": "dist"
+}

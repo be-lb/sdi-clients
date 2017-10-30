@@ -16,13 +16,9 @@
 
 import * as debug from 'debug';
 import * as Color from 'color';
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
-import tr from 'sdi/locale';
-import events from '../../events/feature-config';
-import queries from '../../queries/feature-config';
-import { button, remove } from '../button';
-import { MessageKey } from 'sdi/locale/message-db';
 import { ReactNode, ChangeEvent } from 'react';
+
+import { MessageKey } from 'sdi/locale/message-db';
 import {
     BooleanConfig,
     ConfigWithLabel,
@@ -41,8 +37,14 @@ import {
     URLConfig,
 } from 'sdi/source';
 import { isENTER } from 'sdi/components/keycodes';
-import { renderInputAlphaColor } from '../legend-editor/tool-input';
 import { getLang } from 'sdi/app';
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+
+import events from '../../events/feature-config';
+import queries from '../../queries/feature-config';
+import { button, remove } from '../button';
+import { renderInputAlphaColor } from '../legend-editor/tool-input';
 
 
 

@@ -13,23 +13,33 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { style, Feature } from 'openlayers';
 import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig } from 'sdi/source';
 import { StyleFn } from './index';
 
-const polygonStyleSimple = (config: PolygonStyleConfigSimple) => {
-    const fill = new style.Fill({
-        color: config.fillColor,
-    });
-    const stroke = new style.Stroke({
-        color: config.strokeColor,
-        width: config.strokeWidth,
-    });
-    const styles = [new style.Style({ fill, stroke })];
 
-    return (/* feature, resolution */) => styles;
-};
+const makeStyle =
+    (fill: style.Fill, stroke: style.Stroke) => {
+        if (stroke.getWidth() < 0.5) {
+            return new style.Style({ fill });
+        }
+        return new style.Style({ fill, stroke });
+    };
+
+const polygonStyleSimple =
+    (config: PolygonStyleConfigSimple) => {
+        const fill = new style.Fill({
+            color: config.fillColor,
+        });
+        const stroke = new style.Stroke({
+            color: config.strokeColor,
+            width: config.strokeWidth,
+        });
+        const styles = [makeStyle(fill, stroke)];
+
+        return (/* feature, resolution */) => styles;
+    };
 
 
 
@@ -42,15 +52,14 @@ const polygonStyleContinuous = (config: PolygonStyleConfigContinuous) => {
     const intervals = config.intervals;
     const styles = intervals.reduce<StyleReg>((acc, itv) => {
         // const [r, g, b] = itv.rgb;
-        acc[itv.low] = new style.Style({
-            fill: new style.Fill({
+        acc[itv.low] = makeStyle(
+            new style.Fill({
                 color: itv.fillColor,
             }),
-            stroke: new style.Stroke({
+            new style.Stroke({
                 color: itv.strokeColor,
                 width: itv.strokeWidth,
-            }),
-        });
+            }));
         return acc;
     }, {});
 
@@ -82,15 +91,14 @@ const polygonStyleDiscrete = (config: PolygonStyleConfigDiscrete) => {
     const groups = config.groups;
     const styles = groups.reduce<style.Style[]>((acc, itv) => {
         // const [r, g, b] = itv.rgb;
-        acc.push(new style.Style({
-            fill: new style.Fill({
+        acc.push(makeStyle(
+            new style.Fill({
                 color: itv.fillColor,
             }),
-            stroke: new style.Stroke({
+            new style.Stroke({
                 color: itv.strokeColor,
                 width: itv.strokeWidth,
-            }),
-        }));
+            })));
         return acc;
     }, []);
 

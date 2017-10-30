@@ -15,7 +15,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { Feature, style, render } from 'openlayers';
 
 export { default as pointStyle } from './point';
@@ -41,6 +41,7 @@ export const getContext = (width: number, height: number): IOLContext | null => 
     });
     return { canvas, canvasContext, olContext };
 };
+
 
 export const markerFont = (sz: number) => `${sz}px FontAwesome`;
 export const labelFont = (sz: number) => `bold ${sz}px open_sans`;

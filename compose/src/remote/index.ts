@@ -33,6 +33,9 @@ import {
     IUser,
     IUserIO,
     postIO,
+    Attachment,
+    AttachmentIO,
+    deleteIO,
 } from 'sdi/source';
 
 
@@ -59,6 +62,7 @@ const putOptions =
         ...fetchOptions(),
     });
 
+
 export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url, fetchOptions());
 export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url, fetchOptions());
 export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
@@ -67,6 +71,20 @@ export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(I
 export const fetchAllDatasetMetadata = (url: string): Promise<Inspire[]> => fetchIO(io.array(InspireIO), url, fetchOptions());
 export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url, fetchOptions());
 export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
+
+export const fetchAttachment = (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url, fetchOptions());
+
+
+export const postAttachment =
+    (url: string, data: Partial<Attachment>): Promise<Attachment> =>
+        postIO(AttachmentIO, url, data, fetchOptions());
+
+export const putAttachment =
+    (url: string, data: Attachment): Promise<Attachment> =>
+        postIO(AttachmentIO, url, data, putOptions());
+
+export const delAttachment =
+    (url: string): Promise<void> => deleteIO(url, fetchOptions());
 
 
 export const putMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, putOptions());

@@ -1,5 +1,4 @@
 
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -16,18 +15,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './alias';
-export * from './app';
-export * from './attachment';
-export * from './category';
-export * from './chart';
-export * from './dataset-metadata';
-export * from './geojson';
-export * from './inspire';
-export * from './map';
-export * from './row-config';
-export * from './style';
-export * from './timeserie';
-export * from './user';
-export * from './uuid';
-export { MessageRecord } from './io';
+import * as debug from 'debug';
+
+import { getRoot, getApiUrl } from 'sdi/app';
+
+import {
+    logoutUser,
+} from '../remote';
+
+const logger = debug('sdi:events/login');
+
+
+export const tryLogout =
+    () => (
+        logoutUser(getApiUrl('auth/logout'))
+            .then(() => window.location.assign(getRoot())));
+
+logger('loaded');

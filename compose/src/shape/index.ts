@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Feature, IUser, IMapInfo, Category } from 'sdi/source';
+import { Feature, IUser, IMapInfo, Category, Attachment } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ButtonComponent } from 'sdi/components/button';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
@@ -26,6 +26,7 @@ import {
     IDatasetMetadataCollection,
     ILayerCollection,
     MapInfoIllustrationState,
+    AttachmentForm,
 } from './types';
 import { ILegendEditor } from '../components/legend-editor';
 import { EditableState } from '../components/editable';
@@ -56,6 +57,7 @@ declare module 'sdi/shape' {
         'component/feature-config': FeatureConfig;
         'component/layer-editor': LayerEditor;
         'component/timeserie': ITimeserieInteractive;
+        'component/attachments': AttachmentForm[];
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
@@ -67,5 +69,6 @@ declare module 'sdi/shape' {
         'data/datasetMetadata': IDatasetMetadataCollection;
         'data/timeseries': ITimeserieCollection;
         'data/categories': Category[];
+        'data/attachments': Attachment[];
     }
 }

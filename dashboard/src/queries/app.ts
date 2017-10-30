@@ -1,5 +1,4 @@
 
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -16,18 +15,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './alias';
-export * from './app';
-export * from './attachment';
-export * from './category';
-export * from './chart';
-export * from './dataset-metadata';
-export * from './geojson';
-export * from './inspire';
-export * from './map';
-export * from './row-config';
-export * from './style';
-export * from './timeserie';
-export * from './user';
-export * from './uuid';
-export { MessageRecord } from './io';
+import { query } from 'sdi/shape';
+
+export const getUserData =
+    () => query('data/user');
+
+
+export const getLayout =
+    () => {
+        const ll = query('app/layout');
+        if (ll.length === 0) {
+            throw (new Error('PoppingEmptyLayoutList'));
+        }
+        return ll[ll.length - 1];
+    };
+
+

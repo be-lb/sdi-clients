@@ -47,7 +47,7 @@ const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
 const renderIntervalActive = (i: ContinuousInterval, idx: number) => {
     const getLabel = () => i.label;
     const setLabel = (r: MessageRecord) => {
-        events.setLabelForStyleGroup(idx, r);
+        events.setLabelForStyleInterval(idx, r);
     };
     const removeGroupButton = remove(`continuous-renderStyleGroup-${idx}`, 'remove');
 

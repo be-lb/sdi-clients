@@ -15,71 +15,73 @@
  */
 
 import * as debug from 'debug';
-import events from '../../events/app';
-import queries from '../../queries/app';
+
 import { A, DIV, H2, INPUT, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord, FileRecord, fromFileRecord, updateFileRecord } from 'sdi/locale';
-import { MessageRecord, IAttachment } from 'sdi/source';
+import { Attachment, IMapInfo } from 'sdi/source';
+import { uploadAttachmentFile, addAttachment, setAttachmentName, removeAttachment } from '../../events/attachments';
+
+
+import queries from '../../queries/app';
 import editable from '../editable';
 import { FormEvent } from 'react';
 import { button, remove } from '../button';
+import { getAttachment, getAttachmentForm } from '../../queries/attachments';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:map-info/attachments');
 
-const selectedFiles: FileRecord[] = [];
-
-const isTimestamp = (v: string) => v.match(/^\d+$/);
 
 const uploadButton = button('upload', 'attachmentUpload');
 const addButton = button('add');
 
-const removeAttachment = (k: number) => {
-    if (k > selectedFiles.length) {
-        selectedFiles.splice(k, 1);
-    }
-    events.removeAttachment(k);
-};
 
+// const selectedFiles: {[k:string]:FileRecord} = {};
+const selectedFiles = new Map<string, FileRecord>();
 
-const updateSelectedFile = (k: number, i: HTMLInputElement) => {
-    const record = (k < selectedFiles.length) ? selectedFiles[k] : { nl: null, fr: null };
-    if (i.files && i.files.length > 0) {
-        selectedFiles[k] = updateFileRecord(record, i.files[0]);
-    }
-    else {
-        selectedFiles[k] = updateFileRecord(record, null);
-    }
-};
+const updateSelectedFile =
+    (k: string, i: HTMLInputElement) => {
+        const record = fromNullable(selectedFiles.get(k)).fold(
+            () => ({ nl: null, fr: null }),
+            r => r);
 
-
-const uploadAttachment = (k: number) => {
-    if (k < selectedFiles.length) {
-        const record = selectedFiles[k];
-        const selectedFile = fromFileRecord(record);
-        if (selectedFile !== null) {
-            events.uploadAttachmentFile(k, selectedFile);
-            updateFileRecord(record, null);
+        if (i.files && i.files.length > 0) {
+            selectedFiles.set(k, updateFileRecord(record, i.files[0]));
         }
-    }
-};
+        else {
+            selectedFiles.set(k, updateFileRecord(record, null));
+        }
+    };
 
 
-const setAttachmentName = (k: number) => (r: MessageRecord) => events.setAttachmentName(k, r);
+const uploadAttachment =
+    (k: string) =>
+        fromNullable(selectedFiles.get(k))
+            .map((record) => {
+
+                const selectedFile = fromFileRecord(record);
+                if (selectedFile !== null) {
+                    uploadAttachmentFile(k, selectedFile);
+                }
+            });
 
 
-const renderAttachmentUploadField = (k: number) => {
-    return DIV({ className: 'map-file' },
-        INPUT({
-            type: 'file',
-            name: 'attachment-upload',
-            onChange: (e: FormEvent<HTMLInputElement>) => updateSelectedFile(k, e.currentTarget),
-        }),
-        uploadButton(() => uploadAttachment(k)),
-        remove(`renderAttachmentUploadField-${k}`)(() => removeAttachment(k)));
-};
+
+
+const renderAttachmentUploadField =
+    (k: string) => {
+        return DIV({ className: 'map-file' },
+            INPUT({
+                type: 'file',
+                name: 'attachment-upload',
+                onChange: (e: FormEvent<HTMLInputElement>) => updateSelectedFile(k, e.currentTarget),
+            }),
+            uploadButton(() => uploadAttachment(k)),
+            remove(`renderAttachmentUploadField-${k}`)(() => removeAttachment(k)));
+    };
 
 const renderAttachmentEditable =
-    (k: number, props: React.ClassAttributes<Element>, name: string, a: IAttachment) => {
+    (props: React.ClassAttributes<Element>, name: string, a: Attachment) => {
 
         // return SPAN(name);
         return DIV({ className: 'map-file' },
@@ -88,7 +90,8 @@ const renderAttachmentEditable =
                     href: fromRecord(a.url),
                     ...props,
                 }, name)),
-            remove(`renderAttachmentEditable-${k}`)(() => events.removeAttachment(k)));
+            remove(`renderAttachmentEditable-${a.id}`)
+                (() => removeAttachment(a.id)));
     };
 
 const renderAttachmentUploading = (name: string) => {
@@ -98,30 +101,39 @@ const renderAttachmentUploading = (name: string) => {
 };
 
 
-const renderAttachment = (k: number, a: IAttachment) => (props: React.ClassAttributes<Element>) => {
-    const name = fromRecord(a.name);
-
-    if (name !== '') {
-        const url = fromRecord(a.url);
-
-        if (!isTimestamp(url)) {
-            return renderAttachmentEditable(k, props, name, a);
-        }
-        else {
-            return renderAttachmentUploading(name);
-        }
-    }
-    else {
-        return renderAttachmentUploadField(k);
-    }
-
-};
+const renderAttachment =
+    (a: Attachment) =>
+        (props: React.ClassAttributes<Element>) =>
+            getAttachmentForm(a.id)
+                .fold(
+                () => DIV(),
+                (f) => {
+                    if (f.name.length > 0) {
+                        return f.uploading ?
+                            renderAttachmentUploading(f.name) :
+                            renderAttachmentEditable(props, f.name, a);
+                    }
+                    return renderAttachmentUploadField(a.id);
+                });
 
 
 const renderAddButton = () => (
-    addButton(() => events.addAttachment())
+    addButton(() => addAttachment())
 );
 
+
+const attachments =
+    (mapInfo: IMapInfo) =>
+        mapInfo.attachments.map(
+            k => getAttachment(k)
+                .fold(
+                () => DIV(),
+                a => (
+                    editable(`ata_${k}`,
+                        () => a.name,
+                        n => setAttachmentName(a.id, n),
+                        renderAttachment(a))()
+                )));
 
 const render = () => {
     const mapInfo = queries.getMapInfo();
@@ -129,9 +141,7 @@ const render = () => {
         return (
             DIV({ className: 'map-attached-files' },
                 H2({}, tr('attachedFiles')),
-                mapInfo.attachments.map((a: IAttachment, k: number) => (
-                    editable(`ata_${k}`, () => a.name, setAttachmentName(k), renderAttachment(k, a))()
-                )),
+                ...attachments(mapInfo),
                 renderAddButton())
         );
     }

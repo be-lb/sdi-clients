@@ -14,8 +14,9 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as io from 'io-ts';
+import { uuidIO } from './index';
 
 const headers = new Headers();
 headers.append('Content-Type', 'application/json');
@@ -85,6 +86,11 @@ export const postIO =
             ...postOptions,
         };
 
+        const recType = io.intersection([
+            ioType,
+            io.interface({ id: uuidIO }),
+        ]);
+
         return (
             fetch(url, options)
                 .then((response) => {
@@ -95,10 +101,30 @@ export const postIO =
                 })
                 .then((obj) => {
                     return (
-                        io.validate(obj, ioType)
+                        io.validate(obj, recType)
                             .fold(onValidationError(ioType), identity)
                     );
                 })
         );
     };
 
+export const deleteIO =
+    (url: string, getOptions: RequestInit = {}) => {
+        const options: RequestInit = {
+            method: 'DELETE',
+            mode: 'cors',
+            cache: 'default',
+            redirect: 'follow',
+            ...getOptions,
+        };
+
+        return (
+            fetch(url, options)
+                .then((response) => {
+                    if (response.ok) {
+                        return void 0;
+                    }
+                    throw new Error(`Network response was not ok.\n[${url}]\n${response.statusText}`);
+                })
+        );
+    };

@@ -15,7 +15,7 @@
  */
 
 
-import { IStoreInteractions, IReducer, IAliasCollection } from '../source';
+import { IStoreInteractions, IReducer, IAliasCollection, IReducerAsync } from '../source';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 export interface IShape {
@@ -70,6 +70,13 @@ export const dispatch =
             () => { throw (new Error('DispatchNotConfigured')); },
             store => store.dispatch(key, handler));
 
+
+export const dispatchAsync =
+    <K extends keyof IShape>(key: K, handler: IReducerAsync<IShape, IShape[K]>): void =>
+        getStore()
+            .fold(
+            () => { throw (new Error('DispatchNotConfigured')); },
+            store => store.dispatchAsync(key, handler));
 
 export const dispatchK =
     <K extends keyof IShape>(key: K) =>
