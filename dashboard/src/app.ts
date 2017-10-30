@@ -32,7 +32,7 @@ export type AppLayout = 'Dashboard';
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header(() => DIV())(),
+        header('dashboard')(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
