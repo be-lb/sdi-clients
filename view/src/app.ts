@@ -43,13 +43,14 @@ const renderAppListingButton =
                 DIV({
                     className: 'navigate app-listview',
                     onClick: () => events.setLayout(AppLayout.MapNavigatorFS),
-                }, SPAN({ className: 'label' }, tr('browseMaps'))));
+                },
+                    SPAN({ className: 'label' }, tr('mapList'))));
         }
         return DIV();
     };
 
 
-const renderHeader = header(renderAppListingButton);
+const renderHeader = header('atlas')(renderAppListingButton);
 
 
 const wrappedMain =

@@ -21,6 +21,7 @@ import { DIV, SPAN } from './elements';
 import langSwitch from './lang-switch';
 import { navigateRoot } from '../app';
 import tr from '../locale';
+import { MessageKey } from '../locale/message-db';
 
 const logger = debug('sdi:header');
 
@@ -33,21 +34,22 @@ const rootButton =
 
 
 const header =
-    (action: () => React.ReactNode) => {
-        const render =
-            () => (
-                DIV({ className: 'header' },
-                    DIV({ className: 'be-logo' },
-                        DIV({ className: 'be-tree' }),
-                        DIV({ className: 'be-name' })),
-                    DIV({ className: 'app-listwrapper' }, action()),
-                    DIV({ className: 'header-toolbar' },
-                        rootButton(),
-                        langSwitch())));
+    (title: MessageKey) =>
+        (action: () => React.ReactNode) => {
+            const render =
+                () => (
+                    DIV({ className: 'header' },
+                        DIV({ className: 'be-logo' },
+                            DIV({ className: 'be-name' })),
+                        DIV({ className: 'app-title' }, tr(title)),
+                        DIV({ className: 'app-listwrapper' }, action()),
+                        DIV({ className: 'header-toolbar' },
+                            rootButton(),
+                            langSwitch())));
 
-        return render;
+            return render;
 
-    };
+        };
 
 export default header;
 

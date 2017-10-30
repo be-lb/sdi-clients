@@ -34,6 +34,7 @@ export type MessageKey =
     | 'alias'
     | 'all'
     | 'apostrophe'
+    | 'atlas'
     | 'atlasEnv'
     | 'attachedFiles'
     | 'attachmentAdd'
@@ -134,6 +135,7 @@ export type MessageKey =
     | 'mapInfoChangeIllustration'
     | 'mapLegend'
     | 'mapLink'
+    | 'mapList'
     | 'mapLinkWithView'
     | 'mapRefList'
     | 'mapTools'
@@ -1165,6 +1167,11 @@ export const messages: MessageDB = {
         nl: 'Mijn kaarten',
     },
 
+    atlas: {
+        fr: 'Atlas',
+        nl: 'Atlas',
+    },
+
     atlasEnv: {
         fr: 'Atlas de l\'environnement',
         nl: 'Milieu-Atlas',
@@ -1188,5 +1195,10 @@ export const messages: MessageDB = {
     alias: {
         fr: 'Alias',
         nl: 'Alias',
+    },
+
+    mapList: {
+        fr: 'Liste des cartes',
+        nl: 'kaartlijst',
     },
 };
