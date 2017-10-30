@@ -100,4 +100,10 @@ export interface IDatasetMetadataCollection {
 }
 
 
-
+export interface AttachmentForm {
+    id: string;
+    mapId: string;
+    name: string;
+    url: string;
+    uploading: boolean;
+}

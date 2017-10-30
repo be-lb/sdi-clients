@@ -18,7 +18,7 @@
 import { i, a, p, l, u, MessageRecordIO, TypeOf } from './io';
 import { StyleConfigIO } from './style';
 import { RowConfigIO } from './row-config';
-import { uuid } from './uuid';
+import { uuidIO } from './uuid';
 import * as io from 'io-ts';
 
 
@@ -69,7 +69,7 @@ export const IMapInfoIO = io.intersection([
         url: io.string,
         lastModified: io.number,
         description: MessageRecordIO,
-        attachments: a(uuid),
+        attachments: a(uuidIO),
         layers: a(ILayerInfoIO),
         baseLayer: IMapBaseLayerIO,
         categories: a(io.string),

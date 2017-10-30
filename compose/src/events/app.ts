@@ -363,60 +363,6 @@ const events = {
             });
     },
 
-    setAttachmentName(k: number, name: MessageRecord) {
-        const mid = queries.getCurrentMap();
-        dispatch('data/maps', (maps) => {
-            const idx = maps.findIndex(m => m.id === mid);
-            if (idx !== -1) {
-                const m = maps[idx];
-                if (k < m.attachments.length) {
-                    m.attachments[k].name = name;
-                }
-                setTimeout(() => {
-                    putMap(getApiUrl(`maps/${mid}`), m);
-                }, 1);
-            }
-            return maps;
-        });
-    },
-
-    removeAttachment(k: number) {
-        const mid = queries.getCurrentMap();
-        dispatch('data/maps', (maps) => {
-            const idx = maps.findIndex(m => m.id === mid);
-            if (idx !== -1) {
-                const m = maps[idx];
-                if (k < m.attachments.length) {
-                    m.attachments.splice(k, 1);
-                }
-                setTimeout(() => {
-                    putMap(getApiUrl(`maps/${mid}`), m);
-                }, 1);
-            }
-            return maps;
-        });
-    },
-
-    addAttachment() {
-        const mid = queries.getCurrentMap();
-
-        dispatch('data/maps', (maps) => {
-            const idx = maps.findIndex(m => m.id === mid);
-            if (idx !== -1) {
-                const m = maps[idx];
-                m.attachments.push({
-                    url: { nl: '', fr: '' },
-                    name: { nl: '', fr: '' },
-                });
-
-                setTimeout(() => {
-                    putMap(getApiUrl(`maps/${mid}`), m);
-                }, 1);
-            }
-
-            return maps;
-        });
-    },
 
     removeCategory(c: string) {
         const mid = queries.getCurrentMap();

@@ -84,6 +84,7 @@ export const main =
             'component/feature-config': initialFeatureConfigState(),
             'component/layer-editor': initialLayerEditorState(),
             'component/timeserie': initialTimeserieState(),
+            'component/attachments': [],
 
             'data/user': null,
             'data/layers': {},

@@ -29,6 +29,10 @@ export interface IReducer<IShape, S extends SubTypeOfIShape<IShape>> {
     (a: S): S;
 }
 
+export interface IReducerAsync<IShape, S extends SubTypeOfIShape<IShape>> {
+    (a: S): Promise<S>;
+}
+
 export interface IObserver<IShape, K extends KeyOfIShape<IShape>> {
     key: K;
     handler(a: IShape[K]): void;
@@ -36,6 +40,7 @@ export interface IObserver<IShape, K extends KeyOfIShape<IShape>> {
 
 export interface IStoreInteractions<IShape> {
     dispatch<K extends KeyOfIShape<IShape>>(key: K, handler: IReducer<IShape, IShape[K]>): void;
+    dispatchAsync<K extends KeyOfIShape<IShape>>(key: K, handler: IReducerAsync<IShape, IShape[K]>): void;
     observe<K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void): void;
     get<K extends keyof IShape>(key: K): IShape[K];
     version(): number;
@@ -185,8 +190,20 @@ export const source =
                         toLocalStorage(newState);
                         store.push(newState);
                         processObservers(key);
-                        // logDev(handler, newState);
 
+                    };
+
+                const dispatchAsync =
+                    <K extends KeyOfIShape<IShape>>(key: K, handler: IReducerAsync<IShape, IShape[K]>): void => {
+                        const lens = getLens(key);
+                        handler(lens.get(head()))
+                            .then((nk) => {
+                                const m = lens.modify(() => nk);
+                                const newState = m(head());
+                                toLocalStorage(newState);
+                                store.push(newState);
+                                processObservers(key);
+                            });
                     };
 
 
@@ -203,7 +220,14 @@ export const source =
                         store.splice(end);
                     };
 
-                return { dispatch, get, version, reset, observe };
+                return {
+                    dispatch,
+                    dispatchAsync,
+                    get,
+                    observe,
+                    reset,
+                    version,
+                };
             };
 
 

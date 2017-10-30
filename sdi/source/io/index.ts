@@ -18,6 +18,7 @@
 
 export * from './alias';
 export * from './attachment';
+export * from './category';
 export * from './chart';
 export * from './dataset-metadata';
 export * from './geojson';
@@ -27,5 +28,5 @@ export * from './row-config';
 export * from './style';
 export * from './timeserie';
 export * from './user';
-export * from './category';
+export * from './uuid';
 export { MessageRecord } from './io';

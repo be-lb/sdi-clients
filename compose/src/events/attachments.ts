@@ -1,10 +1,126 @@
 
-import { getLang, getApiUrl } from 'sdi/app';
-import { dispatch, observe } from 'sdi/shape';
-
-import { upload, fetchAttachment } from '../remote';
-import queries from '../queries/app';
 import { fromNullable } from 'fp-ts/lib/Option';
+
+import { Attachment, MessageRecord, IMapInfo } from 'sdi/source';
+import { getLang, getApiUrl } from 'sdi/app';
+import { dispatch, dispatchK, observe, dispatchAsync } from 'sdi/shape';
+import { fromRecord } from 'sdi/locale';
+
+import {
+    fetchAttachment,
+    postAttachment,
+    putAttachment,
+    putMap,
+    upload,
+    delAttachment,
+} from '../remote';
+import queries from '../queries/app';
+import { getAttachment, getAttachments } from '../queries/attachments';
+import { AttachmentForm } from '../shape/types';
+
+const attachments = dispatchK('data/attachments');
+
+const setAttachment =
+    (attachment: Attachment) =>
+        attachments(
+            ats => ats.filter(
+                a => a.id !== attachment.id)
+                .concat([attachment]));
+
+const updateName =
+    (a: Attachment, m: MessageRecord): Attachment => ({ ...a, name: m });
+
+const updateUrl =
+    (a: Attachment, url: string, name: string): Attachment => ({
+        ...a,
+        name: {
+            ...a.name,
+            [getLang()]: name,
+        },
+        url: {
+            ...a.url,
+            [getLang()]: url,
+        },
+    });
+
+const updateMapInfo =
+    (f: (m: IMapInfo) => IMapInfo) => {
+        const id = queries.getCurrentMap();
+        dispatchAsync('data/maps', maps =>
+            fromNullable(maps.find(m => m.id === id))
+                .fold(
+                () => Promise.resolve(maps),
+                m => putMap(getApiUrl(`maps/${id}`), f(m))
+                    .then(nm =>
+                        maps.filter(m => m.id !== id).concat([nm]))));
+    };
+
+
+
+export const setAttachmentName =
+    (k: string, name: MessageRecord) =>
+        getAttachment(k)
+            .map(a => putAttachment(
+                getApiUrl(`attachments/${a.id}`), updateName(a, name))
+                .then(setAttachment)
+                .catch(() => void 0));// TODO
+
+
+export const setAttachmentUrl =
+    (k: string, url: string, name: string) =>
+        getAttachment(k)
+            .map(a => putAttachment(
+                getApiUrl(`attachments/${a.id}`), updateUrl(a, url, name))
+                .then(setAttachment)
+                .catch(() => void 0));// TODO
+
+
+export const removeAttachment =
+    (k: string) =>
+        delAttachment(getApiUrl(`attachments/${k}`))
+            .then(() => updateMapInfo(m => ({
+                ...m,
+                attachments: m.attachments.filter(a => a !== k),
+            })));
+
+// updateMapInfo(m => ({
+//     ...m,
+//     attachments: m.attachments.filter(a => a !== k),
+// }));
+
+
+export const addAttachment =
+    () =>
+        fromNullable(queries.getCurrentMap())
+            .map(
+            mid => postAttachment(getApiUrl(`attachments`), {
+                mapId: mid,
+                url: { nl: '', fr: '' },
+                name: { nl: '', fr: '' },
+            }).then((a) => {
+                setAttachment(a);
+                updateMapInfo(m => ({
+                    ...m,
+                    attachments: m.attachments.concat([a.id]),
+                }));
+            }));
+
+
+
+export const uploadAttachmentFile =
+    (k: string, f: File) => {
+        dispatch('component/attachments', ats => fromNullable(ats.find(a => a.id === k)).fold(
+            () => ats,
+            sa => ats.filter(a => a.id !== sa.id).concat([{
+                ...sa,
+                name: f.name,
+                uploading: true,
+            }])));
+
+        upload('/documents/documents/', f)
+            .then(({ url }) => setAttachmentUrl(k, url, f.name));
+    };
+
 
 observe('app/current-map',
     () => fromNullable(queries.getMapInfo())
@@ -14,66 +130,20 @@ observe('app/current-map',
                 .then(a => dispatch('data/attachments', s => s.concat([a]))))));
 
 
+const updateForms =
+    (ats: Attachment[]): AttachmentForm[] =>
+        ats.map(a => ({
+            id: a.id,
+            mapId: a.mapId,
+            name: fromRecord(a.name),
+            url: fromRecord(a.url),
+            uploading: false,
+        }));
 
+observe('data/attachments',
+    ats => dispatch('component/attachments',
+        () => updateForms(ats)));
 
-export const uploadAttachmentFile =
-    (k: number, f: File) => {
-        const mid = queries.getCurrentMap();
-        const name = f.name;
-        const lc = getLang();
-
-        dispatch('data/maps', (maps) => {
-            const idx = maps.findIndex(m => m.id === mid);
-
-            if (idx !== -1) {
-                const m = maps[idx];
-                const aid = m.attachments[k];
-
-                upload('/documents/documents/', f)
-                    .then((data) => {
-                        const { url } = data;
-                        dispatch('data/maps', (maps) => {
-                            const idx = maps.findIndex(m => m.id === mid);
-
-                            if (idx !== -1) {
-                                const m = maps[idx];
-                                const aidx = m.attachments.findIndex(a => a.url[lc] === ts);
-
-                                if (aidx !== -1) {
-                                    m.attachments[aidx].url[lc] = url;
-
-                                    setTimeout(() => {
-                                        putMap(getApiUrl(`maps/${mid}`), m);
-                                    }, 1);
-                                }
-                            }
-
-                            return maps;
-                        });
-                    }).catch(() => {
-                        // dispatch('data/maps', (maps) => {
-                        //     const idx = maps.findIndex(m => m.id === mid);
-
-                        //     if (idx !== -1) {
-                        //         const m = maps[idx];
-                        //         const aidx = m.attachments.findIndex(a => a.url[lc] === ts);
-
-                        //         if (aidx !== -1) {
-                        //             m.attachments[aidx].name[lc] = '';
-                        //             m.attachments[aidx].url[lc] = '';
-
-                        //             setTimeout(() => {
-                        //                 putMap(getApiUrl(`maps/${mid}`), m);
-                        //             }, 1);
-                        //         }
-                        //     }
-
-                        //     return maps;
-                        // });
-                    });
-            }
-
-            return maps;
-        });
-
-    },
+observe('app/lang', () =>
+    dispatch('component/attachments',
+        () => updateForms(getAttachments())));

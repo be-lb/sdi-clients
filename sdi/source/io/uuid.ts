@@ -39,4 +39,5 @@ const v4 = (s: string) => (
     condLength(s) && condSplits(s) && condGroups(s)
 );
 
-export const uuid = io.refinement(io.string, v4, 'uuid');
+export const uuidIO = io.refinement(io.string, v4, 'uuid');
+export type uuid = io.TypeOf<typeof uuidIO>;

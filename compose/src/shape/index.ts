@@ -26,6 +26,7 @@ import {
     IDatasetMetadataCollection,
     ILayerCollection,
     MapInfoIllustrationState,
+    AttachmentForm,
 } from './types';
 import { ILegendEditor } from '../components/legend-editor';
 import { EditableState } from '../components/editable';
@@ -56,6 +57,7 @@ declare module 'sdi/shape' {
         'component/feature-config': FeatureConfig;
         'component/layer-editor': LayerEditor;
         'component/timeserie': ITimeserieInteractive;
+        'component/attachments': AttachmentForm[];
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
