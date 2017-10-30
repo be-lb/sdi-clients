@@ -9,7 +9,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT = resolve(__dirname);
 const NAME = basename(ROOT);
-const ASSETS_PUBLIC_PATH = `/client/assets/${NAME}/`;
+const ASSETS_PUBLIC_PATH = `/client/assets/default/`;
 const BUNDLE_ENTRY_PATH = resolve(ROOT, 'src/index.ts');
 const STYLE_ENTRY_PATH = resolve(ROOT, 'style/index.js');
 const OUTPUT_DIR = resolve(ROOT, 'dist');
@@ -131,5 +131,3 @@ module.exports = {
     // devtool: 'inline-source-map',
     devtool: 'cheap-module-eval-source-map',
 };
-
-
