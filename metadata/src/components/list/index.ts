@@ -8,7 +8,7 @@ const render =
         return DIV({
             className: 'metadata-list',
         },
-            H1({}, tr('metadataEditor')),
+            H1({}, tr('sheetList')),
             metadata());
     };
 

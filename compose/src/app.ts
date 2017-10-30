@@ -60,7 +60,7 @@ const renderAppListingButton =
     };
 
 
-const renderHeader = header(renderAppListingButton);
+const renderHeader = header('studio')(renderAppListingButton);
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},

@@ -142,6 +142,7 @@ export type MessageKey =
     | 'measure'
     | 'measureArea'
     | 'measureLength'
+    | 'metadata'
     | 'metaCommon'
     | 'metadataEditor'
     | 'metadataEditor'
@@ -187,6 +188,7 @@ export type MessageKey =
     | 'space'
     | 'start'
     | 'stop'
+    | 'studio'
     | 'style'
     | 'styleGroupAdd'
     | 'styleGroupDefaultName'
@@ -1062,7 +1064,7 @@ export const messages: MessageDB = {
     },
 
     metadataEditor: {
-        fr: 'Éditeur de métadonnées',
+        fr: 'Édition des métadonnées',
         nl: 'Metadatas editor',
     },
 
@@ -1200,5 +1202,15 @@ export const messages: MessageDB = {
     mapList: {
         fr: 'Liste des cartes',
         nl: 'kaartlijst',
+    },
+
+    studio: {
+        fr: 'Studio',
+        nl: 'Studio',
+    },
+
+    metadata: {
+        fr: 'Métadonnées',
+        nl: 'Metadata',
     },
 };
