@@ -16,17 +16,19 @@
 
 import { DIV, H1 } from 'sdi/components/elements';
 import { AppManifest } from 'sdi/source';
-import { fromRecord } from 'sdi/locale';
-import tr from 'sdi/locale';
+import tr, { fromRecord } from 'sdi/locale';
 
 
 import { getApps } from '../queries/apps';
 
 
+const getCompFromUrl =
+    (url: string) => url.split('/').reverse().find(s => s.length > 0);
+
 const renderApp =
     (app: AppManifest) => (
         DIV({
-            className: 'app-item',
+            className: `app-item ${getCompFromUrl(app.url)}`,
             onClick: () => window.location.assign(app.url),
         },
             DIV({ className: 'app-picto' }),
