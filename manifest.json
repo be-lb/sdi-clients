@@ -1,0 +1,44 @@
+{
+    "clients": [
+        {
+            "route": "default",
+            "root": "dashboard/dist",
+            "name": {
+                "fr": "Tableau de bord",
+                "nl": "Dashboard"
+            }
+        },
+        {
+            "route": "login",
+            "root": "login/dist",
+            "name": {
+                "fr": "Login",
+                "nl": "Login"
+            }
+        },
+        {
+            "route": "view",
+            "root": "view/dist",
+            "name": {
+                "fr": "Atlas",
+                "nl": "Atlas"
+            }
+        },
+        {
+            "route": "compose",
+            "root": "compose/dist",
+            "name": {
+                "fr": "Studio",
+                "nl": "Studio"
+            }
+        },
+        {
+            "route": "metadata",
+            "root": "metadata/dist",
+            "name": {
+                "fr": "Metadata",
+                "nl": "Metadata"
+            }
+        }
+    ]
+}
