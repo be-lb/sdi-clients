@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { Map, View, source, layer, proj, Feature } from 'openlayers';
+import { Map, View, source, layer, proj, Feature, Collection } from 'openlayers';
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
@@ -24,6 +24,8 @@ import { LayerRef, IMapOptions, formatGeoJSON, FetchData, EditOptions } from './
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl } from './controls';
 import { addActions } from './actions';
+import { fromNullable } from 'fp-ts/lib/Option';
+import { IMapBaseLayer } from '../source/index';
 
 
 const logger = debug('sdi:map');
@@ -138,6 +140,23 @@ export const addLayer =
     };
 
 
+const fromBaseLayer =
+    (baseLayer: IMapBaseLayer) => {
+        const baseLayerTranslated = translateMapBaseLayer(baseLayer);
+        const l = new layer.Image({
+            source: new source.ImageWMS({
+                projection: proj.get(baseLayerTranslated.srs),
+                params: {
+                    ...baseLayerTranslated.params,
+                },
+                url: baseLayerTranslated.url,
+            }),
+        });
+        l.set('id', hashMapBaseLayer(baseLayer));
+        return l;
+    }
+
+
 export const create =
     (options: IMapOptions) => {
         if (map) {
@@ -152,26 +171,17 @@ export const create =
         });
 
 
-        const baseLayer = options.getBaseLayer();
-        if (!baseLayer) {
-            throw (new Error('NoBaseMapConfigured'));
-        }
-        const baseLayerTranslated = translateMapBaseLayer(baseLayer);
-
-        const baseSource = new source.ImageWMS({
-            projection: proj.get(baseLayerTranslated.srs),
-            params: {
-                ...baseLayerTranslated.params,
-            },
-            url: baseLayerTranslated.url,
+        const baseLayerCollection = new Collection<layer.Image>();
+        const baseLayerGroup = new layer.Group({
+            layers: baseLayerCollection,
         });
-        baseSource.set('id', hashMapBaseLayer(baseLayer));
 
-        const layers = [
-            new layer.Image({
-                source: baseSource,
-            }),
-        ];
+        fromNullable(options.getBaseLayer())
+            .map((baseLayer) => {
+                baseLayerCollection.push(fromBaseLayer(baseLayer));
+            });
+
+        const layers = [baseLayerGroup];
 
 
         map = new Map({
@@ -230,31 +240,17 @@ export const create =
         const update = () => {
             const viewState = options.getView();
             const queriedBaseLayer = options.getBaseLayer();
+            const currentBaseLayer = baseLayerCollection.item(0);
             const mapInfo = options.getMapInfo();
+
 
 
             if (queriedBaseLayer) {
                 const id = hashMapBaseLayer(queriedBaseLayer);
-                const layer0 = map.getLayers().item(0);
-                const source0 = layer0.get('source');
-                const sourceId = source0.get('id');
-                if (sourceId !== id) {
-                    const queriedBaseLayerTranslated = translateMapBaseLayer(queriedBaseLayer);
-                    const newSource = new source.ImageWMS({
-                        projection: proj.get(queriedBaseLayerTranslated.srs),
-                        params: {
-                            ...queriedBaseLayerTranslated.params,
-                        },
-                        url: queriedBaseLayerTranslated.url,
-                    });
-                    newSource.set('id', id);
-                    const newLayer =
-                        new layer.Image({
-                            source: newSource,
-                        });
-
-                    map.removeLayer(layer0);
-                    map.getLayers().insertAt(0, newLayer);
+                if ((!currentBaseLayer)
+                    || (currentBaseLayer && (currentBaseLayer.get('id') !== id))) {
+                    baseLayerCollection.clear();
+                    baseLayerCollection.push(fromBaseLayer(queriedBaseLayer));
                 }
             }
 

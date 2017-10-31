@@ -56,7 +56,7 @@ const displayException = (err: string) => {
 export const main =
     (SDI: any) => {
 
-        const currentMap = (SDI.args.length > 0) ? SDI.args[0] : null;
+        // const currentMap = (SDI.args.length > 0) ? SDI.args[0] : null;
 
         const initialState: IShape = {
             'app/user': SDI.user,
@@ -66,9 +66,10 @@ export const main =
             'app/lang': 'fr',
             'app/layout': [AppLayout.MapNavigatorFS],
             'app/map-ready': false,
-            'app/current-map': currentMap,
+            'app/current-map': null,
             'app/current-layer': null,
             'app/current-feature': null,
+            'app/route': SDI.args,
 
             'component/legend': {
                 currentPage: 'legend',

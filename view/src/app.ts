@@ -33,6 +33,7 @@ import events from './events/app';
 import queries from './queries/app';
 import mapEvents from './events/map';
 import { AppLayout } from './shape/types';
+import { navigate, navigateHome } from './events/route';
 
 const logger = debug('sdi:app');
 
@@ -42,7 +43,7 @@ const renderAppListingButton =
             return (
                 DIV({
                     className: 'navigate app-listview',
-                    onClick: () => events.setLayout(AppLayout.MapNavigatorFS),
+                    onClick: () => navigateHome(),
                 },
                     SPAN({ className: 'label' }, tr('mapList'))));
         }
@@ -110,7 +111,7 @@ const effects =
         mapEvents.updateMapView({ dirty: true });
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
-        events.bootMap();
+        navigate();
     };
 
 const app = loop(renderMain, effects);
