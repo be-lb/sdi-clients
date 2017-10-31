@@ -1216,7 +1216,7 @@ export const messages: MessageDB = {
     },
 
     myApps: {
-        fr: 'Mes applications',
-        nl: 'Mijn apps',
+        fr: 'Outils et applications',
+        nl: 'Tools en apps',
     },
 };

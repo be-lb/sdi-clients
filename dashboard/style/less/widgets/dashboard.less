@@ -28,15 +28,14 @@
         margin-top: @margin;
 
         .app-item {
+            .transition;
             .shadow;
             display: flex;
-            // display: inline-flex;
             background: @white;
             width: 150px;
             height: 150px;
             border-radius: 100px;
             border: 1px solid @light-grey;
-            // border: 2px solid #000;
             align-items: center;
             justify-content: center;
             text-align: center;
@@ -45,8 +44,8 @@
             margin: 2*@margin;
 
             &:hover {
-                // .widgetBackground;
                 cursor: default;
+                color: @green;
                 -webkit-box-shadow: 0px 0px 0px 0px rgba(50, 50, 50, 0.5);
                 -moz-box-shadow:    0px 0px 0px 0px rgba(50, 50, 50, 0.5);
                 box-shadow:         0px 0px 0px 0px rgba(50, 50, 50, 0.5);
@@ -61,8 +60,6 @@
         padding-left: @margin;
         border-left: 1px solid #000;
         font-size: 150%;
-
-        // padding-bottom: 20vh;
     }
 
     .btn-logout {
@@ -72,7 +69,6 @@
 
     .logout-username {
         margin-bottom: @margin;
-        // background: #fff;
         &:before {
             .awsomefont;
             content: @fa-var-user;
