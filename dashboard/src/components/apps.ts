@@ -22,13 +22,10 @@ import tr, { fromRecord } from 'sdi/locale';
 import { getApps } from '../queries/apps';
 
 
-const getCompFromUrl =
-    (url: string) => url.split('/').reverse().find(s => s.length > 0);
-
 const renderApp =
     (app: AppManifest) => (
         DIV({
-            className: `app-item ${getCompFromUrl(app.url)}`,
+            className: `app-item ${app.codename}`,
             onClick: () => window.location.assign(app.url),
         },
             DIV({ className: 'app-picto' }),

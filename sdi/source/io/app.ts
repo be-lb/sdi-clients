@@ -19,6 +19,7 @@ import { i, MessageRecordIO, TypeOf } from './io';
 import * as io from 'io-ts';
 
 export const AppManifestIO = i({
+    codename: io.string,
     name: MessageRecordIO,
     url: io.string,
 });
