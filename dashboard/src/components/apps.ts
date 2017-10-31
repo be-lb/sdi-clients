@@ -14,9 +14,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV } from 'sdi/components/elements';
+import { DIV, H1 } from 'sdi/components/elements';
 import { AppManifest } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
+import tr from 'sdi/locale';
+
 
 import { getApps } from '../queries/apps';
 
@@ -32,9 +34,14 @@ const renderApp =
 const renderApps =
     () => getApps().map(renderApp);
 
-const render =
+const renderAppsWrapper =
     () => DIV({
         className: 'app-list',
     }, ...renderApps());
+
+const render =
+    () => DIV({ className: 'my-apps' },
+        H1({}, tr('myApps')),
+        renderAppsWrapper());
 
 export default render;

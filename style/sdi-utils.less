@@ -1,3 +1,7 @@
+.transition {
+    transition: all 0.1s;
+}
+
 .absolute(@top, @right, @bottom, @left) {
     position: absolute;
     top: @top;
@@ -33,9 +37,9 @@
 }
 
 .link {
+    .transition;
     cursor: pointer;
     &:hover { color: @blue; }
-    // &:hover{text-decoration: underline;}
 }
 
 .labelStyle {
@@ -56,10 +60,10 @@ font-size: 0.8em;
 }
 
 .interactive {
+    .transition;
     cursor:default;
     &:hover {
         color: @green;
-        // text-decoration: underline;
     }
 }
 .interactive-light {
@@ -89,9 +93,9 @@ font-size: 0.8em;
     .awsomefont;
     display: inline-block;
       -webkit-animation: fa-spin 2s infinite linear;
-  -moz-animation: fa-spin 2s infinite linear;
-  -o-animation: fa-spin 2s infinite linear;
-  animation: fa-spin 2s infinite linear;
+         -moz-animation: fa-spin 2s infinite linear;
+            -o-animation: fa-spin 2s infinite linear;
+                animation: fa-spin 2s infinite linear;
 }
 
 
@@ -103,6 +107,7 @@ font-size: 0.8em;
     padding: @small-margin;
 }
 .widgetActiveBackground {
+    .transition;
     border: 1px solid @widget-background;
     background-color: @widget-background;
     padding: @small-margin;
@@ -110,6 +115,7 @@ font-size: 0.8em;
     &:hover {
         background-color: @widget-background-hover;
         border: 1px solid @widget-background-hover;
+        cursor: default;
     }
     &.active {
         background-color: @widget-background;

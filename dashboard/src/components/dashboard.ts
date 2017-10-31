@@ -17,12 +17,13 @@
 
 import { DIV } from 'sdi/components/elements';
 
+
 import apps from './apps';
 import logout from './logout';
 
 const render =
     () => DIV({ className: 'dashboard-wrapper' },
-        logout(),
-        apps());
+        apps(),
+        logout());
 
 export default render;
