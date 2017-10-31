@@ -17,64 +17,74 @@
  */
 
 import * as debug from 'debug';
-import { ChangeEvent } from 'react';
 
 import { DIV, INPUT, IMG, P, H1 } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { IMapInfo, Category } from 'sdi/source';
+import { IMapInfo } from 'sdi/source';
 
-import { AppLayout } from '../shape/types';
-import events from '../events/mapnavigator';
-import appEvents from '../events/app';
-import queries from '../queries/mapnavigator';
+import { queryMaps } from '../events/mapnavigator';
 import { navigateMap } from '../events/route';
+import { getMaps } from '../queries/mapnavigator';
 
 const logger = debug('sdi:mapnavigator');
 
-export const renderTile =
-    (category: Category) =>
-        (map: IMapInfo) => {
-            // const params = stringify({
-            //     m: map.id,
-            //     api: appQueries.getApiUrl(''),
-            // });
-            // const url = `${map.id}`;
-            const mid = map.id;
-            return (
-                DIV({ className: 'map-navigator-tile' },
-                    DIV({
-                        onClick: () => mid ? navigateMap(mid) : null,
-                    }, DIV({ className: 'category-title' }, fromRecord(category.name)),
-                        IMG({ src: map.imageUrl }),
-                        DIV({ className: 'map-title' }, fromRecord(map.title)),
-                        P({}, fromRecord(map.description).substr(0, 200) + '...'),
-                        DIV({ className: 'read-more' }))));
-        };
+// export const renderTile =
+//     (category: Category) =>
+//         (map: IMapInfo) => {
+//             const mid = map.id;
+//             return (
+//                 DIV({ className: 'map-navigator-tile' },
+//                     DIV({
+//                         onClick: () => mid ? navigateMap(mid) : null,
+//                     }, DIV({ className: 'category-title' }, fromRecord(category.name)),
+//                         IMG({ src: map.imageUrl }),
+//                         DIV({ className: 'map-title' }, fromRecord(map.title)),
+//                         P({}, fromRecord(map.description).substr(0, 200) + '...'),
+//                         DIV({ className: 'read-more' }))));
+//         };
 
 
-export const renderCategory =
-    (c: [Category, IMapInfo[]]) => c[1].map(renderTile(c[0]));
+// export const renderCategory =
+//     (c: [Category, IMapInfo[]]) => c[1].map(renderTile(c[0]));
 
 export const searchField = () => (
     DIV({
         className: 'input-wrapper map-navigator-search',
     },
         INPUT({
+            key: 'map-navigator-search-input',
             type: 'search',
             name: 'search',
             placeholder: tr('searchAtlas'),
-            onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                events.query(e.target.value);
-                appEvents.setLayout(AppLayout.MapNavigatorFS);
-            },
+            onChange: e => queryMaps(e.target.value.trim()),
         }))
 );
+
+const renderMap =
+    (map: IMapInfo) => {
+        const mid = map.id;
+        return (
+            DIV({
+                key: mid,
+                className: 'map-navigator-tile',
+            },
+                DIV({
+                    onClick: () => mid ? navigateMap(mid) : null,
+                },
+                    IMG({ src: map.imageUrl }),
+                    DIV({ className: 'map-title' }, fromRecord(map.title)),
+                    P({}, fromRecord(map.description).substr(0, 200) + '...'),
+                    DIV({ className: 'read-more' }))));
+    };
+
+const renderMaps =
+    () => getMaps().map(renderMap);
 
 export const render = () =>
     DIV({ className: 'map-navigator' },
         H1({}, tr('mapList')),
         searchField(),
-        DIV({ className: 'maps-container' }, ...queries.getAll().map(renderCategory)));
+        DIV({ className: 'maps-container' }, renderMaps()));
 
 export default render;
 

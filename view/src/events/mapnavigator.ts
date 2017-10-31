@@ -16,18 +16,12 @@
 
 import { dispatch } from 'sdi/shape';
 
-const events = {
-    query(q: string | null) {
-        dispatch('component/mapnavigator', (state) => {
-            if (q) {
-                state.query = q;
-            }
-            else {
-                state.query = '';
-            }
-            return state;
-        });
-    },
-};
 
-export default events;
+export const queryMaps =
+    (query: string) =>
+        dispatch('component/mapnavigator', s => ({ ...s, query }));
+
+export const resetQuery =
+    () =>
+        dispatch('component/mapnavigator', s => ({ ...s, query: '' }));
+
