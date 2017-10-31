@@ -33,6 +33,7 @@ declare module 'sdi/shape' {
         'app/current-layer': string | null;
         'app/current-feature': Feature | null;
         'app/map-ready': boolean;
+        'app/route': string[];
 
         'component/legend': ILegend;
         'component/menu': IMenuData;

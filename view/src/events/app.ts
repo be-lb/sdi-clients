@@ -34,6 +34,7 @@ const loadMap =
         const mapIsReady = queries.mapReady();
         logger(`loadMap ${info.id} ${mapIsReady} ${delay}`);
         if (mapIsReady) {
+            removeLayerAll();
             info.layers.forEach((l) => {
                 const url = getApiUrl(`metadatas/${l.metadataId}`);
                 fetchDatasetMetadata(url)
@@ -55,12 +56,12 @@ const loadMap =
         }
     };
 
-observe('app/current-map', () => {
-    const info = queries.getMapInfo();
-    if (info) {
-        loadMap(info);
-    }
-});
+// observe('app/current-map', () => {
+//     const info = queries.getMapInfo();
+//     if (info) {
+//         loadMap(info);
+//     }
+// });
 
 
 const reloadLayers =
@@ -104,23 +105,18 @@ const events = {
     },
 
 
-    bootMap() {
-        const mid = queries.getCurrentMap();
-        if (mid) {
-            fetchMap(getApiUrl(`maps/${mid}`))
+    loadMap() {
+        fromNullable(queries.getCurrentMap())
+            .map(
+            mid => fetchMap(getApiUrl(`maps/${mid}`))
                 .then((info) => {
                     dispatch('data/maps', () => [info]);
-                    events.setLayout(AppLayout.MapAndInfo);
                     loadMap(info);
-                });
-        }
-        else {
-            events.loadMaps(getApiUrl(`maps`));
-        }
+                }));
     },
 
-    loadMaps(url: string) {
-        fetchAllMaps(url)
+    loadAllMaps() {
+        fetchAllMaps(getApiUrl(`maps`))
             .then((maps) => {
                 dispatch('data/maps', () => maps);
             });
@@ -182,6 +178,16 @@ const events = {
 
     unsetCurrentFeature() {
         dispatch('app/current-feature', () => null);
+    },
+
+    clearMap() {
+        dispatch('app/current-map', () => null);
+        dispatch('app/current-layer', () => null);
+        dispatch('app/current-feature', () => null);
+        dispatch('component/table', (state) => {
+            state.selected = -1;
+            return state;
+        });
     },
 };
 

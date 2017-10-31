@@ -19,7 +19,7 @@
 import * as debug from 'debug';
 import { ChangeEvent } from 'react';
 
-import { DIV, INPUT, A, IMG, P, H1 } from 'sdi/components/elements';
+import { DIV, INPUT, IMG, P, H1 } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
 import { IMapInfo, Category } from 'sdi/source';
 
@@ -27,6 +27,7 @@ import { AppLayout } from '../shape/types';
 import events from '../events/mapnavigator';
 import appEvents from '../events/app';
 import queries from '../queries/mapnavigator';
+import { navigateMap } from '../events/route';
 
 const logger = debug('sdi:mapnavigator');
 
@@ -37,11 +38,13 @@ export const renderTile =
             //     m: map.id,
             //     api: appQueries.getApiUrl(''),
             // });
-            const url = `${map.id}`;
+            // const url = `${map.id}`;
+            const mid = map.id;
             return (
                 DIV({ className: 'map-navigator-tile' },
-                    A({ href: url, target: '_top' },
-                        DIV({ className: 'category-title' }, fromRecord(category.name)),
+                    DIV({
+                        onClick: () => mid ? navigateMap(mid) : null,
+                    }, DIV({ className: 'category-title' }, fromRecord(category.name)),
                         IMG({ src: map.imageUrl }),
                         DIV({ className: 'map-title' }, fromRecord(map.title)),
                         P({}, fromRecord(map.description).substr(0, 200) + '...'),
