@@ -16,9 +16,10 @@
 
 import { query } from 'sdi/shape';
 import { IMapInfo } from 'sdi/source';
+import { fromRecord } from 'sdi/locale';
 
-const queries = {
-    getAll() {
+export const getCategories =
+    () => {
         const maps = query('data/maps');
         const cats = query('data/categories');
         const ret = cats.map((cat) => {
@@ -39,12 +40,30 @@ const queries = {
         }, []);
         ret.push([{ id: '', name: { fr: '', nl: '' } }, uncategorized]);
         return ret;
-    },
+    };
 
-    // search() {
-    //     // return [query('data/maps')].filter(ref => (fromRecord(ref.title).toLowerCase().indexOf(query('component/search').query.toLocaleLowerCase()) > -1));
-    //     return query('data/maps');
-    // },
-};
+export const getNavigatorQuery =
+    () => query('component/mapnavigator').query;
 
-export default queries;
+const filterMap =
+    (pat: RegExp) =>
+        (m: IMapInfo) => {
+            const title = fromRecord(m.title);
+            const description = fromRecord(m.description);
+            return pat.test(title) || pat.test(description);
+        }
+
+const getFilteredMaps =
+    (q: string) =>
+        query('data/maps').filter(filterMap(new RegExp(`.*${q}.*`, 'i')));
+
+export const getMaps =
+    () => {
+        const q = getNavigatorQuery();
+        if (q.length > 0) {
+            return getFilteredMaps(q);
+        }
+        return query('data/maps');
+    };
+
+
