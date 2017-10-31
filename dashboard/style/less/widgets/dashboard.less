@@ -32,6 +32,7 @@
             .transition;
             .shadow;
             display: flex;
+            flex-direction: column;
             background: @white;
             width: 150px;
             height: 150px;
@@ -48,21 +49,24 @@
             &:hover {
                 cursor: default;
                 color: @green;
+                border: 3px solid @green;
                 -webkit-box-shadow: 0px 0px 0px 0px rgba(50, 50, 50, 0.5);
                 -moz-box-shadow:    0px 0px 0px 0px rgba(50, 50, 50, 0.5);
                 box-shadow:         0px 0px 0px 0px rgba(50, 50, 50, 0.5);
             }
 
-            .app-icon {
+            .app-picto {
+                padding-bottom: @margin * 1.5;
                 &:before {
                     .awsomefont;
-                    font-size: 32px;
+                    font-size: 40px;
+                    // height: 32px;
                 }
             }
-            
-            &.atlas .app-icon:before {content: "@fa-var-map"}
-            &.metadata .app-icon:before {content: "@fa-var-i-cursor"}
-            &.studio .app-icon:before {content: "@fa-var-pencil"}
+
+            &.view .app-picto:before {content: @fa-var-map-o}
+            &.metadata .app-picto:before {content: @fa-var-i-cursor}
+            &.compose .app-picto:before {content: @fa-var-pencil}
         }
     }
 
