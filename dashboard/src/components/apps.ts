@@ -28,7 +28,9 @@ const renderApp =
         DIV({
             className: 'app-item',
             onClick: () => window.location.assign(app.url),
-        }, fromRecord(app.name))
+        },
+            DIV({ className: 'app-picto' }),
+            DIV({ className: 'app-name' }, fromRecord(app.name)))
     );
 
 const renderApps =
