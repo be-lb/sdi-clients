@@ -62,7 +62,7 @@ export const searchField = () => (
         INPUT({
             type: 'search',
             name: 'search',
-            placeholder: tr('search'),
+            placeholder: tr('searchAtlas'),
             onChange: (e: ChangeEvent<HTMLInputElement>) => {
                 events.query(e.target.value);
                 appEvents.setLayout(AppLayout.MapNavigatorFS);
@@ -70,11 +70,11 @@ export const searchField = () => (
         }))
 );
 
-export const render = () => DIV({ className: 'map-navigator' },
-    DIV({ className: 'map-navigator-category-container' },
+export const render = () =>
+    DIV({ className: 'map-navigator' },
         H1({}, tr('mapList')),
         searchField(),
-        ...queries.getAll().map(renderCategory)));
+        DIV({ className: 'maps-container' }, ...queries.getAll().map(renderCategory)));
 
 export default render;
 

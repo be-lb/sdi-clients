@@ -1,7 +1,4 @@
 .map-navigator {
-    // position: relative;
-    // padding: 0 @margin;;
-    // overflow: auto;
     width: calc(~"100% - @{margin} * 2");
     height: 100%;
     overflow-y: auto;
@@ -14,72 +11,24 @@
         width: 100%;
     }
 
-    .category-title {
-        font-weight: @light;
-        font-size: 0.8em;
-        text-align: center;
-        text-transform: uppercase;
-        margin-bottom: @margin;
-        letter-spacing: 1px;
+    .input-wrapper input {
+        width: 50%;
+        margin-left: 25%;
     }
 
-    .map-title {
-        font-size: 1.6em;
-        font-weight: @extra-bold;
-        margin: @margin 0;
-        text-align: center;
-    }
-
-    .read-more {
-        text-align: center;
-        padding: @margin;
-        &:after {
-            .awsomefont;
-            content: @fa-var-plus;
-        }
-    }
-
-    a {
-        color:#000;
-        text-decoration: none;
-    }
-
-    p {
-        text-align: center;
-    }
-
-    p:first-child {
-        text-indent: 1em;
-    }
-
-    // .map-browser-search {
-    //     position: absolute;
-    //     top: 10px;
-    //     right: 60px;
-    // }
-
-    .map-navigator-category-container {
-        .flex(flex-start, initial, wrap);
+    .maps-container {
+        .flex(flex-start, space-between, wrap);
         position: relative;
-        // min-height: 50%;
-        // border-top: 1px solid @light-grey;
-        // padding: @margin * 2 0;
-
-        .map-navigator-category-title {
-            width: 100%;
-            margin: @margin 0;
-            margin-top: @big-margin;
-
-            &:first-child {margin: 0px}
-        }
+        margin-top: @margin;
 
         .map-navigator-tile {
+            .transition;
             .widgetActiveBackground;
             position: relative;
             width: calc(~"25% - @{margin}");
             padding: @margin;
             padding-bottom: 0px;
-            margin: @margin / 2;
+            margin: @margin / 2 0 ;
             min-width: 200px;
             text-align: center;
 
@@ -88,6 +37,22 @@
             img {
                 max-width: 90%;
                 margin-bottom: @small-margin;
+            }
+
+            .map-title {
+                font-size: 1.6em;
+                font-weight: @extra-bold;
+                margin: @margin 0;
+                text-align: center;
+            }
+
+            .read-more {
+                text-align: center;
+                padding: @margin;
+                &:after {
+                    .awsomefont;
+                    content: @fa-var-plus;
+                }
             }
         }
     }

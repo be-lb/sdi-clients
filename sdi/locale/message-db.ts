@@ -176,6 +176,7 @@ export type MessageKey =
     | 'save'
     | 'saving'
     | 'search'
+    | 'searchAtlas'
     | 'selectLayer'
     | 'semicolon'
     | 'separatedBy'
@@ -555,6 +556,11 @@ export const messages: MessageDB = {
     search: {
         fr: 'Recherche',
         nl: 'Zoeken',
+    },
+
+    searchAtlas: {
+        fr: 'Chercher dans l\'atlas',
+        nl: 'Zoek in de atlas',
     },
 
     start: {
