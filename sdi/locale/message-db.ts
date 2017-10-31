@@ -148,6 +148,7 @@ export type MessageKey =
     | 'metadataEditor'
     | 'metaDutch'
     | 'metaFrench'
+    | 'myApps'
     | 'myMaps'
     | 'newLayer'
     | 'newMap'
@@ -1212,5 +1213,10 @@ export const messages: MessageDB = {
     metadata: {
         fr: 'Métadonnées',
         nl: 'Metadata',
+    },
+
+    myApps: {
+        fr: 'Mes applications',
+        nl: 'Mijn apps',
     },
 };
