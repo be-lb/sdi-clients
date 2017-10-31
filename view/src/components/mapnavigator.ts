@@ -73,6 +73,7 @@ export const searchField = () => (
 export const render = () => DIV({ className: 'map-navigator' },
     DIV({ className: 'map-navigator-category-container' },
         H1({}, tr('mapList')),
+        searchField(),
         ...queries.getAll().map(renderCategory)));
 
 export default render;
