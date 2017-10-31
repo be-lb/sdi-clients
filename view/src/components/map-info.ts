@@ -17,18 +17,21 @@
 import * as debug from 'debug';
 
 import tr, { fromRecord, formatDate } from 'sdi/locale';
-import { IAttachment, IMapInfo } from 'sdi/source';
+import { IMapInfo } from 'sdi/source';
 import { DIV, H2, P, A, IMG } from 'sdi/components/elements';
 
 import queries from '../queries/app';
+import { getAttachment } from '../queries/attachments';
 
 const logger = debug('sdi:map-info');
 
 
-const makeAttachment = (a: IAttachment, key: number) => (
-    DIV({ className: 'map-file', key },
-        A({ href: fromRecord(a.url) }, fromRecord(a.name)))
-);
+const makeAttachment =
+    (aid: string) =>
+        getAttachment(aid).fold(
+            () => DIV({}, 'NOT LOADED YET'),
+            a => DIV({ className: 'map-file', key: aid },
+                A({ href: fromRecord(a.url) }, fromRecord(a.name))));
 
 
 const renderAttachments =

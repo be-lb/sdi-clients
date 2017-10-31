@@ -186,6 +186,7 @@ export const main =
             'data/timeseries': {},
             'data/categories': [],
             'data/datasetMetadata': {},
+            'data/attachments': [],
         };
 
         try {
