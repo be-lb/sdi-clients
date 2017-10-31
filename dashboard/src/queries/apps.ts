@@ -16,5 +16,9 @@
 
 import { query } from 'sdi/shape';
 
+const blackList = ['default', 'login'];
+
 export const getApps =
-    () => query('component/apps');
+    () =>
+        query('component/apps')
+            .filter(a => blackList.indexOf(a.codename) === -1);
