@@ -16,13 +16,13 @@
 
 import * as debug from 'debug';
 
-import { dispatch, observe } from 'sdi/shape';
+import { dispatch, observe, dispatchK } from 'sdi/shape';
 import { Feature, IMapInfo } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 import { getApiUrl } from 'sdi/app';
 
 import { AppLayout } from '../shape/types';
-import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap } from '../remote';
+import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
 import { fromNullable } from 'fp-ts/lib/Option';
@@ -79,6 +79,17 @@ const reloadLayers =
 
 observe('data/layers', reloadLayers);
 observe('data/datasetMetadata', reloadLayers);
+
+const attachments = dispatchK('data/attachments');
+
+observe('data/maps',
+    () => fromNullable(queries.getMapInfo())
+        .map(
+        info => info.attachments.forEach(
+            aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
+                .then(a => attachments(s => s.concat([a]))))));
+
+
 
 const events = {
 

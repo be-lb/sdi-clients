@@ -14,7 +14,7 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { Feature, IMapBaseLayer, IMapInfo, Category } from 'sdi/source';
+import { Feature, IMapBaseLayer, IMapInfo, Category, Attachment } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
 import { ButtonComponent } from 'sdi/components/button';
@@ -57,6 +57,7 @@ declare module 'sdi/shape' {
         'data/timeseries': ITimeserieCollection;
         'data/categories': Category[];
         'data/datasetMetadata': IDatasetMetadataCollection;
+        'data/attachments': Attachment[];
     }
 }
 
