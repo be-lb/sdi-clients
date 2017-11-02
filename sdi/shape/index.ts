@@ -38,6 +38,13 @@ const getStore = () => fromNullable(storeRef);
 
 const pendingObservers: Observer<keyof IShape>[] = [];
 
+export interface Getter<T> {
+    (): T;
+}
+export interface Setter<T> {
+    (h: (a: T) => T): void;
+}
+
 
 export const configure =
     (store: IStoreInteractions<IShape>) =>

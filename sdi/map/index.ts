@@ -17,6 +17,7 @@
 import * as proj4 from 'proj4';
 import { layer, proj, format, Coordinate } from 'openlayers';
 import { ILayerInfo, IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire } from '../source';
+import { Getter, Setter } from '../shape';
 
 
 export const formatGeoJSON = new format.GeoJSON();
@@ -48,6 +49,34 @@ export interface IMapViewData {
     center: Coordinate;
     rotation: number;
     zoom: number;
+}
+
+
+export interface TrackerCoordinate {
+    coord: Coordinate;
+    accuracy: number;
+}
+
+export interface IGeoTracker {
+    active: boolean;
+    track: TrackerCoordinate[];
+}
+
+export interface TrackerOptions {
+    updateTrack(t: TrackerCoordinate): void;
+    resetTrack(): void;
+    setCenter(c: Coordinate): void;
+}
+
+export interface IGeoMeasure {
+    active: boolean;
+    geometryType: 'Polygon' | 'LineString';
+    coordinates: Coordinate[];
+}
+
+export interface MeasureOptions {
+    updateMeasureCoordinates(c: Coordinate[]): void;
+    setMeasuring(m: boolean): void;
 }
 
 
@@ -93,11 +122,24 @@ export interface IViewEvent {
     zoom?: number;
 }
 
+// 'port/map/measure': IGeoMeasure;
+export type MeasureGetter = Getter<IGeoMeasure>;
+export type MeasureSetter = Setter<IGeoMeasure>;
 
-export {
-    removeLayer,
-    removeLayerAll,
-    addLayer,
-    create,
-} from './map';
+// 'port/map/tracker': IGeoTracker;
+export type TrackerGetter = Getter<IGeoTracker>;
+export type TrackerSetter = Setter<IGeoTracker>;
+
+// 'port/map/view': IMapViewData;
+export type ViewGetter = Getter<IMapViewData>;
+export type ViewSetter = Setter<IMapViewData>;
+
+// 'port/map/scale': IMapScale;
+export type ScaleGetter = Getter<IMapScale>;
+export type ScaleSetter = Setter<IMapScale>;
+
+
+export * from './map';
+export * from './events';
+export * from './queries';
 

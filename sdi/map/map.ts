@@ -15,22 +15,41 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
 import { Map, View, source, layer, proj, Feature, Collection } from 'openlayers';
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 
-import { LayerRef, IMapOptions, formatGeoJSON, FetchData, EditOptions } from './index';
+import { LayerRef, IMapOptions, formatGeoJSON, FetchData, EditOptions, TrackerOptions, TrackerGetter, MeasureOptions, MeasureGetter } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl } from './controls';
 import { addActions } from './actions';
-import { fromNullable } from 'fp-ts/lib/Option';
 import { IMapBaseLayer } from '../source/index';
+import { measure, track } from './tools';
 
 
 const logger = debug('sdi:map');
 
-let map: Map;
+const baseLayerCollection = new Collection<layer.Image>();
+const baseLayerGroup = new layer.Group({
+    layers: baseLayerCollection,
+});
+
+const mainLayerCollection = new Collection<layer.Vector>();
+const mainLayerGroup = new layer.Group({
+    layers: mainLayerCollection,
+});
+
+const toolsLayerCollection = new Collection<layer.Vector>();
+const toolsLayerGroup = new layer.Group({
+    layers: toolsLayerCollection,
+});
+
+// const isGroup =
+//     (l: layer.Base): l is layer.Group => l instanceof layer.Group;
+
+
 const isTracking = false;
 const isMeasuring = false;
 
@@ -67,28 +86,24 @@ const getLayerData =
 
 export const removeLayer =
     (lid: string) => {
-        if (map) {
-            const l = map.getLayers().get(lid);
-            map.getLayers().remove(l);
-        }
+        const l = mainLayerGroup.getLayers().get(lid);
+        mainLayerGroup.getLayers().remove(l);
     };
 
 export const removeLayerAll =
     () => {
-        if (map) {
-            const lyrs = map.getLayers();
-            lyrs.getArray()
-                .slice(1)
-                .forEach(l => lyrs.remove(l));
-        }
+        const lyrs = mainLayerGroup.getLayers();
+        lyrs.getArray()
+            .slice(1)
+            .forEach(l => lyrs.remove(l));
     };
 
 export const addLayer =
     (layerInfo: () => (SyntheticLayerInfo), fetchData: FetchData) => {
         const { info, metadata } = layerInfo();
-        if (map && info && metadata) {
+        if (info && metadata) {
             let layerAlreadyAdded = false;
-            map.getLayers().forEach((l) => {
+            mainLayerGroup.getLayers().forEach((l) => {
                 if (l.get('id') === info.id) {
                     layerAlreadyAdded = true;
                 }
@@ -126,7 +141,7 @@ export const addLayer =
             });
             vl.set('id', info.id);
             vl.setVisible(info.visible);
-            map.addLayer(vl);
+            mainLayerCollection.push(vl);
             getLayerData(fetchData, vs, 0);
 
             localLayersRef.push({
@@ -154,119 +169,43 @@ const fromBaseLayer =
         });
         l.set('id', hashMapBaseLayer(baseLayer));
         return l;
-    }
+    };
 
+type UpdateFn = () => void;
 
-export const create =
-    (options: IMapOptions) => {
-        if (map) {
-            throw (new Error('DuplicatedMapCreation'));
-        }
-
-        const view = new View({
-            projection: proj.get('EPSG:31370'),
-            center: [0, 0],
-            rotation: 0,
-            zoom: 0,
-        });
-
-
-        const baseLayerCollection = new Collection<layer.Image>();
-        const baseLayerGroup = new layer.Group({
-            layers: baseLayerCollection,
-        });
-
-        fromNullable(options.getBaseLayer())
-            .map((baseLayer) => {
-                baseLayerCollection.push(fromBaseLayer(baseLayer));
-            });
-
-        const layers = [baseLayerGroup];
-
-
-        map = new Map({
-            view,
-            layers,
-            controls: [
-                scaleLine({
-                    setScaleLine: options.setScaleLine,
-                    minWidth: 100,
-                }),
-                zoomControl(),
-            ],
-        });
-        if (options.element) {
-            map.setTarget(options.element);
-        }
-
-        // map.getInteractions().on('add', (o: any) => {
-        //     logger(`add interaction ${o.type}`);
-        // });
-        // map.getInteractions().on('remove', (o: any) => {
-        //     logger(`remove interaction ${o.type}`);
-        // });
-
-
-        // state update
-        view.on('change', () => {
-            if (!isWorking()) {
-                options.updateView({
-                    dirty: false,
-                    center: view.getCenter(),
-                    rotation: view.getRotation(),
-                    zoom: view.getZoom(),
-                });
-            }
-        });
-
-        let containerWidth = 0;
-        let containerHeight = 0;
-
-        const updateSize = () => {
-            const container = map.getViewport();
-            const rect = container.getBoundingClientRect();
-            if ((rect.width !== containerWidth)
-                || (rect.height !== containerHeight)) {
-                containerHeight = rect.height;
-                containerWidth = rect.width;
-                map.updateSize();
-            }
-        };
-
-        let updateActions: null | (() => void) = null;
-
-
-        // map update
-        const update = () => {
-            const viewState = options.getView();
-            const queriedBaseLayer = options.getBaseLayer();
-            const currentBaseLayer = baseLayerCollection.item(0);
-            const mapInfo = options.getMapInfo();
-
-
-
-            if (queriedBaseLayer) {
+const updateBaseLayer =
+    (getBaseLayer: IMapOptions['getBaseLayer']) =>
+        () => fromNullable(getBaseLayer())
+            .map((queriedBaseLayer) => {
+                const currentBaseLayer = baseLayerCollection.item(0);
                 const id = hashMapBaseLayer(queriedBaseLayer);
                 if ((!currentBaseLayer)
                     || (currentBaseLayer && (currentBaseLayer.get('id') !== id))) {
                     baseLayerCollection.clear();
                     baseLayerCollection.push(fromBaseLayer(queriedBaseLayer));
                 }
-            }
+            });
 
-            if (mapInfo) {
+const updateLayers =
+    (getMapInfo: IMapOptions['getMapInfo']) =>
+        () => fromNullable(getMapInfo())
+            .map((mapInfo) => {
                 mapInfo.layers.forEach((info) => {
                     const { id, visible } = info;
-                    map.getLayers()
+                    mainLayerGroup.getLayers()
                         .forEach((l) => {
                             if (id === <string>(l.get('id'))) {
                                 l.setVisible(visible);
                             }
                         });
-
                 });
-            }
+            });
 
+const updateView =
+    (map: Map, getView: IMapOptions['getView']) =>
+        () => {
+            const viewState = getView();
+            const view = map.getView();
             if (viewState.dirty) {
                 view.animate({
                     zoom: viewState.zoom,
@@ -279,24 +218,116 @@ export const create =
                 map.render();
                 logger('will render');
             }
+        };
 
-            if (updateActions) {
-                updateActions();
+const updateSize =
+    (map: Map) => {
+        let containerWidth = 0;
+        let containerHeight = 0;
+
+        const inner =
+            () => {
+                const container = map.getViewport();
+                const rect = container.getBoundingClientRect();
+                if ((rect.width !== containerWidth)
+                    || (rect.height !== containerHeight)) {
+                    containerHeight = rect.height;
+                    containerWidth = rect.width;
+                    map.updateSize();
+                }
+            };
+
+        return () => setTimeout(inner, 1);
+    };
+
+export const create =
+    (options: IMapOptions) => {
+        const view = new View({
+            projection: proj.get('EPSG:31370'),
+            center: [0, 0],
+            rotation: 0,
+            zoom: 0,
+        });
+        const map = new Map({
+            view,
+            layers: [
+                baseLayerGroup,
+                mainLayerGroup,
+                toolsLayerGroup,
+            ],
+            controls: [
+                scaleLine({
+                    setScaleLine: options.setScaleLine,
+                    minWidth: 100,
+                }),
+                zoomControl(),
+            ],
+        });
+
+        const updatables: UpdateFn[] = [
+            updateBaseLayer(options.getBaseLayer),
+            updateLayers(options.getMapInfo),
+            updateView(map, options.getView),
+            updateSize(map),
+        ];
+
+        // fromNullable(options.getBaseLayer())
+        //     .map(baseLayer =>
+        //         baseLayerCollection.push(fromBaseLayer(baseLayer)));
+
+        fromNullable(options.element)
+            .map(e => map.setTarget(e));
+
+        view.on('change', () => {
+            if (!isWorking()) {
+                options.updateView({
+                    dirty: false,
+                    center: view.getCenter(),
+                    rotation: view.getRotation(),
+                    zoom: view.getZoom(),
+                });
             }
-            setTimeout(updateSize, 1);
-        };
+        });
 
 
-        const setTarget = (t: string | Element) => {
-            map.setTarget(t);
-        };
+
+        const update =
+            () => updatables.map(u => u());
+
+
+        const setTarget =
+            (t: string | Element) =>
+                map.setTarget(t);
+
 
         const editable =
-            (edOptions: EditOptions) => {
-                updateActions = addActions(edOptions, map, localLayersRef);
-            }
+            (edOptions: EditOptions) =>
+                updatables.push(addActions(edOptions, map, localLayersRef));
 
-        return { update, setTarget, editable };
+
+        const trackable =
+            (o: TrackerOptions, g: TrackerGetter) => {
+                const { init, update } = track(o);
+                init(map, toolsLayerCollection);
+                updatables.push(() => update(g()));
+            };
+
+
+        const measurable =
+            (o: MeasureOptions, g: MeasureGetter) => {
+                const { init, update } = measure(o);
+                init(map, toolsLayerCollection);
+                updatables.push(() => update(g()));
+            };
+
+
+        return {
+            setTarget,
+            update,
+            editable,
+            trackable,
+            measurable,
+        };
     };
 
 logger('loaded');
