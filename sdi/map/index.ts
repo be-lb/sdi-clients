@@ -90,15 +90,18 @@ export interface IMapEditable {
 }
 
 export interface EditOptions {
-    getMode(): MapEditableMode;
     getCurrentLayerId(): string;
-    getSelected(): MapEditableSelected;
     getMetadata(lid: string): Inspire;
 
     editFeature(fid: string | number): void;
     addFeature(f: Feature): void;
     setGeometry(geom: DirectGeometryObject): void;
 }
+
+export interface SelectOptions {
+    selectFeature(f: Feature): void;
+}
+
 
 export interface IMapOptions {
     element: Element | null;

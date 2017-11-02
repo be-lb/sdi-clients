@@ -21,12 +21,25 @@ import { Map, View, source, layer, proj, Feature, Collection } from 'openlayers'
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 
-import { LayerRef, IMapOptions, formatGeoJSON, FetchData, EditOptions, TrackerOptions, TrackerGetter, MeasureOptions, MeasureGetter } from './index';
+import {
+    LayerRef,
+    IMapOptions,
+    formatGeoJSON,
+    FetchData,
+    // EditOptions,
+    TrackerOptions,
+    TrackerGetter,
+    MeasureOptions,
+    MeasureGetter,
+    SelectOptions,
+    IMapEditable,
+} from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl } from './controls';
-import { addActions } from './actions';
+import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track } from './tools';
+import { Getter } from '../shape/index';
 
 
 const logger = debug('sdi:map');
@@ -300,9 +313,12 @@ export const create =
                 map.setTarget(t);
 
 
-        const editable =
-            (edOptions: EditOptions) =>
-                updatables.push(addActions(edOptions, map, localLayersRef));
+        const selectable =
+            (o: SelectOptions, g: Getter<IMapEditable>) => {
+                const { init, update } = select(o, mainLayerCollection);
+                init(map);
+                updatables.push(() => update(g()));
+            };
 
 
         const trackable =
@@ -324,7 +340,7 @@ export const create =
         return {
             setTarget,
             update,
-            editable,
+            selectable,
             trackable,
             measurable,
         };
