@@ -1,10 +1,13 @@
 
-import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
-import { getMessageRecord, Inspire } from 'sdi/source';
-import { putMetadata } from '../remote';
 import { fromNullable } from 'fp-ts/lib/Option';
-import { dispatchK, dispatch } from 'sdi/shape';
+
 import { getApiUrl } from 'sdi/app';
+import { getMessageRecord, Inspire } from 'sdi/source';
+import { scope } from 'sdi/lib';
+import { dispatchK, dispatch, observe } from 'sdi/shape';
+
+import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
+import { putMetadata } from '../remote';
 import { IDatasetMetadataCollection } from '../app';
 
 const single = dispatchK('component/single');
@@ -55,23 +58,22 @@ const updateLocalSet =
     });
 
 export const saveMdForm =
-    () => {
-        return fromNullable(getMetadataId())
-            .map(id =>
-                getDatasetMetadata(id)
-                    .map((md) => {
-                        single(s => ({ ...s, saving: true }));
-                        return putMetadata(
-                            apiUrl(`metadatas/${id}`), updatedMd(md))
-                            .then((newMd) => {
-                                single(s => ({ ...s, saving: false }));
-                                dispatch('data/datasetMetadata',
-                                    collection => updateLocalSet(collection, newMd))
-                            })
-                            .then(() => dispatch('component/table', ts => ({ ...ts, loaded: false })))
-                            .catch(() => single(s => ({ ...s, saving: false })));
-                    }));
-    };
+    () =>
+        scope()
+            .let('id', fromNullable(getMetadataId()))
+            .let('md', s => getDatasetMetadata(s.id))
+            .map(({ id, md }) => {
+                single(s => ({ ...s, saving: true }));
+                putMetadata(
+                    apiUrl(`metadatas/${id}`), updatedMd(md))
+                    .then((newMd) => {
+                        single(s => ({ ...s, saving: false }));
+                        dispatch('data/datasetMetadata',
+                            collection => updateLocalSet(collection, newMd));
+                    })
+                    .catch(() => single(s => ({ ...s, saving: false })));
+            });
+
 
 export const addKeyword =
     (id: string) => single(s => ({ ...s, keywords: s.keywords.concat([id]) }));
@@ -94,4 +96,8 @@ export const mdDraft =
     () => {
         single(s => ({ ...s, published: false }));
         saveMdForm();
-    }; 
+    };
+
+observe('data/datasetMetadata',
+    () => dispatch('component/table',
+        ts => ({ ...ts, loaded: false })));

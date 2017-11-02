@@ -20,6 +20,7 @@ import {
     FeatureCollection,
     FeatureCollectionIO,
     fetchIO,
+    fetchPaginatedIO,
     IAliasCollection,
     IAliasCollectionIO,
     IMapInfo,
@@ -66,7 +67,9 @@ export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, 
 export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
 export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url, fetchOptions());
-export const fetchAllDatasetMetadata = (url: string): Promise<Inspire[]> => fetchIO(io.array(InspireIO), url, fetchOptions());
+
+export const fetchAllDatasetMetadata = (url: string) => fetchPaginatedIO(InspireIO, url, fetchOptions());
+
 export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url, fetchOptions());
 export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
 

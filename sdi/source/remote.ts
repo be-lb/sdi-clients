@@ -16,7 +16,7 @@
  */
 
 import * as io from 'io-ts';
-import { uuidIO } from './index';
+import { some, fromNullable, none } from 'fp-ts/lib/Option';
 
 const headers = new Headers();
 headers.append('Content-Type', 'application/json');
@@ -74,6 +74,44 @@ export const fetchIO =
         );
     };
 
+const makePageType =
+    <T>(ioType: io.Type<T>) =>
+        io.interface({
+            count: io.number,
+            next: io.union([io.string, io.null]),
+            previous: io.union([io.string, io.null]),
+            results: io.array(ioType),
+        });
+
+export const fetchPaginatedIO =
+    <T>(ioType: io.Type<T>, url0: string, getOptions: RequestInit = {}) => {
+        const pagetType = makePageType(ioType);
+        let nextUrl = some(`${url0}?page=1`);
+
+        const fetchPage =
+            () =>
+                nextUrl.map(
+                    url => fetchIO(pagetType, url, getOptions)
+                        .then((r) => {
+                            nextUrl = fromNullable(r.next);
+                            return r.results;
+                        })
+                        .catch(() => {
+                            nextUrl = none;
+                            return [] as T[];
+                        }));
+
+        const loop =
+            (f: (a: T[]) => void) =>
+                fetchPage()
+                    .map(p => p.then((results) => {
+                        f(results);
+                        loop(f);
+                    }));
+
+        return loop;
+    };
+
 export const postIO =
     <T, DT>(ioType: io.Type<T>, url: string, data: DT, postOptions: RequestInit = {}) => {
         const options: RequestInit = {
@@ -88,7 +126,7 @@ export const postIO =
 
         const recType = io.intersection([
             ioType,
-            io.interface({ id: uuidIO }),
+            io.interface({ id: io.union([io.string, io.number]) }),
         ]);
 
         return (
@@ -128,3 +166,5 @@ export const deleteIO =
                 })
         );
     };
+
+
