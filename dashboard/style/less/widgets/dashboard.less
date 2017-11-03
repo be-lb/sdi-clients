@@ -11,7 +11,7 @@
         box-sizing: border-box;}
 
     .my-apps {
-        .absolute(@margin, calc(~"@{panel-rightW} - @{margin}"), auto, @margin * 2);
+        .absolute(@margin, calc(~"@{panel-rightW} - @{margin}"), 0, @margin * 2);
         max-height: calc(~"100% - 2 * @{margin}");
         overflow-y: auto;
     }
@@ -23,7 +23,7 @@
 
 
     .app-list {
-        .flex();
+        .flex(@justify: flex-start;);
         padding-right: @margin;
         margin-top: @margin * 2;
 
@@ -64,7 +64,7 @@
             }
 
             &.view .app-picto:before {content: @fa-var-map-o}
-            &.metadata .app-picto:before {content: @fa-var-i-cursor}
+            &.metadata .app-picto:before {content: @fa-var-file-text-o}
             &.compose .app-picto:before {content: @fa-var-pencil}
         }
     }
