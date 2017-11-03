@@ -11,7 +11,7 @@
         box-sizing: border-box;}
 
     .my-apps {
-        .absolute(@margin, calc(~"@{panel-rightW} - @{margin}"), auto, @margin * 2);
+        .absolute(@margin, calc(~"@{panel-rightW} - @{margin}"), 0, @margin * 2);
         max-height: calc(~"100% - 2 * @{margin}");
         overflow-y: auto;
     }
@@ -23,7 +23,7 @@
 
 
     .app-list {
-        .flex();
+        .flex(@justify: flex-start;);
         padding-right: @margin;
         margin-top: @margin * 2;
 
