@@ -19,6 +19,7 @@ import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
 import { create, IMapOptions } from 'sdi/map';
+import { Feature } from 'sdi/source';
 
 
 
@@ -26,6 +27,7 @@ import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import mapQueries from '../queries/map';
 import mapEvents from '../events/map';
+import { AppLayout } from '../shape/types';
 
 const logger = debug('sdi:comp/map');
 // const mapId = 'be-sdi-this-is-the-map';
@@ -61,18 +63,32 @@ const scaleline =
         );
     };
 
+
+const selectFeature =
+    (f: Feature) => {
+        appEvents.setCurrentFeature(f);
+        appEvents.setLayout(AppLayout.MapAndFeature);
+    };
+
+
 const attachMap =
     () =>
         (element: Element | null) => {
             // logger(`attachMap ${typeof element}`);
             if (!mapUpdate) {
-                const { update, setTarget } = create({
-                    ...options,
-                    element,
-                });
+                const {
+                    update,
+                    setTarget,
+                    selectable,
+                } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
                 appEvents.signalReadyMap();
+                selectable({ selectFeature }, () => ({
+                    mode: 'select',
+                    geometryType: 'Point',
+                    selected: null,
+                }));
             }
             if (element) {
                 mapSetTarget(element);
