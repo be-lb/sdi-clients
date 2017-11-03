@@ -1,10 +1,10 @@
 
-body[lang="fr"] .be-name {background-image: url(imgs/be-header-iris-fr.png);}
-body[lang="nl"] .be-name {background-image: url(imgs/be-header-iris-nl.png);}
+body[lang="fr"] .be-name {background-image: url("imgs/be-header-iris-fr.svg");}
+body[lang="nl"] .be-name {background-image: url("imgs/be-header-iris-nl.svg");}
 
 
-body[lang="fr"] .header .be-name { width: 390px;}
-body[lang="nl"] .header .be-name { width: 342px;}
+body[lang="fr"] .header .be-name { width: 418px;}
+body[lang="nl"] .header .be-name { width: 358px;}
 
 .header {
     .flex(center, initial, initial);
@@ -28,9 +28,6 @@ body[lang="nl"] .header .be-name { width: 342px;}
             background-repeat: no-repeat;
             background-size: contain;
         }
-        .be-name {
-            width: 420px;
-        }
     }
 
     .app-title {
@@ -39,7 +36,7 @@ body[lang="nl"] .header .be-name { width: 342px;}
         // line-height: 90%;
         letter-spacing: -0.5px;
         margin-top: -4px;
-        margin-left: @margin;
+        margin-left: @margin / 2;
     }
 
     .navigate,
