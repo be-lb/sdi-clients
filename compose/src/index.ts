@@ -21,6 +21,7 @@ import { source } from 'sdi/source';
 import { initialTableState } from 'sdi/components/table';
 import { initialTimeserieState } from 'sdi/components/timeserie';
 import { IShape, configure } from 'sdi/shape';
+import { defaultInteraction } from 'sdi/map';
 
 import App from './app';
 import { AppLayout, MapInfoIllustrationState } from './shape/types';
@@ -109,11 +110,8 @@ export const main =
                 zoom: 6,
             },
 
-            'port/map/editable': {
-                mode: 'select',
-                selected: null,
-                geometryType: 'Point',
-            },
+            'port/map/interaction': defaultInteraction(),
+
         };
 
 

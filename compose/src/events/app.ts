@@ -224,18 +224,13 @@ const events = {
     },
 
     loadAllDatasetMetadata() {
-        fetchAllDatasetMetadata(getApiUrl('metadatas'))
-            .then((mds) => {
-                mds.forEach((md) => {
-                    dispatch('data/datasetMetadata', (state) => {
-                        const id = md.id;
-                        if (!(id in state)) {
-                            state[id] = md;
-                        }
-                        return state;
-                    });
-                });
-            });
+        fetchAllDatasetMetadata(getApiUrl('metadatas'))(
+            mds =>
+                dispatch('data/datasetMetadata', (state) => {
+                    mds.forEach(md => state[md.id] = md);
+                    return state;
+                })
+        );
     },
 
 
