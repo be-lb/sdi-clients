@@ -25,8 +25,8 @@ import { Feature } from 'sdi/source';
 
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
-import mapQueries from '../queries/map';
-import mapEvents from '../events/map';
+import { getView, getScaleLine, getInteraction } from '../queries/map';
+import { viewEvents, scalelineEvents, measureEvents } from '../events/map';
 import { AppLayout } from '../shape/types';
 
 const logger = debug('sdi:comp/map');
@@ -36,11 +36,11 @@ const logger = debug('sdi:comp/map');
 const options: IMapOptions = {
     element: null,
     getBaseLayer: appQueries.getCurrentBaseLayer,
-    getView: mapQueries.getView,
     getMapInfo: appQueries.getMapInfo,
+    getView,
 
-    updateView: mapEvents.updateMapView,
-    setScaleLine: mapEvents.setScaleLine,
+    updateView: viewEvents.updateMapView,
+    setScaleLine: scalelineEvents.setScaleLine,
 };
 
 let mapSetTarget: (t: string | Element | undefined) => void;
@@ -49,7 +49,7 @@ let mapUpdate: () => void;
 
 const scaleline =
     () => {
-        const sl = mapQueries.getScaleLine();
+        const sl = getScaleLine();
         return (
             DIV({ className: 'map-scale', style: { width: `${sl.width}px` } },
                 DIV({ className: 'map-scale-label' }, `${sl.count} ${sl.unit}`),
@@ -80,15 +80,16 @@ const attachMap =
                     update,
                     setTarget,
                     selectable,
+                    measurable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
                 appEvents.signalReadyMap();
-                selectable({ selectFeature }, () => ({
-                    mode: 'select',
-                    geometryType: 'Point',
-                    selected: null,
-                }));
+                selectable({ selectFeature }, getInteraction);
+                measurable({
+                    updateMeasureCoordinates: measureEvents.updateMeasureCoordinates,
+                    stopMeasuring: measureEvents.stopMeasure,
+                }, getInteraction);
             }
             if (element) {
                 mapSetTarget(element);
@@ -97,6 +98,7 @@ const attachMap =
                 mapSetTarget(undefined);
             }
         };
+
 
 const render =
     () => {

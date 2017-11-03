@@ -37,13 +37,14 @@ import {
 import { fontSizeExtractRegexp, fontSizeReplaceRegexp } from './style';
 import {
     formatGeoJSON,
-    IMapEditable,
     SelectOptions,
     EditOptions,
+    Interaction,
+    fromInteraction,
 } from './index';
 
 
-const logger = debug('sdi:ports/map-actions');
+const logger = debug('sdi:map/actions');
 
 
 // const castOLTypeToGeoJSON =
@@ -206,6 +207,9 @@ export const select =
             features: selectedFeature,
         });
 
+        selectInteraction.on('change:active',
+            () => logger(`select active ${selectInteraction.getActive()}`));
+
         selectInteraction.on('select', () => {
             if (selectedFeature.getLength() > 0) {
                 const f = selectedFeature.pop();
@@ -221,9 +225,12 @@ export const select =
             };
 
         const update =
-            (state: IMapEditable) => {
-                selectInteraction.setActive(state.mode === 'select');
-            };
+            (state: Interaction) =>
+                fromInteraction('select', state)
+                    .fold(
+                    () => selectInteraction.setActive(false),
+                    () => selectInteraction.setActive(true));
+
 
         return { init, update };
     };
@@ -425,7 +432,7 @@ export const edit =
         //     };
 
         const update =
-            (_state: IMapEditable) => {
+            (_i: Interaction) => {
                 // const mode = state.mode;
                 // const selected = state.selected;
                 // const lid = options.getCurrentLayerId();

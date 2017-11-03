@@ -14,22 +14,34 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { FeatureCollectionIO, FeatureCollection, IMapInfoIO, IMapInfo, IAliasCollection, IAliasCollectionIO, IUserIO, IUser, InspireIO, Inspire, ITimeserieIO, ITimeserie, fetchIO, Category, CategoryCollectionIO, AttachmentIO, Attachment } from 'sdi/source';
+import { FeatureCollectionIO, FeatureCollection, IMapInfoIO, IMapInfo, IAliasCollection, IAliasCollectionIO, IUserIO, IUser, InspireIO, Inspire, ITimeserieIO, ITimeserie, fetchIO, Category, CategoryCollectionIO, AttachmentIO, Attachment, fetchPaginatedIO } from 'sdi/source';
 
 import * as io from 'io-ts';
 
 const mapArray = io.array(IMapInfoIO);
 
-export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url);
-export const fetchAllMaps = (url: string): Promise<IMapInfo[]> => fetchIO(mapArray, url);
-export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
-export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
-export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
-export const fetchAllDatasetMetadata = (url: string): Promise<Inspire[]> => fetchIO(io.array(InspireIO), url);
-export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url);
-export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url);
-export const fetchAttachment = (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url);
+export const fetchLayer =
+    (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url);
+export const fetchAllMaps =
+    (url: string): Promise<IMapInfo[]> => fetchIO(mapArray, url);
+export const fetchMap =
+    (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
+export const fetchAlias =
+    (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
+export const fetchUser =
+    (url: string): Promise<IUser> => fetchIO(IUserIO, url);
+
+export const fetchDatasetMetadata =
+    (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
+export const fetchAllDatasetMetadata =
+    (url: string) => fetchPaginatedIO(InspireIO, url);
+
+export const fetchTimeserie =
+    (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url);
+export const fetchCategories =
+    (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url);
+export const fetchAttachment =
+    (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url);
 
 
 

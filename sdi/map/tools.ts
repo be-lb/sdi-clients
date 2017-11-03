@@ -12,7 +12,13 @@ import {
     geom,
     style,
 } from 'openlayers';
-import { IGeoTracker, TrackerOptions, MeasureOptions, IGeoMeasure } from './index';
+
+import {
+    TrackerOptions,
+    MeasureOptions,
+    Interaction,
+    fromInteraction,
+} from './index';
 
 
 const trackerStyles =
@@ -74,33 +80,33 @@ export const track =
             () => geolocation.getTracking();
 
         const update =
-            (state: IGeoTracker) => {
-                geolocationSource.clear();
-                const shouldTrack = state.active;
-                if (isTracking() !== shouldTrack) {
-                    if (shouldTrack) {
-                        resetTrack();
-                    }
-                    geolocation.setTracking(shouldTrack);
-                }
-                if (state.active) {
-                    const features = state.track.map((coords) => {
-                        const accuracy = coords.accuracy;
-                        const f = new Feature({
-                            geometry: new geom.Point(coords.coord),
+            (i: Interaction) =>
+                fromInteraction('track', i)
+                    .fold(
+                    () => geolocation.setTracking(false),
+                    ({ state }) => {
+                        geolocationSource.clear();
+                        if (!isTracking()) {
+                            resetTrack();
+                        }
+                        geolocation.setTracking(true);
+
+                        const features = state.track.map((coords) => {
+                            const accuracy = coords.accuracy;
+                            const f = new Feature({
+                                geometry: new geom.Point(coords.coord),
+                            });
+                            f.setStyle((r: number) => {
+                                return trackerStyles(accuracy, r);
+                            });
+                            return f;
                         });
-                        f.setStyle((r: number) => {
-                            return trackerStyles(accuracy, r);
-                        });
-                        return f;
+                        geolocationSource.addFeatures(features);
+                        if (state.track.length > 0) {
+                            const last = state.track[state.track.length - 1];
+                            setCenter(last.coord);
+                        }
                     });
-                    geolocationSource.addFeatures(features);
-                    if (state.track.length > 0) {
-                        const last = state.track[state.track.length - 1];
-                        setCenter(last.coord);
-                    }
-                }
-            };
 
         const init =
             (_map: Map, layers: Collection<layer.Vector>) => {
@@ -114,7 +120,7 @@ export const track =
 
 // measure
 const measureHandlers =
-    ({ updateMeasureCoordinates, setMeasuring }: MeasureOptions) => {
+    ({ updateMeasureCoordinates, stopMeasuring }: MeasureOptions) => {
         const startMeasureLength = (e: any) => {
             const feature: Feature = e.feature;
             const line = <geom.LineString>feature.getGeometry();
@@ -125,7 +131,7 @@ const measureHandlers =
 
         const stopMeasureLength = (s: source.Vector) => () => {
             s.clear();
-            setMeasuring(false);
+            stopMeasuring();
         };
 
 
@@ -140,7 +146,7 @@ const measureHandlers =
 
         const stopMeasureArea = (s: source.Vector) => () => {
             s.clear();
-            setMeasuring(false);
+            stopMeasuring();
         };
 
         return {
@@ -182,11 +188,18 @@ export const measure =
             () => measureLength.getActive() || measureArea.getActive();
 
         const update =
-            (state: IGeoMeasure) => {
-                const shouldMeasure = state.active;
-                if (isMeasuring() !== shouldMeasure) {
-                    measureSource.clear();
-                    if (shouldMeasure) {
+            (i: Interaction) =>
+                fromInteraction('measure', i)
+                    .fold(
+                    () => {
+                        measureSource.clear();
+                        measureLength.setActive(false);
+                        measureArea.setActive(false);
+                    },
+                    ({ state }) => {
+                        if (!isMeasuring()) {
+                            measureSource.clear();
+                        }
                         switch (state.geometryType) {
                             case 'LineString':
                                 measureLength.setActive(true);
@@ -195,13 +208,8 @@ export const measure =
                                 measureArea.setActive(true);
                                 break;
                         }
-                    }
-                    else {
-                        measureLength.setActive(false);
-                        measureArea.setActive(false);
-                    }
-                }
-            }
+
+                    });
 
         const init =
             (map: Map, layers: Collection<layer.Vector>) => {

@@ -1,80 +1,88 @@
 import { Coordinate } from 'openlayers';
 
-import { MeasureSetter, TrackerSetter, TrackerCoordinate, ViewSetter, IViewEvent, ScaleSetter } from './index';
+import { Setter } from '../shape';
+import { TrackerCoordinate, IViewEvent, IMapViewData, IMapScale, Interaction, IGeoTracker, InteractionTrack, IGeoMeasure, InteractionMeasure, defaultInteraction, fromInteraction } from './index';
 
 // 'port/map/measure': IGeoMeasure;
-export const measureEvents =
-    (dispatch: MeasureSetter) => ({
+const measureEvent =
+    (state: IGeoMeasure): InteractionMeasure => ({
+        state,
+        label: 'measure',
+    });
+export const measureEventsFactory =
+    (dispatch: Setter<Interaction>) => ({
 
         startMeasureLength() {
-            dispatch(() => ({
+            dispatch(() => measureEvent({
                 geometryType: 'LineString',
                 coordinates: [],
-                active: true,
             }));
         },
 
         startMeasureArea() {
-            dispatch(() => ({
+            dispatch(() => measureEvent({
                 geometryType: 'Polygon',
                 coordinates: [],
-                active: true,
             }));
         },
 
         stopMeasure() {
-            dispatch((state) => {
-                state.active = false;
-                return state;
-            });
+            dispatch(defaultInteraction);
         },
 
-        updateMeasureCoordinates(coords: Coordinate[]) {
-            dispatch((state) => {
-                state.coordinates = coords;
-                return state;
-            });
+        updateMeasureCoordinates(coordinates: Coordinate[]) {
+            dispatch(i => fromInteraction('measure', i)
+                .fold(
+                () => i,
+                it => measureEvent({
+                    coordinates,
+                    geometryType: it.state.geometryType,
+                })));
         },
 
     });
 
 // 'port/map/tracker': IGeoTracker;
-export const trackerEvents =
-    (dispatch: TrackerSetter) => ({
+const trackerEvent =
+    (state: IGeoTracker): InteractionTrack => ({
+        state,
+        label: 'track',
+    });
+
+export const trackerEventsFactory =
+    (dispatch: Setter<Interaction>) => ({
         startTrack() {
-            dispatch(() => ({
+            dispatch(() => trackerEvent({
                 track: [],
-                active: true,
             }));
         },
 
         stopTrack() {
-            dispatch(tracker => ({
-                active: false,
-                track: tracker.track,
-            }));
+            dispatch(i => fromInteraction('track', i)
+                .fold(
+                () => i,
+                it => trackerEvent({ track: it.state.track })));
         },
 
         resetTrack() {
-            dispatch(tracker => ({
-                active: tracker.active,
+            dispatch(() => trackerEvent({
                 track: [],
             }));
         },
 
         updateTrack(coords: TrackerCoordinate) {
-            dispatch((tracker) => {
-                tracker.track.push(coords);
-                return tracker;
-            });
+            dispatch(i => fromInteraction('track', i)
+                .fold(
+                () => i,
+                it => trackerEvent({ track: it.state.track.concat([coords]) })));
         },
     });
 
 
 
 // 'port/map/view': IMapViewData;
-export const viewEvents =
-    (dispatch: ViewSetter) => ({
+export const viewEventsFactory =
+    (dispatch: Setter<IMapViewData>) => ({
         updateMapView(data: IViewEvent): void {
             dispatch((viewState) => {
                 viewState.dirty = (data.dirty !== undefined) ? data.dirty : viewState.dirty;
@@ -88,11 +96,9 @@ export const viewEvents =
 
 
 // 'port/map/scale': IMapScale;
-export const scaleEvents =
-    (dispatch: ScaleSetter) => ({
+export const scaleEventsFactory =
+    (dispatch: Setter<IMapScale>) => ({
         setScaleLine(count: number, unit: string, width: number) {
-            dispatch(() => ({
-                count, unit, width,
-            }));
+            dispatch(() => ({ count, unit, width }));
         },
     });

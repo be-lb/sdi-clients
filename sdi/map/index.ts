@@ -15,9 +15,10 @@
  */
 
 import * as proj4 from 'proj4';
-import { layer, proj, format, Coordinate } from 'openlayers';
-import { ILayerInfo, IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire } from '../source';
+import { proj, format, Coordinate } from 'openlayers';
+import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire } from '../source';
 import { Getter, Setter } from '../shape';
+import { Option, fromPredicate } from 'fp-ts/lib/Option';
 
 
 export const formatGeoJSON = new format.GeoJSON();
@@ -52,13 +53,16 @@ export interface IMapViewData {
 }
 
 
+export interface IGeoSelect {
+    selected: string | null;
+}
+
 export interface TrackerCoordinate {
     coord: Coordinate;
     accuracy: number;
 }
 
 export interface IGeoTracker {
-    active: boolean;
     track: TrackerCoordinate[];
 }
 
@@ -69,25 +73,78 @@ export interface TrackerOptions {
 }
 
 export interface IGeoMeasure {
-    active: boolean;
     geometryType: 'Polygon' | 'LineString';
     coordinates: Coordinate[];
 }
 
 export interface MeasureOptions {
     updateMeasureCoordinates(c: Coordinate[]): void;
-    setMeasuring(m: boolean): void;
+    stopMeasuring(): void;
 }
 
 
 export type MapEditableMode = 'none' | 'select' | 'create' | 'modify';
 export type MapEditableSelected = string | number | null;
 
-export interface IMapEditable {
-    mode: MapEditableMode;
+export interface IGeoCreate {
+    geometryType: GeometryType;
+}
+
+export interface IGeoModify {
     selected: MapEditableSelected;
     geometryType: GeometryType;
 }
+
+
+export interface InteractionBase<L extends string, T> {
+    label: L;
+    state: T;
+}
+
+export interface InteractionSelect extends InteractionBase<'select', IGeoSelect> { }
+export interface InteractionCreate extends InteractionBase<'create', IGeoCreate> { }
+export interface InteractionModify extends InteractionBase<'modify', IGeoModify> { }
+export interface InteractionTrack extends InteractionBase<'track', IGeoTracker> { }
+export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasure> { }
+
+interface InteractionMap {
+    'select': InteractionSelect;
+    'create': InteractionCreate;
+    'modify': InteractionModify;
+    'track': InteractionTrack;
+    'measure': InteractionMeasure;
+}
+
+
+export type Interaction = InteractionMap[keyof InteractionMap];
+// | InteractionSelect
+// | InteractionCreate
+// | InteractionModify
+// | InteractionTrack
+// | InteractionMeasure
+// ;
+
+
+export const defaultInteraction =
+    (): Interaction => ({
+        label: 'select',
+        state: { selected: null },
+    });
+
+
+
+export type InteractionGetter = Getter<Interaction>;
+export type InteractionSetter = Setter<Interaction>;
+
+/**
+ * 
+ * const tt = fromInteraction('select', defaultInteraction);
+ * >> Option<InteractionSelect>
+ */
+export const fromInteraction =
+    <L extends keyof InteractionMap>(label: L, i: Interaction): Option<InteractionMap[L]> =>
+        fromPredicate((a: Interaction) => a.label === label)(i);
+
 
 export interface EditOptions {
     getCurrentLayerId(): string;
@@ -113,10 +170,6 @@ export interface IMapOptions {
     setScaleLine: SetScaleLine;
 }
 
-export interface LayerRef {
-    info: ILayerInfo;
-    layer: layer.Vector;
-}
 
 export interface IViewEvent {
     dirty?: boolean;
@@ -125,21 +178,7 @@ export interface IViewEvent {
     zoom?: number;
 }
 
-// 'port/map/measure': IGeoMeasure;
-export type MeasureGetter = Getter<IGeoMeasure>;
-export type MeasureSetter = Setter<IGeoMeasure>;
 
-// 'port/map/tracker': IGeoTracker;
-export type TrackerGetter = Getter<IGeoTracker>;
-export type TrackerSetter = Setter<IGeoTracker>;
-
-// 'port/map/view': IMapViewData;
-export type ViewGetter = Getter<IMapViewData>;
-export type ViewSetter = Setter<IMapViewData>;
-
-// 'port/map/scale': IMapScale;
-export type ScaleGetter = Getter<IMapScale>;
-export type ScaleSetter = Setter<IMapScale>;
 
 
 export * from './map';

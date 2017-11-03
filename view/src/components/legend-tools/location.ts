@@ -24,7 +24,7 @@ import tr from 'sdi/locale';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
-import mapEvents from '../../events/map';
+import { viewEvents } from '../../events/map';
 
 const latChange = (e: ChangeEvent<HTMLInputElement>) => {
     const latitude = parseFloat(e.target.value);
@@ -38,7 +38,7 @@ const lonChange = (e: ChangeEvent<HTMLInputElement>) => {
 
 const position = () => {
     const state = queries.toolsPositioner();
-    mapEvents.updateMapView({
+    viewEvents.updateMapView({
         center: [state.point.longitude, state.point.latitude],
         dirty: true,
         zoom: 12,

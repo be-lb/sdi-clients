@@ -18,9 +18,20 @@ import { Feature, IMapBaseLayer, IMapInfo, Category, Attachment } from 'sdi/sour
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
 import { ButtonComponent } from 'sdi/components/button';
-import { IMapViewData, IMapScale } from 'sdi/map';
+import { IMapViewData, IMapScale, Interaction } from 'sdi/map';
 
-import { AppLayout, ILegend, IMenuData, IMapNavigator, IToolWebServices, IToolGeocoder, IPositioner, IShare, IGeoMeasure, IGeoTracker, ILayerColection, IDatasetMetadataCollection } from './types';
+import {
+    AppLayout,
+    ILegend,
+    IMenuData,
+    IMapNavigator,
+    IToolWebServices,
+    IToolGeocoder,
+    IPositioner,
+    IShare,
+    ILayerColection,
+    IDatasetMetadataCollection,
+} from './types';
 
 
 
@@ -46,11 +57,10 @@ declare module 'sdi/shape' {
         'component/legend/share': IShare;
         'component/button': ButtonComponent;
 
-        'port/map/measure': IGeoMeasure;
-        'port/map/tracker': IGeoTracker;
+        'port/map/baseLayers': IMapBaseLayer[];
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
-        'port/map/baseLayers': IMapBaseLayer[];
+        'port/map/interaction': Interaction;
 
 
         'data/layers': ILayerColection;

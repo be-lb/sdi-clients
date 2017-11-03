@@ -25,8 +25,8 @@ import { IMapBaseLayer } from 'sdi/source';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
-import mapQueries from '../../queries/map';
-import mapEvents from '../../events/map';
+import { getBaseLayer, getAllBaseLayers } from '../../queries/map';
+import { selectBaseLayer } from '../../events/map';
 import { ChangeEvent } from 'react';
 import { IToolWebServices } from '../../shape/types';
 
@@ -38,12 +38,12 @@ const wmsCapParser = new format.WMSCapabilities();
 // const wmtsCapParser = new format.WMTSCapabilities();
 
 const renderBaseLayers = () => {
-    const currentBaseLayer = mapQueries.getBaseLayer();
+    const currentBaseLayer = getBaseLayer();
     const cblh = currentBaseLayer === null
         ? ''
         : hashMapBaseLayer(currentBaseLayer);
     return (
-        mapQueries.getAllBaseLayers()
+        getAllBaseLayers()
             .map((layer) => {
                 const layerName = fromRecord(layer.name);
                 const lh = hashMapBaseLayer(layer);
@@ -51,7 +51,7 @@ const renderBaseLayers = () => {
                 return DIV({
                     className,
                     onClick: () => {
-                        mapEvents.selectBaseLayer(lh);
+                        selectBaseLayer(lh);
                     },
                 }, layerName);
             }));

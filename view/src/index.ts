@@ -22,6 +22,7 @@ import * as debug from 'debug';
 import { source } from 'sdi/source';
 import { initialTableState } from 'sdi/components/table';
 import { IShape, configure } from 'sdi/shape';
+import { defaultInteraction } from 'sdi/map';
 
 import App from './app';
 import { AppLayout } from './shape/types';
@@ -118,16 +119,6 @@ export const main =
 
             'component/button': {},
 
-            'port/map/measure': {
-                active: false,
-                coordinates: [],
-                geometryType: 'LineString',
-            },
-
-            'port/map/tracker': {
-                active: false,
-                track: [],
-            },
 
             'port/map/scale': {
                 count: 0,
@@ -142,6 +133,8 @@ export const main =
                 rotation: 0,
                 zoom: 6,
             },
+
+            'port/map/interaction': defaultInteraction(),
 
             'port/map/baseLayers': [
                 {

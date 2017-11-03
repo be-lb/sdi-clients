@@ -20,18 +20,18 @@ import tr from 'sdi/locale';
 import { DIV, H2 } from 'sdi/components/elements';
 
 import appEvents from '../../events/app';
-import mapEvents from '../../events/map';
+import { measureEvents } from '../../events/map';
 import { AppLayout } from '../../shape/types';
 
 const measureLength = () => {
     appEvents.setLayout(AppLayout.MapAndMeasure);
-    mapEvents.startMeasureLength();
+    measureEvents.startMeasureLength();
 };
 
 
 const measureArea = () => {
     appEvents.setLayout(AppLayout.MapAndMeasure);
-    mapEvents.startMeasureArea();
+    measureEvents.startMeasureArea();
 };
 
 

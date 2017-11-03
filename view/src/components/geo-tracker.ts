@@ -21,17 +21,17 @@ import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import appEvents from '../events/app';
-import mapEvents from '../events/map';
+import { trackerEvents } from '../events/map';
 import { AppLayout } from '../shape/types';
 
 const stopTracker = () => {
     appEvents.setLayout(AppLayout.MapFS);
-    mapEvents.stopTrack();
+    trackerEvents.stopTrack();
 };
 
 const saveTrack = () => {
     appEvents.setLayout(AppLayout.MapFS);
-    mapEvents.stopTrack();
+    trackerEvents.stopTrack();
 };
 
 
