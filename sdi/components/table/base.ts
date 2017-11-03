@@ -94,7 +94,7 @@ export const baseTable =
             (rowNum: number) => (
                 DIV(
                     {
-                        key: '#',
+                        key: rowNum,
                         className: 'table-row-num',
                         style: {
                             display: 'none',

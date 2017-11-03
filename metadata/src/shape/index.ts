@@ -15,11 +15,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { IUser, TopicCategory, Keyword } from 'sdi/source';
+import { Inspire, IUser, TopicCategory, Keyword } from 'sdi/source';
 import { ButtonComponent } from 'sdi/components/button';
 import { IDataTable } from 'sdi/components/table';
+
 import { MdForm } from '../components/single';
-import { AppLayout, IDatasetMetadataCollection } from '../app';
+import { AppLayout } from '../app';
 
 
 
@@ -35,7 +36,7 @@ declare module 'sdi/shape' {
         'component/single': MdForm;
 
         'data/user': IUser | null;
-        'data/datasetMetadata': IDatasetMetadataCollection;
+        'data/datasetMetadata': Inspire[];
         'data/keywords': Keyword[];
         'data/topics': TopicCategory[];
     }

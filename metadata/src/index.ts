@@ -74,7 +74,7 @@ export const main =
             'component/single': defaultMdFormState(),
 
             'data/user': null,
-            'data/datasetMetadata': {},
+            'data/datasetMetadata': [],
             'data/keywords': [],
             'data/topics': [],
             'data/alias': null,

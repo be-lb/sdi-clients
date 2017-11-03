@@ -1,5 +1,6 @@
 import { IMapBaseLayer, Feature, Properties, FeatureCollection } from '../source';
 import { fromRecord } from '../locale';
+import { Setoid } from 'fp-ts/lib/Setoid';
 
 export interface IMapBaseLayerTranslated {
     name: string;
@@ -14,6 +15,13 @@ export interface IMapBaseLayerTranslated {
 export const hashMapBaseLayer = (l: IMapBaseLayer) => {
     return `${fromRecord(l.name)}|${fromRecord(l.url)}|${fromRecord(l.params.LAYERS)}`;
 };
+
+export const uniq =
+    <T>(o: Setoid<T>) =>
+        (as: T[]): T[] =>
+            as.reduce(
+                (acc, a) => acc.filter(i => !o.equals(a, i)).concat([a]),
+                [] as T[]);
 
 
 export const translateMapBaseLayer = (l: IMapBaseLayer): IMapBaseLayerTranslated => ({

@@ -1,6 +1,6 @@
 import * as debug from 'debug';
 import { query } from 'sdi/shape';
-import { some, none, fromNullable } from 'fp-ts/lib/Option';
+import { none, fromNullable } from 'fp-ts/lib/Option';
 import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { TableDataType, TableDataRow } from 'sdi/components/table';
@@ -41,8 +41,7 @@ export const getTemporalReference = (t: TemporalReference) => {
 export const loadLayerListData =
     (): TableDataRow[] | null => {
         const mds = query('data/datasetMetadata');
-        const keys = Object.keys(mds);
-        if (keys.length < 1) {
+        if (mds.length < 1) {
             return null;
         }
         const getFreeText = (ft: FreeText) => {
@@ -55,8 +54,7 @@ export const loadLayerListData =
 
 
         return (
-            keys.map((id) => {
-                const md = mds[id];
+            mds.map((md) => {
                 const cells = [
                     md.uniqueResourceIdentifier,
                     md.published ? tr('published') : tr('draft'),
@@ -72,7 +70,7 @@ export const loadLayerListData =
                         return acc + sep + getFreeText(ri.organisationName);
                     }, ''),
                 ];
-                return { from: id, cells };
+                return { from: md.id, cells };
             }));
     };
 
@@ -92,13 +90,9 @@ export const getMetadataId =
     () => query('app/current-metadata');
 
 export const getDatasetMetadata =
-    (id: string) => {
-        const collection = query('data/datasetMetadata');
-        if (id in collection) {
-            return some(collection[id]);
-        }
-        return none;
-    };
+    (id: string) =>
+        fromNullable(query('data/datasetMetadata').find(
+            md => md.id === id));
 
 export const getCurrentDatasetMetadata =
     () => {

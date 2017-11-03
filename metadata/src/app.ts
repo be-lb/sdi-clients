@@ -21,7 +21,6 @@ import { DIV, SPAN } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
 import tr from 'sdi/locale';
-import { Inspire } from 'sdi/source';
 
 import list from './components/list';
 import single from './components/single';
@@ -36,9 +35,6 @@ export type AppLayout =
     | 'List'
     | 'Single';
 
-export interface IDatasetMetadataCollection {
-    [id: string]: Inspire;
-}
 
 
 const renderAppListingButton =
