@@ -14,10 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { observe, dispatch } from 'sdi/shape';
+import { dispatch } from 'sdi/shape';
 import { IViewEvent } from 'sdi/map';
 
-import { AppLayout } from '../shape/types';
 
 
 
@@ -40,19 +39,19 @@ export default {
 };
 
 
-observe('app/layout', (state) => {
-    const l = state[state.length - 1];
-    const isEd = l === AppLayout.LayerEditAndInfo
-        || l === AppLayout.LayerEditAndRow
-        || l === AppLayout.LayerViewAndInfo
-        || l === AppLayout.LayerViewAndRow;
+// observe('app/layout', (state) => {
+//     const l = state[state.length - 1];
+//     const isEd = l === AppLayout.LayerEditAndInfo
+//         || l === AppLayout.LayerEditAndRow
+//         || l === AppLayout.LayerViewAndInfo
+//         || l === AppLayout.LayerViewAndRow;
 
-    if (!isEd) {
-        dispatch('port/map/editable', (state) => {
-            state.mode = 'none';
-            state.selected = null;
-            return state;
-        });
-    }
-});
+//     if (!isEd) {
+//         dispatch('port/map/editable', (state) => {
+//             state.mode = 'none';
+//             state.selected = null;
+//             return state;
+//         });
+//     }
+// });
 

@@ -17,10 +17,12 @@
 
 
 
-import { Lens } from 'monocle-ts';
 import * as debug from 'debug';
+import { Lens } from 'monocle-ts';
 
 const logger = debug('sdi:source/source');
+export const isProxySupported = typeof Proxy === 'function';
+
 
 export type KeyOfIShape<IShape> = keyof IShape;
 export type SubTypeOfIShape<IShape> = IShape[KeyOfIShape<IShape>];
@@ -61,7 +63,7 @@ const getLocaleStorage =
         }
     };
 
-const proxyfyObject =
+export const proxyfyObject =
     <T extends object>(a: T): T => {
         const set = <K extends keyof T>(_target: T, prop: K, value: T[K]) => {
             throw (new Error(`Immutable target: cannot set ${prop} to ${value}`));
@@ -84,9 +86,16 @@ const proxyfyObject =
         return (new Proxy(a, { get, set }));
     };
 
+const poorManCopy =
+    <T>(a: T): T => JSON.parse(JSON.stringify(a));
+
 const proxyfy =
     <T extends object>(a: T): T => {
-        return proxyfyObject(a);
+        if (isProxySupported) {
+            return proxyfyObject(a);
+        }
+        // FIXME - maybe
+        return poorManCopy(a);
     };
 
 

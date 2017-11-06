@@ -14,21 +14,128 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-import { ReactDOM, DOM } from 'react';
 
-const factory = <K extends keyof ReactDOM>(k: K) => {
-    const iFactory = DOM[k];
-    return (
-        // <P extends HTMLAttributes<T>, T extends Element>(props?: ClassAttributes<T> & P, ...children: ReactNode[]): typeof DOM[K] => {
-        //     return h(k, props, ...children);
-        // }
-        // <P extends HTMLAttributes<>>(props?: ) => {
-        //     const elem =  iFactory(props);
-        //     return elem;
-        // }
-        iFactory
-    );
+import * as React from 'react';
+
+
+interface HTMLTags {
+    a: HTMLAnchorElement;
+    abbr: HTMLElement;
+    address: HTMLElement;
+    area: HTMLAreaElement;
+    article: HTMLElement;
+    aside: HTMLElement;
+    audio: HTMLAudioElement;
+    b: HTMLElement;
+    base: HTMLBaseElement;
+    bdi: HTMLElement;
+    bdo: HTMLElement;
+    big: HTMLElement;
+    blockquote: HTMLElement;
+    body: HTMLBodyElement;
+    br: HTMLBRElement;
+    button: HTMLButtonElement;
+    canvas: HTMLCanvasElement;
+    caption: HTMLElement;
+    cite: HTMLElement;
+    code: HTMLElement;
+    col: HTMLTableColElement;
+    colgroup: HTMLTableColElement;
+    data: HTMLElement;
+    datalist: HTMLDataListElement;
+    dd: HTMLElement;
+    del: HTMLElement;
+    details: HTMLElement;
+    dfn: HTMLElement;
+    dialog: HTMLElement;
+    div: HTMLDivElement;
+    dl: HTMLDListElement;
+    dt: HTMLElement;
+    em: HTMLElement;
+    embed: HTMLEmbedElement;
+    fieldset: HTMLFieldSetElement;
+    figcaption: HTMLElement;
+    figure: HTMLElement;
+    footer: HTMLElement;
+    form: HTMLFormElement;
+    h1: HTMLHeadingElement;
+    h2: HTMLHeadingElement;
+    h3: HTMLHeadingElement;
+    h4: HTMLHeadingElement;
+    h5: HTMLHeadingElement;
+    h6: HTMLHeadingElement;
+    head: HTMLElement;
+    header: HTMLElement;
+    hgroup: HTMLElement;
+    hr: HTMLHRElement;
+    html: HTMLHtmlElement;
+    i: HTMLElement;
+    iframe: HTMLIFrameElement;
+    img: HTMLImageElement;
+    input: HTMLInputElement;
+    ins: HTMLModElement;
+    kbd: HTMLElement;
+    keygen: HTMLElement;
+    label: HTMLLabelElement;
+    legend: HTMLLegendElement;
+    li: HTMLLIElement;
+    link: HTMLLinkElement;
+    main: HTMLElement;
+    map: HTMLMapElement;
+    mark: HTMLElement;
+    menu: HTMLElement;
+    menuitem: HTMLElement;
+    meta: HTMLMetaElement;
+    meter: HTMLElement;
+    nav: HTMLElement;
+    noscript: HTMLElement;
+    object: HTMLObjectElement;
+    ol: HTMLOListElement;
+    optgroup: HTMLOptGroupElement;
+    option: HTMLOptionElement;
+    output: HTMLElement;
+    p: HTMLParagraphElement;
+    param: HTMLParamElement;
+    picture: HTMLElement;
+    pre: HTMLPreElement;
+    progress: HTMLProgressElement;
+    q: HTMLQuoteElement;
+    rp: HTMLElement;
+    rt: HTMLElement;
+    ruby: HTMLElement;
+    s: HTMLElement;
+    samp: HTMLElement;
+    script: HTMLScriptElement;
+    section: HTMLElement;
+    select: HTMLSelectElement;
+    small: HTMLElement;
+    source: HTMLSourceElement;
+    span: HTMLSpanElement;
+    strong: HTMLElement;
+    style: HTMLStyleElement;
+    sub: HTMLElement;
+    summary: HTMLElement;
+    sup: HTMLElement;
+    table: HTMLTableElement;
+    tbody: HTMLTableSectionElement;
+    td: HTMLTableDataCellElement;
+    textarea: HTMLTextAreaElement;
+    tfoot: HTMLTableSectionElement;
+    th: HTMLTableHeaderCellElement;
+    thead: HTMLTableSectionElement;
+    time: HTMLElement;
+    title: HTMLTitleElement;
+    tr: HTMLTableRowElement;
+    track: HTMLTrackElement;
+    u: HTMLElement;
+    ul: HTMLUListElement;
+    var: HTMLElement;
+    video: HTMLVideoElement;
+    wbr: HTMLElement;
+}
+
+const factory = <K extends keyof React.ReactHTML>(k: K) => {
+    return React.createFactory<HTMLTags[K]>(k);
 };
 
 
@@ -47,7 +154,6 @@ const factory = <K extends keyof ReactDOM>(k: K) => {
 
 // The HTML Code Element (code) represents a fragment of computer code. By default, it is displayed in the browser's default monospace font.
 export const CODE = factory('code');
-
 
 // The HTML `rtc` Element embraces semantic annotations of characters presented in a ruby of `rb` elements used inside of `ruby` element. `rb` elements can have both pronunciation (rt) and semantic (rtc) annotations.
 // NOT SUPPORTED - export const RTC = factory('rtc');
@@ -287,7 +393,7 @@ export const H2 = factory('h2');
 export const H3 = factory('h3');
 
 // The HTML `image` element was an experimental element designed to display pictures. It never was implemented and the standard `img` element must be used.
-export const IMAGE = factory('image');
+// export const IMAGE = factory('image');
 
 // The HTML `h1` element briefly describes the topic of the section it introduces.
 export const H1 = factory('h1');

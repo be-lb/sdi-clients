@@ -162,7 +162,7 @@ export const baseTable =
                     className: 'table-header-search-field',
                     defaultValue: query,
                     // onKeyDown: e => optESCAPE(e).map(() => events.searchClose()),
-                    onChange: e => events.filterData(col, e.target.value),
+                    onChange: e => events.filterData(col, e.currentTarget.value),
                 });
 
 

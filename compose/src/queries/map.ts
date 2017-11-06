@@ -34,13 +34,13 @@ const queries = {
         return query('port/map/scale');
     },
 
-    getEditableMode() {
-        return query('port/map/editable').mode;
-    },
+    // getEditableMode() {
+    //     return query('port/map/editable').mode;
+    // },
 
-    getEditableSelected() {
-        return query('port/map/editable').selected;
-    },
+    // getEditableSelected() {
+    //     return query('port/map/editable').selected;
+    // },
 
 
 

@@ -25,7 +25,7 @@ import tr from 'sdi/locale';
 
 import map from './components/map';
 import tableAttributes from './components/table/feature-collection-headless';
-import tableAttributesEditable from './components/table/feature-collection-editable';
+// import tableAttributesEditable from './components/table/feature-collection-editable';
 import tableLayers from './components/table/layers';
 import tableInspire from './components/table/inspire';
 import events from './events/app';
@@ -38,8 +38,8 @@ import legendEditor from './components/legend-editor';
 import featureConfig from './components/feature-config';
 import featureView from './components/feature-view';
 
-import viewInspire from './components/layer/view-inspire';
-import featureEdit from './components/layer/edit';
+// import viewInspire from './components/layer/view-inspire';
+// import featureEdit from './components/layer/edit';
 
 import upload from './components/upload';
 import { AppLayout } from './shape/types';
@@ -100,24 +100,24 @@ const renderFeatureConfig = () => wrappedMain('feature-config',
     DIV({ className: 'vertical-split' }, tableAttributes(), featureConfig()),
     featureView());
 
-const renderLayerEditAndInfo = () => wrappedMain(
-    'layer-stub',
-    DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
-    viewInspire());
+// const renderLayerEditAndInfo = () => wrappedMain(
+//     'layer-stub',
+//     DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
+//     viewInspire());
 
-const renderLayerEditAndRow = () => wrappedMain(
-    'layer-stub',
-    DIV({ className: 'vertical-split' },
-        DIV({ className: 'snail' },
-            featureEdit(),
-            map()),
-        tableAttributesEditable()),
-    viewInspire());
+// const renderLayerEditAndRow = () => wrappedMain(
+//     'layer-stub',
+//     DIV({ className: 'vertical-split' },
+//         DIV({ className: 'snail' },
+//             featureEdit(),
+//             map()),
+//         tableAttributesEditable()),
+//     viewInspire());
 
-const renderLayerViewAndInfo = () => wrappedMain(
-    'layer-stub',
-    DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
-    viewInspire());
+// const renderLayerViewAndInfo = () => wrappedMain(
+//     'layer-stub',
+//     DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
+//     viewInspire());
 
 const renderUpload = () => wrappedMain('upload', upload());
 
@@ -138,11 +138,11 @@ const renderMain =
             case AppLayout.LegendEditorAndTable: return renderLegendEditorAndTable();
             case AppLayout.FeatureConfig: return renderFeatureConfig();
 
-            case AppLayout.LayerEditAndInfo: return renderLayerEditAndInfo();
-            case AppLayout.LayerEditAndRow: return renderLayerEditAndRow();
+            // case AppLayout.LayerEditAndInfo: return renderLayerEditAndInfo();
+            // case AppLayout.LayerEditAndRow: return renderLayerEditAndRow();
 
-            case AppLayout.LayerViewAndInfo: return renderLayerViewAndInfo();
-            case AppLayout.LayerViewAndRow: return renderLayerViewAndInfo();
+            // case AppLayout.LayerViewAndInfo: return renderLayerViewAndInfo();
+            // case AppLayout.LayerViewAndRow: return renderLayerViewAndInfo();
 
             case AppLayout.Upload: return renderUpload();
         }

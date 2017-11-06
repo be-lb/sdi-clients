@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import 'babel-polyfill';
 import 'sdi/polyfill';
 import './shape';
 import * as debug from 'debug';
