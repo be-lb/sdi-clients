@@ -28,7 +28,7 @@ import {
     // extent,
     // geom,
 } from 'openlayers';
-import { Feature as GeoJSONFeature } from '../source';
+// import { Feature as GeoJSONFeature } from '../source';
 
 import {
     //  Feature as IOFeature,
@@ -36,7 +36,7 @@ import {
 } from '../source';
 import { fontSizeExtractRegexp, fontSizeReplaceRegexp } from './style';
 import {
-    formatGeoJSON,
+    // formatGeoJSON,
     SelectOptions,
     EditOptions,
     Interaction,
@@ -197,7 +197,6 @@ const selectionStyle =
             })];
         };
 
-
 export const select =
     (options: SelectOptions, layers: Collection<layer.Vector>) => {
         // selection
@@ -213,9 +212,10 @@ export const select =
         selectInteraction.on('select', () => {
             if (selectedFeature.getLength() > 0) {
                 const f = selectedFeature.pop();
-                const j: GeoJSONFeature = formatGeoJSON.writeFeatureObject(f) as any;
 
-                options.selectFeature(j);
+                // const j: GeoJSONFeature = formatGeoJSON.writeFeatureObject(f) as any;
+
+                options.selectFeature(f.getId());
             }
         });
 

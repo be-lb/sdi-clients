@@ -1,4 +1,8 @@
+
+import * as debug from 'debug';
 import { Option, some, none } from 'fp-ts/lib/Option';
+
+const logger = debug('sdi:scope');
 
 type LetValue<S, A> =
     | Option<A>
@@ -15,7 +19,7 @@ class Scope<S> {
             this.scope.fold(() => none, s => o(s)) :
             o;
         const s = v.fold(
-            () => none,
+            () => { logger(`none ${k}`); return none; },
             fv => this.scope.map(
                 ts => Object.assign({}, ts, { [k]: fv })));
 

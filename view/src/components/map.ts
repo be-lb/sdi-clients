@@ -19,7 +19,6 @@ import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
 import { create, IMapOptions } from 'sdi/map';
-import { Feature } from 'sdi/source';
 
 
 
@@ -65,8 +64,8 @@ const scaleline =
 
 
 const selectFeature =
-    (f: Feature) => {
-        appEvents.setCurrentFeature(f);
+    (fid: string | number) => {
+        appEvents.setCurrentFeatureById(fid);
         appEvents.setLayout(AppLayout.MapAndFeature);
     };
 

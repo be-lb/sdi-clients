@@ -301,10 +301,11 @@ export const create =
 
         const update =
             () => {
-                updatables.map(u => {
-                    logger(`update ${u.name}`);
+                const us = updatables.map((u) => {
                     u.fn();
+                    return u.name;
                 });
+                logger(`updated ${us.join(', ')}`);
             };
 
 

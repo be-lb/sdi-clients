@@ -156,7 +156,8 @@ export interface EditOptions {
 }
 
 export interface SelectOptions {
-    selectFeature(f: Feature): void;
+    // selectFeature(f: Feature): void;
+    selectFeature(id: string | number): void;
 }
 
 

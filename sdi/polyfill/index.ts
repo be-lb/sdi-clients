@@ -15,10 +15,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import './promise';
-import './object-assign';
+import 'core-js/es6';
+// import './promise';
+// import './object-assign';
+// import './array-find';
 import './from-code-point';
-import './array-find';
 import './intl';
 import 'whatwg-fetch';
 
