@@ -1,14 +1,22 @@
+body[lang="fr"] .be-name {
+    background-image: url('imgs/be-header-iris-fr.svg');
+}
 
-body[lang="fr"] .be-name {background-image: url("imgs/be-header-iris-fr.svg");}
-body[lang="nl"] .be-name {background-image: url("imgs/be-header-iris-nl.svg");}
+body[lang="nl"] .be-name {
+    background-image: url('imgs/be-header-iris-nl.svg');
+}
 
+body[lang="fr"] .header .be-name {
+    width: 418px;
+}
 
-body[lang="fr"] .header .be-name { width: 418px;}
-body[lang="nl"] .header .be-name { width: 358px;}
+body[lang="nl"] .header .be-name {
+    width: 358px;
+}
 
 .header {
     .flex(center, initial, initial);
-    padding: 0 @margin;
+    padding  : 0 @margin;
     font-size: 80%;
 
     > div {
@@ -18,56 +26,65 @@ body[lang="nl"] .header .be-name { width: 358px;}
 
     * {
         font-size: inherit !important;
-        color: #000;
+        color    : #000;
     }
 
     .be-logo {
         > div {
-            height: 35px;
+            height             : 35px;
             background-position: top left;
-            background-repeat: no-repeat;
-            background-size: contain;
+            background-repeat  : no-repeat;
+            background-size    : contain;
         }
     }
 
     .app-title {
-        font-weight: @extra-bold;
-        font-size: 19px !important;
-        // line-height: 90%;
+        font-weight   : @extra-bold;
+        font-size     : 19px !important;
         letter-spacing: -0.5px;
-        margin-top: -4px;
-        margin-left: @margin / 2;
+        margin-top    : -4px;
+        margin-left   : @margin / 2;
     }
 
-    .navigate,
-    .lang-switch{
+    .lang-switch,
+    .navigate {
         .transition;
-        cursor: default;
+        cursor     : default;
         margin-left: @margin;
-        padding: 0 !important;
+        padding    : 0 !important;
 
         &:after {
-        .awsomefont;
-        margin-left: @small-margin !important;
-        padding: 0 !important;
+            .awsomefont;
+            margin-left: @small-margin !important;
+            padding    : 0 !important;
         }
 
         &:hover {
             color: #000;
-            &:after{color: @green;}
+
+            &:after {
+                color: @green;
+            }
         }
     }
 
+    .app-listwrapper {
+        .absolute(0px, @panel-rightW, auto, auto);
 
-    .app-listview {
-        .absolute(initial, @panel-rightW, initial, initial);
-        &:after {content: @fa-var-table;}
+        .app-listview:after {
+            content: @fa-var-table;
+        }
     }
 
     .header-toolbar {
-        .absolute(initial, @margin, initial, initial);
+        .absolute(0px, @margin, auto, auto);
 
-        .dashboard:after {content: @fa-var-dot-circle-o;}
-        .lang-switch:after {content: @fa-var-globe;}
+        .dashboard:after {
+            content: @fa-var-dot-circle-o;
+        }
+
+        .lang-switch:after {
+            content: @fa-var-globe;
+        }
     }
 }
