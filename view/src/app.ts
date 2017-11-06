@@ -31,7 +31,7 @@ import tracker from './components/geo-tracker';
 import measure from './components/geo-measure';
 import events from './events/app';
 import queries from './queries/app';
-import mapEvents from './events/map';
+import { viewEvents } from './events/map';
 import { AppLayout } from './shape/types';
 import { navigate, navigateHome } from './events/route';
 
@@ -108,7 +108,7 @@ const renderMain =
 
 const effects =
     () => {
-        mapEvents.updateMapView({ dirty: true });
+        viewEvents.updateMapView({ dirty: true });
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
         navigate();

@@ -8,7 +8,6 @@ import { dispatchK, dispatch, observe } from 'sdi/shape';
 
 import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
 import { putMetadata } from '../remote';
-import { IDatasetMetadataCollection } from '../app';
 
 const single = dispatchK('component/single');
 const apiUrl = (s: string) => getApiUrl(s);
@@ -52,10 +51,8 @@ const updatedMd =
     };
 
 const updateLocalSet =
-    (collection: IDatasetMetadataCollection, md: Inspire): IDatasetMetadataCollection => ({
-        ...collection,
-        [md.id]: md,
-    });
+    (collection: Inspire[], md: Inspire) =>
+        collection.filter(i => i.id !== md.id).concat(md);
 
 export const saveMdForm =
     () =>

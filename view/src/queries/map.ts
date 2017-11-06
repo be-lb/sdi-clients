@@ -14,73 +14,38 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import * as debug from 'debug';
-import { Sphere, proj } from 'openlayers';
 
-import { query } from 'sdi/shape';
+import { query, queryK } from 'sdi/shape';
+import { measureQueryFactory } from 'sdi/map';
 
 import appQueries from './app';
 
-const logger = debug('sdi:queries:map');
-const wgs84Sphere = new Sphere(6378137);
 
-const queries = {
 
-    getView() {
-        return query('port/map/view');
-    },
 
-    getBaseLayer() {
+export const getView =
+    () => query('port/map/view');
+
+export const getAllBaseLayers =
+    () => query('port/map/baseLayers');
+
+export const getScaleLine =
+    () => query('port/map/scale');
+
+export const getBaseLayer =
+    () => {
         const mapInfo = appQueries.getMapInfo();
         if (mapInfo) {
             return mapInfo.baseLayer;
         }
         return null;
-    },
+    };
 
-    getAllBaseLayers() {
-        return query('port/map/baseLayers');
-    },
-
-    getScaleLine() {
-        return query('port/map/scale');
-    },
-
-    getTracking() {
-        return query('port/map/tracker');
-    },
+export const getInteraction = queryK('port/map/interaction');
+export const measureQueries = measureQueryFactory(getInteraction);
 
 
-    getMeasure() {
-        return query('port/map/measure');
-    },
 
-    getMeasuredLength() {
-        const state = query('port/map/measure');
-        const coordinates = state.coordinates.map(
-            c => proj.transform(c, 'EPSG:31370', 'EPSG:4326'));
-        const length = coordinates.reduce((acc, c, idx) => {
-            if (idx === 0) {
-                return 0;
-            }
-            const lastPoint = coordinates[idx - 1];
-            return acc + wgs84Sphere.haversineDistance(lastPoint, c);
-        }, 0);
-        return Math.round(length);
-    },
 
-    getMeasuredArea() {
-        const state = query('port/map/measure');
-        const coordinates = state.coordinates.map(
-            c => proj.transform(c, 'EPSG:31370', 'EPSG:4326'));
-        if (coordinates.length < 3) {
-            return 0;
-        }
-        return Math.round(Math.abs(wgs84Sphere.geodesicArea(coordinates)));
-    },
 
-};
 
-export default queries;
-
-logger('loaded');

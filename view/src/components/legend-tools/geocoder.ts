@@ -24,7 +24,7 @@ import { getLang } from 'sdi/app';
 
 import events from '../../events/legend';
 import queries from '../../queries/legend';
-import mapEvent from '../../events/map';
+import { viewEvents } from '../../events/map';
 import { queryService, IUgWsResult, IUgWsAddress } from '../../ports/geocoder';
 
 const updateAddress = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +51,7 @@ const renderResults = (results: IUgWsResult[]) => {
                 onClick: () => {
                     events.updateGeocoderResponse(null);
                     events.foldGeocoder();
-                    mapEvent.updateMapView({
+                    viewEvents.updateMapView({
                         dirty: true,
                         center: coords,
                         zoom: 12,

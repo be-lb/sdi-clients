@@ -21,7 +21,7 @@ import * as debug from 'debug';
 import tr from 'sdi/locale';
 import { DIV, H2, SPAN } from 'sdi/components/elements';
 
-import mapQueries from '../../queries/map';
+import { getView } from '../../queries/map';
 
 const logger = debug('sdi:tool-share');
 const hasClipboard = !!document.execCommand;
@@ -71,7 +71,7 @@ const makeCopyable = (value: string) => {
 };
 
 const render = () => {
-    const view = mapQueries.getView();
+    const view = getView();
     const qs = queryString({
         srs: view.srs,
         zoom: view.zoom,

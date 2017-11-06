@@ -81,7 +81,7 @@ const makePageType =
             next: io.union([io.string, io.null]),
             previous: io.union([io.string, io.null]),
             results: io.array(ioType),
-        });
+        }, `Page<${ioType.name}>`);
 
 export const fetchPaginatedIO =
     <T>(ioType: io.Type<T>, url0: string, getOptions: RequestInit = {}) => {

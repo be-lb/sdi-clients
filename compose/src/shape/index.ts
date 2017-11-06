@@ -19,7 +19,7 @@ import { Feature, IUser, IMapInfo, Category, Attachment } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ButtonComponent } from 'sdi/components/button';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
-import { IMapViewData, IMapScale, IMapEditable } from 'sdi/map';
+import { IMapViewData, IMapScale, Interaction } from 'sdi/map';
 
 import {
     AppLayout,
@@ -61,7 +61,7 @@ declare module 'sdi/shape' {
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
-        'port/map/editable': IMapEditable;
+        'port/map/interaction': Interaction;
 
         'data/user': IUser | null;
         'data/layers': ILayerCollection;

@@ -18,13 +18,13 @@
 import { DIV, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import mapEvents from '../../events/map';
+import { trackerEvents } from '../../events/map';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
 
 const startTracker = () => {
     appEvents.setLayout(AppLayout.MapAndTracker);
-    mapEvents.startTrack();
+    trackerEvents.startTrack();
 };
 
 

@@ -16,7 +16,13 @@
  */
 
 import * as debug from 'debug';
+import { Setoid } from 'fp-ts/lib/Setoid';
+
+import { getApiUrl } from 'sdi/app';
 import { dispatch } from 'sdi/shape';
+import { Inspire } from 'sdi/source';
+import { uniq } from 'sdi/util';
+
 import {
     fetchAllDatasetMetadata,
     fetchDatasetMetadata,
@@ -24,7 +30,6 @@ import {
     fetchAllTopic,
     fetchAllKeyword,
 } from '../remote';
-import { getApiUrl } from 'sdi/app';
 import { AppLayout } from '../app';
 
 const logger = debug('sdi:events/app');
@@ -41,7 +46,21 @@ export const toDataURL = (f: File) => {
 };
 
 
+const inspireS: Setoid<Inspire> = {
+    equals(a, b) {
+        return a.id === b.id;
+    }
+};
 
+const uniqInspire = uniq(inspireS);
+
+const t =
+    <A, B, R>(l: string, f: ((a?: A, b?: B) => R), a?: A, b?: B) => {
+        const s = Date.now();
+        const r = f(a, b);
+        logger(`${l}: ${Date.now() - s}`);
+        return r;
+    }
 
 const events = {
 
@@ -60,27 +79,18 @@ const events = {
 
 
 
-    loadDatasetMetadata(id: string, url: string) {
+    loadDatasetMetadata(url: string) {
         fetchDatasetMetadata(url)
-            .then((datasetMetadata) => {
-                dispatch('data/datasetMetadata', (state) => {
-                    if (!(id in state)) {
-                        state[id] = datasetMetadata;
-                    }
-
-                    return state;
-                });
-            });
+            .then(md =>
+                dispatch('data/datasetMetadata',
+                    state => state.filter(i => i.id !== md.id).concat([md])));
     },
 
     loadAllDatasetMetadata() {
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
             mds =>
-                dispatch('data/datasetMetadata', (state) => {
-                    mds.forEach(md => state[md.id] = md);
-                    return state;
-                })
-        );
+                dispatch('data/datasetMetadata',
+                    state => t('uniq', uniqInspire, state.concat(mds))));
     },
 
     loadAllTopic() {

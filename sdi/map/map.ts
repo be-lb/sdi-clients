@@ -22,24 +22,19 @@ import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 
 import {
-    LayerRef,
     IMapOptions,
     formatGeoJSON,
     FetchData,
-    // EditOptions,
     TrackerOptions,
-    TrackerGetter,
     MeasureOptions,
-    MeasureGetter,
     SelectOptions,
-    IMapEditable,
+    InteractionGetter,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl } from './controls';
 import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track } from './tools';
-import { Getter } from '../shape/index';
 
 
 const logger = debug('sdi:map');
@@ -71,7 +66,6 @@ const isWorking =
         return (isTracking || isMeasuring);
     };
 
-const localLayersRef: LayerRef[] = [];
 
 
 const getLayerData =
@@ -157,10 +151,7 @@ export const addLayer =
             mainLayerCollection.push(vl);
             getLayerData(fetchData, vs, 0);
 
-            localLayersRef.push({
-                layer: vl,
-                info,
-            });
+
 
             return vl;
         }
@@ -185,6 +176,10 @@ const fromBaseLayer =
     };
 
 type UpdateFn = () => void;
+interface Updatable {
+    name: string;
+    fn: UpdateFn;
+}
 
 const updateBaseLayer =
     (getBaseLayer: IMapOptions['getBaseLayer']) =>
@@ -277,11 +272,11 @@ export const create =
             ],
         });
 
-        const updatables: UpdateFn[] = [
-            updateBaseLayer(options.getBaseLayer),
-            updateLayers(options.getMapInfo),
-            updateView(map, options.getView),
-            updateSize(map),
+        const updatables: Updatable[] = [
+            { name: 'BaseLayer', fn: updateBaseLayer(options.getBaseLayer) },
+            { name: 'Layers', fn: updateLayers(options.getMapInfo) },
+            { name: 'View', fn: updateView(map, options.getView) },
+            { name: 'Size', fn: updateSize(map) },
         ];
 
         // fromNullable(options.getBaseLayer())
@@ -305,7 +300,12 @@ export const create =
 
 
         const update =
-            () => updatables.map(u => u());
+            () => {
+                updatables.map(u => {
+                    logger(`update ${u.name}`);
+                    u.fn();
+                });
+            };
 
 
         const setTarget =
@@ -314,26 +314,26 @@ export const create =
 
 
         const selectable =
-            (o: SelectOptions, g: Getter<IMapEditable>) => {
+            (o: SelectOptions, g: InteractionGetter) => {
                 const { init, update } = select(o, mainLayerCollection);
                 init(map);
-                updatables.push(() => update(g()));
+                updatables.push({ name: 'Select', fn: () => update(g()) });
             };
 
 
         const trackable =
-            (o: TrackerOptions, g: TrackerGetter) => {
+            (o: TrackerOptions, g: InteractionGetter) => {
                 const { init, update } = track(o);
                 init(map, toolsLayerCollection);
-                updatables.push(() => update(g()));
+                updatables.push({ name: 'Tracker', fn: () => update(g()) });
             };
 
 
         const measurable =
-            (o: MeasureOptions, g: MeasureGetter) => {
+            (o: MeasureOptions, g: InteractionGetter) => {
                 const { init, update } = measure(o);
                 init(map, toolsLayerCollection);
-                updatables.push(() => update(g()));
+                updatables.push({ name: 'Measure', fn: () => update(g()) });
             };
 
 

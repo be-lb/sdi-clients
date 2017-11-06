@@ -14,7 +14,7 @@ import { getData, queryTimeserie } from '../queries/timeserie';
 const tsPlotter = timeserie(
     queryTimeserie, getData, app.getCurrentLayer,
     dispatchTimeserie, loadData);
-const noView = () => DIV({ className: 'feature-view' });
+const noView = () => DIV({ className: 'feature-view no' });
 
 
 export const renderDefault =

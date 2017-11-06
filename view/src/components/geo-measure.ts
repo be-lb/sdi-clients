@@ -18,44 +18,52 @@
  */
 
 import { DIV, SPAN } from 'sdi/components/elements';
-import tr, { formatNumber } from 'sdi/locale';
+import tr from 'sdi/locale';
 
 import appEvents from '../events/app';
-import mapEvents from '../events/map';
-import mapQueries from '../queries/map';
+import { measureEvents } from '../events/map';
+import { measureQueries } from '../queries/map';
 import { AppLayout } from '../shape/types';
 
 const stopMeasure = () => {
     appEvents.setLayout(AppLayout.MapFS);
-    mapEvents.stopMeasure();
+    measureEvents.stopMeasure();
 };
 
-const measure = () => {
-    const state = mapQueries.getMeasure();
-    if (state.geometryType === 'LineString') {
-        const length = mapQueries.getMeasuredLength();
-        return (
-            DIV({ className: 'measure-linestring' },
-                SPAN({
-                    dangerouslySetInnerHTML: {
-                        __html: `${formatNumber(length)}&#8239;m`,
-                    },
-                }))
-        );
-    }
-    else {
-        const area = mapQueries.getMeasuredArea();
-        return (
-            DIV({ className: 'measure-area' },
-                SPAN({
-                    dangerouslySetInnerHTML: {
-                        __html: `${formatNumber(area)}&#8239;m²`,
-                    },
-                }))
-        );
-    }
+const measure =
+    () => (
+        DIV({ className: 'measure' },
+            SPAN({
+                dangerouslySetInnerHTML: {
+                    __html: measureQueries.getMeasured(),
+                },
+            })));
+// {
+//     const state = mapQueries.getMeasure();
+//     if (state.geometryType === 'LineString') {
+//         const length = mapQueries.getMeasuredLength();
+//         return (
+//             DIV({ className: 'measure-linestring' },
+//                 SPAN({
+//                     dangerouslySetInnerHTML: {
+//                         __html: `${formatNumber(length)}&#8239;m`,
+//                     },
+//                 }))
+//         );
+//     }
+//     else {
+//         const area = mapQueries.getMeasuredArea();
+//         return (
+//             DIV({ className: 'measure-area' },
+//                 SPAN({
+//                     dangerouslySetInnerHTML: {
+//                         __html: `${formatNumber(area)}&#8239;m²`,
+//                     },
+//                 }))
+//         );
+//     }
 
-};
+// };
 
 const render = () => {
     return DIV({ className: 'tool-widget geo-measure' },
