@@ -1,31 +1,35 @@
 .switcher {
     .awsomefont;
-    .absolute(@margin, calc(~"@{panel-rightW} + @{margin}"), initial, initial);
+    .absolute(@small-margin, calc(~ "@{panel-rightW} + @{small-margin}"), initial, initial);
     z-index: 2;
     // font-size: 80%;
-    width: @switchH + 2px;
-    height: @switchH + 2px !important;
-
+    width  : @switchH + 2px;
+    height : @switchH + 2px !important;
     // .switch-legend:before {content:@fa-var-dot-circle-o;}
-    .switch-legend:before {content:@fa-var-info;}
-    .switch-tools:before {content: @fa-var-wrench;}
+    .switch-legend:before {
+        content: @fa-var-info;
+    }
+
+    .switch-tools:before {
+        content: @fa-var-wrench;
+    }
 
     .switch-legend:before,
     .switch-tools:before {
         .border1px;
-        display: flex;
-        align-items: center;
+        display        : flex;
+        align-items    : center;
         justify-content: center;
-        width: @switchH;
-        height: @switchH;
-        border-radius: @switchH;
-        background: #fff;
-        cursor: default;
+        width          : @switchH;
+        height         : @switchH;
+        border-radius  : @switchH;
+        background     : #fff;
+        cursor         : default;
     }
 
     > div:hover:before {
-        color: #fff;
-        background: @green;
+        color       : #fff;
+        background  : @green;
         border-color: @green;
     }
 }

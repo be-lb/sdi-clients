@@ -3,45 +3,54 @@
 
     .map {
         height: 100%;
-        width: 100%;
+        width : 100%;
     }
 
     .map-scale {
         .absolute (initial, @small-margin, @small-margin, initial);
-        border:1px solid #000;
+        border: 1px solid #000;
 
         .map-scale-label {
             .absolute (-6px, -1px, initial, initial);
-            font-size: 8pt;
+            font-size  : 8pt;
             line-height: 0;
         }
+
         .map-scale-chess {
             display: flex;
+
             > div {
-                width: 50%;
+                width : 50%;
                 height: 6px;
             }
-            .white {background: #FFF; height: 3px;}
-            .black {background: #000; height: 3px;}
+
+            .white {
+                background: #FFF;
+                height    : 3px;
+            }
+
+            .black {
+                background: #000;
+                height    : 3px;
+            }
         }
     }
 
-
     .zoom {
         .absolute (auto, @small-margin, 32px, auto);
-        display: flex;
+        display        : flex;
         justify-content: center;
-        flex-direction: column;
-        
+        flex-direction : column;
+
         button {
-            font-family: @gui-font;
+            font-family     : @gui-font;
             background-color: @white;
-            border: 1px solid @grey;
-            margin: 2px 0;
-            font-size: 12pt;
-            font-weight: bold;
-            width: 2em;
-            height: 2em;
+            border          : 1px solid @grey;
+            margin          : 2px 0;
+            font-size       : 12pt;
+            font-weight     : bold;
+            width           : 37px;
+            height          : 37px;
 
             &.zoom-in {
                 &:before {
@@ -49,6 +58,7 @@
                     content: @fa-var-plus;
                 }
             }
+
             &.zoom-out {
                 &:before {
                     .awsomefont;
@@ -57,9 +67,9 @@
             }
 
             &:hover {
-                color: @white;
+                color           : @white;
                 background-color: @green;
-                border: 1px solid @green;
+                border          : 1px solid @green;
             }
 
             &:focus {
