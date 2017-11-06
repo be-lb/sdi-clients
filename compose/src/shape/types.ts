@@ -19,10 +19,10 @@ export enum AppLayout {
     LegendEditor,
     LegendEditorAndTable,
     FeatureConfig,
-    LayerViewAndInfo,
-    LayerViewAndRow,
-    LayerEditAndInfo,
-    LayerEditAndRow,
+    // LayerViewAndInfo,
+    // LayerViewAndRow,
+    // LayerEditAndInfo,
+    // LayerEditAndRow,
     Upload,
 }
 

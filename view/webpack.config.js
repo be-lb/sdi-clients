@@ -56,6 +56,7 @@ module.exports = {
             {
                 enforce: 'pre',
                 test: /\.js$/,
+                exclude: resolve(ROOT, '../node_modules/'),
                 loader: 'source-map-loader',
             },
             {
@@ -123,5 +124,6 @@ module.exports = {
         new ExtractTextPlugin("[name].css"),
     ],
     // devtool: 'inline-source-map',
-    devtool: 'cheap-module-eval-source-map',
+    // devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
 };

@@ -4,16 +4,15 @@
             "env",
             {
                 "targets": {
-                    "browsers": ["last 2 versions", "ie >= 10"],
-                    "uglify": true,
-                    "debug": true
-                },
-                "include": [
-                "transform-es2015-template-literals",
-                    "transform-es2015-arrow-functions",
-                    "es6.map"
-                ]
+                    "browsers": [
+                        "last 2 versions",
+                        "ie >= 10"
+                    ]
+                }
             }
         ]
+    ],
+    "plugins": [
+        "transform-es2015-template-literals"
     ]
 }

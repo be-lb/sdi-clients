@@ -84,13 +84,13 @@ export const trackerEventsFactory =
 export const viewEventsFactory =
     (dispatch: Setter<IMapViewData>) => ({
         updateMapView(data: IViewEvent): void {
-            dispatch((viewState) => {
-                viewState.dirty = (data.dirty !== undefined) ? data.dirty : viewState.dirty;
-                viewState.center = data.center || viewState.center;
-                viewState.rotation = data.rotation || viewState.rotation;
-                viewState.zoom = data.zoom || viewState.zoom;
-                return viewState;
-            });
+            dispatch(viewState => ({
+                dirty: (data.dirty !== undefined) ? data.dirty : viewState.dirty,
+                center: data.center || viewState.center,
+                rotation: data.rotation || viewState.rotation,
+                zoom: data.zoom || viewState.zoom,
+                srs: viewState.srs,
+            }));
         },
     });
 

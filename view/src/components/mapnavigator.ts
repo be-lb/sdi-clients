@@ -56,7 +56,7 @@ export const searchField = () => (
             type: 'search',
             name: 'search',
             placeholder: tr('searchAtlas'),
-            onChange: e => queryMaps(e.target.value.trim()),
+            onChange: e => queryMaps(e.currentTarget.value.trim()),
         }))
 );
 

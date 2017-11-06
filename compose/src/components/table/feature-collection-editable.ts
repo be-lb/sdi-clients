@@ -19,7 +19,7 @@ import * as debug from 'debug';
 import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
 import { base } from './base';
 import queries from '../../queries/table';
-import events from '../../events/layer-editor';
+// import events from '../../events/layer-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import { fromRecord } from 'sdi/locale';

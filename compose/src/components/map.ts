@@ -25,9 +25,9 @@ import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import mapQueries from '../queries/map';
 import mapEvents from '../events/map';
-import layerQueries from '../queries/layer-editor';
-import layerEvents from '../events/layer-editor';
-import { button } from './button';
+// import layerQueries from '../queries/layer-editor';
+// import layerEvents from '../events/layer-editor';
+// import { button } from './button';
 
 const logger = debug('sdi:comp:map');
 const mapId = 'be-sdi-this-is-the-map';
@@ -79,8 +79,8 @@ const scaleline = () => {
 };
 
 
-const addButton = button('add', 'add');
-const selectButton = button('select');
+// const addButton = button('add', 'add');
+// const selectButton = button('select');
 
 const render = () => {
     if (mapUpdate) {
@@ -89,21 +89,21 @@ const render = () => {
 
     const overlays: ReactNode[] = [];
 
-    if (!layerQueries.isReadonly()) {
-        const mode = mapQueries.getEditableMode();
-        if ('select' === mode) {
-            overlays.push(
-                DIV({ className: 'map-mode' }, addButton(() => {
-                    layerEvents.setCreateMode();
-                })));
-        }
-        else if ('create' === mode) {
-            overlays.push(
-                DIV({ className: 'map-mode' }, selectButton(() => {
-                    layerEvents.setSelectMode();
-                })));
-        }
-    }
+    // if (!layerQueries.isReadonly()) {
+    //     const mode = mapQueries.getEditableMode();
+    //     if ('select' === mode) {
+    //         overlays.push(
+    //             DIV({ className: 'map-mode' }, addButton(() => {
+    //                 layerEvents.setCreateMode();
+    //             })));
+    //     }
+    //     else if ('create' === mode) {
+    //         overlays.push(
+    //             DIV({ className: 'map-mode' }, selectButton(() => {
+    //                 layerEvents.setSelectMode();
+    //             })));
+    //     }
+    // }
 
     overlays.push(scaleline());
 
