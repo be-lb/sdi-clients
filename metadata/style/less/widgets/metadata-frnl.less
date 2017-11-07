@@ -11,9 +11,10 @@
     textarea {
         width: 100%;
         resize: vertical;
-        height: 100%;
-        padding: @small-margin;
+        height: calc(~"100% - 130px");
+        padding: @small-margin * 2;
         margin-bottom: 0;
+        font-family: @gui-font;
     }
 
     .app-col-main {
