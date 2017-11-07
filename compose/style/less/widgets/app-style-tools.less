@@ -16,12 +16,15 @@
         margin-top: -2px;
         margin-bottom: @margin;
         letter-spacing: -0.75px;
-        overflow-wrap: break-word;
+        // overflow-wrap: break-word;
+        // word-break: break-all;
+        word-wrap: break-word;
         line-height: 100%;
         }
 
     .table, .map {
-        float: right;
+        // float: right;
+        .absolute(calc(~"@{headerH} + 2 * @{small-margin}"), auto, auto, 0px);
         &:before {
             .awsomefont;
             content: @fa-var-table;
