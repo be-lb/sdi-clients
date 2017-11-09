@@ -15,13 +15,29 @@
  */
 
 import { dispatchK, observe } from 'sdi/shape';
-import { initialTableState, tableEvents } from 'sdi/components/table';
+import { initialTableState, tableEvents, TableDataRow } from 'sdi/components/table';
+
+import appQueries from '../queries/app';
+import appEvents from './app';
 
 const table = dispatchK('component/table');
 
 observe('app/current-layer', () => {
     table(initialTableState);
 });
+
+export const selectFeature =
+    (row: TableDataRow) => {
+        const { metadata } = appQueries.getCurrentLayerInfo();
+        if (metadata) {
+            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
+            if (layer) {
+                const feature = layer.features[row.from as number];
+                appEvents.setCurrentFeatureData(feature);
+            }
+        }
+    };
+
 
 export const layerTableEvents = tableEvents(table);
 export const metadataTableEvents = tableEvents(table);

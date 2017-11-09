@@ -46,8 +46,10 @@ import { getLang } from 'sdi/app';
 
 import { syncMap } from '../util/app';
 import queries from '../queries/app';
-import appEvents from '../events/app';
 import { initialFeatureConfigState } from '../components/feature-config/index';
+import { fromNullable } from 'monocle-ts/node_modules/fp-ts/lib/Option';
+import { getSource } from '../queries/table';
+import { selectFeature, selectFeatureRow } from './table';
 
 
 const defaultRowConfig =
@@ -138,15 +140,13 @@ const updateConfigRow =
 
 const events = {
     ensureSelectedFeature() {
-        if (queries.getCurrentFeature === null) {
-            const lid = queries.getCurrentLayerId();
-
-            if (lid) {
-                const layer = queries.getLayerData(lid);
-                if (layer) {
-                    appEvents.setCurrentFeatureData(layer.features[0]);
+        if (queries.getCurrentFeature() === null) {
+            fromNullable(getSource().data).map((data) => {
+                if (data.length > 0) {
+                    selectFeatureRow(0);
+                    selectFeature(data[0]);
                 }
-            }
+            })
         }
     },
 

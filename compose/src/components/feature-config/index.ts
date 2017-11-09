@@ -16,16 +16,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import config from './config';
-import { AppLayout } from '../../shape/types';
+import * as debug from 'debug';
+
 import { DIV } from 'sdi/components/elements';
-import { button } from '../button';
 import tr from 'sdi/locale';
+
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import { getSelectedFeature, getFeatureRow } from '../../queries/table';
 import { selectFeatureRow } from '../../events/table';
-import * as debug from 'debug';
+import { AppLayout } from '../../shape/types';
+import { button } from '../button';
+import config from './config';
 
 const logger = debug('sdi:feature-config');
 

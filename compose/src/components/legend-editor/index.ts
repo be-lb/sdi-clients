@@ -16,25 +16,25 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ChangeEvent } from 'react';
+
 import { DIV, H1, SPAN, INPUT } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
+import { StyleConfig, SubType, isContinuous } from 'sdi/source';
+
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import featureConfigEvents from '../../events/feature-config';
-import tr, { fromRecord } from 'sdi/locale';
 import selectMain from './select-main';
-// import selectItem from './select-item';
 import selectType from './select-type';
 import toolsMain from './tools-main';
-// import toolsSide from './tools-side';
 import continuous from './select-item-continuous';
 import discrete from './select-item-discrete';
-import { StyleConfig, SubType, isContinuous } from 'sdi/source';
 import { AppLayout } from '../../shape/types';
 import { button, remove } from '../button';
 import { renderLabelOnly } from './tool-point';
-import { ChangeEvent } from 'react';
 
 export type LegendPage = 'legend' | 'tools';
 
@@ -252,7 +252,7 @@ const render = () => {
     if (!info) {
         return DIV({ className: 'app-split-wrapper legend-builder' });
     }
-
+    featureConfigEvents.ensureSelectedFeature();
     return (
         DIV({ className: 'app-split-wrapper legend-builder' },
             renderHeader(queries.getLegendType(),

@@ -17,17 +17,12 @@
 
 import * as debug from 'debug';
 
-import {
-    SelectRowHandler,
-    TableDataRow,
-    baseTable,
-} from 'sdi/components/table';
+import { baseTable } from 'sdi/components/table';
 import { DIV } from 'sdi/components/elements';
 
 import { layerTableQueries } from '../../queries/table';
-import { layerTableEvents } from '../../events/table';
+import { layerTableEvents, selectFeature } from '../../events/table';
 import appQueries from '../../queries/app';
-import appEvents from '../../events/app';
 import { fromRecord } from 'sdi/locale';
 
 const logger = debug('sdi:table/feature-collection');
@@ -39,25 +34,13 @@ const toolbar = () => {
         DIV({ className: 'table-title' }, layerName));
 };
 
-const onRowSelect: SelectRowHandler =
-    (row: TableDataRow) => {
-        const { metadata } = appQueries.getCurrentLayerInfo();
-        if (metadata) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-            if (layer) {
-                const feature = layer.features[row.from as number];
-                appEvents.setCurrentFeatureData(feature);
-            }
-        }
-    };
-
 
 const base = baseTable(layerTableQueries, layerTableEvents);
 
 const render = base({
     className: 'attr-headless-wrapper',
     toolbar,
-    onRowSelect,
+    onRowSelect: selectFeature,
 });
 
 export default render;
