@@ -22,7 +22,7 @@ import { DIV, SPAN, IMG } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PointStyleConfig, PointStyleConfigDiscrete, PointStyleConfigSimple, PointStyleConfigContinuous } from 'sdi/source';
 
-import appQueries from '../../queries/app';
+import { getDatasetMetadata } from '../../queries/metadata';
 
 const logger = debug('sdi:legend-point');
 
@@ -47,8 +47,9 @@ const renderSimple = (config: PointStyleConfigSimple, layerInfo: ILayerInfo, ctx
         olContext.setStyle(style);
         olContext.drawGeometry(pointGeometry);
     });
-    const md = appQueries.getDatasetMetadata(layerInfo.metadataId);
-    const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
+    const label = getDatasetMetadata(layerInfo.metadataId).fold(
+        () => '',
+        md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('point', canvas.toDataURL(), label)];
 };

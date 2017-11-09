@@ -16,13 +16,19 @@
  */
 
 import * as debug from 'debug';
-import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
-import { base } from './base';
-import queries from '../../queries/table';
+
+import {
+    SelectRowHandler,
+    TableDataRow,
+    baseTable,
+} from 'sdi/components/table';
+import { DIV } from 'sdi/components/elements';
+
+import { layerTableQueries } from '../../queries/table';
+import { layerTableEvents } from '../../events/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import { fromRecord } from 'sdi/locale';
-import { DIV } from 'sdi/components/elements';
 
 const logger = debug('sdi:table/feature-collection');
 
@@ -45,11 +51,11 @@ const onRowSelect: SelectRowHandler =
         }
     };
 
+
+const base = baseTable(layerTableQueries, layerTableEvents);
+
 const render = base({
     className: 'attr-headless-wrapper',
-    loadData: queries.loadLayerData,
-    loadKeys: queries.loadLayerKeys,
-    loadTypes: queries.loadLayerTypes,
     toolbar,
     onRowSelect,
 });
@@ -57,4 +63,3 @@ const render = base({
 export default render;
 
 logger('loaded');
-

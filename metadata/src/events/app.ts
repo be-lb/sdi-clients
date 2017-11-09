@@ -54,13 +54,7 @@ const inspireS: Setoid<Inspire> = {
 
 const uniqInspire = uniq(inspireS);
 
-const t =
-    <A, B, R>(l: string, f: ((a?: A, b?: B) => R), a?: A, b?: B) => {
-        const s = Date.now();
-        const r = f(a, b);
-        logger(`${l}: ${Date.now() - s}`);
-        return r;
-    }
+
 
 const events = {
 
@@ -93,7 +87,7 @@ const events = {
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
             (mds) => {
                 dispatch('data/datasetMetadata',
-                    state => t('uniq', uniqInspire, state.concat(mds)));
+                    state => uniqInspire(state.concat(mds)));
                 dispatch('component/table',
                     ts => ({ ...ts, loaded: 'loading' }));
             },

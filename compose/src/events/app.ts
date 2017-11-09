@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -17,6 +16,7 @@
 
 import * as debug from 'debug';
 import * as uuid from 'uuid';
+import { Setoid } from 'fp-ts/lib/Setoid';
 
 import { dispatch, observe } from 'sdi/shape';
 import {
@@ -26,11 +26,11 @@ import {
     IMapBaseLayer,
     IMapInfo,
     Inspire,
-    IUser,
     MessageRecord,
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 import { addLayer, removeLayerAll } from 'sdi/map';
+import { uniq } from 'sdi/util';
 
 import {
     fetchAlias,
@@ -61,17 +61,25 @@ export const toDataURL = (f: File) => {
     });
 };
 
-observe('data/user', (user: IUser) => {
-    if (user) {
-        logger(`user changed, loading maps ${user.maps}`);
-        user.maps.forEach((mid) => {
-            events.loadMap(getApiUrl(`maps/${mid}`));
-        });
-        user.layers.forEach((lid) => {
-            events.loadDatasetMetadata(lid, getApiUrl(`dataset-metadata/${lid}`));
-        });
+const inspireS: Setoid<Inspire> = {
+    equals(a, b) {
+        return a.id === b.id;
     }
-});
+};
+
+const uniqInspire = uniq(inspireS);
+
+// observe('data/user', (user: IUser) => {
+//     if (user) {
+//         logger(`user changed, loading maps ${user.maps}`);
+//         user.maps.forEach((mid) => {
+//             events.loadMap(getApiUrl(`maps/${mid}`));
+//         });
+//         user.layers.forEach((lid) => {
+//             events.loadDatasetMetadata(getApiUrl(`dataset-metadata/${lid}`));
+//         });
+//     }
+// });
 
 
 
@@ -146,8 +154,11 @@ const events = {
     loadUser(url: string) {
         fetchUser(url)
             .then((user) => {
-                logger(`got user`)
+                logger(`got user`);
                 dispatch('data/user', () => user);
+                user.maps.forEach((mid) => {
+                    events.loadMap(getApiUrl(`maps/${mid}`));
+                });
             });
     },
 
@@ -209,28 +220,27 @@ const events = {
             });
     },
 
-
-    loadDatasetMetadata(id: string, url: string) {
+    loadDatasetMetadata(url: string) {
         fetchDatasetMetadata(url)
-            .then((datasetMetadata) => {
-                dispatch('data/datasetMetadata', (state) => {
-                    if (!(id in state)) {
-                        state[id] = datasetMetadata;
-                    }
-
-                    return state;
-                });
-            });
+            .then(md =>
+                dispatch('data/datasetMetadata',
+                    state => state.filter(i => i.id !== md.id).concat([md])));
     },
 
     loadAllDatasetMetadata() {
+        dispatch('component/table',
+            ts => ({ ...ts, loaded: 'loading' }));
+
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
-            mds =>
-                dispatch('data/datasetMetadata', (state) => {
-                    mds.forEach(md => state[md.id] = md);
-                    return state;
-                })
-        );
+            (mds) => {
+                dispatch('data/datasetMetadata',
+                    state => uniqInspire(state.concat(mds)));
+                dispatch('component/table',
+                    ts => ({ ...ts, loaded: 'loading' }));
+            },
+            () =>
+                dispatch('component/table',
+                    ts => ({ ...ts, loaded: 'done' })));
     },
 
 

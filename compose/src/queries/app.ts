@@ -19,6 +19,8 @@ import { query } from 'sdi/shape';
 import { getMessageRecord } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
 
+import { getDatasetMetadata } from './metadata';
+
 
 
 const queries = {
@@ -58,14 +60,6 @@ const queries = {
         return maps.find(m => m.id === mid);
     },
 
-    getDatasetMetadata(id: string) {
-        const collection = query('data/datasetMetadata');
-        if (id in collection) {
-            return collection[id];
-        }
-        return null;
-    },
-
     getMapInfo() {
         const mid = query('app/current-map');
         const info = query('data/maps').find(m => m.id === mid);
@@ -79,14 +73,14 @@ const queries = {
             const layers = info.layers;
             const layerInfo = layers.find(l => l.id === layerId);
             if (layerInfo) {
-                const metadata = queries.getDatasetMetadata(layerInfo.metadataId);
-                if (metadata) {
-                    return {
+                return getDatasetMetadata(layerInfo.metadataId).fold<SyntheticLayerInfo>(
+                    () => ({ name: null, info: null, metadata: null }),
+                    metadata => ({
                         name: getMessageRecord(metadata.resourceTitle),
                         info: layerInfo,
                         metadata,
-                    };
-                }
+                    })
+                );
             }
         }
         return { name: null, info: null, metadata: null };

@@ -23,6 +23,7 @@ import {
     TableDataRow,
     TableDataType,
     tableQueries,
+    emptySource,
 } from 'sdi/components/table';
 
 import appQueries from './app';
@@ -114,14 +115,12 @@ const getLayerTypes =
     }
 
 export const getSource =
-    () => getLayerOption().fold(
-        () => ({ data: [], keys: [], types: [] }),
+    () => getLayerOption().fold(emptySource,
         layer => ({
             data: getLayerData(layer),
             keys: getLayerKeys(layer),
             types: getLayerTypes(layer),
-        })
-    )
+        }))
 
 
 

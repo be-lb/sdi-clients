@@ -22,7 +22,7 @@ import { polygonStyle, getContext, IOLContext } from 'sdi/map/style';
 import { DIV, SPAN, IMG } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 
-import appQueries from '../../queries/app';
+import { getDatasetMetadata } from '../../queries/metadata';
 
 const logger = debug('sdi:legend-polygon');
 
@@ -51,8 +51,9 @@ const renderSimple = (config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, c
         olContext.setStyle(style);
         olContext.drawGeometry(polygonGeometry);
     });
-    const md = appQueries.getDatasetMetadata(layerInfo.metadataId);
-    const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
+    const label = getDatasetMetadata(layerInfo.metadataId).fold(
+        () => '',
+        md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('polygon', canvas.toDataURL(), label)];
 };

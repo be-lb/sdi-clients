@@ -17,6 +17,7 @@
 
 import * as io from 'io-ts';
 import { some, fromNullable, none } from 'fp-ts/lib/Option';
+import { Task } from 'fp-ts/lib/Task';
 
 const headers = new Headers();
 headers.append('Content-Type', 'application/json');
@@ -73,6 +74,8 @@ export const fetchIO =
                 })
         );
     };
+
+
 
 const makePageType =
     <T>(ioType: io.Type<T>) =>
@@ -169,4 +172,9 @@ export const deleteIO =
         );
     };
 
+
+
+export const taskFetchIO =
+    <T>(ioType: io.Type<T>, url: string, getOptions: RequestInit = {}) =>
+        new Task(() => fetchIO(ioType, url, getOptions));
 

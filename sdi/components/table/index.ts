@@ -74,6 +74,9 @@ export interface TableSource {
     types: TableDataType[];
 }
 
+export const emptySource =
+    (): TableSource => ({ data: [], keys: [], types: [] });
+
 export interface Config {
     className: string;
     // loadData: LoadDataFn;

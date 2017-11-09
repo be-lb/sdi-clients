@@ -24,7 +24,7 @@ import tr from 'sdi/locale';
 
 
 import map from './components/map';
-import tableAttributes from './components/table/feature-collection-headless';
+import tableAttributes from './components/table/features';
 // import tableAttributesEditable from './components/table/feature-collection-editable';
 import tableLayers from './components/table/layers';
 import tableInspire from './components/table/inspire';

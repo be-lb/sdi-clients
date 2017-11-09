@@ -21,12 +21,13 @@ import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { DIV, SPAN, H1, A } from 'sdi/components/elements';
 import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
+import { scopeOption } from 'sdi/lib';
 
-import { getSelectedRow } from '../../queries/table';
-import appQueries from '../../queries/app';
+import { getSelectedMetadataRow, getDatasetMetadata } from '../../queries/metadata';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:table/inspire');
 
@@ -58,47 +59,41 @@ const renderContact = (ro: ResponsibleOrganisation) => (
 );
 
 
-const renderInspireMD = (i: Inspire) => {
-    return (
-        DIV({ className: 'inspire-wrapper' },
-            DIV({ className: 'inspire-content' },
-                DIV({ className: 'inspire-selected-items' },
-                    H1({}, renderFreeText(i.resourceTitle)),
-                    DIV({}, i.topicCategory.map(a => SPAN({}, a))),
-                    DIV({}, i.geometryType),
-                    DIV({},
-                        SPAN({}, tr('lastModified')), renderTemporalReference(i.temporalReference)),
-                    DIV({ className: 'abstract' }, renderFreeText(i.resourceAbstract)),
-                    DIV({},
-                        SPAN({ className: 'label' }, tr('responsibleAndContact')),
-                        i.responsibleOrganisation.map(renderContact))),
-                // DIV({ className: 'inspire-other-items' }, 'TODO')
-            ),
-            // goButton(() => {
-            //     layerEvents.view(i);
-            // }),
-            okButton(() => {
-                appEvents.addMapLayer(i);
-                appEvents.resetLegendEditor();
-                appEvents.setLayout(AppLayout.LegendEditor);
-                appEvents.loadLayer(i.uniqueResourceIdentifier,
-                    getApiUrl(
-                        `layers/${i.uniqueResourceIdentifier}`));
-            }))
-    );
-};
+const renderInspireMD = (i: Inspire) => (
+    DIV({ className: 'inspire-wrapper' },
+        DIV({ className: 'inspire-content' },
+            DIV({ className: 'inspire-selected-items' },
+                H1({}, renderFreeText(i.resourceTitle)),
+                DIV({}, i.topicCategory.map(a => SPAN({}, a))),
+                DIV({}, i.geometryType),
+                DIV({},
+                    SPAN({}, tr('lastModified')), renderTemporalReference(i.temporalReference)),
+                DIV({ className: 'abstract' }, renderFreeText(i.resourceAbstract)),
+                DIV({},
+                    SPAN({ className: 'label' }, tr('responsibleAndContact')),
+                    i.responsibleOrganisation.map(renderContact))),
+            // DIV({ className: 'inspire-other-items' }, 'TODO')
+        ),
+        // goButton(() => {
+        //     layerEvents.view(i);
+        // }),
+        okButton(() => {
+            appEvents.addMapLayer(i);
+            appEvents.resetLegendEditor();
+            appEvents.setLayout(AppLayout.LegendEditor);
+            appEvents.loadLayer(i.uniqueResourceIdentifier,
+                getApiUrl(
+                    `layers/${i.uniqueResourceIdentifier}`));
+        }))
+);
 
-const render = () => {
-    const row = getSelectedRow();
-    if (null === row) {
-        return DIV({ className: 'inspire-wrapper' });
-    }
-    const md = appQueries.getDatasetMetadata(row.cells[0]);
-    if (null === md) {
-        return DIV({ className: 'inspire-wrapper' });
-    }
-    return renderInspireMD(md);
-};
+const render =
+    () => scopeOption()
+        .let('row', fromNullable(getSelectedMetadataRow()))
+        .let('md', ({ row }) => getDatasetMetadata(row.from as string))
+        .fold(
+        () => DIV({ className: 'inspire-wrapper empty' }),
+        ({ md }) => renderInspireMD(md));
 
 export default render;
 

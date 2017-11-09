@@ -91,7 +91,7 @@ export const main =
             'data/layers': {},
             'data/maps': [],
             'data/alias': null,
-            'data/datasetMetadata': {},
+            'data/datasetMetadata': [],
             'data/timeseries': {},
             'data/categories': [],
             'data/attachments': [],

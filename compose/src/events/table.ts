@@ -23,10 +23,13 @@ observe('app/current-layer', () => {
     table(initialTableState);
 });
 
+export const layerTableEvents = tableEvents(table);
+export const metadataTableEvents = tableEvents(table);
 
-export const selectRow =
-    (idx: number) => tableEvents(table).select(idx);
+
+export const selectFeatureRow =
+    (idx: number) => layerTableEvents.select(idx);
 
 
-export const resetTable=
-    () => tableEvents(table).reset();
+export const resetLayerTable =
+    () => layerTableEvents.reset();

@@ -23,10 +23,11 @@ import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
 import queries from '../../queries/app';
 import events from '../../events/app';
-import { resetTable } from '../../events/table';
+import { resetLayerTable } from '../../events/table';
 import legendEvents from '../../events/legend-editor';
 import { AppLayout } from '../../shape/types';
 import { button, remove } from '../button';
+import { getDatasetMetadata } from '../../queries/metadata';
 
 
 const addButton = button('add');
@@ -70,7 +71,9 @@ const renderLegendItem =
 
 const renderEditButton =
     (info: ILayerInfo) => {
-        const md = queries.getDatasetMetadata(info.metadataId);
+        const md = getDatasetMetadata(info.metadataId).fold(
+            () => null,
+            md => md);
         const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
         const wrap = wrapItem(md);
         return (
@@ -156,7 +159,7 @@ const renderAddButton =
     () => {
         return (
             addButton(() => {
-                resetTable();
+                resetLayerTable();
                 events.setLayout(AppLayout.LayerSelect);
             })
         );

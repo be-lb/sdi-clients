@@ -14,30 +14,29 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query, queryK } from 'sdi/shape';
-import { TableDataRow, TableDataType, tableQueries } from 'sdi/components/table';
-import { fromRecord, formatDate } from 'sdi/locale';
-import { FeatureCollection, Feature, TemporalReference, FreeText, isAnchor, isTemporalExtent, Properties } from 'sdi/source';
+import { fromNullable } from 'fp-ts/lib/Option';
+
+import { queryK } from 'sdi/shape';
+import {
+    TableDataRow,
+    TableDataType,
+    tableQueries,
+    emptySource,
+} from 'sdi/components/table';
+import {
+    FeatureCollection,
+    Feature,
+    Properties,
+} from 'sdi/source';
 import { getLayerPropertiesKeys } from 'sdi/util';
 
 import appQueries from './app';
 
-const table = queryK('component/table');
 
-export const getSelected =
-    () => tableQueries(table).getSelected();
+// Layer / FeatureCollection
 
-export const getRow =
-    (idx: number) => tableQueries(table).getRow(idx);
-
-
-export const getSelectedRow =
-    () => getRow(getSelected());
-
-const queries = {
-    // Layer / FeatureCollection
-
-    getLayer(): FeatureCollection | null {
+export const getLayer =
+    (): FeatureCollection | null => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata !== null) {
             const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
@@ -47,56 +46,51 @@ const queries = {
             }
         }
         return null;
-    },
+    }
 
-    getFeatureData(numRow: number): Feature | null {
-        const layer = queries.getLayer();
+export const getLayerOption =
+    () => fromNullable(getLayer());
+
+export const getFeatureData =
+    (numRow: number): Feature | null => {
+        const layer = getLayer();
         if (layer && numRow >= 0 && numRow < layer.features.length) {
             return layer.features[numRow];
         }
         return null;
-    },
+    }
 
-    loadLayerKeys() {
-        const layer = queries.getLayer();
-        if (layer) {
-            return getLayerPropertiesKeys(layer);
-        }
-        return null;
-    },
+const getLayerData =
+    (layer: FeatureCollection): TableDataRow[] => {
+        const keys = getLayerKeys(layer);
+        const features = layer.features;
 
-    loadLayerData(): TableDataRow[] {
-        const layer = queries.getLayer();
-        const keys = queries.loadLayerKeys();
-        if (keys && layer && layer.features.length > 0) {
-            const features = layer.features;
+        return (
+            features.map<TableDataRow>((f, idx) => {
+                if ('properties' in f) {
+                    const props: Properties = f.properties;
+                    const row = keys.map((k) => {
+                        if (props && props[k] && props[k] != null) {
+                            return props[k].toString();
+                        }
 
-            return (
-                features.map<TableDataRow>((f, idx) => {
-                    if ('properties' in f) {
-                        const props: Properties = f.properties;
-                        const row = keys.map((k) => {
-                            if (props && props[k] && props[k] != null) {
-                                return props[k].toString();
-                            }
+                        return '';
+                    });
+                    return { from: idx, cells: row };
+                }
 
-                            return '';
-                        });
-                        return { from: idx, cells: row };
-                    }
+                return { from: -1, cells: [] };
+            }).filter(r => r.from >= 0)
+        );
+    }
 
-                    return { from: -1, cells: [] };
-                }).filter(r => r.from >= 0)
-            );
-        }
+const getLayerKeys =
+    (layer: FeatureCollection) => getLayerPropertiesKeys(layer);
 
-        return [];
-    },
-
-    loadLayerTypes(): TableDataType[] {
-        const layer = queries.getLayer();
-        const keys = queries.loadLayerKeys();
-        if (keys && layer && layer.features.length > 0) {
+const getLayerTypes =
+    (layer: FeatureCollection): TableDataType[] => {
+        const keys = getLayerKeys(layer);
+        if (layer.features.length > 0) {
             const row = layer.features[0].properties;
             if (row != null) {
                 return keys.map((k) => {
@@ -119,72 +113,27 @@ const queries = {
         }
 
         return [];
-    },
+    }
+
+export const getSource =
+    () => getLayerOption().fold(emptySource,
+        layer => ({
+            data: getLayerData(layer),
+            keys: getLayerKeys(layer),
+            types: getLayerTypes(layer),
+        }));
 
 
-    // layers list
-    loadLayerListKeys(): string[] {
-        return ([
-            'id',
-            'resourceTitle',
-            'temporalReference',
-            // 'topicCategory',
-            'responsibleOrganisation',
-        ]);
-    },
 
-    loadLayerListTypes(): TableDataType[] {
-        return ([
-            'string',
-            'string',
-            // 'string',
-            'string',
-            'string',
-        ]);
-    },
+export const layerTableQueries = tableQueries(queryK('component/table'), getSource);
 
-    loadLayerListData(): TableDataRow[] | null {
-        const mds = query('data/datasetMetadata');
-        const keys = Object.keys(mds);
-        if (0 === keys.length) {
-            return null;
-        }
-        const getFreeText = (ft: FreeText) => {
-            if (isAnchor(ft)) {
-                return fromRecord(ft.text);
-            }
+export const getSelectedFeature =
+    () => layerTableQueries.getSelected();
 
-            return fromRecord(ft);
-        };
+export const getFeatureRow =
+    (idx: number) => layerTableQueries.getRow(idx);
 
-        const getTemporalReference = (t: TemporalReference) => {
-            if (isTemporalExtent(t)) {
-                return formatDate(new Date(Date.parse(t.end)));
-            }
-            return formatDate(new Date(Date.parse(t.revision)));
+export const getSelectedFeatureRow =
+    () => getFeatureRow(getSelectedFeature());
 
-        };
 
-        return (
-            keys.map((id, from) => {
-                const md = mds[id];
-                const cells = [
-                    id,
-                    getFreeText(md.resourceTitle),
-                    getTemporalReference(md.temporalReference),
-                    // md.topicCategory.reduce((acc, t, i) => {
-                    //     const sep = i === 0 ? '' : ', ';
-                    //     return acc + sep + getFreeText(t.name);
-                    // }, ''),
-                    md.responsibleOrganisation.reduce((acc, ri, idx) => {
-                        const sep = idx === 0 ? '' : ', ';
-                        return acc + sep + getFreeText(ri.organisationName);
-                    }, ''),
-                ];
-                return { from, cells };
-            }));
-    },
-
-};
-
-export default queries;

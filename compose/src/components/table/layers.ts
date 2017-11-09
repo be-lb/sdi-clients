@@ -16,13 +16,14 @@
  */
 
 import * as debug from 'debug';
-import { SelectRowHandler } from 'sdi/components/table';
-import { base } from './base';
-import queries from '../../queries/table';
-// import appQueries from '../../queries/app';
-import appEvents from '../../events/app';
+
+import { SelectRowHandler, baseTable } from 'sdi/components/table';
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+
+import { metadataTableQueries } from '../../queries/metadata';
+import { metadataTableEvents } from '../../events/table';
+import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
 
@@ -39,16 +40,14 @@ const toolbar = () => {
 };
 
 const onRowSelect: SelectRowHandler =
-    () => {
+    (_row) => {
         appEvents.setLayout(AppLayout.LayerSelectAndInspire);
     };
 
 
+const base = baseTable(metadataTableQueries, metadataTableEvents);
 const render = base({
     className: 'layer-select-wrapper',
-    loadData: queries.loadLayerListData,
-    loadKeys: queries.loadLayerListKeys,
-    loadTypes: queries.loadLayerListTypes,
     toolbar,
     onRowSelect,
 });

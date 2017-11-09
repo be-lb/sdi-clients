@@ -22,7 +22,7 @@ import { DIV, SPAN, IMG } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, LineStyleConfig, LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfigContinuous } from 'sdi/source';
 
-import appQueries from '../../queries/app';
+import { getDatasetMetadata } from '../../queries/metadata';
 
 const logger = debug('sdi:legend-linestring');
 
@@ -48,8 +48,9 @@ const renderSimple = (config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx:
         olContext.setStyle(style);
         olContext.drawGeometry(lineGeometry);
     });
-    const md = appQueries.getDatasetMetadata(layerInfo.metadataId);
-    const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
+    const label = getDatasetMetadata(layerInfo.metadataId).fold(
+        () => '',
+        md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('line', canvas.toDataURL(), label)];
 };
