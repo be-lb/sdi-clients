@@ -78,7 +78,8 @@ const pie = (size: number, props: NotNullProperties, row: PiechartConfig) => {
     }
 
     const rawData = columns.map((c) => {
-        const v = props[c.propName];
+        const prop = props[c.propName];
+        const v = typeof prop === 'number' ? prop : parseFloat(prop);
         if (row.options.scale === 'log') {
             return log(v);
         }
