@@ -58,7 +58,7 @@ const displayException = (err: string) => {
 export const main =
     (SDI: any) => {
         if (!SDI.user) {
-            const loginUrl = `${SDI.root}login/metadata`;
+            const loginUrl = `${SDI.root}login/compose`;
             window.location.assign(loginUrl);
             return;
         }

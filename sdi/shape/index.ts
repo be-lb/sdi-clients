@@ -59,6 +59,10 @@ export const configure =
             () => { throw (new Error('StoreAlreadyConfigured')); });
 
 
+/**********
+ * Queries 
+ **********/
+
 export const query =
     <K extends keyof IShape>(key: K): IShape[K] =>
         getStore()
@@ -69,6 +73,30 @@ export const query =
 export const queryK =
     <K extends keyof IShape>(key: K) =>
         () => query(key);
+
+
+
+export const subscribe =
+    <K extends keyof IShape, T>(key: K, fn: (args: IShape[K]) => T) => {
+        let result: T;
+        let stall = true;
+        observe(key, () => stall = true);
+        const q =
+            () => {
+                if (stall) {
+                    result = fn(query(key));
+                    stall = false;
+                }
+                return result;
+            };
+
+        return q;
+    };
+
+
+/**********
+ * Events 
+ **********/
 
 export const dispatch =
     <K extends keyof IShape>(key: K, handler: IReducer<IShape, IShape[K]>): void =>

@@ -25,6 +25,7 @@ import {
     TableEventSet,
 } from './index';
 import { DIV, INPUT, SPAN } from './../elements';
+import { rect } from '../../app';
 import tr from '../../locale';
 import buttonFactory, { ButtonComponent } from '../button';
 
@@ -91,10 +92,10 @@ export const baseTable =
 
 
         const renderRowNum =
-            (rowNum: number) => (
+            (rowNum: number, key: string | number) => (
                 DIV(
                     {
-                        key: rowNum,
+                        key,
                         className: 'table-row-num',
                         style: {
                             display: 'none',
@@ -137,10 +138,10 @@ export const baseTable =
                     return DIV(
                         {
                             key: data.from,
-                            className: `${evenOdd} ${selected}`,
+                            className: `${selected} ${evenOdd}`,
                             onClick: selectRow(config, rowNum),
                         },
-                        renderRowNum(rowNum),
+                        renderRowNum(rowNum, data.from),
                         ...data.cells.map(
                             renderCell(types, widths, selectCell(config, rowNum))));
                 };
@@ -258,7 +259,11 @@ export const baseTable =
                                 renderRow(offset, types, widths, config)))));
                 };
 
-
+        const rectify = rect((r) => {
+            events.setViewHeight(r.height);
+            events.setTableWindowSize(
+                Math.ceil(r.height / queries.rowHeight()));
+        })
 
         const render =
             (config: Config) => {
@@ -271,10 +276,7 @@ export const baseTable =
                      */
                     if (el) {
                         scrollWrapperRef = el;
-                        const rect = el.getBoundingClientRect();
-                        events.setViewHeight(rect.height);
-                        events.setTableWindowSize(
-                            Math.ceil(rect.height / queries.rowHeight()));
+                        rectify(el);
                     }
                     else {
                         scrollWrapperRef = null;
@@ -285,45 +287,54 @@ export const baseTable =
 
                 return (() => {
 
-                    if (queries.isLoaded()) {
-                        const window = queries.tableWindow();
-                        const data = queries.getData(window);
-                        const types = queries.getTypes();
-                        const filters = queries.getFilters();
+                    // if (queries.isLoaded()) {
+                    const window = queries.tableWindow();
+                    const data = queries.getData(window);
+                    const types = queries.getTypes();
+                    const filters = queries.getFilters();
 
-                        if (scrollWrapperRef && window.autoScroll) {
-                            scrollWrapperRef.scrollTop = window.offset * queries.rowHeight();
-                            events.clearAutoScroll();
-                        }
-                        const children: React.ReactNode[] = [];
-                        if (config.toolbar) {
-                            children.push(config.toolbar());
-                        }
+                    if (scrollWrapperRef && window.autoScroll) {
+                        scrollWrapperRef.scrollTop = window.offset * queries.rowHeight();
+                        events.clearAutoScroll();
+                    }
+                    const children: React.ReactNode[] = [];
+                    if (config.toolbar) {
+                        children.push(config.toolbar());
+                    }
 
-                        if (filters.length > 0) {
-                            const close = closeButton(() => events.searchClose());
-                            children.push(
-                                DIV({ className: 'table-search' },
-                                    ...filters.map(renderFilter), close));
-                        }
-
+                    if (filters.length > 0) {
+                        const close = closeButton(() => events.searchClose());
                         children.push(
-                            DIV({ className: 'table-main' },
-                                renderTableHeader(types, cellWidths()),
-                                renderBody(data, window.offset, types)));
+                            DIV({ className: 'table-search' },
+                                ...filters.map(renderFilter), close));
+                    }
 
-                        return (
-                            DIV({ className: 'infinite-table' },
-                                ...children));
+                    children.push(
+                        DIV({ className: 'table-main' },
+                            renderTableHeader(types, cellWidths()),
+                            renderBody(data, window.offset, types)));
+
+                    if (queries.isLoaded() === 'loading') {
+                        children.push(
+                            DIV({ className: 'loading' },
+                                SPAN({ className: 'loader-spinner' }),
+                                SPAN({ className: 'loading-label' },
+                                    tr('loadingData')))
+                        )
                     }
-                    else {
-                        const { loadData, loadKeys, loadTypes } = config;
-                        events.loadData(loadData, loadKeys, loadTypes);
-                        return DIV({ className: 'infinite-table loading' },
-                            SPAN({ className: 'loader-spinner' }),
-                            SPAN({ className: 'loading-label' },
-                                tr('loadingData')));
-                    }
+
+                    return (
+                        DIV({ className: 'infinite-table' },
+                            ...children));
+                    // }
+                    // else {
+                    //     const { loadData, loadKeys, loadTypes } = config;
+                    //     events.loadData(loadData, loadKeys, loadTypes);
+                    //     return DIV({ className: 'infinite-table loading' },
+                    //         SPAN({ className: 'loader-spinner' }),
+                    //         SPAN({ className: 'loading-label' },
+                    //             tr('loadingData')));
+                    // }
                 });
             };
 

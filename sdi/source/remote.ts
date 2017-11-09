@@ -102,11 +102,13 @@ export const fetchPaginatedIO =
                         }));
 
         const loop =
-            (f: (a: T[]) => void) =>
+            (f: (a: T[]) => void, end: () => void) =>
                 fetchPage()
-                    .map(p => p.then((results) => {
+                    .fold(
+                    () => end(),
+                    p => p.then((results) => {
                         f(results);
-                        loop(f);
+                        loop(f, end);
                     }));
 
         return loop;

@@ -87,10 +87,19 @@ const events = {
     },
 
     loadAllDatasetMetadata() {
+        dispatch('component/table',
+            ts => ({ ...ts, loaded: 'loading' }));
+
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
-            mds =>
+            (mds) => {
                 dispatch('data/datasetMetadata',
-                    state => t('uniq', uniqInspire, state.concat(mds))));
+                    state => t('uniq', uniqInspire, state.concat(mds)));
+                dispatch('component/table',
+                    ts => ({ ...ts, loaded: 'loading' }));
+            },
+            () =>
+                dispatch('component/table',
+                    ts => ({ ...ts, loaded: 'done' })));
     },
 
     loadAllTopic() {

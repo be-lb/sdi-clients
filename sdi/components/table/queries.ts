@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { compose } from 'fp-ts/lib/function';
+
 import {
     Filter,
     ITableSort,
@@ -22,6 +24,8 @@ import {
     TableWindow,
     TableQuerySet,
     TableGetter,
+    TableSourceGetter,
+    SortDirection,
 } from './index';
 
 
@@ -30,30 +34,89 @@ type RFilter = {
     pat: RegExp;
 };
 
+interface numberSortMapEntry { index: number; value: number; }
+interface stringSortMapEntry { index: number; value: string; }
+
+type sortMapEntry = numberSortMapEntry | stringSortMapEntry;
+
+const makeSortMap = (sortList: sortMapEntry[], direction: SortDirection) => {
+    const sortMap = sortList.sort((a: sortMapEntry, b: sortMapEntry) => (+(a.value > b.value) || +(a.value === b.value) - 1));
+    if (direction === SortDirection.descending) {
+        sortMap.reverse();
+    }
+
+    return sortMap;
+};
+
+// Attach a sort column to the table.
+const stringSort = (data: TableDataRow[], col: number, direction: SortDirection) => {
+    const treated = data.map((r, k) => ({ index: k, value: r.cells[col].toLowerCase() }));
+    return makeSortMap(treated, direction);
+};
+
+/**
+ * Sort data by selected column as numbers
+ * @param data TableDataRow[]
+ * @param col column name string
+ * @param direction SortDirection
+ */
+const numberSort = (data: TableDataRow[], col: number, direction: SortDirection) => {
+    const treated = data.map((r, k) => ({ index: k, value: +(r.cells[col]) }));
+    return makeSortMap(treated, direction);
+};
+
 
 
 
 export const tableQueries =
-    (getTable: TableGetter): TableQuerySet => {
+    (getTable: TableGetter, getSource: TableSourceGetter): TableQuerySet => {
 
         const filter =
-            (data: TableDataRow[], filters: Filter[]) => {
-                const fs: RFilter[] = filters.map(f => ({
-                    col: f[0],
-                    pat: new RegExp(`.*${f[1]}.*`, 'i'),
-                }));
-                return data.filter(row =>
-                    fs.map((f) => {
-                        const cell = row.cells[f.col];
-                        return f.pat.test(cell);
-                    }).reduce((acc, v) => !v ? v : acc, true));
-            };
+            (filters: Filter[]) =>
+                (data: TableDataRow[]) => {
+                    const fs: RFilter[] = filters.map(f => ({
+                        col: f[0],
+                        pat: new RegExp(`.*${f[1]}.*`, 'i'),
+                    }));
+                    return data.filter(row =>
+                        fs.map((f) => {
+                            const cell = row.cells[f.col];
+                            return f.pat.test(cell);
+                        }).reduce((acc, v) => !v ? v : acc, true));
+                };
+
+        const sorter =
+            (col: number | null, direction: SortDirection, types: string[]) =>
+                (data: TableDataRow[]) => {
+
+                    if (col !== null) {
+                        const type = types[col];
+                        let sortMap: sortMapEntry[] = [];
+
+                        if (type === 'number') {
+                            sortMap = numberSort(data, col, direction);
+                        }
+                        else {
+                            sortMap = stringSort(data, col, direction);
+                        }
+
+                        return sortMap.map(entry => data[entry.index]);
+                    }
+                    return data;
+                };
+
 
         const getFilteredData =
             () => {
-                const { search, data } = getTable();
-                return filter(data, search.filters);
+                const { data, types } = getSource();
+                const { search, sort } = getTable();
+                const f = filter(search.filters);
+                const g = sorter(sort.col, sort.direction, types);
+                const c = compose(g, f);
+                return c(data);
             };
+
+
 
         const queries = {
 
@@ -62,7 +125,7 @@ export const tableQueries =
             },
 
             getKeys(): string[] {
-                return getTable().keys;
+                return getSource().keys;
             },
 
             getFilters() {
@@ -73,7 +136,7 @@ export const tableQueries =
 
 
             getTypes(): TableDataType[] {
-                return getTable().types;
+                return getSource().types;
             },
 
             getSort(): ITableSort {

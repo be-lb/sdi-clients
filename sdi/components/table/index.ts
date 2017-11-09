@@ -48,16 +48,15 @@ export interface ITableSearch {
     resultMap: number[];
 }
 
+export type LoadingStatus = 'none' | 'loading' | 'done';
+
 export interface IDataTable {
-    data: TableDataRow[];
-    keys: TableDataKey[];
-    loaded: boolean;
+    loaded: LoadingStatus;
     position: { x: number, y: number };
     rowHeight: number;
     search: ITableSearch;
     selected: number;
     sort: ITableSort;
-    types: TableDataType[];
     viewHeight: number;
     window: TableWindow;
 }
@@ -69,11 +68,17 @@ export type ToolbarFn = () => DOMElement<{}, Element>;
 export type SelectRowHandler = (a: TableDataRow) => void;
 export type SelectCellHandler = (a: TableDataRow, b: number) => void;
 
+export interface TableSource {
+    data: TableDataRow[];
+    keys: string[];
+    types: TableDataType[];
+}
+
 export interface Config {
     className: string;
-    loadData: LoadDataFn;
-    loadKeys: LoadKeysFn;
-    loadTypes: LoadTypesFn;
+    // loadData: LoadDataFn;
+    // loadKeys: LoadKeysFn;
+    // loadTypes: LoadTypesFn;
 
     toolbar?: ToolbarFn;
     onRowSelect?: SelectRowHandler;
@@ -81,7 +86,7 @@ export interface Config {
 }
 
 export interface TableQuerySet {
-    isLoaded(): boolean;
+    isLoaded(): LoadingStatus;
     getKeys(): string[];
     getFilters(): [number, string][];
     getTypes(): TableDataType[];
@@ -105,7 +110,7 @@ export interface TableQuerySet {
 export interface TableEventSet {
     clearAutoScroll: () => void;
     highlightRow: (idx: number, scrollIntoView?: Boolean) => void;
-    loadData: (d: LoadDataFn, k: LoadKeysFn, t: LoadTypesFn) => void;
+    // loadData: (d: LoadDataFn, k: LoadKeysFn, t: LoadTypesFn) => void;
     reset: () => void;
     searchActivate: (col: number) => void;
     searchClose: () => void;
@@ -113,7 +118,7 @@ export interface TableEventSet {
     searchNext: () => void;
     searchPrev: () => void;
     select: (index: number) => void;
-    selectFrom: (from: number) => void;
+    // selectFrom: (from: number) => void;
     setTableWindowOffset: (offset: number) => void;
     setTableWindowSize: (size: number) => void;
     setViewHeight: (height: number) => void;
@@ -123,6 +128,7 @@ export interface TableEventSet {
 
 export type TableGetter = () => IDataTable;
 export type TableSetter = (h: (a: IDataTable) => IDataTable) => void;
+export type TableSourceGetter = () => TableSource;
 
 export const initialSearchState = (): ITableSearch => ({
     filters: [],
@@ -136,15 +142,12 @@ export const initialSortState = () => ({
 });
 
 export const initialTableState = (): IDataTable => ({
-    data: [],
-    keys: [],
     position: { x: 0, y: 0 },
-    loaded: false,
+    loaded: 'none',
     rowHeight: 19,
     search: initialSearchState(),
     selected: -1,
     sort: initialSortState(),
-    types: [],
     viewHeight: -1,
     window: { offset: 0, size: 100, autoScroll: false },
 });

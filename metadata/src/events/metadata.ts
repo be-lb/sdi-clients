@@ -3,8 +3,8 @@ import { fromNullable } from 'fp-ts/lib/Option';
 
 import { getApiUrl } from 'sdi/app';
 import { getMessageRecord, Inspire } from 'sdi/source';
-import { scope } from 'sdi/lib';
-import { dispatchK, dispatch, observe } from 'sdi/shape';
+import { scopeOption } from 'sdi/lib';
+import { dispatchK, dispatch } from 'sdi/shape';
 
 import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
 import { putMetadata } from '../remote';
@@ -56,7 +56,7 @@ const updateLocalSet =
 
 export const saveMdForm =
     () =>
-        scope()
+        scopeOption()
             .let('id', fromNullable(getMetadataId()))
             .let('md', s => getDatasetMetadata(s.id))
             .map(({ id, md }) => {
@@ -95,6 +95,6 @@ export const mdDraft =
         saveMdForm();
     };
 
-observe('data/datasetMetadata',
-    () => dispatch('component/table',
-        ts => ({ ...ts, loaded: false })));
+// observe('data/datasetMetadata',
+//     () => dispatch('component/table',
+//         ts => ({ ...ts, loaded: false })));

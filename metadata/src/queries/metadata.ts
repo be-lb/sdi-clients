@@ -1,14 +1,14 @@
 import * as debug from 'debug';
-import { query } from 'sdi/shape';
+import { query, subscribe } from 'sdi/shape';
 import { none, fromNullable } from 'fp-ts/lib/Option';
-import { TemporalReference, FreeText, isAnchor, isTemporalExtent } from 'sdi/source';
+import { TemporalReference, FreeText, isAnchor, isTemporalExtent, Inspire } from 'sdi/source';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
-import { TableDataType, TableDataRow } from 'sdi/components/table';
+import { TableDataType, TableDataRow, TableSource } from 'sdi/components/table';
 
 const logger = debug('sdi:queries/metadata');
 
 // metadata list
-export const loadLayerListKeys =
+const loadLayerListKeys =
     () => ([
         tr('layerId'),
         tr('publicationStatus'),
@@ -19,7 +19,7 @@ export const loadLayerListKeys =
         tr('responsibleOrganisation'),
     ]);
 
-export const loadLayerListTypes =
+const loadLayerListTypes =
     (): TableDataType[] => ([
         'string',
         'string',
@@ -38,12 +38,9 @@ export const getTemporalReference = (t: TemporalReference) => {
 
 };
 
-export const loadLayerListData =
-    (): TableDataRow[] | null => {
-        const mds = query('data/datasetMetadata');
-        if (mds.length < 1) {
-            return null;
-        }
+const getLayerListData =
+    (mds: Inspire[]): TableDataRow[] => {
+
         const getFreeText = (ft: FreeText) => {
             if (isAnchor(ft)) {
                 return fromRecord(ft.text);
@@ -73,6 +70,14 @@ export const loadLayerListData =
                 return { from: md.id, cells };
             }));
     };
+
+export const getTableSource =
+    subscribe('data/datasetMetadata', state => ({
+        data: getLayerListData(state),
+        keys: loadLayerListKeys(),
+        types: loadLayerListTypes(),
+    } as TableSource));
+
 
 export const getMdForm =
     () => query('component/single');

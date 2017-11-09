@@ -27,11 +27,7 @@ import {
     queryK,
     dispatchK,
 } from 'sdi/shape';
-import {
-    loadLayerListData,
-    loadLayerListKeys,
-    loadLayerListTypes,
-} from '../../queries/metadata';
+import { getTableSource } from '../../queries/metadata';
 import { selectMetadata } from '../../events/metadata';
 
 const logger = debug('sdi:table/layers');
@@ -47,13 +43,10 @@ const onRowSelect: SelectRowHandler =
 const tq = queryK('component/table');
 const te = dispatchK('component/table');
 
-const base = baseTable(tableQueries(tq), tableEvents(te));
+const base = baseTable(tableQueries(tq, getTableSource), tableEvents(te));
 
 const render = base({
     className: 'layer-select-wrapper',
-    loadData: loadLayerListData,
-    loadKeys: loadLayerListKeys,
-    loadTypes: loadLayerListTypes,
     onRowSelect,
 });
 

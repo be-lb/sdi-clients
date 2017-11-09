@@ -20,7 +20,7 @@ import { dispatch, observe, dispatchK } from 'sdi/shape';
 import { Feature, IMapInfo } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 import { getApiUrl } from 'sdi/app';
-import { scope } from 'sdi/lib';
+import { scopeOption } from 'sdi/lib';
 
 import { AppLayout } from '../shape/types';
 import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment } from '../remote';
@@ -167,10 +167,11 @@ const events = {
     setCurrentLayer(id: string) {
         dispatch('app/current-layer', () => id);
         dispatch('app/current-feature', () => null);
-        dispatch('component/table', (state) => {
-            state.selected = -1;
-            return state;
-        });
+        dispatch('component/table', state => ({
+            ...state,
+            selected: -1,
+            loaded: false,
+        }));
     },
 
     setCurrentFeature(data: Feature | null) {
@@ -190,7 +191,7 @@ const events = {
     setCurrentFeatureById(id: string | number) {
         const getFeature =
             (lid: string) =>
-                scope()
+                scopeOption()
                     .let('md', () => {
                         const { metadata } = queries.getLayerInfo(lid);
                         return fromNullable(metadata);
@@ -199,7 +200,7 @@ const events = {
                     .let('feature', s => fromNullable(s.data.features.find(f => f.id === id)))
                     .map(s => s.feature);
 
-        scope()
+        scopeOption()
             .let('mid', fromNullable(queries.getCurrentMap()))
             .let('cm', s => fromNullable(queries.getMap(s.mid)))
             .map(({ cm }) => cm.layers.forEach(

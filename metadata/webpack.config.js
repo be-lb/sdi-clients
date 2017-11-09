@@ -123,5 +123,5 @@ module.exports = {
     plugins: [
         new ExtractTextPlugin("[name].css"),
     ],
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
 };
