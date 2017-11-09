@@ -58,10 +58,11 @@ export const trackerEventsFactory =
         },
 
         stopTrack() {
-            dispatch(i => fromInteraction('track', i)
-                .fold(
-                () => i,
-                it => trackerEvent({ track: it.state.track })));
+            dispatch(defaultInteraction);
+            // dispatch(i => fromInteraction('track', i)
+            //     .fold(
+            //     () => i,
+            //     it => trackerEvent({ track: it.state.track })));
         },
 
         resetTrack() {

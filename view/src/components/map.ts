@@ -25,7 +25,7 @@ import { create, IMapOptions } from 'sdi/map';
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import { getView, getScaleLine, getInteraction } from '../queries/map';
-import { viewEvents, scalelineEvents, measureEvents } from '../events/map';
+import { viewEvents, scalelineEvents, measureEvents, trackerEvents } from '../events/map';
 import { AppLayout } from '../shape/types';
 
 const logger = debug('sdi:comp/map');
@@ -80,14 +80,24 @@ const attachMap =
                     setTarget,
                     selectable,
                     measurable,
+                    trackable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
                 appEvents.signalReadyMap();
+
                 selectable({ selectFeature }, getInteraction);
+
                 measurable({
                     updateMeasureCoordinates: measureEvents.updateMeasureCoordinates,
                     stopMeasuring: measureEvents.stopMeasure,
+                }, getInteraction);
+
+                trackable({
+                    resetTrack: trackerEvents.resetTrack,
+                    setCenter: center => viewEvents.updateMapView(
+                        { dirty: 'geo', center }),
+                    updateTrack: trackerEvents.updateTrack,
                 }, getInteraction);
             }
             if (element) {
