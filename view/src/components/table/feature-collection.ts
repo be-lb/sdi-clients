@@ -20,10 +20,10 @@ import * as debug from 'debug';
 import { getMessageRecord } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { DIV, SPAN } from 'sdi/components/elements';
-import { SelectRowHandler, TableDataRow } from 'sdi/components/table';
+import { SelectRowHandler, TableDataRow, baseTable } from 'sdi/components/table';
 
-import { base } from './base';
-import queries from '../../queries/table';
+import { layerTableQueries } from '../../queries/table';
+import { layerTableEvents } from '../../events/table';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
@@ -64,11 +64,10 @@ const onRowSelect: SelectRowHandler =
         }
     };
 
+const base = baseTable(layerTableQueries, layerTableEvents);
+
 const render = base({
     className: 'attr-select-wrapper',
-    loadData: queries.loadLayerData,
-    loadKeys: queries.loadLayerKeys,
-    loadTypes: queries.loadLayerTypes,
     toolbar,
     onRowSelect,
 });

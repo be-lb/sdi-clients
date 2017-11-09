@@ -14,22 +14,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { fromNullable } from 'fp-ts/lib/Option';
+
 import { FeatureCollection, Feature } from 'sdi/source';
+import { queryK } from 'sdi/shape';
 import { getLayerPropertiesKeys } from 'sdi/util';
-import { TableDataRow, TableDataType } from 'sdi/components/table';
+import {
+    TableDataRow,
+    TableDataType,
+    tableQueries,
+} from 'sdi/components/table';
 
 import appQueries from './app';
 
 
 type ObjOrNull = { [k: string]: any } | null;
 
-const queries = {
 
+// Layer / FeatureCollection
 
-
-    // Layer / FeatureCollection
-
-    getLayer(): FeatureCollection | null {
+export const getLayer =
+    (): FeatureCollection | null => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata !== null) {
             const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
@@ -39,56 +44,51 @@ const queries = {
             }
         }
         return null;
-    },
+    }
 
-    getFeatureData(numRow: number): Feature | null {
-        const layer = queries.getLayer();
+export const getLayerOption =
+    () => fromNullable(getLayer());
+
+export const getFeatureData =
+    (numRow: number): Feature | null => {
+        const layer = getLayer();
         if (layer && numRow >= 0 && numRow < layer.features.length) {
             return layer.features[numRow];
         }
         return null;
-    },
+    }
 
-    loadLayerKeys() {
-        const layer = queries.getLayer();
-        if (layer) {
-            return getLayerPropertiesKeys(layer);
-        }
-        return null;
-    },
+const getLayerData =
+    (layer: FeatureCollection): TableDataRow[] => {
+        const keys = getLayerKeys(layer);
+        const features = layer.features;
 
-    loadLayerData(): TableDataRow[] {
-        const layer = queries.getLayer();
-        const keys = queries.loadLayerKeys();
-        if (keys && layer && layer.features.length > 0) {
-            const features = layer.features;
+        return (
+            features.map<TableDataRow>((f, idx) => {
+                if ('properties' in f) {
+                    const props: ObjOrNull = f.properties;
+                    const row = keys.map((k) => {
+                        if (props && props[k] && props[k] != null) {
+                            return props[k].toString();
+                        }
 
-            return (
-                features.map<TableDataRow>((f, idx) => {
-                    if ('properties' in f) {
-                        const props: ObjOrNull = f.properties;
-                        const row = keys.map((k) => {
-                            if (props && props[k] && props[k] != null) {
-                                return props[k].toString();
-                            }
+                        return '';
+                    });
+                    return { from: idx, cells: row };
+                }
 
-                            return '';
-                        });
-                        return { from: idx, cells: row };
-                    }
+                return { from: -1, cells: [] };
+            }).filter(r => r.from >= 0)
+        );
+    }
 
-                    return { from: -1, cells: [] };
-                }).filter(r => r.from >= 0)
-            );
-        }
+const getLayerKeys =
+    (layer: FeatureCollection) => getLayerPropertiesKeys(layer);
 
-        return [];
-    },
-
-    loadLayerTypes(): TableDataType[] {
-        const layer = queries.getLayer();
-        const keys = queries.loadLayerKeys();
-        if (keys && layer && layer.features.length > 0) {
+const getLayerTypes =
+    (layer: FeatureCollection): TableDataType[] => {
+        const keys = getLayerKeys(layer);
+        if (layer.features.length > 0) {
             const row = layer.features[0].properties;
             if (row != null) {
                 return keys.map((k) => {
@@ -111,67 +111,18 @@ const queries = {
         }
 
         return [];
-    },
+    }
+
+export const getSource =
+    () => getLayerOption().fold(
+        () => ({ data: [], keys: [], types: [] }),
+        layer => ({
+            data: getLayerData(layer),
+            keys: getLayerKeys(layer),
+            types: getLayerTypes(layer),
+        })
+    )
 
 
-    // // layers list
-    // loadLayerListKeys(): string[] {
-    //     return ([
-    //         'id',
-    //         'resourceTitle',
-    //         'temporalReference',
-    //         'topicCategory',
-    //         'responsibleOrganisation',
-    //     ]);
-    // },
 
-    // loadLayerListTypes(): TableDataType[] {
-    //     return ([
-    //         'string',
-    //         'string',
-    //         'string',
-    //         'string',
-    //         'string',
-    //     ]);
-    // },
-
-    // loadLayerListData(): TableDataRow[] {
-    //     const mds = query('data/datasetMetadata');
-    //     const getFreeText = (ft: FreeText) => {
-    //         if (isAnchor(ft)) {
-    //             return fromRecord(ft.text);
-    //         }
-
-    //         return fromRecord(ft);
-    //     };
-
-    //     const getTemporalReference = (a: TemporalReference[]) => {
-    //         const latest = a.reduce((acc, t) => {
-    //             if (isTemporalExtent(t)) {
-    //                 return Math.max(acc, Date.parse(t.end));
-    //             }
-    //             return Math.max(acc, Date.parse(t.revision));
-    //         }, 0);
-    //         return formatDate(new Date(latest));
-    //     };
-
-    //     return (
-    //         Object.keys(mds).map((id, from) => {
-    //             const md = mds[id];
-    //             const cells = [
-    //                 id,
-    //                 getFreeText(md.resourceTitle),
-    //                 getTemporalReference(md.temporalReference),
-    //                 md.topicCategory[0],
-    //                 md.responsibleOrganisation.reduce((acc, ri, idx) => {
-    //                     const sep = idx === 0 ? '' : '; ';
-    //                     return acc + sep + getFreeText(ri.organisationName);
-    //                 }, ''),
-    //             ];
-    //             return { from, cells };
-    //         }));
-    // },
-
-};
-
-export default queries;
+export const layerTableQueries = tableQueries(queryK('component/table'), getSource);

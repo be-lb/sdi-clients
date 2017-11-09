@@ -170,7 +170,7 @@ const events = {
         dispatch('component/table', state => ({
             ...state,
             selected: -1,
-            loaded: false,
+            loaded: 'none',
         }));
     },
 
