@@ -75,16 +75,14 @@
         "tslint": "^5.1.0",
         "tslint-config-airbnb": "^1.1.1",
         "tslint-eslint-rules": "^4.0.0",
-        "typescript": "^2.5.1",
+        "typescript": "^2.6.1",
         "uglify-es": "^3.0.27",
         "webpack": "^3.0.0",
         "webpack-dev-server": "^2.4.2",
         "webpack-merge": "^4.1.0",
         "webpack-polyfill": "^0.1.1",
         "whatwg-fetch": "^2.0.3",
-        "yargs": "^8.0.2"
-    },
-    "dependencies": {
+        "yargs": "^8.0.2",
         "core-js": "^2.5.1",
         "react": "^16.0.0",
         "react-dom": "^16.0.0"
