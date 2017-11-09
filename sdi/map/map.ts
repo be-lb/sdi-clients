@@ -224,6 +224,7 @@ const viewEquals =
         (rz: number, rr: number, rc: [number, number]) => (
             z === rz && r === rr && c[0] === rc[0] && c[1] === rc[1]
         );
+
 const updateView =
     (map: Map,
         getView: IMapOptions['getView'],
@@ -236,12 +237,12 @@ const updateView =
 
             if (dirty === 'geo'
                 && !eq(view.getZoom(), view.getRotation(), view.getCenter())) {
+                window.setTimeout(() => setView({ dirty: 'none' }), 0);
                 view.animate({ zoom, rotation, center });
-                setView({ dirty: 'none' });
             }
             else if (dirty === 'style') {
+                window.setTimeout(() => setView({ dirty: 'none' }), 0);
                 forceRedraw();
-                setView({ dirty: 'none' });
             }
         };
 
@@ -305,7 +306,7 @@ export const create =
         view.on('change', () => {
             if (!isWorking()) {
                 options.updateView({
-                    dirty: 'geo',
+                    dirty: 'none',
                     center: view.getCenter(),
                     rotation: view.getRotation(),
                     zoom: view.getZoom(),

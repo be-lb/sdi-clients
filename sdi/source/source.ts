@@ -202,6 +202,7 @@ export const source =
 
                 const dispatch =
                     <K extends KeyOfIShape<IShape>>(key: K, handler: IReducer<IShape, IShape[K]>): void => {
+                        logger(`dispatch ${key}`)
                         const lens = getLens(key);
                         const newState = lens.modify(handler)(head());
                         toLocalStorage(newState);
