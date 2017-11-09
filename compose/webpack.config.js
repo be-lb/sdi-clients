@@ -26,6 +26,7 @@ console.log(`OUTPUT_DIR ${OUTPUT_DIR}`);
 console.log(`SDI_ALIAS ${JSON.stringify(SDI_ALIAS, null, 2)}`);
 
 
+// SDI_ALIAS['openlayers'] = '/home/pierre/System/src/be-sdi/sdi-clients/node_modules/openlayers/dist/ol-debug.js'
 
 
 module.exports = {

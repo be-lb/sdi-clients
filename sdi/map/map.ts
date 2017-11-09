@@ -151,7 +151,9 @@ export const addLayer =
             mainLayerCollection.push(vl);
             getLayerData(fetchData, vs, 0);
 
-
+            vl.on('render', (_e: any) => {
+                logger(`Layer Render ${info.id} ${vs.getState()} `);
+            });
 
             return vl;
         }
@@ -220,11 +222,6 @@ const updateView =
                     rotation: viewState.rotation,
                     center: viewState.center,
                 });
-                map.getLayers().forEach((layer) => {
-                    layer.changed();
-                });
-                map.render();
-                logger('will render');
             }
         };
 
@@ -272,6 +269,14 @@ export const create =
             ],
         });
 
+        const forceRedraw =
+            () => {
+                mainLayerCollection.forEach((layer) => {
+                    layer.changed();
+                });
+                // map.render();
+            };
+
         const updatables: Updatable[] = [
             { name: 'BaseLayer', fn: updateBaseLayer(options.getBaseLayer) },
             { name: 'Layers', fn: updateLayers(options.getMapInfo) },
@@ -279,9 +284,6 @@ export const create =
             { name: 'Size', fn: updateSize(map) },
         ];
 
-        // fromNullable(options.getBaseLayer())
-        //     .map(baseLayer =>
-        //         baseLayerCollection.push(fromBaseLayer(baseLayer)));
 
         fromNullable(options.element)
             .map(e => map.setTarget(e));
@@ -306,6 +308,7 @@ export const create =
                     return u.name;
                 });
                 logger(`updated ${us.join(', ')}`);
+                forceRedraw();
             };
 
 

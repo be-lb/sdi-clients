@@ -15,7 +15,7 @@
  */
 
 import { style, Feature } from 'openlayers';
-import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig } from 'sdi/source';
+import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig } from '../../source';
 import { StyleFn } from './index';
 
 

@@ -14,10 +14,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { PointStyleConfigSimple, PointStyleConfigDiscrete, PointStyleConfig, PointStyleConfigContinuous, MessageRecord } from 'sdi/source';
+import { PointStyleConfigSimple, PointStyleConfigDiscrete, PointStyleConfig, PointStyleConfigContinuous, MessageRecord } from '../../source';
 import { style, Feature } from 'openlayers';
 import { StyleFn, labelFont, markerFont } from './index';
-import { fromRecord } from 'sdi/locale';
+import { fromRecord } from '../../locale';
 
 
 const pointStyleSimple = (config: PointStyleConfigSimple) => {
