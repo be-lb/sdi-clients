@@ -52,7 +52,7 @@ const renderResults = (results: IUgWsResult[]) => {
                     events.updateGeocoderResponse(null);
                     events.foldGeocoder();
                     viewEvents.updateMapView({
-                        dirty: true,
+                        dirty: 'geo',
                         center: coords,
                         zoom: 12,
                     });

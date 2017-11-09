@@ -211,17 +211,37 @@ const updateLayers =
                 });
             });
 
+
+const forceRedraw =
+    () => {
+        mainLayerCollection.forEach((layer) => {
+            layer.changed();
+        });
+    };
+
+const viewEquals =
+    (z: number, r: number, c: [number, number]) =>
+        (rz: number, rr: number, rc: [number, number]) => (
+            z === rz && r === rr && c[0] === rc[0] && c[1] === rc[1]
+        );
 const updateView =
-    (map: Map, getView: IMapOptions['getView']) =>
+    (map: Map,
+        getView: IMapOptions['getView'],
+        setView: IMapOptions['updateView'],
+    ) =>
         () => {
-            const viewState = getView();
+            const { dirty, zoom, rotation, center } = getView();
             const view = map.getView();
-            if (viewState.dirty) {
-                view.animate({
-                    zoom: viewState.zoom,
-                    rotation: viewState.rotation,
-                    center: viewState.center,
-                });
+            const eq = viewEquals(zoom, rotation, center);
+
+            if (dirty === 'geo'
+                && !eq(view.getZoom(), view.getRotation(), view.getCenter())) {
+                view.animate({ zoom, rotation, center });
+                setView({ dirty: 'none' });
+            }
+            else if (dirty === 'style') {
+                forceRedraw();
+                setView({ dirty: 'none' });
             }
         };
 
@@ -269,18 +289,12 @@ export const create =
             ],
         });
 
-        const forceRedraw =
-            () => {
-                mainLayerCollection.forEach((layer) => {
-                    layer.changed();
-                });
-                // map.render();
-            };
+
 
         const updatables: Updatable[] = [
             { name: 'BaseLayer', fn: updateBaseLayer(options.getBaseLayer) },
             { name: 'Layers', fn: updateLayers(options.getMapInfo) },
-            { name: 'View', fn: updateView(map, options.getView) },
+            { name: 'View', fn: updateView(map, options.getView, options.updateView) },
             { name: 'Size', fn: updateSize(map) },
         ];
 
@@ -291,7 +305,7 @@ export const create =
         view.on('change', () => {
             if (!isWorking()) {
                 options.updateView({
-                    dirty: false,
+                    dirty: 'geo',
                     center: view.getCenter(),
                     rotation: view.getRotation(),
                     zoom: view.getZoom(),
@@ -308,7 +322,6 @@ export const create =
                     return u.name;
                 });
                 logger(`updated ${us.join(', ')}`);
-                forceRedraw();
             };
 
 

@@ -24,7 +24,7 @@ import { IMapOptions, create } from 'sdi/map';
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import mapQueries from '../queries/map';
-import mapEvents from '../events/map';
+import * as mapEvents from '../events/map';
 // import layerQueries from '../queries/layer-editor';
 // import layerEvents from '../events/layer-editor';
 // import { button } from './button';
@@ -112,7 +112,7 @@ const render = () => {
             DIV({
                 id: mapId,
                 className:
-                'map',
+                    'map',
                 ref: attachMap,
             }),
             ...overlays)

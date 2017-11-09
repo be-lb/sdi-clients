@@ -40,7 +40,7 @@ const position = () => {
     const state = queries.toolsPositioner();
     viewEvents.updateMapView({
         center: [state.point.longitude, state.point.latitude],
-        dirty: true,
+        dirty: 'geo',
         zoom: 12,
     });
 };

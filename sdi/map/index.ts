@@ -44,8 +44,10 @@ export interface IMapScale {
     width: number;
 }
 
+export type ViewDirt = 'none' | 'geo' | 'style';
+
 export interface IMapViewData {
-    dirty: boolean;
+    dirty: ViewDirt;
     srs: string;
     center: Coordinate;
     rotation: number;
@@ -173,7 +175,7 @@ export interface IMapOptions {
 
 
 export interface IViewEvent {
-    dirty?: boolean;
+    dirty?: ViewDirt;
     center?: Coordinate;
     rotation?: number;
     zoom?: number;

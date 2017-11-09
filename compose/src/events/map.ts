@@ -20,8 +20,8 @@ import { IViewEvent } from 'sdi/map';
 
 
 
-export default {
-    updateMapView(data: IViewEvent): void {
+export const updateMapView =
+    (data: IViewEvent): void => {
         dispatch('port/map/view', (viewState) => {
             viewState.dirty = (data.dirty !== undefined) ? data.dirty : viewState.dirty;
             viewState.center = data.center || viewState.center;
@@ -29,14 +29,14 @@ export default {
             viewState.zoom = data.zoom || viewState.zoom;
             return viewState;
         });
-    },
+    };
 
-    setScaleLine(count: number, unit: string, width: number) {
+export const setScaleLine =
+    (count: number, unit: string, width: number) => {
         dispatch('port/map/scale', () => ({
             count, unit, width,
         }));
-    },
-};
+    };
 
 
 // observe('app/layout', (state) => {

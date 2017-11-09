@@ -30,7 +30,7 @@ import tableLayers from './components/table/layers';
 import tableInspire from './components/table/inspire';
 import events from './events/app';
 import queries from './queries/app';
-import mapEvents from './events/map';
+import * as mapEvents from './events/map';
 import info from './components/map-info';
 import dashboard from './components/dashboard';
 import baseLayerSwitch from './components/map-info/base-layer-switch';
@@ -151,7 +151,7 @@ const renderMain =
 
 const effects =
     () => {
-        mapEvents.updateMapView({ dirty: true });
+        mapEvents.updateMapView({ dirty: 'geo' });
         getUserId()
             .map(userId =>
                 events.loadUser(getApiUrl(`users/${userId}`)));

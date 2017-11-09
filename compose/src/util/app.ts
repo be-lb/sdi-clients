@@ -23,7 +23,7 @@ import { getApiUrl } from 'sdi/app';
 
 import { putMap, postLayer } from '../remote';
 import queries from '../queries/app';
-import mapEvents from '../events/map';
+import * as mapEvents from '../events/map';
 
 export const processQuery = (state: IShape) => {
     const location = document.location;
@@ -94,7 +94,7 @@ export const saveStyle =
                 }
                 syncMap(m);
             }
-            mapEvents.updateMapView({ dirty: true });
+            mapEvents.updateMapView({ dirty: 'style' });
             return maps;
         });
     };

@@ -108,7 +108,7 @@ const renderMain =
 
 const effects =
     () => {
-        viewEvents.updateMapView({ dirty: true });
+        viewEvents.updateMapView({ dirty: 'geo' });
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
         navigate();

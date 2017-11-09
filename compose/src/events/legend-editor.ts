@@ -54,6 +54,7 @@ import { saveStyle, syncMap } from '../util/app';
 
 
 const logger = debug('sdi:events/legend-editor');
+
 const saveMap = saveStyle(dispatch);
 
 
