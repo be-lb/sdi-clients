@@ -76,7 +76,7 @@ export const getTableSource =
         data: getLayerListData(state),
         keys: loadLayerListKeys(),
         types: loadLayerListTypes(),
-    } as TableSource));
+    } as TableSource), 'app/lang');
 
 
 export const getMdForm =

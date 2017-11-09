@@ -38,12 +38,13 @@ export interface IReducerAsync<IShape, S extends SubTypeOfIShape<IShape>> {
 export interface IObserver<IShape, K extends KeyOfIShape<IShape>> {
     key: K;
     handler(a: IShape[K]): void;
+    immediate: boolean;
 }
 
 export interface IStoreInteractions<IShape> {
     dispatch<K extends KeyOfIShape<IShape>>(key: K, handler: IReducer<IShape, IShape[K]>): void;
     dispatchAsync<K extends KeyOfIShape<IShape>>(key: K, handler: IReducerAsync<IShape, IShape[K]>): void;
-    observe<K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void): void;
+    observe<K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void, immediate?: boolean): void;
     get<K extends keyof IShape>(key: K): IShape[K];
     version(): number;
     reset(n: number): void;
@@ -173,11 +174,15 @@ export const source =
 
 
                 const observe =
-                    <K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void): void => {
+                    <K extends KeyOfIShape<IShape>>(
+                        key: K,
+                        handler: (a: IShape[K]) => void,
+                        immediate = false,
+                    ): void => {
                         logger(`observe ${key}`);
                         const alreadyRegistered = observers.find(o => o.handler === handler && o.key === key);
                         if (!alreadyRegistered) {
-                            observers.push({ key, handler });
+                            observers.push({ key, handler, immediate });
                         }
                     };
 
@@ -186,6 +191,9 @@ export const source =
                         observers.filter(o => o.key === a)
                             .forEach((o) => {
                                 const state = get(a);
+                                if (o.immediate) {
+                                    return o.handler(state);
+                                }
                                 setTimeout(() => {
                                     o.handler(state);
                                 }, 1);

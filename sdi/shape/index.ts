@@ -31,6 +31,7 @@ export interface IShape {
 interface Observer<K extends keyof IShape> {
     key: K;
     handler(a: IShape[K]): void;
+    immediate: boolean;
 }
 
 let storeRef: IStoreInteractions<IShape> | null = null;
@@ -52,7 +53,7 @@ export const configure =
             .fold(
             () => {
                 pendingObservers.forEach(
-                    o => store.observe(o.key, o.handler));
+                    o => store.observe(o.key, o.handler, o.immediate));
 
                 storeRef = store;
             },
@@ -74,13 +75,17 @@ export const queryK =
     <K extends keyof IShape>(key: K) =>
         () => query(key);
 
+type SubFn<K extends keyof IShape, T> = (a: IShape[K]) => T;
 
+type ShapeK = keyof IShape;
 
 export const subscribe =
-    <K extends keyof IShape, T>(key: K, fn: (args: IShape[K]) => T) => {
+    <K extends ShapeK,
+        T>(key: K, fn: SubFn<K, T>, ...others: ShapeK[]) => {
         let result: T;
         let stall = true;
-        observe(key, () => stall = true);
+        observe_(key, () => stall = true, true);
+        others.forEach(k => observe_(k, () => stall = true, true));
         const q =
             () => {
                 if (stall) {
@@ -119,12 +124,15 @@ export const dispatchK =
             dispatch(key, handler);
 
 
-export const observe =
-    <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void): void =>
+// tslint:disable-next-line:variable-name
+const observe_ =
+    <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void, immediate = false): void =>
         getStore()
             .fold(
             () => {
-                pendingObservers.push({ key, handler });
+                pendingObservers.push({ key, handler, immediate });
             },
-            store => store.observe(key, handler));
+            store => store.observe(key, handler, immediate));
 
+export const observe =
+    <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void) => observe_(key, handler);
