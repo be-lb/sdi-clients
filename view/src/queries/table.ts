@@ -17,7 +17,7 @@
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { FeatureCollection, Feature } from 'sdi/source';
-import { queryK } from 'sdi/shape';
+import { queryK, subscribe } from 'sdi/shape';
 import { getLayerPropertiesKeys } from 'sdi/util';
 import {
     TableDataRow,
@@ -115,12 +115,13 @@ const getLayerTypes =
     }
 
 export const getSource =
-    () => getLayerOption().fold(emptySource,
-        layer => ({
-            data: getLayerData(layer),
-            keys: getLayerKeys(layer),
-            types: getLayerTypes(layer),
-        }))
+    subscribe('app/current-layer',
+        () => getLayerOption().fold(emptySource,
+            layer => ({
+                data: getLayerData(layer),
+                keys: getLayerKeys(layer),
+                types: getLayerTypes(layer),
+            })), 'app/current-map', 'data/layers', 'data/maps');
 
 
 
