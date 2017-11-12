@@ -13,7 +13,7 @@
         "watch:login": "webpack --config login/webpack.config.js --watch",
         "build:dashboard": "webpack --config dashboard/webpack.config.js",
         "watch:dashboard": "webpack --config dashboard/webpack.config.js --watch",
-        "build": "npm run build:view && npm run build:compose && npm run build:metadata && npm run build:login && npm run build:dashboard"
+        "build": "npm run build:view -- -p && npm run build:compose -- -p && npm run build:metadata -- -p && npm run build:login -- -p && npm run build:dashboard -- -p "
     },
     "repository": {
         "type": "git",
