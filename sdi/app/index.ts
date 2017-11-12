@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
+
 import { IShape } from '../shape';
 import { render } from 'react-dom';
 import { IStoreInteractions, MessageRecord, ILayerInfo, Inspire } from '../source';
@@ -22,6 +24,8 @@ import { getLang } from './queries';
 export * from './queries';
 export * from './events';
 export * from './rect';
+
+const logger = debug('sdi:sdi/app');
 
 // types
 
@@ -64,6 +68,7 @@ export const loop =
                     version = stateVersion;
                     lastFrameRequest = ts;
                     try {
+                        // logger(`render ${version}`);
                         const startRenderTime = performance.now();
                         render(renderMain(), root);
                         const renderTime = performance.now() - startRenderTime;
@@ -71,7 +76,7 @@ export const loop =
                             frameRate = renderTime;
                         }
                         else if (frameRate > MIN_FRAME_RATE) {
-                            frameRate -= 1;
+                            frameRate = Math.max(frameRate - 6, MIN_FRAME_RATE);
                         }
                     }
                     catch (err) {
@@ -79,6 +84,13 @@ export const loop =
                         // requestAnimationFrame(updateState);
                     }
                 }
+                else if (version === stateVersion) {
+                    // logger(`no render ${version}`);
+                    if (frameRate > MIN_FRAME_RATE) {
+                        frameRate = Math.max(frameRate - 6, MIN_FRAME_RATE);
+                    }
+                }
+                // logger(`framerate ${frameRate}`)
                 requestAnimationFrame(updateState);
             };
 
@@ -92,3 +104,5 @@ export const loop =
 
             return start;
         };
+
+logger('loaded');

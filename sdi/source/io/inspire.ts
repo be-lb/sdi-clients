@@ -345,12 +345,19 @@ export const GEMET = {
         nl: 'Bodemgebruik',
     },
 };
-// export const KeywordIO = io.keyof(GEMET);
+
+export const ThesaurusIO = i({
+    id: io.string,
+    name: MessageRecordIO,
+    uri: io.string,
+}, 'ThesaurusIO');
+export type Thesaurus = TypeOf<typeof ThesaurusIO>;
+
 export const KeywordIO = i({
     id: io.string,
     code: io.string,
     name: MessageRecordIO,
-    thesaurus: io.string,
+    thesaurus: ThesaurusIO,
 }, 'KeywordIO');
 export type Keyword = TypeOf<typeof KeywordIO>;
 

@@ -81,18 +81,18 @@ const events = {
     },
 
     loadAllDatasetMetadata() {
-        dispatch('component/table',
+        dispatch('component/table/layers',
             ts => ({ ...ts, loaded: 'loading' }));
 
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
             (mds) => {
                 dispatch('data/datasetMetadata',
                     state => uniqInspire(state.concat(mds)));
-                dispatch('component/table',
+                dispatch('component/table/layers',
                     ts => ({ ...ts, loaded: 'loading' }));
             },
             () =>
-                dispatch('component/table',
+                dispatch('component/table/layers',
                     ts => ({ ...ts, loaded: 'done' })));
     },
 

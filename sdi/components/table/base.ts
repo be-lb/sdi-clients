@@ -260,6 +260,7 @@ export const baseTable =
                 };
 
         const rectify = rect((r) => {
+            logger(`rectify ${r.top}`);
             events.setViewHeight(r.height);
             events.setTableWindowSize(
                 Math.ceil(r.height / queries.rowHeight()));

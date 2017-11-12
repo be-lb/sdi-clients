@@ -1,37 +1,37 @@
+import { fromPredicate } from 'fp-ts/lib/Either';
+
 import { DIV, H1, INPUT, TEXTAREA, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
+import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
+import buttonFactory from 'sdi/components/button';
+import {
+    queryK,
+    dispatchK,
+} from 'sdi/shape';
+
 import {
     formIsSaving,
     getCurrentDatasetMetadata,
     getMdDescription,
     getMdTitle,
     getTemporalReference,
-    getKeywordList,
     getKeywords,
-    isSelectedKeyword,
     getTopics,
-    getTopicList,
-    isSelectedTopic,
+    // getTopicList,
+    // isSelectedTopic,
 } from '../../queries/metadata';
 import {
     saveMdForm,
     setMdDescription,
     setMdTitle,
     removeKeyword,
-    addKeyword,
     removeTopic,
-    addTopic,
+    // addTopic,
     mdPublish,
     mdDraft,
 } from '../../events/metadata';
-import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
-import buttonFactory from 'sdi/components/button';
-import { fromPredicate } from 'fp-ts/lib/Either';
-import {
-    queryK,
-    dispatchK,
-} from 'sdi/shape';
 
+import { renderSelectKeyword } from './keywords';
 
 export interface MdForm {
     title: MessageRecord;
@@ -140,41 +140,25 @@ const renderPoc =
                     fromRecord(getMessageRecord(poc.organisationName))))));
 
 
-const renderSelectKeyword =
-    () => {
-        const choice =
-            getKeywordList()
-                .filter(kw => !isSelectedKeyword(kw.id))
-                .map(k => DIV({
-                    key: k.id,
-                    onClick: () => isSelectedKeyword(k.id) ? removeKeyword(k.id) : addKeyword(k.id),
-                }, fromRecord(k.name)));
 
-        return (
-            DIV({ className: 'keywords-wrapper' },
-                DIV({ className: 'label' }, tr('keywords')),
-                DIV({
-                    className: 'select-keyword',
-                }, ...choice)));
-    };
 
-const renderSelectTopic =
-    () => {
-        const choice =
-            getTopicList()
-                .filter(topic => !isSelectedTopic(topic.id))
-                .map(t => DIV({
-                    key: t.id,
-                    onClick: () => isSelectedTopic(t.id) ? removeTopic(t.id) : addTopic(t.id),
-                }, fromRecord(t.name)));
+// const renderSelectTopic =
+//     () => {
+//         const choice =
+//             getTopicList()
+//                 .filter(topic => !isSelectedTopic(topic.id))
+//                 .map(t => DIV({
+//                     key: t.id,
+//                     onClick: () => isSelectedTopic(t.id) ? removeTopic(t.id) : addTopic(t.id),
+//                 }, fromRecord(t.name)));
 
-        return (
-            DIV({ className: 'topics-wrapper' },
-                DIV({ className: 'label' }, tr('topics')),
-                DIV({
-                    className: 'select-topic',
-                }, ...choice)));
-    };
+//         return (
+//             DIV({ className: 'topics-wrapper' },
+//                 DIV({ className: 'label' }, tr('topics')),
+//                 DIV({
+//                     className: 'select-topic',
+//                 }, ...choice)));
+//     };
 
 
 
@@ -183,7 +167,7 @@ const renderCommon =
         DIV({ className: 'app-col-wrapper meta-common' },
             // DIV({ className: 'app-col-header' }, 'FR & NL'),
             DIV({ className: 'app-col-main' },
-                renderSelectTopic(),
+                // renderSelectTopic(),
                 renderSelectKeyword())));
 
 

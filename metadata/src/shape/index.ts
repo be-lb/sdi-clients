@@ -32,7 +32,8 @@ declare module 'sdi/shape' {
         'app/current-metadata': string | null;
 
         'component/button': ButtonComponent;
-        'component/table': IDataTable;
+        'component/table/layers': IDataTable;
+        'component/table/keywords': IDataTable;
         'component/single': MdForm;
 
         'data/user': IUser | null;

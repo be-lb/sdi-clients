@@ -205,6 +205,7 @@ export type MessageKey =
     | 'textDelimiter'
     | 'textFormat'
     | 'textStyle'
+    | 'thesaurus'
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
@@ -1224,5 +1225,10 @@ export const messages: MessageDB = {
     myApps: {
         fr: 'Outils et applications',
         nl: 'Tools en apps',
+    },
+
+    thesaurus: {
+        fr: 'Thesaurus',
+        nl: 'Thesaurus',
     },
 };
