@@ -1,7 +1,7 @@
 import * as debug from 'debug';
 import { query, subscribe } from 'sdi/shape';
 import { none, fromNullable } from 'fp-ts/lib/Option';
-import { TemporalReference, FreeText, isAnchor, isTemporalExtent, Inspire } from 'sdi/source';
+import { TemporalReference, FreeText, isAnchor, isTemporalExtent, Inspire, Keyword } from 'sdi/source';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { TableDataType, TableDataRow, TableSource } from 'sdi/components/table';
 
@@ -77,6 +77,41 @@ export const getTableSource =
         keys: loadLayerListKeys(),
         types: loadLayerListTypes(),
     } as TableSource), 'app/lang');
+
+
+// Keywords
+
+
+const keywordsKeys =
+    () => ([
+        tr('label'),
+        tr('thesaurus'),
+    ]);
+
+const keywordsTypes =
+    (): TableDataType[] => ([
+        'string',
+        'string',
+    ]);
+
+const getKeywordsData =
+    (kws: Keyword[]): TableDataRow[] =>
+        kws.map((kw) => {
+            const cells = [
+                fromRecord(kw.name),
+                fromRecord(kw.thesaurus.name),
+            ];
+            return { from: kw.id, cells };
+        });
+
+export const getKeywordsSource =
+    subscribe('data/keywords', state => ({
+        data: getKeywordsData(state),
+        keys: keywordsKeys(),
+        types: keywordsTypes(),
+    } as TableSource), 'app/lang');
+
+
 
 
 export const getMdForm =

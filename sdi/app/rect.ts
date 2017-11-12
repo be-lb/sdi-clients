@@ -22,7 +22,7 @@ export const rect =
             subs.push({ el, fn, prev: null });
         };
 
-const compareRect =
+const eqRect =
     (a: ClientRect, b: ClientRect) => (
         a.bottom === b.bottom &&
         a.height === b.height &&
@@ -37,7 +37,7 @@ type RS = [Sub, IO<void>];
 const runSub =
     ({ el, fn, prev }: Sub): RS => {
         const rect = el.getBoundingClientRect();
-        if (null === prev || !compareRect(prev, rect)) {
+        if (null === prev || !eqRect(prev, rect)) {
             // fn(rect);
             return [{ el, fn, prev: rect }, new IO(() => fn(rect))];
         }

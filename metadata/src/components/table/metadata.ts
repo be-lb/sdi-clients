@@ -40,8 +40,8 @@ const onRowSelect: SelectRowHandler =
     };
 
 
-const tq = queryK('component/table');
-const te = dispatchK('component/table');
+const tq = queryK('component/table/layers');
+const te = dispatchK('component/table/layers');
 
 const base = baseTable(tableQueries(tq, getTableSource), tableEvents(te));
 

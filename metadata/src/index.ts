@@ -70,7 +70,8 @@ export const main =
 
 
             'component/button': {},
-            'component/table': initialTableState(),
+            'component/table/layers': initialTableState(),
+            'component/table/keywords': initialTableState(),
             'component/single': defaultMdFormState(),
 
             'data/user': null,

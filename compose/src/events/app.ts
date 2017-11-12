@@ -64,7 +64,7 @@ export const toDataURL = (f: File) => {
 const inspireS: Setoid<Inspire> = {
     equals(a, b) {
         return a.id === b.id;
-    }
+    },
 };
 
 const uniqInspire = uniq(inspireS);
@@ -110,7 +110,7 @@ observe('app/current-map', () => {
                         getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
                     addLayer(
                         () => queries.getLayerInfo(l.id),
-                        () => queries.getLayerData(md.uniqueResourceIdentifier)
+                        () => queries.getLayerData(md.uniqueResourceIdentifier),
                     );
                 })
                 .catch(err => logger(`observe(app/current-map) ${err}`));
@@ -336,7 +336,7 @@ const events = {
                             .then(() => {
                                 addLayer(
                                     () => queries.getLayerInfo(result.id),
-                                    () => queries.getLayerData(i.uniqueResourceIdentifier)
+                                    () => queries.getLayerData(i.uniqueResourceIdentifier),
                                 );
                                 events.setCurrentLayerId(result.id);
                             })

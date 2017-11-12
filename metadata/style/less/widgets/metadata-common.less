@@ -1,4 +1,5 @@
 .metadata-editor .meta-common {
+    box-sizing: border-box;
     .app-col-main {
         max-height: 100% !important;
         position: relative;
@@ -21,30 +22,36 @@
     .topics-wrapper  {
         position: absolute;
         width: 100%;
-        height: calc(~"50% - @{margin} / 2");
-        display: flex;
-        flex-direction: column;
+        height: calc(~"100% - @{margin} * 2");
         padding-bottom: @margin;
-
-        .select-keyword,
-        .select-topic {
-            overflow-y: auto;
-            overflow-x: hidden;
-            font-size: 0.8em;
-
-            > div {
-                padding-bottom: @small-margin;
-                &:hover {
-                    .interactive-light ;
-                }
-            }
+        
+        .infinite-table {
+        height: calc(~"100% - @{margin} / 2");
         }
+
+        // height: calc(~"50% - @{margin} / 2");
+        // display: flex;
+        // flex-direction: column;
+
+        // .select-keyword,
+        // .select-topic {
+        //     overflow-y: auto;
+        //     overflow-x: hidden;
+        //     font-size: 0.8em;
+
+        //     > div {
+        //         padding-bottom: @small-margin;
+        //         // &:hover {
+        //         //     .interactive-light ;
+        //         // }
+        //     }
+        // }
     }
-    .topics-wrapper {
-        border-bottom: 1px solid #000;
-        margin-bottom: @margin;
-    }
-    .keywords-wrapper {
-        top: calc(~"50% + @{margin}");
-    }
+    // .topics-wrapper {
+    //     border-bottom: 1px solid #000;
+    //     margin-bottom: @margin;
+    // }
+    // .keywords-wrapper {
+    //     top: calc(~"50% + @{margin}");
+    // }
 }

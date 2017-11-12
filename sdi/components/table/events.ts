@@ -62,43 +62,30 @@ import {
 export const tableEvents =
     (dispatch: TableSetter) => {
 
-        const setTableWindowOffset = (offset: number): void => {
-            dispatch((state) => {
-                state.window.offset = offset;
-                return state;
-            });
-        };
+        const setTableWindowOffset =
+            (offset: number) =>
+                dispatch(s => ({ ...s, window: { ...s.window, offset } }));
 
-        const setTableWindowSize = (size: number): void => {
-            dispatch((state) => {
-                state.window.size = size;
-                return state;
-            });
-        };
 
-        const setViewHeight = (height: number): void => {
-            dispatch((state) => {
-                state.viewHeight = height;
-                return state;
-            });
-        };
+        const setTableWindowSize =
+            (size: number): void =>
+                dispatch(s => ({ ...s, window: { ...s.window, size } }));
 
-        const setPosition = (x: number, y: number): void => {
-            dispatch((state) => {
-                state.position = {
-                    x,
-                    y,
-                };
-                return state;
-            });
-        };
 
-        const select = (index: number) => {
-            dispatch((state) => {
-                state.selected = index;
-                return state;
-            });
-        };
+        const setViewHeight =
+            (viewHeight: number): void =>
+                dispatch(s => ({ ...s, viewHeight }));
+
+
+        const setPosition =
+            (x: number, y: number): void =>
+                dispatch(s => ({ ...s, position: { x, y } }));
+
+
+        const select =
+            (selected: number) =>
+                dispatch(s => ({ ...s, selected }));
+
 
         // const selectFrom = (from: number) => {
         //     dispatch((state) => {
