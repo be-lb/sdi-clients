@@ -23,6 +23,7 @@ import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
 import queries from '../../queries/app';
 import events from '../../events/app';
+import appEvents from '../../events/app';
 import { resetLayerTable } from '../../events/table';
 import legendEvents from '../../events/legend-editor';
 import { AppLayout } from '../../shape/types';
@@ -95,6 +96,7 @@ const renderDeleteButton =
         return (
             removeButton(() => {
                 legendEvents.removeLayer(info);
+                appEvents.setLayout(AppLayout.MapAndInfo);
             })
         );
     };
