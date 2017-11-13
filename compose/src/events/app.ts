@@ -48,6 +48,7 @@ import {
 import queries from '../queries/app';
 import { AppLayout } from '../shape/types';
 import { initialLegendEditorState } from '../components/legend-editor/index';
+import { getDatasetMetadata } from '../queries/metadata';
 
 const logger = debug('sdi:events/app');
 
@@ -83,18 +84,21 @@ const uniqInspire = uniq(inspireS);
 // });
 
 
-
+const loadLayerData =
+    (md: Inspire) => events.loadLayer(md.uniqueResourceIdentifier,
+        getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
 
 observe('data/maps', () => {
     const info = queries.getMapInfo();
     if (info) {
         info.layers.forEach((l) => {
-            fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
-                .then((md) => {
-                    events.loadLayer(md.uniqueResourceIdentifier,
-                        getApiUrl(`layers/${md.uniqueResourceIdentifier}`));
-                })
-                .catch(err => logger(`observe(data/maps) ${err}`));
+            getDatasetMetadata(l.metadataId)
+                .fold(
+                () =>
+                    fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
+                        .then(loadLayerData)
+                        .catch(err => logger(`observe(data/maps) ${err}`)),
+                md => Promise.resolve(loadLayerData(md)));
         });
     }
 });
