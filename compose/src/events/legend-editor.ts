@@ -185,8 +185,10 @@ const updatePointStyleLabel = (f: PointStyleEditFn) => {
 
 const updatePointStyleMarker = (f: PointStyleEditFn) => {
     updateStyle((s, lid) => {
-        if (isPointStyle(s) && isSimple(s) && !isMarkered(s)) {
-            s.marker = defaultPointMarker();
+        if (isPointStyle(s) && isSimple(s)) {
+            if (!isMarkered(s)) {
+                s.marker = defaultPointMarker();
+            }
             f(s, lid);
         }
     });
