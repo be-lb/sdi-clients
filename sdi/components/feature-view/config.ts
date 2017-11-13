@@ -19,7 +19,7 @@ import { ReactNode } from 'react';
 import { getLang, getAlias } from '../../app';
 import { formatNumber } from '../../locale';
 import { DIV, A, IMG } from '../../components/elements';
-import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel, Feature, FeatureViewConfig } from '../../source';
+import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel, Feature, FeatureViewConfig, HTMLConfig } from '../../source';
 
 import piechart from './piechart';
 import timeserie from './timeserie';
@@ -74,6 +74,18 @@ const renderImage =
     };
 
 
+const renderHTML =
+    (props: NotNullProperties, row: HTMLConfig) => {
+        const val = props[row.propName];
+        return DIV({
+            className: `type-html`,
+            dangerouslySetInnerHTML: {
+                __html: val,
+            },
+        });
+    };
+
+
 
 const renderConfiguredRowLabel =
     (row: ConfigWithLabel) => (
@@ -92,8 +104,8 @@ const renderConfiguredRowBody =
             case 'image': return DIV({ className }, renderImage(props, row));
             case 'piechart': return DIV({ className }, piechart(props, row));
             case 'timeserie': return DIV({ className }, timeserie(tsPlotter)(props, row));
+            case 'html': return DIV({ className }, renderHTML(props, row));
         }
-        return DIV({ className });
     };
 
 const renderConfiguredRow =

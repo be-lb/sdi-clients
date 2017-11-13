@@ -23,6 +23,7 @@ export const PropTypeIO = u([
     l('boolean'),
     l('url'),
     l('image'),
+    l('html'),
     l('piechart'),
     l('timeserie'),
 ], 'PropTypeIO');
@@ -134,6 +135,14 @@ export const defaultTimeserieOptions =
     });
 
 
+// HTML fragment
+
+export const HTMLOptionsIO = i({}, 'HTMLOptionsIO');
+export type HTMLOptions = TypeOf<typeof HTMLOptionsIO>;
+export const defaultHTMLOptions =
+    (): HTMLOptions => ({});
+
+
 
 export const BaseConfigIO = i({
     lang: u([l('fr'), l('nl')]),
@@ -216,9 +225,24 @@ export const TimeserieConfigIO = io.intersection([
 ], 'TimeserieConfigIO');
 export type TimeserieConfig = TypeOf<typeof TimeserieConfigIO>;
 
+export const HTMLConfigIO = io.intersection([
+    BaseConfigIO,
+    i({
+        type: l('html'),
+        options: HTMLOptionsIO,
+    })
+], 'HTMLConfigIO');
+export type HTMLConfig = TypeOf<typeof HTMLConfigIO>;
 
 export const RowConfigIO = u([
-    StringConfigIO, NumberConfigIO, BooleanConfigIO, URLConfigIO, ImageConfigIO, PiechartConfigIO, TimeserieConfigIO,
+    StringConfigIO,
+    NumberConfigIO,
+    BooleanConfigIO,
+    URLConfigIO,
+    ImageConfigIO,
+    PiechartConfigIO,
+    TimeserieConfigIO,
+    HTMLConfigIO,
 ], 'RowConfigIO');
 export type RowConfig = TypeOf<typeof RowConfigIO>;
 
@@ -229,7 +253,7 @@ export type ConfigWithStyle = StringConfig | NumberConfig | BooleanConfig | URLC
 
 export const withLabel =
     (a: RowConfig): a is ConfigWithLabel => {
-        return ('withLabel' in a.options);
+        return ('withLabel' in a.options && a.type !== 'html');
     };
 
 export const withLevel =

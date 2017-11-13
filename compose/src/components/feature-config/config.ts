@@ -54,7 +54,7 @@ const logger = debug('sdi:feature-config/config');
 const moveUpButton = button('move-up');
 const moveDownButton = button('move-down');
 
-const propType: PropType[] = ['string', 'number', 'boolean', 'url', 'image'];
+const propType: PropType[] = ['string', 'number', 'boolean', 'url', 'image', 'html'];
 const propLevel: StringOptionLevel[] = ['normal', 'subtitle', 'title'];
 const propStyle: StringOptionStyle[] = ['normal', 'bold', 'italic', 'bold-italic'];
 
