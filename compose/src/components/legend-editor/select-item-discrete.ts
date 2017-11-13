@@ -106,7 +106,7 @@ const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
             key: `renderStyleGroupUnfolded.input-${key}`,
             type: 'text',
             placeholder: tr('addTerm'),
-            value: '',
+            defaultValue: '',
             onChange: styleGroupValueChangeHandler,
         }));
     }
@@ -115,7 +115,7 @@ const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
             INPUT({
                 key: `renderStyleGroupUnfolded.input-${key}`,
                 type: 'text',
-                value: curVal,
+                defaultValue: curVal,
                 onChange: styleGroupValueChangeHandler,
                 onKeyDown: styleGroupValueKeyHandler,
             }), addTermButton(styleGroupValueAdd));

@@ -70,10 +70,18 @@ const renderIntervalActive = (i: ContinuousInterval, idx: number) => {
             DIV({ className: 'interval' },
                 DIV({ className: 'low' },
                     DIV({ className: 'interval-label' }, tr('lowValue')),
-                    INPUT({ type: 'number', value: i.low, onChange: setLow })),
+                    INPUT({
+                        type: 'number',
+                        defaultValue: i.low.toString(),
+                        onChange: setLow,
+                    })),
                 DIV({ className: 'high' },
                     DIV({ className: 'interval-label' }, tr('highValue')),
-                    INPUT({ type: 'number', value: i.high, onChange: setHigh }))),
+                    INPUT({
+                        type: 'number',
+                        defaultValue: i.high.toString(),
+                        onChange: setHigh,
+                    }))),
             removeGroupButton(() => events.removeItem(idx)))
     );
 };

@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
+
 import { dispatch } from 'sdi/shape';
 import {
     BooleanConfig,
@@ -51,6 +53,8 @@ import { fromNullable } from 'monocle-ts/node_modules/fp-ts/lib/Option';
 import { getSource } from '../queries/table';
 import { selectFeature, selectFeatureRow } from './table';
 
+
+const logger = debug('sdi:events/feature-config');
 
 const defaultRowConfig =
     (pn: string): StringConfig => ({
@@ -303,14 +307,18 @@ const events = {
     },
 
     setPiechartPieceLabel(pn: string, pieceName: string, l: string) {
+        const ts = performance.now();
         updateConfigRow(pn, (row: PiechartConfig) => {
             const p = row.options.columns.find(
                 p => p.propName === pieceName);
             if (p) {
                 p.label = l;
             }
+            logger(`setPiechartPieceLabel inner ${performance.now() - ts}`);
             return row;
         });
+
+        logger(`setPiechartPieceLabel ${performance.now() - ts}`);
     },
 
     setPiechartScale(pn: string, scale: 'normal' | 'log') {
@@ -351,3 +359,5 @@ const events = {
 };
 
 export default events;
+
+logger('loaded');

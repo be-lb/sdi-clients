@@ -112,7 +112,7 @@ const renderInputIcon =
 
 const renderInputNumber =
     (className: string, label: string, get: NumberGetter, set: NumberSetter) => {
-        const value = get();
+        const defaultValue = get();
         const update = (e: React.ChangeEvent<HTMLInputElement>) => {
             const newVal = e.currentTarget.valueAsNumber;
             if (!isNaN(newVal)) {
@@ -122,7 +122,7 @@ const renderInputNumber =
         return (
             DIV({ className: `style-tool ${className}` },
                 SPAN({ className: 'input-label' }, label),
-                INPUT({ value, type: 'number', onChange: update }))
+                INPUT({ defaultValue: defaultValue.toString(), type: 'number', onChange: update }))
         );
     };
 
@@ -242,7 +242,7 @@ export const renderInputAlphaColor =
 
 const renderInputText =
     (className: string, label: string, get: TextGetter, set: TextSetter) => {
-        const value = get();
+        const defaultValue = get();
         // logger(`renderInputText ${value}`);
         const update = (e: React.ChangeEvent<HTMLInputElement>) => {
             // logger(`renderInputText update ${e.currentTarget.value}`);
@@ -252,7 +252,7 @@ const renderInputText =
         return (
             DIV({ className: `style-tool ${className}` },
                 SPAN({ className: 'input-label' }, label),
-                INPUT({ value, type: 'text', onChange: update }))
+                INPUT({ defaultValue, type: 'text', onChange: update }))
         );
     };
 

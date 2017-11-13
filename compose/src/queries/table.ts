@@ -66,7 +66,7 @@ const getLayerData =
         const features = layer.features;
 
         return (
-            features.map<TableDataRow>((f, idx) => {
+            features.map<TableDataRow>((f) => {
                 if ('properties' in f) {
                     const props: Properties = f.properties;
                     const row = keys.map((k) => {
@@ -76,11 +76,11 @@ const getLayerData =
 
                         return '';
                     });
-                    return { from: idx, cells: row };
+                    return { from: f.id, cells: row };
                 }
 
-                return { from: -1, cells: [] };
-            }).filter(r => r.from >= 0)
+                return { from: 'empy-row', cells: [] };
+            }).filter(r => r.cells.length > 0)
         );
     }
 
