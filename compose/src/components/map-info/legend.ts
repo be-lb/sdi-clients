@@ -22,7 +22,6 @@ import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
 import queries from '../../queries/app';
-import events from '../../events/app';
 import appEvents from '../../events/app';
 import { resetLayerTable } from '../../events/table';
 import legendEvents from '../../events/legend-editor';
@@ -81,9 +80,9 @@ const renderEditButton =
             DIV({
                 className: 'table-name',
                 onClick: () => {
-                    events.setCurrentLayerId(info.id);
-                    events.resetLegendEditor();
-                    events.setLayout(AppLayout.LegendEditor);
+                    appEvents.setCurrentLayerId(info.id);
+                    appEvents.resetLegendEditor();
+                    appEvents.setLayout(AppLayout.LegendEditor);
                 },
             },
                 SPAN({}, ...wrap(label)))
@@ -162,7 +161,7 @@ const renderAddButton =
         return (
             addButton(() => {
                 resetLayerTable();
-                events.setLayout(AppLayout.LayerSelect);
+                appEvents.setLayout(AppLayout.LayerSelect);
             })
         );
     };
