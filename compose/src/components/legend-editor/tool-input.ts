@@ -143,18 +143,24 @@ const renderRGB =
             INPUT({
                 type: 'number',
                 value: Math.round(color.red()),
+                min: 0,
+                max: 255,
                 onChange: e => set(color.red(e.currentTarget.valueAsNumber)),
             }));
         const g = SPAN({ className: 'green' },
             INPUT({
                 type: 'number',
                 value: Math.round(color.green()),
+                min: 0,
+                max: 255,
                 onChange: e => set(color.green(e.currentTarget.valueAsNumber)),
             }));
         const b = SPAN({ className: 'blue' },
             INPUT({
                 type: 'number',
                 value: Math.round(color.blue()),
+                min: 0,
+                max: 255,
                 onChange: e => set(color.blue(e.currentTarget.valueAsNumber)),
             }));
 
