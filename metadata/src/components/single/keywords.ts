@@ -1,5 +1,5 @@
 import { DIV } from 'sdi/components/elements';
-import tr from 'sdi/locale';
+
 import {
     SelectRowHandler,
     baseTable,
@@ -62,6 +62,5 @@ export const renderSelectKeyword =
 
         return (
             DIV({ className: 'keywords-wrapper' },
-                DIV({ className: 'label' }, tr('keywords')),
                 renderTable()));
     };
