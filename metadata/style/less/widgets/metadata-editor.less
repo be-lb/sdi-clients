@@ -24,7 +24,8 @@
 
     .meta-wrapper {
         .flex(@justify: flex-start, @align:flex-start);
-        flex: 1;
+        .absolute(82px, @margin * 2, @margin, @margin * 2);
+        // flex: 1;
 
         .meta-edit {
             .flex(@wrap:nowrap, @align:flex-start, @justify:initial);
@@ -38,7 +39,7 @@
         .meta-fr,
         .meta-nl,
         .meta-common {
-            // flex: 1;
+            flex: 1;
             padding: 0 @margin;
 
             > * {

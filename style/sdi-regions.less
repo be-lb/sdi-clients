@@ -116,7 +116,7 @@
     }
 
 .app-col-wrapper {
-    height: 100%;
+    height: 100% !important;
     width: calc(~"(100% - 2 * @{margin}) / 3");
     // overflow-y: hidden;
 
@@ -131,7 +131,7 @@
     }
 
     .app-col-main {
-        height: calc(~"100% - @{headerH}");
+        height: calc(~"100% - @{headerH}") !important;
         overflow-y: auto;
     }
 }
