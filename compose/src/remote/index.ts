@@ -89,8 +89,17 @@ export const delAttachment =
     (url: string): Promise<void> => deleteIO(url, fetchOptions());
 
 
-export const putMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, putOptions());
-export const postMap = (url: string, data: IMapInfo): Promise<IMapInfo> => postIO(IMapInfoIO, url, data, fetchOptions());
+export const putMap =
+    (url: string, data: IMapInfo): Promise<IMapInfo> =>
+        postIO(IMapInfoIO, url, data, putOptions());
+
+export const postMap =
+    (url: string, data: IMapInfo): Promise<IMapInfo> =>
+        postIO(IMapInfoIO, url, data, fetchOptions());
+
+export const deleteMap =
+    (url: string): Promise<void> =>
+        deleteIO(url, fetchOptions());
 
 export const postLayerInfo =
     (url: string, data: ILayerInfo): Promise<ILayerInfo> => postIO(ILayerInfoIO, url, data, fetchOptions());

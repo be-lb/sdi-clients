@@ -22,7 +22,6 @@ import { Attachment, IMapInfo } from 'sdi/source';
 import { uploadAttachmentFile, addAttachment, setAttachmentName, removeAttachment } from '../../events/attachments';
 
 
-import queries from '../../queries/app';
 import editable from '../editable';
 import { FormEvent } from 'react';
 import { button, remove } from '../button';
@@ -135,19 +134,14 @@ const attachments =
                         renderAttachment(a))()
                 )));
 
-const render = () => {
-    const mapInfo = queries.getMapInfo();
-    if (mapInfo) {
-        return (
-            DIV({ className: 'map-attached-files' },
-                H2({}, tr('attachedFiles')),
-                ...attachments(mapInfo),
-                renderAddButton())
-        );
-    }
+const render =
+    (mapInfo: IMapInfo) => (
+        DIV({ className: 'map-attached-files' },
+            H2({}, tr('attachedFiles')),
+            ...attachments(mapInfo),
+            renderAddButton())
+    );
 
-    return DIV();
-};
 
 export default render;
 

@@ -16,15 +16,17 @@
 
 import * as debug from 'debug';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { FormEvent } from 'react';
+
 import { DIV, H1, P, IMG, INPUT, SPAN } from 'sdi/components/elements';
+import { IMapInfo } from 'sdi/source';
+import tr, { formatDate, fromRecord } from 'sdi/locale';
+
 import queries from '../../queries/app';
 import events, { toDataURL } from '../../events/app';
 import mapInfoQueries from '../../queries/map-info';
 import mapInfoEvents from '../../events/map-info';
-import tr, { formatDate, fromRecord } from 'sdi/locale';
 import editable from '../editable';
-import { IMapInfo } from 'sdi/source';
-import { FormEvent } from 'react';
 import { DataUrl, MapInfoIllustrationState } from '../../shape/types';
 import { button, remove } from '../button';
 
@@ -219,12 +221,8 @@ const renderCategories =
             DIV({ className: 'category-wrapper' }, ...elements));
     };
 
-const render = () => {
-    const mapInfo = queries.getMapInfo();
-    if (null === mapInfo) {
-        return DIV();
-    }
-    return (
+const render =
+    (mapInfo: IMapInfo) => (
         DIV({ className: 'map-infos' },
             renderCategories(mapInfo),
 
@@ -239,7 +237,6 @@ const render = () => {
 
             editable(`map_info_description`, getDescription, events.setMapDescription, formatDescription)())
     );
-};
 
 export default render;
 

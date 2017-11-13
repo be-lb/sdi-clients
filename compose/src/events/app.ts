@@ -43,6 +43,7 @@ import {
     postLayerInfo,
     postMap,
     putMap,
+    deleteMap,
 } from '../remote';
 import queries from '../queries/app';
 import { AppLayout } from '../shape/types';
@@ -260,7 +261,7 @@ const events = {
     },
 
 
-    setCurrentMapId(id: string) {
+    setCurrentMapId(id: string | null) {
         dispatch('app/current-map', () => id);
         dispatch('app/current-layer', () => null);
         dispatch('app/current-feature', () => null);
@@ -366,6 +367,15 @@ const events = {
                     events.setLayout(AppLayout.MapAndInfo);
                 }
             });
+    },
+
+    deleteMap(id: string) {
+        events.setCurrentMapId(null);
+        events.setLayout(AppLayout.Dashboard);
+        deleteMap(getApiUrl(`maps/${id}`))
+            .then(() =>
+                dispatch('data/maps', state => state.filter(m => m.id !== id)))
+            .catch(err => logger(`Failed to delete map ${id} ${err}`));
     },
 
 

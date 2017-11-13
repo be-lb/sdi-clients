@@ -15,22 +15,40 @@
  */
 
 import * as debug from 'debug';
+
 import { DIV } from 'sdi/components/elements';
+import { fromNullable } from 'fp-ts/lib/Option';
+
+import { IMapInfo } from 'sdi/source';
+
+import queries from '../../queries/app';
+import events from '../../events/app';
 import info from './info';
 import attachments from './attachments';
 import legend from './legend';
+import { remove } from '../button';
 
 const logger = debug('sdi:map-info');
 
 
-const render = () => {
-    return (
-        DIV({ className: 'map-legend' },
-            info(),
-            attachments(),
-            legend())
+
+const renderRemove =
+    (mi: IMapInfo) => (
+        DIV({ className: 'remove-map' },
+            remove(`remove-map-${mi.id}`, 'removeMap')(() => events.deleteMap(mi.id as string)))
     );
-};
+
+const render =
+    () => fromNullable(queries.getMapInfo())
+        .fold(
+        () => DIV({ className: 'map-legend' }),
+        mi => (
+            DIV({ className: 'map-legend' },
+                info(mi),
+                attachments(mi),
+                legend(mi),
+                renderRemove(mi)
+            )));
 
 export default render;
 

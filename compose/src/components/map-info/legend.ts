@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ILayerInfo, getMessageRecord, Inspire } from 'sdi/source';
+import { ILayerInfo, getMessageRecord, Inspire, IMapInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 import { DIV, H2, SPAN } from 'sdi/components/elements';
 
@@ -170,9 +170,8 @@ const reverse =
     (a: ILayerInfo[]): ILayerInfo[] => a.reduceRight<ILayerInfo[]>((acc, v) => acc.concat([v]), []);
 
 const render =
-    () => {
-        const mapInfo = queries.getMapInfo();
-        const blocks = mapInfo ? reverse(mapInfo.layers).map(renderLayer) : [];
+    (mapInfo: IMapInfo) => {
+        const blocks = reverse(mapInfo.layers).map(renderLayer);
         return (
             DIV({},
                 H2({}, tr('mapLegend')),

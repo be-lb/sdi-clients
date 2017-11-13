@@ -168,6 +168,7 @@ export type MessageKey =
     | 'published'
     | 'quotationMark'
     | 'remove'
+    | 'removeMap'
     | 'resetLegend'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -682,6 +683,11 @@ export const messages: MessageDB = {
     remove: {
         fr: 'supprimer',
         nl: 'verwijder',
+    },
+
+    removeMap: {
+        fr: 'Supprimer cette carte',
+        nl: 'Verwijder deze kaart',
     },
 
     share: {
