@@ -7,8 +7,25 @@ import { renderConfig, renderDefault as defaultView } from 'sdi/components/featu
 import timeserie from 'sdi/components/timeserie';
 
 import app from '../queries/app';
+import appEvents from '../events/app';
+import legendEvents from '../events/legend';
 import { dispatchTimeserie, loadData } from '../events/timeserie';
 import { getData, queryTimeserie } from '../queries/timeserie';
+import { AppLayout } from '../shape/types';
+
+
+export const switcher =
+    () => (
+        DIV({ className: 'switcher' },
+            DIV({
+                className: `switch-legend`,
+                onClick: () => {
+                    appEvents.setLayout(AppLayout.MapFS);
+                    legendEvents.setPage('legend');
+                },
+            }))
+    );
+
 
 
 const tsPlotter = timeserie(

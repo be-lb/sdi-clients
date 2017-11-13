@@ -24,8 +24,8 @@ import tr from 'sdi/locale';
 
 import map from './components/map';
 import table from './components/table/feature-collection';
-import feature, { renderDefault } from './components/feature-view';
-import legend, { switcher } from './components/legend';
+import feature, { renderDefault, switcher as featureSwitch } from './components/feature-view';
+import legend, { switcher as legendSwitch } from './components/legend';
 import mapnavigator from './components/mapnavigator';
 import tracker from './components/geo-tracker';
 import measure from './components/geo-measure';
@@ -63,25 +63,33 @@ const wrappedMain =
     );
 
 const renderMapFs =
-    () => wrappedMain('map-fs', map(), switcher(), legend());
+    () => wrappedMain('map-fs', map(), legendSwitch(), legend());
 
 const renderMapAndInfo =
-    () => wrappedMain('map-and-info', map(), switcher(), legend());
+    () => wrappedMain('map-and-info', map(), legendSwitch(), legend());
 
 const renderMapAndFeature =
-    () => wrappedMain('map-and-feature', map(), feature());
+    () => wrappedMain('map-and-feature', map(), featureSwitch(), feature());
 
 const renderTableFs =
     () => wrappedMain('table-fs', table());
 
 const renderMapAndTable =
-    () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), switcher(), legend());
+    () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), legendSwitch(), legend());
 
 const renderMapNavigatorFS =
     () => wrappedMain('map-navigator-fs', mapnavigator());
 
 const renderMapAndTableAndFeature =
-    () => wrappedMain('map-and-table-and-feature', DIV({ className: 'vertical-split' }, DIV({ className: 'snail' }, DIV({ className: 'feature-view config' }, renderDefault()), map()), table()), switcher(), legend());
+    () => wrappedMain('map-and-table-and-feature',
+        DIV({ className: 'vertical-split' },
+            DIV({ className: 'snail' },
+                DIV({ className: 'feature-view config' },
+                    renderDefault()),
+                map()),
+            table()),
+        legendSwitch(),
+        legend());
 
 const renderMapAndTracker =
     () => wrappedMain('map-and-tracker', map(), tracker());
