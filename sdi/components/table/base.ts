@@ -80,7 +80,7 @@ export const baseTable =
             (types: string[], widths: Width[], onSelect: (a: number) => void) =>
                 (data: TableDataCell, idx: number) => (
                     DIV({
-                        key: idx.toString(),
+                        key: `cell-${idx}`,
                         title: data,
                         className: `table-cell data-type-${types[idx]}`,
                         style: {
@@ -95,7 +95,7 @@ export const baseTable =
             (rowNum: number, key: string | number) => (
                 DIV(
                     {
-                        key,
+                        key: `row-num-${key}`,
                         className: 'table-row-num',
                         style: {
                             display: 'none',
@@ -137,7 +137,7 @@ export const baseTable =
                     const evenOdd = ((rowNum % 2) > 0) ? 'odd table-row' : 'even table-row';
                     return DIV(
                         {
-                            key: data.from,
+                            key: `row-${data.from}`,
                             className: `${selected} ${evenOdd}`,
                             onClick: selectRow(config, rowNum),
                         },
@@ -169,7 +169,7 @@ export const baseTable =
 
                 return DIV({
                     className: `table-search-item`,
-                    key: `${colName}`,
+                    key: `filter-${colName}`,
                 }, fieldName, searchField);
             };
 
@@ -197,7 +197,7 @@ export const baseTable =
                 return DIV({
                     className,
                     style: { width: cwString(width) },
-                    key: idx.toString(),
+                    key: `header-cell-${idx}`,
                     onClick: () => events.sortData(idx, newSortDirection),
                 },
                     SPAN({}, col),
