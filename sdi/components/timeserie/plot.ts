@@ -16,6 +16,9 @@
 
 import * as debug from 'debug';
 import { MouseEvent, } from 'react';
+import { Option, some, none } from 'fp-ts/lib/Option';
+import { catOptions } from 'fp-ts/lib/Array';
+import { compose } from 'fp-ts/lib/function';
 
 import { formatDate } from '../../locale';
 import { ITimeserie, ITimeserieRow } from '../../source';
@@ -40,6 +43,89 @@ import {
 } from './index';
 
 const logger = debug('sdi:components/timeserie');
+
+
+/**
+ * Plot 2
+ */
+
+type TimeserieRowVal = [
+    number, // timestamp
+    number // value
+];
+
+type TimeserieVal = TimeserieRowVal[];
+
+const fromRowIO =
+    (t: ITimeserieRow): Option<TimeserieRowVal> => {
+        const val = t[1];
+        if (val !== null) {
+            return some<TimeserieRowVal>([t[0], val]);
+        }
+        return none;
+    };
+
+const fromSerieIO =
+    (ts: ITimeserie): TimeserieVal =>
+        catOptions(ts.map(fromRowIO))
+
+const serieMinMax =
+    (ts: TimeserieVal) =>
+        ts.reduce(
+            (acc, t) => [Math.min(acc[0], t[1]), Math.max(acc[1], t[1])],
+            [Number.MAX_VALUE, Number.MIN_VALUE]);
+
+const getData =
+    (start: number, len: number) =>
+        (ts: ITimeserie): TimeserieVal =>
+            fromSerieIO(ts.slice(start, start + len));
+
+
+const getScaledData =
+    (ts: TimeserieVal) => {
+        const [min, max] = serieMinMax(ts);
+        // const interval = max - min;
+        return ts.map(t => (t[1] - min) / max);
+    };
+
+interface Cluster<T> {
+    sz: number;
+    data: T[];
+}
+
+type ClusterList<T> = Cluster<T>[];
+
+const cluster =
+    (sz: number) =>
+        (ns: number[]) => ns.reduce((acc, n) => {
+            if (acc.length === 0) {
+                return [{ sz, data: [n] }];
+            }
+            const cc = acc[acc.length - 1];
+            if (cc.sz >= cc.data.length) {
+                return acc.concat({ sz, data: [n] });
+            }
+            cc.data.push(n);
+            return acc;
+        }, [] as ClusterList<number>);
+
+const average =
+    (cs: ClusterList<number>) =>
+        cs.map(
+            c => c.data.reduce((a, n) => a + n, 0) / c.sz);
+
+const makeDrawableSerie =
+    (start: number, n: number, width: number) =>
+        compose(
+            average,
+            cluster(n / width),
+            getScaledData,
+            getData(start, n));
+
+
+
+
+// END OF Plot 2
 
 /**
  * Simplify data points
@@ -140,6 +226,7 @@ export const plotter =
                     const zoom = overflow ?
                         maxbarcount / data.length : 1;
 
+                    logger('Plotter 2', makeDrawableSerie(window.start, window.width, 100)(queryData));
 
                     const scale = deriveScale(data);
                     if (scale !== null) {
