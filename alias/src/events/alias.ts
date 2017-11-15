@@ -82,11 +82,14 @@ const formToAlias =
     })
 
 const updateAlias =
-    (a: IAlias) =>
+    (a: IAlias) => {
         aliasData(
             als => als.filter(
                 fa => fa.id !== a.id)
                 .concat([a]));
+
+        aliasForm(() => formFromData(a.select));
+    };
 
 
 export const saveForm =
