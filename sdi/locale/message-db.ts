@@ -60,6 +60,7 @@ export type MessageKey =
     | 'connect'
     | 'connectionSDI'
     | 'copy'
+    | 'createAlias'
     | 'dashboard'
     | 'datas'
     | 'dataType'
@@ -1258,6 +1259,11 @@ export const messages: MessageDB = {
     aliasDictonary: {
         fr: 'Dictionnaire des alias',
         nl: 'Woordenboek van aliassen',
+    },
+
+    createAlias: {
+        fr: 'Créer un nouvel alias',
+        nl: 'Maak een nieuw alias',
     },
 
 };

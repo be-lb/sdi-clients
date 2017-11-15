@@ -12,7 +12,22 @@
     .alias-widget {
         display: flex;
         margin-top: @margin;
+        height: calc(~"100% - 63px");
 
+        .alias-table {
+            .infinite-table {
+                height: calc(~"100% - 50px");
+            }
+            .btn-add {
+                .high-btn;
+                font-size: 16px;
+                height: 50px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
 
         .form {
             flex: 1;
@@ -39,6 +54,18 @@
             .form-replace input {
                 font-size: 1.5em;
                 font-weight: @light;
+            }
+
+            .form-actions {
+                .flex();
+                position: relative;
+                .btn-save,
+                .btn-remove {
+                    .high-btn;
+                    font-size: 16px;
+                    padding: @margin;
+                }
+                .btn-remove:hover {color: red;}
             }
         }
     }
