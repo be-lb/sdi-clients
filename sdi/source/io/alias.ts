@@ -13,12 +13,13 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 
 import { i, a, MessageRecordIO, TypeOf } from './io';
 import * as io from 'io-ts';
 
 export const IAliasIO = i({
+    id: io.number,
     select: io.string,
     replace: MessageRecordIO,
 }, 'IAliasIO');

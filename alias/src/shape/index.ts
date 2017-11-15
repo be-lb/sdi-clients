@@ -16,9 +16,11 @@
  */
 
 import { ButtonComponent } from 'sdi/components/button';
+import { IDataTable } from 'sdi/components/table';
 import { IUser } from 'sdi/source';
 
 import { AppLayout } from '../app';
+import { FormAlias } from '../components/alias';
 
 // State Augmentation
 
@@ -27,6 +29,8 @@ declare module 'sdi/shape' {
         'app/layout': AppLayout[];
 
         'component/button': ButtonComponent;
+        'component/table/alias': IDataTable;
+        'component/form': FormAlias;
 
         'data/user': IUser | null;
     }

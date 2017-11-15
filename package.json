@@ -13,7 +13,9 @@
         "watch:login": "webpack --config login/webpack.config.js --watch",
         "build:dashboard": "webpack --config dashboard/webpack.config.js",
         "watch:dashboard": "webpack --config dashboard/webpack.config.js --watch",
-        "build": "npm run build:view -- -p && npm run build:compose -- -p && npm run build:metadata -- -p && npm run build:login -- -p && npm run build:dashboard -- -p "
+        "build:alias": "webpack --config alias/webpack.config.js",
+        "watch:alias": "webpack --config alias/webpack.config.js --watch",
+        "build": "npm run build:view -- -p && npm run build:compose -- -p && npm run build:metadata -- -p && npm run build:login -- -p && npm run build:dashboard -- -p  && npm run build:alias -- -p "
     },
     "repository": {
         "type": "git",

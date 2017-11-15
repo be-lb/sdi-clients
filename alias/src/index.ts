@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -20,9 +18,11 @@ import 'sdi/polyfill';
 import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
+import { initialTableState } from 'sdi/components/table';
 import { IShape, configure } from 'sdi/shape';
 
 import App from './app';
+import { defaultFormAlias } from './components/alias';
 
 const logger = debug('sdi:index');
 
@@ -52,22 +52,21 @@ const displayException = (err: string) => {
 
 export const main =
     (SDI: any) => {
-
-
         const initialState: IShape = {
             'app/user': SDI.user,
             'app/root': SDI.root,
             'app/api-root': SDI.api,
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
-            'app/layout': ['Dashboard'],
+            'app/layout': ['Alias'],
 
             'component/button': {},
-            'component/apps': SDI.apps,
+            'component/table/alias': initialTableState(),
+            'component/form': defaultFormAlias(),
 
             'data/user': null,
-            'data/alias': null,
-        }
+            'data/alias': [],
+        };
 
         try {
             const start = source<IShape, keyof IShape>(['app/lang']);

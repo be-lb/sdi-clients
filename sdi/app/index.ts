@@ -67,22 +67,22 @@ export const loop =
                 if (offset >= frameRate && (version !== stateVersion)) {
                     version = stateVersion;
                     lastFrameRequest = ts;
-                    try {
-                        // logger(`render ${version}`);
-                        const startRenderTime = performance.now();
-                        render(renderMain(), root);
-                        const renderTime = performance.now() - startRenderTime;
-                        if (renderTime > frameRate) {
-                            frameRate = renderTime;
-                        }
-                        else if (frameRate > MIN_FRAME_RATE) {
-                            frameRate = Math.max(frameRate - 6, MIN_FRAME_RATE);
-                        }
+                    // try {
+                    // logger(`render ${version}`);
+                    const startRenderTime = performance.now();
+                    render(renderMain(), root);
+                    const renderTime = performance.now() - startRenderTime;
+                    if (renderTime > frameRate) {
+                        frameRate = renderTime;
                     }
-                    catch (err) {
-                        throw err;
-                        // requestAnimationFrame(updateState);
+                    else if (frameRate > MIN_FRAME_RATE) {
+                        frameRate = Math.max(frameRate - 6, MIN_FRAME_RATE);
                     }
+                    // }
+                    // catch (err) {
+                    //     throw err;
+                    // requestAnimationFrame(updateState);
+                    // }
                 }
                 else if (version === stateVersion) {
                     // logger(`no render ${version}`);

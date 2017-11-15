@@ -23,40 +23,41 @@ import { getUserId, loop, getApiUrl } from 'sdi/app';
 
 import { getLayout } from './queries/app';
 import { loadUser } from './events/app';
-import dashboard from './components/dashboard';
+import { loadAllAlias } from './events/alias';
+import alias from './components/alias/alias';
 
 const logger = debug('sdi:app');
 
-export type AppLayout = 'Dashboard';
+export type AppLayout = 'Alias';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header('dashboard')(() => DIV())(),
+        header('alias')(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
 
-const renderDashboard =
-    () => wrappedMain('dashboard', dashboard());
+const renderAlias =
+    () => wrappedMain('alias', alias());
 
 const renderMain =
     () => {
         const layout = getLayout();
         switch (layout) {
-            case 'Dashboard': return renderDashboard();
+            case 'Alias': return renderAlias();
         }
     };
 
 
 const effects =
-    () =>
+    () => {
         getUserId()
             .map(userId =>
                 loadUser(
                     getApiUrl(`users/${userId}`)));
-
-
+        loadAllAlias();
+    }
 
 const app = loop(renderMain, effects);
 export default app;
