@@ -90,7 +90,7 @@ export const main =
             'data/user': null,
             'data/layers': {},
             'data/maps': [],
-            'data/alias': null,
+            'data/alias': [],
             'data/datasetMetadata': [],
             'data/timeseries': {},
             'data/categories': [],

@@ -78,7 +78,7 @@ export const main =
             'data/datasetMetadata': [],
             'data/keywords': [],
             'data/topics': [],
-            'data/alias': null,
+            'data/alias': [],
 
         };
 

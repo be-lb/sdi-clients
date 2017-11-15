@@ -66,7 +66,7 @@ export const main =
             'component/apps': SDI.apps,
 
             'data/user': null,
-            'data/alias': null,
+            'data/alias': [],
         }
 
         try {

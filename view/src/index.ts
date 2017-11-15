@@ -176,7 +176,7 @@ export const main =
             ],
             'data/layers': {},
             'data/maps': [],
-            'data/alias': null,
+            'data/alias': [],
             'data/timeseries': {},
             'data/categories': [],
             'data/datasetMetadata': {},

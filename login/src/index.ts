@@ -69,7 +69,7 @@ export const main =
             'component/button': {},
             'component/login': defaultLoginForm(),
 
-            'data/alias': null,
+            'data/alias': [],
             'data/user': null,
         }
 
