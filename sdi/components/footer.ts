@@ -17,11 +17,16 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV } from './elements';
+import { DIV, SPAN, A } from './elements';
 
 const render = () => (
     DIV({ className: 'footer' },
-        DIV({}, 'Spatial Data Infrastructure © atelier cartographique'))
+        DIV({},
+            SPAN({}, 'Spatial Data Infrastructure © '),
+            SPAN({}, A({
+                href: 'http://atelier-cartographique.be',
+                target: '_blank'
+            }, 'atelier cartographique'))))
 );
 
 export default render;
