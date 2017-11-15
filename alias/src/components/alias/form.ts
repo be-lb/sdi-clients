@@ -10,7 +10,7 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
 import { getFormSelect, getFormReplace } from '../../queries/alias';
-import { setFormSelect, setFormReplace, formObserve, saveForm, buildForm, delAlias } from '../../events/alias';
+import { setFormSelect, setFormReplace, formObserve, saveForm, buildForm, deleteAlias } from '../../events/alias';
 import { button, remove } from '../button';
 
 
@@ -87,7 +87,7 @@ const renderActions =
         DIV({ className: 'form-actions' },
             button('save', 'save')(saveForm),
             button('add', 'add')(() => buildForm('')),
-            remove('alias-remove', 'remove')(delAlias)
+            remove('alias-remove', 'remove')(deleteAlias)
         )
     );
 
