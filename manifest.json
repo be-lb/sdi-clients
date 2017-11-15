@@ -39,6 +39,14 @@
                 "fr": "Metadata",
                 "nl": "Metadata"
             }
+        },
+        {
+            "route": "alias",
+            "root": "alias/dist",
+            "name": {
+                "fr": "Alias",
+                "nl": "Alias"
+            }
         }
     ]
 }

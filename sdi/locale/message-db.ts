@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -169,6 +167,8 @@ export type MessageKey =
     | 'quotationMark'
     | 'remove'
     | 'removeMap'
+    | 'replaceFR'
+    | 'replaceNL'
     | 'resetLegend'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -178,6 +178,7 @@ export type MessageKey =
     | 'saving'
     | 'search'
     | 'searchAtlas'
+    | 'select'
     | 'selectLayer'
     | 'semicolon'
     | 'separatedBy'
@@ -1237,4 +1238,22 @@ export const messages: MessageDB = {
         fr: 'Thesaurus',
         nl: 'Thesaurus',
     },
+
+    //< TODO
+    select: {
+        fr: 'select',
+        nl: 'select',
+    },
+
+    replaceFR: {
+        fr: 'replaceFR',
+        nl: 'replaceFR',
+    },
+
+    replaceNL: {
+        fr: 'replaceFR',
+        nl: 'replaceFR',
+    },
+    //>
+
 };

@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -14,19 +15,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { query } from 'sdi/shape';
 
-import { i, a, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
-
-export const IAliasIO = i({
-    id: io.number,
-    select: io.string,
-    replace: MessageRecordIO,
-}, 'IAliasIO');
-export type IAliasIO = typeof IAliasIO;
-export type IAlias = TypeOf<IAliasIO>;
+export const getUserData =
+    () => query('data/user');
 
 
-export const IAliasCollectionIO = a(IAliasIO);
+export const getLayout =
+    () => {
+        const ll = query('app/layout');
+        if (ll.length === 0) {
+            throw (new Error('PoppingEmptyLayoutList'));
+        }
+        return ll[ll.length - 1];
+    };
 
-export type IAliasCollection = TypeOf<typeof IAliasCollectionIO>;
+

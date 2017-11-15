@@ -1,3 +1,4 @@
+
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -14,19 +15,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ButtonComponent } from 'sdi/components/button';
+import { IDataTable } from 'sdi/components/table';
+import { IUser } from 'sdi/source';
 
-import { i, a, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
+import { AppLayout } from '../app';
+import { FormAlias } from '../components/alias';
 
-export const IAliasIO = i({
-    id: io.number,
-    select: io.string,
-    replace: MessageRecordIO,
-}, 'IAliasIO');
-export type IAliasIO = typeof IAliasIO;
-export type IAlias = TypeOf<IAliasIO>;
+// State Augmentation
 
+declare module 'sdi/shape' {
+    export interface IShape {
+        'app/layout': AppLayout[];
 
-export const IAliasCollectionIO = a(IAliasIO);
+        'component/button': ButtonComponent;
+        'component/table/alias': IDataTable;
+        'component/form': FormAlias;
 
-export type IAliasCollection = TypeOf<typeof IAliasCollectionIO>;
+        'data/user': IUser | null;
+    }
+}

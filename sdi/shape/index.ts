@@ -25,7 +25,7 @@ export interface IShape {
     'app/csrf': string | null;
     'app/root': string;
 
-    'data/alias': IAliasCollection | null;
+    'data/alias': IAliasCollection;
 }
 
 interface Observer<K extends keyof IShape> {
