@@ -30,6 +30,7 @@ export type MessageKey =
     | 'addTerm'
     | 'addToLegend'
     | 'alias'
+    | 'aliasDictonary'
     | 'all'
     | 'apostrophe'
     | 'atlas'
@@ -1239,7 +1240,6 @@ export const messages: MessageDB = {
         nl: 'Thesaurus',
     },
 
-    //< TODO
     term: {
         fr: 'Terme',
         nl: 'Term',
@@ -1254,6 +1254,10 @@ export const messages: MessageDB = {
         fr: 'Alias NL',
         nl: 'Alias NL',
     },
-    //>
+
+    aliasDictonary: {
+        fr: 'Dictionnaire des alias',
+        nl: 'Woordenboek van aliassen',
+    },
 
 };
