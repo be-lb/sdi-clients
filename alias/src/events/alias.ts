@@ -3,7 +3,7 @@ import { getApiUrl } from 'sdi/app';
 import { dispatchK, observe } from 'sdi/shape';
 import { tableEvents } from 'sdi/components/table';
 
-import { fetchAllAlias, putAlias, postAlias } from '../remote';
+import { fetchAllAlias, putAlias, postAlias, delAlias } from '../remote';
 import { FormAliasStatus, defaultFormAlias, FormAlias } from '../components/alias';
 import { getAliasData, getForm } from '../queries/alias';
 import { fromPredicate } from 'fp-ts/lib/Either';
@@ -101,5 +101,8 @@ export const saveForm =
         )
             .then(updateAlias);
 
-export const delAlias =
-    () => void 0; // TODO
+export const deleteAlias =
+    () => formIsCreate(getForm())
+        .map(f => delAlias(`alias/${f.id}`))
+        .map(p => p.then(() => buildForm('')));
+

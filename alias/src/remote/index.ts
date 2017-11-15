@@ -25,6 +25,7 @@ import {
     IAlias,
     IAliasIO,
     fetchPaginatedIO,
+    deleteIO,
 } from 'sdi/source';
 import { getCSRF } from 'sdi/app';
 
@@ -66,3 +67,6 @@ export const putAlias =
         postIO(IAliasIO, url, data, putOptions());
 
 
+export const delAlias =
+    (url: string): Promise<void> =>
+        deleteIO(url, fetchOptions());
