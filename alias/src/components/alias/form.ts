@@ -8,6 +8,7 @@ import {
 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
+import { observeLang } from 'sdi/app';
 
 import { getFormSelect, getFormReplace } from '../../queries/alias';
 import { setFormSelect, setFormReplace, formObserve, saveForm, buildForm, deleteAlias } from '../../events/alias';
@@ -21,22 +22,23 @@ type TextSetter = (a: string) => void;
 interface GS {
     g: TextGetter;
     s: TextSetter;
-    label: MessageKey,
     className: string,
+    labelKey: MessageKey,
 }
 
 interface VS {
     value: string;
+    label: string;
 }
 
-class Input extends Component<any, VS> {
+class Input extends Component<GS, VS> {
     constructor(gs: GS, vs: VS) {
         super(gs, vs);
         this.state = vs;
     }
 
     shouldComponentUpdate() {
-        // const { value } = this.state;
+        // const {  } = this.state;
         // return value === this.props.g();
         return true;
     }
@@ -45,17 +47,25 @@ class Input extends Component<any, VS> {
         formObserve(() => {
             this.setState({ value: this.props.g() });
         });
-        this.setState({ value: this.props.g() });
+        observeLang(() => {
+            this.setState({ label: tr(this.props.labelKey) });
+        });
+        this.setState({
+            value: this.props.g(),
+            label: tr(this.props.labelKey),
+        });
     }
 
     render() {
         return (
             DIV({ className: this.props.className },
-                SPAN({ className: 'input-label' }, tr(this.props.label)),
+                SPAN({ className: 'input-label' }, this.state.label),
                 INPUT({
                     value: this.state.value,
                     type: 'text',
-                    onChange: e => this.setState({ value: e.currentTarget.value }),
+                    onChange: e => this.setState({
+                        value: e.currentTarget.value,
+                    }),
                     onBlur: () => this.props.s(this.state.value),
                 }))
         );
@@ -65,7 +75,11 @@ class Input extends Component<any, VS> {
 const renderInputText =
     (className: string, label: MessageKey) =>
         (get: TextGetter, set: TextSetter) => {
-            return createElement(Input, { s: set, g: get, className, label }, { value: '' });
+            return createElement(
+                Input,
+                { s: set, g: get, className, labelKey: label },
+                { value: '', label: '' }
+            );
         };
 
 
