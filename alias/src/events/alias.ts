@@ -3,9 +3,11 @@ import { getApiUrl } from 'sdi/app';
 import { dispatchK, observe } from 'sdi/shape';
 import { tableEvents } from 'sdi/components/table';
 
-import { fetchAllAlias } from '../remote';
+import { fetchAllAlias, putAlias, postAlias } from '../remote';
 import { FormAliasStatus, defaultFormAlias, FormAlias } from '../components/alias';
-import { getAliasData } from '../queries/alias';
+import { getAliasData, getForm } from '../queries/alias';
+import { fromPredicate } from 'fp-ts/lib/Either';
+import { IAlias } from '../sdi/source/index';
 
 const aliasData = dispatchK('data/alias');
 const aliasForm = dispatchK('component/form');
@@ -64,3 +66,37 @@ export const setFormReplace =
 
 export const formObserve =
     (f: (a: FormAlias) => void) => observe('component/form', f);
+
+export const formIsCreate = fromPredicate(
+    (a: FormAlias) => a.status === 'create',
+    a => a);
+
+const formToAlias =
+    (f: FormAlias): IAlias => ({
+        id: f.id !== null ? f.id : -1,
+        select: f.select,
+        replace: {
+            fr: f.fr,
+            nl: f.nl,
+        }
+    })
+
+const updateAlias =
+    (a: IAlias) =>
+        aliasData(
+            als => als.filter(
+                fa => fa.id !== a.id)
+                .concat([a]));
+
+
+export const saveForm =
+    () =>
+        formIsCreate(getForm())
+            .fold(
+            f => putAlias(getApiUrl(`alias/${f.id}`), formToAlias(f)),
+            f => postAlias(getApiUrl('alias'), formToAlias(f)),
+        )
+            .then(updateAlias);
+
+export const delAlias =
+    () => void 0; // TODO

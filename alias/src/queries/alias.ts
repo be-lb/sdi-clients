@@ -40,6 +40,7 @@ const getSource =
 
 export const tableAliasQueries = tableQueries(tableAlias, getSource);
 
+export const getForm = formAlias;
 
 export const getFormStatus =
     () => formAlias().status;
