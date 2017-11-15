@@ -1,0 +1,33 @@
+.alias-wrapper {
+    width: calc(~"100% - @{margin} * 2");
+    height: 100%;
+    display: flex;
+    // flex-direction: column;
+    margin: auto;
+    border: 1px solid @grey;
+    padding: @margin;
+
+    * {box-sizing: border-box;}
+
+    .form {
+        margin-left: @margin;
+
+        > div {
+            margin-bottom: @margin;
+        }
+
+        .input-label {
+            margin-right: @small-margin;
+        }
+
+        .form-select input {
+            font-size: 2em;
+            font-weight: @light;
+        }
+        .form-replace input {
+            font-size: 1.5em;
+            font-weight: @light;
+        }
+    }
+
+}
