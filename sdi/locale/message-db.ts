@@ -178,7 +178,6 @@ export type MessageKey =
     | 'saving'
     | 'search'
     | 'searchAtlas'
-    | 'select'
     | 'selectLayer'
     | 'semicolon'
     | 'separatedBy'
@@ -204,6 +203,7 @@ export type MessageKey =
     | 'tab'
     | 'templateEditorExplanation'
     | 'temporalReference'
+    | 'term'
     | 'textDelimiter'
     | 'textFormat'
     | 'textStyle'
@@ -1240,19 +1240,19 @@ export const messages: MessageDB = {
     },
 
     //< TODO
-    select: {
-        fr: 'select',
-        nl: 'select',
+    term: {
+        fr: 'Terme',
+        nl: 'Term',
     },
 
     replaceFR: {
-        fr: 'replaceFR',
-        nl: 'replaceFR',
+        fr: 'Alias FR',
+        nl: 'Alias FR',
     },
 
     replaceNL: {
-        fr: 'replaceFR',
-        nl: 'replaceFR',
+        fr: 'Alias NL',
+        nl: 'Alias NL',
     },
     //>
 

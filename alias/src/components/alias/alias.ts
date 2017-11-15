@@ -6,7 +6,7 @@ import table from './table';
 
 const render =
     () => {
-        return DIV({}, table(), form())
+        return DIV({ className: 'alias-wrapper' }, table(), form())
     };
 
 
