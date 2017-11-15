@@ -11,7 +11,7 @@ const formAlias = queryK('component/form');
 
 const getKeys =
     () => [
-        tr('select'),
+        tr('term'),
         tr('replaceFR'),
         tr('replaceNL'),
     ];

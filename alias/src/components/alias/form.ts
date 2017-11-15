@@ -70,7 +70,7 @@ const renderInputText =
 
 
 const renderSelect =
-    renderInputText('form-select', 'select')
+    renderInputText('form-select', 'term')
         (getFormSelect, setFormSelect);
 
 const renderReplaceFr =
