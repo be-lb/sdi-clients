@@ -16,104 +16,66 @@
 
 import * as debug from 'debug';
 
-import { A, DIV, H2, INPUT, SPAN } from 'sdi/components/elements';
-import tr, { fromRecord, FileRecord, fromFileRecord, updateFileRecord } from 'sdi/locale';
+import { A, DIV, H2, SPAN } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
 import { Attachment, IMapInfo } from 'sdi/source';
-import { uploadAttachmentFile, addAttachment, setAttachmentName, removeAttachment } from '../../events/attachments';
+import { addAttachment, setAttachmentName, removeAttachment, setAttachmentUrl } from '../../events/attachments';
 
 
 import editable from '../editable';
-import { FormEvent } from 'react';
 import { button, remove } from '../button';
 import { getAttachment, getAttachmentForm } from '../../queries/attachments';
-import { fromNullable } from 'fp-ts/lib/Option';
+import { fromPredicate } from 'fp-ts/lib/Option';
+
 
 const logger = debug('sdi:map-info/attachments');
-
-
-const uploadButton = button('upload', 'attachmentUpload');
+const nonEmptyString = fromPredicate<string>(s => s.length > 0);
 const addButton = button('add');
 
 
-// const selectedFiles: {[k:string]:FileRecord} = {};
-const selectedFiles = new Map<string, FileRecord>();
 
-const updateSelectedFile =
-    (k: string, i: HTMLInputElement) => {
-        const record = fromNullable(selectedFiles.get(k)).fold(
-            () => ({ nl: null, fr: null }),
-            r => r);
-
-        if (i.files && i.files.length > 0) {
-            selectedFiles.set(k, updateFileRecord(record, i.files[0]));
-        }
-        else {
-            selectedFiles.set(k, updateFileRecord(record, null));
-        }
-    };
-
-
-const uploadAttachment =
-    (k: string) =>
-        fromNullable(selectedFiles.get(k))
-            .map((record) => {
-
-                const selectedFile = fromFileRecord(record);
-                if (selectedFile !== null) {
-                    uploadAttachmentFile(k, selectedFile);
-                }
-            });
-
-
-
-
-const renderAttachmentUploadField =
-    (k: string) => {
-        return DIV({ className: 'map-file' },
-            INPUT({
-                type: 'file',
-                name: 'attachment-upload',
-                onChange: (e: FormEvent<HTMLInputElement>) => updateSelectedFile(k, e.currentTarget),
-            }),
-            uploadButton(() => uploadAttachment(k)),
-            remove(`renderAttachmentUploadField-${k}`)(() => removeAttachment(k)));
-    };
-
-const renderAttachmentEditable =
+const renderAttachmentEditableName =
     (props: React.ClassAttributes<Element>, name: string, a: Attachment) => {
-
-        // return SPAN(name);
         return DIV({ className: 'map-file' },
             SPAN({ className: 'file-label' },
                 A({
                     href: fromRecord(a.url),
                     ...props,
-                }, name)),
+                }, nonEmptyString(name).fold(
+                    () => tr('attachmentName'),
+                    n => n
+                ))),
             remove(`renderAttachmentEditable-${a.id}`)
                 (() => removeAttachment(a.id)));
     };
 
-const renderAttachmentUploading = (name: string) => {
-    return DIV({ className: 'map-file' },
-        SPAN({ className: 'loader-spinner' }),
-        SPAN({}, `${name} (${tr('attachmentUploadActive')})`));
-};
+const renderAttachmentEditableUrl =
+    (props: React.ClassAttributes<Element>, url: string, _a: Attachment) => {
+        return DIV({ className: 'map-file' },
+            SPAN({ ...props, className: 'file-label' },
+                nonEmptyString(url).fold(
+                    () => tr('attachmentUrl'),
+                    u => u
+                )));
+    };
 
 
-const renderAttachment =
+
+const renderAttachmentName =
     (a: Attachment) =>
         (props: React.ClassAttributes<Element>) =>
             getAttachmentForm(a.id)
                 .fold(
                 () => DIV(),
-                (f) => {
-                    if (f.name.length > 0) {
-                        return f.uploading ?
-                            renderAttachmentUploading(f.name) :
-                            renderAttachmentEditable(props, f.name, a);
-                    }
-                    return renderAttachmentUploadField(a.id);
-                });
+                f => renderAttachmentEditableName(props, f.name, a));
+
+const renderAttachmentUrl =
+    (a: Attachment) =>
+        (props: React.ClassAttributes<Element>) =>
+            getAttachmentForm(a.id)
+                .fold(
+                () => DIV(),
+                f => renderAttachmentEditableUrl(props, f.url, a));
 
 
 const renderAddButton = () => (
@@ -127,11 +89,15 @@ const attachments =
             k => getAttachment(k)
                 .fold(
                 () => DIV(),
-                a => (
-                    editable(`ata_${k}`,
+                a => DIV({},
+                    editable(`ata_name_${k}`,
                         () => a.name,
                         n => setAttachmentName(a.id, n),
-                        renderAttachment(a))()
+                        renderAttachmentName(a))(),
+                    editable(`ata_url_${k}`,
+                        () => a.url,
+                        n => setAttachmentUrl(a.id, n),
+                        renderAttachmentUrl(a))(),
                 )));
 
 const render =

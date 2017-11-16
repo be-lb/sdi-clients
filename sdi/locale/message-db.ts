@@ -37,8 +37,10 @@ export type MessageKey =
     | 'atlasEnv'
     | 'attachedFiles'
     | 'attachmentAdd'
+    | 'attachmentName'
     | 'attachmentUpload'
     | 'attachmentUploadActive'
+    | 'attachmentUrl'
     | 'attributesTable'
     | 'autoClass'
     | 'browseMaps'
@@ -292,6 +294,16 @@ export const messages: MessageDB = {
     attachmentUploadActive: {
         fr: 'Uploading',
         nl: 'Bezig met uploaden',
+    },
+
+    attachmentName: {
+        fr: 'Nom du document',
+        nl: 'Naam van het document',
+    },
+
+    attachmentUrl: {
+        fr: 'URL du document',
+        nl: 'URL van het document',
     },
 
     browseMaps: {
