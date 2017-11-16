@@ -80,8 +80,8 @@ const scaleline =
 
 
 const selectFeature =
-    (fid: string | number) => {
-        appEvents.setCurrentFeatureById(fid);
+    (lid: string, fid: string | number) => {
+        appEvents.setCurrentFeatureById(lid, fid);
         appEvents.setLayout(AppLayout.MapAndFeature);
     };
 

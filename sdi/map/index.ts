@@ -190,7 +190,7 @@ export interface EditOptions {
 
 export interface SelectOptions {
     // selectFeature(f: Feature): void;
-    selectFeature(id: string | number): void;
+    selectFeature(lid: string, id: string | number): void;
 }
 
 

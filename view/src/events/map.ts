@@ -22,9 +22,7 @@ import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEve
 import { tableEvents } from 'sdi/components/table';
 
 import appQueries from '../queries/app';
-import appEvents from '../events/app';
 import { getAllBaseLayers, withExtract } from '../queries/map';
-import { AppLayout } from '../shape/types';
 import { Coordinate } from 'openlayers';
 
 const interaction = dispatchK('port/map/interaction');

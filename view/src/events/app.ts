@@ -188,26 +188,31 @@ const events = {
                 }
      */
 
-    setCurrentFeatureById(id: string | number) {
-        const getFeature =
-            (lid: string) =>
-                scopeOption()
-                    .let('md', () => {
-                        const { metadata } = queries.getLayerInfo(lid);
-                        return fromNullable(metadata);
-                    })
-                    .let('data', s => fromNullable(queries.getLayerData(s.md.uniqueResourceIdentifier)))
-                    .let('feature', s => fromNullable(s.data.features.find(f => f.id === id)))
-                    .map(s => s.feature);
+    setCurrentFeatureById(layerInfoId: string, id: string | number) {
 
         scopeOption()
-            .let('mid', fromNullable(queries.getCurrentMap()))
-            .let('cm', s => fromNullable(queries.getMap(s.mid)))
-            .map(({ cm }) => cm.layers.forEach(
-                l => getFeature(l.id).map((f) => {
-                    dispatch('app/current-layer', () => l.id);
-                    dispatch('app/current-feature', () => f);
-                })));
+            .let('md',
+            () => fromNullable(
+                queries.getLayerInfo(layerInfoId).metadata))
+            .let('data',
+            s => fromNullable(
+                queries.getLayerData(s.md.uniqueResourceIdentifier)))
+            .let('feature',
+            s => fromNullable(
+                s.data.features.find(f => f.id === id)))
+            .map(({ feature }) => {
+                dispatch('app/current-layer', () => layerInfoId);
+                dispatch('app/current-feature', () => feature);
+            });
+
+        // scopeOption()
+        //     .let('mid', fromNullable(queries.getCurrentMap()))
+        //     .let('cm', s => fromNullable(queries.getMap(s.mid)))
+        //     .map(({ cm }) => fromNullable(cm.layers.find)(
+        //         l => getFeature().map((f) => {
+        //             dispatch('app/current-layer', () => l.id);
+        //             dispatch('app/current-feature', () => f);
+        //         })));
     },
 
     unsetCurrentFeature() {

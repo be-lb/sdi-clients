@@ -37,11 +37,12 @@ import {
 import { fontSizeExtractRegexp, fontSizeReplaceRegexp } from './style';
 import {
     // formatGeoJSON,
-    SelectOptions,
     EditOptions,
     Interaction,
     fromInteraction,
+    SelectOptions,
 } from './index';
+
 
 
 const logger = debug('sdi:map/actions');
@@ -212,10 +213,9 @@ export const select =
         selectInteraction.on('select', () => {
             if (selectedFeature.getLength() > 0) {
                 const f = selectedFeature.pop();
-
+                const lid = f.get('lid') as string;
                 // const j: GeoJSONFeature = formatGeoJSON.writeFeatureObject(f) as any;
-
-                options.selectFeature(f.getId());
+                options.selectFeature(lid, f.getId());
             }
         });
 

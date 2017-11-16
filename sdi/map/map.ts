@@ -78,6 +78,7 @@ const getLayerData =
 
             vs.addFeatures(features);
             vs.forEachFeature((f) => {
+                f.set('lid', vs.get('id'));
                 if (!f.getId()) {
                     f.setId(f.getProperties()['__app_id__']);
                 }
@@ -144,12 +145,15 @@ export const addLayer =
 
 
             const vs = new source.Vector();
+            vs.set('id', info.id);
+
             const vl = new layer.Vector({
                 source: vs,
                 style: styleFn,
             });
             vl.set('id', info.id);
             vl.setVisible(info.visible);
+
             mainLayerCollection.push(vl);
             getLayerData(fetchData, vs, 0);
 
