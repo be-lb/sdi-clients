@@ -2,7 +2,7 @@
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { Attachment, MessageRecord, IMapInfo } from 'sdi/source';
-import { getLang, getApiUrl } from 'sdi/app';
+import { getApiUrl } from 'sdi/app';
 import { dispatch, dispatchK, observe, dispatchAsync } from 'sdi/shape';
 import { fromRecord } from 'sdi/locale';
 
@@ -11,7 +11,7 @@ import {
     postAttachment,
     putAttachment,
     putMap,
-    upload,
+    // upload,
     delAttachment,
 } from '../remote';
 import queries from '../queries/app';
@@ -29,19 +29,21 @@ const setAttachment =
 
 const updateName =
     (a: Attachment, m: MessageRecord): Attachment => ({ ...a, name: m });
-
 const updateUrl =
-    (a: Attachment, url: string, name: string): Attachment => ({
-        ...a,
-        name: {
-            ...a.name,
-            [getLang()]: name,
-        },
-        url: {
-            ...a.url,
-            [getLang()]: url,
-        },
-    });
+    (a: Attachment, m: MessageRecord): Attachment => ({ ...a, url: m });
+
+// const updateUrl =
+//     (a: Attachment, url: string, name: string): Attachment => ({
+//         ...a,
+//         name: {
+//             ...a.name,
+//             [getLang()]: name,
+//         },
+//         url: {
+//             ...a.url,
+//             [getLang()]: url,
+//         },
+//     });
 
 const updateMapInfo =
     (f: (m: IMapInfo) => IMapInfo) => {
@@ -67,10 +69,10 @@ export const setAttachmentName =
 
 
 export const setAttachmentUrl =
-    (k: string, url: string, name: string) =>
+    (k: string, url: MessageRecord) =>
         getAttachment(k)
             .map(a => putAttachment(
-                getApiUrl(`attachments/${a.id}`), updateUrl(a, url, name))
+                getApiUrl(`attachments/${a.id}`), updateUrl(a, url))
                 .then(setAttachment)
                 .catch(() => void 0));// TODO
 
@@ -103,19 +105,19 @@ export const addAttachment =
 
 
 
-export const uploadAttachmentFile =
-    (k: string, f: File) => {
-        dispatch('component/attachments', ats => fromNullable(ats.find(a => a.id === k)).fold(
-            () => ats,
-            sa => ats.filter(a => a.id !== sa.id).concat([{
-                ...sa,
-                name: f.name,
-                uploading: true,
-            }])));
+// export const uploadAttachmentFile =
+//     (k: string, f: File) => {
+//         dispatch('component/attachments', ats => fromNullable(ats.find(a => a.id === k)).fold(
+//             () => ats,
+//             sa => ats.filter(a => a.id !== sa.id).concat([{
+//                 ...sa,
+//                 name: f.name,
+//                 uploading: true,
+//             }])));
 
-        upload('/documents/documents/', f)
-            .then(({ url }) => setAttachmentUrl(k, url, f.name));
-    };
+//         upload('/documents/documents/', f)
+//             .then(({ url }) => setAttachmentUrl(k, url, f.name));
+//     };
 
 
 observe('app/current-map',
