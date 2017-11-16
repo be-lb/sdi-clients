@@ -16,17 +16,14 @@
  */
 
 import webservices from './webservices';
-// import geocoder from './geocoder';
 import measure from './measure';
 import share from './share';
 import tracker from './tracker';
 import location from './location';
-import extract from './extract';
 
 
 const legendTools = () => {
     return [
-        extract(),
         share(),
         webservices(),
         tracker(),
