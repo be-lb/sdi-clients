@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { MouseEvent, } from 'react';
+import { MouseEvent } from 'react';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { catOptions } from 'fp-ts/lib/Array';
 import { compose } from 'fp-ts/lib/function';
@@ -67,7 +67,7 @@ const fromRowIO =
 
 const fromSerieIO =
     (ts: ITimeserie): TimeserieVal =>
-        catOptions(ts.map(fromRowIO))
+        catOptions(ts.map(fromRowIO));
 
 const serieMinMax =
     (ts: TimeserieVal) =>
@@ -102,7 +102,7 @@ const cluster =
                 return [{ sz, data: [n] }];
             }
             const cc = acc[acc.length - 1];
-            if (cc.sz >= cc.data.length) {
+            if (cc.sz <= cc.data.length) {
                 return acc.concat({ sz, data: [n] });
             }
             cc.data.push(n);
@@ -237,6 +237,7 @@ export const plotter =
                         const activeBar = Math.floor((queries.getCursorPosition() - window.start) * zoom);
                         const barAt = (x: number) => Math.floor(x / barwidth / zoom + window.start);
                         const valueAt = (y: number) => scale.min + spread * (y / graphsize.height);
+
                         const drawBars = () => {
                             const bars = data.map((v, k) => {
                                 const val = v[1];
