@@ -1,6 +1,7 @@
 .feature-view{
     &.config{
         .absolute(0, @margin, 0, calc(~"100% - @{panel-rightW} + @{margin}"));
+        overflow-y: auto;
 
         ////// STRUCTURE  //////
 
@@ -19,10 +20,8 @@
         }
 
         .feature-field {
+            .word-wrap;
             margin-bottom: @small-margin;
-            // width: calc(~"100% - @{margin}");
-            word-break: break-all;
-            word-break: break-word;
         }
 
         .feature-field-label {

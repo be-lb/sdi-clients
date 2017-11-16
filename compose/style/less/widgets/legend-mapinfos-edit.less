@@ -11,10 +11,9 @@
 .map-file {
     .flex;
     .widgetBackground;
+    .word-wrap;
     position: relative;
     width: 100%;
-    word-wrap: break-word;
-    word-break: break-all;
     margin-bottom: @margin;
 
     .map-file-label {
@@ -30,10 +29,9 @@
 
     .file-label,
     .file-url {
+        .word-wrap;
         background-color: @editable;
         display: flex;
-        word-wrap: break-word;
-        word-break: break-all;
         &:before {
             .awsomefont;
             .legendItemPosition;
@@ -160,6 +158,7 @@
     }
 
     .legend-block {
+        .word-wrap;
         position: relative;
         background-color: @extra-light-grey;
         margin-bottom: @margin;
