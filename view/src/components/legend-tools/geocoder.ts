@@ -24,7 +24,7 @@ import { getLang } from 'sdi/app';
 
 import events from '../../events/legend';
 import queries from '../../queries/legend';
-import { viewEvents } from '../../events/map';
+import { viewEvents, putMark } from '../../events/map';
 import { queryService, IUgWsResult, IUgWsAddress } from '../../ports/geocoder';
 
 const updateAddress = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +56,7 @@ const renderResults = (results: IUgWsResult[]) => {
                         center: coords,
                         zoom: 12,
                     });
+                    putMark(coords);
                 },
             }, addressToString(result.address)));
     });
