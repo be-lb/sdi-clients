@@ -84,6 +84,15 @@ export interface MeasureOptions {
     stopMeasuring(): void;
 }
 
+export interface ExtractFeature {
+    layerId: string;
+    featureId: string | number;
+}
+
+export interface ExtractOptions {
+    setCollection(c: ExtractFeature[]): void;
+}
+
 
 export type MapEditableMode = 'none' | 'select' | 'create' | 'modify';
 export type MapEditableSelected = string | number | null;
@@ -108,6 +117,7 @@ export interface InteractionCreate extends InteractionBase<'create', IGeoCreate>
 export interface InteractionModify extends InteractionBase<'modify', IGeoModify> { }
 export interface InteractionTrack extends InteractionBase<'track', IGeoTracker> { }
 export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasure> { }
+export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -115,6 +125,7 @@ interface InteractionMap {
     'modify': InteractionModify;
     'track': InteractionTrack;
     'measure': InteractionMeasure;
+    'extract': InteractionExtract;
 }
 
 

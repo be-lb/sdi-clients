@@ -17,12 +17,15 @@
 
 import { dispatch, dispatchK } from 'sdi/shape';
 import { hashMapBaseLayer } from 'sdi/util';
-import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory } from 'sdi/map';
+import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction } from 'sdi/map';
+import { tableEvents } from 'sdi/components/table';
 
 import appQueries from '../queries/app';
+import appEvents from '../events/app';
 import { getAllBaseLayers } from '../queries/map';
+import { AppLayout } from '../shape/types';
 
-
+const interaction = dispatchK('port/map/interaction');
 
 export const selectBaseLayer =
     (h: string) => {
@@ -44,6 +47,31 @@ export const selectBaseLayer =
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
 export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
-export const trackerEvents = trackerEventsFactory(dispatchK('port/map/interaction'));
-export const measureEvents = measureEventsFactory(dispatchK('port/map/interaction'));
+export const trackerEvents = trackerEventsFactory(interaction);
+export const measureEvents = measureEventsFactory(interaction);
 
+export const startExtract =
+    () => {
+        interaction(() => ({
+            label: 'extract',
+            state: [],
+        }));
+        appEvents.setLayout(AppLayout.MapAndExtract);
+    };
+
+export const stopExtract =
+    () => {
+        interaction(() => defaultInteraction());
+        appEvents.setLayout(AppLayout.MapAndExtract);
+    };
+
+export const setExtractCollection =
+    (state: ExtractFeature[]) => interaction(() => ({
+        label: 'extract',
+        state,
+    }));
+
+
+
+export const extractTableEvents = tableEvents(
+    dispatchK('component/table/extract'));

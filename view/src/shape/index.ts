@@ -49,6 +49,7 @@ declare module 'sdi/shape' {
         'component/legend': ILegend;
         'component/menu': IMenuData;
         'component/table': IDataTable;
+        'component/table/extract': IDataTable;
         'component/mapnavigator': IMapNavigator;
         'component/timeserie': ITimeserieInteractive;
         'component/legend/webservices': IToolWebServices;

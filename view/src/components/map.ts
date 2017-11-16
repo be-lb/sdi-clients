@@ -24,8 +24,18 @@ import { create, IMapOptions } from 'sdi/map';
 
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
-import { getView, getScaleLine, getInteraction } from '../queries/map';
-import { viewEvents, scalelineEvents, measureEvents, trackerEvents } from '../events/map';
+import {
+    getView,
+    getScaleLine,
+    getInteraction,
+} from '../queries/map';
+import {
+    viewEvents,
+    scalelineEvents,
+    measureEvents,
+    trackerEvents,
+    setExtractCollection,
+} from '../events/map';
 import { AppLayout } from '../shape/types';
 
 import geocoder from './legend-tools/geocoder';
@@ -84,6 +94,7 @@ const attachMap =
                     selectable,
                     measurable,
                     trackable,
+                    extractable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
@@ -101,6 +112,10 @@ const attachMap =
                     setCenter: center => viewEvents.updateMapView(
                         { dirty: 'geo', center }),
                     updateTrack: trackerEvents.updateTrack,
+                }, getInteraction);
+
+                extractable({
+                    setCollection: setExtractCollection,
                 }, getInteraction);
             }
             if (element) {

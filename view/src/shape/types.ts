@@ -7,14 +7,13 @@ export enum AppLayout {
     MapFS,
     MapAndInfo,
     MapAndFeature,
+    MapAndExtract,
     TableFs,
     MapAndTable,
     MapNavigatorFS,
     MapAndTableAndFeature,
     MapAndTracker,
     MapAndMeasure,
-
-    EmbedMapFS,
 }
 
 export enum SortDirection {

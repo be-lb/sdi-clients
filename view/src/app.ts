@@ -29,6 +29,7 @@ import legend, { switcher as legendSwitch } from './components/legend';
 import mapnavigator from './components/mapnavigator';
 import tracker from './components/geo-tracker';
 import measure from './components/geo-measure';
+import extract from './components/extract';
 import events from './events/app';
 import queries from './queries/app';
 import { viewEvents } from './events/map';
@@ -97,6 +98,9 @@ const renderMapAndTracker =
 const renderMapAndMeasure =
     () => wrappedMain('map-and-measure', map(), measure());
 
+const renderMapAndExtract =
+    () => wrappedMain('map-and-extract', map(), extract());
+
 const renderMain =
     () => {
         const layout = queries.getLayout();
@@ -110,7 +114,7 @@ const renderMain =
             case AppLayout.MapNavigatorFS: return renderMapNavigatorFS();
             case AppLayout.MapAndTracker: return renderMapAndTracker();
             case AppLayout.MapAndMeasure: return renderMapAndMeasure();
-            default: throw (new Error(`UnsupportedLayout ${AppLayout[layout]}`));
+            case AppLayout.MapAndExtract: return renderMapAndExtract();
         }
     };
 

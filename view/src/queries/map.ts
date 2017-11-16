@@ -1,24 +1,10 @@
-/*
- *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, version 3 of the License.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 import { query, queryK } from 'sdi/shape';
-import { measureQueryFactory } from 'sdi/map';
+import { measureQueryFactory, fromInteraction } from 'sdi/map';
+import tr from 'sdi/locale';
 
 import appQueries from './app';
+import { TableSource, TableDataType, TableDataRow, tableQueries } from 'sdi/components/table';
 
 
 
@@ -45,7 +31,38 @@ export const getInteraction = queryK('port/map/interaction');
 export const measureQueries = measureQueryFactory(getInteraction);
 
 
+const getExtractKeys =
+    () => [
+        tr('identifier'),
+        tr('layerId'),
+    ];
+
+const getExtractTypes =
+    (): TableDataType[] => ['string', 'string'];
 
 
+
+const getExtractData =
+    (): TableDataRow[] =>
+        fromInteraction('extract', query('port/map/interaction')).fold(
+            () => [],
+            ({ state }) => state.map(e => ({
+                from: e.featureId.toString(),
+                cells: [
+                    e.featureId.toString(),
+                    e.layerId,
+                ]
+            }))
+        )
+
+const getExtractSource =
+    (): TableSource => ({
+        data: getExtractData(),
+        keys: getExtractKeys(),
+        types: getExtractTypes(),
+    });
+
+export const extractTableQueries = tableQueries(
+    queryK('component/table/extract'), getExtractSource);
 
 

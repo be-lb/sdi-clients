@@ -29,12 +29,13 @@ import {
     MeasureOptions,
     SelectOptions,
     InteractionGetter,
+    ExtractOptions,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl } from './controls';
 import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
-import { measure, track } from './tools';
+import { measure, track, extract } from './tools';
 
 
 const logger = debug('sdi:map');
@@ -356,6 +357,13 @@ export const create =
                 updatables.push({ name: 'Measure', fn: () => update(g()) });
             };
 
+        const extractable =
+            (o: ExtractOptions, g: InteractionGetter) => {
+                const { init, update } = extract(o);
+                init(map, mainLayerCollection);
+                updatables.push({ name: 'Extract', fn: () => update(g()) });
+            };
+
 
         return {
             setTarget,
@@ -363,6 +371,7 @@ export const create =
             selectable,
             trackable,
             measurable,
+            extractable,
         };
     };
 

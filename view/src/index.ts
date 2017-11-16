@@ -85,6 +85,7 @@ export const main =
             },
 
             'component/table': initialTableState(),
+            'component/table/extract': initialTableState(),
 
             'component/timeserie': {
                 cursorPosition: 35,

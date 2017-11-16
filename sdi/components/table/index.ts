@@ -61,9 +61,9 @@ export interface IDataTable {
     window: TableWindow;
 }
 
-export type LoadDataFn = () => TableDataRow[] | null;
-export type LoadKeysFn = () => string[] | null;
-export type LoadTypesFn = () => TableDataType[] | null;
+// export type LoadDataFn = () => TableDataRow[] | null;
+// export type LoadKeysFn = () => string[] | null;
+// export type LoadTypesFn = () => TableDataType[] | null;
 export type ToolbarFn = () => DOMElement<{}, Element>;
 export type SelectRowHandler = (a: TableDataRow) => void;
 export type SelectCellHandler = (a: TableDataRow, b: number) => void;
