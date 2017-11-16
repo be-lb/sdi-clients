@@ -1,5 +1,5 @@
 
-// import { DIV } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import { SelectRowHandler, baseTable, TableDataRow } from 'sdi/components/table';
 
 import { extractTableEvents } from '../../events/map';
@@ -12,10 +12,17 @@ const onRowSelect: SelectRowHandler =
 
 const base = baseTable(extractTableQueries, extractTableEvents);
 
-const render = base({
+const extract = base({
     className: 'feature-extract-wrapper',
     onRowSelect,
 });
 
 
+const render =
+    () => (
+        DIV({
+            className: 'extract-wrapper',
+        }, extract()));
+
 export default render;
+

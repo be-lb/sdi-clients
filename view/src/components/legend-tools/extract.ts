@@ -15,25 +15,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import webservices from './webservices';
-// import geocoder from './geocoder';
-import measure from './measure';
-import share from './share';
-import tracker from './tracker';
-import location from './location';
-import extract from './extract';
+import { DIV, H2 } from 'sdi/components/elements';
+import tr from 'sdi/locale';
+
+import { startExtract } from '../../events/map';
 
 
-const legendTools = () => {
-    return [
-        extract(),
-        share(),
-        webservices(),
-        tracker(),
-        measure(),
-        location(),
-    ];
+const render = () => {
+    return (
+        DIV({ className: 'tool extract' },
+            H2({}, tr('extractFeatures')),
+            DIV({ className: 'tool-body' },
+                DIV({
+                    className: 'btn-extract',
+                    onClick: startExtract,
+                }, tr('start'))))
+    );
 };
 
-
-export default legendTools;
+export default render;

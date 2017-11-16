@@ -41,10 +41,13 @@ const getExtractTypes =
     (): TableDataType[] => ['string', 'string'];
 
 
+export const withExtract =
+    () => fromInteraction(
+        'extract', query('port/map/interaction'));
 
 const getExtractData =
     (): TableDataRow[] =>
-        fromInteraction('extract', query('port/map/interaction')).fold(
+        withExtract().fold(
             () => [],
             ({ state }) => state.map(e => ({
                 from: e.featureId.toString(),

@@ -81,6 +81,7 @@ export type MessageKey =
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
+    | 'extractFeatures'
     | 'featureInfos'
     | 'featureTemplateEditor'
     | 'featureTemplateEditorReset'
@@ -1284,4 +1285,8 @@ export const messages: MessageDB = {
         nl: 'Kolom naam',
     },
 
+    extractFeatures: {
+        fr: 'Forage',
+        nl: 'Boren',
+    },
 };

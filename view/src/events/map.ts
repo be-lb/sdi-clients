@@ -14,6 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { } from 'fp-ts/lib/Array';
 
 import { dispatch, dispatchK } from 'sdi/shape';
 import { hashMapBaseLayer } from 'sdi/util';
@@ -22,7 +23,7 @@ import { tableEvents } from 'sdi/components/table';
 
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
-import { getAllBaseLayers } from '../queries/map';
+import { getAllBaseLayers, withExtract } from '../queries/map';
 import { AppLayout } from '../shape/types';
 
 const interaction = dispatchK('port/map/interaction');
@@ -65,12 +66,34 @@ export const stopExtract =
         appEvents.setLayout(AppLayout.MapAndExtract);
     };
 
-export const setExtractCollection =
-    (state: ExtractFeature[]) => interaction(() => ({
-        label: 'extract',
-        state,
-    }));
+const eq =
+    (a: ExtractFeature[], b: ExtractFeature[]) => (
+        a.length === b.length
+        && a.length === a.filter((e, i) => b[i] && e.featureId === b[i].featureId).length
+    );
 
+
+const withNewExtracted =
+    (a: ExtractFeature[]) =>
+        withExtract().map(b => eq(a, b.state));
+
+
+export const setExtractCollection =
+    (es: ExtractFeature[]) =>
+        withNewExtracted(es)
+            .fold(
+            () => interaction(() => ({
+                label: 'extract',
+                state: es,
+            })),
+            (isEq) => {
+                if (!isEq) {
+                    interaction(() => ({
+                        label: 'extract',
+                        state: es,
+                    }));
+                }
+            });
 
 
 export const extractTableEvents = tableEvents(
