@@ -17,7 +17,7 @@
 
 import { ChangeEvent, KeyboardEvent } from 'react';
 
-import { DIV, INPUT, SPAN, H2 } from 'sdi/components/elements';
+import { DIV, INPUT, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { isENTER } from 'sdi/components/keycodes';
 import { getLang } from 'sdi/app';
@@ -65,17 +65,15 @@ const render = () => {
     const state = queries.toolsGeocoder();
     if (!state.folded && (state.serviceResponse !== null)) {
         return DIV({ className: 'tool geocoder' },
-            H2({}, tr('geocode')),
             DIV({ className: 'tool-body adress' }, renderResults(state.serviceResponse.result)));
     }
     return (
         DIV({ className: 'tool geocoder' },
-            H2({}, tr('geocode')),
             DIV({ className: 'tool-body adress' },
                 INPUT({
                     type: 'text',
                     name: 'adress',
-                    placeholder: tr('address'),
+                    placeholder: tr('geocode'),
                     onChange: updateAddress,
                     onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
                         if (isENTER(e)) {
@@ -86,7 +84,7 @@ const render = () => {
                 DIV({
                     className: 'btn-search',
                     onClick: searchAddress,
-                }, tr('search'))))
+                }, )))
     );
 
 

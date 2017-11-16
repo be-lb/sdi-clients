@@ -25,7 +25,7 @@ const render = () => (
             SPAN({}, 'Spatial Data Infrastructure © '),
             SPAN({}, A({
                 className: 'ac-link',
-                href: 'http://atelier-cartographique.be',
+                href: 'https://www.atelier-cartographique.be',
                 target: '_blank'
             }, 'atelier cartographique'))))
 );

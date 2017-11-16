@@ -16,7 +16,7 @@ import { AppLayout } from '../shape/types';
 
 export const switcher =
     () => (
-        DIV({ className: 'switcher' },
+        DIV({ className: 'switcher infos' },
             DIV({
                 className: `switch-legend`,
                 onClick: () => {

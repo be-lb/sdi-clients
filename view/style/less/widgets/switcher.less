@@ -1,11 +1,34 @@
 .switcher {
-    .awsomefont;
-    .absolute(@small-margin, calc(~ "@{panel-rightW} + @{small-margin}"), initial, initial);
     z-index: 2;
-    // font-size: 80%;
     width  : @switchH + 2px;
     height : @switchH + 2px !important;
-    // .switch-legend:before {content:@fa-var-dot-circle-o;}
+
+    &.infos {
+        .awsomefont;
+        .absolute(@small-margin, calc(~ "@{panel-rightW} + @{small-margin}"), initial, initial);
+    }
+    &.basemap {
+        .awsomefont;
+        .absolute(calc(~"@{small-margin} + @{switchH} + @{small-margin} * 2"), @small-margin, initial, initial);
+    }
+
+    .switch-background-bn {
+        background: url(~"../../imgs/background-switch-bn.jpg");}
+    .switch-background-ortho {
+        background: url(~"../../imgs/background-switch-ortho.jpg");}
+
+
+    .switch-background-bn,
+    .switch-background-ortho {
+        .flex(center, center, initial);
+        width  : @switchH + 2px;
+        height : @switchH + 2px !important;
+        border-radius: @switchH;
+        cursor: default;
+        background-size: cover;
+    }
+
+
     .switch-legend:before {
         content: @fa-var-info;
     }

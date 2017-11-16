@@ -108,6 +108,8 @@ export const zoomControl =
     };
 
 
+const northArrow = document.createElement('div');
+northArrow.setAttribute('class', 'north-arrow');
 
 export const rotateControl =
     () => {
@@ -115,6 +117,7 @@ export const rotateControl =
             new control.Rotate({
                 className: 'rotate',
                 autoHide: false,
+                label: northArrow,
             })
         );
     };

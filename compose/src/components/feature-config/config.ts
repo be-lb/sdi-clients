@@ -275,7 +275,7 @@ const renderPiechartEditor =
         if (null === curVal) {
             elements.push(INPUT({
                 type: 'text',
-                placeholder: tr('addTerm'),
+                placeholder: tr('columnID'),
                 value: '',
                 onChange: pieceChangeHandler,
             }));

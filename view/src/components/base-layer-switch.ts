@@ -80,7 +80,7 @@ const render = () => {
 
         return (
             DIV({
-                className: 'switcher',
+                className: 'switcher basemap',
                 onClick: () => selectBaseLayer(other),
             }, DIV({ className }))
         );

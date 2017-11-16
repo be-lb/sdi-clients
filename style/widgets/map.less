@@ -14,6 +14,78 @@
         background-color: white;
     }
 
+    .ol-overlaycontainer-stopevent {
+        .absolute (initial, @small-margin, @margin * 2, initial);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .rotate {
+            margin-bottom: @small-margin;
+
+            button {
+                background-color: transparent;
+                border: 0px;
+                font-size: 12pt;
+                width: 2em;
+                height: 2em;
+                position: relative;
+
+                &:focus {
+                    outline: none;
+                }
+
+                .north-arrow {
+                    .absolute(0,0,0,0);
+                    background-image: url('../imgs/north-arrow.svg');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                }
+            }
+        }
+
+        .zoom {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            button {
+                font-family: @gui-font;
+                background-color: @white;
+                border: 1px solid @grey;
+                margin: 2px 0;
+                font-size: 12pt;
+                font-weight: bold;
+                width: 2em;
+                height: 2em;
+
+                &.zoom-in {
+                    &:before {
+                        .awsomefont;
+                        content: @fa-var-plus;
+                    }
+                }
+                &.zoom-out {
+                    &:before {
+                        .awsomefont;
+                        content: @fa-var-minus;
+                    }
+                }
+
+                &:hover {
+                    color: @white;
+                    background-color: @green;
+                    border: 1px solid @green;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+
     .map-scale {
         .absolute(initial, @small-margin, @small-margin, initial);
         border:1px solid #000;
@@ -31,48 +103,6 @@
             }
             .white {background: #FFF; height: 3px;}
             .black {background: #000; height: 3px;}
-        }
-    }
-
-
-    .zoom {
-        .absolute (auto, @small-margin, 32px, auto);
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-
-        button {
-            font-family: @gui-font;
-            background-color: @white;
-            border: 1px solid @grey;
-            margin: 2px 0;
-            font-size: 12pt;
-            font-weight: bold;
-            width: 2em;
-            height: 2em;
-
-            &.zoom-in {
-                &:before {
-                    .awsomefont;
-                    content: @fa-var-plus;
-                }
-            }
-            &.zoom-out {
-                &:before {
-                    .awsomefont;
-                    content: @fa-var-minus;
-                }
-            }
-
-            &:hover {
-                color: @white;
-                background-color: @green;
-                border: 1px solid @green;
-            }
-
-            &:focus {
-                outline: none;
-            }
         }
     }
 }

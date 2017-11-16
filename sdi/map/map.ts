@@ -284,12 +284,12 @@ export const create =
                 toolsLayerGroup,
             ],
             controls: [
+                rotateControl(),
+                zoomControl(),
                 scaleLine({
                     setScaleLine: options.setScaleLine,
                     minWidth: 100,
                 }),
-                rotateControl(),
-                zoomControl(),
             ],
         });
 

@@ -95,10 +95,10 @@ const switchItem = (p: LegendPage) => {
 export const switcher = () => {
     const currentPage = queries.currentPage();
     if (currentPage === 'legend') {
-        return DIV({ className: 'switcher' }, switchItem('tools'));
+        return DIV({ className: 'switcher infos' }, switchItem('tools'));
     }
 
-    return DIV({ className: 'switcher' }, switchItem('legend'));
+    return DIV({ className: 'switcher infos' }, switchItem('legend'));
 
 };
 

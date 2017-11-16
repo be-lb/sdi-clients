@@ -52,6 +52,7 @@ export type MessageKey =
     | 'colorLightness'
     | 'colorOpacity'
     | 'colorSaturation'
+    | 'columnID'
     | 'columnNumber'
     | 'columnPicker'
     | 'columnPickerMessage'
@@ -1276,6 +1277,11 @@ export const messages: MessageDB = {
     createAlias: {
         fr: 'Créer un nouvel alias',
         nl: 'Maak een nieuw alias',
+    },
+
+    columnID: {
+        fr: 'Identifiant de colonne',
+        nl: 'Kolom naam',
     },
 
 };
