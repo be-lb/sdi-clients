@@ -16,7 +16,7 @@
  */
 
 import webservices from './webservices';
-import geocoder from './geocoder';
+// import geocoder from './geocoder';
 import measure from './measure';
 import share from './share';
 import tracker from './tracker';

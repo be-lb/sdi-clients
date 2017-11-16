@@ -31,7 +31,7 @@ import {
     InteractionGetter,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
-import { scaleLine, zoomControl } from './controls';
+import { scaleLine, zoomControl, rotateControl } from './controls';
 import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track } from './tools';
@@ -287,6 +287,7 @@ export const create =
                     setScaleLine: options.setScaleLine,
                     minWidth: 100,
                 }),
+                rotateControl(),
                 zoomControl(),
             ],
         });

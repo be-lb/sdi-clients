@@ -106,3 +106,16 @@ export const zoomControl =
             })
         );
     };
+
+
+
+export const rotateControl =
+    () => {
+        return (
+            new control.Rotate({
+                className: 'rotate',
+                autoHide: false,
+            })
+        );
+    };
+

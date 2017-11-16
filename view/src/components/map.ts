@@ -29,6 +29,7 @@ import { viewEvents, scalelineEvents, measureEvents, trackerEvents } from '../ev
 import { AppLayout } from '../shape/types';
 
 import geocoder from './legend-tools/geocoder';
+import baseSwitch from './base-layer-switch';
 
 const logger = debug('sdi:comp/map');
 // const mapId = 'be-sdi-this-is-the-map';
@@ -126,6 +127,7 @@ const render =
                     ref: attachMap(),
                 }),
                 geocoder(),
+                baseSwitch(),
                 scaleline())
         );
     };
