@@ -17,7 +17,7 @@
 
 import { ChangeEvent, KeyboardEvent } from 'react';
 
-import { DIV, INPUT, SPAN, H2 } from 'sdi/components/elements';
+import { DIV, INPUT, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { isENTER } from 'sdi/components/keycodes';
 import { getLang } from 'sdi/app';
