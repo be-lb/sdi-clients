@@ -35,6 +35,8 @@ import {
     measureEvents,
     trackerEvents,
     setExtractCollection,
+    startMark,
+    endMark,
 } from '../events/map';
 import { AppLayout } from '../shape/types';
 
@@ -95,6 +97,7 @@ const attachMap =
                     measurable,
                     trackable,
                     extractable,
+                    markable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
@@ -117,6 +120,9 @@ const attachMap =
                 extractable({
                     setCollection: setExtractCollection,
                 }, getInteraction);
+
+                markable({ startMark, endMark }, getInteraction);
+
             }
             if (element) {
                 mapSetTarget(element);

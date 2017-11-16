@@ -30,12 +30,13 @@ import {
     SelectOptions,
     InteractionGetter,
     ExtractOptions,
+    MarkOptions,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl } from './controls';
 import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
-import { measure, track, extract } from './tools';
+import { measure, track, extract, mark } from './tools';
 
 
 const logger = debug('sdi:map');
@@ -364,6 +365,13 @@ export const create =
                 updatables.push({ name: 'Extract', fn: () => update(g()) });
             };
 
+        const markable =
+            (o: MarkOptions, g: InteractionGetter) => {
+                const { init, update } = mark(o);
+                init(map);
+                updatables.push({ name: 'Mark', fn: () => update(g()) });
+            };
+
 
         return {
             setTarget,
@@ -372,6 +380,7 @@ export const create =
             trackable,
             measurable,
             extractable,
+            markable,
         };
     };
 

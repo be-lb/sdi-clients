@@ -94,6 +94,24 @@ export interface ExtractOptions {
 }
 
 
+export interface IMark {
+    started: boolean;
+    endTime: number;
+    coordinates: Coordinate;
+}
+
+export interface MarkOptions {
+    endMark(): void;
+    startMark(): void;
+}
+
+export const defaultMark =
+    (): IMark => ({
+        started: false,
+        endTime: 0,
+        coordinates: [0, 0],
+    });
+
 export type MapEditableMode = 'none' | 'select' | 'create' | 'modify';
 export type MapEditableSelected = string | number | null;
 
@@ -118,6 +136,7 @@ export interface InteractionModify extends InteractionBase<'modify', IGeoModify>
 export interface InteractionTrack extends InteractionBase<'track', IGeoTracker> { }
 export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasure> { }
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
+export interface InteractionMark extends InteractionBase<'mark', IMark> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -126,6 +145,7 @@ interface InteractionMap {
     'track': InteractionTrack;
     'measure': InteractionMeasure;
     'extract': InteractionExtract;
+    'mark': InteractionMark;
 }
 
 

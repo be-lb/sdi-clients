@@ -25,6 +25,7 @@ import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import { getAllBaseLayers, withExtract } from '../queries/map';
 import { AppLayout } from '../shape/types';
+import { Coordinate } from 'openlayers';
 
 const interaction = dispatchK('port/map/interaction');
 
@@ -98,3 +99,27 @@ export const setExtractCollection =
 
 export const extractTableEvents = tableEvents(
     dispatchK('component/table/extract'));
+
+
+export const startMark =
+    () => interaction((s) => {
+        if (s.label === 'mark') {
+            return { ...s, state: { ...s.state, started: true } };
+        }
+        return s;
+    });
+
+export const endMark =
+    () => interaction(() => defaultInteraction());
+
+
+export const putMark =
+    (coordinates: Coordinate) =>
+        interaction(() => ({
+            label: 'mark',
+            state: {
+                started: false,
+                endTime: Date.now() + 3600,
+                coordinates,
+            },
+        }));
