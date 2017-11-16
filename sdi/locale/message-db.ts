@@ -124,6 +124,7 @@ export type MessageKey =
     | 'legendTypeSimple'
     | 'lineColor'
     | 'lineWidth'
+    | 'links'
     | 'loadingData'
     | 'location'
     | 'locationHelp'
@@ -1288,5 +1289,10 @@ export const messages: MessageDB = {
     extractFeatures: {
         fr: 'Forage',
         nl: 'Boren',
+    },
+
+    links: {
+        fr: 'Liens',
+        nl: 'Koppelingen',
     },
 };
