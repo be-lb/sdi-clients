@@ -202,6 +202,17 @@ const updateLayers =
     (getMapInfo: IMapOptions['getMapInfo']) =>
         () => fromNullable(getMapInfo())
             .map((mapInfo) => {
+                const ids = mapInfo.layers.map(info => info.id);
+                mainLayerGroup
+                    .getLayers()
+                    .forEach((l) => {
+                        if (l) {
+                            const lid = <string>(l.get('id'));
+                            if (ids.indexOf(lid) < 0) {
+                                mainLayerGroup.getLayers().remove(l);
+                            }
+                        }
+                    });
                 mapInfo.layers.forEach((info, z) => {
                     const { id, visible } = info;
                     mainLayerGroup.getLayers()

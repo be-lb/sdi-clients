@@ -30,6 +30,7 @@ export const getBaseLayer =
 export const getInteraction = queryK('port/map/interaction');
 export const measureQueries = measureQueryFactory(getInteraction);
 
+export const getInteractionMode = () => getInteraction().label;
 
 const getExtractKeys =
     () => [

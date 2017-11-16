@@ -29,6 +29,7 @@ import { Coordinate } from 'openlayers';
 
 const interaction = dispatchK('port/map/interaction');
 
+
 export const selectBaseLayer =
     (h: string) => {
         const mid = appQueries.getCurrentMap();
@@ -58,7 +59,7 @@ export const startExtract =
             label: 'extract',
             state: [],
         }));
-        appEvents.setLayout(AppLayout.MapAndExtract);
+        // appEvents.setLayout(AppLayout.MapAndExtract);
     };
 
 export const stopExtract =

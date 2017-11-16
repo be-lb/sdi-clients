@@ -28,6 +28,7 @@ import {
     getView,
     getScaleLine,
     getInteraction,
+    getInteractionMode,
 } from '../queries/map';
 import {
     viewEvents,
@@ -141,7 +142,7 @@ const render =
         }
 
         return (
-            DIV({ className: 'map-wrapper' },
+            DIV({ className: `map-wrapper ${getInteractionMode()}` },
                 DIV({
                     // id: mapId,
                     className: 'map',
