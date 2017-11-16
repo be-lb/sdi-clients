@@ -34,8 +34,8 @@ import { withExtract } from '../../queries/map';
 const logger = debug('sdi:table/feature-collection');
 
 const closeButton = button('close');
-const extractButton = button('extract');
-const noExtractButton = button('noExtract');
+const extractButton = button('toggle-off');
+const noExtractButton = button('toggle-on');
 
 
 const renderExtract =
