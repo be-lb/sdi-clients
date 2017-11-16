@@ -29,7 +29,7 @@ export const mark =
                         (m) => {
                             if (state.started) {
                                 if (state.endTime >= Date.now()) {
-                                    // m.removeOverlay(overlay);
+                                    m.removeOverlay(overlay);
                                     endMark();
                                 }
                             }
