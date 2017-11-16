@@ -13,12 +13,9 @@ const aliasData = dispatchK('data/alias');
 const aliasForm = dispatchK('component/form');
 
 export const loadAllAlias =
-    () => {
-        fetchAllAlias(getApiUrl('alias'))(
-            als => aliasData(s => s.concat(als)),
-            () => 1
-        );
-    };
+    () =>
+        fetchAllAlias(getApiUrl('alias'))
+            .then(als => aliasData(s => s.concat(als)));
 
 export const tableAliasEvents =
     tableEvents(dispatchK('component/table/alias'));

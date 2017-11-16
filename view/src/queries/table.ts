@@ -70,7 +70,7 @@ const getLayerData =
         );
 
         return (
-            features.map<TableDataRow>((f, idx) => {
+            features.map<TableDataRow>((f) => {
                 if ('properties' in f) {
                     const props: ObjOrNull = f.properties;
                     const row = keys.map((k) => {
@@ -80,7 +80,7 @@ const getLayerData =
 
                         return '';
                     });
-                    return { from: idx, cells: row };
+                    return { from: f.id, cells: row };
                 }
 
                 return { from: -1, cells: [] };

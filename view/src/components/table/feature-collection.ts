@@ -21,6 +21,7 @@ import { getMessageRecord } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 import { DIV } from 'sdi/components/elements';
 import { SelectRowHandler, TableDataRow, baseTable } from 'sdi/components/table';
+import { scopeOption } from 'sdi/lib';
 
 import { layerTableQueries } from '../../queries/table';
 import { layerTableEvents } from '../../events/table';
@@ -30,6 +31,7 @@ import { AppLayout } from '../../shape/types';
 import { button } from '../button';
 import { startExtract, stopExtract } from '../../events/map';
 import { withExtract } from '../../queries/map';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:table/feature-collection');
 
@@ -72,17 +74,21 @@ const toolbar = () => {
 };
 
 const onRowSelect: SelectRowHandler =
-    (row: TableDataRow) => {
-        const { metadata } = appQueries.getCurrentLayerInfo();
-        if (metadata) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-            if (layer) {
-                const feature = layer.features[row.from as number];
+    (row: TableDataRow) =>
+        scopeOption()
+            .let('meta',
+            fromNullable(appQueries.getCurrentLayerInfo().metadata))
+            .let('layer',
+            ({ meta }) => fromNullable(
+                appQueries.getLayerData(meta.uniqueResourceIdentifier)))
+            .let('feature',
+            ({ layer }) => fromNullable(
+                layer.features.find(f => f.id === row.from)))
+            .map(({ feature }) => {
                 appEvents.setCurrentFeature(feature);
                 appEvents.setLayout(AppLayout.MapAndTableAndFeature);
-            }
-        }
-    };
+            });
+
 
 const base = baseTable(layerTableQueries, layerTableEvents);
 

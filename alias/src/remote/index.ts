@@ -24,7 +24,7 @@ import {
     postIO,
     IAlias,
     IAliasIO,
-    fetchPaginatedIO,
+    // fetchPaginatedIO,
     deleteIO,
 } from 'sdi/source';
 import { getCSRF } from 'sdi/app';
@@ -56,7 +56,7 @@ export const fetchUser =
 
 export const fetchAllAlias =
     (url: string) =>
-        fetchPaginatedIO(IAliasIO, url, fetchOptions());
+        fetchIO(IAliasIO, url, fetchOptions());
 
 export const postAlias =
     (url: string, data: Partial<IAlias>): Promise<IAlias> =>
