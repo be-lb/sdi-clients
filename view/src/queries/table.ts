@@ -27,6 +27,7 @@ import {
 } from 'sdi/components/table';
 
 import appQueries from './app';
+import { withExtract } from './map';
 
 
 type ObjOrNull = { [k: string]: any } | null;
@@ -62,7 +63,11 @@ export const getFeatureData =
 const getLayerData =
     (layer: FeatureCollection): TableDataRow[] => {
         const keys = getLayerKeys(layer);
-        const features = layer.features;
+        const features = withExtract().fold(
+            () => layer.features,
+            ({ state }) => layer.features.filter(f => state.findIndex(fe => (
+                fe.featureId === f.id)) >= 0)
+        );
 
         return (
             features.map<TableDataRow>((f, idx) => {
@@ -81,7 +86,7 @@ const getLayerData =
                 return { from: -1, cells: [] };
             }).filter(r => r.from >= 0)
         );
-    }
+    };
 
 const getLayerKeys =
     (layer: FeatureCollection) => getLayerPropertiesKeys(layer);
@@ -121,7 +126,11 @@ export const getSource =
                 data: getLayerData(layer),
                 keys: getLayerKeys(layer),
                 types: getLayerTypes(layer),
-            })), 'app/current-map', 'data/layers', 'data/maps');
+            })),
+        'app/current-map',
+        'data/layers',
+        'data/maps',
+        'port/map/interaction');
 
 
 

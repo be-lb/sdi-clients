@@ -18,8 +18,8 @@
 import * as debug from 'debug';
 
 import { getMessageRecord } from 'sdi/source';
-import { fromRecord } from 'sdi/locale';
-import { DIV, SPAN } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
+import { DIV } from 'sdi/components/elements';
 import { SelectRowHandler, TableDataRow, baseTable } from 'sdi/components/table';
 
 import { layerTableQueries } from '../../queries/table';
@@ -28,10 +28,28 @@ import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
+import { startExtract, stopExtract } from '../../events/map';
+import { withExtract } from '../../queries/map';
 
 const logger = debug('sdi:table/feature-collection');
 
 const closeButton = button('close');
+const extractButton = button('extract');
+const noExtractButton = button('noExtract');
+
+
+const renderExtract =
+    () => withExtract().fold(
+        () => DIV({ className: 'toggle' },
+            DIV({ className: 'active' }, tr('extractOff')),
+            extractButton(startExtract),
+            DIV({ className: 'no-active' }, tr('extractOn'))),
+        () => DIV({ className: 'toggle' },
+            DIV({ className: 'no-active' }, tr('extractOff')),
+            noExtractButton(stopExtract),
+            DIV({ className: 'active' }, tr('extractOn'))),
+    )
+
 
 const toolbar = () => {
     const { metadata } = appQueries.getCurrentLayerInfo();
@@ -39,12 +57,14 @@ const toolbar = () => {
     return DIV({ className: 'table-toolbar', key: 'table-toolbar' },
         DIV({ className: 'table-title' }, layerName),
         DIV({ className: 'table-download' },
-            SPAN({ className: 'dl-item' }, 'geojson'),
-            SPAN({ className: 'dl-item' }, 'gpx'),
-            SPAN({ className: 'dl-item' }, 'shapefile'),
-            SPAN({ className: 'dl-item' }, 'kml'),
-            SPAN({ className: 'dl-item' }, 'csv'),
-            SPAN({ className: 'dl-item' }, 'geotif')),
+            renderExtract()
+            // SPAN({ className: 'dl-item' }, 'geojson'),
+            // SPAN({ className: 'dl-item' }, 'gpx'),
+            // SPAN({ className: 'dl-item' }, 'shapefile'),
+            // SPAN({ className: 'dl-item' }, 'kml'),
+            // SPAN({ className: 'dl-item' }, 'csv'),
+            // SPAN({ className: 'dl-item' }, 'geotif')
+        ),
         closeButton(() => {
             appEvents.unsetCurrentFeature();
             appEvents.setLayout(AppLayout.MapFS);
@@ -53,9 +73,9 @@ const toolbar = () => {
 
 const onRowSelect: SelectRowHandler =
     (row: TableDataRow) => {
-        const lid = appQueries.getCurrentLayer();
-        if (lid) {
-            const layer = appQueries.getLayerData(lid);
+        const { metadata } = appQueries.getCurrentLayerInfo();
+        if (metadata) {
+            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
             if (layer) {
                 const feature = layer.features[row.from as number];
                 appEvents.setCurrentFeature(feature);
