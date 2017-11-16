@@ -19,8 +19,7 @@
 }
 
 .map-fs,
-.map-and-info,
-.map-and-extract {
+.map-and-info {
     .map-wrapper {
         .absolute(0, @panel-rightW, 0, @margin);
     }
@@ -51,6 +50,17 @@
         .absolute(0, 0, 0, calc(~"100% - @{panel-rightW} + @{margin} - 1px"));
         height: 100%;
         z-index: 3;
+    }
+}
+
+//////////   MAP & RIGHT SIDEBAR
+
+.map-and-right-sidebar {
+    > div:nth-child(1) {
+        .absolute(0, @panel-rightW, 0, @margin);
+    }
+    > div:nth-child(2) {
+        .absolute(0, @margin, 0, calc(~"100% - @{panel-rightW} + @{margin} - 1px"));
     }
 }
 

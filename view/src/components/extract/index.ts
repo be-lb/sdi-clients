@@ -1,6 +1,8 @@
 
-import { DIV } from 'sdi/components/elements';
+import { DIV, H1 } from 'sdi/components/elements';
 import { SelectRowHandler, baseTable, TableDataRow } from 'sdi/components/table';
+import tr from 'sdi/locale';
+
 
 import { extractTableEvents } from '../../events/map';
 import { extractTableQueries } from '../../queries/map';
@@ -22,7 +24,9 @@ const render =
     () => (
         DIV({
             className: 'extract-wrapper',
-        }, extract()));
+        },
+            H1({}, tr('extractSearch')),
+            extract()));
 
 export default render;
 

@@ -103,7 +103,7 @@ const attachments =
 const render =
     (mapInfo: IMapInfo) => (
         DIV({ className: 'map-attached-files' },
-            H2({}, tr('attachedFiles')),
+            H2({}, tr('links')),
             ...attachments(mapInfo),
             renderAddButton())
     );

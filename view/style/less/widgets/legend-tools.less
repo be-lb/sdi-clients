@@ -27,6 +27,27 @@
 }
 
 
+// TOOLS : EXTRACTOR - DRILL
+
+.map-and-extract {
+    .map-and-right-sidebar;
+
+    .extract-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        H1 {
+            margin-bottom: 2 * @margin;
+        }
+
+        .infinite-table {
+            // height: 100%;
+            overflow: auto;
+        }
+    }
+
+}
+
 
 // TOOLS : WMS PICKER
 .tool.wms-picker {
@@ -81,13 +102,15 @@
 
         span {
             display: flex;
+            align-items: center;
             cursor: default;
             height: 20px;
+            padding-right: @margin;
         }
 
         span:before {
             .awsomefont;
-            .legendItemPosition;
+            margin: 0 @small-margin;
             font-size: 1em;
             justify-content: center;
             content: @fa-var-circle-o;
@@ -118,7 +141,7 @@
     h3 {
         margin-bottom: @margin;
     }
-    
+
 
     // FIXME: use proper variables -pm
     .input-label {

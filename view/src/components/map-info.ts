@@ -40,7 +40,7 @@ const renderAttachments =
         if (aLen > 0) {
             return (
                 DIV({ className: 'map-attached-files' },
-                    H2({}, tr('attachedFiles')),
+                    H2({}, tr('links')),
                     info.attachments.map(makeAttachment))
             );
         }
