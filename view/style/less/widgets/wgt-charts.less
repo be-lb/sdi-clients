@@ -1,27 +1,49 @@
 .chart-wrapper {
+    position:relative;
+
     h2 {
         margin: 0 0 @margin 0;
     }
 }
 
 .chart-viz {
-    padding: 30px;
+    margin-bottom: @margin;
+    svg {
+        width: 66%;
+        margin: auto;
+        padding: 2 * @margin;
+        padding-bottom: @margin;
+    }
+
     text-align: center;
 }
 
 .chart-legend {
-    .chart-legend-items {
-        display: flex;
-        flex-wrap: wrap;
-    }
+    display: flex;
+    flex-wrap: wrap;
+
     .chart-legend-item {
-        flex: 3;
         display: flex;
-        padding: @margin 0;
-    }
-    .chart-item-color {
-        width: 25px;
-        height: 15px;
-        margin-right: @margin;
+        padding: @margin / 2 @margin;
+
+        .chart-item-color {
+            width: 30px;
+            height: 30px;
+            margin-right: @small-margin;
+            border-radius: 30px;
+            border: 8px solid @white;
+        }
+
+        .chart-item-content {
+            .chart-item-label {
+                text-align: left;
+            }
+            .chart-item-value {
+                font-size: 60%;
+                font-weight: @light;
+                margin-top: @small-margin;
+                letter-spacing: 1px;
+            }
+        }
     }
 }

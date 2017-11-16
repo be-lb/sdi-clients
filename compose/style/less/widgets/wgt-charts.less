@@ -19,20 +19,31 @@
 }
 
 .chart-legend {
-    .flex(center, center, wrap);
+    display: flex;
+    flex-wrap: wrap;
 
-    .chart-legend-items {
-        display: flex;
-        flex-wrap: wrap;
-    }
     .chart-legend-item {
-        // flex: 3;
         display: flex;
         padding: @margin / 2 @margin;
-    }
-    .chart-item-color {
-        width: 25px;
-        height: 15px;
-        margin-right: @margin;
+
+        .chart-item-color {
+            width: 30px;
+            height: 30px;
+            margin-right: @small-margin;
+            border-radius: 30px;
+            border: 8px solid @white;
+        }
+
+        .chart-item-content {
+            .chart-item-label {
+                text-align: left;
+            }
+            .chart-item-value {
+                font-size: 60%;
+                font-weight: @light;
+                margin-top: @small-margin;
+                letter-spacing: 1px;
+            }
+        }
     }
 }
