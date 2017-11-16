@@ -36,7 +36,7 @@ const addButton = button('add');
 
 const renderAttachmentEditableName =
     (props: React.ClassAttributes<Element>, name: string, a: Attachment) => {
-        return DIV({ className: 'map-file' },
+        return DIV({ className: 'map-file-label' },
             SPAN({ className: 'file-label' },
                 A({
                     href: fromRecord(a.url),
@@ -44,15 +44,13 @@ const renderAttachmentEditableName =
                 }, nonEmptyString(name).fold(
                     () => tr('attachmentName'),
                     n => n
-                ))),
-            remove(`renderAttachmentEditable-${a.id}`)
-                (() => removeAttachment(a.id)));
+                ))));
     };
 
 const renderAttachmentEditableUrl =
     (props: React.ClassAttributes<Element>, url: string, _a: Attachment) => {
-        return DIV({ className: 'map-file' },
-            SPAN({ ...props, className: 'file-label' },
+        return DIV({ className: 'map-file-url' },
+            SPAN({ ...props, className: 'file-url' },
                 nonEmptyString(url).fold(
                     () => tr('attachmentUrl'),
                     u => u
@@ -89,7 +87,7 @@ const attachments =
             k => getAttachment(k)
                 .fold(
                 () => DIV(),
-                a => DIV({},
+                a => DIV({ className: 'map-file' },
                     editable(`ata_name_${k}`,
                         () => a.name,
                         n => setAttachmentName(a.id, n),
@@ -98,6 +96,8 @@ const attachments =
                         () => a.url,
                         n => setAttachmentUrl(a.id, n),
                         renderAttachmentUrl(a))(),
+                    remove(`renderAttachmentEditable-${a.id}`)
+                        (() => removeAttachment(a.id))
                 )));
 
 const render =
