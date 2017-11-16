@@ -63,3 +63,18 @@ textarea {
         content: @fa-var-circle-o-notch;
     }
 }
+
+
+.toggle {
+    .flex(@justify: flex-start);
+
+    .active, .no-active {font-weight: 500;}
+    .active {color:@green;}
+    .no-active {color:@light-grey;}
+
+    .icon-only:before {
+        font-size: 18px;
+        color: @green;
+        margin: 0 @small-margin;
+    }
+}

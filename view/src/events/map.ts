@@ -54,19 +54,13 @@ export const trackerEvents = trackerEventsFactory(interaction);
 export const measureEvents = measureEventsFactory(interaction);
 
 export const startExtract =
-    () => {
-        interaction(() => ({
-            label: 'extract',
-            state: [],
-        }));
-        // appEvents.setLayout(AppLayout.MapAndExtract);
-    };
+    () => interaction(() => ({
+        label: 'extract',
+        state: [],
+    }));
 
 export const stopExtract =
-    () => {
-        interaction(() => defaultInteraction());
-        appEvents.setLayout(AppLayout.MapAndExtract);
-    };
+    () => interaction(() => defaultInteraction());
 
 const eq =
     (a: ExtractFeature[], b: ExtractFeature[]) => (

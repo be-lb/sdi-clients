@@ -46,8 +46,8 @@ const button = buttonFactory(
     queryK('component/button'), dispatchK('component/button'));
 const saveButton = button.make('validate', 'save');
 const removeButton = button.make('remove');
-const publishButton = button.make('unpublish');
-const unpublishButton = button.make('publish');
+const publishButton = button.make('toggle-off');
+const unpublishButton = button.make('toggle-on');
 
 const defaultMessage = () => ({ fr: '', nl: '' });
 
