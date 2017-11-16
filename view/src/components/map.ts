@@ -28,6 +28,8 @@ import { getView, getScaleLine, getInteraction } from '../queries/map';
 import { viewEvents, scalelineEvents, measureEvents, trackerEvents } from '../events/map';
 import { AppLayout } from '../shape/types';
 
+import geocoder from './legend-tools/geocoder';
+
 const logger = debug('sdi:comp/map');
 // const mapId = 'be-sdi-this-is-the-map';
 
@@ -123,6 +125,7 @@ const render =
                     className: 'map',
                     ref: attachMap(),
                 }),
+                geocoder(),
                 scaleline())
         );
     };

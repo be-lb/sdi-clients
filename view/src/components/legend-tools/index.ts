@@ -14,7 +14,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import webservices from './webservices';
 import geocoder from './geocoder';
 import measure from './measure';
@@ -25,7 +25,7 @@ import location from './location';
 
 const legendTools = () => {
     return [
-        geocoder(),
+        // geocoder(),
         share(),
         webservices(),
         tracker(),
