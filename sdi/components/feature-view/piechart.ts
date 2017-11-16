@@ -118,22 +118,29 @@ const pie = (size: number, props: NotNullProperties, row: PiechartConfig) => {
 
 
 
-const makeContinousLegendItem = (c: PiechartPiece) => (
-    DIV({ className: 'chart-legend-item' },
-        DIV({
-            className: 'chart-item-color',
-            style: { backgroundColor: c.color },
-        }),
-        DIV({ className: 'chart-item-label' },
-            c.label ? c.label : getAlias(c.propName)))
-);
+const makeContinousLegendItem =
+    (props: NotNullProperties) =>
+        (c: PiechartPiece) => (
+            DIV({ className: 'chart-legend-item' },
+                DIV({
+                    className: 'chart-item-color',
+                    style: { backgroundColor: c.color },
+                }),
+                DIV({ className: 'chart-item-content' },
+                    DIV({ className: 'chart-item-label' },
+                        c.label ? c.label : getAlias(c.propName)),
+                    DIV({ className: 'chart-item-value' },
+                        props[c.propName].toString())
+                ))
+        );
 
-const makeContinousLegend = (row: PiechartConfig) => {
-    const items = row.options.columns.map(makeContinousLegendItem);
-    return (
-        DIV({ className: 'chart-legend' }, ...items)
-    );
-};
+const makeContinousLegend =
+    (row: PiechartConfig, props: NotNullProperties) => {
+        const items = row.options.columns.map(makeContinousLegendItem(props));
+        return (
+            DIV({ className: 'chart-legend' }, ...items)
+        );
+    };
 
 
 
@@ -145,7 +152,7 @@ const render =
 
         const svg = s('svg', { viewBox: '0 0 100 100' },
             ...pie(100, props, row));
-        const legend = makeContinousLegend(row);
+        const legend = makeContinousLegend(row, props);
 
         return (
             DIV({ className: 'chart-wrapper' },
