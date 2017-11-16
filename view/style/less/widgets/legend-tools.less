@@ -32,10 +32,20 @@
 .map-and-extract {
     .map-and-right-sidebar;
 
-    .infinite-table {
-        height: 100%;
-        overflow: 0;
+    .extract-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        H1 {
+            margin-bottom: 2 * @margin;
+        }
+
+        .infinite-table {
+            // height: 100%;
+            overflow: auto;
+        }
     }
+
 }
 
 

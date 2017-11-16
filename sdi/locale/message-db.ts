@@ -82,6 +82,7 @@ export type MessageKey =
     | 'extentBegin'
     | 'extentEnd'
     | 'extractFeatures'
+    | 'extractSearch'
     | 'featureInfos'
     | 'featureTemplateEditor'
     | 'featureTemplateEditorReset'
@@ -1294,5 +1295,10 @@ export const messages: MessageDB = {
     links: {
         fr: 'Liens',
         nl: 'Koppelingen',
+    },
+
+    extractSearch: {
+        fr: 'Recherche par forage',
+        nl: 'Boren onderzoek',
     },
 };
