@@ -6,10 +6,15 @@
           animation: fa-spin 2s infinite linear;
 }
 
-.@{fa-css-prefix}-pulse {
-  -webkit-animation: fa-spin 1s infinite steps(8);
-          animation: fa-spin 1s infinite steps(8);
+.@{fa-css-prefix}-burst {
+  -webkit-animation: burst 1s infinite steps(8);
+          animation: burst 1s infinite steps(8);
 }
+
+
+
+
+
 
 @-webkit-keyframes fa-spin {
   0% {
@@ -31,4 +36,32 @@
     -webkit-transform: rotate(359deg);
             transform: rotate(359deg);
   }
+}
+
+@-webkit-keyframes burst {
+    0% {
+        opacity:.6
+    }
+    50% {
+        -webkit-transform:scale(1.8);
+        transform:scale(1.8);
+        opacity:0
+    }
+    100% {
+        opacity:0
+    }
+}
+@keyframes burst {
+    0% {
+        opacity:.6
+    }
+    50% {
+        -webkit-transform:scale(1.8);
+        -ms-transform:scale(1.8);
+        transform:scale(1.8);
+        opacity:0
+    }
+    100% {
+        opacity:0
+    }
 }
