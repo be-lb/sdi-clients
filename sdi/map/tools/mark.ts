@@ -24,11 +24,12 @@ export const mark =
         const update =
             (i: Interaction) =>
                 fromInteraction('mark', i)
-                    .map(
+                    .fold(
+                    () => fromNullable(mapRef).map((m) => { m.removeOverlay(overlay); }),
                     ({ state }) => fromNullable(mapRef).map(
                         (m) => {
                             if (state.started) {
-                                if (state.endTime >= Date.now()) {
+                                if (state.endTime <= Date.now()) {
                                     m.removeOverlay(overlay);
                                     endMark();
                                 }

@@ -119,7 +119,7 @@ export const putMark =
             label: 'mark',
             state: {
                 started: false,
-                endTime: Date.now() + 3600,
+                endTime: Date.now() + 12000,
                 coordinates,
             },
         }));
