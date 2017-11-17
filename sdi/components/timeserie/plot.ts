@@ -114,7 +114,7 @@ const average =
         cs.map(
             c => c.data.reduce((a, n) => a + n, 0) / c.sz);
 
-const makeDrawableSerie =
+export const makeDrawableSerie =
     (start: number, n: number, width: number) =>
         compose(
             average,
@@ -226,7 +226,7 @@ export const plotter =
                     const zoom = overflow ?
                         maxbarcount / data.length : 1;
 
-                    logger('Plotter 2', makeDrawableSerie(window.start, window.width, 100)(queryData));
+                    // logger('Plotter 2', makeDrawableSerie(window.start, window.width, 100)(queryData));
 
                     const scale = deriveScale(data);
                     if (scale !== null) {

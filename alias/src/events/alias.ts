@@ -15,7 +15,7 @@ const aliasForm = dispatchK('component/form');
 export const loadAllAlias =
     () =>
         fetchAllAlias(getApiUrl('alias'))
-            .then(als => aliasData(s => s.concat(als)));
+            .then(als => aliasData(() => als));
 
 export const tableAliasEvents =
     tableEvents(dispatchK('component/table/alias'));
@@ -68,6 +68,10 @@ export const formIsCreate = fromPredicate(
     (a: FormAlias) => a.status === 'create',
     a => a);
 
+export const formIsUpdate = fromPredicate(
+    (a: FormAlias) => a.status === 'update',
+    a => a);
+
 const formToAlias =
     (f: FormAlias): IAlias => ({
         id: f.id !== null ? f.id : -1,
@@ -98,8 +102,17 @@ export const saveForm =
         )
             .then(updateAlias);
 
+const remove =
+    (id: number | null) => aliasData(als => als.filter(a => a.id !== id));
+
 export const deleteAlias =
-    () => formIsCreate(getForm())
-        .map(f => delAlias(`alias/${f.id}`))
-        .map(p => p.then(() => buildForm('')));
+    () => formIsUpdate(getForm())
+        .map(f => ({
+            pr: delAlias(getApiUrl(`alias/${f.id}`)),
+            id: f.id,
+        }))
+        .map(({ pr, id }) => pr.then(() => {
+            buildForm('');
+            remove(id);
+        }));
 

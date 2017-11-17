@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// import * as io from 'io-ts';
+import * as io from 'io-ts';
 
 import {
     // Credentials,
@@ -56,7 +56,7 @@ export const fetchUser =
 
 export const fetchAllAlias =
     (url: string) =>
-        fetchIO(IAliasIO, url, fetchOptions());
+        fetchIO(io.array(IAliasIO), url, fetchOptions());
 
 export const postAlias =
     (url: string, data: Partial<IAlias>): Promise<IAlias> =>
