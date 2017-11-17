@@ -37,6 +37,7 @@ import { scaleLine, zoomControl, rotateControl } from './controls';
 import { select } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track, extract, mark } from './tools';
+import { setTimeout } from 'timers';
 
 
 const logger = debug('sdi:map');
@@ -72,11 +73,13 @@ const isWorking =
 
 const getLayerData =
     (fetchData: FetchData, vs: source.Vector, count: number) => {
+        logger(`getLayerData ${count}`);
         const data = fetchData();
         if (data) {
             const features = formatGeoJSON.readFeatures(data);
 
             vs.addFeatures(features);
+            logger(`getLayerData features ${vs.getFeaturesCollection().getLength()}`);
             vs.forEachFeature((f) => {
                 f.set('lid', vs.get('id'));
                 if (!f.getId()) {
@@ -109,8 +112,9 @@ export const removeLayerAll =
     };
 
 export const addLayer =
-    (layerInfo: () => (SyntheticLayerInfo), fetchData: FetchData) => {
+    (layerInfo: () => (SyntheticLayerInfo), fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
+
         if (info && metadata) {
             let layerAlreadyAdded = false;
             mainLayerGroup.getLayers().forEach((l) => {
@@ -119,7 +123,7 @@ export const addLayer =
                 }
             });
             if (layerAlreadyAdded) {
-                return null;
+                return;
             }
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {
@@ -161,9 +165,14 @@ export const addLayer =
                 logger(`Layer Render ${info.id} ${vs.getState()} `);
             });
 
-            return vl;
+            // return vl;
         }
-        return null;
+        else if (retryCount < 60) {
+            setTimeout(() => {
+                addLayer(layerInfo, fetchData, retryCount + 1);
+            }, retryCount * retryCount * 250);
+        }
+        // return null;
     };
 
 
