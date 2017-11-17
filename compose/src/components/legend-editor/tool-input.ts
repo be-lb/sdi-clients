@@ -16,6 +16,8 @@
 
 import * as debug from 'debug';
 import * as Color from 'color';
+import { fromPredicate } from 'fp-ts/lib/Option';
+
 import tr from 'sdi/locale';
 import { DIV, SPAN, INPUT } from 'sdi/components/elements';
 import queries from '../../queries/legend-editor';
@@ -24,6 +26,8 @@ import events from '../../events/legend-editor';
 // import { ReactNode } from 'react';
 
 const logger = debug(`sdi:legend-editor/tool-input`);
+
+const notNan = fromPredicate<number>(n => !Number.isNaN(n));
 
 type NumberGetter = () => number;
 type NumberSetter = (a: number) => void;
@@ -145,7 +149,9 @@ const renderRGB =
                 value: Math.round(color.red()),
                 min: 0,
                 max: 255,
-                onChange: e => set(color.red(e.currentTarget.valueAsNumber)),
+                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
+                    () => set(color.red(0)),
+                    n => set(color.red(n))),
             }));
         const g = SPAN({ className: 'green' },
             INPUT({
@@ -153,7 +159,9 @@ const renderRGB =
                 value: Math.round(color.green()),
                 min: 0,
                 max: 255,
-                onChange: e => set(color.green(e.currentTarget.valueAsNumber)),
+                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
+                    () => set(color.green(0)),
+                    n => set(color.green(n))),
             }));
         const b = SPAN({ className: 'blue' },
             INPUT({
@@ -161,7 +169,9 @@ const renderRGB =
                 value: Math.round(color.blue()),
                 min: 0,
                 max: 255,
-                onChange: e => set(color.blue(e.currentTarget.valueAsNumber)),
+                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
+                    () => set(color.blue(0)),
+                    n => set(color.blue(n))),
             }));
 
         const preview = SPAN({ className: 'color-preview' },

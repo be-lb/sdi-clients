@@ -59,7 +59,7 @@ export const initialLegendEditorState = (): ILegendEditor => ({
     mainSelected: -1,
     itemSelected: -1,
     styleGroupSelected: -1,
-    pointConfig: 'label',
+    pointConfig: 'marker',
     styleGroupEditedValue: null,
     autoClassValue: 2,
 });
