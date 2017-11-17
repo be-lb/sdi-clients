@@ -79,9 +79,12 @@ const getLayerData =
             const features = formatGeoJSON.readFeatures(data);
 
             vs.addFeatures(features);
-            logger(`getLayerData features ${vs.getFeaturesCollection().getLength()}`);
+
+            // logger(`getLayerData features ${vs.getFeaturesCollection().getLength()}`);
             vs.forEachFeature((f) => {
-                f.set('lid', vs.get('id'));
+                const lid = vs.get('id');
+
+                f.set('lid', lid);
                 if (!f.getId()) {
                     f.setId(f.getProperties()['__app_id__']);
                 }

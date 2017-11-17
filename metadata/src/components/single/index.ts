@@ -16,7 +16,7 @@ import {
     getMdTitle,
     getTemporalReference,
     getKeywords,
-    getTopics,
+    // getTopics,
     // getTopicList,
     // isSelectedTopic,
 } from '../../queries/metadata';
@@ -25,7 +25,7 @@ import {
     setMdDescription,
     setMdTitle,
     removeKeyword,
-    removeTopic,
+    // removeTopic,
     // addTopic,
     mdPublish,
     mdDraft,
@@ -204,12 +204,12 @@ const renderPublishState =
             DIV({ className: 'no-active' }, tr('published')));
     };
 
-const renderTopics =
-    () => DIV({}, ...getTopics()
-        .map(topic => (
-            DIV({ className: 'topic' },
-                removeButton(() => removeTopic(topic.id)),
-                SPAN({ className: 'value' }, fromRecord(topic.name))))));
+// const renderTopics =
+//     () => DIV({}, ...getTopics()
+//         .map(topic => (
+//             DIV({ className: 'topic' },
+//                 removeButton(() => removeTopic(topic.id)),
+//                 SPAN({ className: 'value' }, fromRecord(topic.name))))));
 
 const renderKeywords =
     () => DIV({}, ...getKeywords()
@@ -225,7 +225,7 @@ const renderInfo =
             DIV({ className: 'app-col-main' },
                 labeledNode(tr('publicationStatus'), renderPublishState(m)),
                 labeledString(tr('layerId'), m.uniqueResourceIdentifier),
-                labeledNode(tr('topics'), renderTopics()),
+                // labeledNode(tr('topics'), renderTopics()),
                 labeledNode(tr('keywords'), renderKeywords()),
                 labeledString(tr('geometryType'), m.geometryType),
                 labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
