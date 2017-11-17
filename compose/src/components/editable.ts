@@ -110,7 +110,7 @@ const editable: (k: string, a: GetFn, b: SetFn, c: HFn) => (() => ReactNode) =
         const setter = edit(get, set);
 
         const clickHandler = () => {
-            if (isEmpty(rec)) {
+            if (isEmpty(rec) && !queries.isFirstEditing(key)) {
                 if (ref) {
                     ref.childNodes.forEach((n) => {
                         if (ref) {
