@@ -19,7 +19,8 @@
 import { DIV } from 'sdi/components/elements';
 import appQueries from '../../queries/app';
 import events from '../../events/legend-editor';
-import { getLayerPropertiesKeys } from 'sdi/util';
+import queries from '../../queries/legend-editor';
+import { getLayerPropertiesKeys, getLayerPropertiesKeysFiltered } from 'sdi/util';
 import tr from 'sdi/locale';
 
 const renderKeys = (keys: string[]) => {
@@ -41,13 +42,18 @@ const wrapRender =
         return DIV({ className: 'app-col-main column-picker' }, ...children);
     };
 
+
+
 const render = (lid: string) => {
     const { metadata } = appQueries.getLayerInfo(lid);
     const children: React.ReactNode[] = [];
     if (metadata) {
         const layerData = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
         if (layerData) {
-            const keys = getLayerPropertiesKeys(layerData);
+            const legendType = queries.getLegendType();
+            const keys = legendType !== 'continuous' ?
+                getLayerPropertiesKeys(layerData) :
+                getLayerPropertiesKeysFiltered(layerData, a => typeof a === 'number');
             children.push(DIV({ className: 'column-picker-infos' },
                 DIV({}, tr('columnPickerMessage')),
             ),

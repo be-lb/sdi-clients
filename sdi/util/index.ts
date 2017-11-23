@@ -92,3 +92,25 @@ export const getLayerPropertiesKeys = (fc: FeatureCollection): string[] => {
         }, []));
 };
 
+
+
+export const getLayerPropertiesKeysFiltered =
+    (fc: FeatureCollection, pred: (a: any) => boolean): string[] => {
+        if (fc.features.length === 0) {
+            return [];
+        }
+        const f = fc.features[0];
+        const props = f.properties;
+        if (!props) {
+            return [];
+        }
+        return (
+            Object.keys(props).reduce<string[]>((acc, k) => {
+                if (FEATURE_PROPS_BLACKLIST.has(k) || !pred(props[k])) {
+                    return acc;
+                }
+                acc.push(k);
+                return acc;
+            }, []));
+    };
+

@@ -234,6 +234,7 @@ const updateLayers =
                     mainLayerGroup.getLayers()
                         .forEach((l) => {
                             if (id === <string>(l.get('id'))) {
+                                logger(`Layer ${id} ${visible} ${z}`);
                                 l.setVisible(visible);
                                 l.setZIndex(z);
                             }
