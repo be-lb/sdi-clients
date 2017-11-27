@@ -17,7 +17,7 @@
  */
 
 import { DIV, INPUT } from 'sdi/components/elements';
-import { MessageRecord, isContinuous, ContinuousInterval } from 'sdi/source';
+import { MessageRecord, isContinuous, ContinuousInterval, ContinuousStyle } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
 import queries from '../../queries/legend-editor';
@@ -27,6 +27,7 @@ import { button, remove } from '../button';
 
 
 const addGroupButton = button('add', 'addInterval');
+const makeClassesButton = button('validate');
 
 const renderAdd = (groups: ContinuousInterval[]) => {
     return (
@@ -109,6 +110,21 @@ const renderInterval =
             return renderIntervalFolded(i, key);
         };
 
+
+const renderAutoClass =
+    (style: ContinuousStyle) => (
+        DIV({ className: 'column-toolbox' },
+            DIV({ className: 'help' }, tr('autoClass')),
+            INPUT({
+                type: 'number',
+                value: queries.getAutoClassValue(),
+                onChange: e =>
+                    events.setAutoClassValue(e.currentTarget.valueAsNumber)
+                ,
+            }), makeClassesButton(() => {
+                events.makeContinuousClasses(style.propName);
+            })))
+
 const renderGroups = () => {
     const style = queries.getStyle();
     const current = queries.getSelectedStyleGroup();
@@ -117,7 +133,9 @@ const renderGroups = () => {
         return (
             DIV({ className: 'app-col-main value-picker-groups' },
                 ...intervals.map(renderInterval(current)),
-                renderAdd(style.intervals)));
+                renderAdd(style.intervals),
+                renderAutoClass(style)
+            ));
     }
 
 
@@ -126,10 +144,6 @@ const renderGroups = () => {
     );
 };
 
-const render = () => {
-    return (
-        renderGroups()
-    );
-};
+const render = () => renderGroups();
 
 export default render;

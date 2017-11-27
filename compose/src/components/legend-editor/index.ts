@@ -16,11 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ChangeEvent } from 'react';
 
-import { DIV, H1, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, H1, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { StyleConfig, SubType, isContinuous } from 'sdi/source';
+import { StyleConfig, SubType } from 'sdi/source';
 
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
@@ -69,7 +68,6 @@ const closeButton = button('close');
 const featureEditButton = button('settings', 'editFeatureTemplate');
 const switchTableButton = button('switch');
 const switchMapButton = button('switch');
-const makeClassesButton = button('validate');
 
 const renderHeader =
     (legendType: SubType, _lid: string, _propName: string) => {
@@ -131,7 +129,7 @@ const renderLegendType = (legendType: SubType) => {
 
 
 
-const renderLayerInfo = (lid: string, style: StyleConfig) => {
+const renderLayerInfo = (lid: string, _style: StyleConfig) => {
     const gt = queries.getGeometryType();
     const { name, metadata } = appQueries.getLayerInfo(lid);
     if (name && metadata) {
@@ -158,19 +156,6 @@ const renderLayerInfo = (lid: string, style: StyleConfig) => {
                     DIV({ className: 'column-toolbox' },
                         DIV({ className: 'help' }, tr('pointLabelHelp')),
                         renderLabelOnly()));
-            }
-            else if (isContinuous(style)) {
-                contents.push(DIV({ className: 'column-toolbox' },
-                    DIV({ className: 'help' }, tr('autoClass')),
-                    INPUT({
-                        type: 'number',
-                        value: queries.getAutoClassValue(),
-                        onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                            events.setAutoClassValue(e.currentTarget.valueAsNumber);
-                        },
-                    }), makeClassesButton(() => {
-                        events.makeContinuousClasses(style.propName);
-                    })));
             }
         }
 

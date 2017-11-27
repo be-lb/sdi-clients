@@ -53,7 +53,8 @@ const render = (lid: string) => {
             const legendType = queries.getLegendType();
             const keys = legendType !== 'continuous' ?
                 getLayerPropertiesKeys(layerData) :
-                getLayerPropertiesKeysFiltered(layerData, a => typeof a === 'number');
+                getLayerPropertiesKeysFiltered(
+                    layerData, a => typeof a === 'number');
             children.push(DIV({ className: 'column-picker-infos' },
                 DIV({}, tr('columnPickerMessage')),
             ),
