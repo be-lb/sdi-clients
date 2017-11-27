@@ -82,8 +82,8 @@ export const getLayer = (map: IMapInfo | null, lid: string | null) => {
 };
 
 
-type GroupEditFn<G extends DiscreteGroup> = (g: G) => void;
-type IntervalEditFn<G extends ContinuousInterval> = (g: G) => void;
+type GroupEditFn = (g: DiscreteGroup | ContinuousInterval) => void;
+// type IntervalEditFn = (g: ContinuousInterval) => void;
 type StyleEditFn = <T extends StyleConfig>(g: T, l: string) => void;
 type PointStyleEditFn = <T extends PointStyleConfig>(g: T, l: string) => void;
 
@@ -105,7 +105,7 @@ const defaultPointMarker = (): PointMarker => ({
 });
 
 const updateGroupStyle =
-    <G extends DiscreteGroup>(idx: number, f: GroupEditFn<G>) => {
+    (idx: number, f: GroupEditFn) => {
         const lid = appQueries.getCurrentLayerId();
         if (lid) {
             dispatch('data/maps', (maps) => {
@@ -115,28 +115,14 @@ const updateGroupStyle =
                     if (isDiscrete(style)) {
                         const group = getGroup(style, idx);
                         if (group) {
-                            f(<G>group);
+                            f(<DiscreteGroup>group);
                         }
                         saveMap(lid, style);
                     }
-                }
-                return maps;
-            });
-        }
-    };
-
-const updateIntervalStyle =
-    <G extends ContinuousInterval>(idx: number, f: IntervalEditFn<G>) => {
-        const lid = appQueries.getCurrentLayerId();
-        if (lid) {
-            dispatch('data/maps', (maps) => {
-                const layer = getLayer(getCurrentMap(maps), lid);
-                if (layer) {
-                    const style = { ...layer.style };
-                    if (isContinuous(style)) {
+                    else if (isContinuous(style)) {
                         const interval = getInterval(style, idx);
                         if (interval) {
-                            f(<G>interval);
+                            f(<ContinuousInterval>interval);
                         }
                         saveMap(lid, style);
                     }
@@ -146,6 +132,26 @@ const updateIntervalStyle =
         }
     };
 
+// const updateIntervalStyle =
+//     (idx: number, f: IntervalEditFn) => {
+//         const lid = appQueries.getCurrentLayerId();
+//         if (lid) {
+//             dispatch('data/maps', (maps) => {
+//                 const layer = getLayer(getCurrentMap(maps), lid);
+//                 if (layer) {
+//                     const style = { ...layer.style };
+//                     if (isContinuous(style)) {
+//                         const interval = getInterval(style, idx);
+//                         if (interval) {
+//                             f(<ContinuousInterval>interval);
+//                         }
+//                         saveMap(lid, style);
+//                     }
+//                 }
+//                 return maps;
+//             });
+//         }
+//     };
 
 
 
@@ -329,13 +335,13 @@ const events = {
     },
 
     setLabelForStyleInterval(idx: number, r: MessageRecord) {
-        updateIntervalStyle(idx, (i) => {
+        updateGroupStyle(idx, (i) => {
             i.label = r;
         });
     },
 
     setInterval(idx: number, low: number, high: number) {
-        updateIntervalStyle(idx, (g) => {
+        updateGroupStyle(idx, (g: ContinuousInterval) => {
             g.low = low;
             g.high = high;
         });
@@ -507,8 +513,7 @@ const events = {
 
     // Marker
     setMarkerColorForGroup(idx: number, c: string) {
-        const fn: GroupEditFn<PointDiscreteGroup> = g => g.marker.color = c;
-        updateGroupStyle(idx, fn);
+        updateGroupStyle(idx, (g: PointDiscreteGroup) => g.marker.color = c);
     },
 
     setMarkerSizeForGroup(idx: number, sz: number) {
