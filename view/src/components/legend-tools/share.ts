@@ -29,11 +29,6 @@ const location = document.location;
 const origin = location.origin;
 const path = location.pathname;
 
-const queryString = (o: { [k: string]: any }) => {
-    return Object.keys(o).reduce((a, k) => {
-        return `${a}&${k}=${o[k].toString()}`;
-    }, '');
-};
 
 
 const copyToClipBoard = (s: string) => {
@@ -71,17 +66,10 @@ const makeCopyable = (value: string) => {
 };
 
 const render = () => {
-    const view = getView();
-    const qs = queryString({
-        srs: view.srs,
-        zoom: view.zoom,
-        lat: view.center[1],
-        lon: view.center[0],
-        rotation: view.rotation,
-    });
+    const { zoom, center } = getView();
 
-    // FIXME
-    const iframeExampleWithView = `<iframe src="${origin}/embed.html?${qs}" width="880" height="600" frameborder="0"></iframe>`;
+    // FIXME - embed in general
+    const iframeExampleWithView = `<iframe src="${origin}/embed.html?${''}" width="880" height="600" frameborder="0"></iframe>`;
     const iframeExampleWithoutView = `<iframe src="${origin}/embed.html" width="880" height="600" frameborder="0"></iframe>`;
 
 
@@ -93,7 +81,7 @@ const render = () => {
                     DIV({ className: 'input-label' }, tr('mapLink')),
                     makeCopyable(`${origin}${path}`),
                     DIV({ className: 'input-label' }, tr('mapLinkWithView')),
-                    makeCopyable(`${origin}${path}?${qs}`))),
+                    makeCopyable(`${origin}${path}/${center[0]}/${center[1]}/${zoom}`))),
             DIV({ className: 'tool embed' },
                 H2({}, tr('embed')),
                 DIV({ className: 'tool-body' },

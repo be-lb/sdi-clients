@@ -1,8 +1,11 @@
 
+import { fromNullable } from 'fp-ts/lib/Option';
 
 import { query, queryK, dispatchK, dispatch } from 'sdi/shape';
+import { scopeOption } from 'sdi/lib';
 
 import events from './app';
+import { viewEvents } from './map';
 import { AppLayout } from '../shape/types';
 
 
@@ -18,6 +21,8 @@ interface HistoryState {
 const getRoute = queryK('app/route');
 const setRoute = dispatchK('app/route');
 
+
+
 const cleanRoute =
     () => getRoute()
         .reduce((acc, s) => {
@@ -27,6 +32,33 @@ const cleanRoute =
             return acc;
         }, [] as string[]);
 
+const getNumber =
+    (s?: string) => {
+        if (s) {
+            const n = parseFloat(s);
+            if (!Number.isNaN(n)) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+const setMapView =
+    () => {
+        const r = cleanRoute();
+        scopeOption()
+            .let('lat', fromNullable(getNumber(r[1])))
+            .let('lon', fromNullable(getNumber(r[2])))
+            .let('zoom', fromNullable(getNumber(r[3])))
+            .map(({ lat, lon, zoom }) => {
+                viewEvents.updateMapView({
+                    dirty: 'geo',
+                    center: [lat, lon],
+                    zoom,
+                })
+            })
+    }
+
 export const navigate =
     () => {
         const r = cleanRoute();
@@ -35,6 +67,7 @@ export const navigate =
             dispatch('app/current-map', () => r[0]);
             events.loadMap();
             events.setLayout(AppLayout.MapAndInfo);
+            setMapView();
         }
         else {
             events.loadAllMaps();
