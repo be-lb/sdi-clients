@@ -124,6 +124,13 @@ export interface IGeoModify {
     geometryType: GeometryType;
 }
 
+export interface FeaturePath {
+    layerId: string | null;
+    featureId: number | string | null;
+}
+
+export type FeaturePathGetter = Getter<FeaturePath>;
+
 
 export interface InteractionBase<L extends string, T> {
     label: L;
@@ -150,12 +157,6 @@ interface InteractionMap {
 
 
 export type Interaction = InteractionMap[keyof InteractionMap];
-// | InteractionSelect
-// | InteractionCreate
-// | InteractionModify
-// | InteractionTrack
-// | InteractionMeasure
-// ;
 
 
 export const defaultInteraction =

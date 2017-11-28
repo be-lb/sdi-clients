@@ -86,6 +86,18 @@ const selectFeature =
     };
 
 
+const getSelected =
+    () => {
+        const f = appQueries.getCurrentFeature();
+        const l = appQueries.getCurrentLayer();
+        const fid = f ? f.id : null;
+        return {
+            featureId: fid,
+            layerId: l,
+        }
+    }
+
+
 const attachMap =
     () =>
         (element: Element | null) => {
@@ -99,6 +111,7 @@ const attachMap =
                     trackable,
                     extractable,
                     markable,
+                    highlightable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
@@ -123,6 +136,8 @@ const attachMap =
                 }, getInteraction);
 
                 markable({ startMark, endMark }, getInteraction);
+
+                highlightable(getSelected);
 
             }
             if (element) {

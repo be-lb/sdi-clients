@@ -31,10 +31,11 @@ import {
     InteractionGetter,
     ExtractOptions,
     MarkOptions,
+    FeaturePathGetter,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl } from './controls';
-import { select } from './actions';
+import { select, highlight } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track, extract, mark } from './tools';
 import { setTimeout } from 'timers';
@@ -386,6 +387,7 @@ export const create =
                 updatables.push({ name: 'Measure', fn: () => update(g()) });
             };
 
+
         const extractable =
             (o: ExtractOptions, g: InteractionGetter) => {
                 const { init, update } = extract(o);
@@ -393,12 +395,20 @@ export const create =
                 updatables.push({ name: 'Extract', fn: () => update(g()) });
             };
 
+
         const markable =
             (o: MarkOptions, g: InteractionGetter) => {
                 const { init, update } = mark(o);
                 init(map);
                 updatables.push({ name: 'Mark', fn: () => update(g()) });
             };
+
+        const highlightable =
+            (fpg: FeaturePathGetter) => {
+                const { init, update } = highlight(fpg);
+                init(mainLayerCollection, toolsLayerCollection);
+                updatables.push({ name: 'Highlight', fn: () => update() });
+            }
 
 
         return {
@@ -409,6 +419,7 @@ export const create =
             measurable,
             extractable,
             markable,
+            highlightable,
         };
     };
 
