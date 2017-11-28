@@ -14,6 +14,32 @@
         background-color: white;
     }
 
+    .fullscreen {
+        .absolute(auto, @small-margin, 160px, auto);
+
+        button {
+            background-color: transparent;
+            border: 0px;
+            font-size: 12pt;
+            width: 2em;
+            height: 2em;
+            position: relative;
+
+            &:focus {
+                outline: none;
+            }
+
+            .fullscreen-node {
+                .absolute(0,0,0,0);
+                background-image: url('../imgs/fullscreen.svg');
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+    }
+
+
     .rotate {
         .absolute(auto, @small-margin, 110px, auto);
 

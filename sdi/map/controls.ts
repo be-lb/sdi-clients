@@ -122,3 +122,17 @@ export const rotateControl =
         );
     };
 
+
+const fsNode = document.createElement('div');
+fsNode.setAttribute('class', 'fullscreen-node');
+
+export const fullscreenControl =
+    () => {
+        return (
+            new control.FullScreen({
+                className: 'fullscreen',
+                label: fsNode,
+            })
+        );
+    };
+

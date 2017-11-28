@@ -34,7 +34,7 @@ import {
     FeaturePathGetter,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
-import { scaleLine, zoomControl, rotateControl } from './controls';
+import { scaleLine, zoomControl, rotateControl, fullscreenControl } from './controls';
 import { select, highlight } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track, extract, mark } from './tools';
@@ -314,6 +314,7 @@ export const create =
                 toolsLayerGroup,
             ],
             controls: [
+                fullscreenControl(),
                 rotateControl(),
                 zoomControl(),
                 scaleLine({
