@@ -14,18 +14,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { dispatchK } from 'sdi/shape';
+import { viewEventsFactory, scaleEventsFactory } from 'sdi/map';
 
-import { i, p, MessageRecordIO, TypeOf } from './io';
-import * as io from 'io-ts';
 
-export const AppManifestIO = io.intersection([
-    i({
-        codename: io.string,
-        url: io.string,
-    }),
-    p({
-        name: MessageRecordIO,
-    }),
-], 'ApManifestIO');
+export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
+export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
 
-export type AppManifest = TypeOf<typeof AppManifestIO>;

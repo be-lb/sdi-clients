@@ -15,7 +15,9 @@
         "watch:dashboard": "webpack --config dashboard/webpack.config.js --watch",
         "build:alias": "webpack --config alias/webpack.config.js",
         "watch:alias": "webpack --config alias/webpack.config.js --watch",
-        "build": "npm run build:view -- -p && npm run build:compose -- -p && npm run build:metadata -- -p && npm run build:login -- -p && npm run build:dashboard -- -p  && npm run build:alias -- -p "
+        "build:embed": "webpack --config embed/webpack.config.js",
+        "watch:embed": "webpack --config embed/webpack.config.js --watch",
+        "build": "npm run build:view -- -p && npm run build:compose -- -p && npm run build:metadata -- -p && npm run build:login -- -p && npm run build:dashboard -- -p  && npm run build:alias -- -p   && npm run build:embed -- -p "
     },
     "repository": {
         "type": "git",

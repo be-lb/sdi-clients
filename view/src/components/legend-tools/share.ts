@@ -18,16 +18,18 @@
 
 import * as debug from 'debug';
 
+import { getRoot } from 'sdi/app';
 import tr from 'sdi/locale';
 import { DIV, H2, SPAN } from 'sdi/components/elements';
 
+import queries from '../../queries/app';
 import { getView } from '../../queries/map';
 
 const logger = debug('sdi:tool-share');
 const hasClipboard = !!document.execCommand;
 const location = document.location;
 const origin = location.origin;
-const path = location.pathname;
+// const path = location.pathname;
 
 
 
@@ -68,9 +70,15 @@ const makeCopyable = (value: string) => {
 const render = () => {
     const { zoom, center } = getView();
 
+    const mapId = queries.getCurrentMap();
+    const url = `${origin}${getRoot()}view/${mapId}`;
+    const viewUrl = `${url}/${center[0]}/${center[1]}/${zoom}`;
+    const embedUrl = `${origin}${getRoot()}embed/${mapId}`;
+    const viewEmbedUrl = `${embedUrl}/${center[0]}/${center[1]}/${zoom}`;
+
     // FIXME - embed in general
-    const iframeExampleWithView = `<iframe src="${origin}/embed.html?${''}" width="880" height="600" frameborder="0"></iframe>`;
-    const iframeExampleWithoutView = `<iframe src="${origin}/embed.html" width="880" height="600" frameborder="0"></iframe>`;
+    const iframeExampleWithView = `<iframe src="${viewEmbedUrl}" width="880" height="600" frameborder="0"></iframe>`;
+    const iframeExampleWithoutView = `<iframe src="${embedUrl}" width="880" height="600" frameborder="0"></iframe>`;
 
 
     return (
@@ -79,9 +87,9 @@ const render = () => {
                 H2({}, tr('share')),
                 DIV({ className: 'tool-body' },
                     DIV({ className: 'input-label' }, tr('mapLink')),
-                    makeCopyable(`${origin}${path}`),
+                    makeCopyable(url),
                     DIV({ className: 'input-label' }, tr('mapLinkWithView')),
-                    makeCopyable(`${origin}${path}/${center[0]}/${center[1]}/${zoom}`))),
+                    makeCopyable(viewUrl))),
             DIV({ className: 'tool embed' },
                 H2({}, tr('embed')),
                 DIV({ className: 'tool-body' },

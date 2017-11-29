@@ -47,6 +47,10 @@
                 "fr": "Alias",
                 "nl": "Alias"
             }
+        },
+        {
+            "route": "embed",
+            "root": "embed/dist"
         }
     ]
 }

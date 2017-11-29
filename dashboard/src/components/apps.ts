@@ -14,17 +14,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { fromPredicate } from 'fp-ts/lib/Option';
+
 import { DIV, H1 } from 'sdi/components/elements';
-import { AppManifest } from 'sdi/source';
+import { AppManifest, MessageRecord } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
 
 import { getApps } from '../queries/apps';
 
+const withName = fromPredicate<AppManifest>(a => 'name' in a);
+
+type AppWithName = AppManifest & { name: MessageRecord }
 
 const renderApp =
-    (app: AppManifest) => (
-        DIV({
+    (app: AppManifest) => withName(app).fold(
+        () => DIV(),
+        (app: AppWithName) => DIV({
             className: `app-item ${app.codename}`,
             onClick: () => window.location.assign(app.url),
         },
