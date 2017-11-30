@@ -21,7 +21,7 @@ import { DIV, SPAN, A } from './elements';
 
 const render = () => (
     DIV({ className: 'footer' },
-        DIV({},
+        DIV({ className: 'sdi-credits' },
             SPAN({}, 'Spatial Data Infrastructure © '),
             SPAN({}, A({
                 className: 'ac-link',
