@@ -23,14 +23,16 @@ const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
         DIV({},
             header(),
-            DIV({ className: `main ${name}` }, ...elements))
+            DIV({ className: `main ${name}` }, ...elements),
+            info()
+        )
     );
 
 const renderMain =
-    () => wrappedMain('main', map(), legend(), info());
+    () => wrappedMain('main', map(), legend());
 
 const renderMapAndFeature =
-    () => wrappedMain('map-and-feature', map(), featureView(), info());
+    () => wrappedMain('map-and-feature', map(), featureView());
 
 const render =
     () => {

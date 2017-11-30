@@ -26,11 +26,13 @@ const logger = debug('sdi:header');
 
 const render =
     () => (
-        A({
-            href: `${getRoot()}view`,
-        }, DIV({ className: 'header' },
-            DIV({ className: 'be-logo' },
-                DIV({ className: 'be-name' }))),
+        DIV({ className: 'header' },
+            A({
+                href: `${getRoot()}view`,
+                target: '_blank',
+            },
+                DIV({ className: 'be-logo' },
+                    DIV({ className: 'be-name' }))),
             DIV({ className: 'header-toolbar' },
                 langSwitch())));
 

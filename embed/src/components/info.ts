@@ -16,7 +16,6 @@ const render =
             DIV({ className: 'map-date' },
                 DIV({ className: 'map-date-label' }, tr('lastModified')),
                 DIV({ className: 'map-date-value' },
-                    formatDate(new Date(mapInfo.lastModified)))),
-            DIV({ className: 'map-description' })));
+                    formatDate(new Date(mapInfo.lastModified))))));
 
 export default render;

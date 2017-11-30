@@ -24,7 +24,7 @@ import { getMapInfo } from '../../queries/app';
 const logger = debug('sdi:legend');
 
 const legendLegend = (mapInfo: IMapInfo) =>
-    DIV({},
+    DIV({ className: 'legend' },
         mapInfo.layers
             .slice()
             .reverse()
