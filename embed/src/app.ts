@@ -11,6 +11,8 @@ import { initMap } from './events/app';
 
 import map from './components/map';
 import legend from './components/legend';
+import info from './components/info';
+import featureView from './components/feature-view';
 
 const logger = debug('sdi:app');
 
@@ -26,10 +28,10 @@ const wrappedMain =
     );
 
 const renderMain =
-    () => wrappedMain('main', map(), legend());
+    () => wrappedMain('main', map(), legend(), info());
 
 const renderMapAndFeature =
-    () => wrappedMain('map-and-feature', map());
+    () => wrappedMain('map-and-feature', map(), featureView(), info());
 
 const render =
     () => {

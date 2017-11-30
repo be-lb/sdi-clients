@@ -10,6 +10,8 @@ import {
     InspireIO,
     FeatureCollection,
     FeatureCollectionIO,
+    ITimeserieIO,
+    ITimeserie,
 } from 'sdi/source';
 
 
@@ -29,3 +31,7 @@ export const fetchDatasetMetadata =
 export const fetchLayer =
     (url: string): Promise<FeatureCollection> =>
         fetchIO(FeatureCollectionIO, url);
+
+export const fetchTimeserie =
+    (url: string): Promise<ITimeserie> =>
+        fetchIO(ITimeserieIO, url);

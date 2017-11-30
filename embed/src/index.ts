@@ -70,6 +70,15 @@ export const main =
             },
 
             'port/map/interaction': defaultInteraction(),
+
+            'component/timeserie': {
+                cursorPosition: 35,
+                selection: { start: 20, width: 20 },
+                window: { start: 0, width: 100 },
+                active: false,
+                editingSelection: false,
+            },
+            'data/timeseries': {},
         };
 
         try {

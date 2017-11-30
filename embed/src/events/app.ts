@@ -79,7 +79,7 @@ const loadLayer =
 
         fetchLayer(url)
             .then((layer) => {
-                dispatch('data/layer', state => state.concat([[id, layer]]));
+                dispatch('data/layer', state => state.concat([[info.id, layer]]));
                 addLayer(
                     () => ({
                         name: getMessageRecord(metadata.resourceTitle),
