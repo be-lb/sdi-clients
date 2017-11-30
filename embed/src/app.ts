@@ -2,8 +2,7 @@
 import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
-import header from 'sdi/components/header';
-import footer from 'sdi/components/footer';
+// import footer from 'sdi/components/footer';
 import { loop } from 'sdi/app';
 
 import { getLayout } from './queries/app';
@@ -13,6 +12,7 @@ import map from './components/map';
 import legend from './components/legend';
 import info from './components/info';
 import featureView from './components/feature-view';
+import header from './components/header';
 
 const logger = debug('sdi:app');
 
@@ -22,9 +22,8 @@ export type AppLayout = 'Main' | 'MapAndFeature';
 const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
         DIV({},
-            header('embed')(() => DIV())(),
-            DIV({ className: `main ${name}` }, ...elements),
-            footer())
+            header(),
+            DIV({ className: `main ${name}` }, ...elements))
     );
 
 const renderMain =
