@@ -298,6 +298,14 @@ const updateSize =
         return () => setTimeout(inner, 1);
     };
 
+
+const makeControlBox =
+    () => {
+        const element = document.createElement('div');
+        element.setAttribute('class', 'control-box');
+        return element;
+    }
+
 export const create =
     (options: IMapOptions) => {
         const view = new View({
@@ -306,6 +314,9 @@ export const create =
             rotation: 0,
             zoom: 0,
         });
+
+        const controlBox = makeControlBox();
+
         const map = new Map({
             view,
             layers: [
@@ -314,9 +325,9 @@ export const create =
                 toolsLayerGroup,
             ],
             controls: [
-                fullscreenControl(),
-                rotateControl(),
-                zoomControl(),
+                fullscreenControl(controlBox),
+                rotateControl(controlBox),
+                zoomControl(controlBox),
                 scaleLine({
                     setScaleLine: options.setScaleLine,
                     minWidth: 100,
@@ -361,8 +372,12 @@ export const create =
 
 
         const setTarget =
-            (t: string | Element) =>
-                map.setTarget(t);
+            (t: Element | null) => {
+                if (t) {
+                    map.setTarget(t);
+                    t.appendChild(controlBox);
+                }
+            }
 
 
         const selectable =
