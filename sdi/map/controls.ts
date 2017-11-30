@@ -95,9 +95,10 @@ export const scaleLine =
 
 
 export const zoomControl =
-    () => {
+    (target: Element) => {
         return (
             new control.Zoom({
+                target,
                 className: 'zoom',
                 zoomInLabel: '',
                 zoomOutLabel: '',
@@ -112,9 +113,10 @@ const northArrow = document.createElement('div');
 northArrow.setAttribute('class', 'north-arrow');
 
 export const rotateControl =
-    () => {
+    (target: Element) => {
         return (
             new control.Rotate({
+                target,
                 className: 'rotate',
                 autoHide: false,
                 label: northArrow,
@@ -127,9 +129,10 @@ const fsNode = document.createElement('div');
 fsNode.setAttribute('class', 'fullscreen-node');
 
 export const fullscreenControl =
-    () => {
+    (target: Element) => {
         return (
             new control.FullScreen({
+                target,
                 className: 'fullscreen',
                 label: fsNode,
             })

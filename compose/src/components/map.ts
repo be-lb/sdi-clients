@@ -42,7 +42,7 @@ const options: IMapOptions = {
     setScaleLine: mapEvents.setScaleLine,
 };
 
-let mapSetTarget: (t: string | Element) => void;
+let mapSetTarget: (t: Element | null) => void;
 let mapUpdate: () => void;
 
 const attachMap = (element: Element | null) => {
