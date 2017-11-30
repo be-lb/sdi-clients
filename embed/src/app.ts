@@ -10,6 +10,7 @@ import { getLayout } from './queries/app';
 import { initMap } from './events/app';
 
 import map from './components/map';
+import legend from './components/legend';
 
 const logger = debug('sdi:app');
 
@@ -25,7 +26,7 @@ const wrappedMain =
     );
 
 const renderMain =
-    () => wrappedMain('main', map());
+    () => wrappedMain('main', map(), legend());
 
 const renderMapAndFeature =
     () => wrappedMain('map-and-feature', map());

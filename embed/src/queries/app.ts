@@ -26,3 +26,10 @@ export const getLayerId =
 
 export const getFeatureId =
     () => query('app/featureId');
+
+
+export const getDatasetMetadata =
+    (id: string) => fromNullable(
+        query('data/metadata')
+            .find(md => md.id === id));
+
