@@ -1,56 +1,77 @@
-.main {
-    bottom: auto;
 
-    div.map-wrapper {
-        height: 75%;
+@embedInfoH : 50px;
+
+.embed {
+
+    .header {
+        padding: 0px;
     }
 
-    div.legend {
-        position: absolute;
-        bottom: @small-margin;
-        left: @small-margin;
-        height: auto;
-        min-width: 20%;
-        padding: @small-margin * 2;
-        background-color: @white;
-        border: 1px solid @grey;
-        font-size: 80%;
+    .main {
+        bottom: @embedInfoH + @small-margin;
+        // left: @margin;
+        // right: @margin;
 
-        .legend-item {
+        div.legend {
+            position: absolute;
+            bottom: @small-margin;
+            left: @small-margin;
+            height: auto;
+            min-width: 20%;
+            padding: @small-margin * 2;
+            background-color: @white;
+            border: 1px solid @grey;
+            font-size: 80%;
+
+            .legend-item {
+                display: flex;
+                align-items: center;
+                .item-style {
+                    .legendItemPosition;
+                }
+            }
+        }
+    }
+
+    .map-infos {
+        // .absolute(initial, @margin, 0, @margin);
+        .absolute(initial, 0, 0, 0);
+        height: @embedInfoH;
+        overflow-y: auto;
+        background: cyan;
+
+        h1 {
+            font-size: 150%;
+            letter-spacing: -0.5px;
+
+            a {
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                    color: @black;
+                }
+            }
+        }
+
+        .map-date {
+            font-size: 80%;
             display: flex;
-            align-items: center;
-            .item-style {
-                .legendItemPosition;
+
+            .map-date-label:after {
+                content: "\00a0";
             }
         }
-    }
-}
 
-.map-infos {
-    position: absolute;
-    bottom: 0;
-    height: 25%;
-    overflow-y: auto;
-
-    h1 {
-        font-size: 150%;
-        letter-spacing: -0.5px;
-
-        a {
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-                color: @black;
+        .sdi-credits {
+            font-size: 70%;
+            color: @grey;
+            .ac-link {
+                text-decoration: none;
+                color: @grey;
+                &:visited {color: @grey}
+                &:hover {color: @grey}
             }
         }
-    }
 
-    .map-date {
-        font-size: 80%;
-        display: flex;
-
-        .map-date-label:after {
-            content: "\00a0";
-        }
     }
 }
