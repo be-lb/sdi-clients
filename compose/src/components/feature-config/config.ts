@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import * as Color from 'color';
-import { ReactNode, ChangeEvent } from 'react';
+import { ReactNode } from 'react';
 
 import { MessageKey } from 'sdi/locale/message-db';
 import {
@@ -38,7 +38,8 @@ import {
 } from 'sdi/source';
 import { isENTER } from 'sdi/components/keycodes';
 import { getLang } from 'sdi/app';
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
+import { inputText } from 'sdi/components/input';
 import tr from 'sdi/locale';
 
 import events from '../../events/feature-config';
@@ -220,14 +221,9 @@ const renderPiechartPiece =
 
             const inputLabel = DIV({ className: `style-tool label` },
                 SPAN({ className: 'label' }, tr('alias')),
-                INPUT({
-                    value: (piece.label === undefined) ? piece.propName : piece.label,
-                    type: 'text',
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-                        const newVal = e.currentTarget.value;
-                        events.setPiechartPieceLabel(pn, piece.propName, newVal);
-                    },
-                }));
+                inputText(
+                    () => (piece.label === undefined) ? piece.propName : piece.label,
+                    newVal => events.setPiechartPieceLabel(pn, piece.propName, newVal)));
 
             return (
                 DIV({ className: 'value-name' },
@@ -257,10 +253,6 @@ const pieceKeyHandler =
             }
         };
 
-const pieceChangeHandler =
-    (e: ChangeEvent<HTMLInputElement>) => {
-        events.setEditedValue(e.currentTarget.value);
-    };
 
 const addPieceButton = button('add');
 
@@ -273,21 +265,17 @@ const renderPiechartEditor =
         const curVal = queries.getEditedValue();
 
         if (null === curVal) {
-            elements.push(INPUT({
-                type: 'text',
-                placeholder: tr('columnID'),
-                value: '',
-                onChange: pieceChangeHandler,
-            }));
+            elements.push(inputText(
+                () => '',
+                val => events.setEditedValue(val)));
         }
         else {
             elements.push(
-                INPUT({
-                    type: 'text',
-                    value: curVal,
-                    onChange: pieceChangeHandler,
-                    onKeyDown: pieceKeyHandler(config.propName),
-                }), addPieceButton(() => pieceAdd(config.propName)));
+                inputText(
+                    () => curVal,
+                    val => events.setEditedValue(val),
+                    { onKeyDown: pieceKeyHandler(config.propName) }),
+                addPieceButton(() => pieceAdd(config.propName)));
         }
 
         const scaleSelect = renderSelect(
@@ -313,15 +301,9 @@ const renderTimeserieEditor =
         return [
             DIV({ className: 'item' },
                 label('timeserieTemplateURL', 'help'),
-                INPUT({
-                    className: 'template-url',
-                    type: 'text',
-                    value: config.options.urlTemplate,
-                    onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                        events.setTimeserieUrl(
-                            config.propName, e.currentTarget.value);
-                    },
-                }))];
+                inputText(
+                    () => config.options.urlTemplate,
+                    value => events.setTimeserieUrl(config.propName, value)))];
     };
 
 

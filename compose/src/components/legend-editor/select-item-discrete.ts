@@ -15,9 +15,10 @@
  */
 
 import * as debug from 'debug';
-import { ClassAttributes, KeyboardEvent, ChangeEvent, ReactNode } from 'react';
+import { ClassAttributes, KeyboardEvent, ReactNode } from 'react';
 
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
+import { inputText } from 'sdi/components/input';
 import tr, { fromRecord } from 'sdi/locale';
 import { isENTER } from 'sdi/components/keycodes';
 import { isDiscrete, MessageRecord, DiscreteGroup } from 'sdi/source';
@@ -87,10 +88,7 @@ const styleGroupValueKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     }
 };
 
-const styleGroupValueChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const v = e.currentTarget.value;
-    events.setStyleGroupEditedValue(v);
-};
+
 
 const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
     const removeGroupButton = remove(`discrete-renderStyleGroup-${key}`, 'remove');
@@ -102,23 +100,21 @@ const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
     const inputElements: ReactNode[] = [];
     const curVal = queries.getStyleGroupEditedValue();
     if (null === curVal) {
-        inputElements.push(INPUT({
-            key: `renderStyleGroupUnfolded.input-${key}`,
-            type: 'text',
-            placeholder: tr('addTerm'),
-            defaultValue: '',
-            onChange: styleGroupValueChangeHandler,
-        }));
+        inputElements.push(inputText(
+            () => '',
+            events.setStyleGroupEditedValue,
+            {
+                placeholder: tr('addTerm'),
+            }));
     }
     else {
         inputElements.push(
-            INPUT({
-                key: `renderStyleGroupUnfolded.input-${key}`,
-                type: 'text',
-                defaultValue: curVal,
-                onChange: styleGroupValueChangeHandler,
-                onKeyDown: styleGroupValueKeyHandler,
-            }), addTermButton(styleGroupValueAdd));
+            inputText(
+                () => curVal,
+                events.setStyleGroupEditedValue,
+                {
+                    onKeyDown: styleGroupValueKeyHandler,
+                }), addTermButton(styleGroupValueAdd));
     }
 
     return (
