@@ -4,6 +4,7 @@
     .map {
         height: 100%;
         width: 100%;
+        border: 1px solid @grey;
     }
 
     .map-mode{
@@ -21,8 +22,9 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        border-top: 1px solid @grey;
-        border-left: 1px solid @grey;
+        border: 1px solid @white;
+        border-top-color: @grey;
+        border-left-color: @grey;
 
         > div {
             margin-bottom: @small-margin;
@@ -30,47 +32,23 @@
             position: relative;
 
             & button {
-                background-color: transparent;
+                font-family: @gui-font;
+                background-color: @white;
                 border: 0px;
+                font-size: 10px;
+
+                &:before {.awsomefont}
+                &:hover {color: @green;}
+                &:focus {outline: none;}
             }
         }
     }
-
-    .fullscreen {
-        // .absolute(auto, @small-margin, 160px, auto);
-
-        button {
-            // background-color: transparent;
-            // border: 0px;
-            font-size: 12pt;
-            width: 2em;
-            height: 2em;
-            position: relative;
-
-            &:focus {
-                outline: none;
-            }
-
-            .fullscreen-node {
-                .absolute(0,0,0,0);
-                background-image: url('../imgs/fullscreen.svg');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-            }
-        }
-    }
-
 
     .rotate {
         height: 1.2em;
 
         button {
             .absolute(0,0,0,0);
-
-            &:focus {
-                outline: none;
-            }
 
             .north-arrow {
                 .absolute(0,0,0,0);
@@ -82,6 +60,19 @@
         }
     }
 
+    .fullscreen {
+        display: flex;
+        justify-content: center;
+
+        button {
+            // padding: 2px 5px;
+            // height: 1em;
+            flex: 1;
+            &.fullscreen-false:before {content: @fa-var-expand;}
+            &.fullscreen-true:before {content: @fa-var-compress;}
+        }
+    }
+
     .zoom {
         display: flex;
         align-items: center;
@@ -89,35 +80,15 @@
         margin-bottom: 0px !important;
 
         button {
-            font-family: @gui-font;
-            background-color: @white;
             padding: 2px 5px;
-            font-size: 10px;
-            font-weight: bold;
             height: 1em;
             flex: 1;
 
-            &.zoom-in {
-                &:before {
-                    .awsomefont;
-                    content: @fa-var-plus;
-                }
-            }
+            &.zoom-in:before {content: @fa-var-plus;}
             &.zoom-out {
                 margin-top: @small-margin !important;
                 margin-bottom: 0px !important;
-                &:before {
-                    .awsomefont;
-                    content: @fa-var-minus;
-                }
-            }
-
-            &:hover {
-                color: @green;
-            }
-
-            &:focus {
-                outline: none;
+                &:before {content: @fa-var-minus;}
             }
         }
     }
