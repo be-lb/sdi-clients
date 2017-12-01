@@ -70,7 +70,7 @@ export const main =
             'app/api-root': SDI.api,
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
-            'app/layout': [AppLayout.Dashboard],
+            'app/layout': [AppLayout.Splash],
             'app/map-ready': false,
             'app/current-map': null,
             'app/current-layer': null,
@@ -78,6 +78,7 @@ export const main =
             'app/map-info/illustration': MapInfoIllustrationState.showImage,
             'app/current-metadata': null,
 
+            'component/splash': 0,
             'component/table': initialTableState(),
             'component/legend-editor': initialLegendEditorState(),
             'component/editable': {},

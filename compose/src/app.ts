@@ -20,6 +20,7 @@ import { loop, getUserId, getApiUrl } from 'sdi/app';
 import { DIV, SPAN } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
+import splash from 'sdi/components/splash';
 import tr from 'sdi/locale';
 
 
@@ -37,6 +38,7 @@ import baseLayerSwitch from './components/map-info/base-layer-switch';
 import legendEditor from './components/legend-editor';
 import featureConfig from './components/feature-config';
 import featureView from './components/feature-view';
+import composeSplash from './components/splash';
 
 // import viewInspire from './components/layer/view-inspire';
 // import featureEdit from './components/layer/edit';
@@ -49,7 +51,8 @@ const logger = debug('sdi:app');
 
 const renderAppListingButton =
     () => {
-        if (queries.getLayout() !== AppLayout.Dashboard) {
+        const l = queries.getLayout();
+        if (l !== AppLayout.Dashboard && l !== AppLayout.Splash) {
             return (
                 DIV({
                     className: 'navigate app-listview',
@@ -68,6 +71,9 @@ const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[])
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
+
+const renderSplash =
+    () => wrappedMain('splash', splash(composeSplash()));
 
 const renderDashboard = () => wrappedMain('dashboard', dashboard());
 
@@ -100,24 +106,6 @@ const renderFeatureConfig = () => wrappedMain('feature-config',
     DIV({ className: 'vertical-split' }, tableAttributes(), featureConfig()),
     featureView());
 
-// const renderLayerEditAndInfo = () => wrappedMain(
-//     'layer-stub',
-//     DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
-//     viewInspire());
-
-// const renderLayerEditAndRow = () => wrappedMain(
-//     'layer-stub',
-//     DIV({ className: 'vertical-split' },
-//         DIV({ className: 'snail' },
-//             featureEdit(),
-//             map()),
-//         tableAttributesEditable()),
-//     viewInspire());
-
-// const renderLayerViewAndInfo = () => wrappedMain(
-//     'layer-stub',
-//     DIV({ className: 'vertical-split' }, map(), tableAttributesEditable()),
-//     viewInspire());
 
 const renderUpload = () => wrappedMain('upload', upload());
 
@@ -127,6 +115,7 @@ const renderMain =
 
         const layout = queries.getLayout();
         switch (layout) {
+            case AppLayout.Splash: return renderSplash();
             case AppLayout.Dashboard: return renderDashboard();
             case AppLayout.MapFS: return renderMapFs();
             case AppLayout.MapAndTable: return renderMapAndTable();
@@ -137,13 +126,6 @@ const renderMain =
             case AppLayout.LegendEditor: return renderLegendEditor();
             case AppLayout.LegendEditorAndTable: return renderLegendEditorAndTable();
             case AppLayout.FeatureConfig: return renderFeatureConfig();
-
-            // case AppLayout.LayerEditAndInfo: return renderLayerEditAndInfo();
-            // case AppLayout.LayerEditAndRow: return renderLayerEditAndRow();
-
-            // case AppLayout.LayerViewAndInfo: return renderLayerViewAndInfo();
-            // case AppLayout.LayerViewAndRow: return renderLayerViewAndInfo();
-
             case AppLayout.Upload: return renderUpload();
         }
     };
@@ -157,7 +139,7 @@ const effects =
                 events.loadUser(getApiUrl(`users/${userId}`)));
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
-        events.loadAllDatasetMetadata();
+        events.loadAllDatasetMetadata(() => events.setLayout(AppLayout.Dashboard));
     };
 
 

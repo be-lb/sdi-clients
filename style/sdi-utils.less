@@ -107,11 +107,11 @@ font-size: 0.8em;
             -o-animation: fa-spin 2s infinite linear;
                 animation: fa-spin 2s infinite linear;
 }
-.awsomefont-burst {
+.awsomefont-burst(@time:1s) {
     .awsomefont;
     display: inline-block;
-    -webkit-animation: burst 1s infinite linear;
-          animation: burst 1s infinite linear;
+    -webkit-animation: burst @time infinite linear;
+          animation: burst @time infinite linear;
 }
 
 

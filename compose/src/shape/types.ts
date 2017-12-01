@@ -7,6 +7,7 @@ import {
 import { IUgWsResponse } from '../ports/geocoder';
 
 export enum AppLayout {
+    Splash,
     MapFS,
     MapAndInfo,
     TableFs,

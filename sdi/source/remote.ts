@@ -86,26 +86,61 @@ const makePageType =
             results: io.array(ioType),
         }, `Page<${ioType.name}>`);
 
+export interface FetchedPage<T> {
+    results: T[];
+    page: number;
+    total: number;
+}
+
+class Inc {
+    private storedValue = 0;
+    step() {
+        this.storedValue += 1;
+        return this.value();
+    }
+    value() {
+        return this.storedValue;
+    }
+
+}
+
+
 export const fetchPaginatedIO =
     <T>(ioType: io.Type<T>, url0: string, getOptions: RequestInit = {}) => {
         const pagetType = makePageType(ioType);
+        let pageSize = 0;
         let nextUrl = some(`${url0}?page=1`);
+        const pageCounter = new Inc();
+
 
         const fetchPage =
             () =>
                 nextUrl.map(
                     url => fetchIO(pagetType, url, getOptions)
                         .then((r) => {
+                            if (pageCounter.value() === 0) {
+                                pageSize = r.results.length;
+                            }
                             nextUrl = fromNullable(r.next);
-                            return r.results;
+                            const frame: FetchedPage<T> = {
+                                results: r.results,
+                                page: pageCounter.value(),
+                                total: pageSize > 0 ? r.count / pageSize : 0,
+                            };
+                            pageCounter.step();
+                            return frame;
                         })
                         .catch(() => {
                             nextUrl = none;
-                            return [] as T[];
+                            return {
+                                results: [] as T[],
+                                page: -1,
+                                total: -1,
+                            };
                         }));
 
         const loop =
-            (f: (a: T[]) => void, end: () => void) =>
+            (f: (a: FetchedPage<T>) => void, end: () => void) =>
                 fetchPage()
                     .fold(
                     () => end(),

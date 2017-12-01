@@ -20,12 +20,14 @@ import { loop, getUserId, getApiUrl } from 'sdi/app';
 import { DIV, SPAN } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
+import splash from 'sdi/components/splash';
 import tr from 'sdi/locale';
 
-import list from './components/list';
-import single from './components/single';
 import events from './events/app';
 import queries from './queries/app';
+import list from './components/list';
+import single from './components/single';
+import mdSplash from './components/splash';
 
 
 const logger = debug('sdi:app');
@@ -33,13 +35,16 @@ const logger = debug('sdi:app');
 
 export type AppLayout =
     | 'List'
-    | 'Single';
+    | 'Single'
+    | 'Splash'
+    ;
 
 
 
 const renderAppListingButton =
     () => {
-        if (queries.getLayout() !== 'List') {
+        const l = queries.getLayout();
+        if (l !== 'List' && l !== 'Splash') {
             return (
                 DIV({
                     className: 'navigate app-listview',
@@ -60,6 +65,7 @@ const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[])
         footer())
 );
 
+const renderSplash = () => wrappedMain('splash', splash(mdSplash()));
 const renderList = () => wrappedMain('list', list());
 const renderSingle = () => wrappedMain('single', single());
 
@@ -67,6 +73,7 @@ const renderSingle = () => wrappedMain('single', single());
 const renderMain = () => {
     const layout = queries.getLayout();
     switch (layout) {
+        case 'Splash': return renderSplash();
         case 'List': return renderList();
         case 'Single': return renderSingle();
     }
@@ -77,9 +84,9 @@ const effects = () => {
     getUserId()
         .map(userId =>
             events.loadUser(getApiUrl(`users/${userId}`)));
-    events.loadAllDatasetMetadata();
     events.loadAllTopic();
     events.loadAllKeyword();
+    events.loadAllDatasetMetadata(() => events.setLayout('List'));
 };
 
 const app = loop(renderMain, effects);

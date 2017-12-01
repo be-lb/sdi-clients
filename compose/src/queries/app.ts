@@ -119,6 +119,10 @@ const queries = {
     getCategories() {
         return query('data/categories');
     },
+
+    getSplash() {
+        return query('component/splash');
+    },
 };
 
 export default queries;
