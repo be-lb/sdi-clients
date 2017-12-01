@@ -17,7 +17,8 @@
  */
 
 import { MapEvent, control } from 'openlayers';
-import { SetScaleLine } from './index';
+import { SetScaleLine, IMapScale } from './index';
+import { DIV } from '../components/elements';
 
 interface ScaleLineOptions {
     minWidth: number;
@@ -92,6 +93,15 @@ export const scaleLine =
             new control.ScaleLine({ render })
         );
     };
+
+export const renderScaleline =
+    (sl: IMapScale) =>
+        DIV({ className: 'map-scale', style: { width: `${sl.width}px` } },
+            DIV({ className: 'map-scale-label' }, `${sl.count} ${sl.unit}`),
+            DIV({ className: 'map-scale-line' },
+                DIV({ className: 'quarter' }),
+                DIV({ className: 'quarter' }),
+                DIV({ className: 'half' })));
 
 
 export const zoomControl =

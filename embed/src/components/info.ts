@@ -18,11 +18,11 @@ const render =
                 DIV({ className: 'map-date-value' },
                     formatDate(new Date(mapInfo.lastModified)))),
             DIV({ className: 'sdi-credits' },
-                SPAN({}, 'Spatial Data Infrastructure © '),
+                SPAN({}, 'SDI © '),
                 SPAN({}, A({
                     className: 'ac-link',
                     href: 'https://www.atelier-cartographique.be',
                     target: '_blank'
-                }, 'atelier cartographique')))));
+                }, 'a-c')))));
 
 export default render;

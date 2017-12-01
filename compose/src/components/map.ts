@@ -19,6 +19,7 @@ import * as debug from 'debug';
 import { ReactNode } from 'react';
 
 import { DIV } from 'sdi/components/elements';
+import { renderScaleline } from 'sdi/map/controls';
 
 import { IMapOptions, create } from 'sdi/map';
 import appQueries from '../queries/app';
@@ -61,23 +62,6 @@ const attachMap = (element: Element | null) => {
     }
 };
 
-const scaleline = () => {
-    const sl = mapQueries.getScaleLine();
-
-
-    return (
-        DIV({ className: 'map-scale', style: { width: `${sl.width}px` } },
-            DIV({ className: 'map-scale-label' }, `${sl.count} ${sl.unit}`),
-            DIV({ className: 'map-scale-chess' },
-                DIV({},
-                    DIV({ className: 'white' }),
-                    DIV({ className: 'black' })),
-                DIV({},
-                    DIV({ className: 'black' }),
-                    DIV({ className: 'white' }))))
-    );
-};
-
 
 // const addButton = button('add', 'add');
 // const selectButton = button('select');
@@ -105,7 +89,7 @@ const render = () => {
     //     }
     // }
 
-    overlays.push(scaleline());
+    overlays.push(renderScaleline(mapQueries.getScaleLine()));
 
     return (
         DIV({ className: 'map-wrapper' },

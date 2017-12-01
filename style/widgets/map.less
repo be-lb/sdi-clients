@@ -26,6 +26,7 @@
         .absolute(initial, 0, 0, initial);
         background: #fff;
         padding: @small-margin;
+        padding-right: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -50,10 +51,10 @@
                 &:hover {color: @green;}
                 &:focus {outline: none;}
             }
-        }
 
-        div:last-child {
-            margin-bottom: 0px !important;
+            &:last-child {
+                margin-bottom: @small-margin * 2;
+            }
         }
     }
 
@@ -104,9 +105,9 @@
     }
 
     .map-scale {
-        .absolute(initial, calc(~"1em + 2 * @{small-margin} + 1px"), 0, initial);
+        .absolute(initial, calc(~"1em + @{small-margin} + 1px"), 0, initial);
         padding: @small-margin;
-        // padding-right: 0;
+        padding-right: 0;
         padding-bottom: 0;
         background-color: @white;
         border-color: @white;
@@ -114,25 +115,34 @@
         border-style: inherit;
         border-top-color: inherit;
         border-left-color: inherit;
-        border-bottom-width: 0px;
         display: flex;
-        align-items: center;
+        align-items: flex-end;
 
         .map-scale-label {
-            font-size: 8pt;
-            line-height: 0;
+            font-size: 7pt;
             padding-right: @small-margin;
         }
-        .map-scale-chess {
+        .map-scale-line {
             flex: 1;
             display: flex;
+            align-items: flex-end;
             border: 1px solid #000;
+            border-top: 0px;
+            height: 6px;
+
             > div {
-                width: 50%;
-                height: 6px;
+                // width: 50%;
             }
-            .white {background: #FFF; height: 3px;}
-            .black {background: #000; height: 3px;}
+            .quarter{
+                flex: 1;
+                height: 33%;
+                &:first-child {border-right: 1px solid #000;}
+            }
+            .half {
+                flex: 2;
+                height: 66%;
+                border-left: 1px solid #000;
+            }
         }
     }
 }
