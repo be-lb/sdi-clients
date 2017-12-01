@@ -18,6 +18,7 @@
 import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
+import { renderScaleline } from 'sdi/map/controls';
 import { create, IMapOptions } from 'sdi/map';
 
 
@@ -60,23 +61,6 @@ const options: IMapOptions = {
 
 let mapSetTarget: (t: Element | null) => void;
 let mapUpdate: () => void;
-
-
-const scaleline =
-    () => {
-        const sl = getScaleLine();
-        return (
-            DIV({ className: 'map-scale', style: { width: `${sl.width}px` } },
-                DIV({ className: 'map-scale-label' }, `${sl.count} ${sl.unit}`),
-                DIV({ className: 'map-scale-chess' },
-                    DIV({},
-                        DIV({ className: 'white' }),
-                        DIV({ className: 'black' })),
-                    DIV({},
-                        DIV({ className: 'black' }),
-                        DIV({ className: 'white' }))))
-        );
-    };
 
 
 const selectFeature =
@@ -165,7 +149,7 @@ const render =
                 }),
                 geocoder(),
                 baseSwitch(),
-                scaleline())
+                renderScaleline(getScaleLine()))
         );
     };
 
