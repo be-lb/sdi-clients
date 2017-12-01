@@ -49,6 +49,7 @@ declare module 'sdi/shape' {
         'app/csrf': string | null;
         'app/root': string;
 
+        'component/splash': number;
         'component/table': IDataTable;
         'component/legend-editor': ILegendEditor;
         'component/editable': EditableState;

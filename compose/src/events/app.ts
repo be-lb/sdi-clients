@@ -232,20 +232,25 @@ const events = {
                     state => state.filter(i => i.id !== md.id).concat([md])));
     },
 
-    loadAllDatasetMetadata() {
+    loadAllDatasetMetadata(done?: () => void) {
         dispatch('component/table',
             ts => ({ ...ts, loaded: 'loading' }));
 
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
-            (mds) => {
+            (frame) => {
                 dispatch('data/datasetMetadata',
-                    state => uniqInspire(state.concat(mds)));
+                    state => uniqInspire(state.concat(frame.results)));
                 dispatch('component/table',
                     ts => ({ ...ts, loaded: 'loading' }));
+                dispatch('component/splash', () => Math.floor(frame.page * 100 / frame.total));
             },
-            () =>
+            () => {
                 dispatch('component/table',
-                    ts => ({ ...ts, loaded: 'done' })));
+                    ts => ({ ...ts, loaded: 'done' }));
+                if (done) {
+                    done();
+                }
+            });
     },
 
 

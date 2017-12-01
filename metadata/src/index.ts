@@ -65,10 +65,10 @@ export const main =
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
 
-            'app/layout': ['List'],
+            'app/layout': ['Splash'],
             'app/current-metadata': null,
 
-
+            'component/splash': 0,
             'component/button': {},
             'component/table/layers': initialTableState(),
             'component/table/keywords': initialTableState(),

@@ -40,6 +40,9 @@ const queries = {
         return ll[ll.length - 1];
     },
 
+    getSplash() {
+        return query('component/splash');
+    }
 
 };
 

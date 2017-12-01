@@ -31,6 +31,7 @@ declare module 'sdi/shape' {
         'app/layout': AppLayout[];
         'app/current-metadata': string | null;
 
+        'component/splash': number;
         'component/button': ButtonComponent;
         'component/table/layers': IDataTable;
         'component/table/keywords': IDataTable;
