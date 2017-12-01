@@ -325,9 +325,9 @@ export const create =
                 toolsLayerGroup,
             ],
             controls: [
-                fullscreenControl(controlBox),
                 rotateControl(controlBox),
                 zoomControl(controlBox),
+                fullscreenControl(controlBox),
                 scaleLine({
                     setScaleLine: options.setScaleLine,
                     minWidth: 100,
