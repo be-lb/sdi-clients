@@ -16,9 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV, INPUT } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import { MessageRecord, isContinuous, ContinuousInterval, ContinuousStyle } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
+import { inputNumber } from 'sdi/components/input';
 
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
@@ -52,14 +53,12 @@ const renderIntervalActive = (i: ContinuousInterval, idx: number) => {
     };
     const removeGroupButton = remove(`continuous-renderStyleGroup-${idx}`, 'remove');
 
-    const setLow = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = parseFloat(e.currentTarget.value);
+    const setLow = (val: number) => {
         if (!isNaN(val)) {
             events.setInterval(idx, val, i.high);
         }
     };
-    const setHigh = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = parseFloat(e.currentTarget.value);
+    const setHigh = (val: number) => {
         if (!isNaN(val)) {
             events.setInterval(idx, i.low, val);
         }
@@ -71,18 +70,12 @@ const renderIntervalActive = (i: ContinuousInterval, idx: number) => {
             DIV({ className: 'interval' },
                 DIV({ className: 'low' },
                     DIV({ className: 'interval-label' }, tr('lowValue')),
-                    INPUT({
-                        type: 'number',
-                        defaultValue: i.low.toString(),
-                        onChange: setLow,
-                    })),
+                    inputNumber(
+                        () => i.low, setLow)),
                 DIV({ className: 'high' },
                     DIV({ className: 'interval-label' }, tr('highValue')),
-                    INPUT({
-                        type: 'number',
-                        defaultValue: i.high.toString(),
-                        onChange: setHigh,
-                    }))),
+                    inputNumber(
+                        () => i.high, setHigh))),
             removeGroupButton(() => events.removeItem(idx)))
     );
 };
@@ -115,13 +108,10 @@ const renderAutoClass =
     (style: ContinuousStyle) => (
         DIV({ className: 'column-toolbox' },
             DIV({ className: 'help' }, tr('autoClass')),
-            INPUT({
-                type: 'number',
-                value: queries.getAutoClassValue(),
-                onChange: e =>
-                    events.setAutoClassValue(e.currentTarget.valueAsNumber)
-                ,
-            }), makeClassesButton(() => {
+            inputNumber(
+                queries.getAutoClassValue,
+                events.setAutoClassValue),
+            makeClassesButton(() => {
                 events.makeContinuousClasses(style.propName);
             })))
 

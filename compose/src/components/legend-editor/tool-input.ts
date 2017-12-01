@@ -19,7 +19,9 @@ import * as Color from 'color';
 import { fromPredicate } from 'fp-ts/lib/Option';
 
 import tr from 'sdi/locale';
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
+import { inputNumber, inputText } from 'sdi/components/input';
+
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 // import slider from '../slider';
@@ -116,17 +118,16 @@ const renderInputIcon =
 
 const renderInputNumber =
     (className: string, label: string, get: NumberGetter, set: NumberSetter) => {
-        const defaultValue = get();
-        const update = (e: React.ChangeEvent<HTMLInputElement>) => {
-            const newVal = e.currentTarget.valueAsNumber;
+        const update = (newVal: number) => {
             if (!isNaN(newVal)) {
                 set(newVal);
             }
         };
+
         return (
             DIV({ className: `style-tool ${className}` },
                 SPAN({ className: 'input-label' }, label),
-                INPUT({ defaultValue: defaultValue.toString(), type: 'number', onChange: update }))
+                inputNumber(get, update))
         );
     };
 
@@ -144,35 +145,28 @@ const renderRGB =
     (get: AlphaColorGetter, set: AlphaColorSetter) => {
         const color = get();
         const r = SPAN({ className: 'red' },
-            INPUT({
-                type: 'number',
-                value: Math.round(color.red()),
-                min: 0,
-                max: 255,
-                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
-                    () => set(color.red(0)),
-                    n => set(color.red(n))),
-            }));
+            inputNumber(
+                () => Math.round(get().red()),
+                i => notNan(i).fold(
+                    () => set(get().red(0)),
+                    n => set(get().red(n))),
+                { min: 0, max: 255 }));
+
         const g = SPAN({ className: 'green' },
-            INPUT({
-                type: 'number',
-                value: Math.round(color.green()),
-                min: 0,
-                max: 255,
-                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
-                    () => set(color.green(0)),
-                    n => set(color.green(n))),
-            }));
+            inputNumber(
+                () => Math.round(get().green()),
+                i => notNan(i).fold(
+                    () => set(get().green(0)),
+                    n => set(get().green(n))),
+                { min: 0, max: 255 }));
+
         const b = SPAN({ className: 'blue' },
-            INPUT({
-                type: 'number',
-                value: Math.round(color.blue()),
-                min: 0,
-                max: 255,
-                onChange: e => notNan(e.currentTarget.valueAsNumber).fold(
-                    () => set(color.blue(0)),
-                    n => set(color.blue(n))),
-            }));
+            inputNumber(
+                () => Math.round(get().blue()),
+                i => notNan(i).fold(
+                    () => set(get().blue(0)),
+                    n => set(get().blue(n))),
+                { min: 0, max: 255 }));
 
         const preview = SPAN({ className: 'color-preview' },
             SPAN({
@@ -258,17 +252,10 @@ export const renderInputAlphaColor =
 
 const renderInputText =
     (className: string, label: string, get: TextGetter, set: TextSetter) => {
-        const defaultValue = get();
-        // logger(`renderInputText ${value}`);
-        const update = (e: React.ChangeEvent<HTMLInputElement>) => {
-            // logger(`renderInputText update ${e.currentTarget.value}`);
-            const newVal = e.currentTarget.value;
-            set(newVal);
-        };
         return (
             DIV({ className: `style-tool ${className}` },
                 SPAN({ className: 'input-label' }, label),
-                INPUT({ defaultValue, type: 'text', onChange: update }))
+                inputText(get, set))
         );
     };
 
