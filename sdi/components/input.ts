@@ -54,6 +54,12 @@ class InputText extends Component<InputProps<string>, InputValue<string>> {
     render() {
         return INPUT(this.attrs());
     }
+
+    componentWillReceiveProps(nextProps: Readonly<InputProps<string>>) {
+        if (this.props.get !== nextProps.get) {
+            this.setState(value(this.props.get()));
+        }
+    }
 }
 
 class InputNumber extends Component<InputProps<number>, InputValue<number>> {
