@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-<svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="251px" height="719px" viewBox="0 0 251 719" enable-background="new 0 0 251 719" xml:space="preserve">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="20px" height="20px" viewBox="115.5 349.5 20 20" enable-background="new 115.5 349.5 20 20" xml:space="preserve">
 <g>
-	<polygon fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" points="240.751,698.559 125.402,583.217
-		10.053,698.559 125.402,31.678 	"/>
-	<polygon points="125,32 125,583 240.751,698.559 	"/>
+	<polygon stroke="#000000" stroke-width="0.9014" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+		129.656,366.458 125.402,366.458 121.147,366.458 125.402,355.625 	"/>
 </g>
 </svg>

@@ -14,12 +14,34 @@
         background-color: white;
     }
 
+    .control-box {
+        .absolute(initial, 0, 0, initial);
+        background: #fff;
+        padding: @small-margin;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-top: 1px solid @grey;
+        border-left: 1px solid @grey;
+
+        > div {
+            margin-bottom: @small-margin;
+            width: 1em;
+            position: relative;
+
+            & button {
+                background-color: transparent;
+                border: 0px;
+            }
+        }
+    }
+
     .fullscreen {
-        .absolute(auto, @small-margin, 160px, auto);
+        // .absolute(auto, @small-margin, 160px, auto);
 
         button {
-            background-color: transparent;
-            border: 0px;
+            // background-color: transparent;
+            // border: 0px;
             font-size: 12pt;
             width: 2em;
             height: 2em;
@@ -41,15 +63,10 @@
 
 
     .rotate {
-        .absolute(auto, @small-margin, 110px, auto);
+        height: 1.2em;
 
         button {
-            background-color: transparent;
-            border: 0px;
-            font-size: 12pt;
-            width: 2em;
-            height: 2em;
-            position: relative;
+            .absolute(0,0,0,0);
 
             &:focus {
                 outline: none;
@@ -66,20 +83,19 @@
     }
 
     .zoom {
-        .absolute(auto, @small-margin, 30px, auto);
         display: flex;
-        justify-content: center;
+        align-items: center;
         flex-direction: column;
+        margin-bottom: 0px !important;
 
         button {
             font-family: @gui-font;
             background-color: @white;
-            border: 1px solid @grey;
-            margin: 2px 0;
-            font-size: 12pt;
+            padding: 2px 5px;
+            font-size: 10px;
             font-weight: bold;
-            width: 2em;
-            height: 2em;
+            height: 1em;
+            flex: 1;
 
             &.zoom-in {
                 &:before {
@@ -88,6 +104,8 @@
                 }
             }
             &.zoom-out {
+                margin-top: @small-margin !important;
+                margin-bottom: 0px !important;
                 &:before {
                     .awsomefont;
                     content: @fa-var-minus;
@@ -95,9 +113,7 @@
             }
 
             &:hover {
-                color: @white;
-                background-color: @green;
-                border: 1px solid @green;
+                color: @green;
             }
 
             &:focus {
@@ -107,7 +123,7 @@
     }
 
     .map-scale {
-        .absolute(initial, @small-margin, @small-margin, initial);
+        .absolute(initial, 1em + 3 * @small-margin, @small-margin, initial);
         border:1px solid #000;
 
         .map-scale-label {
