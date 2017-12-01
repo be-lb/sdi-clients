@@ -1,5 +1,5 @@
 
-import { DIV, H1, A } from 'sdi/components/elements';
+import { DIV, SPAN, H1, A } from 'sdi/components/elements';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 
 import { getMapInfo } from '../queries/app';
@@ -16,6 +16,13 @@ const render =
             DIV({ className: 'map-date' },
                 DIV({ className: 'map-date-label' }, tr('lastModified')),
                 DIV({ className: 'map-date-value' },
-                    formatDate(new Date(mapInfo.lastModified))))));
+                    formatDate(new Date(mapInfo.lastModified)))),
+            DIV({ className: 'sdi-credits' },
+                SPAN({}, 'Spatial Data Infrastructure © '),
+                SPAN({}, A({
+                    className: 'ac-link',
+                    href: 'https://www.atelier-cartographique.be',
+                    target: '_blank'
+                }, 'atelier cartographique')))));
 
 export default render;

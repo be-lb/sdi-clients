@@ -21,7 +21,7 @@ export type AppLayout = 'Main' | 'MapAndFeature';
 
 const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-        DIV({},
+        DIV({className:'embed'},
             header(),
             DIV({ className: `main ${name}` }, ...elements),
             info()
