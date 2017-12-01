@@ -125,8 +125,10 @@ export const rotateControl =
     };
 
 
-const fsNode = document.createElement('div');
-fsNode.setAttribute('class', 'fullscreen-node');
+const fsInNode = document.createElement('div');
+fsInNode.setAttribute('class', 'fullscreen-in');
+const fsOutNode = document.createElement('div');
+fsOutNode.setAttribute('class', 'fullscreen-out');
 
 export const fullscreenControl =
     (target: Element) => {
@@ -134,7 +136,8 @@ export const fullscreenControl =
             new control.FullScreen({
                 target,
                 className: 'fullscreen',
-                label: fsNode,
+                label: fsInNode,
+                labelActive: fsOutNode,
             })
         );
     };
