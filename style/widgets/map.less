@@ -27,6 +27,7 @@
         background: #fff;
         padding: @small-margin;
         padding-right: 0px;
+        padding-bottom: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -53,7 +54,7 @@
             }
 
             &:last-child {
-                margin-bottom: @small-margin * 2;
+                margin-bottom: @small-margin * 3;
             }
         }
     }
@@ -101,6 +102,20 @@
                 margin-bottom: 0px !important;
                 &:before {content: @fa-var-minus;}
             }
+        }
+    }
+
+    .credit {
+        .absolute(initial, 0, 0, @small-margin) !important;
+        font-size: 7pt;
+        margin-bottom: 0px !important;
+        width: calc(~"100% - @{small-margin}") !important;
+        text-align: center;
+        a {
+            color:@light-grey;
+            text-decoration: none;
+            &:visited {color: @light-grey;}
+            &:hover {color: @light-grey;}
         }
     }
 

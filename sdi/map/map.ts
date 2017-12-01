@@ -38,6 +38,7 @@ import { scaleLine, zoomControl, rotateControl, fullscreenControl } from './cont
 import { select, highlight } from './actions';
 import { IMapBaseLayer } from '../source/index';
 import { measure, track, extract, mark } from './tools';
+import { credit } from './credit';
 import { setTimeout } from 'timers';
 
 
@@ -303,6 +304,7 @@ const makeControlBox =
     () => {
         const element = document.createElement('div');
         element.setAttribute('class', 'control-box');
+        element.appendChild(credit());
         return element;
     }
 
