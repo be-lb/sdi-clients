@@ -50,6 +50,22 @@ const getDescription = () => getInfo(m => m.description, { fr: '', nl: '' });
 const toP = (p: string) => P({}, p);
 
 const uploadButton = button('upload', 'validate');
+const publishButton = button('toggle-off');
+const unpublishButton = button('toggle-on');
+
+const renderStatus =
+    ({ status }: IMapInfo) => {
+        if ('published' === status) {
+            return DIV({ className: 'toggle' },
+                DIV({ className: 'no-active' }, tr('draft')),
+                unpublishButton(() => mapInfoEvents.mapStatus('draft')),
+                DIV({ className: 'active' }, tr('published')));
+        }
+        return DIV({ className: 'toggle' },
+            DIV({ className: 'active' }, tr('draft')),
+            publishButton(() => mapInfoEvents.mapStatus('published')),
+            DIV({ className: 'no-active' }, tr('published')));
+    };
 
 const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
     const isEmpty = title.trim().length === 0;
@@ -225,6 +241,7 @@ const render =
     (mapInfo: IMapInfo) => (
         DIV({ className: 'map-infos' },
             renderCategories(mapInfo),
+            renderStatus(mapInfo),
 
             editable(`map_info_title`, getTitle, events.setMapTitle, formatTitle)(),
 

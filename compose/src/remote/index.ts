@@ -37,6 +37,7 @@ import {
     AttachmentIO,
     deleteIO,
     fetchPaginatedIO,
+    fetchWithoutValidationIO,
 } from 'sdi/source';
 
 
@@ -64,7 +65,11 @@ const putOptions =
     });
 
 
-export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url, fetchOptions());
+export const fetchLayer =
+    (url: string): Promise<FeatureCollection> =>
+        fetchWithoutValidationIO(url, fetchOptions());
+
+
 export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url, fetchOptions());
 export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);

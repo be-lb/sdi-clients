@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { i, u, l, p, a, MessageRecordIO, TypeOf } from './io';
 import { GeometryType } from './geojson';
 import * as io from 'io-ts';
@@ -21,6 +21,7 @@ import * as io from 'io-ts';
 
 export const PolygonStyleConfigSimpleIO = i({
     kind: l('polygon-simple'),
+    // pattern: io.boolean,
     strokeColor: io.string,
     fillColor: io.string,
     strokeWidth: io.number,
@@ -399,6 +400,7 @@ const defaultLineStyle = (s: SubType, propName?: string): LineStyleConfig => {
 const defaultPolygonStyle = (s: SubType, propName?: string): PolygonStyleConfig => {
     switch (s) {
         case 'simple': return ({
+            // pattern: false,
             kind: 'polygon-simple',
             strokeColor: '#00AED5',
             fillColor: '#00AED5',

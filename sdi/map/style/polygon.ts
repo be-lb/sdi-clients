@@ -14,7 +14,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { style, Feature } from 'openlayers';
+import {
+    style,
+    Feature,
+    // extent,
+} from 'openlayers';
 import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig } from '../../source';
 import { StyleFn } from './index';
 
@@ -27,6 +31,11 @@ const makeStyle =
         return new style.Style({ fill, stroke });
     };
 
+// const makePattern = 
+// (color: string) => {
+
+// }
+
 const polygonStyleSimple =
     (config: PolygonStyleConfigSimple) => {
         const fill = new style.Fill({
@@ -38,7 +47,15 @@ const polygonStyleSimple =
         });
         const styles = [makeStyle(fill, stroke)];
 
-        return (/* feature, resolution */) => styles;
+        return (/* feature: Feature, resolution: number */) => {
+            // const e = feature.getGeometry().getExtent();
+            // const [w, h] = extent.getSize(e);
+            // const maxRes = 2;
+            // if (w / resolution < maxRes || h / resolution < maxRes) {
+            //     return [];
+            // }
+            return styles;
+        };
     };
 
 

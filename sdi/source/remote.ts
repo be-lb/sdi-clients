@@ -48,6 +48,28 @@ const onValidationError =
 const identity = <T>(a: T) => a;
 
 
+export const fetchWithoutValidationIO =
+    <T>(url: string, getOptions: RequestInit = {}) => {
+        const options: RequestInit = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'default',
+            redirect: 'follow',
+            ...getOptions,
+        };
+
+        return (
+            fetch(url, options)
+                .then((response) => {
+                    if (response.ok) {
+                        return response.json() as Promise<T>;
+                    }
+                    throw new Error(`Network response was not ok.\n[${url}]\n${response.statusText}`);
+                })
+        );
+    };
+
+
 export const fetchIO =
     <T>(ioType: io.Type<T>, url: string, getOptions: RequestInit = {}) => {
         const options: RequestInit = {
@@ -66,16 +88,10 @@ export const fetchIO =
                     }
                     throw new Error(`Network response was not ok.\n[${url}]\n${response.statusText}`);
                 })
-                .then((obj) => {
-                    return (
-                        io.validate(obj, ioType)
-                            .fold(onValidationError(ioType), identity)
-                    );
-                })
+                .then(obj => io.validate(obj, ioType)
+                    .fold(onValidationError(ioType), identity))
         );
     };
-
-
 
 const makePageType =
     <T>(ioType: io.Type<T>) =>

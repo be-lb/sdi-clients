@@ -16,6 +16,7 @@
 
 import { dispatch } from 'sdi/shape';
 import { getApiUrl } from 'sdi/app';
+import { MapStatus } from 'sdi/source';
 
 import { MapInfoIllustrationState } from '../shape/types';
 import appQueries from '../queries/app';
@@ -60,6 +61,24 @@ const events = {
                     });
             }, 1);
             return MapInfoIllustrationState.uploadSelectedImage;
+        });
+    },
+
+
+    mapStatus(status: MapStatus) {
+        const mid = appQueries.getCurrentMap();
+        dispatch('data/maps', (maps) => {
+            const idx = maps.findIndex(m => m.id === mid);
+
+            if (idx !== -1) {
+                const m = maps[idx];
+                m.status = status;
+                setTimeout(() => {
+                    putMap(getApiUrl(`maps/${mid}`), m);
+                }, 1);
+            }
+
+            return maps;
         });
     },
 };

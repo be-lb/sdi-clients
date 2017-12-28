@@ -126,6 +126,7 @@ observe('app/current-map', () => {
 
 const makeMap = (): IMapInfo => {
     return {
+        status: 'draft',
         title: { fr: '', nl: '' },
         description: { fr: '', nl: '' },
         attachments: [],

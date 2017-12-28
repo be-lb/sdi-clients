@@ -63,10 +63,17 @@ export const IMapBaseLayerIO = i({
 }, 'IMapBaseLayerIO');
 export type IMapBaseLayer = TypeOf<typeof IMapBaseLayerIO>;
 
+export const MapStatusIO = u([
+    l('draft'),
+    l('published'),
+], 'MapStatusIO');
+export type MapStatus = TypeOf<typeof MapStatusIO>;
+
 export const IMapInfoIO = io.intersection([
     i({
         title: MessageRecordIO,
         url: io.string,
+        status: MapStatusIO,
         lastModified: io.number,
         description: MessageRecordIO,
         attachments: a(uuidIO),
