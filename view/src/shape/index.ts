@@ -14,7 +14,14 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { Feature, IMapBaseLayer, IMapInfo, Category, Attachment } from 'sdi/source';
+import {
+    Attachment,
+    Category,
+    Feature,
+    IMapBaseLayer,
+    IMapInfo,
+    MessageRecord,
+} from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
 import { ButtonComponent } from 'sdi/components/button';
@@ -62,6 +69,7 @@ declare module 'sdi/shape' {
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
         'port/map/interaction': Interaction;
+        'port/map/loading': MessageRecord[];
 
 
         'data/layers': ILayerColection;

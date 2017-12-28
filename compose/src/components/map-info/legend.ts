@@ -168,7 +168,8 @@ const renderAddButton =
 
 
 const reverse =
-    (a: ILayerInfo[]): ILayerInfo[] => a.reduceRight<ILayerInfo[]>((acc, v) => acc.concat([v]), []);
+    (a: ILayerInfo[]): ILayerInfo[] =>
+        a.reduceRight<ILayerInfo[]>((acc, v) => acc.concat([v]), []);
 
 const render =
     (mapInfo: IMapInfo) => {

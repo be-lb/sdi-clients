@@ -20,6 +20,7 @@ import { dispatch, dispatchK } from 'sdi/shape';
 import { hashMapBaseLayer } from 'sdi/util';
 import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction } from 'sdi/map';
 import { tableEvents } from 'sdi/components/table';
+import { MessageRecord } from 'sdi/source';
 
 import appQueries from '../queries/app';
 import { getAllBaseLayers, withExtract } from '../queries/map';
@@ -116,3 +117,9 @@ export const putMark =
                 coordinates,
             },
         }));
+
+
+export const updateLoading =
+    (ms: MessageRecord[]) =>
+        dispatch('port/map/loading', () => ms);
+

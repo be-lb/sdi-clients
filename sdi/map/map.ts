@@ -20,6 +20,7 @@ import { Map, View, source, layer, proj, Feature, Collection } from 'openlayers'
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
+import { IMapBaseLayer, MessageRecord, getMessageRecord } from '../source';
 
 import {
     IMapOptions,
@@ -34,12 +35,12 @@ import {
     FeaturePathGetter,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
-import { scaleLine, zoomControl, rotateControl, fullscreenControl } from './controls';
+import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } from './controls';
 import { select, highlight } from './actions';
-import { IMapBaseLayer } from '../source/index';
 import { measure, track, extract, mark } from './tools';
 import { credit } from './credit';
 import { setTimeout } from 'timers';
+import { fromRecord } from '../locale';
 
 
 const logger = debug('sdi:map');
@@ -59,9 +60,6 @@ const toolsLayerGroup = new layer.Group({
     layers: toolsLayerCollection,
 });
 
-// const isGroup =
-//     (l: layer.Base): l is layer.Group => l instanceof layer.Group;
-
 
 const isTracking = false;
 const isMeasuring = false;
@@ -71,35 +69,40 @@ const isWorking =
         return (isTracking || isMeasuring);
     };
 
+const loadingMonitor = loadingMon();
 
 
 const getLayerData =
-    (fetchData: FetchData, vs: source.Vector, count: number) => {
-        logger(`getLayerData ${count}`);
-        const data = fetchData();
-        if (data) {
-            const features = formatGeoJSON.readFeatures(data);
+    (fetchData: FetchData, vs: source.Vector, title: MessageRecord) => {
+        const fetcher =
+            (count: number) => {
+                logger(`getLayerData ${fromRecord(title)} ${count}`);
 
-            vs.addFeatures(features);
+                const data = fetchData();
+                if (data) {
+                    const features = formatGeoJSON.readFeatures(data);
 
-            // logger(`getLayerData features ${vs.getFeaturesCollection().getLength()}`);
-            vs.forEachFeature((f) => {
-                const lid = vs.get('id');
+                    vs.addFeatures(features);
+                    vs.forEachFeature((f) => {
+                        const lid = vs.get('id');
 
-                f.set('lid', lid);
-                if (!f.getId()) {
-                    f.setId(f.getProperties()['__app_id__']);
+                        f.set('lid', lid);
+                        if (!f.getId()) {
+                            f.setId(f.getProperties()['__app_id__']);
+                        }
+                    });
+
+                    loadingMonitor.remove(title);
                 }
-            });
-        }
-        else if (count < 100) {
-            setTimeout(() => {
-                getLayerData(fetchData, vs, count + 1);
-            }, 500);
-        }
-        else {
-            logger('getLayerData GiveUp');
-        }
+                else if (count < 100) {
+                    setTimeout(() => fetcher(count + 1), 500);
+                }
+                else {
+                    logger(`getLayerData GiveUp on ${fromRecord(title)}`);
+                }
+            };
+
+        fetcher(0);
     };
 
 export const removeLayer =
@@ -117,7 +120,7 @@ export const removeLayerAll =
     };
 
 export const addLayer =
-    (layerInfo: () => (SyntheticLayerInfo), fetchData: FetchData, retryCount = 0) => {
+    (layerInfo: () => SyntheticLayerInfo, fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
 
         if (info && metadata) {
@@ -130,6 +133,9 @@ export const addLayer =
             if (layerAlreadyAdded) {
                 return;
             }
+            const title = getMessageRecord(metadata.resourceTitle);
+            loadingMonitor.add(title);
+
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {
                 const { info } = layerInfo();
@@ -164,7 +170,7 @@ export const addLayer =
             vl.setVisible(info.visible);
 
             mainLayerCollection.push(vl);
-            getLayerData(fetchData, vs, 0);
+            getLayerData(fetchData, vs, title);
 
             vl.on('render', (_e: any) => {
                 logger(`Layer Render ${info.id} ${vs.getState()} `);
@@ -172,7 +178,7 @@ export const addLayer =
 
             // return vl;
         }
-        else if (retryCount < 60) {
+        else if (retryCount < 120) {
             setTimeout(() => {
                 addLayer(layerInfo, fetchData, retryCount + 1);
             }, retryCount * retryCount * 250);
@@ -306,7 +312,7 @@ const makeControlBox =
         element.setAttribute('class', 'control-box');
         element.appendChild(credit());
         return element;
-    }
+    };
 
 export const create =
     (options: IMapOptions) => {
@@ -350,6 +356,9 @@ export const create =
         fromNullable(options.element)
             .map(e => map.setTarget(e));
 
+        fromNullable(options.setLoading)
+            .map(s => loadingMonitor.onUpdate(s));
+
         view.on('change', () => {
             if (!isWorking()) {
                 options.updateView({
@@ -379,7 +388,7 @@ export const create =
                     map.setTarget(t);
                     t.appendChild(controlBox);
                 }
-            }
+            };
 
 
         const selectable =
@@ -426,7 +435,7 @@ export const create =
                 const { init, update } = highlight(fpg);
                 init(mainLayerCollection, toolsLayerCollection);
                 updatables.push({ name: 'Highlight', fn: () => update() });
-            }
+            };
 
 
         return {

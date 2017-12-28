@@ -175,6 +175,7 @@ export const main =
                     },
                 },
             ],
+            'port/map/loading': [],
             'data/layers': {},
             'data/maps': [],
             'data/alias': [],

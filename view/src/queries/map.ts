@@ -9,14 +9,14 @@ import { TableSource, TableDataType, TableDataRow, tableQueries } from 'sdi/comp
 
 
 
-export const getView =
-    () => query('port/map/view');
+export const getView = queryK('port/map/view');
 
-export const getAllBaseLayers =
-    () => query('port/map/baseLayers');
+export const getAllBaseLayers = queryK('port/map/baseLayers');
 
-export const getScaleLine =
-    () => query('port/map/scale');
+export const getScaleLine = queryK('port/map/scale');
+
+export const getLoading = queryK('port/map/loading');
+
 
 export const getBaseLayer =
     () => {
@@ -55,9 +55,9 @@ const getExtractData =
                 cells: [
                     e.featureId.toString(),
                     e.layerId,
-                ]
-            }))
-        )
+                ],
+            })),
+        );
 
 const getExtractSource =
     (): TableSource => ({

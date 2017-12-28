@@ -16,7 +16,7 @@
 
 import * as proj4 from 'proj4';
 import { proj, format, Coordinate } from 'openlayers';
-import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire } from '../source';
+import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire, MessageRecord } from '../source';
 import { Getter, Setter } from '../shape';
 import { Option, fromPredicate } from 'fp-ts/lib/Option';
 
@@ -203,6 +203,7 @@ export interface IMapOptions {
 
     updateView(v: IViewEvent): void;
     setScaleLine: SetScaleLine;
+    setLoading?: (ms: MessageRecord[]) => void;
 }
 
 

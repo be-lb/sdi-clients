@@ -20,6 +20,7 @@ import * as debug from 'debug';
 import { DIV } from 'sdi/components/elements';
 import { renderScaleline } from 'sdi/map/controls';
 import { create, IMapOptions } from 'sdi/map';
+import { fromRecord } from 'sdi/locale';
 
 
 
@@ -30,6 +31,7 @@ import {
     getScaleLine,
     getInteraction,
     getInteractionMode,
+    getLoading,
 } from '../queries/map';
 import {
     viewEvents,
@@ -39,6 +41,7 @@ import {
     setExtractCollection,
     startMark,
     endMark,
+    updateLoading,
 } from '../events/map';
 import { AppLayout } from '../shape/types';
 
@@ -57,6 +60,7 @@ const options: IMapOptions = {
 
     updateView: viewEvents.updateMapView,
     setScaleLine: scalelineEvents.setScaleLine,
+    setLoading: updateLoading,
 };
 
 let mapSetTarget: (t: Element | null) => void;
@@ -78,8 +82,8 @@ const getSelected =
         return {
             featureId: fid,
             layerId: l,
-        }
-    }
+        };
+    };
 
 
 const attachMap =
@@ -132,21 +136,31 @@ const attachMap =
             }
         };
 
+const renderLoading =
+    () => DIV({
+        className: 'loading-layer-wrapper',
+    }, getLoading().map(
+        r => DIV({
+            className: 'loading-layer',
+            key: fromRecord(r),
+        }, fromRecord(r))));
 
 const render =
     () => {
-        // logger(`render ${typeof mapUpdate}`);
+
         if (mapUpdate) {
             mapUpdate();
         }
 
+
+
         return (
             DIV({ className: `map-wrapper ${getInteractionMode()}` },
                 DIV({
-                    // id: mapId,
                     className: 'map',
                     ref: attachMap(),
                 }),
+                renderLoading(),
                 geocoder(),
                 baseSwitch(),
                 renderScaleline(getScaleLine()))

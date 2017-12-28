@@ -16,9 +16,14 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 import { MapEvent, control } from 'openlayers';
 import { SetScaleLine, IMapScale } from './index';
 import { DIV } from '../components/elements';
+import { MessageRecord } from '../source';
+import { fromRecord } from '../locale';
+
+const logger = debug('sdi:map/controls');
 
 interface ScaleLineOptions {
     minWidth: number;
@@ -152,3 +157,43 @@ export const fullscreenControl =
         );
     };
 
+
+
+export type LoadingMonitorListener = (ms: MessageRecord[]) => void;
+
+class LoadingMonitor {
+    private loadingLayers: MessageRecord[] = [];
+    private hs: LoadingMonitorListener[] = [];
+
+    add(m: MessageRecord | null) {
+        if (m !== null) {
+            this.loadingLayers = this.loadingLayers.filter(
+                r => fromRecord(r) !== fromRecord(m)).concat([m]);
+            this.emitUpdate();
+            logger(`LoadingMon.add ${fromRecord(m)}`);
+        }
+    }
+
+    remove(m: MessageRecord | null) {
+        if (m !== null) {
+            this.loadingLayers = this.loadingLayers.filter(
+                r => fromRecord(r) !== fromRecord(m));
+            this.emitUpdate();
+            logger(`LoadingMon.remove ${fromRecord(m)}`);
+        }
+    }
+
+    onUpdate(h: LoadingMonitorListener) {
+        this.hs.push(h);
+    }
+
+    private emitUpdate() {
+        this.hs.forEach(h => h(this.loadingLayers));
+    }
+}
+
+export const loadingMon =
+    () => new LoadingMonitor();
+
+
+logger('loaded');
