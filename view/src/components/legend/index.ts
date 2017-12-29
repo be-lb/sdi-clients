@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
-import { IMapInfo, getMessageRecord } from 'sdi/source';
+import { IMapInfo, getMessageRecord, LayerGroup } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
 import queries from '../../queries/legend';
@@ -27,52 +27,103 @@ import legendItem from './legend-item';
 import legendTools from './../legend-tools';
 import info from './../map-info';
 import { AppLayout, LegendPage } from '../../shape/types';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:legend');
 
-const legendLegend = (mapInfo: IMapInfo) => {
-    return (
+
+interface TaggedNode<T> {
+    node: React.ReactNode | React.ReactNode[];
+    tag: T;
+}
+
+type GroupOrNull = LayerGroup | null;
+
+const makeGroupWithLabel =
+    (group: LayerGroup, items: React.ReactNode[]) => (
+        DIV({ className: 'legend-group' },
+            DIV({ className: 'legend-group-title' },
+                fromRecord(group.name)),
+            items));
+
+const makeGroup =
+    (items: React.ReactNode[]) => (
+        DIV({ className: 'legend-group' }, items));
+
+const legendLegend =
+    (mapInfo: IMapInfo) =>
         mapInfo.layers
             .slice()
             .reverse()
-            .reduce<React.DOMElement<{}, Element>[]>((acc, info) => {
+            .reduce<TaggedNode<GroupOrNull>[]>((acc, info) => {
                 if (info.visible) {
+                    const accL = acc.length;
+                    const previousGroup = accL > 0 ? acc[accL - 1].tag : null;
                     const items = legendItem(info);
-                    return acc.concat(items);
+                    if (info.group) {
+                        if (previousGroup
+                            && previousGroup.id === info.group.id) {
+                            return acc.concat({
+                                node: makeGroup(items),
+                                tag: info.group,
+                            });
+                        }
+                        return acc.concat({
+                            node: makeGroupWithLabel(info.group, items),
+                            tag: info.group,
+                        });
+                    }
+                    return acc.concat({
+                        node: items,
+                        tag: info.group,
+                    });
                 }
                 return acc;
             }, [])
-    );
-};
+            .map(tn => tn.node);
 
 
-const legendDatas = (mapInfo: IMapInfo) => {
-    return mapInfo.layers.map((layer) => {
-        const metadata = appQueries.getDatasetMetadata(layer.metadataId);
-        let name = layer.id;
-        if (metadata) {
-            name = fromRecord(getMessageRecord(metadata.resourceTitle));
-        }
-        return DIV({ className: 'layer-item' },
-            DIV({ className: 'layer-actions' },
-                SPAN({
-                    className: layer.visible ? 'visible' : 'hidden',
-                    title: tr('visible'),
-                    onClick: () => {
-                        appEvents.setLayerVisibility(layer.id, !layer.visible);
-                    },
-                }),
-                SPAN({
-                    className: 'table',
-                    title: tr('attributesTable'),
-                    onClick: () => {
-                        appEvents.setCurrentLayer(layer.id);
-                        appEvents.setLayout(AppLayout.MapAndTable);
-                    },
-                })),
-            DIV({ className: 'layer-title' }, SPAN({}, name)));
-    });
-};
+const legendDatas =
+    (mapInfo: IMapInfo) =>
+        mapInfo.layers
+            .slice()
+            .reverse()
+            .map((layer, idx, layers) => {
+                const name = fromNullable(
+                    appQueries.getDatasetMetadata(layer.metadataId))
+                    .fold(
+                    () => layer.id,
+                    md => fromRecord(getMessageRecord(md.resourceTitle)));
+
+                const node = DIV({ className: 'layer-item' },
+                    DIV({ className: 'layer-actions' },
+                        SPAN({
+                            className: layer.visible ? 'visible' : 'hidden',
+                            title: tr('visible'),
+                            onClick: () => {
+                                appEvents.setLayerVisibility(layer.id, !layer.visible);
+                            },
+                        }),
+                        SPAN({
+                            className: 'table',
+                            title: tr('attributesTable'),
+                            onClick: () => {
+                                appEvents.setCurrentLayer(layer.id);
+                                appEvents.setLayout(AppLayout.MapAndTable);
+                            },
+                        })),
+                    DIV({ className: 'layer-title' }, SPAN({}, name)));
+
+                const pg = idx > 0 ? layers[idx - 1].group : null;
+                if (layer.group) {
+                    if (pg && pg.id === layer.group.id) {
+                        return makeGroup([node]);
+                    }
+                    return makeGroupWithLabel(layer.group, [node]);
+                }
+                return node;
+            });
+
 
 
 

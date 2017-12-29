@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import * as iots from 'io-ts';
 
 export const i = iots.interface;
@@ -23,6 +23,9 @@ export const a = iots.array;
 export const t = iots.tuple;
 export const p = iots.partial;
 export type TypeOf<RT extends iots.Any> = iots.TypeOf<RT>;
+
+export const nullable =
+    <A extends iots.Type<any>>(t: A) => u([t, iots.null], `Nullable${t.name}`);
 
 // tslint:disable-next-line:variable-name
 export const MessageRecordIO = iots.intersection([

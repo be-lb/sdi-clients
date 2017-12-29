@@ -15,7 +15,7 @@
  */
 
 
-import { i, a, p, l, u, MessageRecordIO, TypeOf } from './io';
+import { i, a, p, l, u, MessageRecordIO, TypeOf, nullable } from './io';
 import { StyleConfigIO } from './style';
 import { RowConfigIO } from './row-config';
 import { uuidIO } from './uuid';
@@ -40,12 +40,19 @@ export const FeatureViewOptionsIO = u([
 export type FeatureViewOptions = TypeOf<typeof FeatureViewOptionsIO>;
 
 
+export const LayerGroupIO = i({
+    id: io.string,
+    name: MessageRecordIO,
+}, 'LayerGroupIO');
+export type LayerGroup = TypeOf<typeof LayerGroupIO>;
+
 export const ILayerInfoIO = i({
     id: io.string,
     metadataId: io.string,
     visible: io.boolean,
     style: StyleConfigIO,
     featureViewOptions: FeatureViewOptionsIO,
+    group: nullable(LayerGroupIO),
 }, 'ILayerInfoIO');
 export type ILayerInfo = TypeOf<typeof ILayerInfoIO>;
 
