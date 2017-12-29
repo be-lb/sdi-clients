@@ -2,6 +2,8 @@
 
     .loading-layer-wrapper {
         .absolute(auto, auto, 0, 0);
+        z-index: 10;
+        min-width: 200px;
         padding-right: @small-margin;
         border: 1px solid @grey;
         border-bottom-color: @white;
@@ -10,6 +12,7 @@
         font-size: 0.8rem;
 
         &.hidden { display: none;}
+
         .loading-layer {
             margin-top: @small-margin;
         }
