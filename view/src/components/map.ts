@@ -17,12 +17,11 @@
 
 import * as debug from 'debug';
 
-import { DIV } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import { renderScaleline } from 'sdi/map/controls';
 import { create, IMapOptions } from 'sdi/map';
 import { fromRecord } from 'sdi/locale';
-
-
+import { MessageRecord } from 'sdi/source';
 
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
@@ -137,13 +136,15 @@ const attachMap =
         };
 
 const renderLoading =
-    () => DIV({
-        className: 'loading-layer-wrapper',
-    }, getLoading().map(
+    (ms: MessageRecord[]) => DIV({
+        className: `loading-layer-wrapper ${ms.length === 0 ? 'hidden' : ''}`,
+    }, ms.map(
         r => DIV({
             className: 'loading-layer',
             key: fromRecord(r),
-        }, fromRecord(r))));
+        },
+            SPAN({ className: 'loader-spinner' }),
+            fromRecord(r))));
 
 const render =
     () => {
@@ -160,7 +161,7 @@ const render =
                     className: 'map',
                     ref: attachMap(),
                 }),
-                renderLoading(),
+                renderLoading(getLoading()),
                 geocoder(),
                 baseSwitch(),
                 renderScaleline(getScaleLine()))
