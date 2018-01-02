@@ -221,6 +221,7 @@ export type MessageKey =
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
+    | 'timeserieReference'
     | 'timeserieTemplateURL'
     | 'timeserieURL'
     | 'title'
@@ -976,6 +977,11 @@ export const messages: MessageDB = {
     timeserieTemplateURL: {
         fr: 'Un gabarit d\'URL pointant vers une ressource produisant une série temporelle de la forme "http://example.com/ts/\\{columnName\\}.json".',
         nl: 'Een sjabloon voor de URL die verwijst naar een informatie bron voor de tijdreeks. Gebruik de volgende vorm: "http://example.com/ts/\\{kolomNaam\\}.json".',
+    },
+
+    timeserieReference: {
+        fr: 'Valeur de référence',
+        nl: 'Referentiewaarde',
     },
 
     viewLayer: {

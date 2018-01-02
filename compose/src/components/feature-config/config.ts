@@ -39,7 +39,7 @@ import {
 import { isENTER } from 'sdi/components/keycodes';
 import { getLang } from 'sdi/app';
 import { DIV, SPAN } from 'sdi/components/elements';
-import { inputText } from 'sdi/components/input';
+import { inputText, inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
 
 import events from '../../events/feature-config';
@@ -303,7 +303,11 @@ const renderTimeserieEditor =
                 label('timeserieTemplateURL', 'help'),
                 inputText(
                     () => config.options.urlTemplate,
-                    value => events.setTimeserieUrl(config.propName, value)))];
+                    value => events.setTimeserieUrl(config.propName, value)),
+                label('timeserieReference', 'help'),
+                inputNullableNumber(
+                    () => config.options.referencePoint,
+                    value => events.setTimeserieReference(config.propName, value)))];
     };
 
 

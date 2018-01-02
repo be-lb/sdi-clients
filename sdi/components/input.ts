@@ -99,6 +99,43 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
     }
 }
 
+class InputNullableNumber extends Component<InputProps<number | null>, InputValue<number | null>> {
+    attrs: () => InputAttributes;
+
+    constructor(props: InputProps<number>, attrs?: InputAttributes) {
+        super(props);
+        const extraAttributes = attrs ? attrs : {};
+
+        const update =
+            (n: number) => {
+                this.setState(value(n));
+                props.set(n);
+            };
+
+        this.attrs =
+            () => ({
+                ...extraAttributes,
+                value: this.state.value ? this.state.value : 0,
+                type: 'number',
+                onChange: e => update(e.currentTarget.valueAsNumber),
+            });
+    }
+
+    componentWillMount() {
+        this.setState(value(this.props.get()));
+    }
+
+    render() {
+        return INPUT(this.attrs());
+    }
+
+    componentWillReceiveProps(nextProps: Readonly<InputProps<number>>) {
+        if (this.props.get !== nextProps.get) {
+            this.setState(value(this.props.get()));
+        }
+    }
+}
+
 
 export const inputText =
     (get: Getter<string>, set: Setter<string>, attrs?: InputAttributes) =>
@@ -107,6 +144,10 @@ export const inputText =
 export const inputNumber =
     (get: Getter<number>, set: Setter<number>, attrs?: InputAttributes) =>
         createElement(InputNumber, { set, get }, attrs);
+
+export const inputNullableNumber =
+    (get: Getter<number | null>, set: Setter<number | null>, attrs?: InputAttributes) =>
+        createElement(InputNullableNumber, { set, get }, attrs);
 
 
 logger('loaded');

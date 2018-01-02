@@ -36,25 +36,28 @@ const render =
             const data = queries.getData(props, config);
 
             if (data) {
-                const graphWindow: IChartWindow = { start: 0, width: data.length };
+                // const graphWindow: IChartWindow = { start: 0, width: data.length };
                 const selectionWindow: IChartWindow = absoluteWindow(queries.getSelection());
 
-                const graphs = [
-                    DIV({
-                        className: 'chart-wrapper',
-                        key: `chart|${graphWindow.start.toString()}|${graphWindow.width.toString()}|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
-                    }, ...plotter(data, graphWindow, true))];
+                // const graphs = [
+                //     DIV({
+                //         className: 'chart-wrapper',
+                //         key: `chart|${graphWindow.start.toString()}|${graphWindow.width.toString()}|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
+                //     }, ...plotter(data, graphWindow, true))];
 
 
-                if (selectionWindow.width > 0) {
-                    const selectionData = data.slice(selectionWindow.start, selectionWindow.start + selectionWindow.width);
-                    graphs.push(DIV({
-                        className: 'chart-wrapper',
-                        key: `chart|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
-                    }, ...plotter(selectionData, selectionWindow, false)));
-                }
-
-                return graphs;
+                // if (selectionWindow.width > 0) {
+                //     const selectionData = data.slice(selectionWindow.start, selectionWindow.start + selectionWindow.width);
+                //     graphs.push(DIV({
+                //         className: 'chart-wrapper',
+                //         key: `chart|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
+                //     }, ...plotter(selectionData, selectionWindow, false)));
+                // }
+                const selectionData = data.slice(selectionWindow.start, selectionWindow.start + selectionWindow.width);
+                return DIV({
+                    className: 'chart-wrapper',
+                    key: `chart|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
+                }, ...plotter(selectionData, selectionWindow, config.options.referencePoint));
             }
             else {
                 const id = queries.getTimeserieId(props, config);

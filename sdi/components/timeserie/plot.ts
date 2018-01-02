@@ -18,7 +18,7 @@ import * as debug from 'debug';
 import { MouseEvent } from 'react';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { catOptions } from 'fp-ts/lib/Array';
-import { compose } from 'fp-ts/lib/function';
+// import { compose } from 'fp-ts/lib/function';
 
 import { formatDate } from '../../locale';
 import { ITimeserie, ITimeserieRow } from '../../source';
@@ -37,7 +37,7 @@ import {
     line,
     text,
     tickAlignment,
-    circle,
+    // circle,
     PlotQuerySet,
     PlotEventSet,
 } from './index';
@@ -116,11 +116,9 @@ const average =
 
 export const makeDrawableSerie =
     (start: number, n: number, width: number) =>
-        compose(
-            average,
-            cluster(n / width),
-            getScaledData,
-            getData(start, n));
+        (ts: ITimeserie) =>
+            average(cluster(n / width)(getScaledData(getData(start, n)(ts))));
+
 
 
 
@@ -213,10 +211,12 @@ const asSvgX = (el: SVGElement, clientX: number) => {
     return (clientX - clientRect.left) * scale - padding.left;
 };
 
+
+
 export const plotter =
     (queries: PlotQuerySet, events: PlotEventSet) => {
         const plotter =
-            (queryData: ITimeserie, window: IChartWindow, withSelection: boolean) => {
+            (queryData: ITimeserie, window: IChartWindow, refPoint: number | null) => {
 
 
                 if (queryData) {
@@ -225,44 +225,59 @@ export const plotter =
                         simplifyData(queryData, maxbarcount) : queryData;
                     const zoom = overflow ?
                         maxbarcount / data.length : 1;
-
-                    // logger('Plotter 2', makeDrawableSerie(window.start, window.width, 100)(queryData));
-
                     const scale = deriveScale(data);
+
                     if (scale !== null) {
                         const spread = scale.max - scale.min;
                         const barcount = Math.min(data.length, maxbarcount);
                         const barwidth: number = getBarwidth(barcount);
 
                         const activeBar = Math.floor((queries.getCursorPosition() - window.start) * zoom);
-                        const barAt = (x: number) => Math.floor(x / barwidth / zoom + window.start);
-                        const valueAt = (y: number) => scale.min + spread * (y / graphsize.height);
 
-                        const drawBars = () => {
-                            const bars = data.map((v, k) => {
-                                const val = v[1];
-                                if (val) {
-                                    const height = ((val - scale.min) / spread) * graphsize.height;
-                                    const highlighted = (k === activeBar) ? true : false;
-                                    return rect(k * barwidth, graphsize.height - height, barwidth, height, {
-                                        className: (highlighted) ? 'timeserie-bar active' : 'timeserie-bar',
-                                        key: `${k.toString()}|${v.toString()}|${highlighted}`,
-                                    });
-                                }
-                                else {
-                                    return null;
-                                }
-                            });
+                        const barAt =
+                            (x: number) =>
+                                Math.floor(x / barwidth / zoom + window.start);
 
-                            return svg(bars, {
-                                style: { position: 'absolute', top: 0, left: 0 },
-                                onMouseMove: (e: MouseEvent<SVGElement>) => {
-                                    e.preventDefault();
-                                    events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
-                                },
-                                key: `bars|${window.start.toString()}|${window.width.toString()}|${activeBar.toString()}`,
-                            });
-                        };
+                        const valueAt =
+                            (y: number) =>
+                                scale.min + spread * (y / graphsize.height);
+
+                        const drawBars =
+                            () => {
+                                const bars = data.map((v, k) => {
+                                    const val = v[1];
+                                    if (val) {
+                                        const height = ((val - scale.min) / spread) * graphsize.height;
+                                        const highlighted = (k === activeBar) ? true : false;
+                                        logger(`${val}, ${height}, ${k * barwidth}`);
+                                        return rect(k * barwidth, graphsize.height - height, barwidth, height, {
+                                            className: (highlighted) ? 'timeserie-bar active' : 'timeserie-bar',
+                                            key: `${k.toString()}|${v.toString()}|${highlighted}`,
+                                        });
+                                    }
+                                    else {
+                                        return null;
+                                    }
+                                });
+
+                                if (refPoint !== null) {
+                                    const refY = ((refPoint - scale.min) / spread) * graphsize.height;
+                                    logger(`refY = ${refY}; w= ${graphsize.width}`);
+                                    bars.push(line(
+                                        0, refY, graphsize.width, refY, {
+                                            className: 'timeserie-norm',
+                                        }));
+                                }
+
+                                return svg(bars, {
+                                    style: { position: 'absolute', top: 0, left: 0 },
+                                    onMouseMove: (e: MouseEvent<SVGElement>) => {
+                                        e.preventDefault();
+                                        events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
+                                    },
+                                    key: `bars|${window.start.toString()}|${window.width.toString()}|${activeBar.toString()}`,
+                                });
+                            };
 
 
                         const drawBackground = () => {
@@ -304,78 +319,7 @@ export const plotter =
                             return svg([...vertical, ...horizontal]);
                         };
 
-                        const drawSelection = () => {
-                            const selection = queries.getSelection();
-                            const left = (selection.start - window.start) * zoom * barwidth;
-                            const right = ((selection.start + selection.width) - window.start) * zoom * barwidth;
-                            const fillWidth = right - left;
-
-                            const fill = rect(Math.min(left, right), 0, Math.abs(fillWidth), graphsize.height, {
-                                key: `${left.toString()}|${right.toString()} `,
-                                className: 'timeserie-selection-fill',
-                            });
-                            const borderLeft = line(left, 0, left, graphsize.height, { className: 'timeserie-selection-border' });
-                            const borderRight = line(right, 0, right, graphsize.height, { className: 'timeserie-selection-border' });
-                            const adjustLeft = circle(left, graphsize.height * .5, 6, {
-                                className: 'timeserie-selection-adjust',
-                                onMouseDown: (e: MouseEvent<SVGElement>) => {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    events.invertSelection();
-                                    events.startEditing();
-                                },
-                            });
-                            const adjustRight = circle(right, graphsize.height * .5, 6, {
-                                className: 'timeserie-selection-adjust',
-                                onMouseDown: (e: MouseEvent<SVGElement>) => {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    events.startEditing();
-                                },
-                            });
-                            const contents = [];
-
-                            if (selection.start > 0) {
-                                contents.push(fill, borderLeft, borderRight, adjustLeft, adjustRight);
-                            }
-
-                            return svg(contents, {
-                                key: `selection|${window.start.toString()}|${window.width.toString()}`,
-                                style: { position: 'absolute', top: 0, left: 0 },
-                                onMouseDown: (e: MouseEvent<SVGElement>) => {
-                                    e.preventDefault();
-                                    const bar = barAt(asSvgX(e.currentTarget, e.clientX)) + window.start;
-
-                                    events.startEditing();
-                                    events.startSelection(bar);
-                                },
-                                onMouseMove: (e: MouseEvent<SVGElement>) => {
-                                    e.preventDefault();
-                                    const bar = barAt(asSvgX(e.currentTarget, e.clientX));
-                                    if (queries.isEditing()) {
-                                        events.setSelectionWidth((bar - selection.start));
-                                    }
-                                    else {
-                                        events.setCursorPosition(bar);
-                                    }
-                                },
-                                onMouseUp: (e: MouseEvent<SVGElement>) => {
-                                    e.preventDefault();
-                                    events.stopEditing();
-                                },
-                            });
-                        };
-
-                        const background = drawBackground();
-
-                        const bars = drawBars();
-
-                        if (withSelection) {
-                            return [background, bars, drawSelection()];
-                        }
-                        else {
-                            return [background, bars];
-                        }
+                        return [drawBackground(), drawBars()];
                     }
                 }
                 return [DIV({}, 'No valid data')];
