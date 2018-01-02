@@ -1,10 +1,62 @@
 .map-wrapper {
 
+    // TOOLS : GEOCODER
+
     .tool.geocoder {
-        .absolute(@small-margin, auto, auto, @small-margin);
+        .absolute(auto, auto, -1px, 0);
         background-color: @white;
         border: 1px solid @grey;
+        border-left-color: @white;
+        border-bottom-color: @white;
+        font-size: 0.8rem;
 
-        input {border: 0px;}
+        input {
+            border: 0px;
+            padding: 0px !important;
+            padding-top: 2px !important;
+        }
+        .btn-search {
+            padding: 0px !important;
+            padding-top: 2px !important;
+        }
+
+        .adress-result {
+            // font-size: 0.8em;
+            display: flex;
+
+            span {
+                display: flex;
+                align-items: center;
+                cursor: default;
+                height: 20px;
+                padding-right: @margin;
+            }
+
+            span:before {
+                .awsomefont;
+                margin: 0 @small-margin;
+                font-size: 1em;
+                justify-content: center;
+                content: @fa-var-circle-o;
+            }
+            &:hover {
+                span:before {
+                    content: @fa-var-dot-circle-o;
+                }
+            }
+
+        }
     }
+
+    .map-marker{
+        .awsomefont-burst;
+        width: auto;
+        height: auto;
+
+        &:before {
+            color: @blue;
+            content: @fa-var-circle-o;
+        }
+    }
+
 }

@@ -94,47 +94,6 @@
 }
 
 
-// TOOLS : GEOCODER
-.tool.geocoder {
-    .adress-result {
-        font-size: 0.8em;
-        display: flex;
-
-        span {
-            display: flex;
-            align-items: center;
-            cursor: default;
-            height: 20px;
-            padding-right: @margin;
-        }
-
-        span:before {
-            .awsomefont;
-            margin: 0 @small-margin;
-            font-size: 1em;
-            justify-content: center;
-            content: @fa-var-circle-o;
-        }
-        &:hover {
-            span:before {
-                content: @fa-var-dot-circle-o;
-            }
-        }
-
-    }
-}
-
-.map-marker{
-    .awsomefont-burst;
-    width: auto;
-    height: auto;
-
-    &:before {
-        color: @blue;
-        content: @fa-var-circle-o;
-    }
-}
-
 
 // TOOLS : MEASURE
 .tool.measure {

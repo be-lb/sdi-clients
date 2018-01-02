@@ -31,7 +31,7 @@ const makeAttachment =
         getAttachment(aid).fold(
             () => DIV({}, 'NOT LOADED YET'),
             a => DIV({ className: 'map-file', key: aid },
-                A({ href: fromRecord(a.url) }, fromRecord(a.name))));
+                A({ href: fromRecord(a.url), target: '_blank' }, fromRecord(a.name))));
 
 
 const renderAttachments =
