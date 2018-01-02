@@ -15,33 +15,48 @@
  */
 
 import * as debug from 'debug';
-import { DIV } from 'sdi/components/elements';
+import { DIV, H1, A } from 'sdi/components/elements';
 import { IMapInfo } from 'sdi/source';
+import { fromRecord } from 'sdi/locale';
+import { getRoot } from 'sdi/app';
+
 
 import legendItem from './legend-item';
 import { getMapInfo } from '../../queries/app';
 
 const logger = debug('sdi:legend');
 
-const legendLegend = (mapInfo: IMapInfo) =>
-    DIV({ className: 'legend' },
-        mapInfo.layers
-            .slice()
-            .reverse()
-            .reduce<React.DOMElement<{}, Element>[]>((acc, info) => {
-                if (info.visible) {
-                    const items = legendItem(info);
-                    return acc.concat(items);
-                }
-                return acc;
-            }, [])
-    );
+
+const renderTitle =
+    () => getMapInfo().fold(
+        () => DIV(),
+        mapInfo => DIV({ className: 'map-title' },
+            H1({}, A({ href: `${getRoot()}view`, target: '_top' }, fromRecord(mapInfo.title)))));
+
+const legendLegend =
+    (mapInfo: IMapInfo) =>
+        DIV({ className: 'legend' },
+            renderTitle(),
+            DIV({ className: 'description' },
+                fromRecord(mapInfo.description)
+            ),
+            mapInfo.layers
+                .slice()
+                .reverse()
+                .reduce<React.DOMElement<{}, Element>[]>((acc, info) => {
+                    if (info.visible) {
+                        const items = legendItem(info);
+                        return acc.concat(items);
+                    }
+                    return acc;
+                }, [])
+        );
 
 
 const render =
     () => getMapInfo().fold(
         () => DIV(),
-        info => legendLegend(info)
+        info => legendLegend(info),
     );
 
 

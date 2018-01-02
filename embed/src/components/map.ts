@@ -18,18 +18,13 @@
 import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
-import { renderScaleline } from 'sdi/map/controls';
-
 import { create, IMapOptions } from 'sdi/map';
-
+import langSwitch from 'sdi/components/lang-switch';
 
 
 import { getBaseLayer, getMapInfo, getFeatureId, getLayerId } from '../queries/app';
-import { setLayout, setCurrentFeatureById } from '../events/app';
 import {
     getView,
-    getScaleLine,
-    getInteraction,
     getInteractionMode,
 } from '../queries/map';
 import {
@@ -57,13 +52,6 @@ let mapSetTarget: (t: Element | null) => void;
 let mapUpdate: () => void;
 
 
-const selectFeature =
-    (lid: string, fid: string | number) => {
-        setCurrentFeatureById(lid, fid);
-        setLayout('MapAndFeature');
-    };
-
-
 const getSelected =
     () => ({
         featureId: getFeatureId(),
@@ -79,13 +67,10 @@ const attachMap =
                 const {
                     update,
                     setTarget,
-                    selectable,
                     highlightable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
-
-                selectable({ selectFeature }, getInteraction);
 
                 highlightable(getSelected);
 
@@ -99,9 +84,9 @@ const attachMap =
         };
 
 
+
 const render =
     () => {
-        // logger(`render ${typeof mapUpdate}`);
         if (mapUpdate) {
             mapUpdate();
         }
@@ -109,11 +94,11 @@ const render =
         return (
             DIV({ className: `map-wrapper ${getInteractionMode()}` },
                 DIV({
-                    // id: mapId,
                     className: 'map',
                     ref: attachMap(),
                 }),
-                renderScaleline(getScaleLine()))
+                DIV({ className: 'be-logo-box' }),
+                langSwitch())
         );
     };
 

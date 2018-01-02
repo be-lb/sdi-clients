@@ -44,7 +44,6 @@ export const main =
             'app/csrf': SDI.csrf,
             'app/route': SDI.args,
             'app/lang': 'fr',
-            'app/layout': 'Main',
 
             'app/layerId': null,
             'app/featureId': null,

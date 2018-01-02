@@ -1,9 +1,12 @@
 .switcher {
-    .awsomefont;
-    .absolute(@small-margin, calc(~"@{panel-rightW} + @{small-margin}"), initial, initial);
+    .absolute(0px, @panel-rightW, initial, initial);
     z-index: 2;
-    width: @switchH + 2px;
-    height: @switchH + 2px !important;
+    width  : 25px;
+    height : @switchH + 2px !important;
+    border-left: 1px solid @grey;
+    border-bottom: 1px solid @grey;
+    border-right: 1px solid #fff;
+    background-color: #fff;
 
     .switch-background-bn {
         background: url(~"../../imgs/background-switch-bn.jpg");}
@@ -14,10 +17,11 @@
     .switch-background-bn,
     .switch-background-ortho {
         .flex(center, center, initial);
-        width: @switchH;
-        height: @switchH;
-        border-radius: @switchH;
+        width: 19px;
+        height : 32px !important;
         cursor: default;
         background-size: cover;
+        margin-left: 4px;
+        // margin-top: 0px;
     }
 }

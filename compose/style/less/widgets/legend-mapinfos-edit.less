@@ -175,6 +175,15 @@
             padding-bottom: @small-margin;
             border-bottom: 1px solid @light-grey;
 
+            .btn-view {
+                .legendItemPosition;
+                justify-content: center;
+
+                &:before {margin: 0px;}
+                &.visible {color: #000 !important;}
+                &.hidden {color: @grey !important;}
+            }
+
             .table-name {
                 .flex(center, initial, initial);
                 color: @grey;
@@ -185,9 +194,8 @@
 
                 &:before{
                     .awsomefont;
-                    .legendItemPosition;
-                    justify-content: space-around; //override .legendItemPosition
                     content: @fa-var-pencil;
+                    margin-right: @small-margin;
                 }
 
                 &:hover {color: #000;}
