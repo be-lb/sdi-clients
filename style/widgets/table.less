@@ -2,7 +2,7 @@
 
 div.infinite-table {
     // height: 100%;
-    
+
     .widgetBackground;
     font-size: 80%;
     display: flex;
@@ -170,9 +170,12 @@ div.infinite-table {
         }
     }
 
-
-
     .btn-next{
     margin: 0 @small-margin;
+    }
+
+    .table-body {
+        ::-moz-selection {background: yellow;}
+        ::selection {background: yellow;}
     }
 }
