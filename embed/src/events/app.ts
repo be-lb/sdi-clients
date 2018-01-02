@@ -6,7 +6,6 @@ import { getApiUrl } from 'sdi/app';
 import { IMapInfo, getMessageRecord, Inspire, ILayerInfo } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 
-import { AppLayout } from '../app';
 import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer } from '../remote';
 import { viewEvents } from './map';
 
@@ -18,10 +17,6 @@ export const loadUser =
                 dispatch('data/user', () => user);
             });
 
-
-export const setLayout =
-    (l: AppLayout) =>
-        dispatch('app/layout', () => l);
 
 
 export const setCurrentFeatureById =
