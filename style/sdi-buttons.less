@@ -55,7 +55,8 @@
 
     &-edit:before {content: @fa-var-pencil;}
     &-style:before {content: @fa-var-paint-brush;}
-    &-view:before {content: @fa-var-eye;}
+    &-view.visible:before {content: @fa-var-eye;}
+    &-view.hidden:before {content: @fa-var-eye-slash;}
 
     &-info:before {content: @fa-var-info;}
     &-move-up:before {content: @fa-var-arrow-up;}
@@ -66,15 +67,10 @@
     &-switch:before {content: @fa-var-exchange;}
 
     &-add:before {content: @fa-var-plus;}
-    // &-add-file:before {content: @fa-var-plus;}
-    // &-add-map:before {content: @fa-var-plus;}
-    // &-add-layer:before {content: @fa-var-plus;}
-    // &-add-group:before {content: @fa-var-plus;}
     &-select:before {content: @fa-var-location-arrow;}
 
     &-remove:before {content: @fa-var-times;}
     &-reset:before {content: @fa-var-undo;}
-    // &-trash:before {content: @fa-var-trash;}
 
     // table search and sort
     &-table:before {content: @fa-var-table;}
@@ -117,24 +113,10 @@
 .style-toolbox-main .btn-switch {font-size: 100%;}
 
 
-
-
-// HEADER DASHBOARD BUTTON
-
-// .header .btn-settings {
-//     color: #000;
-//     padding-right: 0;
-//     &:hover {color: @green;}
-//     &:before {display: none;}
-//     &:after {
-//         content: @fa-var-cog;
-//         padding-right: 0;
-//     }
-// }
-
 // REMOVE BUTTON
 .btn-remove.icon-only {margin-left: @small-margin * 2}
 .btn-remove:hover {color: red;}
+
 
 // REMOVE - CONFIRMATION WIDGET
 .remove-confirm {
