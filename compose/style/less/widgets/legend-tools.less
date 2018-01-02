@@ -1,14 +1,14 @@
-
-.tools-wrapper  {
-    .tool {
-        padding-bottom: @big-margin;
-    }
-    input {
-        width: 80%;
-        display: block;
-        margin-bottom: @margin;
-    }
-}
+//
+// .tools-wrapper  {
+//     .tool {
+//         padding-bottom: @big-margin;
+//     }
+//     input {
+//         width: 80%;
+//         display: block;
+//         margin-bottom: @margin;
+//     }
+// }
 
 
 // TOOLS :  WIDGET on MAP FULL SCREEN
@@ -27,121 +27,121 @@
 }
 
 
-
-// TOOLS : WMS PICKER
-.tool.wms-picker {
-    .tool-body > div {
-        // .link;
-        display: flex;
-        margin-bottom: @small-margin;
-
-        &::before {
-            .awsomefont;
-            .legendItemPosition;
-            justify-content: center;
-            content: @fa-var-square-o;
-        }
-
-        &.active::before {content: @fa-var-check-square-o;}
-        &.wms-browser::before {display: none;}
-
-        &.wms-browser {
-            margin-top: @margin;
-            display: block;
-
-            input {
-                width: 80%;
-                display: block;
-                margin-bottom: @margin
-            }
-        }
-    }
-}
+//
+// // TOOLS : WMS PICKER
+// .tool.wms-picker {
+//     .tool-body > div {
+//         // .link;
+//         display: flex;
+//         margin-bottom: @small-margin;
+//
+//         &::before {
+//             .awsomefont;
+//             .legendItemPosition;
+//             justify-content: center;
+//             content: @fa-var-square-o;
+//         }
+//
+//         &.active::before {content: @fa-var-check-square-o;}
+//         &.wms-browser::before {display: none;}
+//
+//         &.wms-browser {
+//             margin-top: @margin;
+//             display: block;
+//
+//             input {
+//                 width: 80%;
+//                 display: block;
+//                 margin-bottom: @margin
+//             }
+//         }
+//     }
+// }
 
 // TOOLS : TRACKER
-.tool.tracker {
-}
+// .tool.tracker {
+// }
 
 
 // TOOLS : LOCATION
-.tool.location {
-    .tool-help {
-        margin-bottom: 1em;
-        font-size: smaller;
-        width: 60%;
-    }
-}
+// .tool.location {
+//     .tool-help {
+//         margin-bottom: 1em;
+//         font-size: smaller;
+//         width: 60%;
+//     }
+// }
 
 
 // TOOLS : GEOCODER
-.tool.geocoder {
-    .adress-result {
-        font-size: 0.8em;
-        display: flex;
-
-        span {
-            display: flex;
-            cursor: default;
-            height: 20px;
-        }
-
-        span:before {
-            .awsomefont;
-            .legendItemPosition;
-            font-size: 1em;
-            justify-content: center;
-            content: @fa-var-circle-o;
-        }
-        &:hover {
-            span:before {
-                content: @fa-var-dot-circle-o;
-            }
-        }
-
-    }
-}
+// .tool.geocoder {
+//     .adress-result {
+//         font-size: 0.8em;
+//         display: flex;
+//
+//         span {
+//             display: flex;
+//             cursor: default;
+//             height: 20px;
+//         }
+//
+//         span:before {
+//             .awsomefont;
+//             .legendItemPosition;
+//             font-size: 1em;
+//             justify-content: center;
+//             content: @fa-var-circle-o;
+//         }
+//         &:hover {
+//             span:before {
+//                 content: @fa-var-dot-circle-o;
+//             }
+//         }
+//
+//     }
+// }
 
 
 // TOOLS : MEASURE
-.tool.measure {
-    .tool-body {
-        display: inline-grid;
+// .tool.measure {
+//     .tool-body {
+//         display: inline-grid;
+//
+//         div {
+//             margin-bottom: @small-margin;
+//         }
+//     }
+// }
 
-        div {
-            margin-bottom: @small-margin;
-        }
-    }
-}
-
-
-.tool.share,.tool.embed {
-    h3 {
-        margin-bottom: @margin;
-    }
-    
-
-    // FIXME: use proper variables -pm
-    .input-label {
-        margin-top: 22px;
-        font-family: open_sans;
-        font-weight: normal;
-        font-size: 12pt;
-    }
-    .text-copy {
-        margin: 11px 0;
-        border: 1px solid @grey;
-        padding: 6px;
-    }
-    span.text {
-        font-family: monospace;
-        color: @grey;
-    }
-    span.copy {
-        float: right;
-        color: @green;
-        font-size: 9pt;
-        cursor: default;
-        padding: 0 0 6px 6px;
-        .interactive-dark;
-    }
-}
+//
+// .tool.share,.tool.embed {
+//     h3 {
+//         margin-bottom: @margin;
+//     }
+//
+//
+//     // FIXME: use proper variables -pm
+//     .input-label {
+//         margin-top: 22px;
+//         font-family: open_sans;
+//         font-weight: normal;
+//         font-size: 12pt;
+//     }
+//     .text-copy {
+//         margin: 11px 0;
+//         border: 1px solid @grey;
+//         padding: 6px;
+//     }
+//     span.text {
+//         font-family: monospace;
+//         color: @grey;
+//     }
+//     span.copy {
+//         float: right;
+//         color: @green;
+//         font-size: 9pt;
+//         cursor: default;
+//         padding: 0 0 6px 6px;
+//         .interactive-dark;
+//     }
+// }

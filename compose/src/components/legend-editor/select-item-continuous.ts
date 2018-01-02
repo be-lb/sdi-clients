@@ -108,12 +108,13 @@ const renderAutoClass =
     (style: ContinuousStyle) => (
         DIV({ className: 'column-toolbox' },
             DIV({ className: 'help' }, tr('autoClass')),
-            inputNumber(
-                queries.getAutoClassValue,
-                events.setAutoClassValue),
-            makeClassesButton(() => {
-                events.makeContinuousClasses(style.propName);
-            })))
+            DIV({ className: 'autoclass-picker' },
+                inputNumber(
+                    queries.getAutoClassValue,
+                    events.setAutoClassValue),
+                makeClassesButton(() => {
+                    events.makeContinuousClasses(style.propName);
+                }))))
 
 const renderGroups = () => {
     const style = queries.getStyle();
