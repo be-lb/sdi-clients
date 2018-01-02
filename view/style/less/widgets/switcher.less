@@ -1,16 +1,110 @@
-.switcher {
-    z-index: 2;
-    width  : @switchH + 2px;
-    height : @switchH + 2px !important;
+// .switcher {
+//     z-index: 2;
+//     width  : @switchH + 2px;
+//     height : @switchH + 2px !important;
+//
+//     &.infos {
+//         .awsomefont;
+//         .absolute(@small-margin, calc(~ "@{panel-rightW} + @{small-margin}"), initial, initial);
+//     }
+//     &.basemap {
+//         .awsomefont;
+//         .absolute(calc(~"@{small-margin} + @{switchH} + @{small-margin} * 2"), @small-margin, initial, initial);
+//     }
+//
+//     .switch-background-bn {
+//         background: url(~"../../imgs/background-switch-bn.jpg");}
+//     .switch-background-ortho {
+//         background: url(~"../../imgs/background-switch-ortho.jpg");}
+//
+//
+//     .switch-background-bn,
+//     .switch-background-ortho {
+//         .flex(center, center, initial);
+//         width  : @switchH + 2px;
+//         height : @switchH + 2px !important;
+//         border-radius: @switchH;
+//         cursor: default;
+//         background-size: cover;
+//     }
+//
+//
+//     .switch-legend:before {
+//         content: @fa-var-info;
+//     }
+//
+//     .switch-tools:before {
+//         content: @fa-var-wrench;
+//     }
+//
+//     .switch-legend:before,
+//     .switch-tools:before {
+//         .border1px;
+//         display        : flex;
+//         align-items    : center;
+//         justify-content: center;
+//         width          : @switchH;
+//         height         : @switchH;
+//         border-radius  : @switchH;
+//         background     : #fff;
+//         cursor         : default;
+//     }
+//
+//     > div:hover:before {
+//         color       : #fff;
+//         background  : @green;
+//         border-color: @green;
+//     }
+// }
 
-    &.infos {
-        .awsomefont;
-        .absolute(@small-margin, calc(~ "@{panel-rightW} + @{small-margin}"), initial, initial);
+
+.switcher.infos {
+    .awsomefont;
+    .absolute(0px, @panel-rightW, initial, initial);
+    z-index: 2;
+    width: 25px;
+    height: 25px !important;
+    background-color: #fff;
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    cursor         : default;
+    border-left: 1px solid @grey;
+    border-top-color: #fff;
+    border-right-color: #fff;
+    border-bottom-width: 0px;
+
+
+
+    .switch-legend:before {
+        width: 25px;
+        height: 25px;
     }
-    &.basemap {
-        .awsomefont;
-        .absolute(calc(~"@{small-margin} + @{switchH} + @{small-margin} * 2"), @small-margin, initial, initial);
+
+    > div:hover:before {
+        color       : @green;
     }
+
+    .switch-legend:before {
+        content: @fa-var-info;
+    }
+
+    .switch-tools:before {
+        content: @fa-var-wrench;
+    }
+}
+
+
+
+.switcher.basemap {
+    .absolute(25px, 0px, initial, initial);
+    z-index: 2;
+    width  : 25px;
+    height : @switchH + 2px !important;
+    border-left: 1px solid @grey;
+    border-bottom: 1px solid @grey;
+    border-right: 1px solid #fff;
+    background-color: #fff;
 
     .switch-background-bn {
         background: url(~"../../imgs/background-switch-bn.jpg");}
@@ -21,38 +115,11 @@
     .switch-background-bn,
     .switch-background-ortho {
         .flex(center, center, initial);
-        width  : @switchH + 2px;
-        height : @switchH + 2px !important;
-        border-radius: @switchH;
+        width: 19px;
+        height : 30px !important;
         cursor: default;
         background-size: cover;
-    }
-
-
-    .switch-legend:before {
-        content: @fa-var-info;
-    }
-
-    .switch-tools:before {
-        content: @fa-var-wrench;
-    }
-
-    .switch-legend:before,
-    .switch-tools:before {
-        .border1px;
-        display        : flex;
-        align-items    : center;
-        justify-content: center;
-        width          : @switchH;
-        height         : @switchH;
-        border-radius  : @switchH;
-        background     : #fff;
-        cursor         : default;
-    }
-
-    > div:hover:before {
-        color       : #fff;
-        background  : @green;
-        border-color: @green;
+        margin-left: 4px;
+        margin-top: 2px;
     }
 }
