@@ -143,7 +143,7 @@ export const getBarwidth = (barcount: number) => graphsize.width / barcount;
 
 
 export interface TimeseriePlotter {
-    plotter: (data: ITimeserie, window: IChartWindow, withSelection: boolean) => React.ReactSVGElement[] | React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>[];
+    plotter: (data: ITimeserie, window: IChartWindow, refPoint: number | null) => React.ReactSVGElement[] | React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>[];
 
     queries: PlotQuerySet;
     events: PlotEventSet;

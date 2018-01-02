@@ -127,11 +127,13 @@ export const defaultPiechartOptions =
 // timeserie
 export const TimeserieOptionsIO = i({
     urlTemplate: io.string,
+    referencePoint: u([io.number, io.null]),
 }, 'TimeserieOptionsIO');
 export type TimeserieOptions = TypeOf<typeof TimeserieOptionsIO>;
 export const defaultTimeserieOptions =
     (): TimeserieOptions => ({
         urlTemplate: '',
+        referencePoint: null,
     });
 
 

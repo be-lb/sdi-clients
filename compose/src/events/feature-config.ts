@@ -271,6 +271,13 @@ const events = {
         });
     },
 
+    setTimeserieReference(pn: string, ref: number | null) {
+        updateConfigRow(pn, (row: TimeserieConfig) => {
+            row.options.referencePoint = ref;
+            return row;
+        });
+    },
+
     removePieChartPiece(pn: string, pieceName: string) {
         updateConfigRow(pn, (row: PiechartConfig) => {
             const pieces = row.options.columns.filter(
