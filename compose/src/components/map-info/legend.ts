@@ -34,6 +34,7 @@ const addButton = button('add');
 // const editButton = button('edit');
 const upButton = button('move-up');
 const downButton = button('move-down');
+const visibleButton = button('view');
 
 const wrapItem =
     (md: Inspire | null) =>
@@ -69,6 +70,12 @@ const renderLegendItem =
         }
     };
 
+const renderVisible =
+    (info: ILayerInfo) =>
+        visibleButton(() => {
+            appEvents.setLayerVisibility(info.id, !info.visible);
+        }, info.visible ? 'visible' : 'hidden');
+
 const renderEditButton =
     (info: ILayerInfo) => {
         const md = getDatasetMetadata(info.metadataId).fold(
@@ -101,13 +108,10 @@ const renderDeleteButton =
     };
 
 const renderUpButton =
-    (info: ILayerInfo) => {
-        return (
-            upButton(() => {
-                legendEvents.moveLayerUp(info);
-            })
-        );
-    };
+    (info: ILayerInfo) =>
+        upButton(() => {
+            legendEvents.moveLayerUp(info);
+        });
 
 const renderDownButton =
     (info: ILayerInfo) => {
@@ -142,6 +146,7 @@ const renderTools =
                 renderDeleteButton(info));
         }
         return DIV({ className: 'legend-block-tools' },
+            renderVisible(info),
             renderEditButton(info),
             DIV({ className: 'tools' }, ...tools));
     };
