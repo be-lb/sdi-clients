@@ -260,11 +260,15 @@ const events = {
         dispatch('data/maps', (maps) => {
             const idx = maps.findIndex(m => m.id === mid);
             if (idx !== -1) {
-                maps[idx].layers.forEach((l) => {
+                const m = maps[idx];
+                m.layers.forEach((l) => {
                     if (l.id === id) {
                         l.visible = visible;
                     }
                 });
+                setTimeout(() => {
+                    putMap(getApiUrl(`maps/${mid}`), m);
+                }, 1);
             }
             return maps;
         });
