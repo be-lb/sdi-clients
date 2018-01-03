@@ -36,14 +36,16 @@ import {
     TimeserieConfig,
     URLConfig,
 } from 'sdi/source';
-import { isENTER } from 'sdi/components/keycodes';
+// import { isENTER } from 'sdi/components/keycodes';
 import { getLang } from 'sdi/app';
 import { DIV, SPAN } from 'sdi/components/elements';
 import { inputText, inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
+import { getLayerPropertiesKeys } from 'sdi/util';
 
 import events from '../../events/feature-config';
 import queries from '../../queries/feature-config';
+import appQueries from '../../queries/app';
 import { button, remove } from '../button';
 import { renderInputAlphaColor } from '../legend-editor/tool-input';
 
@@ -237,46 +239,57 @@ const renderPiechartPiece =
         };
 
 const pieceAdd =
-    (pn: string) => {
-        const value = queries.getEditedValue();
+    (pn: string, value: string) => {
         if (value) {
             events.resetEditedValue();
             events.addPieChartPiece(pn, value);
         }
     };
 
-const pieceKeyHandler =
-    (pn: string) =>
-        (e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (isENTER(e)) {
-                pieceAdd(pn);
+
+
+
+const renderColumnNames =
+    (pn: string, keys: string[]) =>
+        keys.map((key) => {
+            return DIV({
+                key,
+                className: 'column-name',
+                onClick: () => {
+                    pieceAdd(pn, key);
+                },
+            }, key);
+        });
+
+const columnPicker =
+    (pn: string) => {
+        const { metadata } = appQueries.getCurrentLayerInfo();
+        const children: React.ReactNode[] = [];
+        if (metadata) {
+            const layerData = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
+            if (layerData) {
+                const keys = getLayerPropertiesKeys(layerData);
+                children.push(...renderColumnNames(pn, keys));
             }
-        };
+        }
 
-
-const addPieceButton = button('add');
+        return (
+            DIV({ className: 'column-picker' },
+                DIV({ className: 'title' }, tr('columnPicker')),
+                ...children));
+    };
 
 const renderPiechartEditor =
     (config: PiechartConfig) => {
-        const elements: ReactNode[] = [];
         const columns = config.options.columns;
         const pieces = columns.map(renderPiechartPiece(config.propName));
-        elements.push(DIV({ className: 'selected-items' }, ...pieces));
-        const curVal = queries.getEditedValue();
+        const elements: ReactNode[] = [];
 
-        if (null === curVal) {
-            elements.push(inputText(
-                () => '',
-                val => events.setEditedValue(val)));
-        }
-        else {
-            elements.push(
-                inputText(
-                    () => curVal,
-                    val => events.setEditedValue(val),
-                    { onKeyDown: pieceKeyHandler(config.propName) }),
-                addPieceButton(() => pieceAdd(config.propName)));
-        }
+        elements.push(
+            DIV({ className: 'selected-items' },
+                ...pieces,
+                columnPicker(config.propName)));
+
 
         const scaleSelect = renderSelect(
             ['normal', 'log'],

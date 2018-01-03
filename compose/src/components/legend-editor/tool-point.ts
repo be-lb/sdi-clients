@@ -109,7 +109,7 @@ export const renderPointFull =
 // when in grouped mode
 export const renderMarkerForGroup =
     (idx: number) => {
-        return DIV({ className: 'app-col-main style-toolbox-main' },
+        return DIV({ key: `renderMarkerForGroup-${idx}`, className: 'app-col-main style-toolbox-main' },
             markerCodepointForGroup(idx),
             markerSizeForGroup(idx),
             markerColorForGroup(idx));

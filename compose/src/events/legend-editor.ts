@@ -369,6 +369,7 @@ const events = {
     },
 
     setStrokeColorForGroup(idx: number, c: string) {
+        logger(`setStrokeColorForGroup ${idx} ${c}`);
         updateStyle((s, lid) => {
             if ((isLineStyle(s) || isPolygonStyle(s))) {
                 if (isDiscrete(s)) {
@@ -390,6 +391,7 @@ const events = {
     },
 
     setFillColorForGroup(idx: number, c: string) {
+        logger(`setFillColorForGroup ${idx} ${c}`);
         updateStyle((s, lid) => {
             if ((isPolygonStyle(s))) {
                 if (isDiscrete(s)) {
