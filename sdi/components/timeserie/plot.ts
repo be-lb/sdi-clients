@@ -33,6 +33,7 @@ import {
     maxbarcount,
     getBarwidth,
     rect,
+    group,
     svg,
     line,
     text,
@@ -251,7 +252,7 @@ export const plotter =
                                         });
                                     }
                                     else {
-                                        return null;
+                                        return rect(0, 0, 0, 0);
                                     }
                                 });
 
@@ -264,18 +265,21 @@ export const plotter =
                                         }));
                                 }
 
-                                return svg(bars, {
-                                    style: { position: 'absolute', top: 0, left: 0 },
-                                    // onMouseMove: (e: MouseEvent<SVGElement>) => {
-                                    //     e.preventDefault();
-                                    //     events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
-                                    // },
-                                    key: `bars|${window.start.toString()}|${window.end.toString()}|${activeBar.toString()}`,
-                                });
+                                // return svg(bars, {
+                                //     // style: { position: 'absolute', top: 0, left: 0 },
+                                //     // onMouseMove: (e: MouseEvent<SVGElement>) => {
+                                //     //     e.preventDefault();
+                                //     //     events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
+                                //     // },
+                                //     key: `bars|${window.start.toString()}|${window.end.toString()}|${activeBar.toString()}`,
+                                // });
+
+                                return bars;
                             };
 
 
-                        const drawBackground = () => {
+
+                        const drawOrtho = () => {
                             const horizontalLineCount = 4;
                             const horizontalLineIncrement = graphsize.height / (horizontalLineCount - 1);
                             const verticalLineCount = 4;
@@ -287,10 +291,10 @@ export const plotter =
                             const horizontal = mappableEmptyArray(horizontalLineCount).map((_v, k) => {
                                 const y = graphsize.height - k * horizontalLineIncrement;
                                 const valueLabel = valueAt(k * horizontalLineIncrement).toFixed(2).toString();
-                                return [
-                                    line(-5, y, graphsize.width, y, { className: 'timeserie-grid' }),
-                                    text(-10, y, valueLabel, 'end', { className: 'timeserie-tick-label' }),
-                                ];
+                                return group([
+                                    line(0, y, graphsize.width, y, { className: 'timeserie-grid' }),
+                                    text(0, y, valueLabel, 'start', { className: 'timeserie-tick-label' }),
+                                ]);
                             });
 
                             const vertical = mappableEmptyArray(verticalLineCount).map((_v, k) => {
@@ -305,16 +309,22 @@ export const plotter =
                                     alignment = 'end';
                                 }
 
-                                return [
+                                return group([
                                     line(x, 0, x, graphsize.height + 5, { className: 'timeserie-grid' }),
                                     text(x, graphsize.height + 15, label, alignment, { className: 'timeserie-tick-label' }),
-                                ];
+                                ]);
                             });
 
-                            return svg([...vertical, ...horizontal]);
+                            // return svg([...vertical, ...horizontal]);
+                            return vertical.concat(horizontal);
                         };
 
-                        return [drawBackground(), drawBars()];
+                        // return [drawBars(), drawOrtho()];
+                        const bars = drawBars();
+                        const ortho = drawOrtho();
+                        const drawings = bars.concat(ortho);
+
+                        return svg(drawings);
                     }
                 }
                 return [DIV({}, 'No valid data')];

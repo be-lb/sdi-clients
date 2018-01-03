@@ -1,6 +1,6 @@
 .timeserie-bar {
     font-family: monospace;
-    cursor: pointer;
+    // cursor: pointer;
     fill: lightblue;
 }
 
@@ -80,3 +80,23 @@
     stroke-width: 1px;
     stroke: red;
 }
+
+.timeserie-wrapper {
+    .chart-date-wrapper {
+        .flex();
+        justify-content: space-between;
+        font-size: 80%;
+
+        .date > *{
+            width: 100%;
+            display: block;
+        }
+    }
+}
+
+.timeserie-wrapper input {
+    width: auto !important;
+    margin-bottom: @margin;
+    margin-top: @small-margin;
+}
+

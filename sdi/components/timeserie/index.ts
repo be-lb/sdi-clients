@@ -110,11 +110,11 @@ export type DOMProperties = { [key: string]: any };
 
 export const graphsize: IDimensions = { width: 400, height: 200 };
 
-export const padding: IPadding = { top: 40, right: 0, bottom: 40, left: 80 };
+export const padding: IPadding = { top: 40, right: 0, bottom: 40, left: 0 };
 
 export const maxbarcount = 100;
 
-export const svg = (els: any[], properties?: {}) =>
+export const svg = (els: React.ReactSVGElement[], properties?: {}) =>
     s('svg', {
         viewBox: `-${padding.left} -${padding.top} ${graphsize.width + padding.left} ${graphsize.height + padding.top + padding.bottom}`,
         ...properties,
@@ -136,12 +136,16 @@ export const text = (x: number, y: number, text: string, textAnchor: tickAlignme
 export const circle = (cx: number, cy: number, r: number, properties?: DOMProperties) =>
     s('circle', { cx, cy, r, ...properties });
 
+export const group =
+    (elems: React.ReactSVGElement[]) =>
+        s('g', {}, ...elems);
+
 
 export const getBarwidth = (barcount: number) => graphsize.width / barcount;
 
 
 export interface TimeseriePlotter {
-    plotter: (data: ITimeserie, window: IChartWindow, refPoint: number | null) => React.ReactSVGElement[] | React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>[];
+    plotter: (data: ITimeserie, window: IChartWindow, refPoint: number | null) => React.ReactSVGElement | React.DetailedReactHTMLElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>[];
 
     queries: PlotQuerySet;
     events: PlotEventSet;
