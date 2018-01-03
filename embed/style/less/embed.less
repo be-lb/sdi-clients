@@ -75,9 +75,30 @@ body[lang="nl"]  .embed .be-logo-box {
                 line-height: 120%;
             }
 
+            h2 {
+                margin-bottom: @margin;
+            }
+
+            .legend-group.named{
+                width: 100%;
+                margin-bottom: @margin;
+
+                .legend-group-title {
+                    font-weight: 100;
+                    margin-bottom: @small-margin;
+                }
+
+                .legend-group-items {
+                    border-left: 1px solid @grey;
+                    padding-left: @margin;
+                    margin-left: @margin;
+                }
+            }
+
             .legend-item {
                 display: flex;
                 align-items: center;
+                height: 25px;
                 .item-style {
                     .legendItemPosition;
                 }

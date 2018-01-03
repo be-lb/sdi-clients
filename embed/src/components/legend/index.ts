@@ -15,9 +15,9 @@
  */
 
 import * as debug from 'debug';
-import { DIV, H1, A } from 'sdi/components/elements';
+import { DIV, H1, A, H2 } from 'sdi/components/elements';
 import { IMapInfo, ILayerInfo, LayerGroup } from 'sdi/source';
-import { fromRecord } from 'sdi/locale';
+import tr, { fromRecord } from 'sdi/locale';
 import { getRoot } from 'sdi/app';
 
 
@@ -81,7 +81,7 @@ const renderLegend =
                     DIV({ className: 'legend-group named' },
                         DIV({ className: 'legend-group-title' },
                             fromRecord(group.g.name)),
-                        items));
+                        DIV({ className: 'legend-group-items' }, items)));
             }
             return (
                 DIV({ className: 'legend-group anonymous' }, items));
@@ -95,6 +95,7 @@ const legendLegend =
             DIV({ className: 'description' },
                 fromRecord(mapInfo.description)
             ),
+            H2({}, tr('mapLegend')),
             ...renderLegend(groupItems(mapInfo.layers))
         );
 

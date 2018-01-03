@@ -79,7 +79,7 @@ const renderLegend =
                     DIV({ className: 'legend-group named' },
                         DIV({ className: 'legend-group-title' },
                             fromRecord(group.g.name)),
-                        items));
+                        DIV({ className: 'legend-group-items' }, items)));
             }
             return (
                 DIV({ className: 'legend-group anonymous' }, items));
@@ -121,7 +121,7 @@ const renderData =
                     DIV({ className: 'legend-group named' },
                         DIV({ className: 'legend-group-title' },
                             fromRecord(group.g.name)),
-                        items));
+                        DIV({ className: 'legend-group-items' }, items)));
             }
             return (
                 DIV({ className: 'legend-group anonymous' }, items));
