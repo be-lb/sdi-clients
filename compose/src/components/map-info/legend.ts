@@ -86,6 +86,7 @@ const renderEditButton =
         return (
             DIV({
                 className: 'table-name',
+                title: tr('editLegend'),
                 onClick: () => {
                     appEvents.setCurrentLayerId(info.id);
                     appEvents.resetLegendEditor();
