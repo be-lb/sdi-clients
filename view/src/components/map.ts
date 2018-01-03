@@ -17,10 +17,10 @@
 
 import * as debug from 'debug';
 
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import { renderScaleline } from 'sdi/map/controls';
 import { create, IMapOptions } from 'sdi/map';
-import { fromRecord } from 'sdi/locale';
+import tr, { fromRecord } from 'sdi/locale';
 import { MessageRecord } from 'sdi/source';
 
 import appQueries from '../queries/app';
@@ -138,13 +138,15 @@ const attachMap =
 const renderLoading =
     (ms: MessageRecord[]) => DIV({
         className: `loading-layer-wrapper ${ms.length === 0 ? 'hidden' : ''}`,
-    }, ms.map(
-        r => DIV({
-            className: 'loading-layer',
-            key: fromRecord(r),
-        },
-            SPAN({ className: 'loader-spinner' }),
-            fromRecord(r))));
+    },
+        H2({}, tr('loadingData')),
+        ms.map(
+            r => DIV({
+                className: 'loading-layer',
+                key: fromRecord(r),
+            },
+                SPAN({ className: 'loader-spinner' }),
+                fromRecord(r))));
 
 const render =
     () => {

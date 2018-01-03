@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { MouseEvent } from 'react';
+// import { MouseEvent } from 'react';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { catOptions } from 'fp-ts/lib/Array';
 // import { compose } from 'fp-ts/lib/function';
@@ -29,7 +29,7 @@ import {
     IChartWindow,
     mappableEmptyArray,
     graphsize,
-    padding,
+    // padding,
     maxbarcount,
     getBarwidth,
     rect,
@@ -173,14 +173,9 @@ export const simplifyData = (data: ITimeserie, lengthMax: number) => {
  * Return a copy of the window with a positive width
  * @param window
  */
-export const absoluteWindow = (window: IChartWindow) => {
-    if (window.width < 0) {
-        return { start: Math.max(window.start + window.width, 0), width: Math.abs(window.width) };
-    }
-    else {
-        return { start: window.start, width: window.width };
-    }
-};
+export const absoluteWindow =
+    (w: IChartWindow) =>
+        w.start > w.end ? { start: w.end, end: w.start } : w;
 
 const deriveScale = (data: ITimeserie, padding = .25): IChartScale | null => {
     let min: number | null = null;
@@ -203,13 +198,13 @@ const deriveScale = (data: ITimeserie, padding = .25): IChartScale | null => {
     return null;
 };
 
-const asSvgX = (el: SVGElement, clientX: number) => {
-    const clientRect = el.getBoundingClientRect();
-    const graphWidth = graphsize.width + padding.left;
-    const scale = graphWidth / clientRect.width;
+// const asSvgX = (el: SVGElement, clientX: number) => {
+//     const clientRect = el.getBoundingClientRect();
+//     const graphWidth = graphsize.width + padding.left;
+//     const scale = graphWidth / clientRect.width;
 
-    return (clientX - clientRect.left) * scale - padding.left;
-};
+//     return (clientX - clientRect.left) * scale - padding.left;
+// };
 
 
 
@@ -234,9 +229,9 @@ export const plotter =
 
                         const activeBar = Math.floor((queries.getCursorPosition() - window.start) * zoom);
 
-                        const barAt =
-                            (x: number) =>
-                                Math.floor(x / barwidth / zoom + window.start);
+                        // const barAt =
+                        //     (x: number) =>
+                        //         Math.floor(x / barwidth / zoom + window.start);
 
                         const valueAt =
                             (y: number) =>
@@ -271,11 +266,11 @@ export const plotter =
 
                                 return svg(bars, {
                                     style: { position: 'absolute', top: 0, left: 0 },
-                                    onMouseMove: (e: MouseEvent<SVGElement>) => {
-                                        e.preventDefault();
-                                        events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
-                                    },
-                                    key: `bars|${window.start.toString()}|${window.width.toString()}|${activeBar.toString()}`,
+                                    // onMouseMove: (e: MouseEvent<SVGElement>) => {
+                                    //     e.preventDefault();
+                                    //     events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
+                                    // },
+                                    key: `bars|${window.start.toString()}|${window.end.toString()}|${activeBar.toString()}`,
                                 });
                             };
 

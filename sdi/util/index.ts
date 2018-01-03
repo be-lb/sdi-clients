@@ -114,3 +114,43 @@ export const getLayerPropertiesKeysFiltered =
             }, []));
     };
 
+
+
+/*
+ * implements binary search (recursive)
+ *
+ * https://en.wikipedia.org/wiki/Binary_search_algorithm
+ * Where it's different from general implementation lies in the fact
+ * that's the predicate which evaluates rather then numeric comparision.
+ * Thus the predicate must know the key.
+ *
+ * @param min Number minimum value
+ * @param max Number maximun value
+ * @predicate Function(pivot) a function that evaluates the current mid value a la compareFunction
+ * @context Object context to which the predicate is applied
+ *
+ */
+
+export type BinaryPredicate = (a: number) => number;
+
+export const binarySearch: (a: number, b: number, c: BinaryPredicate) => number =
+    (min, max, predicate) => {
+        const interval = max - min;
+        const pivot = min + (Math.floor(interval / 2));
+
+        if (max === min) {
+            return pivot;
+        }
+        else if (max < min) {
+            // throw (new Error('MaxLowerThanMin'));
+            return pivot;
+        }
+
+        if (predicate(pivot) > 0) {
+            return binarySearch(min, pivot, predicate);
+        }
+        else if (predicate(pivot) < 0) {
+            return binarySearch(pivot + 1, max, predicate);
+        }
+        return pivot;
+    }

@@ -80,6 +80,7 @@ export type MessageKey =
     | 'emptyMapDescription'
     | 'emptyMapTitle'
     | 'emptyTitle'
+    | 'endDate'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -208,6 +209,7 @@ export type MessageKey =
     | 'skipFirstLine'
     | 'space'
     | 'start'
+    | 'startDate'
     | 'stop'
     | 'studio'
     | 'style'
@@ -1412,5 +1414,15 @@ export const messages: MessageDB = {
     filter: {
         fr: 'Filtrer',
         nl: 'Filter',
+    },
+
+    startDate: {
+        fr: 'Date de début',
+        nl: 'Startdatum',
+    },
+
+    endDate: {
+        fr: 'Date de fin',
+        nl: 'Einddatum',
     },
 };
