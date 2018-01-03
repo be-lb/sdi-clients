@@ -21,7 +21,7 @@ import { MapEvent, control } from 'openlayers';
 import { SetScaleLine, IMapScale } from './index';
 import { DIV } from '../components/elements';
 import { MessageRecord } from '../source';
-import { fromRecord } from '../locale';
+import tr, { fromRecord } from '../locale';
 
 const logger = debug('sdi:map/controls');
 
@@ -117,8 +117,8 @@ export const zoomControl =
                 className: 'zoom',
                 zoomInLabel: '',
                 zoomOutLabel: '',
-                zoomInTipLabel: '', // FIXME - make this locale-aware
-                zoomOutTipLabel: '',
+                zoomInTipLabel: tr('zoomIn'), // FIXME - make this locale-aware
+                zoomOutTipLabel: tr('zoomOut'),
             })
         );
     };

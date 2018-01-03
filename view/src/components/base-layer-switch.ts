@@ -18,7 +18,7 @@ import * as debug from 'debug';
 import { selectBaseLayer } from '../events/map';
 import queries from '../queries/app';
 import { DIV } from 'sdi/components/elements';
-// import { fromRecord } from '../../locale';
+import tr from 'sdi/locale';
 import { IMapBaseLayer } from 'sdi/source';
 import { hashMapBaseLayer } from 'sdi/util';
 
@@ -81,6 +81,7 @@ const render = () => {
         return (
             DIV({
                 className: 'switcher basemap',
+                title: tr('changeBackgroundMap'),
                 onClick: () => selectBaseLayer(other),
             }, DIV({ className }))
         );

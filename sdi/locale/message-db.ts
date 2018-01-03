@@ -45,6 +45,7 @@ export type MessageKey =
     | 'autoClass'
     | 'browseMaps'
     | 'cancel'
+    | 'changeBackgroundMap'
     | 'charts'
     | 'clear'
     | 'close'
@@ -238,6 +239,8 @@ export type MessageKey =
     | 'webServiceUrl'
     | 'widgets'
     | 'wmsSwitch'
+    | 'zoomIn'
+    | 'zoomOut'
     ;
 
 
@@ -1318,5 +1321,20 @@ export const messages: MessageDB = {
     extractOff: {
         fr: 'Tous les élements',
         nl: 'Alle elementen',
+    },
+
+    changeBackgroundMap: {
+        fr: 'Changer de fond de carte',
+        nl: 'Wijzig de achtergrond van de kaart',
+    },
+
+    zoomIn: {
+        fr: 'Zoomer',
+        nl: 'Zoomen',
+    },
+
+    zoomOut: {
+        fr: 'Dézoomer',
+        nl: 'Uitzoomen',
     },
 };

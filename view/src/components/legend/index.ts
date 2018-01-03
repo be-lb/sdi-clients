@@ -146,10 +146,16 @@ const switchItem = (p: LegendPage) => {
 export const switcher = () => {
     const currentPage = queries.currentPage();
     if (currentPage === 'legend') {
-        return DIV({ className: 'switcher infos' }, switchItem('tools'));
+        return DIV({
+            className: 'switcher infos',
+            title: tr('mapTools'),
+        }, switchItem('tools'));
     }
 
-    return DIV({ className: 'switcher infos' }, switchItem('legend'));
+    return DIV({
+        className: 'switcher infos',
+        title: tr('mapLegend'),
+    }, switchItem('legend'));
 
 };
 
