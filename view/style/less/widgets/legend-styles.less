@@ -6,31 +6,53 @@
         justify-content: space-between;
         flex-wrap: wrap;
 
-        & > div {
+        .legend-item {
             width: 100%;
             display: flex;
             align-items: center;
             margin-bottom: @small-margin;
             height: 20px;
+
             &:last-child {margin-bottom: 0px;}
-        }
-    }
 
-    .legend-item {
-        display: flex;
-
-        .item-style {
-            .legendItemPosition;
-            margin-top: @small-margin;
-            img {
-                width: 100%;
-                height:auto;
+            .item-style {
+                .legendItemPosition;
+                margin-top: @small-margin;
+                img {
+                    width: 100%;
+                    height:auto;
+                }
+            }
+            .item-label {
+                min-height: 20px;
+                display: flex;
+                align-items: center;
             }
         }
-        .item-label {
-            min-height: 20px;
-            display: flex;
-            align-items: center;
+
+
+        .legend-group {
+            width: 100%;
+            border-left: 1px dotted #000;
+            padding-bottom: @small-margin;
+            padding-left: @small-margin;
+            margin-left: -@small-margin;
+
+            &-title {
+                display: inline-block;
+                font-weight: 100;
+                font-size: 125%;
+                border-bottom: 1px dotted #000;
+                border-left: 1px solid blue;
+                margin-bottom: @margin;
+                padding-bottom: @small-margin;
+                padding-left: @small-margin;
+                margin-left: -@small-margin;
+            }
+
+            .legend-item:first-child{
+                margin-top: @small-margin;
+            }
         }
     }
 }
