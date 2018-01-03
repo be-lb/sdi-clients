@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
-import { IMapInfo, getMessageRecord, LayerGroup } from 'sdi/source';
+import { getMessageRecord, LayerGroup, ILayerInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
 import queries from '../../queries/legend';
@@ -32,101 +32,100 @@ import { fromNullable } from 'fp-ts/lib/Option';
 const logger = debug('sdi:legend');
 
 
-interface TaggedNode<T> {
-    node: React.ReactNode | React.ReactNode[];
-    tag: T;
+interface Group {
+    g: LayerGroup | null;
+    layers: ILayerInfo[];
 }
 
-type GroupOrNull = LayerGroup | null;
-
-const makeGroupWithLabel =
-    (group: LayerGroup, items: React.ReactNode[]) => (
-        DIV({ className: 'legend-group' },
-            DIV({ className: 'legend-group-title' },
-                fromRecord(group.name)),
-            items));
-
-const makeGroup =
-    (items: React.ReactNode[]) => (
-        DIV({ className: 'legend-group' }, items));
-
-const legendLegend =
-    (mapInfo: IMapInfo) =>
-        mapInfo.layers
-            .slice()
-            .reverse()
-            .reduce<TaggedNode<GroupOrNull>[]>((acc, info) => {
-                if (info.visible) {
-                    const accL = acc.length;
-                    const previousGroup = accL > 0 ? acc[accL - 1].tag : null;
-                    const items = legendItem(info);
-                    if (info.group) {
-                        if (previousGroup
-                            && previousGroup.id === info.group.id) {
-                            return acc.concat({
-                                node: makeGroup(items),
-                                tag: info.group,
-                            });
-                        }
-                        return acc.concat({
-                            node: makeGroupWithLabel(info.group, items),
-                            tag: info.group,
-                        });
-                    }
-                    return acc.concat({
-                        node: items,
-                        tag: info.group,
-                    });
-                }
+const groupItems =
+    (layers: ILayerInfo[]) =>
+        layers.slice().reverse().reduce<Group[]>((acc, info) => {
+            const ln = acc.length;
+            if (ln === 0) {
+                return [{
+                    g: info.group,
+                    layers: [info],
+                }];
+            }
+            const prevGroup = acc[ln - 1];
+            const cg = info.group;
+            const pg = prevGroup.g;
+            // Cases:
+            // info.group == null && prevGroup.g == null => append
+            // info.group != null && prevGroup.g != null && info.group.id == prevGroup.id => append
+            if ((cg === null && pg === null)
+                || (cg !== null && pg !== null && cg.id === pg.id)) {
+                prevGroup.layers.push(info);
                 return acc;
-            }, [])
-            .map(tn => tn.node);
+            }
+            // info.group == null && prevGroup.g != null => new
+            // info.group != null && prevGroup.g == null => new
+            // info.group != null && prevGroup.g != null && info.group.id != prevGroup.id => new
+
+            return acc.concat({
+                g: cg,
+                layers: [info],
+            })
+
+        }, []);
 
 
-const legendDatas =
-    (mapInfo: IMapInfo) =>
-        mapInfo.layers
-            .slice()
-            .reverse()
-            .map((layer, idx, layers) => {
-                const name = fromNullable(
-                    appQueries.getDatasetMetadata(layer.metadataId))
+const renderLegend =
+    (groups: Group[]) =>
+        groups.map((group) => {
+            const items = group.layers.map(legendItem);
+            if (group.g !== null) {
+                return (
+                    DIV({ className: 'legend-group named' },
+                        DIV({ className: 'legend-group-title' },
+                            fromRecord(group.g.name)),
+                        items));
+            }
+            return (
+                DIV({ className: 'legend-group anonymous' }, items));
+        });
+
+const dataItem =
+    (info: ILayerInfo) => (
+        DIV({ className: 'layer-item' },
+            DIV({ className: 'layer-actions' },
+                SPAN({
+                    className: info.visible ? 'visible' : 'hidden',
+                    title: tr('visible'),
+                    onClick: () => {
+                        appEvents.setLayerVisibility(info.id, !info.visible);
+                    },
+                }),
+                SPAN({
+                    className: 'table',
+                    title: tr('attributesTable'),
+                    onClick: () => {
+                        appEvents.setCurrentLayer(info.id);
+                        appEvents.setLayout(AppLayout.MapAndTable);
+                    },
+                })),
+            DIV({ className: 'layer-title' }, SPAN({},
+                fromNullable(
+                    appQueries.getDatasetMetadata(info.metadataId))
                     .fold(
-                    () => layer.id,
-                    md => fromRecord(getMessageRecord(md.resourceTitle)));
+                    () => info.id,
+                    md => fromRecord(getMessageRecord(md.resourceTitle))))))
+    );
 
-                const node = DIV({ className: 'layer-item' },
-                    DIV({ className: 'layer-actions' },
-                        SPAN({
-                            className: layer.visible ? 'visible' : 'hidden',
-                            title: tr('visible'),
-                            onClick: () => {
-                                appEvents.setLayerVisibility(layer.id, !layer.visible);
-                            },
-                        }),
-                        SPAN({
-                            className: 'table',
-                            title: tr('attributesTable'),
-                            onClick: () => {
-                                appEvents.setCurrentLayer(layer.id);
-                                appEvents.setLayout(AppLayout.MapAndTable);
-                            },
-                        })),
-                    DIV({ className: 'layer-title' }, SPAN({}, name)));
-
-                const pg = idx > 0 ? layers[idx - 1].group : null;
-                if (layer.group) {
-                    if (pg && pg.id === layer.group.id) {
-                        return makeGroup([node]);
-                    }
-                    return makeGroupWithLabel(layer.group, [node]);
-                }
-                return node;
-            });
-
-
-
-
+const renderData =
+    (groups: Group[]) =>
+        groups.map((group) => {
+            const items = group.layers.map(dataItem);
+            if (group.g !== null) {
+                return (
+                    DIV({ className: 'legend-group named' },
+                        DIV({ className: 'legend-group-title' },
+                            fromRecord(group.g.name)),
+                        items));
+            }
+            return (
+                DIV({ className: 'legend-group anonymous' }, items));
+        });
 
 
 const footer = () => {
@@ -173,10 +172,10 @@ const legend = () => {
                             info(),
                             DIV({ className: 'styles-wrapper' },
                                 H2({}, tr('mapLegend')),
-                                ...legendLegend(mapInfo)),
+                                ...renderLegend(groupItems(mapInfo.layers))),
                             DIV({ className: 'datas-wrapper' },
                                 H2({}, tr('mapDatas')),
-                                ...legendDatas(mapInfo))),
+                                ...renderData(groupItems(mapInfo.layers)))),
                         footer())
                 );
 
