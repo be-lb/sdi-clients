@@ -77,8 +77,8 @@ const render = () => {
     const viewEmbedUrl = `${embedUrl}/${center[0]}/${center[1]}/${zoom}`;
 
     // FIXME - embed in general
-    const iframeExampleWithView = `<iframe src="${viewEmbedUrl}" width="880" height="600" frameborder="0"></iframe>`;
-    const iframeExampleWithoutView = `<iframe src="${embedUrl}" width="880" height="600" frameborder="0"></iframe>`;
+    const iframeExampleWithView = `<div style="position:relative; width:100%; height:0; padding-bottom: 66%;"><iframe src="${viewEmbedUrl}" width="100%" height="100%" style="position:absolute; top:0; right:0; bottom:0; left:0;" frameborder="0"></iframe></div>`;
+    const iframeExampleWithoutView = `<div style="position:relative; width:100%; height:0; padding-bottom: 66%;"><iframe src="${embedUrl}" width="100%" height="100%" style="position:absolute; top:0; right:0; bottom:0; left:0;" frameborder="0"></iframe></div>`;
 
 
     return (
