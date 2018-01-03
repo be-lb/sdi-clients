@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 import { DIV, H1, A } from 'sdi/components/elements';
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, ILayerInfo, LayerGroup } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { getRoot } from 'sdi/app';
 
@@ -33,6 +33,61 @@ const renderTitle =
         mapInfo => DIV({ className: 'map-title' },
             H1({}, A({ href: `${getRoot()}view`, target: '_top' }, fromRecord(mapInfo.title)))));
 
+
+interface Group {
+    g: LayerGroup | null;
+    layers: ILayerInfo[];
+}
+
+const groupItems =
+    (layers: ILayerInfo[]) =>
+        layers.slice().reverse().reduce<Group[]>((acc, info) => {
+            const ln = acc.length;
+            if (ln === 0) {
+                return [{
+                    g: info.group,
+                    layers: [info],
+                }];
+            }
+            const prevGroup = acc[ln - 1];
+            const cg = info.group;
+            const pg = prevGroup.g;
+            // Cases:
+            // info.group == null && prevGroup.g == null => append
+            // info.group != null && prevGroup.g != null && info.group.id == prevGroup.id => append
+            if ((cg === null && pg === null)
+                || (cg !== null && pg !== null && cg.id === pg.id)) {
+                prevGroup.layers.push(info);
+                return acc;
+            }
+            // info.group == null && prevGroup.g != null => new
+            // info.group != null && prevGroup.g == null => new
+            // info.group != null && prevGroup.g != null && info.group.id != prevGroup.id => new
+
+            return acc.concat({
+                g: cg,
+                layers: [info],
+            })
+
+        }, []);
+
+
+const renderLegend =
+    (groups: Group[]) =>
+        groups.map((group) => {
+            const items = group.layers.map(legendItem);
+            if (group.g !== null) {
+                return (
+                    DIV({ className: 'legend-group named' },
+                        DIV({ className: 'legend-group-title' },
+                            fromRecord(group.g.name)),
+                        items));
+            }
+            return (
+                DIV({ className: 'legend-group anonymous' }, items));
+        });
+
+
 const legendLegend =
     (mapInfo: IMapInfo) =>
         DIV({ className: 'legend' },
@@ -40,16 +95,7 @@ const legendLegend =
             DIV({ className: 'description' },
                 fromRecord(mapInfo.description)
             ),
-            mapInfo.layers
-                .slice()
-                .reverse()
-                .reduce<React.DOMElement<{}, Element>[]>((acc, info) => {
-                    if (info.visible) {
-                        const items = legendItem(info);
-                        return acc.concat(items);
-                    }
-                    return acc;
-                }, [])
+            ...renderLegend(groupItems(mapInfo.layers))
         );
 
 

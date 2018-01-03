@@ -98,6 +98,7 @@ export type MessageKey =
     | 'fillColor'
     | 'fontColor'
     | 'fontSize'
+    | 'fullscreen'
     | 'geocode'
     | 'geometryType'
     | 'go'
@@ -162,6 +163,7 @@ export type MessageKey =
     | 'newLayer'
     | 'newMap'
     | 'noResults'
+    | 'north'
     | 'offsetX'
     | 'offsetY'
     | 'password'
@@ -1336,5 +1338,15 @@ export const messages: MessageDB = {
     zoomOut: {
         fr: 'Dézoomer',
         nl: 'Uitzoomen',
+    },
+
+    north: {
+        fr: 'Nord',
+        nl: 'Noord',
+    },
+
+    fullscreen: {
+        fr: 'Plein écran',
+        nl: 'Volledig scherm',
     },
 };

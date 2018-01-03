@@ -117,7 +117,7 @@ export const zoomControl =
                 className: 'zoom',
                 zoomInLabel: '',
                 zoomOutLabel: '',
-                zoomInTipLabel: tr('zoomIn'), // FIXME - make this locale-aware
+                zoomInTipLabel: tr('zoomIn'),
                 zoomOutTipLabel: tr('zoomOut'),
             })
         );
@@ -133,6 +133,7 @@ export const rotateControl =
             new control.Rotate({
                 target,
                 className: 'rotate',
+                tipLabel: tr('north'),
                 autoHide: false,
                 label: northArrow,
             })
@@ -151,6 +152,7 @@ export const fullscreenControl =
             new control.FullScreen({
                 target,
                 className: 'fullscreen',
+                tipLabel: tr('fullscreen'),
                 label: fsInNode,
                 labelActive: fsOutNode,
             })
