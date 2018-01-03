@@ -42,12 +42,11 @@ export interface IChartScale {
 
 export interface IChartWindow {
     start: number;
-    width: number;
+    end: number;
 }
 
 export interface ITimeserieInteractive {
     cursorPosition: number;
-    window: IChartWindow;
     selection: IChartWindow;
     active: Boolean;
     editingSelection: Boolean;
@@ -60,13 +59,13 @@ export interface IPadding {
     left: number;
 }
 
-export const initialTimeserieState = (): ITimeserieInteractive => ({
-    cursorPosition: -1,
-    selection: { start: -1, width: 0 },
-    window: { start: 0, width: 100 },
-    active: false,
-    editingSelection: false,
-});
+export const initialTimeserieState =
+    (): ITimeserieInteractive => ({
+        cursorPosition: -1,
+        selection: { start: -1, end: -1 },
+        active: false,
+        editingSelection: false,
+    });
 
 export type QueryTimeserie = () => ITimeserieInteractive;
 export type DispatchTimeserie = (handler: (s: ITimeserieInteractive) => ITimeserieInteractive) => void;
@@ -89,8 +88,7 @@ export interface PlotQuerySet {
 export interface PlotEventSet {
     loadData: PlotDataLoader;
     startSelection(start: number): void;
-    setSelectionWidth(width: number): void;
-    invertSelection(): void;
+    endSelection(end: number): void;
     startEditing(): void;
     stopEditing(): void;
     setCursorPosition(position: number): void;

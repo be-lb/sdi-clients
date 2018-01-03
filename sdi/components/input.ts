@@ -16,14 +16,18 @@ interface InputProps<T> {
     set: Setter<T>;
 }
 
-interface InputValue<T> {
+type InputValueT = string | number | null;
+
+interface InputValue<T extends InputValueT> {
     readonly value: T;
 }
 
 const value =
-    <T>(value: T): InputValue<T> => ({ value });
+    <T extends InputValueT>(value: T): InputValue<T> => ({ value });
 
 type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
+
+
 
 class InputText extends Component<InputProps<string>, InputValue<string>> {
     attrs: () => InputAttributes;
@@ -115,7 +119,7 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
         this.attrs =
             () => ({
                 ...extraAttributes,
-                value: this.state.value ? this.state.value : 0,
+                value: this.state.value !== null ? this.state.value : undefined,
                 type: 'number',
                 onChange: e => update(e.currentTarget.valueAsNumber),
             });

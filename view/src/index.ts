@@ -20,9 +20,10 @@ import 'sdi/polyfill';
 import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
-import { initialTableState } from 'sdi/components/table';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction } from 'sdi/map';
+import { initialTableState } from 'sdi/components/table';
+import { initialTimeserieState } from 'sdi/components/timeserie';
 
 import App from './app';
 import { AppLayout } from './shape/types';
@@ -87,13 +88,7 @@ export const main =
             'component/table': initialTableState(),
             'component/table/extract': initialTableState(),
 
-            'component/timeserie': {
-                cursorPosition: 35,
-                selection: { start: 20, width: 20 },
-                window: { start: 0, width: 100 },
-                active: false,
-                editingSelection: false,
-            },
+            'component/timeserie': initialTimeserieState(),
 
             'component/legend/webservices': {
                 folded: true,

@@ -24,26 +24,23 @@ export const plotEvents =
             loadData,
 
             startSelection(start: number) {
-                dispatch((state) => {
-                    state.selection = { start, width: 1 };
-                    return state;
-                });
+                dispatch(state => ({
+                    ...state,
+                    selection: {
+                        ...state.selection,
+                        start,
+                    },
+                }));
             },
 
-            setSelectionWidth(width: number) {
-                dispatch((state) => {
-                    state.selection.width = width;
-                    return state;
-                });
-            },
-
-            invertSelection() {
-                dispatch((state) => {
-                    const start = state.selection.start;
-                    const width = state.selection.width;
-                    state.selection = { start: start + width, width: width * -1 };
-                    return state;
-                });
+            endSelection(end: number) {
+                dispatch(state => ({
+                    ...state,
+                    selection: {
+                        ...state.selection,
+                        end,
+                    },
+                }));
             },
 
             startEditing(): void {
@@ -71,7 +68,7 @@ export const plotEvents =
 
             clearSelection(): void {
                 dispatch((state) => {
-                    state.selection = { start: -1, width: 0 };
+                    state.selection = { start: -1, end: -1 };
                     state.cursorPosition = -1;
                     return state;
                 });

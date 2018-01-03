@@ -16,18 +16,40 @@
 
 import * as debug from 'debug';
 
-import { DIV } from '../elements';
+
+import { DIV, INPUT, SPAN } from '../elements';
 import tr from '../../locale';
 
-import { TimeserieConfig } from '../../source';
+import { TimeserieConfig, ITimeserie } from '../../source';
 import { TimeseriePlotter, IChartWindow } from '../timeserie';
 import { absoluteWindow } from '../timeserie/plot';
+import { binarySearch } from '../../util';
 
 const logger = debug('sdi:component/feature-view/timeserie');
 
 interface NotNullProperties {
     [key: string]: any;
 }
+
+
+const tsToDateString =
+    (ts: number) =>
+        (new Date(ts)).toISOString().substr(0, 10);
+
+
+const findTSIndex =
+    (ts: number, data: ITimeserie) =>
+        binarySearch(0, data.length,
+            i => (
+                data[i][0] === ts ? 0 : (
+                    data[i][0] < ts ? -1 : 1)));
+
+const selectedData =
+    (w: IChartWindow, data: ITimeserie) => {
+        const startIndex = findTSIndex(w.start, data);
+        const endIndex = findTSIndex(w.end, data);
+        return data.slice(startIndex, endIndex);
+    };
 
 const render =
     (tsPlotter: TimeseriePlotter) =>
@@ -36,28 +58,54 @@ const render =
             const data = queries.getData(props, config);
 
             if (data) {
-                // const graphWindow: IChartWindow = { start: 0, width: data.length };
-                const selectionWindow: IChartWindow = absoluteWindow(queries.getSelection());
+                const s = queries.getSelection();
+                if (s.start < 0) {
+                    events.startSelection(data[0][0]);
+                    return DIV();
+                }
+                else if (s.end < s.start) {
+                    events.endSelection(data[data.length - 1][0]);
+                    return DIV();
+                }
+                const selectionWindow = s.start >= 0 ? absoluteWindow(s) : { start: data[0][0], end: data[data.length - 1][0] };
+                const selectionData = selectedData(selectionWindow, data);
 
-                // const graphs = [
-                //     DIV({
-                //         className: 'chart-wrapper',
-                //         key: `chart|${graphWindow.start.toString()}|${graphWindow.width.toString()}|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
-                //     }, ...plotter(data, graphWindow, true))];
+                const inputStart = DIV({},
+                    SPAN({}, tr('startDate')),
+                    INPUT({
+                        type: 'date',
+                        min: tsToDateString(data[0][0]),
+                        max: tsToDateString(selectionData[selectionData.length - 1][0]),
+                        value: tsToDateString(selectionData[0][0]),
+                        onChange: (e) => {
+                            const d = Date.parse(e.currentTarget.value);
+                            if (!isNaN(d)) {
+                                events.startSelection(d);
+                            }
+                        },
+                    }));
 
+                const inputEnd = DIV({},
+                    SPAN({}, tr('endDate')),
+                    INPUT({
+                        type: 'date',
+                        min: tsToDateString(selectionData[0][0]),
+                        max: tsToDateString(data[data.length - 1][0]),
+                        value: tsToDateString(selectionData[selectionData.length - 1][0]),
+                        onChange: (e) => {
+                            const d = Date.parse(e.currentTarget.value);
+                            if (!isNaN(d)) {
+                                events.endSelection(d);
+                            }
+                        },
+                    }));
 
-                // if (selectionWindow.width > 0) {
-                //     const selectionData = data.slice(selectionWindow.start, selectionWindow.start + selectionWindow.width);
-                //     graphs.push(DIV({
-                //         className: 'chart-wrapper',
-                //         key: `chart|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
-                //     }, ...plotter(selectionData, selectionWindow, false)));
-                // }
-                const selectionData = data.slice(selectionWindow.start, selectionWindow.start + selectionWindow.width);
-                return DIV({
-                    className: 'chart-wrapper',
-                    key: `chart|${selectionWindow.start.toString()}|${selectionWindow.width.toString()}`,
-                }, ...plotter(selectionData, selectionWindow, config.options.referencePoint));
+                return DIV({},
+                    DIV({
+                        className: 'chart-wrapper',
+                        key: `chart|${selectionWindow.start.toString()}|${selectionWindow.end.toString()}`,
+                    },
+                        ...plotter(selectionData, selectionWindow, config.options.referencePoint)), inputStart, inputEnd);
             }
             else {
                 const id = queries.getTimeserieId(props, config);
