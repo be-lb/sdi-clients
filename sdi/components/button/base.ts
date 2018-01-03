@@ -42,6 +42,7 @@ const button =
                         DIV({
                             className,
                             onClick,
+                            title: tr(t),
                         }, tr(k))
                     );
                 }
@@ -49,6 +50,7 @@ const button =
                     DIV({
                         className,
                         onClick,
+                        title: tr(t),
                     })
                 );
             };

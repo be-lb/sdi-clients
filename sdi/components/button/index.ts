@@ -16,6 +16,7 @@
  */
 
 import { factory } from './base';
+import { MessageKey } from '../../locale/message-db';
 
 
 export const MAX_DURATION = 5000;
@@ -35,7 +36,7 @@ export interface ButtonEventSet {
 export type ButtonGetter = () => ButtonComponent;
 export type ButtonSetter = (h: (a: ButtonComponent) => ButtonComponent) => void;
 
-export type ButtonType =
+type ButtonType_ =
     | 'add'
     | 'arrow-right'
     | 'bar-chart'
@@ -70,6 +71,8 @@ export type ButtonType =
     | 'validate'
     | 'view'
     ;
+
+export type ButtonType = MessageKey & ButtonType_;
 
 export type Step = 'initial' | 'active';
 

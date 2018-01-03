@@ -70,6 +70,7 @@ export type MessageKey =
     | 'dataType'
     | 'displayLabel'
     | 'draft'
+    | 'edit'
     | 'editFeatureTemplate'
     | 'editLayer'
     | 'editLegend'
@@ -96,6 +97,7 @@ export type MessageKey =
     | 'featureViewTypeTimeserie'
     | 'featureViewUnvalidTemplate'
     | 'fillColor'
+    | 'filter'
     | 'fontColor'
     | 'fontSize'
     | 'fullscreen'
@@ -158,6 +160,8 @@ export type MessageKey =
     | 'metadataEditor'
     | 'metaDutch'
     | 'metaFrench'
+    | 'move-down'
+    | 'move-up'
     | 'myApps'
     | 'myMaps'
     | 'newLayer'
@@ -196,6 +200,7 @@ export type MessageKey =
     | 'separatedBy'
     | 'setLatitude'
     | 'setLongitude'
+    | 'settings'
     | 'share'
     | 'shareWithView'
     | 'sheetList'
@@ -210,6 +215,7 @@ export type MessageKey =
     | 'styleGroupDefaultName'
     | 'styleGroupRemove'
     | 'styleGroupSelectedItemsCount'
+    | 'switch'
     | 'switchLabel'
     | 'switchLang'
     | 'switchMarker'
@@ -228,7 +234,10 @@ export type MessageKey =
     | 'timeserieTemplateURL'
     | 'timeserieURL'
     | 'title'
+    | 'toggle-off'
+    | 'toggle-on'
     | 'topics'
+    | 'translate'
     | 'unpublish'
     | 'upload'
     | 'uploadDatas'
@@ -236,6 +245,7 @@ export type MessageKey =
     | 'userName'
     | 'validate'
     | 'valuesCovered'
+    | 'view'
     | 'viewLayer'
     | 'visible'
     | 'webServiceUrl'
@@ -324,8 +334,8 @@ export const messages: MessageDB = {
     },
 
     cancel: {
-        fr: 'annuler',
-        nl: 'annuleer',
+        fr: 'Annuler',
+        nl: 'Annuleer',
     },
 
     charts: {
@@ -334,8 +344,8 @@ export const messages: MessageDB = {
     },
 
     clear: {
-        fr: 'clear',
-        nl: 'clear',
+        fr: 'Supprimer',
+        nl: 'Duidelijk',
     },
 
     close: {
@@ -387,28 +397,28 @@ export const messages: MessageDB = {
     },
 
     featureViewTypeDefault: {
-        fr: 'standaard',
-        nl: 'standaard',
+        fr: 'Standaard',
+        nl: 'Standaard',
     },
 
     featureViewTypeTemplate: {
-        fr: 'template',
-        nl: 'template',
+        fr: 'Template',
+        nl: 'Template',
     },
 
     featureViewTypeConfig: {
-        fr: 'configurable',
-        nl: 'instelbaar',
+        fr: 'Configurable',
+        nl: 'Instelbaar',
     },
 
     featureViewTypeTimeserie: {
-        fr: 'bar chart',
-        nl: 'staaf diagram',
+        fr: 'Bar chart',
+        nl: 'Staaf diagram',
     },
 
     featureViewTypePieChart: {
-        fr: 'pie chart',
-        nl: 'taart grafiek',
+        fr: 'Pie chart',
+        nl: 'Taart grafiek',
     },
 
     featureViewUnvalidTemplate: {
@@ -513,18 +523,18 @@ export const messages: MessageDB = {
     },
 
     imageGeneratingPreview: {
-        fr: 'generating preview',
-        nl: 'voorvertoning genereren',
+        fr: 'Création de la prévisualisation',
+        nl: 'Voorvertoning genereren',
     },
 
     imagePreview: {
-        fr: 'aperçu',
-        nl: 'voorvertoning',
+        fr: 'Aperçu',
+        nl: 'Voorvertoning',
     },
 
     imageUploading: {
-        fr: 'uploading',
-        nl: 'afbeelding wordt geupload',
+        fr: 'Uploading',
+        nl: 'Afbeelding wordt geupload',
     },
 
     lastModified: {
@@ -638,18 +648,18 @@ export const messages: MessageDB = {
     },
 
     legendTypeSimple: {
-        fr: 'simple',
-        nl: 'eenvoudig',
+        fr: 'Simple',
+        nl: 'Eenvoudig',
     },
 
     legendTypeDiscrete: {
-        fr: 'catégorisée',
-        nl: 'gecategoriseerd',
+        fr: 'Catégorisée',
+        nl: 'Gecategoriseerd',
     },
 
     legendTypeContinuous: {
-        fr: 'continue',
-        nl: 'interval',
+        fr: 'Continue',
+        nl: 'Interval',
     },
 
     legendTypeSelect: {
@@ -708,8 +718,8 @@ export const messages: MessageDB = {
     },
 
     remove: {
-        fr: 'supprimer',
-        nl: 'verwijder',
+        fr: 'Supprimer',
+        nl: 'Verwijder',
     },
 
     removeMap: {
@@ -753,8 +763,8 @@ export const messages: MessageDB = {
     },
 
     validate: {
-        fr: 'OK',
-        nl: 'OK',
+        fr: 'Valider',
+        nl: 'Bevestigen',
     },
 
     visible: {
@@ -865,7 +875,7 @@ export const messages: MessageDB = {
     },
 
     legendInfoHeader: {
-        fr: 'infos',
+        fr: 'Informations',
         nl: 'Informatie',
     },
 
@@ -996,7 +1006,7 @@ export const messages: MessageDB = {
 
     columns: {
         fr: 'Colonnes',
-        nl: 'kolommen',
+        nl: 'Kolommen',
     },
 
     widgets: {
@@ -1100,7 +1110,7 @@ export const messages: MessageDB = {
     },
 
     upload: {
-        fr: 'Télécharger',
+        fr: 'Upload',
         nl: 'Uploaden',
     },
 
@@ -1148,6 +1158,7 @@ export const messages: MessageDB = {
         fr: 'Identifiant de la ressource',
         nl: 'Bronidentificatie',
     },
+
     layerInfo: {
         fr: 'Informations',
         nl: 'Informatie',
@@ -1157,14 +1168,17 @@ export const messages: MessageDB = {
         fr: 'Référence temporelle',
         nl: 'Tijdelijke referentie',
     },
+
     pointOfContact: {
         fr: 'Point de contact',
         nl: 'Contactpunt',
     },
+
     responsibleOrganisation: {
         fr: 'Organisation responsable',
         nl: 'Verantwoordelijke organisatie',
     },
+
     draft: {
         fr: 'Brouillon',
         nl: 'Ontwerp',
@@ -1348,5 +1362,55 @@ export const messages: MessageDB = {
     fullscreen: {
         fr: 'Plein écran',
         nl: 'Volledig scherm',
+    },
+
+    translate: {
+        fr: 'Traduire',
+        nl: 'Vertalen',
+    },
+
+    switch: {
+        fr: 'Changer',
+        nl: 'Omschakelen',
+    },
+
+    edit: {
+        fr: 'Éditer',
+        nl: 'Bewerk',
+    },
+
+    'toggle-off': {
+        fr: 'Désactiver',
+        nl: 'Deactiveren',
+    },
+
+    'toggle-on': {
+        fr: 'Activer',
+        nl: 'Activeren',
+    },
+
+    'move-down': {
+        fr: 'Redescendre',
+        nl: 'Naar beneden verplaatsen',
+    },
+
+    'move-up': {
+        fr: 'Remonter',
+        nl: 'Ga naar boven',
+    },
+
+    view: {
+        fr: 'Visiblité',
+        nl: 'Zichtbaarheid',
+    },
+
+    settings: {
+        fr: 'Réglages',
+        nl: 'Instellingen',
+    },
+
+    filter: {
+        fr: 'Filtrer',
+        nl: 'Filter',
     },
 };
