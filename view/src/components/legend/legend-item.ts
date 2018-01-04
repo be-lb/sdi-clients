@@ -15,7 +15,10 @@
  */
 
 import * as debug from 'debug';
+
 import { ILayerInfo } from 'sdi/source';
+import { fromRecord } from 'sdi/locale';
+import { DIV } from 'sdi/components/elements';
 
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
@@ -23,22 +26,34 @@ import legendPolygon from './legend-polygon';
 
 const logger = debug('sdi:legend-item');
 
+const withLabel =
+    (layerInfo: ILayerInfo) =>
+        (nodes: React.ReactNode[]) => {
+            if (layerInfo.legend !== null) {
+                const legend = DIV({ className: 'legend-label' },
+                    fromRecord(layerInfo.legend));
+                return [legend, ...nodes];
+            }
+            return nodes;
+        };
+
 
 const renderLegendItem =
-    (layerInfo: ILayerInfo): React.DOMElement<{}, Element>[] => {
+    (layerInfo: ILayerInfo) => {
+        const label = withLabel(layerInfo);
         switch (layerInfo.style.kind) {
             case 'polygon-continuous':
             case 'polygon-discrete':
             case 'polygon-simple':
-                return legendPolygon(layerInfo.style, layerInfo);
+                return label(legendPolygon(layerInfo.style, layerInfo));
             case 'point-discrete':
             case 'point-simple':
             case 'point-continuous':
-                return legendPoint(layerInfo.style, layerInfo);
+                return label(legendPoint(layerInfo.style, layerInfo));
             case 'line-simple':
             case 'line-discrete':
             case 'line-continuous':
-                return legendLinestring(layerInfo.style, layerInfo);
+                return label(legendLinestring(layerInfo.style, layerInfo));
             default:
                 throw (new Error('UnknownStyleKind'));
         }

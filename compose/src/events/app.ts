@@ -342,6 +342,7 @@ const events = {
                     featureViewOptions: { type: 'default' },
                     style: defaultStyle(i.geometryType),
                     group: null,
+                    legend: null,
                 };
                 postLayerInfo(getApiUrl(`layerinfos`), info)
                     .then((result) => {

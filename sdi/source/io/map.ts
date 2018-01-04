@@ -52,6 +52,7 @@ export const ILayerInfoIO = i({
     visible: io.boolean,
     style: StyleConfigIO,
     featureViewOptions: FeatureViewOptionsIO,
+    legend: nullable(MessageRecordIO),
     group: nullable(LayerGroupIO),
 }, 'ILayerInfoIO');
 export type ILayerInfo = TypeOf<typeof ILayerInfoIO>;
