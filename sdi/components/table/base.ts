@@ -233,7 +233,7 @@ export const baseTable =
                     const rowCount = queries.rowCount();
                     const rowHeight = queries.rowHeight();
                     const width = cwString(rowWidth());
-                    logger(`sizer = ${rowCount} * ${rowHeight}`);
+                    // logger(`sizer = ${rowCount} * ${rowHeight}`);
                     return DIV({
                         key: 'table-body',
                         className: 'table-body',

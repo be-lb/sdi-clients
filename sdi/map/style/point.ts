@@ -206,11 +206,15 @@ const pointStyleContinuous = (config: PointStyleConfigContinuous) => {
     return (feature: Feature, resolution: number) => {
         const styles: style.Style[] = [];
         const props = feature.getProperties();
-        const value = props[config.propName];
+        const value = (
+            typeof props[config.propName] === 'number' ?
+                props[config.propName] :
+                parseFloat(props[config.propName])
+        );
 
         labelStyle(feature, resolution, styles);
 
-        if (typeof value === 'number') {
+        if (!isNaN(value)) {
             const low = findLow(value);
             if (low !== null) {
                 styles.push(intervalStyles[low]);

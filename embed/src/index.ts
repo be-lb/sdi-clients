@@ -72,8 +72,7 @@ export const main =
 
             'component/timeserie': {
                 cursorPosition: 35,
-                selection: { start: 20, width: 20 },
-                window: { start: 0, width: 100 },
+                selection: { start: -1, end: -1 },
                 active: false,
                 editingSelection: false,
             },

@@ -99,8 +99,12 @@ const lineStyleContinuous = (config: LineStyleConfigContinuous) => {
 
     return (feature: Feature) => {
         const props = feature.getProperties();
-        const value = props[config.propName];
-        if (typeof value === 'number') {
+        const value = (
+            typeof props[config.propName] === 'number' ?
+                props[config.propName] :
+                parseFloat(props[config.propName])
+        );
+        if (!isNaN(value)) {
             const low = findLow(value);
             if (low !== null) {
                 return [styles[low]];

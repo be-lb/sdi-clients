@@ -14,6 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { FeatureCollection, Feature } from 'sdi/source';
@@ -25,10 +26,12 @@ import {
     tableQueries,
     emptySource,
 } from 'sdi/components/table';
+import { formatNumber } from 'sdi/locale';
 
 import appQueries from './app';
 import { withExtract } from './map';
 
+const logger = debug('sdi:queries/table');
 
 type ObjOrNull = { [k: string]: any } | null;
 
@@ -75,6 +78,10 @@ const getLayerData =
                     const props: ObjOrNull = f.properties;
                     const row = keys.map((k) => {
                         if (props && props[k] && props[k] != null) {
+                            if (typeof props[k] === 'number') {
+                                logger('N', props[k], formatNumber(props[k]));
+                                return formatNumber(props[k]);
+                            }
                             return props[k].toString();
                         }
 
@@ -135,3 +142,5 @@ export const getSource =
 
 
 export const layerTableQueries = tableQueries(queryK('component/table'), getSource);
+
+logger('loaded');

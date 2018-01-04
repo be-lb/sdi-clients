@@ -16,21 +16,20 @@
  */
 
 import { query } from 'sdi/shape';
-import { getMessageRecord } from 'sdi/source';
+import { getMessageRecord, FeatureCollection } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
 
 import { getDatasetMetadata } from './metadata';
 
 
+type FCContext = (fc: FeatureCollection) => FeatureCollection;
+
 
 const queries = {
-
-
 
     getUserData() {
         return query('data/user');
     },
-
 
 
     mapReady() {
@@ -55,16 +54,28 @@ const queries = {
         return null;
     },
 
+
+    getLayerDataWithContext(id: string, context: FCContext) {
+        const layers = query('data/layers');
+        if (id && id in layers) {
+            return context(layers[id]);
+        }
+        return null;
+    },
+
+
     getMap(mid: string) {
         const maps = query('data/maps');
         return maps.find(m => m.id === mid);
     },
+
 
     getMapInfo() {
         const mid = query('app/current-map');
         const info = query('data/maps').find(m => m.id === mid);
         return (info !== undefined) ? info : null;
     },
+
 
     getLayerInfo(layerId: string): SyntheticLayerInfo {
         const mid = query('app/current-map');
@@ -86,13 +97,16 @@ const queries = {
         return { name: null, info: null, metadata: null };
     },
 
+
     getCurrentMap() {
         return query('app/current-map');
     },
 
+
     getCurrentLayerId() {
         return query('app/current-layer');
     },
+
 
     getCurrentLayerInfo() {
         const lid = query('app/current-layer');
@@ -102,9 +116,11 @@ const queries = {
         return { name: null, info: null, metadata: null };
     },
 
+
     getCurrentFeature() {
         return query('app/current-feature');
     },
+
 
     getCurrentBaseLayer() {
         const mid = query('app/current-map');
@@ -119,6 +135,7 @@ const queries = {
     getCategories() {
         return query('data/categories');
     },
+
 
     getSplash() {
         return query('component/splash');

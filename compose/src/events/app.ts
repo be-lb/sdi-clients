@@ -208,7 +208,6 @@ const events = {
                     });
                 })
                 .catch(e => logger(e));
-
         }
     },
 
