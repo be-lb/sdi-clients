@@ -21,7 +21,7 @@ import { lineColorForGroup, lineWidthForGroup, lineWidth, lineColor } from './to
 export const renderLineForGroup =
     (idx: number) => {
         return (
-            DIV({ className: 'app-col-main style-toolbox-main' },
+            DIV({ key: `renderLineForGroup-${idx}`, className: 'app-col-main style-toolbox-main' },
                 lineWidthForGroup(idx),
                 lineColorForGroup(idx))
         );

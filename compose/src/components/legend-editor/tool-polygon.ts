@@ -20,7 +20,7 @@ import { lineColorForGroup, lineWidthForGroup, fillColorForGroup, fillColor, lin
 export const renderPolygonForGroup =
     (idx: number) => {
         return (
-            DIV({ className: 'app-col-main style-toolbox-main' },
+            DIV({ key: `renderPolygonForGroup-${idx}`, className: 'app-col-main style-toolbox-main' },
                 fillColorForGroup(idx),
                 lineWidthForGroup(idx),
                 lineColorForGroup(idx))

@@ -70,7 +70,7 @@ const render =
                 const selectionWindow = s.start >= 0 ? absoluteWindow(s) : { start: data[0][0], end: data[data.length - 1][0] };
                 const selectionData = selectedData(selectionWindow, data);
 
-                const inputStart = DIV({},
+                const inputStart = DIV({ className: 'date start' },
                     SPAN({}, tr('startDate')),
                     INPUT({
                         type: 'date',
@@ -85,7 +85,7 @@ const render =
                         },
                     }));
 
-                const inputEnd = DIV({},
+                const inputEnd = DIV({ className: 'date end' },
                     SPAN({}, tr('endDate')),
                     INPUT({
                         type: 'date',
@@ -100,12 +100,13 @@ const render =
                         },
                     }));
 
-                return DIV({},
+                return DIV({ className: 'timeserie-wrapper' },
                     DIV({
                         className: 'chart-wrapper',
                         key: `chart|${selectionWindow.start.toString()}|${selectionWindow.end.toString()}`,
                     },
-                        ...plotter(selectionData, selectionWindow, config.options.referencePoint)), inputStart, inputEnd);
+                        plotter(selectionData, selectionWindow, config.options.referencePoint)),
+                    DIV({ className: 'chart-date-wrapper' }, inputStart, inputEnd));
             }
             else {
                 const id = queries.getTimeserieId(props, config);
