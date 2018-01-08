@@ -73,7 +73,11 @@ const groupItems =
 const renderLegend =
     (groups: Group[]) =>
         groups.map((group) => {
-            const items = group.layers.map(legendItem);
+            const layers = group.layers.filter(l => l.visible === true);
+            if (layers.length === 0) {
+                return DIV(); // FIXME - we can do better than that
+            }
+            const items = layers.map(legendItem);
             if (group.g !== null) {
                 return (
                     DIV({ className: 'legend-group named' },
