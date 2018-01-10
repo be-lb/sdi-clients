@@ -358,8 +358,8 @@ const defaultPointStyle = (s: SubType, propName?: string): PointStyleConfig => {
         case 'simple': return ({
             kind: 'point-simple',
             marker: {
-                codePoint: 0xf05a,
-                color: '#00AED5',
+                codePoint: 0xf111,
+                color: '#00729A',
                 size: 16,
             },
         });
@@ -380,7 +380,7 @@ const defaultLineStyle = (s: SubType, propName?: string): LineStyleConfig => {
     switch (s) {
         case 'simple': return ({
             kind: 'line-simple',
-            strokeColor: '#00AED5',
+            strokeColor: '#00729A',
             dash: [],
             strokeWidth: 1,
         });
@@ -402,8 +402,8 @@ const defaultPolygonStyle = (s: SubType, propName?: string): PolygonStyleConfig 
         case 'simple': return ({
             // pattern: false,
             kind: 'polygon-simple',
-            strokeColor: '#00AED5',
-            fillColor: '#00AED5',
+            strokeColor: '#00729A',
+            fillColor: '#00729A',
             strokeWidth: 1,
         });
         case 'continuous': return ({
@@ -441,8 +441,8 @@ export const addDefaultGroupStyle =
                     label: { fr: '', nl: '' },
                     values: [],
                     marker: {
-                        codePoint: 0xf05a,
-                        color: '#00AED5',
+                        codePoint: 0xf111,
+                        color: '#00729A',
                         size: 16,
                     },
                 });
@@ -452,7 +452,7 @@ export const addDefaultGroupStyle =
                 s.groups.push({
                     values: [],
                     label: { fr: '', nl: '' },
-                    strokeColor: '#00AED5',
+                    strokeColor: '#00729A',
                     dash: [],
                     strokeWidth: 1,
                 });
@@ -462,8 +462,8 @@ export const addDefaultGroupStyle =
                 s.groups.push({
                     values: [],
                     label: { fr: '', nl: '' },
-                    strokeColor: '#00AED5',
-                    fillColor: '#00AED5',
+                    strokeColor: '#00729A',
+                    fillColor: '#00729A',
                     strokeWidth: 1,
                 });
                 return s;
@@ -479,8 +479,8 @@ export const addDefaultIntervalStyle =
                     low: 0,
                     high: 0,
                     marker: {
-                        codePoint: 0xf05a,
-                        color: '#00AED5',
+                        codePoint: 0xf111,
+                        color: '#00729A',
                         size: 16,
                     },
                 });
@@ -490,7 +490,7 @@ export const addDefaultIntervalStyle =
                     label: { fr: '', nl: '' },
                     low: 0,
                     high: 0,
-                    strokeColor: '#00AED5',
+                    strokeColor: '#00729A',
                     strokeWidth: 1,
                 });
                 return s;
@@ -499,8 +499,8 @@ export const addDefaultIntervalStyle =
                     label: { fr: '', nl: '' },
                     low: 0,
                     high: 0,
-                    strokeColor: '#00AED5',
-                    fillColor: '#00AED5',
+                    strokeColor: '#00729A',
+                    fillColor: '#00729A',
                     strokeWidth: 1,
                 });
                 return s;

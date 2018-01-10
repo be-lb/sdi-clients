@@ -1332,12 +1332,12 @@ export const messages: MessageDB = {
     },
 
     extractOn: {
-        fr: 'Éléments visibles',
-        nl: 'Zichtbare elementen',
+        fr: 'Intersection avec la zone visible',
+        nl: 'Kruising met zichtbaar gebied',
     },
 
     extractOff: {
-        fr: 'Tous les élements',
+        fr: 'Tous les éléments',
         nl: 'Alle elementen',
     },
 
