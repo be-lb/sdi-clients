@@ -96,6 +96,7 @@ export const main =
             'data/timeseries': {},
             'data/categories': [],
             'data/attachments': [],
+            'data/baselayers': {},
 
             'port/map/scale': {
                 count: 0,

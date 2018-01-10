@@ -23,7 +23,6 @@ import {
     defaultStyle,
     Feature,
     ILayerInfo,
-    IMapBaseLayer,
     IMapInfo,
     Inspire,
     MessageRecord,
@@ -40,6 +39,7 @@ import {
     fetchLayer,
     fetchMap,
     fetchUser,
+    fetchBaseLayer,
     postLayerInfo,
     postMap,
     putMap,
@@ -124,36 +124,20 @@ observe('app/current-map', () => {
 });
 
 
-const makeMap = (): IMapInfo => {
-    return {
-        status: 'draft',
-        title: { fr: '', nl: '' },
-        description: { fr: '', nl: '' },
-        attachments: [],
-        layers: [],
-        categories: [],
-        lastModified: Date.now(),
-        url: '',
-        baseLayer: {
-            name: {
-                fr: 'urbisFRGray',
-                nl: 'urbisNLGray', // ?
-            },
-            srs: 'EPSG:31370',
-            params: {
-                LAYERS: {
-                    fr: 'urbisFRGray',
-                    nl: 'urbisNLGray', // ?
-                },
-                VERSION: '1.1.1',
-            },
-            url: {
-                fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-                nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-            },
-        },
+const makeMap =
+    (): IMapInfo => {
+        return {
+            status: 'draft',
+            title: { fr: '', nl: '' },
+            description: { fr: '', nl: '' },
+            attachments: [],
+            layers: [],
+            categories: [],
+            lastModified: Date.now(),
+            url: '',
+            baseLayer: '',
+        };
     };
-};
 
 const events = {
 
@@ -189,6 +173,13 @@ const events = {
                             .concat([map])
                     );
                 });
+            });
+    },
+
+    loadBaseLayer(id: string, url: string) {
+        fetchBaseLayer(url)
+            .then((bl) => {
+                dispatch('data/baselayers', state => ({ ...state, [id]: bl }));
             });
     },
 
@@ -445,14 +436,14 @@ const events = {
     },
 
 
-    setMapBaseLayer(l: IMapBaseLayer) {
+    setMapBaseLayer(id: string) {
         const mid = queries.getCurrentMap();
         dispatch('data/maps', (maps) => {
             const idx = maps.findIndex(m => m.id === mid);
 
             if (idx !== -1) {
                 const m = maps[idx];
-                m.baseLayer = l;
+                m.baseLayer = id;
 
                 setTimeout(() => {
                     putMap(getApiUrl(`maps/${mid}`), m);

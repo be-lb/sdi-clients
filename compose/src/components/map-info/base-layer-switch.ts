@@ -19,57 +19,63 @@ import events from '../../events/app';
 import queries from '../../queries/app';
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { IMapBaseLayer } from 'sdi/source';
-import { hashMapBaseLayer } from 'sdi/util';
+// import { IMapBaseLayer } from 'sdi/source';
+// import { hashMapBaseLayer } from 'sdi/util';
 
 const logger = debug('sdi:map-info/base-layer-switch');
 
-const baseLayers: IMapBaseLayer[] = [
-    {
-        name: {
-            fr: 'urbisFRGray',
-            nl: 'urbisNLGray', // ?
-        },
-        srs: 'EPSG:31370',
-        params: {
-            LAYERS: {
-                fr: 'urbisFRGray',
-                nl: 'urbisNLGray', // ?
-            },
-            VERSION: '1.1.1',
-        },
-        url: {
-            fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-            nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-        },
-    },
-    {
-        name: {
-            fr: 'Ortho2016',
-            nl: 'Ortho2016',
-        },
-        srs: 'EPSG:31370',
-        params: {
-            LAYERS: {
-                fr: 'Urbis:Ortho2016',
-                nl: 'Urbis:Ortho2016',
-            },
-            VERSION: '1.1.1',
-        },
-        url: {
-            fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-            nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-        },
-    },
-];
+// const baseLayers: IMapBaseLayer[] = [
+//     {
+//         name: {
+//             fr: 'urbisFRGray',
+//             nl: 'urbisNLGray', // ?
+//         },
+//         srs: 'EPSG:31370',
+//         params: {
+//             LAYERS: {
+//                 fr: 'urbis{LANG#upper}Gray',
+//                 nl: 'urbisNLGray', // ?
+//             },
+//             VERSION: '1.1.1',
+//         },
+//         url: {
+//             fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+//             nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+//         },
+//     },
+//     {
+//         name: {
+//             fr: 'Ortho2016',
+//             nl: 'Ortho2016',
+//         },
+//         srs: 'EPSG:31370',
+//         params: {
+//             LAYERS: {
+//                 fr: 'Urbis:Ortho2016',
+//                 nl: 'Urbis:Ortho2016',
+//             },
+//             VERSION: '1.1.1',
+//         },
+//         url: {
+//             fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+//             nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
+//         },
+//     },
+// ];
+
+const baseLayers = [
+    'urbis.irisnet.be/urbis_gray',
+    'urbis.irisnet.be/ortho_2016',
+]
 
 const render = () => {
-    const current = queries.getCurrentBaseLayer();
+    const current = queries.getCurrentBaseLayerName();
     if (current) {
         let className: string;
-        let other: IMapBaseLayer;
+        let other: string;
 
-        if (hashMapBaseLayer(current) === hashMapBaseLayer(baseLayers[0])) {
+        // if (hashMapBaseLayer(current) === hashMapBaseLayer(baseLayers[0])) {
+        if (current === baseLayers[0]) {
             className = 'switch-background-ortho';
             other = baseLayers[1];
         }

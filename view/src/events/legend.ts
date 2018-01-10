@@ -43,9 +43,9 @@ const events = {
         });
     },
 
-    addWebServiceLayer(lyr: IMapBaseLayer) {
-        dispatch('port/map/baseLayers', bl => bl.concat([lyr]));
-    },
+    // addWebServiceLayer(lyr: IMapBaseLayer) {
+    //     dispatch('port/map/baseLayers', bl => bl.concat([lyr]));
+    // },
 
     updateGeocoderTerm(address: string) {
         dispatch('component/legend/geocoder', state => ({ ...state, address }));

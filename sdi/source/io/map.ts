@@ -67,7 +67,7 @@ export const IMapBaseLayerIO = i({
         LAYERS: MessageRecordIO,
         VERSION: io.string,
     }),
-    url: MessageRecordIO,
+    url: io.string,
 }, 'IMapBaseLayerIO');
 export type IMapBaseLayer = TypeOf<typeof IMapBaseLayerIO>;
 
@@ -86,7 +86,8 @@ export const IMapInfoIO = io.intersection([
         description: MessageRecordIO,
         attachments: a(uuidIO),
         layers: a(ILayerInfoIO),
-        baseLayer: IMapBaseLayerIO,
+        // baseLayer: IMapBaseLayerIO,
+        baseLayer: io.string,
         categories: a(io.string),
     }),
     p({

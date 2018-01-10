@@ -17,35 +17,33 @@
 import { } from 'fp-ts/lib/Array';
 
 import { dispatch, dispatchK } from 'sdi/shape';
-import { hashMapBaseLayer } from 'sdi/util';
 import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction } from 'sdi/map';
 import { tableEvents } from 'sdi/components/table';
 import { MessageRecord } from 'sdi/source';
 
-import appQueries from '../queries/app';
-import { getAllBaseLayers, withExtract } from '../queries/map';
+import { withExtract } from '../queries/map';
 import { Coordinate } from 'openlayers';
 
 const interaction = dispatchK('port/map/interaction');
 
 
-export const selectBaseLayer =
-    (h: string) => {
-        const mid = appQueries.getCurrentMap();
-        const layers = getAllBaseLayers();
-        layers.forEach((l) => {
-            const lh = hashMapBaseLayer(l);
-            if (h === lh) {
-                dispatch('data/maps', (maps) => {
-                    const info = maps.find(m => mid === m.id);
-                    if (info) {
-                        info.baseLayer = { ...l };
-                    }
-                    return maps;
-                });
-            }
-        });
-    };
+// export const selectBaseLayer =
+//     (h: string) => {
+//         const mid = appQueries.getCurrentMap();
+//         const layers = getAllBaseLayers();
+//         layers.forEach((l) => {
+//             const lh = hashMapBaseLayer(l);
+//             if (h === lh) {
+//                 dispatch('data/maps', (maps) => {
+//                     const info = maps.find(m => mid === m.id);
+//                     if (info) {
+//                         info.baseLayer = { ...l };
+//                     }
+//                     return maps;
+//                 });
+//             }
+//         });
+//     };
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
 export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));

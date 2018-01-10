@@ -103,11 +103,21 @@ const queries = {
         return query('app/current-feature');
     },
 
-    getCurrentBaseLayer() {
+    getCurrentBaseLayerName() {
         const mid = query('app/current-map');
         const map = query('data/maps').find(m => m.id === mid);
         if (map) {
             return map.baseLayer;
+        }
+        return null;
+    },
+
+
+    getCurrentBaseLayer() {
+        const name = queries.getCurrentBaseLayerName();
+        const bls = query('data/baselayers');
+        if (name && name in bls) {
+            return bls[name];
         }
         return null;
     },

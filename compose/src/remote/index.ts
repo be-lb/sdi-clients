@@ -38,6 +38,8 @@ import {
     deleteIO,
     fetchPaginatedIO,
     fetchWithoutValidationIO,
+    IMapBaseLayer,
+    IMapBaseLayerIO,
 } from 'sdi/source';
 
 
@@ -71,6 +73,8 @@ export const fetchLayer =
 
 
 export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url, fetchOptions());
+export const fetchBaseLayer = (url: string): Promise<IMapBaseLayer> => fetchIO(IMapBaseLayerIO, url, fetchOptions());
+
 export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
 export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url, fetchOptions());

@@ -34,7 +34,7 @@ interface NotNullProperties {
 
 const tsToDateString =
     (ts: number) =>
-        (new Date(ts)).toISOString().substr(0, 10);
+        (new Date(ts * 1000)).toISOString().substr(0, 10);
 
 
 const findTSIndex =
@@ -80,7 +80,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.startSelection(d);
+                                events.startSelection(d / 1000);
                             }
                         },
                     }));
@@ -95,7 +95,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.endSelection(d);
+                                events.endSelection(d / 1000);
                             }
                         },
                     }));

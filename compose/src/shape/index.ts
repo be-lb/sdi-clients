@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Feature, IUser, IMapInfo, Category, Attachment, Inspire } from 'sdi/source';
+import { Feature, IUser, IMapInfo, Category, Attachment, Inspire, IMapBaseLayer } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ButtonComponent } from 'sdi/components/button';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
@@ -31,6 +31,10 @@ import { ILegendEditor } from '../components/legend-editor';
 import { EditableState } from '../components/editable';
 import { FeatureConfig } from '../components/feature-config';
 import { LayerEditor } from '../components/layer';
+
+interface BaseLayerCollection {
+    [k: string]: IMapBaseLayer;
+}
 
 // State Augmentation
 
@@ -70,5 +74,6 @@ declare module 'sdi/shape' {
         'data/timeseries': ITimeserieCollection;
         'data/categories': Category[];
         'data/attachments': Attachment[];
+        'data/baselayers': BaseLayerCollection;
     }
 }

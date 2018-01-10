@@ -111,9 +111,17 @@ const renderMain =
         }
     };
 
+
+const baseLayers = [
+    'urbis.irisnet.be/urbis_gray',
+    'urbis.irisnet.be/ortho_2016',
+];
+
 const effects =
     () => {
         viewEvents.updateMapView({ dirty: 'geo' });
+        baseLayers.forEach(id =>
+            events.loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
         navigate();

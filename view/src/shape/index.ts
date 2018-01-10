@@ -41,7 +41,9 @@ import {
 } from './types';
 
 
-
+interface BaseLayerCollection {
+    [k: string]: IMapBaseLayer;
+}
 
 
 declare module 'sdi/shape' {
@@ -65,7 +67,6 @@ declare module 'sdi/shape' {
         'component/legend/share': IShare;
         'component/button': ButtonComponent;
 
-        'port/map/baseLayers': IMapBaseLayer[];
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
         'port/map/interaction': Interaction;
@@ -78,6 +79,7 @@ declare module 'sdi/shape' {
         'data/categories': Category[];
         'data/datasetMetadata': IDatasetMetadataCollection;
         'data/attachments': Attachment[];
+        'data/baselayers': BaseLayerCollection;
     }
 }
 

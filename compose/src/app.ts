@@ -130,6 +130,10 @@ const renderMain =
         }
     };
 
+const baseLayers = [
+    'urbis.irisnet.be/urbis_gray',
+    'urbis.irisnet.be/ortho_2016',
+];
 
 const effects =
     () => {
@@ -139,7 +143,10 @@ const effects =
                 events.loadUser(getApiUrl(`users/${userId}`)));
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
-        events.loadAllDatasetMetadata(() => events.setLayout(AppLayout.Dashboard));
+        baseLayers.forEach(id =>
+            events.loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
+        events.loadAllDatasetMetadata(() =>
+            events.setLayout(AppLayout.Dashboard));
     };
 
 

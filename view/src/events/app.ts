@@ -23,7 +23,7 @@ import { getApiUrl } from 'sdi/app';
 import { scopeOption } from 'sdi/lib';
 
 import { AppLayout } from '../shape/types';
-import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment } from '../remote';
+import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment, fetchBaseLayer } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
 import { fromNullable } from 'fp-ts/lib/Option';
@@ -114,6 +114,13 @@ const events = {
                     dispatch('data/maps', () => [info]);
                     loadMap(info);
                 }));
+    },
+
+    loadBaseLayer(id: string, url: string) {
+        fetchBaseLayer(url)
+            .then((bl) => {
+                dispatch('data/baselayers', state => ({ ...state, [id]: bl }));
+            });
     },
 
     loadAllMaps() {

@@ -132,44 +132,6 @@ export const main =
 
             'port/map/interaction': defaultInteraction(),
 
-            'port/map/baseLayers': [
-                {
-                    name: {
-                        fr: 'urbisFRGray',
-                        nl: 'urbisNLGray',
-                    },
-                    srs: 'EPSG:31370',
-                    params: {
-                        LAYERS: {
-                            fr: 'urbisFRGray',
-                            nl: 'urbisNLGray',
-                        },
-                        VERSION: '1.1.1',
-                    },
-                    url: {
-                        fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-                        nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-                    },
-                },
-                {
-                    name: {
-                        fr: 'Ortho2016',
-                        nl: 'Ortho2016',
-                    },
-                    srs: 'EPSG:31370',
-                    params: {
-                        LAYERS: {
-                            fr: 'Urbis:Ortho2016',
-                            nl: 'Urbis:Ortho2016',
-                        },
-                        VERSION: '1.1.1',
-                    },
-                    url: {
-                        fr: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-                        nl: 'https://geoservices-urbis.irisnet.be/geoserver/ows',
-                    },
-                },
-            ],
             'port/map/loading': [],
             'data/layers': {},
             'data/maps': [],
@@ -178,6 +140,7 @@ export const main =
             'data/categories': [],
             'data/datasetMetadata': {},
             'data/attachments': [],
+            'data/baselayers': {},
         };
 
         try {

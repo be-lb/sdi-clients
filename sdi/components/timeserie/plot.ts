@@ -57,11 +57,15 @@ type TimeserieRowVal = [
 
 type TimeserieVal = TimeserieRowVal[];
 
+const ensureNumber =
+    (n: number | string) =>
+        typeof n === 'string' ? parseFloat(n) : n;
+
 const fromRowIO =
     (t: ITimeserieRow): Option<TimeserieRowVal> => {
         const val = t[1];
         if (val !== null) {
-            return some<TimeserieRowVal>([t[0], val]);
+            return some<TimeserieRowVal>([t[0], ensureNumber(val)]);
         }
         return none;
     };
@@ -152,7 +156,7 @@ export const simplifyData = (data: ITimeserie, lengthMax: number) => {
             for (let i = k; i < limit; i += 1) {
                 const val = data[i][1];
                 if (val !== null) {
-                    sum += val;
+                    sum += ensureNumber(val);
                     samples += 1;
                 }
             }
@@ -183,9 +187,9 @@ const deriveScale = (data: ITimeserie, padding = .25): IChartScale | null => {
     let max: number | null = null;
 
     for (let i = 0; i < data.length; i += 1) {
-        const val = data[i][1];
-
-        if (val !== null) {
+        const v = data[i][1];
+        if (v !== null) {
+            const val = ensureNumber(v);
             min = (min !== null && min < val) ? min : val;
             max = (max !== null && max > val) ? max : val;
         }
@@ -243,7 +247,7 @@ export const plotter =
                                 const bars = data.map((v, k) => {
                                     const val = v[1];
                                     if (val) {
-                                        const height = ((val - scale.min) / spread) * graphsize.height;
+                                        const height = ((ensureNumber(val) - scale.min) / spread) * graphsize.height;
                                         const highlighted = (k === activeBar) ? true : false;
                                         logger(`${val}, ${height}, ${k * barwidth}`);
                                         return rect(k * barwidth, graphsize.height - height, barwidth, height, {

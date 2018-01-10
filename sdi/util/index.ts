@@ -13,7 +13,7 @@ export interface IMapBaseLayerTranslated {
 }
 
 export const hashMapBaseLayer = (l: IMapBaseLayer) => {
-    return `${fromRecord(l.name)}|${fromRecord(l.url)}|${fromRecord(l.params.LAYERS)}`;
+    return `${fromRecord(l.name)}|${l.url}|${fromRecord(l.params.LAYERS)}`;
 };
 
 export const uniq =
@@ -31,7 +31,7 @@ export const translateMapBaseLayer = (l: IMapBaseLayer): IMapBaseLayerTranslated
         LAYERS: fromRecord(l.params.LAYERS),
         VERSION: l.params.VERSION,
     },
-    url: fromRecord(l.url),
+    url: l.url,
 });
 
 export const uniqIdGen = (prefix = '') => {

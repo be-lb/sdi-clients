@@ -11,7 +11,7 @@ import { TableSource, TableDataType, TableDataRow, tableQueries } from 'sdi/comp
 
 export const getView = queryK('port/map/view');
 
-export const getAllBaseLayers = queryK('port/map/baseLayers');
+// export const getAllBaseLayers = queryK('port/map/baseLayers');
 
 export const getScaleLine = queryK('port/map/scale');
 
