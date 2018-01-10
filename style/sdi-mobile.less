@@ -1,0 +1,117 @@
+//POSITIONS
+
+@media @portrait {
+    .header,
+    .main,
+    .footer {
+        position: relative;
+        width: calc(~"100vw - 2 * @{margin-mob}");
+        height: auto;
+        top: initial;
+        right: initial;
+        bottom: initial;
+        left: initial;
+        margin: 0 @margin-mob;
+        padding: 0;
+    }
+
+    .main {
+        .map-wrapper,
+        .map-legend,
+        .feature-infos {
+            position: relative;
+            top: initial;
+            right: initial;
+            bottom: initial;
+            left: initial;
+            width: calc(~"100vw - 2 * @{margin-mob}");
+            height: auto;
+            margin: 0;
+            padding: 0;
+        }
+
+        .map-wrapper {
+            height: calc(~"100vw - 2 * @{margin-mob}"); // make it square
+        }
+    }
+
+    h1 {
+        font-size: 250%;
+    }
+}
+
+
+// HEADER
+
+@media @portrait {
+    body[lang="fr"] .be-name {
+        width: calc(~"100vw - 2 * @{margin-mob}");
+        max-width: 418px;
+    }
+
+    body[lang="nl"] .be-name {
+        width: calc(~"100vw - 2 * @{margin-mob}");
+        max-width: 358px;
+    }
+
+    .header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: @margin-mob * 2;
+
+        .be-logo,
+        .be-logo > div {
+            height: 100vw *  0.095; //+/- image ratio
+            // max-height: 35px;
+        }
+
+        .be-logo {
+            border-bottom: 1px solid @grey;
+            margin-bottom: @margin-mob * 2;
+        }
+
+        .app-title,
+        .app-listwrapper,
+        .header-toolbar {
+            position: relative;
+            width : auto;
+            height: 20px;
+            top: initial;
+            right: initial;
+            bottom: initial;
+            left: initial;
+        }
+
+        .app-title {
+            margin-left: 0;
+            font-size: 1.1rem;
+        }
+
+        .app-listwrapper {
+            .navigate {
+                margin : 0;
+            }
+        }
+
+        .header-toolbar {
+            .dashboard {display: none;}
+        }
+    }
+}
+
+
+
+// MAP
+
+@media @portrait {
+    .main {
+        .map-wrapper {}
+
+        .switcher.infos {
+            .absolute(0, initial, initial, 0);
+            border-left-color: #fff;
+            border-right-color: @grey;
+        }
+    }
+}
