@@ -21,9 +21,6 @@ import { SyntheticLayerInfo } from 'sdi/app';
 
 
 const queries = {
-
-
-
     mapReady() {
         return query('app/map-ready');
     },
@@ -112,14 +109,35 @@ const queries = {
         return null;
     },
 
+    gteBaseLayer(id: string | null) {
+        const bls = query('data/baselayers');
+        if (id && id in bls) {
+            return bls[id];
+        }
+        return null;
+    },
 
     getCurrentBaseLayer() {
         const name = queries.getCurrentBaseLayerName();
-        const bls = query('data/baselayers');
-        if (name && name in bls) {
-            return bls[name];
-        }
-        return null;
+        return queries.gteBaseLayer(name);
+    },
+
+    getBaseLayerServices() {
+        const names = Object.keys(query('data/baselayers')).map(id => id.split('/')[0]);
+        return names.reduce<string[]>((acc, name) => {
+            if (acc.indexOf(name) >= 0) {
+                return acc;
+            }
+            return acc.concat([name]);
+        }, []);
+    },
+
+    getBaseLayersForService(name: string) {
+        const collection = query('data/baselayers');
+        const layers =
+            Object.keys(collection)
+                .filter(id => id.split('/')[0] === name);
+        return layers;
     },
 
 };

@@ -112,16 +112,17 @@ const renderMain =
     };
 
 
-const baseLayers = [
-    'urbis.irisnet.be/urbis_gray',
-    'urbis.irisnet.be/ortho_2016',
-];
+// const baseLayers = [
+//     'urbis.irisnet.be/urbis_gray',
+//     'urbis.irisnet.be/ortho_2016',
+// ];
 
 const effects =
     () => {
         viewEvents.updateMapView({ dirty: 'geo' });
-        baseLayers.forEach(id =>
-            events.loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
+        // baseLayers.forEach(id =>
+        //     events.loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
+        events.loadAllBaseLayers(getApiUrl(`wmsconfig/`));
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
         navigate();

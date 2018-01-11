@@ -16,159 +16,41 @@
  */
 
 import * as debug from 'debug';
-// import { format } from 'openlayers';
+import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV, H2, INPUT } from 'sdi/components/elements';
-import tr from 'sdi/locale';
-import { translateMapBaseLayer } from 'sdi/util';
+import { DIV, H2 } from 'sdi/components/elements';
+import tr, { fromRecord } from 'sdi/locale';
 
-import queries from '../../queries/legend';
-import events from '../../events/legend';
-// import { getBaseLayer, getAllBaseLayers } from '../../queries/map';
-// import { selectBaseLayer } from '../../events/map';
-import { ChangeEvent } from 'react';
-import { IToolWebServices } from '../../shape/types';
+import appQueries from '../../queries/app';
+import appEvents from '../../events/app';
 
 const logger = debug('sdi:webservices');
 
 
-
-// const wmsCapParser = new format.WMSCapabilities();
-// // const wmtsCapParser = new format.WMTSCapabilities();
-
-// const renderBaseLayers = () => {
-//     const currentBaseLayer = getBaseLayer();
-//     const cblh = currentBaseLayer === null
-//         ? ''
-//         : hashMapBaseLayer(currentBaseLayer);
-//     return (
-//         getAllBaseLayers()
-//             .map((layer) => {
-//                 const layerName = fromRecord(layer.name);
-//                 const lh = hashMapBaseLayer(layer);
-//                 const className = cblh === lh ? 'active' : '';
-//                 return DIV({
-//                     className,
-//                     onClick: () => {
-//                         selectBaseLayer(lh);
-//                     },
-//                 }, layerName);
-//             }));
-// };
-
-// const queryString = (o: { [k: string]: any }) => {
-//     return Object.keys(o).reduce((a, k) => {
-//         return `${a}&${k}=${o[k].toString()}`;
-//     }, '');
-// };
-
-// interface CapLayer {
-//     Name: string;
-//     Title: string;
-// }
-
-// interface WMSCapabilities {
-//     version: string;
-//     Service: {
-//         Title: string;
-//         [k: string]: any;
-//     };
-//     Capability: {
-//         Layer: {
-//             Layer: CapLayer[];
-//         };
-//     };
-// }
-
-// const getLayers = (state: IToolWebServices,
-// ) => () => {
-//     const options: RequestInit = {
-//         method: 'GET',
-//         mode: 'cors',
-//         cache: 'default',
-//     };
-//     const qs = queryString({
-//         SERVICE: 'WMS',
-//         request: 'GetCapabilities',
-//     });
-
-//     fetch(`${state.url}?${qs}`, options)
-//         .then((response) => {
-//             if (response.ok) {
-//                 return response.text();
-//             }
-//             throw new Error(`Network response was not ok.\n${response.statusText}`);
-//         })
-//         .then((text) => {
-//             const parsed = <WMSCapabilities>wmsCapParser.read(text);
-//             const capalility = parsed.Capability;
-//             const root = capalility.Layer;
-//             const layers = root.Layer;
-//             const services = layers.map<IMapBaseLayer>((cl) => {
-//                 return {
-//                     name: { fr: cl.Title, nl: cl.Title },
-//                     srs: 'EPSG:31370',
-//                     url: { fr: state.url, nl: state.url },
-//                     params: {
-//                         LAYERS: { fr: cl.Name, nl: cl.Name },
-//                         VERSION: parsed.version,
-//                     },
-//                 };
-//             });
-
-//             events.updateWebServiceLayers(services);
-//         });
-// };
-
-const updateUrl = (e: ChangeEvent<HTMLInputElement>) => {
-    const url = e.target.value;
-    events.updateWebServiceURL(url);
-};
-
-const folded = (_state: IToolWebServices,
-) => {
-    return DIV({ className: 'tool wms-picker' },
-        H2({}, tr('wmsSwitch')),
-        DIV({ className: 'tool-body' },
-            // ...renderBaseLayers(),
-            DIV({ className: 'wms-browser' },
-                INPUT({
-                    type: 'url',
-                    placeholder: tr('webServiceUrl'),
-                    onChange: updateUrl,
-                }),
-                DIV({
-                    className: 'btn-connect',
-                    // onClick: getLayers(state),
-                }, tr('connect')))));
-};
+const renderBaseLayer =
+    (id: string) =>
+        fromNullable(appQueries.gteBaseLayer(id)).fold(
+            () => DIV(),
+            bl => DIV({
+                className: 'base-layer',
+                onClick: () => appEvents.setMapBaseLayer(id),
+            }, fromRecord(bl.name)));
 
 
-const unfolded = (state: IToolWebServices,
-) => {
-    const layers = state.layers.map((layer) => {
-        const tl = translateMapBaseLayer(layer);
-        return DIV({
-            onClick: () => {
-                // events.addWebServiceLayer(layer);
-            },
-        }, tl.name);
-    });
-
-    return DIV({ className: 'tool wms-picker' },
-        H2({}, tr('wmsSwitch')),
-        DIV({ className: 'tool-body' },
-            ...layers));
-};
+const renderService =
+    (service: string) =>
+        DIV({ className: 'webservice' },
+            H2({}, service),
+            appQueries.getBaseLayersForService(service).map(renderBaseLayer));
 
 
-const webservices = () => {
-    const state = queries.toolsWebservices();
-    if (state.folded) {
-        return folded(state);
-    }
-    return unfolded(state);
-};
+const webservices =
+    () => {
+        const services = appQueries.getBaseLayerServices();
+        return DIV({ className: 'tool wms-picker' },
+            H2({}, tr('wmsSwitch')),
+            DIV({ className: 'tool-body' }, services.map(renderService)));
+    };
 
 
 export default webservices;

@@ -20,10 +20,15 @@ import * as io from 'io-ts';
 
 const mapArray = io.array(IMapInfoIO);
 
+const BaseLayerCollectionIO = io.dictionary(io.string, IMapBaseLayerIO, 'BaseLayerCollection');
+type BaseLayerCollection = io.TypeOf<typeof BaseLayerCollectionIO>;
+
 export const fetchLayer =
     (url: string): Promise<FeatureCollection> => fetchWithoutValidationIO(url);
 export const fetchBaseLayer =
     (url: string): Promise<IMapBaseLayer> => fetchIO(IMapBaseLayerIO, url);
+export const fetchBaseLayerAll =
+    (url: string): Promise<BaseLayerCollection> => fetchIO(BaseLayerCollectionIO, url);
 export const fetchAllMaps =
     (url: string): Promise<IMapInfo[]> => fetchIO(mapArray, url);
 export const fetchMap =
