@@ -78,6 +78,7 @@ const styleGroupValueAdd =
             const groups: DiscreteGroup[] = style.groups;
             if (groups.every(group => group.values.indexOf(value) === -1)) {
                 events.addDiscreteStyleGroupValue(value);
+                events.setStyleGroupEditedValue('');
             }
         }
     };
@@ -104,6 +105,7 @@ const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
             () => '',
             events.setStyleGroupEditedValue,
             {
+                key: `StyleGroupUnfoldedTerm_${key}`,
                 placeholder: tr('addTerm'),
             }));
     }
@@ -113,6 +115,7 @@ const renderStyleGroupUnfolded = (group: DiscreteGroup, key: number) => {
                 () => curVal,
                 events.setStyleGroupEditedValue,
                 {
+                    key: `StyleGroupUnfoldedTerm_${key}`,
                     onKeyDown: styleGroupValueKeyHandler,
                 }), addTermButton(styleGroupValueAdd));
     }
