@@ -72,6 +72,27 @@ const isWorking =
 const loadingMonitor = loadingMon();
 
 
+const getResolutionForZoom =
+    (projectionLike: string | proj.Projection) => {
+        const view = new View({
+            projection: proj.get(projectionLike),
+            center: [0, 0],
+            rotation: 0,
+            zoom: 0,
+        });
+        // should be if types were up to date
+        //    return (z: number) => view.getResolutionForZoom(z)
+
+        // from https://github.com/openlayers/openlayers/blob/v4.6.4/src/ol/view.js#L845
+        return (z: number | undefined, defaultVal: number) => (
+            view.constrainResolution(
+                view.getMaxResolution(), z === undefined ?
+                    defaultVal : z, 0)
+        );
+    };
+
+const getResolutionForZoomL72 = getResolutionForZoom('EPSG:31370');
+
 const getLayerData =
     (fetchData: FetchData, vs: source.Vector, title: MessageRecord) => {
         const fetcher =
@@ -165,6 +186,8 @@ export const addLayer =
             const vl = new layer.Vector({
                 source: vs,
                 style: styleFn,
+                maxResolution: getResolutionForZoomL72(info.minZoom, 0),
+                minResolution: getResolutionForZoomL72(info.maxZoom, 30),
             });
             vl.set('id', info.id);
             vl.setVisible(info.visible);
@@ -245,6 +268,10 @@ const updateLayers =
                                 logger(`Layer ${id} ${visible} ${z}`);
                                 l.setVisible(visible);
                                 l.setZIndex(z);
+                                l.setMaxResolution(
+                                    getResolutionForZoomL72(info.minZoom, 0));
+                                l.setMinResolution(
+                                    getResolutionForZoomL72(info.maxZoom, 30));
                             }
                         });
                 });
@@ -378,7 +405,7 @@ export const create =
                     u.fn();
                     return u.name;
                 });
-                logger(`updated ${us.join(', ')}`);
+                logger(`updated ${us.join(', ')} @ z${view.getZoom()}`);
             };
 
 
