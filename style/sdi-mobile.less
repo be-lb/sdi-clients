@@ -31,7 +31,24 @@
         }
 
         .map-wrapper {
-            height: calc(~"100vw - 4 * @{margin-mob}"); // make it square
+            height: calc(~"100vw - 4 * @{margin-mob}"); // make a square map
+        }
+    }
+
+
+    .vertical-split {
+        position: relative;
+        height: 200vw !important;
+        max-height: calc(~"100vh - 4 * @{margin-mob}") !important; //we get map + table on fullscreen
+        top: initial;
+        right: initial;
+        bottom: initial;
+        left: initial;
+
+        .map-wrapper {
+            height: auto;
+            bottom: 50% !important;
+            margin-bottom: 0 !important;
         }
     }
 
@@ -134,10 +151,29 @@
 
         .map-legend {
             .legend-main {padding: 0;}
+        }
+    }
+}
 
-            // .map-description,
-            // .map-file,
-            // .legend-group {padding: 0 15px}
+
+// TABLE
+
+@media @portrait {
+    div.infinite-table {
+        .table-toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+
+            > div {margin-bottom: @small-margin;}
+
+            .table-title {
+                max-width: calc(~"100% - 30px");
+            }
+
+            .btn-close {
+                .absolute(2*@small-margin, @small-margin, initial, initial);
+            }
+
         }
     }
 }
