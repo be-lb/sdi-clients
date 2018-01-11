@@ -5,33 +5,50 @@
     .main,
     .footer {
         position: relative;
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         height: auto;
         top: initial;
         right: initial;
         bottom: initial;
         left: initial;
-        margin: 0 @margin-mob;
+        margin: 0 2 * @margin-mob;
         padding: 0;
     }
 
     .main {
         .map-wrapper,
         .map-legend,
-        .feature-infos {
+        .feature-view.config {
             position: relative;
             top: initial;
             right: initial;
             bottom: initial;
             left: initial;
-            width: calc(~"100vw - 2 * @{margin-mob}");
+            width: calc(~"100vw - 4 * @{margin-mob}");
             height: auto;
             margin: 0;
             padding: 0;
         }
 
         .map-wrapper {
-            height: calc(~"100vw - 2 * @{margin-mob}"); // make it square
+            height: calc(~"100vw - 4 * @{margin-mob}"); // make a square map
+        }
+    }
+
+
+    .vertical-split {
+        position: relative;
+        height: 200vw !important;
+        max-height: calc(~"100vh - 4 * @{margin-mob}") !important; //we get map + table on fullscreen
+        top: initial;
+        right: initial;
+        bottom: initial;
+        left: initial;
+
+        .map-wrapper {
+            height: auto;
+            bottom: 50% !important;
+            margin-bottom: 0 !important;
         }
     }
 
@@ -45,12 +62,12 @@
 
 @media @portrait {
     body[lang="fr"] .be-name {
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 418px;
     }
 
     body[lang="nl"] .be-name {
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 358px;
     }
 
@@ -58,7 +75,9 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-bottom: @margin-mob * 2;
+        margin-bottom: @margin-mob;
+        border-bottom: 1px solid @grey;
+        padding-bottom: @margin-mob * 2;
 
         .be-logo,
         .be-logo > div {
@@ -106,12 +125,55 @@
 
 @media @portrait {
     .main {
-        .map-wrapper {}
+        .map-wrapper {
+            margin-bottom: @margin-mob *2;
+
+            .tool.geocoder {
+                .absolute(0, initial, initial, 0);
+                z-index: 10;
+                min-height: 25px;
+                border-bottom-color: @grey;
+                border-top-color: @white;
+                max-width: calc(~"100vw - 4 * @{margin-mob} - 30px");
+
+                .adress-result span {
+                    min-height: 20px;
+                    height: auto;
+                    padding: 2px 0;
+                }
+            }
+        }
 
         .switcher.infos {
-            .absolute(0, initial, initial, 0);
-            border-left-color: #fff;
-            border-right-color: @grey;
+            .absolute(0, 0, initial, initial);
+        }
+
+
+        .map-legend {
+            .legend-main {padding: 0;}
+        }
+    }
+}
+
+
+// TABLE
+
+@media @portrait {
+    div.infinite-table {
+        .table-toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+
+            > div {margin-bottom: @small-margin;}
+
+            .table-title {
+                max-width: calc(~"100% - 30px");
+            }
+
+            .btn-close {
+                .absolute(2*@small-margin, @small-margin, initial, initial);
+            }
+
         }
     }
 }
