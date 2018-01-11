@@ -46,15 +46,21 @@ export const LayerGroupIO = i({
 }, 'LayerGroupIO');
 export type LayerGroup = TypeOf<typeof LayerGroupIO>;
 
-export const ILayerInfoIO = i({
-    id: io.string,
-    metadataId: io.string,
-    visible: io.boolean,
-    style: StyleConfigIO,
-    featureViewOptions: FeatureViewOptionsIO,
-    legend: nullable(MessageRecordIO),
-    group: nullable(LayerGroupIO),
-}, 'ILayerInfoIO');
+export const ILayerInfoIO = io.intersection([
+    i({
+        id: io.string,
+        metadataId: io.string,
+        visible: io.boolean,
+        style: StyleConfigIO,
+        featureViewOptions: FeatureViewOptionsIO,
+        legend: nullable(MessageRecordIO),
+        group: nullable(LayerGroupIO),
+    }),
+    p({
+        minZoom: io.number,
+        maxZoom: io.number,
+    }),
+], 'ILayerInfoIO');
 export type ILayerInfo = TypeOf<typeof ILayerInfoIO>;
 
 
