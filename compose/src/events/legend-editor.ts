@@ -245,6 +245,23 @@ const events = {
     },
 
 
+    setZoomRange(lid: string, min: number | undefined, max: number | undefined) {
+        const mid = appQueries.getCurrentMap();
+        dispatch('data/maps', (maps) => {
+            const map = maps.find(m => m.id === mid);
+            if (map) {
+                const info = map.layers.find(l => l.id === lid);
+                if (info) {
+                    info.maxZoom = max;
+                    info.minZoom = min;
+                    syncMap(map);
+                }
+            }
+            return maps;
+        });
+    },
+
+
     moveLayerUp(lid: string) {
         const mid = appQueries.getCurrentMap();
         dispatch('data/maps', (maps) => {
