@@ -152,6 +152,7 @@ export type MessageKey =
     | 'mapLinkWithView'
     | 'mapRefList'
     | 'mapTools'
+    | 'maxZoom'
     | 'measure'
     | 'measureArea'
     | 'measureLength'
@@ -161,6 +162,7 @@ export type MessageKey =
     | 'metadataEditor'
     | 'metaDutch'
     | 'metaFrench'
+    | 'minZoom'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -1424,5 +1426,15 @@ export const messages: MessageDB = {
     endDate: {
         fr: 'Date de fin',
         nl: 'Einddatum',
+    },
+
+    minZoom: {
+        fr: 'Zoom minimal',
+        nl: 'Minimale zoom',
+    },
+
+    maxZoom: {
+        fr: 'Zoom maximal',
+        nl: 'Maximale zoom',
     },
 };

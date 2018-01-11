@@ -18,6 +18,7 @@
 
 
 import { DIV, H1, SPAN } from 'sdi/components/elements';
+import { inputNumber } from 'sdi/components/input';
 import tr, { fromRecord } from 'sdi/locale';
 import { StyleConfig, SubType } from 'sdi/source';
 
@@ -127,7 +128,33 @@ const renderLegendType = (legendType: SubType) => {
 };
 
 
+const renderZoomRange =
+    (lid: string) => {
+        const { info } = appQueries.getLayerInfo(lid);
+        if (info) {
+            const setMin =
+                (n: number) => {
+                    events.setZoomRange(lid, n, info.maxZoom);
+                };
+            const setMax =
+                (n: number) => {
+                    events.setZoomRange(lid, info.minZoom, n);
+                };
+            const minInput = inputNumber(() => info.minZoom || 0, setMin);
+            const maxInput = inputNumber(() => info.maxZoom || 0, setMax);
 
+            return (
+                DIV({ className: 'zoom-range' },
+                    DIV({ className: 'zoom-range-input-box' },
+                        DIV({ className: 'label' }, tr('minZoom')),
+                        minInput),
+                    DIV({ className: 'zoom-range-input-box' },
+                        DIV({ className: 'label' }, tr('maxZoom')),
+                        maxInput))
+            );
+        }
+        return DIV();
+    };
 
 const renderLayerInfo = (lid: string, _style: StyleConfig) => {
     const gt = queries.getGeometryType();
@@ -142,11 +169,11 @@ const renderLayerInfo = (lid: string, _style: StyleConfig) => {
         contents.push(renderMapTableSwitch());
         contents.push(H1({}, SPAN({}, layerName)));
 
-
         contents.push(featureEditButton(() => {
             featureConfigEvents.resetEditor();
             appEvents.setLayout(AppLayout.FeatureConfig);
         }));
+        contents.push(renderZoomRange(lid));
 
         if ('simple' !== legendType) {
             contents.push(resetButton(events.resetLegend));
