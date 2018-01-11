@@ -5,13 +5,13 @@
     .main,
     .footer {
         position: relative;
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         height: auto;
         top: initial;
         right: initial;
         bottom: initial;
         left: initial;
-        margin: 0 @margin-mob;
+        margin: 0 2 * @margin-mob;
         padding: 0;
     }
 
@@ -24,14 +24,14 @@
             right: initial;
             bottom: initial;
             left: initial;
-            width: calc(~"100vw - 2 * @{margin-mob}");
+            width: calc(~"100vw - 4 * @{margin-mob}");
             height: auto;
             margin: 0;
             padding: 0;
         }
 
         .map-wrapper {
-            height: calc(~"100vw - 2 * @{margin-mob}"); // make it square
+            height: calc(~"100vw - 4 * @{margin-mob}"); // make it square
         }
     }
 
@@ -45,12 +45,12 @@
 
 @media @portrait {
     body[lang="fr"] .be-name {
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 418px;
     }
 
     body[lang="nl"] .be-name {
-        width: calc(~"100vw - 2 * @{margin-mob}");
+        width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 358px;
     }
 
@@ -117,7 +117,7 @@
                 min-height: 25px;
                 border-bottom-color: @grey;
                 border-top-color: @white;
-                max-width: calc(~"100vw - 40px");
+                max-width: calc(~"100vw - 4 * @{margin-mob} - 30px");
 
                 .adress-result span {
                     min-height: 20px;
@@ -129,6 +129,15 @@
 
         .switcher.infos {
             .absolute(0, 0, initial, initial);
+        }
+
+
+        .map-legend {
+            .legend-main {padding: 0;}
+
+            // .map-description,
+            // .map-file,
+            // .legend-group {padding: 0 15px}
         }
     }
 }
