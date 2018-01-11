@@ -58,7 +58,9 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-bottom: @margin-mob * 2;
+        margin-bottom: @margin-mob;
+        border-bottom: 1px solid @grey;
+        padding-bottom: @margin-mob * 2;
 
         .be-logo,
         .be-logo > div {
@@ -106,12 +108,27 @@
 
 @media @portrait {
     .main {
-        .map-wrapper {}
+        .map-wrapper {
+            margin-bottom: @margin-mob *2;
+
+            .tool.geocoder {
+                .absolute(0, initial, initial, 0);
+                z-index: 10;
+                min-height: 25px;
+                border-bottom-color: @grey;
+                border-top-color: @white;
+                max-width: calc(~"100vw - 40px");
+
+                .adress-result span {
+                    min-height: 20px;
+                    height: auto;
+                    padding: 2px 0;
+                }
+            }
+        }
 
         .switcher.infos {
-            .absolute(0, initial, initial, 0);
-            border-left-color: #fff;
-            border-right-color: @grey;
+            .absolute(0, 0, initial, initial);
         }
     }
 }
