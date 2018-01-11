@@ -245,13 +245,13 @@ const events = {
     },
 
 
-    moveLayerUp(info: ILayerInfo) {
+    moveLayerUp(lid: string) {
         const mid = appQueries.getCurrentMap();
-        const lid = info.id;
         dispatch('data/maps', (maps) => {
             const map = maps.find(m => m.id === mid);
             if (map) {
                 const currentIndex = map.layers.findIndex(l => l.id === lid);
+                const info = map.layers[currentIndex];
                 if (currentIndex >= 0
                     && currentIndex < (map.layers.length - 1)) {
                     map.layers[currentIndex] = map.layers[currentIndex + 1];
@@ -264,13 +264,13 @@ const events = {
     },
 
 
-    moveLayerDown(info: ILayerInfo) {
+    moveLayerDown(lid: string) {
         const mid = appQueries.getCurrentMap();
-        const lid = info.id;
         dispatch('data/maps', (maps) => {
             const map = maps.find(m => m.id === mid);
             if (map) {
                 const currentIndex = map.layers.findIndex(l => l.id === lid);
+                const info = map.layers[currentIndex];
                 if (currentIndex > 0
                     && currentIndex < map.layers.length) {
                     map.layers[currentIndex] = map.layers[currentIndex - 1];

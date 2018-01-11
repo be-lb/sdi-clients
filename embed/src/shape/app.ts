@@ -1,6 +1,10 @@
 
 // imports from sdi
-import { IUser } from 'sdi/source';
+import { IUser, IMapBaseLayer } from 'sdi/source';
+
+interface BaseLayerCollection {
+    [k: string]: IMapBaseLayer;
+}
 
 
 // State Augmentation
@@ -11,5 +15,6 @@ declare module 'sdi/shape' {
         'app/route': string[];
 
         'data/user': IUser | null;
+        'data/baselayers': BaseLayerCollection;
     }
 }

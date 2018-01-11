@@ -6,7 +6,7 @@ import { getApiUrl } from 'sdi/app';
 import { IMapInfo, getMessageRecord, Inspire, ILayerInfo } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 
-import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer } from '../remote';
+import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer, fetchBaseLayer } from '../remote';
 import { viewEvents } from './map';
 
 
@@ -48,7 +48,7 @@ const getNumber =
             }
         }
         return null;
-    }
+    };
 
 const setMapView =
     () => {
@@ -62,9 +62,9 @@ const setMapView =
                     dirty: 'geo',
                     center: [lat, lon],
                     zoom,
-                })
-            })
-    }
+                });
+            });
+    };
 
 
 const loadLayer =
@@ -82,10 +82,17 @@ const loadLayer =
                         metadata,
                     }),
                     () => layer,
-                )
+                );
             });
-    }
+    };
 
+export const loadBaseLayer =
+    (id: string, url: string) => {
+        fetchBaseLayer(url)
+            .then((bl) => {
+                dispatch('data/baselayers', state => ({ ...state, [id]: bl }));
+            });
+    };
 
 const loadMetadata =
     (info: IMapInfo) => {

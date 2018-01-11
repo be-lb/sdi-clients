@@ -2,9 +2,9 @@
 import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
-import { loop } from 'sdi/app';
+import { loop, getApiUrl } from 'sdi/app';
 
-import { initMap } from './events/app';
+import { initMap, loadBaseLayer } from './events/app';
 
 import map from './components/map';
 import legend from './components/legend';
@@ -29,8 +29,17 @@ const wrappedMain =
 const render =
     () => wrappedMain('main', map(), legend());
 
+const baseLayers = [
+    'urbis.irisnet.be/urbis_gray',
+    'urbis.irisnet.be/ortho_2016',
+];
+
 const effects =
-    () => initMap();
+    () => {
+        baseLayers.forEach(id =>
+            loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
+        initMap();
+    };
 
 const app = loop(render, effects);
 export default app;

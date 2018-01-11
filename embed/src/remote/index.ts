@@ -12,6 +12,8 @@ import {
     FeatureCollectionIO,
     ITimeserieIO,
     ITimeserie,
+    IMapBaseLayer,
+    IMapBaseLayerIO,
 } from 'sdi/source';
 
 
@@ -23,6 +25,10 @@ export const fetchUser =
 export const fetchMap =
     (url: string): Promise<IMapInfo> =>
         fetchIO(IMapInfoIO, url);
+
+export const fetchBaseLayer =
+    (url: string): Promise<IMapBaseLayer> =>
+        fetchIO(IMapBaseLayerIO, url);
 
 export const fetchDatasetMetadata =
     (url: string): Promise<Inspire> =>

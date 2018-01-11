@@ -12,12 +12,21 @@ export const getMapInfo =
     () => fromNullable(query('data/map'));
 
 
-export const getBaseLayer =
+export const getCurrentBaseLayerName =
     () => getMapInfo().fold(
         () => null,
         m => m.baseLayer,
     );
 
+export const getBaseLayer =
+    () => {
+        const name = getCurrentBaseLayerName();
+        const bls = query('data/baselayers');
+        if (name && name in bls) {
+            return bls[name];
+        }
+        return null;
+    };
 
 export const getLayerId =
     () => query('app/layerId');
