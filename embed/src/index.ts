@@ -77,6 +77,7 @@ export const main =
                 editingSelection: false,
             },
             'data/timeseries': {},
+            'data/baselayers': {},
         };
 
         try {
