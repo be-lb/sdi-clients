@@ -2,7 +2,7 @@
     background: url('../imgs/map-trame.png') repeat;
     border-color: @grey;
     border-style: solid;
-    
+
     .map {
         height: 100%;
         width: 100%;
@@ -21,10 +21,11 @@
 
     .control-box {
         .absolute(initial, 0, 0, initial);
+        width: 25px;
         background: #fff;
-        padding: @small-margin;
-        padding-right: 0px;
-        padding-bottom: 0px;
+        // padding: @small-margin;
+        // padding-right: 0px;
+        // padding-bottom: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -35,15 +36,17 @@
         border-left-color: inherit;
 
         > div {
-            margin-bottom: @small-margin;
-            width: 1em;
+            // margin-bottom: @small-margin;
+            // width: 1em;
             position: relative;
 
             & button {
+                width: 25px;
+                height: 25px;
                 font-family: @gui-font;
                 background-color: @white;
                 border: 0px;
-                font-size: 10px;
+                font-size: 11px;
 
                 &:before {.awsomefont}
                 &:hover {color: @green;}
@@ -57,45 +60,49 @@
     }
 
     .rotate {
-        height: 1.2em;
+        height: 25px;
+        width: 25px;
 
-        button {
-            .absolute(0,0,0,0);
-
-            .north-arrow {
-                .absolute(0,0,0,0);
-                background-image: url('../imgs/north-arrow.svg');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: contain;
-            }
+        button .north-arrow {
+            .absolute(0,3px,0,3px);
+            background-image: url('../imgs/north-arrow.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
     }
 
     .fullscreen {
         display: flex;
         justify-content: center;
+        align-items: center;
+        height: 25px;
+        width: 25px;
 
         button {
-            flex: 1;
+            padding: 0;
+            // flex: 1;
             &.fullscreen-false:before {content: @fa-var-expand;}
             &.fullscreen-true:before {content: @fa-var-compress;}
         }
     }
 
     .zoom {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
+        // display: flex;
+        // align-items: center;
+        // flex-direction: column;
 
         button {
-            padding: 2px 5px;
-            height: 1em;
-            flex: 1;
+            // padding: 5px 5px;
+            // height: 1em;
+            width: 25px;
+            height: 25px;
+            // flex: 1;
 
             &.zoom-in:before {content: @fa-var-plus;}
             &.zoom-out {
-                margin-top: @small-margin !important;
+                // margin-top: @small-margin !important;
+                margin-top: 0 !important;
                 margin-bottom: 0px !important;
                 &:before {content: @fa-var-minus;}
             }
@@ -117,7 +124,7 @@
     }
 
     .map-scale {
-        .absolute(initial, calc(~"1em + @{small-margin} + 1px"), 0, initial);
+        .absolute(initial, 25px - 1, 0, initial);
         padding: @small-margin;
         padding-right: 0;
         padding-bottom: 0;

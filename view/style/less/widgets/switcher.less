@@ -5,30 +5,31 @@
     width: 25px;
     height: 25px !important;
     background-color: #fff;
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
     cursor         : default;
     border: 1px solid #fff;
     border-left-color: @grey;
     border-bottom-color: @grey;
 
-    .switch-legend:before {
-        width: 25px;
-        height: 25px;
+    .switch-tools,
+    .switch-legend {
+
+
+        &:before {
+            width: 25px;
+            height: 20px;
+            padding-bottom: 5px;
+            display        : flex;
+            align-items    : center;
+            justify-content: center;
+        }
     }
 
     > div:hover:before {
-        color       : @green;
+        color: @green;
     }
 
-    .switch-legend:before {
-        content: @fa-var-info;
-    }
-
-    .switch-tools:before {
-        content: @fa-var-wrench;
-    }
+    .switch-legend:before {content: @fa-var-info;}
+    .switch-tools:before {content: @fa-var-wrench;}
 }
 
 // .switcher.basemap {
