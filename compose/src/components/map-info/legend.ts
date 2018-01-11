@@ -111,14 +111,14 @@ const renderDeleteButton =
 const renderUpButton =
     (info: ILayerInfo) =>
         upButton(() => {
-            legendEvents.moveLayerUp(info);
+            legendEvents.moveLayerUp(info.id);
         });
 
 const renderDownButton =
     (info: ILayerInfo) => {
         return (
             downButton(() => {
-                legendEvents.moveLayerDown(info);
+                legendEvents.moveLayerDown(info.id);
             })
         );
     };
