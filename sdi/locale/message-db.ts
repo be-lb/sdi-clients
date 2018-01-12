@@ -121,6 +121,9 @@ export type MessageKey =
     | 'layer'
     | 'layerId'
     | 'layerInfo'
+    | 'layerInfoSettings'
+    | 'layerInfoSwitchMap'
+    | 'layerInfoSwitchTable'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -879,8 +882,8 @@ export const messages: MessageDB = {
     },
 
     legendInfoHeader: {
-        fr: 'Informations',
-        nl: 'Informatie',
+        fr: 'Informations et réglages',
+        nl: 'Informatie en instellingen',
     },
 
     style: {
@@ -1436,5 +1439,20 @@ export const messages: MessageDB = {
     maxZoom: {
         fr: 'Zoom maximal',
         nl: 'Maximale zoom',
+    },
+
+    layerInfoSettings: {
+        fr: 'Éditer la fiche individuelle',
+        nl: 'Bewerk de individuele fiche',
+    },
+
+    layerInfoSwitchMap: {
+        fr: 'Carte',
+        nl: 'Kaart',
+    },
+
+    layerInfoSwitchTable: {
+        fr: 'Table attributaire',
+        nl: 'Attributentabel',
     },
 };
