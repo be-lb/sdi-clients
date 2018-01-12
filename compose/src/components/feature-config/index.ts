@@ -33,24 +33,25 @@ const logger = debug('sdi:feature-config');
 
 
 
-const ensureTableSelection = () => {
-    if (getSelectedFeature() < 0) {
-        const row = getFeatureRow(0);
-        if (row) {
-            const lid = appQueries.getCurrentLayerId();
-            if (lid) {
-                const layer = appQueries.getLayerData(lid);
-                if (layer) {
-                    selectFeatureRow(0);
-                    const idx = row.from as number;
-                    const feature = layer.features[idx];
-                    appEvents.setCurrentFeatureData(feature);
+const ensureTableSelection =
+    () => {
+        if (getSelectedFeature() < 0) {
+            const row = getFeatureRow(0);
+            if (row) {
+                const lid = appQueries.getCurrentLayerId();
+                if (lid) {
+                    const layer = appQueries.getLayerData(lid);
+                    if (layer) {
+                        selectFeatureRow(0);
+                        const idx = row.from as number;
+                        const feature = layer.features[idx];
+                        appEvents.setCurrentFeatureData(feature);
+                    }
                 }
-            }
 
+            }
         }
-    }
-};
+    };
 
 export interface FeatureConfig {
     currentRow: number;
@@ -78,12 +79,13 @@ const renderHeader =
                 closeButton(() => { appEvents.setLayout(AppLayout.LegendEditor); })))
     );
 
-const render = () => {
-    ensureTableSelection();
-    return DIV({ className: 'app-split-wrapper feature-config' },
-        renderHeader(),
-        config());
-};
+const render =
+    () => {
+        ensureTableSelection();
+        return DIV({ className: 'app-split-wrapper feature-config' },
+            renderHeader(),
+            config());
+    };
 
 export default render;
 
