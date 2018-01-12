@@ -66,9 +66,9 @@ export const initialLegendEditorState = (): ILegendEditor => ({
 
 
 const closeButton = button('close');
-const featureEditButton = button('settings', 'editFeatureTemplate');
-const switchTableButton = button('switch');
-const switchMapButton = button('switch');
+const featureEditButton = button('layerInfoSettings');
+const switchTableButton = button('layerInfoSwitchTable');
+const switchMapButton = button('layerInfoSwitchMap');
 
 const renderHeader =
     (legendType: SubType, _lid: string, _propName: string) => {
@@ -161,29 +161,30 @@ const renderLayerInfo = (lid: string, _style: StyleConfig) => {
     const { name, metadata } = appQueries.getLayerInfo(lid);
     if (name && metadata) {
         const resetButton = remove(
-            `renderLayerInfo-${lid}`, 'resetLegend');
+            `renderLayerInfo-${lid}`);
         const layerName = fromRecord(name);
         const legendType = queries.getLegendType();
         const contents = [];
+        const buttons = [];
 
-        contents.push(renderMapTableSwitch());
-        contents.push(H1({}, SPAN({}, layerName)));
 
-        contents.push(featureEditButton(() => {
+        buttons.push(renderMapTableSwitch());
+        buttons.push(featureEditButton(() => {
             featureConfigEvents.resetEditor();
             appEvents.setLayout(AppLayout.FeatureConfig);
         }));
-        contents.push(renderZoomRange(lid));
-
         if ('simple' !== legendType) {
-            contents.push(resetButton(events.resetLegend));
+            buttons.push(resetButton(events.resetLegend));
+        }
 
-            if ('Point' === gt || 'MultiPoint' === gt) {
-                contents.push(
-                    DIV({ className: 'column-toolbox' },
-                        DIV({ className: 'help' }, tr('pointLabelHelp')),
-                        renderLabelOnly()));
-            }
+        contents.push(H1({}, SPAN({}, layerName)));
+        contents.push(DIV({ className: 'layer-info-btns' }, ...buttons));
+        contents.push(renderZoomRange(lid));
+        if (('simple' !== legendType) && ('Point' === gt || 'MultiPoint' === gt)) {
+            contents.push(
+                DIV({ className: 'column-toolbox' },
+                    DIV({ className: 'help' }, tr('pointLabelHelp')),
+                    renderLabelOnly()));
         }
 
         return DIV({ className: 'app-col-main info-main' }, ...contents);
