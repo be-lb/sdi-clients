@@ -70,6 +70,7 @@ type ButtonType_ =
     | 'upload'
     | 'validate'
     | 'view'
+    | 'zoomOnFeature'
     ;
 
 export type ButtonType = MessageKey & ButtonType_;

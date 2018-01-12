@@ -16,11 +16,11 @@
 
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
-import { Map, View, source, layer, proj, Feature, Collection } from 'openlayers';
+import { Map, View, source, layer, proj, Feature, Collection, Extent } from 'openlayers';
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
-import { IMapBaseLayer, MessageRecord, getMessageRecord } from '../source';
+import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition } from '../source';
 
 import {
     IMapOptions,
@@ -291,17 +291,63 @@ const viewEquals =
             z === rz && r === rr && c[0] === rc[0] && c[1] === rc[1]
         );
 
+// concat :: ([a],[a]) -> [a]
+const concat =
+    <A>(xs: A[], ys: A[]) =>
+        xs.concat(ys);
+
+const flatten =
+    <T>(xs: T[][]) =>
+        xs.reduce(concat, []);
+
+const flattenCoords =
+    (g: DirectGeometryObject): GeoPosition[] => {
+        switch (g.type) {
+            case 'Point': return [g.coordinates];
+            case 'MultiPoint': return g.coordinates;
+            case 'LineString': return g.coordinates;
+            case 'MultiLineString': return flatten(g.coordinates);
+            case 'Polygon': return flatten(g.coordinates);
+            case 'MultiPolygon': return flatten(flatten(g.coordinates));
+        }
+    };
+
+const getExtent =
+    (feature: GeoFeature): Extent => {
+        const initialExtent: Extent = [
+            Number.MAX_VALUE,
+            Number.MAX_VALUE,
+            Number.MIN_VALUE,
+            Number.MIN_VALUE,
+        ];
+
+        return flattenCoords(feature.geometry).reduce<Extent>((acc, c) => {
+            return [
+                Math.min(acc[0], c[0]),
+                Math.min(acc[1], c[1]),
+                Math.max(acc[2], c[0]),
+                Math.max(acc[3], c[1]),
+            ];
+        }, initialExtent);
+    };
+
 const updateView =
     (map: Map,
         getView: IMapOptions['getView'],
         setView: IMapOptions['updateView'],
     ) =>
         () => {
-            const { dirty, zoom, rotation, center } = getView();
+            const { dirty, zoom, rotation, center, feature } = getView();
             const view = map.getView();
             const eq = viewEquals(zoom, rotation, center);
 
-            if (dirty === 'geo'
+            if (dirty === 'geo/feature' && feature !== null) {
+                const e = getExtent(feature);
+                view.fit(e, {
+                    size: map.getSize(),
+                });
+            }
+            else if (dirty === 'geo'
                 && !eq(view.getZoom(), view.getRotation(), view.getCenter())) {
                 window.setTimeout(() => setView({ dirty: 'none' }), 0);
                 view.animate({ zoom, rotation, center });

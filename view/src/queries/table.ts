@@ -79,7 +79,7 @@ const getLayerData =
                     const row = keys.map((k) => {
                         if (props && props[k] && props[k] != null) {
                             if (typeof props[k] === 'number') {
-                                logger('N', props[k], formatNumber(props[k]));
+                                // logger('N', props[k], formatNumber(props[k]));
                                 return formatNumber(props[k]);
                             }
                             return props[k].toString();

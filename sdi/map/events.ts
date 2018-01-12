@@ -91,6 +91,7 @@ export const viewEventsFactory =
                 rotation: data.rotation || viewState.rotation,
                 zoom: data.zoom || viewState.zoom,
                 srs: viewState.srs,
+                feature: data.feature || null,
             }));
         },
     });

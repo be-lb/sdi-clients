@@ -13,7 +13,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 import { i, u, l, a, p, TypeOf } from './io';
 import * as io from 'io-ts';
 
@@ -41,7 +41,7 @@ export const CoordinateReferenceSystemIO = i({
 */
 export const GeoJsonObjectIO = io.intersection([
     i({
-        type: io.string,
+        // type: io.string,
     }),
     p({
         bbox: a(io.number),
@@ -61,27 +61,13 @@ export const CoordinatesIO = u([
     a(a(a(PositionIO))),
 ], 'CoordinatesIO');
 
-/***
-* http://geojson.org/geojson-spec.html#geometry-objects
-*/
-export const DirectGeometryObjectIO = io.intersection([
-    GeoJsonObjectIO,
-    i({
-        type: GeometryTypeIO,
-        coordinates: CoordinatesIO,
-    }),
-], 'DirectGeometryObjectIO');
 
-/**
- * GeometryObject supports geometry collection as well
- */
-export const GeometryObjectIO = u([DirectGeometryObjectIO/*, GeometryCollection*/], 'GeometryObjectIO');
 
 /***
 * http://geojson.org/geojson-spec.html#point
 */
 export const PointIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('Point'),
         coordinates: PositionIO,
@@ -92,7 +78,7 @@ export const PointIO = io.intersection([
 * http://geojson.org/geojson-spec.html#multipoint
 */
 export const MultiPointIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('MultiPoint'),
         coordinates: a(PositionIO),
@@ -103,7 +89,7 @@ export const MultiPointIO = io.intersection([
 * http://geojson.org/geojson-spec.html#linestring
 */
 export const LineStringIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('LineString'),
         coordinates: a(PositionIO),
@@ -114,7 +100,7 @@ export const LineStringIO = io.intersection([
 * http://geojson.org/geojson-spec.html#multilinestring
 */
 export const MultiLineStringIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('MultiLineString'),
         coordinates: a(a(PositionIO)),
@@ -125,7 +111,7 @@ export const MultiLineStringIO = io.intersection([
 * http://geojson.org/geojson-spec.html#polygon
 */
 export const PolygonIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('Polygon'),
         coordinates: a(a(PositionIO)),
@@ -136,7 +122,7 @@ export const PolygonIO = io.intersection([
 * http://geojson.org/geojson-spec.html#multipolygon
 */
 export const MultiPolygonIO = io.intersection([
-    DirectGeometryObjectIO,
+    GeoJsonObjectIO,
     i({
         type: l('MultiPolygon'),
         coordinates: a(a(a(PositionIO))),
@@ -153,6 +139,24 @@ export const MultiPolygonIO = io.intersection([
 //         geometries: a(GeometryObject),
 //     }),
 // ]);
+
+
+/***
+* http://geojson.org/geojson-spec.html#geometry-objects
+*/
+export const DirectGeometryObjectIO = u([
+    PointIO,
+    LineStringIO,
+    PolygonIO,
+    MultiPointIO,
+    MultiLineStringIO,
+    MultiPolygonIO,
+], 'DirectGeometryObjectIO');
+
+/**
+ * GeometryObject supports geometry collection as well
+ */
+export const GeometryObjectIO = u([DirectGeometryObjectIO/*, GeometryCollection*/], 'GeometryObjectIO');
 
 /***
 * http://geojson.org/geojson-spec.html#feature-objects
@@ -203,6 +207,7 @@ export type CoordinateReferenceSystem = TypeOf<typeof CoordinateReferenceSystemI
 export type GeometryType = TypeOf<typeof GeometryTypeIO>;
 export type GeoJsonObject = TypeOf<typeof GeoJsonObjectIO>;
 export type Position = TypeOf<typeof PositionIO>;
+export type Coordinates = TypeOf<typeof CoordinatesIO>;
 export type DirectGeometryObject = TypeOf<typeof DirectGeometryObjectIO>;
 export type GeometryObject = TypeOf<typeof GeometryObjectIO>;
 export type Point = TypeOf<typeof PointIO>;

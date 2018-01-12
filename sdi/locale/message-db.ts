@@ -257,6 +257,7 @@ export type MessageKey =
     | 'wmsSwitch'
     | 'zoomIn'
     | 'zoomOut'
+    | 'zoomOnFeature'
     ;
 
 
@@ -1437,4 +1438,9 @@ export const messages: MessageDB = {
         fr: 'Zoom maximal',
         nl: 'Maximale zoom',
     },
+
+    zoomOnFeature: {
+        fr: 'Zoomer sur l\'entité',
+        nl: 'Zoom in op de entiteit',
+    }
 };

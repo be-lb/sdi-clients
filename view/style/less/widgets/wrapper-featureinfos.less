@@ -1,3 +1,9 @@
+.feature-view-wrapper{
+    .btn-zoomOnFeature{
+        // FIXME
+        .absolute(0, @margin, 0, auto);
+        z-index: 1000;
+    }
 .feature-view{
     &.config{
         .absolute(0, @margin, 0, calc(~"100% - @{panel-rightW} + @{margin}"));
@@ -85,9 +91,10 @@
         }
     }
 }
+}
 
 
-.map-and-table-and-feature .feature-view {
+.map-and-table-and-feature  .feature-view {
     // padding-left:@margin;
     .feature-row {
         display: flex;

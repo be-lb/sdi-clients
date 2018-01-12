@@ -128,6 +128,7 @@ export const main =
                 center: [149546.27830713114, 169775.91753364357],
                 rotation: 0,
                 zoom: 6,
+                feature: null,
             },
 
             'port/map/interaction': defaultInteraction(),
