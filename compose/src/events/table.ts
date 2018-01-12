@@ -16,9 +16,12 @@
 
 import { dispatchK, observe } from 'sdi/shape';
 import { initialTableState, tableEvents, TableDataRow } from 'sdi/components/table';
+import { FeatureCollection } from 'sdi/source';
+import { scopeOption } from 'sdi/lib';
 
 import appQueries from '../queries/app';
 import appEvents from './app';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 const table = dispatchK('component/table');
 
@@ -26,16 +29,19 @@ observe('app/current-layer', () => {
     table(initialTableState);
 });
 
+
+const findFeature =
+    (fc: FeatureCollection, id: string | number) =>
+        fromNullable(fc.features.find(f => f.id === id));
+
 export const selectFeature =
     (row: TableDataRow) => {
         const { metadata } = appQueries.getCurrentLayerInfo();
-        if (metadata) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-            if (layer) {
-                const feature = layer.features[row.from as number];
-                appEvents.setCurrentFeatureData(feature);
-            }
-        }
+        scopeOption()
+            .let('meta', fromNullable(metadata))
+            .let('layer', s => fromNullable(appQueries.getLayerData(s.meta.uniqueResourceIdentifier)))
+            .let('feature', s => findFeature(s.layer, row.from))
+            .map(({ feature }) => appEvents.setCurrentFeatureData(feature));
     };
 
 
