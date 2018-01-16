@@ -19,9 +19,10 @@ import {
     Feature,
     // extent,
 } from 'openlayers';
-import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig } from '../../source';
-import { StyleFn } from './index';
 
+import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig, PatternAngle } from '../../source';
+import { StyleFn } from './index';
+import { makePattern } from './pattern';
 
 const makeStyle =
     (fill: style.Fill, stroke: style.Stroke) => {
@@ -31,15 +32,25 @@ const makeStyle =
         return new style.Style({ fill, stroke });
     };
 
-// const makePattern = 
-// (color: string) => {
+interface Patternisable {
+    fillColor: string;
+    strokeWidth: number;
+    pattern: boolean;
+    patternAngle: PatternAngle;
+}
 
-// }
+const fillColor =
+    (p: Patternisable) => {
+        if (p.pattern) {
+            return makePattern(p.strokeWidth, p.patternAngle, p.fillColor);
+        }
+        return p.fillColor;
+    }
 
 const polygonStyleSimple =
     (config: PolygonStyleConfigSimple) => {
         const fill = new style.Fill({
-            color: config.fillColor,
+            color: fillColor(config),
         });
         const stroke = new style.Stroke({
             color: config.strokeColor,
@@ -71,7 +82,7 @@ const polygonStyleContinuous = (config: PolygonStyleConfigContinuous) => {
         // const [r, g, b] = itv.rgb;
         acc[itv.low] = makeStyle(
             new style.Fill({
-                color: itv.fillColor,
+                color: fillColor(itv),
             }),
             new style.Stroke({
                 color: itv.strokeColor,
@@ -114,7 +125,7 @@ const polygonStyleDiscrete = (config: PolygonStyleConfigDiscrete) => {
         // const [r, g, b] = itv.rgb;
         acc.push(makeStyle(
             new style.Fill({
-                color: itv.fillColor,
+                color: fillColor(itv),
             }),
             new style.Stroke({
                 color: itv.strokeColor,

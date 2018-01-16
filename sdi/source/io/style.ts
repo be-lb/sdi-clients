@@ -19,12 +19,17 @@ import { GeometryType } from './geojson';
 import * as io from 'io-ts';
 
 
+
+export const PatternAngleIO = u([l(0), l(45), l(90), l(135)], 'PatterAngleIO');
+export type PatternAngle = TypeOf<typeof PatternAngleIO>;
+
 export const PolygonStyleConfigSimpleIO = i({
     kind: l('polygon-simple'),
-    // pattern: io.boolean,
     strokeColor: io.string,
     fillColor: io.string,
     strokeWidth: io.number,
+    pattern: io.boolean,
+    patternAngle: PatternAngleIO,
 }, 'PolygonStyleConfigSimpleIO');
 export type PolygonStyleConfigSimple = TypeOf<typeof PolygonStyleConfigSimpleIO>;
 
@@ -35,6 +40,8 @@ export const PolygonIntervalIO = i({
     fillColor: io.string,
     strokeColor: io.string,
     strokeWidth: io.number,
+    pattern: io.boolean,
+    patternAngle: PatternAngleIO,
 }, 'PolygonIntervalIO');
 export type PolygonInterval = TypeOf<typeof PolygonIntervalIO>;
 
@@ -50,6 +57,8 @@ export const PolygonDiscreteGroupIO = i({
     fillColor: io.string,
     strokeColor: io.string,
     strokeWidth: io.number,
+    pattern: io.boolean,
+    patternAngle: PatternAngleIO,
     label: MessageRecordIO,
 }, 'PolygonDiscreteGroupIO');
 export type PolygonDiscreteGroup = TypeOf<typeof PolygonDiscreteGroupIO>;
@@ -400,11 +409,12 @@ const defaultLineStyle = (s: SubType, propName?: string): LineStyleConfig => {
 const defaultPolygonStyle = (s: SubType, propName?: string): PolygonStyleConfig => {
     switch (s) {
         case 'simple': return ({
-            // pattern: false,
             kind: 'polygon-simple',
             strokeColor: '#00729A',
             fillColor: '#00729A',
             strokeWidth: 1,
+            pattern: false,
+            patternAngle: 0,
         });
         case 'continuous': return ({
             kind: 'polygon-continuous',
@@ -465,6 +475,8 @@ export const addDefaultGroupStyle =
                     strokeColor: '#00729A',
                     fillColor: '#00729A',
                     strokeWidth: 1,
+                    pattern: false,
+                    patternAngle: 0,
                 });
                 return s;
         }
@@ -502,6 +514,8 @@ export const addDefaultIntervalStyle =
                     strokeColor: '#00729A',
                     fillColor: '#00729A',
                     strokeWidth: 1,
+                    pattern: false,
+                    patternAngle: 0,
                 });
                 return s;
         }
