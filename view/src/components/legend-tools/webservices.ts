@@ -40,7 +40,7 @@ const renderBaseLayer =
 const renderService =
     (service: string) =>
         DIV({ className: 'webservice' },
-            H2({}, service),
+            DIV({ className: 'webservice-name' }, service),
             appQueries.getBaseLayersForService(service).map(renderBaseLayer));
 
 
