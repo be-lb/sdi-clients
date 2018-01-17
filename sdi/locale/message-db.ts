@@ -124,6 +124,7 @@ export type MessageKey =
     | 'layerInfoSettings'
     | 'layerInfoSwitchMap'
     | 'layerInfoSwitchTable'
+    | 'layerLegendDefaultLabel'
     | 'legendBuilder'
     | 'legendInfoHeader'
     | 'legendItemAdd'
@@ -1466,5 +1467,10 @@ export const messages: MessageDB = {
     usePattern: {
         fr: 'Hachures',
         nl: 'Uitbroeden',
+    },
+
+    layerLegendDefaultLabel: {
+        fr: 'Étiquette de légende',
+        nl:'Legendelabel',
     },
 };

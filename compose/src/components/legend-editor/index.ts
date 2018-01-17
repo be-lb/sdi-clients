@@ -36,7 +36,9 @@ import continuous from './select-item-continuous';
 import discrete from './select-item-discrete';
 import { AppLayout } from '../../shape/types';
 import { button, remove } from '../button';
+import editable from '../editable';
 import { renderLabelOnly } from './tool-point';
+import { MessageRecord } from '../../sdi/source/io/io';
 
 const logger = debug('sdi:legend-editor');
 
@@ -138,9 +140,32 @@ const getInfo =
     };
 
 
+const renderLabel =
+    (lid: string) =>
+        getInfo(lid).fold(
+            () => DIV(),
+            (info) => {
+                const getLabel =
+                    () =>
+                        info.legend !== null ? info.legend : { fr: '', nl: '' };
+                const setLabel =
+                    (r: MessageRecord) =>
+                        events.setLegendLabel(lid, r);
+
+                const input = editable(
+                    `layer_legend_label_${lid}`, getLabel, setLabel,
+                    (props, label: string) => {
+                        const isEmpty = label.trim().length === 0;
+                        const text = isEmpty ? tr('layerLegendDefaultLabel') : label;
+                        return DIV(props, text);
+                    });
+
+                return DIV({ className: 'legend-label' }, input());
+            });
+
+
 const renderZoomRange =
     (lid: string) => {
-        logger(`renderZoomRange ${lid}`);
         const { info } = appQueries.getLayerInfo(lid);
         if (info) {
             const getMin =
@@ -196,6 +221,7 @@ const renderLayerInfo = (lid: string, _style: StyleConfig) => {
 
         contents.push(H1({}, SPAN({}, layerName)));
         contents.push(DIV({ className: 'layer-info-btns' }, ...buttons));
+        contents.push(renderLabel(lid));
         contents.push(renderZoomRange(lid));
         if (('simple' !== legendType) && ('Point' === gt || 'MultiPoint' === gt)) {
             contents.push(
