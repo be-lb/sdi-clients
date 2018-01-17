@@ -30,9 +30,13 @@ const withLabel =
     (layerInfo: ILayerInfo) =>
         (nodes: React.ReactNode[]) => {
             if (layerInfo.legend !== null) {
-                const legend = DIV({ className: 'legend-label' },
-                    fromRecord(layerInfo.legend));
-                return [legend, ...nodes];
+                const label = fromRecord(layerInfo.legend).trim();
+                if (label.length > 0) {
+                    return [
+                        DIV({ className: 'legend-label' }, label),
+                        ...nodes,
+                    ];
+                }
             }
             return nodes;
         };

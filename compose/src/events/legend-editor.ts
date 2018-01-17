@@ -262,6 +262,21 @@ const events = {
         });
     },
 
+    setLegendLabel(lid: string, label: MessageRecord) {
+        const mid = appQueries.getCurrentMap();
+        dispatch('data/maps', (maps) => {
+            const map = maps.find(m => m.id === mid);
+            if (map) {
+                const info = map.layers.find(l => l.id === lid);
+                if (info) {
+                    info.legend = label;
+                    syncMap(map);
+                }
+            }
+            return maps;
+        });
+    },
+
 
     moveLayerUp(lid: string) {
         const mid = appQueries.getCurrentMap();
