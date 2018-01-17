@@ -15,7 +15,6 @@ type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
 interface InputProps<T> {
     get: Getter<T>;
     set: Setter<T>;
-    extraAttributes(): InputAttributes & React.Attributes;
 }
 
 type InputValueT = string | number | null;
@@ -29,15 +28,14 @@ const value =
 
 
 class InputText extends Component<InputProps<string>, InputValue<string>> {
-    attrs: () => InputAttributes & React.Attributes;
+    attrs: () => InputAttributes;
 
     constructor(props: InputProps<string>) {
         super(props);
-        const extraAttributes = props.extraAttributes();
 
         const update =
             (n: string) => {
-                logger(`text update "${n}" ${extraAttributes.key}`);
+                // logger(`text update "${n}" ${extraAttributes.key}`);
                 this.setState(value(n));
                 props.set(n);
             };
@@ -45,7 +43,6 @@ class InputText extends Component<InputProps<string>, InputValue<string>> {
 
         this.attrs =
             () => ({
-                ...extraAttributes,
                 value: this.state.value,
                 type: 'text',
                 onChange: e => update(e.currentTarget.value),
@@ -57,7 +54,7 @@ class InputText extends Component<InputProps<string>, InputValue<string>> {
     }
 
     render() {
-        logger(`text render "${this.attrs().value}" ${this.attrs().key}`);
+        // logger(`text render "${this.attrs().value}" ${this.attrs().key}`);
         return INPUT(this.attrs());
     }
 
@@ -71,7 +68,6 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
 
     constructor(props: InputProps<number>) {
         super(props);
-        const extraAttributes = props.extraAttributes();
 
         const update =
             (n: number) => {
@@ -81,7 +77,6 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
 
         this.attrs =
             () => ({
-                ...extraAttributes,
                 value: this.state.value,
                 type: 'number',
                 onChange: e => update(e.currentTarget.valueAsNumber),
@@ -106,7 +101,6 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
 
     constructor(props: InputProps<number>) {
         super(props);
-        const extraAttributes = props.extraAttributes();
 
         const update =
             (n: number) => {
@@ -116,7 +110,6 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
 
         this.attrs =
             () => ({
-                ...extraAttributes,
                 value: this.state.value !== null ? this.state.value : undefined,
                 type: 'number',
                 onChange: e => update(e.currentTarget.valueAsNumber),
@@ -137,24 +130,24 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
 }
 
 const extraAttributesFn =
-    (attrs?: InputAttributes & React.Attributes) => {
+    (attrs?: React.Attributes): React.Attributes => {
         if (attrs === undefined) {
-            return () => ({});
+            return {};
         }
-        return () => attrs;
+        return attrs;
     }
 
 export const inputText =
     (get: Getter<string>, set: Setter<string>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputText, { set, get, extraAttributes: extraAttributesFn(attrs) });
+        createElement(InputText, { set, get, ...extraAttributesFn(attrs) });
 
 export const inputNumber =
     (get: Getter<number>, set: Setter<number>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputNumber, { set, get, extraAttributes: extraAttributesFn(attrs) });
+        createElement(InputNumber, { set, get, ...extraAttributesFn(attrs) });
 
 export const inputNullableNumber =
     (get: Getter<number | null>, set: Setter<number | null>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputNullableNumber, { set, get, extraAttributes: extraAttributesFn(attrs) });
+        createElement(InputNullableNumber, { set, get, ...extraAttributesFn(attrs) });
 
 
 logger('loaded');
