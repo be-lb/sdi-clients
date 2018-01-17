@@ -306,6 +306,23 @@ export const fillColorForGroup =
             c => events.setFillColorForGroup(idx, c.string()));
     };
 
+export const patternForGroup =
+    (idx: number) => {
+        const p = queries.getPatternForGroup(idx);
+        if (!p) {
+            return DIV({
+                onClick: () => events.setPatternForGroup(idx, true),
+            }, 'pat');
+        }
+        return DIV({},
+            DIV({
+                onClick: () => events.setPatternForGroup(idx, false),
+            }, 'no pat'),
+            renderInputPatternAngle('angle',
+                () => queries.getPatternAngleForGroup(idx),
+                v => events.setPatternAngleForGroup(idx, v)));
+    };
+
 export const fontColor =
     () => {
         return renderInputAlphaColor('color', tr('fontColor'),

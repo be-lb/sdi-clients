@@ -15,13 +15,14 @@
  */
 
 import { DIV } from 'sdi/components/elements';
-import { lineColorForGroup, lineWidthForGroup, fillColorForGroup, fillColor, lineWidth, lineColor, pattern } from './tool-input';
+import { lineColorForGroup, lineWidthForGroup, fillColorForGroup, fillColor, lineWidth, lineColor, pattern, patternForGroup } from './tool-input';
 
 export const renderPolygonForGroup =
     (idx: number) => {
         return (
             DIV({ key: `renderPolygonForGroup-${idx}`, className: 'app-col-main style-toolbox-main' },
                 fillColorForGroup(idx),
+                patternForGroup(idx),
                 lineWidthForGroup(idx),
                 lineColorForGroup(idx))
         );

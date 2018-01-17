@@ -37,6 +37,7 @@ import {
     PolygonStyleConfig,
     StyleConfig,
     StyleGroupType,
+    PatternAngle,
 } from 'sdi/source';
 import { getLang } from 'sdi/app';
 
@@ -167,7 +168,7 @@ const queries = {
             (g: PolygonDiscreteGroup | PolygonInterval) => g.pattern);
     },
 
-    getPatternAngleForGroup(idx: number, defVal = 0) {
+    getPatternAngleForGroup(idx: number, defVal = 0 as PatternAngle) {
         return getStyleForGroup(idx, defVal,
             (g: PolygonDiscreteGroup | PolygonInterval) => g.patternAngle);
     },

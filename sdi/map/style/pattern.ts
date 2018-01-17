@@ -57,9 +57,9 @@ export const makePattern =
         const context = canvas.getContext('2d', {
             antialias: true,
         });
-        if (context) {
+        if (strokeWidth > 0 && context) {
             const dpr = has.DEVICE_PIXEL_RATIO;
-            const ch = strokeWidth * 9 * dpr;
+            const ch = strokeWidth * 6 * dpr;
             const cw = ch;
             const sw = strokeWidth * dpr;
             const line = drawLine(context);
