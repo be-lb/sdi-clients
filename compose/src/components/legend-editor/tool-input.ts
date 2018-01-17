@@ -21,6 +21,7 @@ import { fromPredicate } from 'fp-ts/lib/Option';
 import tr from 'sdi/locale';
 import { DIV, SPAN } from 'sdi/components/elements';
 import { inputNumber, inputText } from 'sdi/components/input';
+import { PatternAngle } from 'sdi/source';
 
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
@@ -31,6 +32,9 @@ const logger = debug(`sdi:legend-editor/tool-input`);
 
 const notNan = fromPredicate<number>(n => !Number.isNaN(n));
 
+type Getter<T> = () => T;
+type Setter<T> = (v: T) => void;
+
 type NumberGetter = () => number;
 type NumberSetter = (a: number) => void;
 
@@ -39,9 +43,6 @@ type NumberSetter = (a: number) => void;
 
 type AlphaColorGetter = () => Color.Color;
 type AlphaColorSetter = (a: Color.Color) => void;
-
-type IconGetter = () => number;
-type IconSetter = (a: number) => void;
 
 type TextGetter = () => string;
 type TextSetter = (a: string) => void;
@@ -60,61 +61,47 @@ const makeColor = (i: string | number, a?: number) => {
 };
 
 
-const renderInputIcon =
-    (className: string, get: IconGetter, set: IconSetter) => {
-        const series = [
-            [
-                0xf111,
-                0xf1db,
-                0xf10c,
-                0xf192,
-            ],
-            // [
-            //     0xf075,
-            //     0xf071,
-            //     0xf06a,
-            //     0xf059,
-            //     0xf05a,
-            // ],
-            // [
-            //     0xf193,
-            //     0xf206,
-            //     0xf1b9,
-            //     0xf207,
-            //     0xf0d1,
-            //     0xf238,
-            //     0xf21a,
-            // ],
-            // [
-            //     0xf1b0,
-            //     0xf06c,
-            //     0xf1bb,
-            //     0xf19c,
-            //     0xf000,
-            //     0xf015,
-            //     0xf1f8,
-            //     0xf153,
-            // ],
-        ];
+interface Selection<T> {
+    [k: string]: T;
+}
 
-        const selected = get();
+const renderSelection =
+    <T>(series: Selection<T>[]) =>
+        (className: string, get: Getter<T>, set: Setter<T>) => {
+            const selected = get();
 
-        const renderIcon = (icon: number) => (
-            DIV({
-                className: (icon === selected) ? 'picto selected' : 'picto',
-                onClick: () => set(icon),
-            }, String.fromCodePoint(icon)));
+            const renderItem = (k: string, val: T) => (
+                DIV({
+                    className: (val === selected) ? 'selected' : '',
+                    onClick: () => set(val),
+                }, k));
 
-        const renderSerie = (serie: number[]) => (
-            DIV({
-                className: 'picto-serie',
-            }, serie.map(renderIcon)));
+            const renderSerie = (serie: Selection<T>) => (
+                DIV({
+                    className: 'serie',
+                }, Object.keys(serie).map(k => renderItem(k, serie[k]))));
 
-        return (
-            DIV({ className: `style-tool picto-collection ${className}` },
-                DIV({ className: 'picto-library' }, series.map(renderSerie)))
-        );
-    };
+            return (
+                DIV({ className },
+                    DIV({ className: 'library' }, series.map(renderSerie)))
+            );
+        };
+
+const renderInputIcon = renderSelection([{
+    [String.fromCodePoint(0xf111)]: 0xf111,
+    [String.fromCodePoint(0xf1db)]: 0xf1db,
+    [String.fromCodePoint(0xf10c)]: 0xf10c,
+    [String.fromCodePoint(0xf192)]: 0xf192,
+}]);
+
+
+const renderInputPatternAngle = renderSelection<PatternAngle>([{
+    '|': 0,
+    '/': 45,
+    '--': 90,
+    '\\': 135,
+}]);
+
 
 const renderInputNumber =
     (className: string, label: string, get: NumberGetter, set: NumberSetter) => {
@@ -282,6 +269,22 @@ export const fillColor =
             c => events.setFillColor(c.string()));
     };
 
+
+export const pattern =
+    () => {
+        const p = queries.getPattern();
+        if (!p) {
+            return DIV({
+                onClick: () => events.setPattern(true),
+            }, 'pat');
+        }
+        return DIV({},
+            DIV({
+                onClick: () => events.setPattern(false),
+            }, 'no pat'),
+            renderInputPatternAngle('angle', queries.getPatternAngle, events.setPatternAngle));
+    };
+
 export const lineWidthForGroup =
     (idx: number) => {
         return renderInputNumber('size', tr('lineWidth'),
@@ -356,7 +359,7 @@ export const markerColorForGroup =
 
 export const markerCodepointForGroup =
     (idx: number) => {
-        return renderInputIcon('code',
+        return renderInputIcon('style-tool picto-collection code',
             () => queries.getMarkerCodepointForGroup(idx),
             (n: number) => events.setMarkerCodepointForGroup(idx, n));
     };
@@ -377,7 +380,7 @@ export const markerColor =
 
 export const markerCodepoint =
     () => {
-        return renderInputIcon('code',
+        return renderInputIcon('style-tool picto-collection code',
             () => queries.getMarkerCodepoint(),
             (n: number) => events.setMarkerCodepoint(n));
     };

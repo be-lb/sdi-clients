@@ -71,6 +71,7 @@ export const makePattern =
             // const b = sin(B) * (c / sin(C));
             // const cw = 2 * b;
             const ll = Math.max(cw, ch) * 2;
+            let angleCorrect = 0;
             canvas.width = cw;
             canvas.height = ch;
 
@@ -78,10 +79,12 @@ export const makePattern =
             context.fillStyle = color;
             if (angle === 135) {
                 context.scale(1, -1);
+                context.translate(0, -ch);
+                angleCorrect = -90;
             }
-            line([0, 0], sw, ll, angle);
-            line([cw / 2, ch / 2], sw, ll, angle);
-            line([cw, ch], sw, ll, angle);
+            line([0, 0], sw, ll, angle + angleCorrect);
+            line([cw / 2, ch / 2], sw, ll, angle + angleCorrect);
+            line([cw, ch], sw, ll, angle + angleCorrect);
 
             return context.createPattern(canvas, 'repeat');
         }

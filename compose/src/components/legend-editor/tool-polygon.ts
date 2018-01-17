@@ -15,7 +15,7 @@
  */
 
 import { DIV } from 'sdi/components/elements';
-import { lineColorForGroup, lineWidthForGroup, fillColorForGroup, fillColor, lineWidth, lineColor } from './tool-input';
+import { lineColorForGroup, lineWidthForGroup, fillColorForGroup, fillColor, lineWidth, lineColor, pattern } from './tool-input';
 
 export const renderPolygonForGroup =
     (idx: number) => {
@@ -32,6 +32,7 @@ export const renderPolygon =
         return (
             DIV({ className: 'app-col-main style-toolbox-main' },
                 fillColor(),
+                pattern(),
                 lineWidth(),
                 lineColor())
         );

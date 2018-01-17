@@ -16,6 +16,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 import { DIV, H1, SPAN } from 'sdi/components/elements';
 import { inputNumber } from 'sdi/components/input';
@@ -35,6 +37,8 @@ import discrete from './select-item-discrete';
 import { AppLayout } from '../../shape/types';
 import { button, remove } from '../button';
 import { renderLabelOnly } from './tool-point';
+
+const logger = debug('sdi:legend-editor');
 
 export type LegendPage = 'legend' | 'tools';
 
@@ -127,21 +131,34 @@ const renderLegendType = (legendType: SubType) => {
     }
 };
 
+const getInfo =
+    (lid: string) => {
+        const { info } = appQueries.getLayerInfo(lid);
+        return fromNullable(info);
+    };
+
 
 const renderZoomRange =
     (lid: string) => {
+        logger(`renderZoomRange ${lid}`);
         const { info } = appQueries.getLayerInfo(lid);
         if (info) {
+            const getMin =
+                () => getInfo(lid).fold(() => 0, i => i.minZoom || 0);
+            const getMax =
+                () => getInfo(lid).fold(() => 0, i => i.maxZoom || 30);
             const setMin =
                 (n: number) => {
-                    events.setZoomRange(lid, n, info.maxZoom);
+                    events.setZoomRange(lid, n, getMax());
                 };
             const setMax =
                 (n: number) => {
-                    events.setZoomRange(lid, info.minZoom, n);
+                    events.setZoomRange(lid, getMin(), n);
                 };
-            const minInput = inputNumber(() => info.minZoom || 0, setMin);
-            const maxInput = inputNumber(() => info.maxZoom || 0, setMax);
+            const minInput = inputNumber(
+                getMin, setMin, { key: `min-zoom-${lid}` });
+            const maxInput = inputNumber(
+                getMax, setMax, { key: `max-zoom-${lid}` });
 
             return (
                 DIV({ className: 'zoom-range' },
@@ -276,3 +293,5 @@ const render = () => {
 };
 
 export default render;
+
+logger('loaded');

@@ -162,6 +162,16 @@ const queries = {
             (g: PolygonDiscreteGroup | PolygonInterval) => g.fillColor);
     },
 
+    getPatternForGroup(idx: number, defVal = false) {
+        return getStyleForGroup(idx, defVal,
+            (g: PolygonDiscreteGroup | PolygonInterval) => g.pattern);
+    },
+
+    getPatternAngleForGroup(idx: number, defVal = 0) {
+        return getStyleForGroup(idx, defVal,
+            (g: PolygonDiscreteGroup | PolygonInterval) => g.patternAngle);
+    },
+
     // Point Globals
     getPointConfig() {
         return query('component/legend-editor').pointConfig;
@@ -181,6 +191,16 @@ const queries = {
     getFillColor(defVal = '#000000') {
         return getFromStyle(defVal,
             (s: PolygonStyleConfig) => isSimple(s) ? s.fillColor : defVal);
+    },
+
+    getPattern() {
+        return getFromStyle(false,
+            (s: PolygonStyleConfig) => isSimple(s) ? s.pattern : false);
+    },
+
+    getPatternAngle() {
+        return getFromStyle(0,
+            (s: PolygonStyleConfig) => isSimple(s) ? s.patternAngle : 0);
     },
 
 

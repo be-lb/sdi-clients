@@ -46,6 +46,7 @@ import {
     PolygonDiscreteGroup,
     PolygonInterval,
     StyleConfig,
+    PatternAngle,
 } from 'sdi/source';
 
 import appQueries from '../queries/app';
@@ -341,6 +342,22 @@ const events = {
         });
     },
 
+    setPattern(p: boolean) {
+        updateStyle((s) => {
+            if (isSimple(s) && isPolygonStyle(s)) {
+                s.pattern = p;
+            }
+        });
+    },
+
+    setPatternAngle(a: PatternAngle) {
+        updateStyle((s) => {
+            if (isSimple(s) && isPolygonStyle(s)) {
+                s.patternAngle = a;
+            }
+        });
+    },
+
 
 
     // Group Style
@@ -422,6 +439,48 @@ const events = {
                     const group = getInterval(s, idx);
                     if (group) {
                         (<PolygonInterval>group).fillColor = c;
+                    }
+                    saveMap(lid, s);
+                }
+            }
+        });
+    },
+
+    setPatternForGroup(idx: number, p: boolean) {
+        updateStyle((s, lid) => {
+            if ((isPolygonStyle(s))) {
+                if (isDiscrete(s)) {
+                    const group = getGroup(s, idx);
+                    if (group) {
+                        (<PolygonDiscreteGroup>group).pattern = p;
+                    }
+                    saveMap(lid, s);
+                }
+                else if (isContinuous(s)) {
+                    const group = getInterval(s, idx);
+                    if (group) {
+                        (<PolygonInterval>group).pattern = p;
+                    }
+                    saveMap(lid, s);
+                }
+            }
+        });
+    },
+
+    setPatternAngleForGroup(idx: number, a: PatternAngle) {
+        updateStyle((s, lid) => {
+            if ((isPolygonStyle(s))) {
+                if (isDiscrete(s)) {
+                    const group = getGroup(s, idx);
+                    if (group) {
+                        (<PolygonDiscreteGroup>group).patternAngle = a;
+                    }
+                    saveMap(lid, s);
+                }
+                else if (isContinuous(s)) {
+                    const group = getInterval(s, idx);
+                    if (group) {
+                        (<PolygonInterval>group).patternAngle = a;
                     }
                     saveMap(lid, s);
                 }
