@@ -249,6 +249,7 @@ export type MessageKey =
     | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
+    | 'usePattern'
     | 'userName'
     | 'validate'
     | 'valuesCovered'
@@ -1460,5 +1461,10 @@ export const messages: MessageDB = {
     layerInfoSwitchTable: {
         fr: 'Table attributaire',
         nl: 'Attributentabel',
+    },
+
+    usePattern: {
+        fr: 'Hachures',
+        nl: 'Uitbroeden',
     },
 };

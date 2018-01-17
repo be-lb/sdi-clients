@@ -275,13 +275,15 @@ export const pattern =
         const p = queries.getPattern();
         if (!p) {
             return DIV({
+                className: 'hatch-pattern inactive',
                 onClick: () => events.setPattern(true),
-            }, 'pat');
+            }, tr('usePattern'));
         }
         return DIV({},
             DIV({
+                className: 'hatch-pattern active',
                 onClick: () => events.setPattern(false),
-            }, 'no pat'),
+            }, tr('usePattern')),
             renderInputPatternAngle('angle', queries.getPatternAngle, events.setPatternAngle));
     };
 
@@ -311,13 +313,15 @@ export const patternForGroup =
         const p = queries.getPatternForGroup(idx);
         if (!p) {
             return DIV({
+                className: 'hatch-pattern inactive',
                 onClick: () => events.setPatternForGroup(idx, true),
-            }, 'pat');
+            }, tr('usePattern'));
         }
         return DIV({},
             DIV({
+                className: 'hatch-pattern active',
                 onClick: () => events.setPatternForGroup(idx, false),
-            }, 'no pat'),
+            }, tr('usePattern')),
             renderInputPatternAngle('angle',
                 () => queries.getPatternAngleForGroup(idx),
                 v => events.setPatternAngleForGroup(idx, v)));
