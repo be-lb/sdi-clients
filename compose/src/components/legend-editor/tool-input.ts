@@ -96,10 +96,10 @@ const renderInputIcon = renderSelection([{
 
 
 const renderInputPatternAngle = renderSelection<PatternAngle>([{
-    '|': 0,
-    '/': 45,
-    '--': 90,
-    '\\': 135,
+    '0°': 0,
+    '45°': 45,
+    '90°': 90,
+    '135°': 135,
 }]);
 
 
@@ -274,12 +274,13 @@ export const pattern =
     () => {
         const p = queries.getPattern();
         if (!p) {
-            return DIV({
+            return DIV({ className: 'style-tool hatch-wrapper' },
+            DIV({
                 className: 'hatch-pattern inactive',
                 onClick: () => events.setPattern(true),
-            }, tr('usePattern'));
+            }, tr('usePattern')));
         }
-        return DIV({},
+        return DIV({ className: 'style-tool hatch-wrapper' },
             DIV({
                 className: 'hatch-pattern active',
                 onClick: () => events.setPattern(false),
@@ -312,12 +313,13 @@ export const patternForGroup =
     (idx: number) => {
         const p = queries.getPatternForGroup(idx);
         if (!p) {
-            return DIV({
+            return DIV({ className: 'style-tool hatch-wrapper' },
+            DIV({
                 className: 'hatch-pattern inactive',
                 onClick: () => events.setPatternForGroup(idx, true),
-            }, tr('usePattern'));
+            }, tr('usePattern')));
         }
-        return DIV({},
+        return DIV({ className: 'style-tool hatch-wrapper' },
             DIV({
                 className: 'hatch-pattern active',
                 onClick: () => events.setPatternForGroup(idx, false),
