@@ -33,11 +33,12 @@ import {
     ExtractOptions,
     MarkOptions,
     FeaturePathGetter,
+    PrintOptions,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } from './controls';
 import { select, highlight } from './actions';
-import { measure, track, extract, mark } from './tools';
+import { measure, track, extract, mark, print } from './tools';
 import { credit } from './credit';
 import { setTimeout } from 'timers';
 import { fromRecord } from '../locale';
@@ -510,6 +511,13 @@ export const create =
                 updatables.push({ name: 'Highlight', fn: () => update() });
             };
 
+        const printable =
+            (o: PrintOptions, g: InteractionGetter) => {
+                const { init, update } = print(o);
+                init(map, baseLayerCollection);
+                updatables.push({ name: 'Print', fn: () => update(g()) });
+            };
+
 
         return {
             setTarget,
@@ -520,6 +528,7 @@ export const create =
             extractable,
             markable,
             highlightable,
+            printable,
         };
     };
 

@@ -145,6 +145,7 @@ export interface InteractionTrack extends InteractionBase<'track', IGeoTracker> 
 export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasure> { }
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
+export interface InteractionPrint extends InteractionBase<'print', null> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -154,6 +155,7 @@ interface InteractionMap {
     'measure': InteractionMeasure;
     'extract': InteractionExtract;
     'mark': InteractionMark;
+    'print': InteractionPrint;
 }
 
 
@@ -217,6 +219,38 @@ export interface IViewEvent {
 }
 
 
+export interface PrintRequest {
+    id: string | null;
+    width: number;
+    height: number;
+    resolution: number;
+}
+export const defaultPrintRequest =
+    (): PrintRequest => ({
+        id: null,
+        width: 0,
+        height: 0,
+        resolution: 0,
+    });
+
+export type PrintResponseStatus = 'none' | 'start' | 'end' | 'error';
+
+export interface PrintResponse {
+    id: string | null;
+    status: PrintResponseStatus;
+    data: string;
+}
+export const defaultPrintResponse =
+    (): PrintResponse => ({
+        id: null,
+        data: '',
+        status: 'none',
+    });
+
+export interface PrintOptions {
+    getRequest(): PrintRequest;
+    setResponse(r: PrintResponse): void;
+}
 
 
 export * from './map';
