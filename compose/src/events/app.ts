@@ -135,7 +135,7 @@ const makeMap =
             categories: [],
             lastModified: Date.now(),
             url: '',
-            baseLayer: '',
+            baseLayer: 'urbis.irisnet.be/urbis_gray',
         };
     };
 
@@ -334,6 +334,8 @@ const events = {
                     style: defaultStyle(i.geometryType),
                     group: null,
                     legend: null,
+                    minZoom: 0,
+                    maxZoom: 30,
                 };
                 postLayerInfo(getApiUrl(`layerinfos`), info)
                     .then((result) => {
