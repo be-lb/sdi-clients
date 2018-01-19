@@ -148,8 +148,8 @@ const polygonStyleDiscrete = (config: PolygonStyleConfigDiscrete) => {
     return (feature: Feature) => {
         const props = feature.getProperties();
         const value = props[config.propName];
-        if (typeof value === 'string') {
-            const idx = findIndex(value);
+        if (value !== null) {
+            const idx = findIndex(value.toString());
             if (idx >= 0) {
                 return [styles[idx]];
             }
