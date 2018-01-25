@@ -20,12 +20,13 @@ import { ILayerInfo } from 'sdi/source';
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
+import { Command } from './context';
 
 const logger = debug('sdi:legend-item');
 
 
 const renderLegendItem =
-    (layerInfo: ILayerInfo): React.DOMElement<{}, Element>[] => {
+    (layerInfo: ILayerInfo): Command[] => {
         switch (layerInfo.style.kind) {
             case 'polygon-continuous':
             case 'polygon-discrete':

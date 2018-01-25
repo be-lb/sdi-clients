@@ -18,23 +18,24 @@ import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
 
 import { pointStyle, getContext, IOLContext } from 'sdi/map/style';
-import { DIV, SPAN, IMG } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PointStyleConfig, PointStyleConfigDiscrete, PointStyleConfigSimple, PointStyleConfigContinuous } from 'sdi/source';
 
 import { getDatasetMetadata } from '../../queries/app';
+import { Box, CommandText, CommandImage } from './context';
 
 const logger = debug('sdi:legend-point');
 
 const pointGeometry = new geom.Point([15, 15]);
 
 
+
 const item = (geomType: string, dataUrl: string, label: string) => {
-    return DIV({ className: `legend-item ${geomType}` },
-        DIV({ className: 'item-style' },
-            IMG({ src: dataUrl })),
-        DIV({ className: 'item-label' },
-            SPAN({}, label)));
+    // return DIV({ className: `legend-item ${geomType}` },
+    //     DIV({ className: 'item-style' },
+    //         IMG({ src: dataUrl })),
+    //     DIV({ className: 'item-label' },
+    //         SPAN({}, label)));
 };
 
 

@@ -7,7 +7,7 @@ import { loop, getApiUrl } from 'sdi/app';
 import { initMap, loadBaseLayer } from './events/app';
 
 import map from './components/map';
-import legend from './components/legend';
+import print from './components/print';
 
 const logger = debug('sdi:app');
 
@@ -27,7 +27,7 @@ const wrappedMain =
     );
 
 const render =
-    () => wrappedMain('main', map(), legend());
+    () => wrappedMain('main', map(), print());
 
 const baseLayers = [
     'urbis.irisnet.be/urbis_gray',

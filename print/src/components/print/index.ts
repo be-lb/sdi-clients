@@ -105,7 +105,7 @@ const dims = {
 
 
 const renderPrintProgress =
-    () => {
+    (_mapInfo: IMapInfo) => {
         const iLabel = getInteractionMode();
         if (iLabel !== 'print') {
             return DIV();
@@ -119,8 +119,14 @@ const renderPrintProgress =
             case 'end': return DIV({
                 onClick: () => {
                     const pdf = new Pdf('portrait', undefined, 'a4');
+                    const [height, width] = dims.a4;
                     pdf.addImage(
-                        imageData, 'PNG', 0, 0, dims.a4[1], dims.a4[0]);
+                        imageData, 'PNG', 0, 0, width, height);
+                    pdf.text('TEXT', width / 2, height / 2);
+                    // const legend = document.createElement('div');
+                    // domRender(renderLegend(groupItems(mapInfo.layers)), legend);
+                    // pdf.addHTML(legend, 10, dims.a4[0] / 2, {}, () => {
+                    // });
                     pdf.save('map.pdf');
                 },
             }, 'download PDF');
@@ -136,14 +142,14 @@ const legendLegend =
                 DIV({
                     onClick: () => {
                         const [height, width] = dims.a4;
-                        const resolution = 300;
+                        const resolution = 150;
                         const id = uniqId();
                         setPrintRequest({
                             id, width, height, resolution,
                         });
                     },
                 }, 'print!')),
-            renderPrintProgress(),
+            renderPrintProgress(mapInfo),
             H2({}, tr('mapLegend')),
             ...renderLegend(groupItems(mapInfo.layers)));
 
