@@ -512,7 +512,7 @@ export const create =
             };
 
         const printable =
-            (o: PrintOptions, g: InteractionGetter) => {
+            <T>(o: PrintOptions<T>, g: InteractionGetter) => {
                 const { init, update } = print(o);
                 init(map, baseLayerCollection);
                 updatables.push({ name: 'Print', fn: () => update(g()) });

@@ -20,26 +20,28 @@ import { ILayerInfo } from 'sdi/source';
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
-import { Command } from './context';
+import { Box } from '../print/context';
+import { Spec } from '../print/template';
 
 const logger = debug('sdi:legend-item');
 
 
+
 const renderLegendItem =
-    (layerInfo: ILayerInfo): Command[] => {
+    (spec: Spec, layerInfo: ILayerInfo): Box => {
         switch (layerInfo.style.kind) {
             case 'polygon-continuous':
             case 'polygon-discrete':
             case 'polygon-simple':
-                return legendPolygon(layerInfo.style, layerInfo);
+                return legendPolygon(spec, layerInfo.style, layerInfo);
             case 'point-discrete':
             case 'point-simple':
             case 'point-continuous':
-                return legendPoint(layerInfo.style, layerInfo);
+                return legendPoint(spec, layerInfo.style, layerInfo);
             case 'line-simple':
             case 'line-discrete':
             case 'line-continuous':
-                return legendLinestring(layerInfo.style, layerInfo);
+                return legendLinestring(spec, layerInfo.style, layerInfo);
             default:
                 throw (new Error('UnknownStyleKind'));
         }

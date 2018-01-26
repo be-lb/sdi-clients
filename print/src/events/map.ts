@@ -16,13 +16,13 @@
 
 import { dispatchK } from 'sdi/shape';
 import { viewEventsFactory, scaleEventsFactory, PrintResponse, PrintRequest } from 'sdi/map';
-
+import { PrintProps } from '../components/print';
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
 export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
 
 export const setPrintRequest =
-    (r: PrintRequest) => {
+    (r: PrintRequest<PrintProps>) => {
         dispatchK('port/map/printRequest')(() => r);
         dispatchK('port/map/interaction')(() => ({
             label: 'print',
@@ -30,4 +30,4 @@ export const setPrintRequest =
         }));
     };
 export const setPrintResponse =
-    (r: PrintResponse) => dispatchK('port/map/printResponse')(() => r);
+    (r: PrintResponse<PrintProps>) => dispatchK('port/map/printResponse')(() => r);

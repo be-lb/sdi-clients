@@ -15,143 +15,135 @@
  */
 
 import * as debug from 'debug';
-import * as Pdf from 'jspdf';
+import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV, H1, A, H2 } from 'sdi/components/elements';
-import { IMapInfo, ILayerInfo, LayerGroup } from 'sdi/source';
-import tr, { fromRecord } from 'sdi/locale';
-import { getRoot } from 'sdi/app';
+import { DIV } from 'sdi/components/elements';
+import { IMapInfo } from 'sdi/source';
+import { fromRecord } from 'sdi/locale';
 import { uniqId } from 'sdi/util';
+import { PrintResponse } from 'sdi/map';
 
 
-import legendItem from './legend-item';
 import { getMapInfo } from '../../queries/app';
 import { setPrintRequest } from '../../events/map';
 import { getInteractionMode, getPrintResponse } from '../../queries/map';
+import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, Orientation, Format, makeLayoutVertical } from './context';
+import { applySpec, TemplateName, ApplyFn } from './template';
+import { renderLegend } from '../legend';
 
-const logger = debug('sdi:legend');
+const logger = debug('sdi:print');
+
+
+export interface PrintProps {
+    template: TemplateName;
+    orientation: Orientation;
+    format: Format;
+}
 
 
 const renderTitle =
-    () => getMapInfo().fold(
-        () => DIV(),
-        mapInfo => DIV({ className: 'map-title' },
-            H1({}, A({ href: `${getRoot()}view`, target: '_top' }, fromRecord(mapInfo.title)))));
+    (f: ApplyFn<Box>, title: string) =>
+        f('title', ({ rect }) => ({
+            ...rect,
+            children: [
+                makeLayoutVertical(rect.width, rect.height / 2, [
+                    makeText(title, 24),
+                    makeText((new Date()).toLocaleDateString(), 8),
+                ]),
+            ],
+        }));
 
 
-interface Group {
-    g: LayerGroup | null;
-    layers: ILayerInfo[];
-}
-
-const groupItems =
-    (layers: ILayerInfo[]) =>
-        layers.slice().reverse().reduce<Group[]>((acc, info) => {
-            const ln = acc.length;
-            if (ln === 0) {
-                return [{
-                    g: info.group,
-                    layers: [info],
-                }];
-            }
-            const prevGroup = acc[ln - 1];
-            const cg = info.group;
-            const pg = prevGroup.g;
-            // Cases:
-            // info.group == null && prevGroup.g == null => append
-            // info.group != null && prevGroup.g != null && info.group.id == prevGroup.id => append
-            if ((cg === null && pg === null)
-                || (cg !== null && pg !== null && cg.id === pg.id)) {
-                prevGroup.layers.push(info);
-                return acc;
-            }
-            // info.group == null && prevGroup.g != null => new
-            // info.group != null && prevGroup.g == null => new
-            // info.group != null && prevGroup.g != null && info.group.id != prevGroup.id => new
-
-            return acc.concat({
-                g: cg,
-                layers: [info],
-            })
-
-        }, []);
+const renderMap =
+    (f: ApplyFn<Box>, imageData: string) =>
+        f('map', ({ rect, strokeWidth }) => ({
+            ...rect,
+            children: [
+                makeImage(imageData),
+                makeLine([
+                    [rect.x, rect.y],
+                    [rect.x + rect.width, rect.y],
+                    [rect.x + rect.width, rect.y + rect.height],
+                    [rect.x, rect.y + rect.height],
+                    [rect.x, rect.y],
+                ], strokeWidth, '#CCCCCC'),
+            ],
+        }));
 
 
-const renderLegend =
-    (groups: Group[]) =>
-        groups.map((group) => {
-            const items = group.layers.map(legendItem);
-            if (group.g !== null) {
-                return (
-                    DIV({ className: 'legend-group named' },
-                        DIV({ className: 'legend-group-title' },
-                            fromRecord(group.g.name)),
-                        DIV({ className: 'legend-group-items' }, items)));
-            }
-            return (
-                DIV({ className: 'legend-group anonymous' }, items));
+const renderPDF =
+    (mapInfo: IMapInfo, response: PrintResponse<PrintProps>) =>
+        fromNullable(response.props).map((props) => {
+            const apply = applySpec(props.template);
+            const pdf = createContext(props.orientation, props.format);
+            const boxes: Box[] = [];
+            const mapTitle = fromRecord(mapInfo.title);
+
+            renderTitle(apply, mapTitle)
+                .map(b => boxes.push(b));
+
+            renderMap(apply, response.data)
+                .map(b => boxes.push(b));
+
+            renderLegend(apply, mapInfo)
+                .map(b => boxes.push(b));
+
+            paintBoxes(pdf, boxes);
+
+            pdf.save('map.pdf');
         });
 
 
-type Dim = [number, number];
-const dims = {
-    a0: [1189, 841] as Dim,
-    a1: [841, 594] as Dim,
-    a2: [594, 420] as Dim,
-    a3: [420, 297] as Dim,
-    a4: [297, 210] as Dim,
-    a5: [210, 148] as Dim,
-};
-
 
 const renderPrintProgress =
-    (_mapInfo: IMapInfo) => {
+    (mapInfo: IMapInfo) => {
         const iLabel = getInteractionMode();
         if (iLabel !== 'print') {
             return DIV();
         }
         const response = getPrintResponse();
-        const imageData = response.data;
         switch (response.status) {
             case 'none': return DIV({}, 'Not Started');
             case 'start': return DIV({}, 'Started');
             case 'error': return DIV({}, 'Error');
             case 'end': return DIV({
-                onClick: () => {
-                    const pdf = new Pdf('portrait', undefined, 'a4');
-                    const [height, width] = dims.a4;
-                    pdf.addImage(
-                        imageData, 'PNG', 0, 0, width, height);
-                    pdf.text('TEXT', width / 2, height / 2);
-                    // const legend = document.createElement('div');
-                    // domRender(renderLegend(groupItems(mapInfo.layers)), legend);
-                    // pdf.addHTML(legend, 10, dims.a4[0] / 2, {}, () => {
-                    // });
-                    pdf.save('map.pdf');
-                },
+                onClick: () => renderPDF(mapInfo, response),
             }, 'download PDF');
         }
     };
 
 
+const renderButton =
+    (label: string, props: PrintProps) =>
+        DIV({
+            onClick: () => {
+                applySpec(props.template)('map', spec => spec.rect)
+                    .map(({ width, height }) => {
+                        const resolution = 72;
+                        const id = uniqId();
+                        setPrintRequest({
+                            id, width, height, resolution, props,
+                        });
+                    });
+            },
+        }, label);
+
 const legendLegend =
     (mapInfo: IMapInfo) =>
         DIV({ className: 'legend' },
-            renderTitle(),
             DIV({ className: 'print-block' },
-                DIV({
-                    onClick: () => {
-                        const [height, width] = dims.a4;
-                        const resolution = 150;
-                        const id = uniqId();
-                        setPrintRequest({
-                            id, width, height, resolution,
-                        });
-                    },
-                }, 'print!')),
-            renderPrintProgress(mapInfo),
-            H2({}, tr('mapLegend')),
-            ...renderLegend(groupItems(mapInfo.layers)));
+                renderButton('Paysage A4', {
+                    template: 'a4/landscape',
+                    format: 'a4',
+                    orientation: 'landscape',
+                }),
+                renderButton('Portrait A4', {
+                    template: 'a4/portrait',
+                    format: 'a4',
+                    orientation: 'portrait',
+                }),
+            ),
+            renderPrintProgress(mapInfo));
 
 
 const render =

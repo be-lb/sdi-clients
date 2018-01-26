@@ -219,37 +219,41 @@ export interface IViewEvent {
 }
 
 
-export interface PrintRequest {
+export interface PrintRequest<T> {
     id: string | null;
     width: number;
     height: number;
     resolution: number;
+    props: T | null;
 }
 export const defaultPrintRequest =
-    (): PrintRequest => ({
+    (): PrintRequest<null> => ({
         id: null,
         width: 0,
         height: 0,
         resolution: 0,
+        props: null,
     });
 
 export type PrintResponseStatus = 'none' | 'start' | 'end' | 'error';
 
-export interface PrintResponse {
+export interface PrintResponse<T> {
     id: string | null;
     status: PrintResponseStatus;
     data: string;
+    props: T | null;
 }
 export const defaultPrintResponse =
-    (): PrintResponse => ({
+    (): PrintResponse<null> => ({
         id: null,
         data: '',
         status: 'none',
+        props: null,
     });
 
-export interface PrintOptions {
-    getRequest(): PrintRequest;
-    setResponse(r: PrintResponse): void;
+export interface PrintOptions<T> {
+    getRequest(): PrintRequest<T>;
+    setResponse(r: PrintResponse<T>): void;
 }
 
 
