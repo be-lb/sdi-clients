@@ -60,6 +60,7 @@ const layout =
         return {
             x: 0, y: 0, height, width,
             children: [{
+                name: 'polygon',
                 direction: 'vertical',
                 items,
             }],

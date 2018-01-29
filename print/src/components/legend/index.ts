@@ -21,7 +21,7 @@ import { fromRecord } from 'sdi/locale';
 
 
 import legendItem from './legend-item';
-import { Box, makeText } from '../print/context';
+import { Box, makeText, Layout } from '../print/context';
 import { ApplyFn, Spec } from '../print/template';
 
 const logger = debug('sdi:legend');
@@ -82,13 +82,23 @@ const renderGroups =
                         (info) => {
                             const box = legendItem(spec, info);
                             const label = info.legend;
+
+                            logger(`box ${info.id} ${box.height}`);
                             if (label && fromRecord(label).trim().length > 0) {
                                 const lfs = spec.fontSize * 1.2;
                                 const lc = makeText(fromRecord(label), lfs);
+                                const lcBox: Box = {
+                                    x: 0, y: 3, width: box.width, height: 7,
+                                    children: [lc],
+                                };
+                                const ll: Layout = {
+                                    direction: 'vertical',
+                                    items: [lcBox, box],
+                                };
                                 return {
                                     x: 0, y: 0,
-                                    width: box.width, height: box.height ,
-                                    children: [lc, box],
+                                    width: box.width, height: box.height + 13,
+                                    children: [ll],
                                 };
                             }
                             return box;
@@ -113,6 +123,7 @@ const renderGroups =
 
         return {
             ...spec.rect, children: [{
+                name: 'legend',
                 direction: 'vertical',
                 items,
             }],

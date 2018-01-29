@@ -16,10 +16,12 @@
 
 import * as debug from 'debug';
 import * as Pdf from 'jspdf';
+import * as Color from 'color';
 
 const logger = debug('sdi:print/context');
 
 export type Orientation = 'landscape' | 'portrait';
+export type TextAlign = 'left' | 'right' | 'center';
 
 type Dim = [number, number];
 const dims = {
@@ -61,14 +63,16 @@ export interface CommandText {
     data: string;
     fontSize: number;
     color: string;
+    textAlign: TextAlign;
 }
 
 export const makeText =
-    (data: string, fontSize: number, color = 'black'): CommandText => ({
+    (data: string, fontSize: number, color = 'black', textAlign = 'left' as TextAlign): CommandText => ({
         kind: 'Text',
         data,
         fontSize,
         color,
+        textAlign,
     });
 
 
@@ -115,6 +119,7 @@ export type LayoutDirection = 'vertical' | 'horizontal';
 export interface Layout {
     direction: LayoutDirection;
     items: LayoutItems;
+    name?: string;
 }
 
 export type BoxChild = Command | Box | Layout;
@@ -192,12 +197,26 @@ const renderText =
     (page: Page) =>
         (rect: Rect, command: CommandText) => {
             const { x, y, width } = rect;
-            const { data, fontSize } = command;
+            const { data, fontSize, textAlign, color } = command;
             const lineHeight = fontSize * page.getLineHeight() / 72;
+            const iColor = Color(color);
             const lines = page
                 .setFontSize(fontSize)
                 .splitTextToSize(data, width);
-            page.text(lines, x, y + lineHeight);
+
+            page.setTextColor(iColor.red(), iColor.green(), iColor.blue());
+
+            switch (textAlign) {
+                case 'left':
+                    page.text(lines, x, y + lineHeight);
+                    break;
+                case 'right':
+                    page.text(lines, x + width, y + lineHeight, null, null, 'right');
+                    break;
+                case 'center':
+                    page.text(lines, x + (width / 2), y + lineHeight, null, null, 'center');
+                    break;
+            }
 
             logger(`addText ${x} ${y}`);
             // const textHeight = lines.length * fontSize * page.getLineHeight() / 72;
@@ -207,16 +226,20 @@ const renderText =
 const renderLine =
     (page: Page) =>
         (rect: Rect, command: CommandLine) => {
-            // const { x, y } = rect;
+            const { x, y } = rect;
             const { coords, strokeWidth, color } = command;
+            const ctx = page.context2d;
             if (coords.length > 1) {
-                page.context2d.setLineWidth(strokeWidth);
-                page.context2d.setStrokeStyle(color);
+                ctx.save();
+                ctx.beginPath();
+                ctx.setLineWidth(strokeWidth);
+                ctx.setStrokeStyle(color);
                 const start = coords[0];
-                page.context2d.moveTo(start[0], start[1]);
+                ctx.moveTo(x + start[0], y + start[1]);
                 coords.slice(1)
-                    .forEach(c => page.context2d.lineTo(c[0], c[1]));
-                page.context2d.stroke();
+                    .forEach(c => ctx.lineTo(x + c[0], y + c[1]));
+                ctx.stroke();
+                ctx.restore();
             }
 
             return rect;
@@ -283,7 +306,7 @@ const processLayout =
             ch: 0,
             overflow: false,
         };
-        logger(`layout ${rectToString(rect)}`);
+        logger(`layout ${layout.name} ${rectToString(rect)}`);
         switch (direction) {
             case 'vertical':
                 return items.reduce<LayoutState>((s, b) => {
@@ -298,8 +321,9 @@ const processLayout =
                     if (ny <= maxy) {
                         return {
                             boxes: boxes.concat([{
-                                ...b, x: cx, y: cy + b.y,
-                                children: updateChildBoxes(cx, ny, b.children),
+                                ...b, x: cx + b.x, y: cy + b.y,
+                                children: updateChildBoxes(
+                                    cx + b.x, cy + b.y, b.children),
                             }]),
                             cx, cy: ny,
                             cw: Math.max(s.cw, b.width), ch: 0, overflow: false,

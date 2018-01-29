@@ -1,25 +1,27 @@
 
-import { fromPredicate } from 'fp-ts/lib/Option';
+import { fromPredicate, Option } from 'fp-ts/lib/Option';
 
-import { Rect, Box } from '../print/context';
-import { Option } from 'fp-ts/lib/Option';
-
+import { Rect, Box, TextAlign } from '../print/context';
 
 export interface Spec {
     rect: Rect;
     fontSize: number;
     strokeWidth: number;
+    textAlign: TextAlign;
 }
 
 interface PartialSpec {
     rect: Rect;
     fontSize?: number;
     strokeWidth?: number;
+    textAlign?: TextAlign;
 }
+
 const makeSpec =
     (s: PartialSpec): Spec => ({
         fontSize: 10,
         strokeWidth: 1,
+        textAlign: 'left',
         ...s,
     });
 
@@ -49,7 +51,7 @@ const templates: TemplateCollection = {
     },
 
     'a4/landscape': {
-        title: makeSpec({ rect: { x: 215, y: 15, width: 65, height: 60 } }),
+        title: makeSpec({ rect: { x: 215, y: 15, width: 65, height: 60 }, textAlign: 'left', fontSize: 24 }),
         legend: makeSpec({ rect: { x: 215, y: 80, width: 65, height: 180 } }),
         map: makeSpec({ rect: { x: 15, y: 15, width: 180, height: 180 } }),
     },

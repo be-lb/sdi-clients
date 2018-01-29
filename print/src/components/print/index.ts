@@ -43,12 +43,12 @@ export interface PrintProps {
 
 const renderTitle =
     (f: ApplyFn<Box>, title: string) =>
-        f('title', ({ rect }) => ({
+        f('title', ({ rect, textAlign, fontSize }) => ({
             ...rect,
             children: [
                 makeLayoutVertical(rect.width, rect.height / 2, [
-                    makeText(title, 24),
-                    makeText((new Date()).toLocaleDateString(), 8),
+                    makeText(title, fontSize, '#006f90', textAlign),
+                    makeText((new Date()).toLocaleDateString(), 8, 'grey'),
                 ]),
             ],
         }));
@@ -61,11 +61,11 @@ const renderMap =
             children: [
                 makeImage(imageData),
                 makeLine([
-                    [rect.x, rect.y],
-                    [rect.x + rect.width, rect.y],
-                    [rect.x + rect.width, rect.y + rect.height],
-                    [rect.x, rect.y + rect.height],
-                    [rect.x, rect.y],
+                    [0, 0],
+                    [rect.width, 0],
+                    [rect.width, rect.height],
+                    [0, rect.height],
+                    [0, 0],
                 ], strokeWidth, '#CCCCCC'),
             ],
         }));
