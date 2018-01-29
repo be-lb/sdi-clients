@@ -3,7 +3,7 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { queryK, dispatch } from 'sdi/shape';
 import { scopeOption } from 'sdi/lib';
 import { getApiUrl } from 'sdi/app';
-import { IMapInfo, getMessageRecord, Inspire, ILayerInfo } from 'sdi/source';
+import { IMapInfo, getMessageRecord, Inspire, ILayerInfo, MessageRecord } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 
 import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer, fetchBaseLayer } from '../remote';
@@ -127,3 +127,14 @@ export const initMap =
             // TODO
         }
     };
+
+
+export const setCustomTitle =
+    (customTitle: MessageRecord) =>
+        dispatch('component/print',
+            s => ({ ...s, customTitle }));
+
+export const resetCustomTitle =
+    () =>
+        dispatch('component/print',
+            s => ({ ...s, customTitle: null }));

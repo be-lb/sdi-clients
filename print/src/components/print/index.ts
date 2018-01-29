@@ -18,18 +18,19 @@ import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, MessageRecord } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { uniqId } from 'sdi/util';
 import { PrintResponse } from 'sdi/map';
 
 
-import { getMapInfo } from '../../queries/app';
+import { getMapInfo, getTitle } from '../../queries/app';
 import { setPrintRequest } from '../../events/map';
 import { getInteractionMode, getPrintResponse } from '../../queries/map';
 import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, Orientation, Format, makeLayoutVertical } from './context';
 import { applySpec, TemplateName, ApplyFn } from './template';
 import { renderLegend } from '../legend';
+import renderCustom from './custom';
 
 const logger = debug('sdi:print');
 
@@ -40,6 +41,15 @@ export interface PrintProps {
     format: Format;
 }
 
+
+export interface PrintState {
+    customTitle: MessageRecord | null;
+}
+
+export const defaultPrintState =
+    (): PrintState => ({
+        customTitle: null,
+    });
 
 const renderTitle =
     (f: ApplyFn<Box>, title: string) =>
@@ -77,7 +87,7 @@ const renderPDF =
             const apply = applySpec(props.template);
             const pdf = createContext(props.orientation, props.format);
             const boxes: Box[] = [];
-            const mapTitle = fromRecord(mapInfo.title);
+            const mapTitle = fromRecord(getTitle(mapInfo));
 
             renderTitle(apply, mapTitle)
                 .map(b => boxes.push(b));
@@ -131,6 +141,7 @@ const renderButton =
 const legendLegend =
     (mapInfo: IMapInfo) =>
         DIV({ className: 'legend' },
+            renderCustom(mapInfo),
             DIV({ className: 'print-block' },
                 renderButton('Paysage A4', {
                     template: 'a4/landscape',

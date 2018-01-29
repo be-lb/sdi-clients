@@ -8,6 +8,7 @@ import { defaultInteraction, defaultPrintRequest, defaultPrintResponse } from 's
 
 import './shape';
 import App from './app';
+import { defaultPrintState } from './components/print';
 
 const logger = debug('sdi:index');
 
@@ -72,6 +73,8 @@ export const main =
             'port/map/interaction': defaultInteraction(),
             'port/map/printRequest': defaultPrintRequest(),
             'port/map/printResponse': defaultPrintResponse(),
+
+            'component/print': defaultPrintState(),
 
             'component/timeserie': {
                 cursorPosition: 35,

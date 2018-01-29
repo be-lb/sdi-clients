@@ -3,6 +3,7 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { scopeOption } from 'sdi/lib';
 
 import { query } from 'sdi/shape';
+import { IMapInfo } from '../sdi/source/index';
 
 export const getUserData =
     () => query('data/user');
@@ -60,3 +61,15 @@ export const getDatasetMetadata =
         query('data/metadata')
             .find(md => md.id === id));
 
+
+export const hasCustomTitle =
+    () => null === query('component/print').customTitle;
+
+export const getTitle =
+    (info: IMapInfo) => {
+        const s = query('component/print').customTitle;
+        if (s === null) {
+            return info.title;
+        }
+        return s;
+    };
