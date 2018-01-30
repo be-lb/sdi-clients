@@ -31,7 +31,7 @@ import { renderPDF } from './generate';
 
 const logger = debug('sdi:print');
 
-export const resolution = 300;
+export const resolution = 150;
 
 export interface PrintProps {
     template: TemplateName;

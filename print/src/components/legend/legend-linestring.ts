@@ -22,52 +22,32 @@ import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, LineStyleConfig, LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfigContinuous } from 'sdi/source';
 
 import { getDatasetMetadata } from '../../queries/app';
-import { makeImage, makeText, Box } from '../print/context';
+import { Box } from '../print/context';
 import { Spec } from '../print/template';
+import { atResolution, item, layout } from './common';
 
 const logger = debug('sdi:legend-linestring');
 
-const lineGeometry = new geom.LineString([
-    [0, 15],
-    [32, 15],
-]);
-
-
-const item = (spec: Spec, dataUrl: string, label: string): Box => {
-    return {
-        x: 0, y: 0, width: 100, height: 20,
-        children: [
-            { x: 0, y: 0, width: 30, height: 100, children: [makeImage(dataUrl)] },
-            { x: 35, y: 0, width: 60, height: 100, children: [makeText(label, spec.fontSize)] },
-        ],
+const lineGeometry =
+    (sz: number) => {
+        return (
+            new geom.LineString([
+                [0, sz / 2],
+                [sz, sz / 2],
+            ]));
     };
-};
 
 
-const layout =
-    (_spec: Spec, items: Box[]): Box => {
-        const height = items.reduce<number>((acc, b) => acc + b.height, 0);
-        const width = items.reduce<number>((acc, b) => Math.max(acc, b.width), 0);
-        if (items.length === 0) {
-            return { x: 0, y: 0, height, width, children: [] };
-        }
-        return {
-            x: 0, y: 0, height, width,
-            children: [{
-                direction: 'vertical',
-                items,
-            }],
-        };
-    };
 
 
 const renderSimple =
     (spec: Spec, config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, olContext } = ctx;
-        const styles = lineStyle(config)(new Feature(lineGeometry));
+        const { height } = spec.rect;
+        const styles = lineStyle(config)(new Feature(lineGeometry(atResolution(height))));
         styles.forEach((style) => {
             olContext.setStyle(style);
-            olContext.drawGeometry(lineGeometry);
+            olContext.drawGeometry(lineGeometry(atResolution(height)));
         });
         const label = getDatasetMetadata(layerInfo.metadataId).fold(
             () => '',
@@ -82,10 +62,11 @@ const renderDiscrete =
         const { canvas, canvasContext, olContext } = ctx;
         const styleFn = lineStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.groups.forEach((group) => {
             if (group.values.length > 0) {
                 canvasContext.clearRect(0, 0, 100, 100);
-                const f = new Feature(lineGeometry);
+                const f = new Feature(lineGeometry(atResolution(height)));
                 f.set(config.propName, group.values[0]);
                 const styles = styleFn(f);
                 styles.forEach((style) => {
@@ -95,7 +76,7 @@ const renderDiscrete =
             }
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
 
     };
 
@@ -104,9 +85,10 @@ const renderContinuous =
         const { canvas, canvasContext, olContext } = ctx;
         const styleFn = lineStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.intervals.forEach((interval) => {
             canvasContext.clearRect(0, 0, 100, 100);
-            const f = new Feature(lineGeometry);
+            const f = new Feature(lineGeometry(atResolution(height)));
             const v = interval.low + ((interval.high - interval.low) / 2);
             f.set(config.propName, v);
             const styles = styleFn(f);
@@ -116,12 +98,13 @@ const renderContinuous =
             items.push(item(spec, canvas.toDataURL(), fromRecord(interval.label)));
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
     };
 
 const render =
     (spec: Spec, config: LineStyleConfig, layerInfo: ILayerInfo) => {
-        const ctx = getContext(20, 32);
+        const { height } = spec.rect;
+        const ctx = getContext(atResolution(height), atResolution(height));
         if (ctx) {
             switch (config.kind) {
                 case 'line-simple': return renderSimple(spec, config, layerInfo, ctx);

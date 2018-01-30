@@ -56,13 +56,24 @@ const templates: TemplateCollection = {
     },
 
     'a4/landscape': {
-        title: makeSpec({ rect: { x: 215, y: 15, width: 65, height: 60 }, textAlign: 'left', fontSize: 24 }),
+        title: makeSpec({
+            rect: { x: 205, y: 15, width: 65, height: 60 },
+            textAlign: 'left',
+            fontSize: 24,
+            color: '#006f90',
+        }),
 
-        legend: makeSpec({ rect: { x: 215, y: 80, width: 65, height: 180 } }),
+        legend: makeSpec({ rect: { x: 205, y: 80, width: 65, height: 180 } }),
         legendItem: makeSpec({ rect: { x: 0, y: 0, width: 65, height: 10 } }),
 
-        map: makeSpec({ rect: { x: 15, y: 15, width: 180, height: 180 } }),
-        scaleline: makeSpec({ rect: { x: 140, y: 160, width: 40, height: 20 }, strokeWidth: 0.5 }),
+        map: makeSpec({
+            rect: { x: 15, y: 15, width: 180, height: 180 },
+            color: '#949499',
+        }),
+        scaleline: makeSpec({
+            rect: { x: 155 - 2, y: 183 - 2, width: 40, height: 12 },
+            strokeWidth: 0.5,
+        }),
     },
 
     'a0/portrait': {

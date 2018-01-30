@@ -67,13 +67,14 @@ const renderScaleline =
     (f: ApplyFn<Box>) =>
         f('scaleline', ({ rect, strokeWidth, color, fontSize }) => {
             const { width, count, unit } = getScaleLine();
-            const y = rect.height / 2;
+            const y = rect.height * 0.66;
             const sWidth = (width / (resolution / 72)) * 0.3528;
+            const offset = (rect.width - sWidth) / 2;
             const scaleline: Coords[] = [
-                [0, y - 1],
-                [0, y],
-                [sWidth, y],
-                [sWidth, y - 1],
+                [offset, y - 1],
+                [offset, y],
+                [offset + sWidth, y],
+                [offset + sWidth, y - 1],
             ];
 
             logger(`scaleline ${count}${unit} : ${width}px => ${sWidth}pt`);
@@ -84,9 +85,9 @@ const renderScaleline =
                     makeRect(coordsFromRect(rect), 'white'),
                     makeLine(scaleline, strokeWidth, color),
                     {
-                        x: rect.x + 1, y: rect.y + (rect.height / 3),
-                        width: rect.width, height: rect.height / 2,
-                        children: [makeText(`${count} ${unit}`, fontSize)],
+                        x: rect.x, y: rect.y + (rect.height / 3),
+                        width: rect.width - offset, height: rect.height / 2,
+                        children: [makeText(`${count} ${unit}`, fontSize, color, 'right')],
                     },
                 ],
             };

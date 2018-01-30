@@ -22,54 +22,27 @@ import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PointStyleConfig, PointStyleConfigDiscrete, PointStyleConfigSimple, PointStyleConfigContinuous } from 'sdi/source';
 
 import { getDatasetMetadata } from '../../queries/app';
-import { Box, makeImage, makeText } from '../print/context';
+import { Box } from '../print/context';
 import { Spec } from '../print/template';
+import { atResolution, item, layout } from './common';
 
 const logger = debug('sdi:legend-point');
 
-const pointGeometry = new geom.Point([15, 15]);
-const ctWidth = 320;
-const ctHeight = 320;
+const pointGeometry =
+    (sz: number) => new geom.Point([sz / 2, sz / 2]);
 
-
-
-const item = (spec: Spec, dataUrl: string, label: string): Box => {
-    return {
-        x: 0, y: 0, width: 100, height: 20,
-        children: [
-            { x: 0, y: 0, width: 30, height: 10, children: [makeImage(dataUrl)] },
-            { x: 35, y: 0, width: 60, height: 10, children: [makeText(label, spec.fontSize)] },
-        ],
-    };
-};
-
-
-const layout =
-    (_spec: Spec, items: Box[]): Box => {
-        const height = items.reduce<number>((acc, b) => acc + b.height, 0);
-        const width = items.reduce<number>((acc, b) => Math.max(acc, b.width), 0);
-        if (items.length === 0) {
-            return { x: 0, y: 0, height, width, children: [] };
-        }
-        return {
-            x: 0, y: 0, height, width,
-            children: [{
-                direction: 'vertical',
-                items,
-            }],
-        };
-    };
 
 
 const renderSimple =
     (spec: Spec, config: PointStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, olContext } = ctx;
         const styleFn = pointStyle(config);
-        const styles = styleFn(new Feature(pointGeometry));
+        const { height } = spec.rect;
+        const styles = styleFn(new Feature(pointGeometry(atResolution(height))));
 
         styles.forEach((style) => {
             olContext.setStyle(style);
-            olContext.drawGeometry(pointGeometry);
+            olContext.drawGeometry(pointGeometry(atResolution(height)));
         });
         const label = getDatasetMetadata(layerInfo.metadataId).fold(
             () => '',
@@ -84,10 +57,12 @@ const renderDiscrete =
         const { canvas, canvasContext, olContext } = ctx;
         const styleFn = pointStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.groups.forEach((group) => {
             if (group.values.length > 0) {
-                canvasContext.clearRect(0, 0, ctWidth, ctHeight);
-                const f = new Feature(pointGeometry);
+                canvasContext.clearRect(0, 0,
+                    atResolution(height), atResolution(height));
+                const f = new Feature(pointGeometry(atResolution(height)));
                 f.set(config.propName, group.values[0]);
                 const styles = styleFn(f);
                 styles.forEach((style) => {
@@ -97,7 +72,7 @@ const renderDiscrete =
             }
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
     };
 
 const renderContinuous =
@@ -105,9 +80,11 @@ const renderContinuous =
         const { canvas, canvasContext, olContext } = ctx;
         const styleFn = pointStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.intervals.forEach((interval) => {
-            canvasContext.clearRect(0, 0, ctWidth, ctHeight);
-            const f = new Feature(pointGeometry);
+            canvasContext.clearRect(0, 0,
+                atResolution(height), atResolution(height));
+            const f = new Feature(pointGeometry(atResolution(height)));
             const v = interval.low + ((interval.high - interval.low) / 2);
             f.set(config.propName, v);
             const styles = styleFn(f);
@@ -117,12 +94,13 @@ const renderContinuous =
             items.push(item(spec, canvas.toDataURL(), fromRecord(interval.label)));
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
     };
 
 const render =
     (spec: Spec, config: PointStyleConfig, layerInfo: ILayerInfo) => {
-        const ctx = getContext(ctWidth, ctHeight);
+        const { height } = spec.rect;
+        const ctx = getContext(atResolution(height), atResolution(height));
         if (ctx) {
             switch (config.kind) {
                 case 'point-simple': return renderSimple(spec, config, layerInfo, ctx);
