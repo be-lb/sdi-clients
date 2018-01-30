@@ -12,18 +12,10 @@ import print from './components/print';
 const logger = debug('sdi:app');
 
 
-
-const logoBe =
-    () => DIV({ className: 'be-logo' },
-        DIV({ className: 'be-name' }));
-
-
 const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-        DIV({ className: 'embed' },
-            DIV({ className: `main ${name}` }, ...elements),
-            logoBe()
-        )
+        DIV({ className: 'print' },
+            DIV({ className: `main ${name}` }, ...elements))
     );
 
 const render =

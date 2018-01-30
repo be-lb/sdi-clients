@@ -19,8 +19,6 @@ import * as debug from 'debug';
 
 import { DIV } from 'sdi/components/elements';
 import { create, IMapOptions } from 'sdi/map';
-import langSwitch from 'sdi/components/lang-switch';
-
 
 import { getBaseLayer, getMapInfo } from '../queries/app';
 import {
@@ -96,9 +94,7 @@ const render =
                 DIV({
                     className: 'map',
                     ref: attachMap(),
-                }),
-                DIV({ className: 'be-logo-box' }),
-                langSwitch())
+                }))
         );
     };
 

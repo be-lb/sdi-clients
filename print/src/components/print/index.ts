@@ -16,7 +16,9 @@
 
 import * as debug from 'debug';
 
-import { DIV } from 'sdi/components/elements';
+import { DIV, H1 } from 'sdi/components/elements';
+import langSwitch from 'sdi/components/lang-switch';
+import tr from 'sdi/locale';
 import { IMapInfo, MessageRecord } from 'sdi/source';
 import { uniqId } from 'sdi/util';
 
@@ -86,6 +88,8 @@ const renderButton =
 const legendLegend =
     (mapInfo: IMapInfo) =>
         DIV({ className: 'legend' },
+            H1({}, tr('printMap')),
+            langSwitch(),
             renderCustom(mapInfo),
             DIV({ className: 'print-block' },
                 renderButton('Paysage A4', {
