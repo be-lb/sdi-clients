@@ -15,65 +15,39 @@
  */
 
 import * as debug from 'debug';
-import { geom, Feature } from 'openlayers';
+import { Feature, geom } from 'openlayers';
 
 import { getContext, IOLContext, polygonStyle } from 'sdi/map/style';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PolygonStyleConfig, PolygonStyleConfigSimple, PolygonStyleConfigDiscrete, PolygonStyleConfigContinuous } from 'sdi/source';
 
 import { getDatasetMetadata } from '../../queries/app';
-import { Box, makeImage, makeText } from '../print/context';
+import { Box } from '../print/context';
 import { Spec } from '../print/template';
+import { layout, item, atResolution } from './common';
 
 const logger = debug('sdi:legend-polygon');
 
 
-const ctWidth = 320;
-const ctHeight = 320;
-const polygonGeometry = new geom.Polygon([[
-    [0, ctHeight * 0.2],
-    [ctWidth, ctHeight * 0.2],
-    [ctWidth, ctHeight * 0.8],
-    [0, ctHeight * 0.8],
-    [0, ctHeight * 0.2],
-]]);
-
-
-
-const item = ({ rect, fontSize }: Spec, dataUrl: string, label: string): Box => {
-    return {
-        x: 0, y: 0, width: rect.width, height: 10,
-        children: [
-            { x: 0, y: 0, width: 20, height: 10, children: [makeImage(dataUrl)] },
-            { x: 28, y: 5, width: rect.width - 20, height: 10, children: [makeText(label, fontSize)] },
-        ],
-    };
-};
-
-const layout =
-    (_spec: Spec, items: Box[]): Box => {
-        const height = items.reduce<number>((acc, b) => acc + b.height, 0);
-        const width = items.reduce<number>((acc, b) => Math.max(acc, b.width), 0);
-        if (items.length === 0) {
-            return { x: 0, y: 0, height, width, children: [] };
-        }
-        return {
-            x: 0, y: 0, height, width,
-            children: [{
-                name: 'polygon',
-                direction: 'vertical',
-                items,
-            }],
-        };
+const polygonGeometry =
+    (sz: number) => {
+        return (
+            new geom.Polygon([[
+                [0, sz * 0.2],
+                [sz, sz * 0.2],
+                [sz, sz * 0.8],
+                [0, sz * 0.8],
+                [0, sz * 0.2],
+            ]]));
     };
 
 const renderSimple =
     (spec: Spec, config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, olContext } = ctx;
-        const styles = polygonStyle(config)(new Feature(polygonGeometry));
+        const styles = polygonStyle(config)(new Feature(polygonGeometry(atResolution(spec.rect.height))));
         styles.forEach((style) => {
             olContext.setStyle(style);
-            olContext.drawGeometry(polygonGeometry);
+            olContext.drawGeometry(polygonGeometry(atResolution(spec.rect.height)));
         });
 
         const label = getDatasetMetadata(layerInfo.metadataId).fold(
@@ -86,12 +60,14 @@ const renderSimple =
 const renderDiscrete =
     (spec: Spec, config: PolygonStyleConfigDiscrete, _layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, canvasContext, olContext } = ctx;
+        const { rect } = spec;
         const styleFn = polygonStyle(config);
         const items: Box[] = [];
         config.groups.forEach((group) => {
             if (group.values.length > 0) {
-                canvasContext.clearRect(0, 0, ctWidth, ctHeight);
-                const f = new Feature(polygonGeometry);
+                canvasContext.clearRect(0, 0,
+                    atResolution(rect.height), atResolution(rect.height));
+                const f = new Feature(polygonGeometry(atResolution(rect.height)));
                 f.set(config.propName, group.values[0]);
                 const styles = styleFn(f);
                 styles.forEach((style) => {
@@ -103,17 +79,19 @@ const renderDiscrete =
             }
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
     };
 
 const renderContinuous =
     (spec: Spec, config: PolygonStyleConfigContinuous, _layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, canvasContext, olContext } = ctx;
+        const { rect } = spec;
         const styleFn = polygonStyle(config);
         const items: Box[] = [];
         config.intervals.forEach((interval) => {
-            canvasContext.clearRect(0, 0, ctWidth, ctHeight);
-            const f = new Feature(polygonGeometry);
+            canvasContext.clearRect(0, 0,
+                atResolution(rect.height), atResolution(rect.height));
+            const f = new Feature(polygonGeometry(atResolution(rect.height)));
             const v = interval.low + ((interval.high - interval.low) / 2);
             f.set(config.propName, v);
             const styles = styleFn(f);
@@ -125,13 +103,14 @@ const renderContinuous =
 
         });
 
-        return layout(spec, items);
+        return layout('vertical', items);
     };
 
 
 const render =
     (spec: Spec, config: PolygonStyleConfig, layerInfo: ILayerInfo): Box => {
-        const ctx = getContext(ctWidth, ctHeight);
+        const { height } = spec.rect;
+        const ctx = getContext(atResolution(height), atResolution(height));
         if (ctx) {
             switch (config.kind) {
                 case 'polygon-simple': return renderSimple(spec, config, layerInfo, ctx);
