@@ -74,6 +74,7 @@ const renderPrintProgress =
 const renderButton =
     (label: string, props: PrintProps) =>
         DIV({
+            className: props.orientation,
             onClick: () => {
                 applySpec(props.template)('map', spec => spec.rect)
                     .map(({ width, height }) => {
