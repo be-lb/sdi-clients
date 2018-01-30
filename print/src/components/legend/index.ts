@@ -18,11 +18,12 @@ import * as debug from 'debug';
 
 import { IMapInfo, ILayerInfo, LayerGroup } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
+import { scopeOption } from 'sdi/lib';
 
 
 import legendItem from './legend-item';
 import { Box, makeText, Layout } from '../print/context';
-import { ApplyFn, Spec } from '../print/template';
+import { Spec, TemplateName, applySpec } from '../print/template';
 
 const logger = debug('sdi:legend');
 
@@ -72,20 +73,25 @@ const boxHeight =
     (bs: Box[]) =>
         bs.reduce<number>((acc, b) => acc + b.height, 0);
 
+type SpecConfig = {
+    legend: Spec;
+    legendItem: Spec;
+};
+
 const renderGroups =
-    (spec: Spec, groups: Group[]): Box => {
+    (spec: SpecConfig, groups: Group[]): Box => {
         const items: Box[] =
             groups.reduce<Box[]>((boxes, group) => {
                 const layers = group.layers.filter(l => l.visible === true);
                 if (layers.length > 0) {
                     const items = layers.map(
                         (info) => {
-                            const box = legendItem(spec, info);
+                            const box = legendItem(spec.legendItem, info);
                             const label = info.legend;
 
                             logger(`box ${info.id} ${box.height}`);
                             if (label && fromRecord(label).trim().length > 0) {
-                                const lfs = spec.fontSize * 1.2;
+                                const lfs = spec.legendItem.fontSize * 1.2;
                                 const lc = makeText(fromRecord(label), lfs);
                                 const lcBox: Box = {
                                     x: 0, y: 3, width: box.width, height: 7,
@@ -107,9 +113,9 @@ const renderGroups =
                     if (group.g !== null) {
                         const groupBox: Box = {
                             x: 0, y: 0,
-                            width: spec.rect.width * 0.8, height: boxHeight(items) + 14,
+                            width: spec.legend.rect.width * 0.8, height: boxHeight(items) + 14,
                             children: [
-                                makeText(fromRecord(group.g.name), spec.fontSize),
+                                makeText(fromRecord(group.g.name), spec.legendItem.fontSize),
                                 ...items,
                             ],
                         };
@@ -122,7 +128,7 @@ const renderGroups =
             }, []);
 
         return {
-            ...spec.rect, children: [{
+            ...spec.legend.rect, children: [{
                 name: 'legend',
                 direction: 'vertical',
                 items,
@@ -133,8 +139,15 @@ const renderGroups =
 
 
 export const renderLegend =
-    (f: ApplyFn<Box>, mapInfo: IMapInfo) =>
-        f('legend', spec => renderGroups(spec, groupItems(mapInfo.layers)));
+    (tn: TemplateName, mapInfo: IMapInfo) => {
+        const withSpec = applySpec(tn);
+        // f('legend', spec => renderGroups(spec, groupItems(mapInfo.layers))))
+        return scopeOption()
+            .let('legend', withSpec('legend', s => s))
+            .let('legendItem', withSpec('legendItem', s => s))
+            .map(
+            scope => renderGroups(scope, groupItems(mapInfo.layers)));
+    };
 
 
 

@@ -15,25 +15,23 @@
  */
 
 import * as debug from 'debug';
-import { fromNullable } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
 import { IMapInfo, MessageRecord } from 'sdi/source';
-import { fromRecord } from 'sdi/locale';
 import { uniqId } from 'sdi/util';
-import { PrintResponse } from 'sdi/map';
 
 
-import { getMapInfo, getTitle } from '../../queries/app';
+import { getMapInfo } from '../../queries/app';
 import { setPrintRequest } from '../../events/map';
 import { getInteractionMode, getPrintResponse } from '../../queries/map';
-import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, Orientation, Format, makeLayoutVertical } from './context';
-import { applySpec, TemplateName, ApplyFn } from './template';
-import { renderLegend } from '../legend';
+import { Orientation, Format } from './context';
+import { applySpec, TemplateName } from './template';
 import renderCustom from './custom';
+import { renderPDF } from './generate';
 
 const logger = debug('sdi:print');
 
+export const resolution = 300;
 
 export interface PrintProps {
     template: TemplateName;
@@ -51,58 +49,6 @@ export const defaultPrintState =
         customTitle: null,
     });
 
-const renderTitle =
-    (f: ApplyFn<Box>, title: string) =>
-        f('title', ({ rect, textAlign, fontSize }) => ({
-            ...rect,
-            children: [
-                makeLayoutVertical(rect.width, rect.height / 2, [
-                    makeText(title, fontSize, '#006f90', textAlign),
-                    makeText((new Date()).toLocaleDateString(), 8, 'grey'),
-                ]),
-            ],
-        }));
-
-
-const renderMap =
-    (f: ApplyFn<Box>, imageData: string) =>
-        f('map', ({ rect, strokeWidth }) => ({
-            ...rect,
-            children: [
-                makeImage(imageData),
-                makeLine([
-                    [0, 0],
-                    [rect.width, 0],
-                    [rect.width, rect.height],
-                    [0, rect.height],
-                    [0, 0],
-                ], strokeWidth, '#CCCCCC'),
-            ],
-        }));
-
-
-const renderPDF =
-    (mapInfo: IMapInfo, response: PrintResponse<PrintProps>) =>
-        fromNullable(response.props).map((props) => {
-            const apply = applySpec(props.template);
-            const pdf = createContext(props.orientation, props.format);
-            const boxes: Box[] = [];
-            const mapTitle = fromRecord(getTitle(mapInfo));
-
-            renderTitle(apply, mapTitle)
-                .map(b => boxes.push(b));
-
-            renderMap(apply, response.data)
-                .map(b => boxes.push(b));
-
-            renderLegend(apply, mapInfo)
-                .map(b => boxes.push(b));
-
-            paintBoxes(pdf, boxes);
-
-            pdf.save('map.pdf');
-        });
-
 
 
 const renderPrintProgress =
@@ -114,11 +60,11 @@ const renderPrintProgress =
         const response = getPrintResponse();
         switch (response.status) {
             case 'none': return DIV({}, 'Not Started');
-            case 'start': return DIV({}, 'Started');
+            case 'start': return DIV({}, 'Downloading Base Map');
             case 'error': return DIV({}, 'Error');
             case 'end': return DIV({
                 onClick: () => renderPDF(mapInfo, response),
-            }, 'download PDF');
+            }, 'Download PDF');
         }
     };
 
@@ -129,7 +75,6 @@ const renderButton =
             onClick: () => {
                 applySpec(props.template)('map', spec => spec.rect)
                     .map(({ width, height }) => {
-                        const resolution = 72;
                         const id = uniqId();
                         setPrintRequest({
                             id, width, height, resolution, props,

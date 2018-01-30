@@ -92,10 +92,25 @@ export const makeLine =
     });
 
 
+export interface CommandRect {
+    kind: 'Rect';
+    coords: Coords[];
+    color: string;
+}
+
+export const makeRect =
+    (coords: Coords[], color = 'black'): CommandRect => ({
+        kind: 'Rect',
+        coords,
+        color,
+    });
+
+
 export type Command =
     | CommandImage
     | CommandText
     | CommandLine
+    | CommandRect
     ;
 
 
@@ -137,6 +152,9 @@ const isLayout = (a: BoxChild): a is Layout => {
     return 'items' in a;
 };
 
+
+export const nullRect =
+    (): Rect => ({ x: 0, y: 0, width: 0, height: 0});
 
 
 export const makeLayout =
@@ -239,6 +257,27 @@ const renderLine =
                 coords.slice(1)
                     .forEach(c => ctx.lineTo(x + c[0], y + c[1]));
                 ctx.stroke();
+                ctx.restore();
+            }
+
+            return rect;
+        };
+
+const renderRect =
+    (page: Page) =>
+        (rect: Rect, command: CommandRect) => {
+            const { x, y } = rect;
+            const { coords, color } = command;
+            const ctx = page.context2d;
+            if (coords.length > 1) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.setFillStyle(color);
+                const start = coords[0];
+                ctx.moveTo(x + start[0], y + start[1]);
+                coords.slice(1)
+                    .forEach(c => ctx.lineTo(x + c[0], y + c[1]));
+                ctx.fill();
                 ctx.restore();
             }
 
@@ -361,6 +400,7 @@ export const paintBoxes =
         const image = renderImage(page);
         const text = renderText(page);
         const line = renderLine(page);
+        const rect = renderRect(page);
 
 
 
@@ -380,6 +420,7 @@ export const paintBoxes =
                             case 'Image': image(box, child); break;
                             case 'Text': text(box, child); break;
                             case 'Line': line(box, child); break;
+                            case 'Rect': rect(box, child); break;
                         }
                     }
                 }
