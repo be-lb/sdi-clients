@@ -20,10 +20,12 @@ import measure from './measure';
 import share from './share';
 import tracker from './tracker';
 import location from './location';
+import print from './print';
 
 
 const legendTools = () => {
     return [
+        print(),
         share(),
         webservices(),
         tracker(),
