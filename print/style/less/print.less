@@ -1,0 +1,73 @@
+.print .map .control-box {
+    display: none;
+}
+
+.print {
+    .absolute(@margin, @margin, @margin, @margin);
+    border: 1px solid @light-grey;
+
+    .main {
+        .absolute(@margin, @margin, @margin, @margin);
+        overflow: hidden;
+
+        .map-wrapper {
+            .absolute(0, auto, auto, 0);
+            width: 30vw;
+            height: 30vw;
+        }
+
+        div.legend {
+            .absolute(0, 0, 0, calc(~"30vw + @{margin}"));
+            overflow-y: auto;
+            background-color: @white;
+            font-size: 80%;
+
+            .map-title {
+                h1 {
+                    .word-wrap;
+                    font-size: 200%;
+                    letter-spacing: -0.5px;
+                    margin-bottom: @margin;
+
+                    a {
+                        text-decoration: none;
+                        &:hover {
+                            text-decoration: underline;
+                            color: @black;
+                        }
+                    }
+                }
+            }
+
+            .legend-item {
+                display: flex;
+                align-items: center;
+                height: 25px;
+                .item-style {
+                    .legendItemPosition;
+                }
+                .item-label {
+                    .word-wrap;
+                }
+            }
+        }
+    }
+
+    .lang-switch {
+        .transition;
+        .absolute(0, 0, initial, initial);
+        cursor     : default;
+
+        &:after {
+            .awsomefont;
+            content: @fa-var-globe;
+            margin-left: @small-margin !important;
+            padding    : 0 !important;
+        }
+
+        &:hover {
+            color: #000;
+            &:after {color: @green;}
+        }
+    }
+}

@@ -183,6 +183,7 @@ export type MessageKey =
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
+    | 'printMap'
     | 'propName'
     | 'propNameForLabel'
     | 'publicationStatus'
@@ -1472,5 +1473,10 @@ export const messages: MessageDB = {
     layerLegendDefaultLabel: {
         fr: 'Étiquette de légende',
         nl:'Legendelabel',
+    },
+
+    printMap: {
+        fr: 'Imprimer la carte',
+        nl:'Print de kaart',
     },
 };
