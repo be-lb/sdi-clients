@@ -33,7 +33,7 @@ const latChange = (e: ChangeEvent<HTMLInputElement>) => {
 
 const lonChange = (e: ChangeEvent<HTMLInputElement>) => {
     const longitude = parseFloat(e.target.value);
-    events.updatePositionerLatitude(longitude);
+    events.updatePositionerLongitude(longitude);
 };
 
 const position = () => {
