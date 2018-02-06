@@ -33,7 +33,7 @@ import { renderPDF } from './generate';
 
 const logger = debug('sdi:print');
 
-export const resolution = 150;
+export const resolution = 300;
 
 export interface PrintProps {
     template: TemplateName;
@@ -64,9 +64,10 @@ const renderPrintProgress =
             case 'none': return DIV({}, 'Not Started');
             case 'start': return DIV({}, 'Downloading Base Map');
             case 'error': return DIV({}, 'Error');
-            case 'end': return DIV({
-                onClick: () => renderPDF(mapInfo, response),
-            }, 'Download PDF');
+            case 'end':
+                window.setTimeout(
+                    () => renderPDF(mapInfo, response), 1);
+                return DIV({}, 'Render PDF');
         }
     };
 

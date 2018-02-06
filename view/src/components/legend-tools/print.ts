@@ -33,7 +33,7 @@ const render = () => {
     const { zoom, center } = getView();
 
     const mapId = queries.getCurrentMap();
-    const url = `${origin}${getRoot()}view/${mapId}`;
+    const url = `${origin}${getRoot()}print/${mapId}`;
     const viewUrl = `${url}/${center[0]}/${center[1]}/${zoom}`;
 
     return (

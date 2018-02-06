@@ -117,7 +117,7 @@ export const renderPDF =
 
             paintBoxes(pdf, boxes);
 
-            pdf.save('map.pdf');
+            pdf.save(`${fromRecord(getTitle(mapInfo))}.pdf`);
         });
 
 
