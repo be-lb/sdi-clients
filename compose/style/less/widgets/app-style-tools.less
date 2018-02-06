@@ -55,6 +55,15 @@
         .btn-remove:before {content: @fa-var-undo;}
     }
 
+    .legend-label {
+        margin-bottom: @margin;
+
+        div[contenteditable="true"] {
+            background-color: @editable;
+            width: 100%;
+        }
+    }
+
     .zoom-range {
         display: flex;
         justify-content: space-between;
