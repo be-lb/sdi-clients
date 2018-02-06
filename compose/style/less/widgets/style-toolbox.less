@@ -81,17 +81,49 @@
 
 //////////     TOOL : PICTO LIBRARY
 
-.style-tool.picto-collection .picto{
+.style-tool.picto-collection .library .serie > div{
     font-family: 'FontAwesome';
     display: inline-block;
     padding: @small-margin;
     cursor: default;
+    color: @grey;
 
-    &:hover {
-        background: @white;
+    &:hover {color: @green;}
+    &.selected {color: #000;}
+}
+
+
+//////////     TOOL : HATCHES
+
+.style-tool.hatch-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    .hatch-pattern {
+        cursor: default;
+        &:before {
+            .awsomefont;
+            width: 20px;
+            padding-right: @small-margin;
+        }
+        &.active:before {content: @fa-var-check-square-o}
+        &.inactive:before {content: @fa-var-square-o}
+
     }
 
-    &.selected {
-        color: @green;
+    .angle .library .serie{
+        display: flex;
+        justify-content: space-between;
+
+        > div {
+            cursor: default;
+            padding: @small-margin / 2;
+            margin: 0 @small-margin;
+            color: @grey;
+
+            &.selected {color: #000;}
+            &:hover {color: @green;}
+        }
     }
+
 }

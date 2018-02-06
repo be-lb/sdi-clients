@@ -163,8 +163,8 @@ const pointStyleDiscrete = (config: PointStyleConfigDiscrete) => {
 
         labelStyle(feature, resolution, styles);
 
-        if (typeof value === 'string') {
-            const idx = findIndex(value);
+        if (value !== null) {
+            const idx = findIndex(value.toString());
             if (idx >= 0) {
                 styles.push(groupStyles[idx]);
             }
