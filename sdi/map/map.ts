@@ -20,7 +20,7 @@ import { Map, View, source, layer, proj, Feature, Collection, Extent } from 'ope
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
-import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition } from '../source';
+import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition, FeatureCollection } from '../source';
 
 import {
     IMapOptions,
@@ -93,30 +93,75 @@ const getResolutionForZoom =
 
 const getResolutionForZoomL72 = getResolutionForZoom('EPSG:31370');
 
+
+const featureBatchInterval = 160;
+
+const loadLayerData =
+    (vs: source.Vector, fc: FeatureCollection, featureBatchSize = 1000) => {
+        logger(`loadLayerData  ${fc.features.length}`);
+        const ts = performance.now();
+        const lid = vs.get('id');
+        const featuresRef = fc.features;
+        const featuresSlice = featuresRef.slice(0, featureBatchSize);
+        const data: FeatureCollection = Object.assign(
+            {}, fc, { features: featuresSlice });
+        const features = formatGeoJSON.readFeatures(data);
+        vs.addFeatures(features);
+        vs.forEachFeature((f) => {
+            f.set('lid', lid, true);
+            // if (!f.getId()) {
+            //     f.setId(f.getProperties()['__app_id__']);
+            // }
+        });
+        const timed = performance.now() - ts;
+        const newBatchSized = timed > 16 ? featureBatchSize - 10 : featureBatchSize + 1;
+        if (featuresRef.length >= newBatchSized) {
+            const featuresNext = featuresRef.slice(newBatchSized);
+            const nextData: FeatureCollection = Object.assign(
+                {}, fc, { features: featuresNext });
+            setTimeout(() => loadLayerData(vs, nextData), featureBatchInterval);
+        }
+    };
+
 const getLayerData =
-    (fetchData: FetchData, vs: source.Vector, title: MessageRecord) => {
+    (fetchData: FetchData, vs: source.Vector, title: MessageRecord, isVisible: boolean) => {
         const fetcher =
             (count: number) => {
                 logger(`getLayerData ${fromRecord(title)} ${count}`);
 
                 const data = fetchData();
                 if (data) {
-                    const features = formatGeoJSON.readFeatures(data);
+                    const complete =
+                        () => {
+                            loadLayerData(vs, data);
+                            // const ts = performance.now();
+                            // const features = formatGeoJSON.readFeatures(data);
+                            // logger(`getLayerData#readFeatures ${fromRecord(title)}, ${data.features.length} ${Math.floor(performance.now() - ts)}`);
 
-                    vs.addFeatures(features);
-                    vs.forEachFeature((f) => {
-                        const lid = vs.get('id');
 
-                        f.set('lid', lid);
-                        if (!f.getId()) {
-                            f.setId(f.getProperties()['__app_id__']);
-                        }
-                    });
+                            // const ts2 = performance.now();
+                            // vs.addFeatures(features);
+                            // logger(`getLayerData#addFeatures ${fromRecord(title)}, ${performance.now() - ts2}`);
 
+                            // vs.forEachFeature((f) => {
+                            //     const lid = vs.get('id');
+
+                            //     f.set('lid', lid, true);
+                            //     if (!f.getId()) {
+                            //         f.setId(f.getProperties()['__app_id__']);
+                            //     }
+                            // });
+                        };
+                    if (isVisible) {
+                        complete();
+                    }
+                    else {
+                        setTimeout(complete, 3000 + (Math.random() * 10000));
+                    }
                     loadingMonitor.remove(title);
                 }
                 else if (count < 100) {
-                    setTimeout(() => fetcher(count + 1), 500);
+                    setTimeout(() => fetcher(count + 1), 1000);
                 }
                 else {
                     logger(`getLayerData GiveUp on ${fromRecord(title)}`);
@@ -140,22 +185,24 @@ export const removeLayerAll =
             .forEach(l => lyrs.remove(l));
     };
 
+
 export const addLayer =
     (layerInfo: () => SyntheticLayerInfo, fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
 
         if (info && metadata) {
+            const title = getMessageRecord(metadata.resourceTitle);
             let layerAlreadyAdded = false;
-            mainLayerGroup.getLayers().forEach((l) => {
+            mainLayerCollection.forEach((l) => {
+                logger(`mainLayerCollection.forEach ${l.get('id')} (${info.id})`);
                 if (l.get('id') === info.id) {
                     layerAlreadyAdded = true;
                 }
             });
+            logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
             if (layerAlreadyAdded) {
                 return;
             }
-            const title = getMessageRecord(metadata.resourceTitle);
-            loadingMonitor.add(title);
 
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {
@@ -181,23 +228,24 @@ export const addLayer =
 
 
             const vs = new source.Vector();
-            vs.set('id', info.id);
-
             const vl = new layer.Vector({
+                renderMode: 'image', // IMPORTANT
                 source: vs,
                 style: styleFn,
                 maxResolution: getResolutionForZoomL72(info.minZoom, 0),
                 minResolution: getResolutionForZoomL72(info.maxZoom, 30),
             });
+            vs.set('id', info.id);
             vl.set('id', info.id);
             vl.setVisible(info.visible);
 
+            loadingMonitor.add(title);
             mainLayerCollection.push(vl);
-            getLayerData(fetchData, vs, title);
+            getLayerData(fetchData, vs, title, info.visible);
 
-            vl.on('render', (_e: any) => {
-                logger(`Layer Render ${info.id} ${vs.getState()} `);
-            });
+            // vl.on('render', (_e: any) => {
+            //     logger(`Layer Render ${info.id} ${vs.getState()} `);
+            // });
 
             // return vl;
         }
@@ -400,6 +448,7 @@ export const create =
 
         const map = new Map({
             view,
+            renderer: 'canvas',
             layers: [
                 baseLayerGroup,
                 mainLayerGroup,
