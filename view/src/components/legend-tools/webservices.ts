@@ -28,11 +28,11 @@ const logger = debug('sdi:webservices');
 
 
 const renderBaseLayer =
-    (id: string) =>
+    (id: string, current: string | null) =>
         fromNullable(appQueries.gteBaseLayer(id)).fold(
             () => DIV(),
             bl => DIV({
-                className: 'base-layer',
+                className: `base-layer ${id === current ? 'active' : ''}`,
                 onClick: () => appEvents.setMapBaseLayer(id),
             }, fromRecord(bl.name)));
 
@@ -41,7 +41,9 @@ const renderService =
     (service: string) =>
         DIV({ className: 'webservice' },
             DIV({ className: 'webservice-name' }, service),
-            appQueries.getBaseLayersForService(service).map(renderBaseLayer));
+            appQueries.getBaseLayersForService(service)
+                .map(id =>
+                    renderBaseLayer(id, appQueries.getCurrentBaseLayerName())));
 
 
 const webservices =

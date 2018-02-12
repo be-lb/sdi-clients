@@ -51,42 +51,44 @@ const drawLine =
 //         return [smallAngle, mirror];
 //     };
 
+const cache: { [k: string]: CanvasPattern | string } = {};
+
 export const makePattern =
     (strokeWidth: number, angle: PatternAngle, color: string) => {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d', {
-            antialias: true,
-        });
-        if (strokeWidth > 0 && context) {
-            const dpr = has.DEVICE_PIXEL_RATIO;
-            const ch = strokeWidth * 6 * dpr;
-            const cw = ch;
-            const sw = strokeWidth * dpr;
-            const line = drawLine(context);
-            // const [smallAngle, mirror] = normAngle(angle);
-            // const B = rad(smallAngle);
-            // const C = rad(90 - smallAngle);
-            // const c = ch / 2;
-            // // b / sin(B) = c / sin(C)
-            // const b = sin(B) * (c / sin(C));
-            // const cw = 2 * b;
-            const ll = Math.max(cw, ch) * 2;
-            let angleCorrect = 0;
-            canvas.width = cw;
-            canvas.height = ch;
+        const hash = `${strokeWidth}.${angle}.${color}`;
+        if (!(hash in cache)) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d', {
+                antialias: true,
+            });
+            if (strokeWidth > 0 && context) {
+                const dpr = has.DEVICE_PIXEL_RATIO;
+                const ch = strokeWidth * 6 * dpr;
+                const cw = ch;
+                const sw = strokeWidth * dpr;
+                const line = drawLine(context);
+                const ll = Math.max(cw, ch) * 2;
+                let angleCorrect = 0;
+                canvas.width = cw;
+                canvas.height = ch;
 
-            context.clearRect(0, 0, cw, ch);
-            context.fillStyle = color;
-            if (angle === 135) {
-                context.scale(1, -1);
-                context.translate(0, -ch);
-                angleCorrect = -90;
+                context.clearRect(0, 0, cw, ch);
+                context.fillStyle = color;
+                if (angle === 135) {
+                    context.scale(1, -1);
+                    context.translate(0, -ch);
+                    angleCorrect = -90;
+                }
+                line([0, 0], sw, ll, angle + angleCorrect);
+                line([cw / 2, ch / 2], sw, ll, angle + angleCorrect);
+                line([cw, ch], sw, ll, angle + angleCorrect);
+
+                cache[hash] = context.createPattern(canvas, 'repeat');
             }
-            line([0, 0], sw, ll, angle + angleCorrect);
-            line([cw / 2, ch / 2], sw, ll, angle + angleCorrect);
-            line([cw, ch], sw, ll, angle + angleCorrect);
-
-            return context.createPattern(canvas, 'repeat');
+            else {
+                cache[hash] = color;
+            }
         }
-        return color;
+
+        return cache[hash];
     };
