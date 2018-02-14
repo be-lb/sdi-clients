@@ -29,16 +29,13 @@ import {
     IChartWindow,
     mappableEmptyArray,
     graphsize,
-    // padding,
     maxbarcount,
     getBarwidth,
-    rect,
     group,
     svg,
     line,
     text,
     tickAlignment,
-    // circle,
     PlotQuerySet,
     PlotEventSet,
 } from './index';
@@ -216,15 +213,15 @@ const deriveScale = (data: ITimeserie, padding = .25): IChartScale | null => {
 export const plotter =
     (queries: PlotQuerySet, events: PlotEventSet) => {
         const plotter =
-            (queryData: ITimeserie, window: IChartWindow, refPoint: number | null) => {
+            (queryData: ITimeserie, _window: IChartWindow, refPoint: number | null) => {
 
 
                 if (queryData) {
                     const overflow = queryData.length > maxbarcount;
                     const data = overflow ?
                         simplifyData(queryData, maxbarcount) : queryData;
-                    const zoom = overflow ?
-                        maxbarcount / data.length : 1;
+                    // const zoom = overflow ?
+                    //     maxbarcount / data.length : 1;
                     const scale = deriveScale(data);
 
                     if (scale !== null) {
@@ -232,7 +229,7 @@ export const plotter =
                         const barcount = Math.min(data.length, maxbarcount);
                         const barwidth: number = getBarwidth(barcount);
 
-                        const activeBar = Math.floor((queries.getCursorPosition() - window.start) * zoom);
+                        // const activeBar = Math.floor((queries.getCursorPosition() - window.start) * zoom);
 
                         // const barAt =
                         //     (x: number) =>
@@ -244,19 +241,32 @@ export const plotter =
 
                         const drawBars =
                             () => {
+                                let started = false;
+                                let previousX = 0;
+                                let previousY = 0;
                                 const bars = data.map((v, k) => {
                                     const val = v[1];
                                     if (val) {
-                                        const height = ((ensureNumber(val) - scale.min) / spread) * graphsize.height;
-                                        const highlighted = (k === activeBar) ? true : false;
-                                        logger(`${val}, ${height}, ${k * barwidth}`);
-                                        return rect(k * barwidth, graphsize.height - height, barwidth, height, {
-                                            className: (highlighted) ? 'timeserie-bar active' : 'timeserie-bar',
-                                            key: `${k.toString()}|${v.toString()}|${highlighted}`,
-                                        });
+                                        const y =
+                                            ((ensureNumber(val) - scale.min) / spread) * graphsize.height;
+                                        const x = k * barwidth + (barwidth / 2);
+
+                                        const cl = line(
+                                            previousX, previousY,
+                                            x, y, {
+                                                className: 'timeserie-bar',
+                                                key: `${k.toString()}|${v.toString()}`,
+                                            });
+                                        previousX = x;
+                                        previousY = y;
+                                        if (!started) {
+                                            started = true;
+                                            return line(x, y, x, y);
+                                        }
+                                        return cl;
                                     }
                                     else {
-                                        return rect(0, 0, 0, 0);
+                                        return line(0, 0, 0, 0);
                                     }
                                 });
 
