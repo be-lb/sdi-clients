@@ -15,14 +15,26 @@ import { dispatchTimeserie, loadData } from '../events/timeserie';
 import { getData, queryTimeserie } from '../queries/timeserie';
 import { AppLayout } from '../shape/types';
 import { viewEvents } from '../events/map';
-import { button } from './button';
 
 
+const renderZoom =
+    (feature: Feature) => DIV({
+        className: `zoomOnFeature`,
+        title: tr('zoomOnFeature'),
+        onClick: () => viewEvents.updateMapView({
+            dirty: 'geo/feature',
+            feature,
+        }),
+    });
 
-const zoomButton = button('zoomOnFeature', 'zoomOnFeature');
+const zoomToFeature =
+    () =>
+        fromNullable(app.getCurrentFeature())
+            .fold(() => DIV(), renderZoom);
+
 
 export const switcher =
-    () => (
+    () =>
         DIV({ className: 'switcher infos' },
             DIV({
                 className: `switch-legend`,
@@ -31,8 +43,8 @@ export const switcher =
                     appEvents.setLayout(AppLayout.MapFS);
                     legendEvents.setPage('legend');
                 },
-            }))
-    );
+            }),
+            zoomToFeature());
 
 
 
@@ -42,14 +54,6 @@ const tsPlotter = timeserie(
 const noView = () => DIV({ className: 'feature-view no' });
 
 
-const wrap =
-    (feature: Feature, child: React.ReactNode) =>
-        DIV({ className: 'feature-view-wrapper' },
-            zoomButton(() => viewEvents.updateMapView({
-                dirty: 'geo/feature',
-                feature,
-            })),
-            child);
 
 export const renderDefault =
     () =>
@@ -60,8 +64,8 @@ const withInfo =
     (info: ILayerInfo) =>
         fromNullable(app.getCurrentFeature())
             .fold(noView,
-            feature => wrap(feature, renderConfig(
-                info.featureViewOptions, feature, tsPlotter)));
+            feature => renderConfig(
+                info.featureViewOptions, feature, tsPlotter));
 
 
 
