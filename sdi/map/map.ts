@@ -39,7 +39,7 @@ import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } 
 import { select, highlight } from './actions';
 import { measure, track, extract, mark } from './tools';
 import { credit } from './credit';
-import { setTimeout } from 'timers';
+// import { setTimeout } from 'timers';
 import { fromRecord } from '../locale';
 
 

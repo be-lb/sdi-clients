@@ -40,7 +40,6 @@
         "@types/debug": "0.0.29",
         "@types/geojson": "^1.0.2",
         "@types/jasmine": "^2.5.46",
-        "@types/openlayers": "^4.3.12",
         "@types/proj4": "^2.3.4",
         "@types/promise-polyfill": "^6.0.0",
         "@types/qs": "^6.5.0",

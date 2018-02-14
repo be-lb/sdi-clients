@@ -1,6 +1,8 @@
-import { Inspire, IMapBaseLayer, FeatureCollection } from 'sdi/source';
 import { Coordinate } from 'openlayers';
-import { IUgWsResponse } from 'src/ports/geocoder';
+
+import { Inspire, IMapBaseLayer, FeatureCollection } from 'sdi/source';
+
+import { IUgWsResponse } from '../ports/geocoder';
 
 
 export enum AppLayout {

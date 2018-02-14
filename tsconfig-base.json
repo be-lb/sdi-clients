@@ -12,12 +12,18 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strictNullChecks": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "baseUrl": "./",
         "typeRoots": [
-            "../typings"
+            "typings"
         ],
         "paths": {
+            "sdi/*": [
+                "sdi/*"
+            ],
             "tslib": [
-                "../node_modules/tslib"
+                "node_modules/tslib"
             ]
         }
     }
