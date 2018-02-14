@@ -329,13 +329,13 @@ export const messages: MessageDB = {
     },
 
     attachmentName: {
-        fr: 'Nom du document',
-        nl: 'Naam van het document',
+        fr: 'Nom du lien',
+        nl: 'Naam van het link',
     },
 
     attachmentUrl: {
-        fr: 'URL du document',
-        nl: 'URL van het document',
+        fr: 'URL du lien',
+        nl: 'URL van het link',
     },
 
     browseMaps: {
