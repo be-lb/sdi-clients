@@ -3,8 +3,10 @@ import { fromNullable } from 'fp-ts/lib/Option';
 
 import { ILayerInfo, Feature } from 'sdi/source';
 import { DIV } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 import { renderConfig, renderDefault as defaultView } from 'sdi/components/feature-view';
 import timeserie from 'sdi/components/timeserie';
+
 
 import app from '../queries/app';
 import appEvents from '../events/app';
@@ -16,6 +18,7 @@ import { viewEvents } from '../events/map';
 import { button } from './button';
 
 
+
 const zoomButton = button('zoomOnFeature', 'zoomOnFeature');
 
 export const switcher =
@@ -23,6 +26,7 @@ export const switcher =
         DIV({ className: 'switcher infos' },
             DIV({
                 className: `switch-legend`,
+                title: tr('mapLegend'),
                 onClick: () => {
                     appEvents.setLayout(AppLayout.MapFS);
                     legendEvents.setPage('legend');
