@@ -28,6 +28,7 @@ import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayo
 import { applySpec, ApplyFn } from './template';
 import { renderLegend } from '../legend';
 import { PrintProps, resolution } from './index';
+import { logoData } from './logo';
 
 const logger = debug('sdi:print');
 
@@ -44,6 +45,18 @@ const renderTitle =
         }));
 
 
+const renderAttribution =
+    (f: ApplyFn<Box>) =>
+        f('attribution', ({ rect, textAlign, fontSize, color }) => ({
+            ...rect,
+            children: [
+                makeLayoutVertical(rect.width, rect.height / 2, [
+                    makeText('Bruxelles Environnement / Leefmilieu Brussel', fontSize, color, textAlign),
+                ]),
+            ],
+        }));
+
+
 const coordsFromRect =
     (rect: Rect): Coords[] => [
         [0, 0],
@@ -52,6 +65,7 @@ const coordsFromRect =
         [0, rect.height],
         [0, 0],
     ];
+
 
 const renderMap =
     (f: ApplyFn<Box>, imageData: string) =>
@@ -62,6 +76,7 @@ const renderMap =
                 makeLine(coordsFromRect(rect), strokeWidth, color),
             ],
         }));
+
 
 const renderScaleline =
     (f: ApplyFn<Box>) =>
@@ -94,6 +109,17 @@ const renderScaleline =
         });
 
 
+
+
+const renderLogo =
+    (f: ApplyFn<Box>) =>
+        f('logo', ({ rect }) => ({
+            ...rect,
+            children: [
+                makeImage(logoData),
+            ],
+        }));
+
 export const renderPDF =
     (mapInfo: IMapInfo, response: PrintResponse<PrintProps>) =>
         fromNullable(response.props).map((props) => {
@@ -113,6 +139,12 @@ export const renderPDF =
                 .map(b => boxes.push(b));
 
             renderScaleline(apply)
+                .map(b => boxes.push(b));
+
+            renderLogo(apply)
+                .map(b => boxes.push(b));
+
+            renderAttribution(apply)
                 .map(b => boxes.push(b));
 
             paintBoxes(pdf, boxes);

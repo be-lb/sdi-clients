@@ -70,10 +70,17 @@ const templates: TemplateCollection = {
             rect: { x: 15, y: 15, width: 180, height: 180 },
             color: '#949499',
         }),
+
+        attribution: makeSpec({
+            rect: { x: 15, y: 180, width: 180, height: 10 },
+        }),
+
         scaleline: makeSpec({
             rect: { x: 155 - 2, y: 183 - 2, width: 40, height: 12 },
             strokeWidth: 0.5,
         }),
+
+        logo: makeSpec({ rect: { x: 200, y: 165, width: 65, height: 30 } }),
     },
 
     'a0/portrait': {

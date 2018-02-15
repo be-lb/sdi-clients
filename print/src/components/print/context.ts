@@ -154,7 +154,7 @@ const isLayout = (a: BoxChild): a is Layout => {
 
 
 export const nullRect =
-    (): Rect => ({ x: 0, y: 0, width: 0, height: 0});
+    (): Rect => ({ x: 0, y: 0, width: 0, height: 0 });
 
 
 export const makeLayout =
@@ -222,6 +222,7 @@ const renderText =
                 .setFontSize(fontSize)
                 .splitTextToSize(data, width);
 
+            page.setFont('helvetica', 'normal');
             page.setTextColor(iColor.red(), iColor.green(), iColor.blue());
 
             switch (textAlign) {
