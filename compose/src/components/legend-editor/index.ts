@@ -28,7 +28,7 @@ import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import featureConfigEvents from '../../events/feature-config';
+import * as featureConfigEvents from '../../events/feature-config';
 import selectMain from './select-main';
 import selectType from './select-type';
 import toolsMain from './tools-main';

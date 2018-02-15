@@ -100,6 +100,15 @@ const setOptions = <T extends FeatureViewOptions>(options: T) => {
     });
 };
 
+const getRowsLc =
+    (config: FeatureViewConfig, invert = false) => {
+        const lc = getLang();
+        if (invert) {
+            return config.rows.filter(r => r.lang !== lc);
+        }
+        return config.rows.filter(r => r.lang === lc);
+    };
+
 const updateOptions =
     <T extends FeatureViewOptions>(fn: UpdateFn<T>, def: DefaultFn<T>) => {
         const mid = queries.getCurrentMap();
@@ -127,13 +136,15 @@ const updateOptions =
 const updateConfig =
     (fn: UpdateFn<FeatureViewConfig>) => updateOptions(fn, configDefaultOptions);
 
+
+
 const updateConfigRow =
-    (pn: string, fn: UpdateConfigRowFn) => {
+    (index: number, fn: UpdateConfigRowFn) => {
         updateConfig((c) => {
-            const lc = getLang();
-            const rows = c.rows;
-            const row = rows.find(r => r.propName === pn && r.lang === lc);
+            // const rows = getRowsLc(c);
+            const row = getRowsLc(c)[index];
             if (row) {
+                logger(`updateConfigRow ${index}`);
                 fn(row);
             }
             return c;
@@ -142,8 +153,8 @@ const updateConfigRow =
 
 
 
-const events = {
-    ensureSelectedFeature() {
+export const ensureSelectedFeature =
+    () => {
         if (queries.getCurrentFeature() === null) {
             fromNullable(getSource().data).map((data) => {
                 if (data.length > 0) {
@@ -152,16 +163,18 @@ const events = {
                 }
             })
         }
-    },
+    };
 
-    setCurrentPropName(pn: string) {
+export const setCurrentRow =
+    (index: number) =>
         dispatch('component/feature-config', (state) => {
-            state.currentPropName = pn;
+            state.currentRow = index;
             return state;
         });
-    },
 
-    addPropToConfig(pn: string) {
+
+export const addPropToConfig =
+    (pn: string, propType = 'string' as PropType) =>
         updateConfig((c) => {
             if (c.type !== 'config') {
                 const conf = configDefaultOptions();
@@ -170,125 +183,137 @@ const events = {
             }
             const rows = c.rows;
             const rowConfig = defaultRowConfig(pn);
+            resetRowType(propType, rowConfig);
             rows.push(rowConfig);
             return c;
         });
-    },
 
-    removePropFromConfig(pn: string) {
+
+export const removePropFromConfig =
+    (index: number) =>
         updateConfig((c) => {
-            const lc = getLang();
-            c.rows = c.rows.filter(r => !(r.propName === pn && r.lang === lc));
+            const rows = getRowsLc(c);
+            const rest = getRowsLc(c, true);
+            rows.splice(index, 1);
+            c.rows = rows.concat(rest);
             return c;
         });
-    },
 
-    resetEditor() {
-        dispatch('component/feature-config', () => initialFeatureConfigState());
-    },
 
-    movePropUp(pn: string) {
+export const resetEditor =
+    () => dispatch('component/feature-config', () => initialFeatureConfigState());
+
+
+export const movePropUp =
+    (index: number) =>
         updateConfig((conf) => {
-            const lc = getLang();
-            const rows = conf.rows.filter(r => r.lang === lc);
-            const rest = conf.rows.filter(r => r.lang !== lc);
-            const idx = rows.findIndex(r => r.propName === pn);
-            if (idx >= 0) {
-                const next = idx - 1;
-                const row = rows[idx];
-                rows[idx] = rows[next];
+            const rows = getRowsLc(conf);
+            const rest = getRowsLc(conf, true);
+            if (index >= 0) {
+                const next = index - 1;
+                const row = rows[index];
+                rows[index] = rows[next];
                 rows[next] = row;
             }
             conf.rows = rows.concat(rest);
-
             return conf;
         });
-    },
 
-    movePropDown(pn: string) {
+
+export const movePropDown =
+    (index: number) =>
         updateConfig((conf) => {
-            const lc = getLang();
-            const rows = conf.rows.filter(r => r.lang === lc);
-            const rest = conf.rows.filter(r => r.lang !== lc);
-            const idx = rows.findIndex(r => r.propName === pn);
-            if (idx >= 0 && idx + 1 < rows.length) {
-                const next = idx + 1;
-                const row = rows[idx];
-                rows[idx] = rows[next];
+            const rows = getRowsLc(conf);
+            const rest = getRowsLc(conf, true);
+            if (index >= 0 && index + 1 < rows.length) {
+                const next = index + 1;
+                const row = rows[index];
+                rows[index] = rows[index];
                 rows[next] = row;
             }
             conf.rows = rows.concat(rest);
-
             return conf;
         });
-    },
 
-    setPropTypeForConfig(pn: string, pt: PropType) {
-        updateConfigRow(pn, (row) => {
-            row.type = pt;
-            switch (pt) {
-                case 'string':
-                    (<StringConfig>row).options = defaultStringOptions();
-                    break;
-                case 'number':
-                    (<NumberConfig>row).options = defaultNumberOptions();
-                    break;
-                case 'boolean':
-                    (<BooleanConfig>row).options = defaultBooleanOptions();
-                    break;
-                case 'url':
-                    (<URLConfig>row).options = defaultURLOptions();
-                    break;
-                case 'image':
-                    (<ImageConfig>row).options = defaultImageOptions();
-                    break;
-                case 'piechart':
-                    (<PiechartConfig>row).options = defaultPiechartOptions();
-                    break;
-                case 'timeserie':
-                    (<TimeserieConfig>row).options = defaultTimeserieOptions();
-                    break;
-            }
-        });
-    },
+const resetRowType =
+    (pt: PropType, row: RowConfig) => {
+        row.type = pt;
+        switch (pt) {
+            case 'string':
+                (<StringConfig>row).options = defaultStringOptions();
+                break;
+            case 'number':
+                (<NumberConfig>row).options = defaultNumberOptions();
+                break;
+            case 'boolean':
+                (<BooleanConfig>row).options = defaultBooleanOptions();
+                break;
+            case 'url':
+                (<URLConfig>row).options = defaultURLOptions();
+                break;
+            case 'image':
+                (<ImageConfig>row).options = defaultImageOptions();
+                break;
+            case 'piechart':
+                (<PiechartConfig>row).options = defaultPiechartOptions();
+                break;
+            case 'timeserie':
+                (<TimeserieConfig>row).options = defaultTimeserieOptions();
+                break;
+        }
+    };
 
-    setPropLevelForConfig(pn: string, l: StringOptionLevel) {
-        updateConfigRow(pn, (row: ConfigWithLevel) => row.options.level = l);
-    },
 
-    setPropStyleForConfig(pn: string, s: StringOptionStyle) {
-        updateConfigRow(pn, (row: ConfigWithStyle) => row.options.style = s);
-    },
+export const setPropTypeForConfig =
+    (index: number, pt: PropType) =>
+        updateConfigRow(index, row => resetRowType(pt, row));
 
-    setPropWithLabelForConfig(pn: string, l: boolean) {
-        updateConfigRow(pn, (row: ConfigWithLabel) => row.options.withLabel = l);
-    },
 
-    setTimeserieUrl(pn: string, urlTemplate: string) {
-        updateConfigRow(pn, (row: TimeserieConfig) => {
+export const setPropLevelForConfig =
+    (index: number, l: StringOptionLevel) =>
+        updateConfigRow(index, (row: ConfigWithLevel) => row.options.level = l);
+
+
+export const setPropStyleForConfig =
+    (index: number, s: StringOptionStyle) =>
+        updateConfigRow(index, (row: ConfigWithStyle) => row.options.style = s);
+
+
+export const setPropWithLabelForConfig =
+    (index: number, l: boolean) =>
+        updateConfigRow(index,
+            (row: ConfigWithLabel) => row.options.withLabel = l);
+
+
+export const setTimeserieUrl =
+    (index: number, urlTemplate: string) =>
+        updateConfigRow(index, (row: TimeserieConfig) => {
             row.options.urlTemplate = urlTemplate;
             return row;
         });
-    },
 
-    setTimeserieReference(pn: string, ref: number | null) {
-        updateConfigRow(pn, (row: TimeserieConfig) => {
+
+export const setTimeserieReference =
+    (index: number, ref: number | null) =>
+        updateConfigRow(index, (row: TimeserieConfig) => {
             row.options.referencePoint = ref;
             return row;
         });
-    },
 
-    removePieChartPiece(pn: string, pieceName: string) {
-        updateConfigRow(pn, (row: PiechartConfig) => {
+
+export const removePieChartPiece =
+    (index: number, pieceName: string) =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             const pieces = row.options.columns.filter(
                 p => p.propName !== pieceName);
             row.options.columns = pieces;
             return row;
         });
-    },
 
-    addPieChartPiece(pn: string, pieceName: string) {
-        updateConfigRow(pn, (row: PiechartConfig) => {
+
+export const addPieChartPiece =
+    (index: number, pieceName: string) =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             const p = row.options.columns.find(
                 p => p.propName === pieceName);
             if (!p) {
@@ -300,10 +325,11 @@ const events = {
             }
             return row;
         });
-    },
 
-    setPiechartPieceColor(pn: string, pieceName: string, c: string) {
-        updateConfigRow(pn, (row: PiechartConfig) => {
+
+export const setPiechartPieceColor =
+    (index: number, pieceName: string, c: string) =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             const p = row.options.columns.find(
                 p => p.propName === pieceName);
             if (p) {
@@ -311,60 +337,57 @@ const events = {
             }
             return row;
         });
-    },
 
-    setPiechartPieceLabel(pn: string, pieceName: string, l: string) {
-        const ts = performance.now();
-        updateConfigRow(pn, (row: PiechartConfig) => {
+
+export const setPiechartPieceLabel =
+    (index: number, pieceName: string, l: string) =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             const p = row.options.columns.find(
                 p => p.propName === pieceName);
             if (p) {
                 p.label = l;
             }
-            logger(`setPiechartPieceLabel inner ${performance.now() - ts}`);
             return row;
         });
 
-        logger(`setPiechartPieceLabel ${performance.now() - ts}`);
-    },
 
-    setPiechartScale(pn: string, scale: 'normal' | 'log') {
-        updateConfigRow(pn, (row: PiechartConfig) => {
+export const setPiechartScale =
+    (index: number, scale: 'normal' | 'log') =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             row.options.scale = scale;
             return row;
         });
-    },
 
-    setPiechartRadius(pn: string, radius: 'normal' | 'dynamic') {
-        updateConfigRow(pn, (row: PiechartConfig) => {
+
+export const setPiechartRadius =
+    (index: number, radius: 'normal' | 'dynamic') =>
+        updateConfigRow(index, (row: PiechartConfig) => {
             row.options.radius = radius;
             return row;
         });
-    },
 
-    setEditedValue(v: string) {
-        dispatch('component/feature-config', (state) => {
-            state.editedValue = v;
-            return state;
-        });
-    },
 
-    resetEditedValue() {
-        dispatch('component/feature-config', (state) => {
-            state.editedValue = null;
-            return state;
-        });
-    },
+export const setEditedValue =
+    (v: string) => dispatch('component/feature-config', (state) => {
+        state.editedValue = v;
+        return state;
+    });
 
-    toDefault() {
-        setOptions<FeatureViewDefault>(defaultDefaultOptions());
-    },
 
-    toConfig() {
-        setOptions<FeatureViewConfig>(configDefaultOptions());
-    },
-};
+export const resetEditedValue =
+    () => dispatch('component/feature-config', (state) => {
+        state.editedValue = null;
+        return state;
+    });
 
-export default events;
+
+export const toDefault =
+    () => setOptions<FeatureViewDefault>(defaultDefaultOptions());
+
+
+export const toConfig =
+    () => setOptions<FeatureViewConfig>(configDefaultOptions());
+
+
 
 logger('loaded');

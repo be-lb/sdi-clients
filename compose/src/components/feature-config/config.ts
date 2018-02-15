@@ -36,15 +36,32 @@ import {
     TimeserieConfig,
     URLConfig,
 } from 'sdi/source';
-// import { isENTER } from 'sdi/components/keycodes';
-import { getLang } from 'sdi/app';
 import { DIV, SPAN } from 'sdi/components/elements';
 import { inputText, inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { getLayerPropertiesKeys } from 'sdi/util';
 
-import events from '../../events/feature-config';
-import queries from '../../queries/feature-config';
+import {
+    addPieChartPiece,
+    addPropToConfig,
+    movePropDown,
+    movePropUp,
+    removePieChartPiece,
+    removePropFromConfig,
+    resetEditedValue,
+    setCurrentRow,
+    setPiechartPieceColor,
+    setPiechartPieceLabel,
+    setPiechartRadius,
+    setPiechartScale,
+    setPropLevelForConfig,
+    setPropStyleForConfig,
+    setPropTypeForConfig,
+    setPropWithLabelForConfig,
+    setTimeserieReference,
+    setTimeserieUrl,
+} from '../../events/feature-config';
+import { getKeys, getCurrentIndex, getRows, getRow } from '../../queries/feature-config';
 import appQueries from '../../queries/app';
 import { button, remove } from '../button';
 import { renderInputAlphaColor } from '../legend-editor/tool-input';
@@ -74,14 +91,14 @@ const WIDGET_NAME: { [k: string]: PropType } = {
 };
 
 const isWidget =
-    (pn: string) => {
-        return WIDGETS.reduce((acc, w) => {
+    (pn: string) =>
+        WIDGETS.reduce((acc, w) => {
             if (acc) {
                 return acc;
             }
             return w === pn;
         }, false);
-    };
+
 
 const renderSelectItem =
     <T extends string>(set: (a: T) => void) => (v: T) => (
@@ -101,90 +118,100 @@ export const renderSelect =
 
 
 const inputWithLabel =
-    (row: ConfigWithLabel) => (
+    (index: number, row: ConfigWithLabel) =>
         DIV({
             className: (row.options.withLabel) ? 'with-label active' : 'with-label',
             onClick: () => {
-                events.setPropWithLabelForConfig(
-                    row.propName, !row.options.withLabel);
+                setPropWithLabelForConfig(
+                    index, !row.options.withLabel);
             },
-        }, tr('displayLabel'))
-    );
+        }, tr('displayLabel'));
+
 
 const inputType =
-    (row: RowConfig) => {
-        return (
-            renderSelect<PropType>(propType, row.type,
-                v => events.setPropTypeForConfig(row.propName, v))
-        );
-    };
+    (index: number, row: RowConfig) =>
+        renderSelect<PropType>(propType, row.type,
+            v => setPropTypeForConfig(index, v));
+
 
 const inputLevel =
-    (row: ConfigWithLevel) => {
-        return (
-            renderSelect<StringOptionLevel>(propLevel, row.options.level,
-                v => events.setPropLevelForConfig(row.propName, v))
-        );
-    };
+    (index: number, row: ConfigWithLevel) =>
+        renderSelect<StringOptionLevel>(propLevel, row.options.level,
+            v => setPropLevelForConfig(index, v));
+
 
 const inputStyle =
-    (row: ConfigWithStyle) => {
-        return (
-            renderSelect<StringOptionStyle>(propStyle, row.options.style,
-                v => events.setPropStyleForConfig(row.propName, v))
-        );
-    };
+    (index: number, row: ConfigWithStyle) =>
+        renderSelect<StringOptionStyle>(propStyle, row.options.style,
+            v => setPropStyleForConfig(index, v));
 
 
 const renderSelectRow =
-    (pn: string, type?: PropType) => (
+    (pn: string) => (
         DIV({
             className: 'row',
-            onClick: () => {
-                events.addPropToConfig(pn);
-                if (type) {
-                    events.setPropTypeForConfig(pn, type);
-                }
-            },
+            onClick: () => addPropToConfig(pn),
         },
-            DIV({ className: 'propName' }, type ? type : pn)));
+            DIV({ className: 'propName' }, pn)));
+
+
+const renderSelectWidget =
+    (wn: string) =>
+        DIV({
+            className: 'row',
+            onClick: () => addPropToConfig(wn, WIDGET_NAME[wn]),
+        },
+            DIV({
+                className: 'propName',
+            }, WIDGET_NAME[wn]));
 
 
 const renderMoveUpButton =
-    (propName: string) => moveUpButton(() => events.movePropUp(propName));
+    (index: number) => moveUpButton(() => movePropUp(index));
 
 
 const renderMoveDownButton =
-    (propName: string) => moveDownButton(() => events.movePropDown(propName));
+    (index: number) => moveDownButton(() => movePropDown(index));
 
 
 const renderRemoveButton =
-    (propName: string) => remove(`remove-feature-config-${propName}`)(
-        () => events.removePropFromConfig(propName));
+    (index: number) =>
+        remove(`remove-feature-config-${index}`)(
+            () => removePropFromConfig(index));
 
 
 const renderSelectedRow =
     (row: RowConfig, key: number, rows: RowConfig[]) => {
-        const currentPropName = queries.getCurrentPropName();
+        const current = getCurrentIndex();
         const propName = row.propName;
         const displayName = isWidget(propName) ? WIDGET_NAME[propName] : propName;
         let tools = [];
 
         if (key === 0) {
-            tools = [renderMoveDownButton(propName), renderRemoveButton(propName)];
+            tools = [
+                renderMoveDownButton(key),
+                renderRemoveButton(key),
+            ];
         }
         else if (key + 1 === rows.length) {
-            tools = [renderMoveUpButton(propName), renderRemoveButton(propName)];
+            tools = [
+                renderMoveUpButton(key),
+                renderRemoveButton(key),
+            ];
         }
         else {
-            tools = [renderMoveDownButton(propName), renderMoveUpButton(propName), renderRemoveButton(propName)];
+            tools = [
+                renderMoveDownButton(key),
+                renderMoveUpButton(key),
+                renderRemoveButton(key),
+            ];
         }
 
         return (
             DIV({
                 key,
-                className: (currentPropName === propName) ? 'row configured active' : 'row configured',
-                onClick: () => events.setCurrentPropName(propName),
+                className: (current === key) ? 'row configured active' : 'row configured',
+                onClick: () => setCurrentRow(key),
             },
                 DIV({ className: 'propName' }, displayName),
                 DIV({ className: 'tools' }, ...tools)));
@@ -194,82 +221,80 @@ const renderSelectedRow =
 const label = (k: MessageKey, c = 'label') => DIV({ className: c }, tr(k));
 
 const renderStringEditor =
-    (config: StringConfig | NumberConfig | BooleanConfig | URLConfig) => {
-        return ([
-            DIV({ className: 'item' }, inputWithLabel(config)),
-            DIV({ className: 'item' }, label('textFormat'), inputLevel(config)),
-            DIV({ className: 'item' }, label('textStyle'), inputStyle(config)),
-        ]);
-    };
+    (index: number, config: StringConfig | NumberConfig | BooleanConfig | URLConfig) => [
+        DIV({ className: 'item' },
+            inputWithLabel(index, config)),
+        DIV({ className: 'item' },
+            label('textFormat'), inputLevel(index, config)),
+        DIV({ className: 'item' },
+            label('textStyle'), inputStyle(index, config)),
+    ];
 
 
 const renderImageEditor =
-    (config: ImageConfig) => {
-        return [DIV({ className: 'item' }, inputWithLabel(config))];
-    };
+    (index: number, config: ImageConfig) => [
+        DIV({ className: 'item' },
+            inputWithLabel(index, config)),
+    ];
 
 
 
 const renderPiechartPiece =
-    (pn: string) =>
-        (piece: PiechartPiece, key: number) => {
-            const removeButton = remove(
-                `renderStyleGroupValue-${piece.propName}-${key}`);
+    (piece: PiechartPiece, key: number) => {
+        const removeButton = remove(
+            `renderStyleGroupValue-${piece.propName}-${key}`);
 
-            const inputColor = renderInputAlphaColor('style-tool color', '',
-                () => Color(piece.color),
-                c => events.setPiechartPieceColor(
-                    pn, piece.propName, c.string()));
+        const inputColor = renderInputAlphaColor('style-tool color', '',
+            () => Color(piece.color),
+            c => setPiechartPieceColor(
+                key, piece.propName, c.string()));
 
-            const inputLabel = DIV({ className: `style-tool label` },
-                SPAN({ className: 'label' }, tr('alias')),
-                inputText(
-                    () => (piece.label === undefined) ? piece.propName : piece.label,
-                    newVal => events.setPiechartPieceLabel(pn, piece.propName, newVal)));
+        const inputLabel = DIV({ className: `style-tool label` },
+            SPAN({ className: 'label' }, tr('alias')),
+            inputText(
+                () => (piece.label === undefined) ? piece.propName : piece.label,
+                newVal => setPiechartPieceLabel(key, piece.propName, newVal)));
 
-            return (
-                DIV({ className: 'value-name' },
-                    DIV({ className: 'piece-header' },
-                        removeButton(
-                            () => events.removePieChartPiece(pn, piece.propName)),
-                        SPAN({}, piece.propName),
-                        inputLabel),
-                    DIV({ className: 'piece-body' },
-                        inputColor)));
-        };
+        return (
+            DIV({ className: 'value-name' },
+                DIV({ className: 'piece-header' },
+                    removeButton(
+                        () => removePieChartPiece(key, piece.propName)),
+                    SPAN({}, piece.propName),
+                    inputLabel),
+                DIV({ className: 'piece-body' },
+                    inputColor)));
+    };
 
 const pieceAdd =
-    (pn: string, value: string) => {
+    (index: number, value: string) => {
         if (value) {
-            events.resetEditedValue();
-            events.addPieChartPiece(pn, value);
+            resetEditedValue();
+            addPieChartPiece(index, value);
         }
     };
 
 
-
-
 const renderColumnNames =
-    (pn: string, keys: string[]) =>
+    (index: number, keys: string[]) =>
         keys.map((key) => {
             return DIV({
                 key,
                 className: 'column-name',
-                onClick: () => {
-                    pieceAdd(pn, key);
-                },
+                onClick: () => pieceAdd(index, key),
             }, key);
         });
 
+
 const columnPicker =
-    (pn: string) => {
+    (index: number) => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         const children: React.ReactNode[] = [];
         if (metadata) {
             const layerData = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
             if (layerData) {
                 const keys = getLayerPropertiesKeys(layerData);
-                children.push(...renderColumnNames(pn, keys));
+                children.push(...renderColumnNames(index, keys));
             }
         }
 
@@ -280,26 +305,26 @@ const columnPicker =
     };
 
 const renderPiechartEditor =
-    (config: PiechartConfig) => {
+    (index: number, config: PiechartConfig) => {
         const columns = config.options.columns;
-        const pieces = columns.map(renderPiechartPiece(config.propName));
+        const pieces = columns.map(renderPiechartPiece);
         const elements: ReactNode[] = [];
 
         elements.push(
             DIV({ className: 'selected-items' },
                 ...pieces,
-                columnPicker(config.propName)));
+                columnPicker(index)));
 
 
         const scaleSelect = renderSelect(
             ['normal', 'log'],
             config.options.scale,
-            (v) => { events.setPiechartScale(config.propName, v); });
+            (v) => { setPiechartScale(index, v); });
 
         const radiusSelect = renderSelect(
             ['normal', 'dynamic'],
             config.options.radius,
-            (v) => { events.setPiechartRadius(config.propName, v); });
+            (v) => { setPiechartRadius(index, v); });
 
         return [
             DIV({ className: 'item' }, label('piechartScale'), scaleSelect),
@@ -310,48 +335,59 @@ const renderPiechartEditor =
 
 
 const renderTimeserieEditor =
-    (config: TimeserieConfig) => {
+    (index: number, config: TimeserieConfig) => {
         return [
             DIV({ className: 'item' },
                 label('timeserieTemplateURL', 'help'),
                 inputText(
                     () => config.options.urlTemplate,
-                    value => events.setTimeserieUrl(config.propName, value)),
+                    value => setTimeserieUrl(index, value)),
                 label('timeserieReference', 'help'),
                 inputNullableNumber(
                     () => config.options.referencePoint,
-                    value => events.setTimeserieReference(config.propName, value)))];
+                    value => setTimeserieReference(index, value)))];
     };
 
 
 const renderTypeSelector =
-    (config: RowConfig) => {
-        return DIV({ className: 'item' }, label('dataType'), inputType(config));
-    };
+    (index: number, config: RowConfig) =>
+        DIV({ className: 'item' },
+            label('dataType'), inputType(index, config));
+
 
 const renderRowEditor =
-    (row: RowConfig) => {
+    (index: number) => {
+        const row = getRow(index);
         const elements: ReactNode[] = [];
-        switch (row.type) {
-            case 'string': elements.push(
-                renderTypeSelector(row), ...renderStringEditor(row));
-                break;
-            case 'number': elements.push(
-                renderTypeSelector(row), ...renderStringEditor(row));
-                break;
-            case 'boolean': elements.push(
-                renderTypeSelector(row), ...renderStringEditor(row));
-                break;
-            case 'url': elements.push(
-                renderTypeSelector(row), ...renderStringEditor(row));
-                break;
-            case 'image': elements.push(
-                renderTypeSelector(row), ...renderImageEditor(row));
-                break;
-            case 'piechart': elements.push(...renderPiechartEditor(row));
-                break;
-            case 'timeserie': elements.push(...renderTimeserieEditor(row));
-                break;
+        if (row) {
+            switch (row.type) {
+                case 'string': elements.push(
+                    renderTypeSelector(index, row),
+                    ...renderStringEditor(index, row));
+                    break;
+                case 'number': elements.push(
+                    renderTypeSelector(index, row),
+                    ...renderStringEditor(index, row));
+                    break;
+                case 'boolean': elements.push(
+                    renderTypeSelector(index, row),
+                    ...renderStringEditor(index, row));
+                    break;
+                case 'url': elements.push(
+                    renderTypeSelector(index, row),
+                    ...renderStringEditor(index, row));
+                    break;
+                case 'image': elements.push(
+                    renderTypeSelector(index, row),
+                    ...renderImageEditor(index, row));
+                    break;
+                case 'html': elements.push(renderTypeSelector(index, row));
+                    break;
+                case 'piechart': elements.push(...renderPiechartEditor(index, row));
+                    break;
+                case 'timeserie': elements.push(...renderTimeserieEditor(index, row));
+                    break;
+            }
         }
         return elements;
     };
@@ -367,29 +403,16 @@ const renderPanel =
 
 const render =
     () => {
-        const lc = getLang();
-        const propNames = queries.getKeys();
-        const config = queries.getConfig();
-        const currentPropName = queries.getCurrentPropName();
-        const selected = config.rows.filter(r => r.lang === lc);
-        const selectedPropnames = selected.map(r => r.propName);
-        const remaining = propNames.filter(pn => selectedPropnames.indexOf(pn) === -1);
-        const currentRow = selected.find(r => r.propName === currentPropName);
-        let editor: ReactNode;
-        if (currentRow) {
-            editor = renderRowEditor(currentRow);
-        }
+        const propNames = getKeys();
+        const current = getCurrentIndex();
+        const rows = getRows();
+        const editor = renderRowEditor(current);
 
-        const columElements: ReactNode[] = remaining.filter(pn => !isWidget(pn)).map(pn => renderSelectRow(pn));
+        const columElements =
+            propNames.filter(pn => !isWidget(pn))
+                .map(renderSelectRow);
 
-        const widgetElements: ReactNode[] = [];
-        const selectedWidgets = selectedPropnames.filter(isWidget);
-        WIDGETS.forEach((wn) => {
-            if (selectedWidgets.findIndex(n => n === wn) < 0) {
-                widgetElements.push(renderSelectRow(wn, WIDGET_NAME[wn]));
-            }
-        });
-
+        const widgetElements = WIDGETS.map(renderSelectWidget);
 
         const elements: ReactNode[] = [];
         if (widgetElements.length > 0) {
@@ -408,7 +431,7 @@ const render =
                 renderPanel('rows-remaining', 'infoChoice',
                     ...elements),
                 renderPanel('rows-selected', 'infoReorder',
-                    selected.map(renderSelectedRow)),
+                    rows.map(renderSelectedRow)),
                 renderPanel('row-editor', 'style', editor))
         );
     };
