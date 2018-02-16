@@ -46,30 +46,34 @@ export interface Setter<T> {
     (h: (a: T) => T): void;
 }
 
+const notYetConfigured =
+    (store: IStoreInteractions<IShape>) => {
+        pendingObservers.forEach(
+            o => store.observe(o.key, o.handler, o.immediate));
+
+        storeRef = store;
+    };
 
 export const configure =
     (store: IStoreInteractions<IShape>) =>
         getStore()
-            .fold(
-            () => {
-                pendingObservers.forEach(
-                    o => store.observe(o.key, o.handler, o.immediate));
-
-                storeRef = store;
-            },
-            () => { throw (new Error('StoreAlreadyConfigured')); });
+            .foldL(
+                () => notYetConfigured(store),
+                () => { throw (new Error('StoreAlreadyConfigured')); });
 
 
 /**********
  * Queries 
  **********/
 
+const guard = () => { throw (new Error('DispatchNotConfigured')); }
+
 export const query =
     <K extends keyof IShape>(key: K): IShape[K] =>
         getStore()
-            .fold(
-            () => { throw (new Error('DispatchNotConfigured')); },
-            store => store.get(key));
+            .foldL(
+                guard,
+                store => store.get(key));
 
 export const queryK =
     <K extends keyof IShape>(key: K) =>
@@ -106,17 +110,17 @@ export const subscribe =
 export const dispatch =
     <K extends keyof IShape>(key: K, handler: IReducer<IShape, IShape[K]>): void =>
         getStore()
-            .fold(
-            () => { throw (new Error('DispatchNotConfigured')); },
-            store => store.dispatch(key, handler));
+            .foldL(
+                guard,
+                store => store.dispatch(key, handler));
 
 
 export const dispatchAsync =
     <K extends keyof IShape>(key: K, handler: IReducerAsync<IShape, IShape[K]>): void =>
         getStore()
-            .fold(
-            () => { throw (new Error('DispatchNotConfigured')); },
-            store => store.dispatchAsync(key, handler));
+            .foldL(
+                guard,
+                store => store.dispatchAsync(key, handler));
 
 export const dispatchK =
     <K extends keyof IShape>(key: K) =>
@@ -124,15 +128,20 @@ export const dispatchK =
             dispatch(key, handler);
 
 
+
+const observerNotYetConfigured =
+    <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void, immediate = false) => {
+        pendingObservers.push({ key, handler, immediate });
+    };
+
+
 // tslint:disable-next-line:variable-name
 const observe_ =
     <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void, immediate = false): void =>
         getStore()
-            .fold(
-            () => {
-                pendingObservers.push({ key, handler, immediate });
-            },
-            store => store.observe(key, handler, immediate));
+            .foldL(
+                () => observerNotYetConfigured(key, handler, immediate),
+                store => store.observe(key, handler, immediate));
 
 export const observe =
     <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void) => observe_(key, handler);

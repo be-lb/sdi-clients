@@ -134,7 +134,7 @@ const renderRGB =
         const r = SPAN({ className: 'red' },
             inputNumber(
                 () => Math.round(get().red()),
-                i => notNan(i).fold(
+                i => notNan(i).foldL(
                     () => set(get().red(0)),
                     n => set(get().red(n))),
                 { min: 0, max: 255 }));
@@ -142,7 +142,7 @@ const renderRGB =
         const g = SPAN({ className: 'green' },
             inputNumber(
                 () => Math.round(get().green()),
-                i => notNan(i).fold(
+                i => notNan(i).foldL(
                     () => set(get().green(0)),
                     n => set(get().green(n))),
                 { min: 0, max: 255 }));
@@ -150,7 +150,7 @@ const renderRGB =
         const b = SPAN({ className: 'blue' },
             inputNumber(
                 () => Math.round(get().blue()),
-                i => notNan(i).fold(
+                i => notNan(i).foldL(
                     () => set(get().blue(0)),
                     n => set(get().blue(n))),
                 { min: 0, max: 255 }));
@@ -275,10 +275,10 @@ export const pattern =
         const p = queries.getPattern();
         if (!p) {
             return DIV({ className: 'style-tool hatch-wrapper' },
-            DIV({
-                className: 'hatch-pattern inactive',
-                onClick: () => events.setPattern(true),
-            }, tr('usePattern')));
+                DIV({
+                    className: 'hatch-pattern inactive',
+                    onClick: () => events.setPattern(true),
+                }, tr('usePattern')));
         }
         return DIV({ className: 'style-tool hatch-wrapper' },
             DIV({
@@ -314,10 +314,10 @@ export const patternForGroup =
         const p = queries.getPatternForGroup(idx);
         if (!p) {
             return DIV({ className: 'style-tool hatch-wrapper' },
-            DIV({
-                className: 'hatch-pattern inactive',
-                onClick: () => events.setPatternForGroup(idx, true),
-            }, tr('usePattern')));
+                DIV({
+                    className: 'hatch-pattern inactive',
+                    onClick: () => events.setPatternForGroup(idx, true),
+                }, tr('usePattern')));
         }
         return DIV({ className: 'style-tool hatch-wrapper' },
             DIV({

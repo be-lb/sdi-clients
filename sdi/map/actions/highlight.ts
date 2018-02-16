@@ -194,7 +194,7 @@ export const highlight =
 
         const update =
             () => getFeature(refLayers, fpg()).fold(
-                () => hlSource.clear(),
+                hlSource.clear(),
                 ({ layer, feature }) => {
                     const fc = feature.clone();
                     fc.setStyle(selectionStyle(layer));

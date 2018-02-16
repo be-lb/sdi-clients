@@ -4,7 +4,7 @@ import * as debug from 'debug';
 const logger = debug('sdi:lib/scope');
 
 import { Some, None, some } from 'fp-ts/lib/Option';
-import { Task } from 'fp-ts/lib/Task';
+// import { Task } from 'fp-ts/lib/Task';
 
 
 declare module 'fp-ts/lib/Option' {
@@ -48,16 +48,16 @@ declare module 'fp-ts/lib/Task' {
     }
 }
 
-Task.prototype.let = function (name, other) {
-    const fb = typeof other === 'function' ? other(this.value) : other;
-    return fb.map(b => ({ ...this.value, [name]: b }));
-};
+// Task.prototype.let = function (name, other) {
+//     const fb = typeof other === 'function' ? other(this.value) : other;
+//     return fb.map(b => ({ ...this.value, [name]: b }));
+// };
 
 
 
 
 export const scopeOption = () => some({});
-export const scopeTask = () => new Task(() => Promise.resolve({}));
+// export const scopeTask = () => new Task(() => Promise.resolve({}));
 
 /**
  *  type test

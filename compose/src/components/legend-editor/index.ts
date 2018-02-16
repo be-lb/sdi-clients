@@ -143,7 +143,7 @@ const getInfo =
 const renderLabel =
     (lid: string) =>
         getInfo(lid).fold(
-            () => DIV(),
+            DIV(),
             (info) => {
                 const getLabel =
                     () =>
@@ -169,9 +169,9 @@ const renderZoomRange =
         const { info } = appQueries.getLayerInfo(lid);
         if (info) {
             const getMin =
-                () => getInfo(lid).fold(() => 0, i => i.minZoom || 0);
+                () => getInfo(lid).fold(0, i => i.minZoom || 0);
             const getMax =
-                () => getInfo(lid).fold(() => 0, i => i.maxZoom || 30);
+                () => getInfo(lid).fold(0, i => i.maxZoom || 30);
             const setMin =
                 (n: number) => {
                     events.setZoomRange(lid, n, getMax());

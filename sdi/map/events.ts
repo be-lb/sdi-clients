@@ -33,11 +33,11 @@ export const measureEventsFactory =
         updateMeasureCoordinates(coordinates: Coordinate[]) {
             dispatch(i => fromInteraction('measure', i)
                 .fold(
-                () => i,
-                it => measureEvent({
-                    coordinates,
-                    geometryType: it.state.geometryType,
-                })));
+                    i,
+                    it => measureEvent({
+                        coordinates,
+                        geometryType: it.state.geometryType,
+                    })));
         },
 
     });
@@ -74,8 +74,8 @@ export const trackerEventsFactory =
         updateTrack(coords: TrackerCoordinate) {
             dispatch(i => fromInteraction('track', i)
                 .fold(
-                () => i,
-                it => trackerEvent({ track: it.state.track.concat([coords]) })));
+                    i,
+                    it => trackerEvent({ track: it.state.track.concat([coords]) })));
         },
     });
 

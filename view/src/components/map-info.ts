@@ -29,7 +29,7 @@ const logger = debug('sdi:map-info');
 const makeAttachment =
     (aid: string) =>
         getAttachment(aid).fold(
-            () => DIV({}, 'NOT LOADED YET'),
+            DIV({}, 'NOT LOADED YET'),
             a => DIV({ className: 'map-file', key: aid },
                 A({ href: fromRecord(a.url), target: '_blank' }, fromRecord(a.name))));
 

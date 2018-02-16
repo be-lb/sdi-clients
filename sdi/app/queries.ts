@@ -18,13 +18,13 @@ const getAliasInDict =
     (dict: IAliasCollection, k: string) =>
         fromNullable(dict.find(alias => alias.select === k))
             .fold(
-            () => k,
-            alias => fromRecord(alias.replace));
+                k,
+                alias => fromRecord(alias.replace));
 
 export const getAlias =
     (k: string) =>
         fromNullable(query('data/alias'))
             .fold(
-            () => k,
-            dict => getAliasInDict(dict, k));
+                k,
+                dict => getAliasInDict(dict, k));
 

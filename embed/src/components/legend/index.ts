@@ -29,7 +29,7 @@ const logger = debug('sdi:legend');
 
 const renderTitle =
     () => getMapInfo().fold(
-        () => DIV(),
+        DIV(),
         mapInfo => DIV({ className: 'map-title' },
             H1({}, A({ href: `${getRoot()}view`, target: '_top' }, fromRecord(mapInfo.title)))));
 
@@ -102,7 +102,7 @@ const legendLegend =
 
 const render =
     () => getMapInfo().fold(
-        () => DIV(),
+        DIV(),
         info => legendLegend(info),
     );
 

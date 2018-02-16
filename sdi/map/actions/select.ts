@@ -195,8 +195,8 @@ export const select =
             (state: Interaction) =>
                 fromInteraction('select', state)
                     .fold(
-                    () => selectInteraction.setActive(false),
-                    () => selectInteraction.setActive(true));
+                        selectInteraction.setActive(false),
+                        () => selectInteraction.setActive(true));
 
 
         return { init, update };

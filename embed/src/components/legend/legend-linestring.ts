@@ -49,7 +49,7 @@ const renderSimple = (config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx:
         olContext.drawGeometry(lineGeometry);
     });
     const label = getDatasetMetadata(layerInfo.metadataId).fold(
-        () => '',
+        '',
         md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('line', canvas.toDataURL(), label)];

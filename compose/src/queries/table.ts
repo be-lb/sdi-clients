@@ -116,7 +116,7 @@ const getLayerTypes =
     }
 
 export const getSource =
-    () => getLayerOption().fold(emptySource,
+    () => getLayerOption().fold(emptySource(),
         layer => ({
             data: getLayerData(layer),
             keys: getLayerKeys(layer),

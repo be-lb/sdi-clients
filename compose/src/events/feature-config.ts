@@ -49,7 +49,7 @@ import { getLang } from 'sdi/app';
 import { syncMap } from '../util/app';
 import queries from '../queries/app';
 import { initialFeatureConfigState } from '../components/feature-config/index';
-import { fromNullable } from 'monocle-ts/node_modules/fp-ts/lib/Option';
+import { fromNullable } from 'fp-ts/lib/Option';
 import { getSource } from '../queries/table';
 import { selectFeature, selectFeatureRow } from './table';
 

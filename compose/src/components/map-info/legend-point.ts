@@ -48,7 +48,7 @@ const renderSimple = (config: PointStyleConfigSimple, layerInfo: ILayerInfo, ctx
         olContext.drawGeometry(pointGeometry);
     });
     const label = getDatasetMetadata(layerInfo.metadataId).fold(
-        () => '',
+        '',
         md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('point', canvas.toDataURL(), label)];

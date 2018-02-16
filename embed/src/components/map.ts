@@ -36,7 +36,7 @@ import {
 const logger = debug('sdi:comp/map');
 
 const getInfo =
-    () => getMapInfo().fold(() => null, m => m);
+    () => getMapInfo().fold(null, m => m);
 
 const options: IMapOptions = {
     getBaseLayer,
@@ -56,7 +56,7 @@ const getSelected =
     () => ({
         featureId: getFeatureId(),
         layerId: getLayerId(),
-    })
+    });
 
 
 const attachMap =

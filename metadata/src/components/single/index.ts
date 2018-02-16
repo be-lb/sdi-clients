@@ -248,8 +248,8 @@ const render =
     () => (
         getCurrentDatasetMetadata()
             .fold(
-            () => H1({}, `Loading Current Metadata Failed`),
-            renderEditor,
+                H1({}, `Loading Current Metadata Failed`),
+                renderEditor,
         ));
 
 

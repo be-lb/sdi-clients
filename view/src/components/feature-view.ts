@@ -30,7 +30,7 @@ const renderZoom =
 const zoomToFeature =
     () =>
         fromNullable(app.getCurrentFeature())
-            .fold(() => DIV(), renderZoom);
+            .fold(DIV(), renderZoom);
 
 
 export const switcher =
@@ -58,21 +58,21 @@ const noView = () => DIV({ className: 'feature-view no' });
 export const renderDefault =
     () =>
         fromNullable(app.getCurrentFeature())
-            .fold(noView, defaultView);
+            .fold(noView(), defaultView);
 
 const withInfo =
     (info: ILayerInfo) =>
         fromNullable(app.getCurrentFeature())
-            .fold(noView,
-            feature => renderConfig(
-                info.featureViewOptions, feature, tsPlotter));
+            .fold(noView(),
+                feature => renderConfig(
+                    info.featureViewOptions, feature, tsPlotter));
 
 
 
 const render =
     () =>
         fromNullable(app.getCurrentLayerInfo().info)
-            .fold(noView, withInfo);
+            .fold(noView(), withInfo);
 
 
 export default render;

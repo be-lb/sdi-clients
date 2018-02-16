@@ -85,7 +85,7 @@ const queries = {
             const layerInfo = layers.find(l => l.id === layerId);
             if (layerInfo) {
                 return getDatasetMetadata(layerInfo.metadataId).fold<SyntheticLayerInfo>(
-                    () => ({ name: null, info: null, metadata: null }),
+                    { name: null, info: null, metadata: null },
                     metadata => ({
                         name: getMessageRecord(metadata.resourceTitle),
                         info: layerInfo,

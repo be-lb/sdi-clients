@@ -112,8 +112,8 @@ const dataItem =
                 fromNullable(
                     appQueries.getDatasetMetadata(info.metadataId))
                     .fold(
-                    () => info.id,
-                    md => fromRecord(getMessageRecord(md.resourceTitle))))))
+                        info.id,
+                        md => fromRecord(getMessageRecord(md.resourceTitle))))))
     );
 
 const renderData =

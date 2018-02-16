@@ -88,7 +88,7 @@ export const fetchIO =
                     }
                     throw new Error(`Network response was not ok.\n[${url}]\n${response.statusText}`);
                 })
-                .then(obj => io.validate(obj, ioType)
+                .then(obj => ioType.decode(obj)
                     .fold(onValidationError(ioType), identity))
         );
     };
@@ -107,6 +107,11 @@ export interface FetchedPage<T> {
     page: number;
     total: number;
 }
+
+const makePage =
+    <T>(results: T[], page: number, total: number): FetchedPage<T> => ({
+        results, page, total,
+    });
 
 class Inc {
     private storedValue = 0;
@@ -138,32 +143,25 @@ export const fetchPaginatedIO =
                                 pageSize = r.results.length;
                             }
                             nextUrl = fromNullable(r.next);
-                            const frame: FetchedPage<T> = {
-                                results: r.results,
-                                page: pageCounter.value(),
-                                total: pageSize > 0 ? r.count / pageSize : 0,
-                            };
+                            const frame = makePage<T>(r.results, pageCounter.value(), pageSize > 0 ? r.count / pageSize : 0);
                             pageCounter.step();
+
                             return frame;
                         })
                         .catch(() => {
                             nextUrl = none;
-                            return {
-                                results: [] as T[],
-                                page: -1,
-                                total: -1,
-                            };
+                            return makePage<T>([], -1, -1);
                         }));
 
         const loop =
             (f: (a: FetchedPage<T>) => void, end: () => void) =>
                 fetchPage()
                     .fold(
-                    () => end(),
-                    p => p.then((results) => {
-                        f(results);
-                        loop(f, end);
-                    }));
+                        end(),
+                        p => p.then((results) => {
+                            f(results);
+                            loop(f, end);
+                        }));
 
         return loop;
     };
@@ -195,7 +193,7 @@ export const postIO =
                 })
                 .then((obj) => {
                     return (
-                        io.validate(obj, recType)
+                        recType.decode(obj)
                             .fold(onValidationError(ioType), identity)
                     );
                 })

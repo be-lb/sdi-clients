@@ -20,16 +20,16 @@ const noView = () => DIV({ className: 'feature-view' });
 const withInfo =
     (info: ILayerInfo) =>
         fromNullable(app.getCurrentFeature())
-            .fold(noView,
-            feature => featureView(
-                info.featureViewOptions, feature, tsPlotter));
+            .fold(noView(),
+                feature => featureView(
+                    info.featureViewOptions, feature, tsPlotter));
 
 
 
 const render =
     () =>
         fromNullable(app.getCurrentLayerInfo().info)
-            .fold(noView, withInfo);
+            .fold(noView(), withInfo);
 
 
 export default render;

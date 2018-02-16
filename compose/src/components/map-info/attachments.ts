@@ -42,7 +42,7 @@ const renderAttachmentEditableName =
                     href: fromRecord(a.url),
                     ...props,
                 }, nonEmptyString(name).fold(
-                    () => tr('attachmentName'),
+                    tr('attachmentName'),
                     n => n
                 ))));
     };
@@ -52,7 +52,7 @@ const renderAttachmentEditableUrl =
         return DIV({ className: 'map-file-url' },
             SPAN({ ...props, className: 'file-url' },
                 nonEmptyString(url).fold(
-                    () => tr('attachmentUrl'),
+                    tr('attachmentUrl'),
                     u => u
                 )));
     };
@@ -64,16 +64,16 @@ const renderAttachmentName =
         (props: React.ClassAttributes<Element>) =>
             getAttachmentForm(a.id)
                 .fold(
-                () => DIV(),
-                f => renderAttachmentEditableName(props, f.name, a));
+                    DIV(),
+                    f => renderAttachmentEditableName(props, f.name, a));
 
 const renderAttachmentUrl =
     (a: Attachment) =>
         (props: React.ClassAttributes<Element>) =>
             getAttachmentForm(a.id)
                 .fold(
-                () => DIV(),
-                f => renderAttachmentEditableUrl(props, f.url, a));
+                    DIV(),
+                    f => renderAttachmentEditableUrl(props, f.url, a));
 
 
 const renderAddButton = () => (
@@ -86,19 +86,19 @@ const attachments =
         mapInfo.attachments.map(
             k => getAttachment(k)
                 .fold(
-                () => DIV(),
-                a => DIV({ className: 'map-file' },
-                    editable(`ata_name_${k}`,
-                        () => a.name,
-                        n => setAttachmentName(a.id, n),
-                        renderAttachmentName(a))(),
-                    editable(`ata_url_${k}`,
-                        () => a.url,
-                        n => setAttachmentUrl(a.id, n),
-                        renderAttachmentUrl(a))(),
-                    remove(`renderAttachmentEditable-${a.id}`)
-                        (() => removeAttachment(a.id))
-                )));
+                    DIV(),
+                    a => DIV({ className: 'map-file' },
+                        editable(`ata_name_${k}`,
+                            () => a.name,
+                            n => setAttachmentName(a.id, n),
+                            renderAttachmentName(a))(),
+                        editable(`ata_url_${k}`,
+                            () => a.url,
+                            n => setAttachmentUrl(a.id, n),
+                            renderAttachmentUrl(a))(),
+                        remove(`renderAttachmentEditable-${a.id}`)
+                            (() => removeAttachment(a.id))
+                    )));
 
 const render =
     (mapInfo: IMapInfo) => (

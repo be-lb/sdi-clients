@@ -29,7 +29,7 @@ type AppWithName = AppManifest & { name: MessageRecord }
 
 const renderApp =
     (app: AppManifest) => withName(app).fold(
-        () => DIV(),
+        DIV(),
         (app: AppWithName) => DIV({
             className: `app-item ${app.codename}`,
             onClick: () => window.location.assign(app.url),
