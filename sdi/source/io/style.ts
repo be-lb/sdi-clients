@@ -23,26 +23,30 @@ import * as io from 'io-ts';
 export const PatternAngleIO = u([l(0), l(45), l(90), l(135)], 'PatterAngleIO');
 export type PatternAngle = TypeOf<typeof PatternAngleIO>;
 
-export const PolygonStyleConfigSimpleIO = i({
-    kind: l('polygon-simple'),
-    strokeColor: io.string,
-    fillColor: io.string,
-    strokeWidth: io.number,
-    pattern: io.boolean,
-    patternAngle: PatternAngleIO,
-}, 'PolygonStyleConfigSimpleIO');
+export const PolygonStyleConfigSimpleIO = io.intersection([
+    i({
+        kind: l('polygon-simple'),
+        strokeColor: io.string,
+        fillColor: io.string,
+        strokeWidth: io.number,
+        pattern: io.boolean,
+        patternAngle: PatternAngleIO,
+    }),
+    p({ patternColor: io.string })], 'PolygonStyleConfigSimpleIO');
 export type PolygonStyleConfigSimple = TypeOf<typeof PolygonStyleConfigSimpleIO>;
 
-export const PolygonIntervalIO = i({
-    label: MessageRecordIO,
-    low: io.number,
-    high: io.number,
-    fillColor: io.string,
-    strokeColor: io.string,
-    strokeWidth: io.number,
-    pattern: io.boolean,
-    patternAngle: PatternAngleIO,
-}, 'PolygonIntervalIO');
+export const PolygonIntervalIO = io.intersection([
+    i({
+        label: MessageRecordIO,
+        low: io.number,
+        high: io.number,
+        fillColor: io.string,
+        strokeColor: io.string,
+        strokeWidth: io.number,
+        pattern: io.boolean,
+        patternAngle: PatternAngleIO,
+    }),
+    p({ patternColor: io.string })], 'PolygonIntervalIO');
 export type PolygonInterval = TypeOf<typeof PolygonIntervalIO>;
 
 export const PolygonStyleConfigContinuousIO = i({
@@ -52,15 +56,17 @@ export const PolygonStyleConfigContinuousIO = i({
 }, 'PolygonStyleConfigContinuousIO');
 export type PolygonStyleConfigContinuous = TypeOf<typeof PolygonStyleConfigContinuousIO>;
 
-export const PolygonDiscreteGroupIO = i({
-    values: a(io.string),
-    fillColor: io.string,
-    strokeColor: io.string,
-    strokeWidth: io.number,
-    pattern: io.boolean,
-    patternAngle: PatternAngleIO,
-    label: MessageRecordIO,
-}, 'PolygonDiscreteGroupIO');
+export const PolygonDiscreteGroupIO = io.intersection([
+    i({
+        values: a(io.string),
+        fillColor: io.string,
+        strokeColor: io.string,
+        strokeWidth: io.number,
+        pattern: io.boolean,
+        patternAngle: PatternAngleIO,
+        label: MessageRecordIO,
+    }),
+    p({ patternColor: io.string })], 'PolygonDiscreteGroupIO');
 export type PolygonDiscreteGroup = TypeOf<typeof PolygonDiscreteGroupIO>;
 
 export const PolygonStyleConfigDiscreteIO = i({
