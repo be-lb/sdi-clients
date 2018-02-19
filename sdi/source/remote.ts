@@ -156,8 +156,8 @@ export const fetchPaginatedIO =
         const loop =
             (f: (a: FetchedPage<T>) => void, end: () => void) =>
                 fetchPage()
-                    .fold(
-                        end(),
+                    .foldL(
+                        end,
                         p => p.then((results) => {
                             f(results);
                             loop(f, end);

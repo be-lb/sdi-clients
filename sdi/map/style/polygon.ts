@@ -24,13 +24,6 @@ import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleCon
 import { StyleFn } from './index';
 import { makePattern } from './pattern';
 
-// const makeStyle =
-//     (fill: style.Fill, stroke: style.Stroke) => {
-//         if (stroke.getWidth() < 0.5) {
-//             return new style.Style({ fill });
-//         }
-//         return new style.Style({ fill, stroke });
-//     };
 
 interface Patternisable {
     fillColor: string;
@@ -40,6 +33,14 @@ interface Patternisable {
     patternAngle: PatternAngle;
 }
 
+const makeStyle =
+    (fill: style.Fill, stroke: style.Stroke) => {
+        if (stroke.getWidth() < 0.5) {
+            return new style.Style({ fill });
+        }
+        return new style.Style({ fill, stroke });
+    };
+
 const makeStyles =
     (p: Patternisable, stroke: style.Stroke) => {
         if (p.pattern) {
@@ -48,28 +49,25 @@ const makeStyles =
                     new style.Style({
                         fill: new style.Fill({ color: p.fillColor }),
                     }),
-                    new style.Style({
-                        fill: new style.Fill({
+                    makeStyle(
+                        new style.Fill({
                             color: makePattern(p.strokeWidth, p.patternAngle, p.patternColor),
                         }),
-                        stroke,
-                    }),
+                        stroke),
                 ]
             }
             return [
-                new style.Style({
-                    fill: new style.Fill({
+                makeStyle(
+                    new style.Fill({
                         color: makePattern(p.strokeWidth, p.patternAngle, p.fillColor),
                     }),
-                    stroke,
-                }),
+                    stroke),
             ];
         }
         return [
-            new style.Style({
-                fill: new style.Fill({ color: p.fillColor }),
-                stroke,
-            }),
+            makeStyle(
+                new style.Fill({ color: p.fillColor }),
+                stroke),
         ];
     };
 
