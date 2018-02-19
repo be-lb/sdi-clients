@@ -190,6 +190,7 @@ export const highlight =
         const hlSource = new source.Vector();
         const hlLayer = new layer.Vector({
             source: hlSource,
+            zIndex: 1000,
         });
 
         const update =

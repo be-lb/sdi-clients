@@ -14,6 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 import { compose } from 'fp-ts/lib/function';
 
 import {
@@ -28,6 +29,7 @@ import {
     SortDirection,
 } from './index';
 
+const logger = debug('sdi:table/queries');
 
 type RFilter = {
     col: number;
@@ -108,6 +110,8 @@ export const tableQueries =
 
         const getFilteredData =
             () => {
+                // const source = getSource();
+                // logger(`getFilteredData ${source.data}`);
                 const { data, types } = getSource();
                 const { search, sort } = getTable();
                 const f = filter(search.filters);
@@ -205,3 +209,4 @@ export const tableQueries =
         return queries;
     };
 
+logger('loaded');

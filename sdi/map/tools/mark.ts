@@ -24,8 +24,8 @@ export const mark =
         const update =
             (i: Interaction) =>
                 fromInteraction('mark', i)
-                    .fold(
-                        fromNullable(mapRef).map((m) => { m.removeOverlay(overlay); }),
+                    .foldL(
+                        () => fromNullable(mapRef).map((m) => { m.removeOverlay(overlay); }),
                         ({ state }) => fromNullable(mapRef).map(
                             (m) => {
                                 if (state.started) {

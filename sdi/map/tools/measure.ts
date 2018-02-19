@@ -87,12 +87,12 @@ export const measure =
         const update =
             (i: Interaction) =>
                 fromInteraction('measure', i)
-                    .fold(
-                        (() => {
+                    .foldL(
+                        () => {
                             measureSource.clear();
                             measureLength.setActive(false);
                             measureArea.setActive(false);
-                        })(),
+                        },
                         ({ state }) => {
                             if (!isMeasuring()) {
                                 measureSource.clear();

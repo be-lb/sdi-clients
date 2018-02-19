@@ -78,11 +78,11 @@ export const track =
         const update =
             (i: Interaction) =>
                 fromInteraction('track', i)
-                    .fold(
-                        (() => {
+                    .foldL(
+                        () => {
                             geolocationSource.clear();
                             geolocation.setTracking(false);
-                        })(),
+                        },
                         ({ state }) => {
                             geolocationSource.clear();
                             if (!isTracking()) {

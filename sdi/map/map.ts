@@ -189,20 +189,27 @@ export const removeLayerAll =
 export const addLayer =
     (layerInfo: () => SyntheticLayerInfo, fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
-
         if (info && metadata) {
+            logger(`===== addLayer ${info.id} ====`);
+            const layers = mainLayerGroup.getLayers();
+            const alayers = layers.getArray();
             const title = getMessageRecord(metadata.resourceTitle);
-            let layerAlreadyAdded = false;
-            mainLayerCollection.forEach((l) => {
-                logger(`mainLayerCollection.forEach ${l.get('id')} (${info.id})`);
-                if (l.get('id') === info.id) {
-                    layerAlreadyAdded = true;
-                }
-            });
-            logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
-            if (layerAlreadyAdded) {
+            if (alayers.find(l => l.get('id') === info.id)) {
+                logger(`addLayer.abort`);
                 return;
             }
+            // let layerAlreadyAdded = false;
+            // mainLayerCollection.getArray().forEach((l) => {
+            //     // logger(`addLayer.forEach ${l.get('id')} (${info.id})`);
+            //     if (l.get('id') === info.id) {
+            //         layerAlreadyAdded = true;
+            //     }
+            // });
+            // logger(`addLayer.collection: ${mainLayerCollection.getArray().map(l => l.get('id')).join('; ')}`);
+            // logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
+            // if (layerAlreadyAdded) {
+            //     return;
+            // }
 
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {
@@ -240,7 +247,8 @@ export const addLayer =
             vl.setVisible(info.visible);
 
             loadingMonitor.add(title);
-            mainLayerCollection.push(vl);
+            layers.push(vl);
+            logger(`addLayer.commit ${fromRecord(title)} ${layers.getArray().map(l => l.get('id')).join('; ')}`);
             getLayerData(fetchData, vs, title, info.visible);
 
             // vl.on('render', (_e: any) => {

@@ -14,9 +14,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 
 import { IStoreInteractions, IReducer, IAliasCollection, IReducerAsync } from '../source';
 import { fromNullable } from 'fp-ts/lib/Option';
+
+const logger = debug('sdi:shape');
 
 export interface IShape {
     'app/user': string | null;
@@ -92,6 +95,7 @@ export const subscribe =
         others.forEach(k => observe_(k, () => stall = true, true));
         const q =
             () => {
+                logger(`subscribe.q ${key} ${stall}`);
                 if (stall) {
                     result = fn(query(key));
                     stall = false;
@@ -145,3 +149,6 @@ const observe_ =
 
 export const observe =
     <K extends keyof IShape>(key: K, handler: (a: IShape[K]) => void) => observe_(key, handler);
+
+
+logger('loaded');
