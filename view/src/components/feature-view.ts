@@ -41,6 +41,7 @@ export const switcher =
                 title: tr('mapLegend'),
                 onClick: () => {
                     appEvents.setLayout(AppLayout.MapFS);
+                    appEvents.unsetCurrentFeature();
                     legendEvents.setPage('legend');
                 },
             }),

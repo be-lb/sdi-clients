@@ -350,13 +350,18 @@ const flattenCoords =
     };
 
 const getExtent =
-    (feature: GeoFeature): Extent => {
+    (feature: GeoFeature, buf = 10): Extent => {
         const initialExtent: Extent = [
             Number.MAX_VALUE,
             Number.MAX_VALUE,
             Number.MIN_VALUE,
             Number.MIN_VALUE,
         ];
+
+        if (feature.geometry.type == 'Point') {
+            const [x, y] = feature.geometry.coordinates;
+            return [x - buf, y - buf, x + buf, y + buf];
+        }
 
         return flattenCoords(feature.geometry).reduce<Extent>((acc, c) => {
             return [
