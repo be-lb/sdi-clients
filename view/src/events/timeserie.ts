@@ -14,7 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, dispatchK } from 'sdi/shape';
+import { dispatch, dispatchK, observe } from 'sdi/shape';
+import { initialTimeserieState } from 'sdi/components/timeserie';
+
 import { fetchTimeserie } from '../remote';
 
 export const dispatchTimeserie = dispatchK('component/timeserie');
@@ -29,3 +31,8 @@ export const loadData =
                 });
             });
     };
+
+
+observe('app/current-feature',
+    () => dispatch('component/timeserie',
+        () => initialTimeserieState()));
