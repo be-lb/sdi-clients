@@ -72,6 +72,12 @@ const selectFeature =
         appEvents.setLayout(AppLayout.MapAndFeature);
     };
 
+const clearSelection =
+    () => {
+        appEvents.unsetCurrentFeature();
+        appEvents.setLayout(AppLayout.MapAndInfo);
+    };
+
 
 const getSelected =
     () => {
@@ -104,7 +110,10 @@ const attachMap =
                 mapUpdate = update;
                 appEvents.signalReadyMap();
 
-                selectable({ selectFeature }, getInteraction);
+                selectable({
+                    selectFeature,
+                    clearSelection,
+                }, getInteraction);
 
                 measurable({
                     updateMeasureCoordinates: measureEvents.updateMeasureCoordinates,

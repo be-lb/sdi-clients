@@ -19,6 +19,9 @@ import { style, Feature } from 'openlayers';
 import { StyleFn, labelFont, markerFont } from './index';
 import { fromRecord } from '../../locale';
 
+const backgroundFill = new style.Fill({
+    color: 'rgba(255,255,255,0.1)',
+});
 
 const pointStyleSimple = (config: PointStyleConfigSimple) => {
     let labelStyle: style.Text;
@@ -54,6 +57,7 @@ const pointStyleSimple = (config: PointStyleConfigSimple) => {
             fill: new style.Fill({
                 color: marker.color,
             }),
+            backgroundFill,
         });
     }
 
@@ -140,6 +144,7 @@ const pointStyleDiscrete = (config: PointStyleConfigDiscrete) => {
                 fill: new style.Fill({
                     color: marker.color,
                 }),
+                backgroundFill,
             }),
         }));
         return acc;
@@ -188,6 +193,7 @@ const pointStyleContinuous = (config: PointStyleConfigContinuous) => {
                 fill: new style.Fill({
                     color: marker.color,
                 }),
+                backgroundFill,
             }),
         });
         return acc;

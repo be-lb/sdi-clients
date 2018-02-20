@@ -191,8 +191,8 @@ export interface EditOptions {
 }
 
 export interface SelectOptions {
-    // selectFeature(f: Feature): void;
     selectFeature(lid: string, id: string | number): void;
+    clearSelection(): void;
 }
 
 
