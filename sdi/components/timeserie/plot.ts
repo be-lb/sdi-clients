@@ -298,8 +298,8 @@ export const plotter =
                             const horizontalLineIncrement = graphsize.height / (horizontalLineCount - 1);
                             const verticalLineCount = 4;
                             const verticalLineIncrement = graphsize.width / (verticalLineCount - 1);
-                            const timestampStart = data[0][0];
-                            const timestampEnd = data[data.length - 1][0];
+                            const timestampStart = data[0][0] * 1000;
+                            const timestampEnd = data[data.length - 1][0] * 1000;
                             const timeSpread = timestampEnd - timestampStart;
 
                             const horizontal = mappableEmptyArray(horizontalLineCount).map((_v, k) => {
