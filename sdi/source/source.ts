@@ -21,7 +21,8 @@ import * as debug from 'debug';
 import { Lens } from 'monocle-ts';
 
 const logger = debug('sdi:source/source');
-export const isProxySupported = typeof Proxy === 'function';
+
+export const isProxySupported = (typeof Proxy === 'function');// && false;
 
 
 export type KeyOfIShape<IShape> = keyof IShape;

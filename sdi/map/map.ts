@@ -124,39 +124,20 @@ const loadLayerData =
     };
 
 const getLayerData =
-    (fetchData: FetchData, vs: source.Vector, title: MessageRecord, isVisible: boolean) => {
+    (fetchData: FetchData, vs: source.Vector, vl: layer.Vector, title: MessageRecord) => {
         const fetcher =
             (count: number) => {
                 logger(`getLayerData ${fromRecord(title)} ${count}`);
 
                 const data = fetchData();
                 if (data) {
-                    const complete =
-                        () => {
-                            loadLayerData(vs, data);
-                            // const ts = performance.now();
-                            // const features = formatGeoJSON.readFeatures(data);
-                            // logger(`getLayerData#readFeatures ${fromRecord(title)}, ${data.features.length} ${Math.floor(performance.now() - ts)}`);
-
-
-                            // const ts2 = performance.now();
-                            // vs.addFeatures(features);
-                            // logger(`getLayerData#addFeatures ${fromRecord(title)}, ${performance.now() - ts2}`);
-
-                            // vs.forEachFeature((f) => {
-                            //     const lid = vs.get('id');
-
-                            //     f.set('lid', lid, true);
-                            //     if (!f.getId()) {
-                            //         f.setId(f.getProperties()['__app_id__']);
-                            //     }
-                            // });
-                        };
-                    if (isVisible) {
+                    const complete = () => loadLayerData(vs, data);
+                    if (vl.getVisible()) {
                         complete();
                     }
                     else {
-                        setTimeout(complete, 3000 + (Math.random() * 10000));
+                        // setTimeout(complete, 3000 + (Math.random() * 10000));
+                        vl.once('change:visible', complete);
                     }
                     loadingMonitor.remove(title);
                 }
@@ -248,8 +229,8 @@ export const addLayer =
 
             loadingMonitor.add(title);
             layers.push(vl);
-            logger(`addLayer.commit ${fromRecord(title)} ${layers.getArray().map(l => l.get('id')).join('; ')}`);
-            getLayerData(fetchData, vs, title, info.visible);
+            // logger(`addLayer.commit ${fromRecord(title)} ${layers.getArray().map(l => l.get('id')).join('; ')}`);
+            getLayerData(fetchData, vs, vl, title);
 
             // vl.on('render', (_e: any) => {
             //     logger(`Layer Render ${info.id} ${vs.getState()} `);
