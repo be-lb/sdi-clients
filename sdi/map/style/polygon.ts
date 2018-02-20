@@ -34,11 +34,11 @@ interface Patternisable {
 }
 
 const makeStyle =
-    (fill: style.Fill, stroke: style.Stroke) => {
-        if (stroke.getWidth() < 0.5) {
-            return new style.Style({ fill });
+    (fill: style.Fill, stroke?: style.Stroke) => {
+        if (stroke && stroke.getWidth() >= 0.5) {
+            return new style.Style({ fill, stroke });
         }
-        return new style.Style({ fill, stroke });
+        return new style.Style({ fill });
     };
 
 const makeStyles =
@@ -54,14 +54,13 @@ const makeStyles =
                             color: makePattern(p.strokeWidth, p.patternAngle, p.patternColor),
                         }),
                         stroke),
-                ]
+                ];
             }
             return [
                 makeStyle(
                     new style.Fill({
                         color: makePattern(p.strokeWidth, p.patternAngle, p.fillColor),
-                    }),
-                    stroke),
+                    })),
             ];
         }
         return [
