@@ -75,18 +75,18 @@ export const setExtractCollection =
     (es: ExtractFeature[]) =>
         withNewExtracted(es)
             .fold(
-            () => interaction(() => ({
-                label: 'extract',
-                state: es,
-            })),
-            (isEq) => {
-                if (!isEq) {
-                    interaction(() => ({
-                        label: 'extract',
-                        state: es,
-                    }));
-                }
-            });
+                interaction(() => ({
+                    label: 'extract',
+                    state: es,
+                })),
+                (isEq) => {
+                    if (!isEq) {
+                        interaction(() => ({
+                            label: 'extract',
+                            state: es,
+                        }));
+                    }
+                });
 
 
 export const extractTableEvents = tableEvents(

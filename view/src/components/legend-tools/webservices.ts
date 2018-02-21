@@ -30,7 +30,7 @@ const logger = debug('sdi:webservices');
 const renderBaseLayer =
     (id: string, current: string | null) =>
         fromNullable(appQueries.gteBaseLayer(id)).fold(
-            () => DIV(),
+            DIV(),
             bl => DIV({
                 className: `base-layer ${id === current ? 'active' : ''}`,
                 onClick: () => appEvents.setMapBaseLayer(id),

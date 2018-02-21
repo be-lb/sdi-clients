@@ -93,12 +93,12 @@ observe('data/maps', () => {
     if (info) {
         info.layers.forEach((l) => {
             getDatasetMetadata(l.metadataId)
-                .fold(
-                () =>
-                    fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
-                        .then(loadLayerData)
-                        .catch(err => logger(`observe(data/maps) ${err}`)),
-                md => Promise.resolve(loadLayerData(md)));
+                .foldL(
+                    () =>
+                        fetchDatasetMetadata(getApiUrl(`metadatas/${l.metadataId}`))
+                            .then(loadLayerData)
+                            .catch(err => logger(`observe(data/maps) ${err}`)),
+                    md => Promise.resolve(loadLayerData(md)));
         });
     }
 });

@@ -49,7 +49,7 @@ export const withExtract =
 const getExtractData =
     (): TableDataRow[] =>
         withExtract().fold(
-            () => [],
+            [],
             ({ state }) => state.map(e => ({
                 from: e.featureId.toString(),
                 cells: [

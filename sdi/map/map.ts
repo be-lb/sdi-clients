@@ -40,7 +40,7 @@ import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } 
 import { select, highlight } from './actions';
 import { measure, track, extract, mark, print } from './tools';
 import { credit } from './credit';
-import { setTimeout } from 'timers';
+// import { setTimeout } from 'timers';
 import { fromRecord } from '../locale';
 
 
@@ -125,39 +125,20 @@ const loadLayerData =
     };
 
 const getLayerData =
-    (fetchData: FetchData, vs: source.Vector, title: MessageRecord, isVisible: boolean) => {
+    (fetchData: FetchData, vs: source.Vector, vl: layer.Vector, title: MessageRecord) => {
         const fetcher =
             (count: number) => {
                 logger(`getLayerData ${fromRecord(title)} ${count}`);
 
                 const data = fetchData();
                 if (data) {
-                    const complete =
-                        () => {
-                            loadLayerData(vs, data);
-                            // const ts = performance.now();
-                            // const features = formatGeoJSON.readFeatures(data);
-                            // logger(`getLayerData#readFeatures ${fromRecord(title)}, ${data.features.length} ${Math.floor(performance.now() - ts)}`);
-
-
-                            // const ts2 = performance.now();
-                            // vs.addFeatures(features);
-                            // logger(`getLayerData#addFeatures ${fromRecord(title)}, ${performance.now() - ts2}`);
-
-                            // vs.forEachFeature((f) => {
-                            //     const lid = vs.get('id');
-
-                            //     f.set('lid', lid, true);
-                            //     if (!f.getId()) {
-                            //         f.setId(f.getProperties()['__app_id__']);
-                            //     }
-                            // });
-                        };
-                    if (isVisible) {
+                    const complete = () => loadLayerData(vs, data);
+                    if (vl.getVisible()) {
                         complete();
                     }
                     else {
-                        setTimeout(complete, 3000 + (Math.random() * 10000));
+                        // setTimeout(complete, 3000 + (Math.random() * 10000));
+                        vl.once('change:visible', complete);
                     }
                     loadingMonitor.remove(title);
                 }
@@ -190,20 +171,27 @@ export const removeLayerAll =
 export const addLayer =
     (layerInfo: () => SyntheticLayerInfo, fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
-
         if (info && metadata) {
+            logger(`===== addLayer ${info.id} ====`);
+            const layers = mainLayerGroup.getLayers();
+            const alayers = layers.getArray();
             const title = getMessageRecord(metadata.resourceTitle);
-            let layerAlreadyAdded = false;
-            mainLayerCollection.forEach((l) => {
-                logger(`mainLayerCollection.forEach ${l.get('id')} (${info.id})`);
-                if (l.get('id') === info.id) {
-                    layerAlreadyAdded = true;
-                }
-            });
-            logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
-            if (layerAlreadyAdded) {
+            if (alayers.find(l => l.get('id') === info.id)) {
+                logger(`addLayer.abort`);
                 return;
             }
+            // let layerAlreadyAdded = false;
+            // mainLayerCollection.getArray().forEach((l) => {
+            //     // logger(`addLayer.forEach ${l.get('id')} (${info.id})`);
+            //     if (l.get('id') === info.id) {
+            //         layerAlreadyAdded = true;
+            //     }
+            // });
+            // logger(`addLayer.collection: ${mainLayerCollection.getArray().map(l => l.get('id')).join('; ')}`);
+            // logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
+            // if (layerAlreadyAdded) {
+            //     return;
+            // }
 
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {
@@ -241,8 +229,9 @@ export const addLayer =
             vl.setVisible(info.visible);
 
             loadingMonitor.add(title);
-            mainLayerCollection.push(vl);
-            getLayerData(fetchData, vs, title, info.visible);
+            layers.push(vl);
+            // logger(`addLayer.commit ${fromRecord(title)} ${layers.getArray().map(l => l.get('id')).join('; ')}`);
+            getLayerData(fetchData, vs, vl, title);
 
             // vl.on('render', (_e: any) => {
             //     logger(`Layer Render ${info.id} ${vs.getState()} `);
@@ -362,13 +351,18 @@ const flattenCoords =
     };
 
 const getExtent =
-    (feature: GeoFeature): Extent => {
+    (feature: GeoFeature, buf = 10): Extent => {
         const initialExtent: Extent = [
             Number.MAX_VALUE,
             Number.MAX_VALUE,
             Number.MIN_VALUE,
             Number.MIN_VALUE,
         ];
+
+        if (feature.geometry.type == 'Point') {
+            const [x, y] = feature.geometry.coordinates;
+            return [x - buf, y - buf, x + buf, y + buf];
+        }
 
         return flattenCoords(feature.geometry).reduce<Extent>((acc, c) => {
             return [

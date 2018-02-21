@@ -16,7 +16,7 @@
 
 
 import { i, u, l, a, p, MessageRecordIO, MessageRecord, TypeOf } from './io';
-import { Type, _A } from 'io-ts/lib';
+import { Type } from 'io-ts/lib';
 import { GeometryTypeIO } from './geojson';
 import * as io from 'io-ts';
 
@@ -46,21 +46,33 @@ import * as io from 'io-ts';
 //     return { _A, name, validate };
 // };
 
-const DateStringIO: Type<string> = {
-    _A,
-    name: 'DateString',
-    validate(value, context) {
-        return (
-            io.validate(value, io.string).chain((s) => {
-                const n = Date.parse(s);
-                if (isNaN(n)) {
-                    return io.failure<string>(value, context);
-                }
-                return io.success(s);
-            }));
-    },
-};
+// const DateStringIO: Type<string> = {
+//     _A,
+//     name: 'DateString',
+//     validate(value, context) {
+//         return (
+//             io.validate(value, io.string).chain((s) => {
+//                 const n = Date.parse(s);
+//                 if (isNaN(n)) {
+//                     return io.failure<string>(value, context);
+//                 }
+//                 return io.success(s);
+//             }));
+//     },
+// ;
 
+const DateStringIO = new Type<string>(
+    'DateString',
+    (m): m is string => m instanceof String,
+    (value, context) =>
+        io.string.validate(value, context).chain((s) => {
+            const n = Date.parse(s);
+            if (isNaN(n)) {
+                return io.failure<string>(value, context);
+            }
+            return io.success(s);
+        }),
+    a => a);
 
 
 // metadata/2.0/req/common/code-list-value

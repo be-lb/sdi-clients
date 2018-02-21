@@ -50,11 +50,11 @@ const updateMapInfo =
         const id = queries.getCurrentMap();
         dispatchAsync('data/maps', maps =>
             fromNullable(maps.find(m => m.id === id))
-                .fold(
-                () => Promise.resolve(maps),
-                m => putMap(getApiUrl(`maps/${id}`), f(m))
-                    .then(nm =>
-                        maps.filter(m => m.id !== id).concat([nm]))));
+                .foldL(
+                    () => Promise.resolve(maps),
+                    m => putMap(getApiUrl(`maps/${id}`), f(m))
+                        .then(nm =>
+                            maps.filter(m => m.id !== id).concat([nm]))));
     };
 
 
@@ -91,17 +91,17 @@ export const addAttachment =
     () =>
         fromNullable(queries.getCurrentMap())
             .map(
-            mid => postAttachment(getApiUrl(`attachments`), {
-                mapId: mid,
-                url: { nl: '', fr: '' },
-                name: { nl: '', fr: '' },
-            }).then((a) => {
-                setAttachment(a);
-                updateMapInfo(m => ({
-                    ...m,
-                    attachments: m.attachments.concat([a.id]),
+                mid => postAttachment(getApiUrl(`attachments`), {
+                    mapId: mid,
+                    url: { nl: '', fr: '' },
+                    name: { nl: '', fr: '' },
+                }).then((a) => {
+                    setAttachment(a);
+                    updateMapInfo(m => ({
+                        ...m,
+                        attachments: m.attachments.concat([a.id]),
+                    }));
                 }));
-            }));
 
 
 
@@ -123,9 +123,9 @@ export const addAttachment =
 observe('app/current-map',
     () => fromNullable(queries.getMapInfo())
         .map(
-        info => info.attachments.forEach(
-            aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
-                .then(a => dispatch('data/attachments', s => s.concat([a]))))));
+            info => info.attachments.forEach(
+                aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
+                    .then(a => dispatch('data/attachments', s => s.concat([a]))))));
 
 
 const updateForms =

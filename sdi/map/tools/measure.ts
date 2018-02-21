@@ -87,26 +87,26 @@ export const measure =
         const update =
             (i: Interaction) =>
                 fromInteraction('measure', i)
-                    .fold(
-                    () => {
-                        measureSource.clear();
-                        measureLength.setActive(false);
-                        measureArea.setActive(false);
-                    },
-                    ({ state }) => {
-                        if (!isMeasuring()) {
+                    .foldL(
+                        () => {
                             measureSource.clear();
-                        }
-                        switch (state.geometryType) {
-                            case 'LineString':
-                                measureLength.setActive(true);
-                                break;
-                            case 'Polygon':
-                                measureArea.setActive(true);
-                                break;
-                        }
+                            measureLength.setActive(false);
+                            measureArea.setActive(false);
+                        },
+                        ({ state }) => {
+                            if (!isMeasuring()) {
+                                measureSource.clear();
+                            }
+                            switch (state.geometryType) {
+                                case 'LineString':
+                                    measureLength.setActive(true);
+                                    break;
+                                case 'Polygon':
+                                    measureArea.setActive(true);
+                                    break;
+                            }
 
-                    });
+                        });
 
         const init =
             (map: Map, layers: Collection<layer.Vector>) => {

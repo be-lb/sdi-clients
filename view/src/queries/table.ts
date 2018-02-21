@@ -27,6 +27,7 @@ import {
     emptySource,
 } from 'sdi/components/table';
 import { formatNumber } from 'sdi/locale';
+import { getAlias } from 'sdi/app';
 
 import appQueries from './app';
 import { withExtract } from './map';
@@ -67,7 +68,7 @@ const getLayerData =
     (layer: FeatureCollection): TableDataRow[] => {
         const keys = getLayerKeys(layer);
         const features = withExtract().fold(
-            () => layer.features,
+            layer.features,
             ({ state }) => layer.features.filter(f => state.findIndex(fe => (
                 fe.featureId === f.id)) >= 0)
         );
@@ -96,7 +97,8 @@ const getLayerData =
     };
 
 const getLayerKeys =
-    (layer: FeatureCollection) => getLayerPropertiesKeys(layer);
+    (layer: FeatureCollection) =>
+        getLayerPropertiesKeys(layer).map(getAlias);
 
 const getLayerTypes =
     (layer: FeatureCollection): TableDataType[] => {
@@ -128,7 +130,7 @@ const getLayerTypes =
 
 export const getSource =
     subscribe('app/current-layer',
-        () => getLayerOption().fold(emptySource,
+        () => getLayerOption().fold(emptySource(),
             layer => ({
                 data: getLayerData(layer),
                 keys: getLayerKeys(layer),

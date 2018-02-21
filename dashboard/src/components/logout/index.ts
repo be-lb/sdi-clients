@@ -13,7 +13,7 @@ import { getUserData } from '../../queries/app';
 
 const logoutButton = button('logout', 'logout');
 const username = () => DIV({ className: 'logout-username' }, fromNullable(getUserData()).fold(
-    () => '',
+    '',
     u => u.name));
 
 

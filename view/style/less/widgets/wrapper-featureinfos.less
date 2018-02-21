@@ -1,9 +1,27 @@
-.feature-view-wrapper{
-    .btn-zoomOnFeature{
-        // FIXME
-        .absolute(0, @margin, 0, auto);
-        z-index: 1000;
+.zoomOnFeature{
+    .awsomefont;
+    .absolute(23px, -1px, initial, initial);
+    z-index: 2;
+    width: 25px;
+    height: 25px !important;
+    background-color: #fff;
+    cursor         : default;
+    border: 1px solid #fff;
+    border-left-color: @grey;
+    border-bottom-color: @grey;
+    &:before {
+        content: @fa-var-dot-circle-o;
+        width: 25px;
+        height: 20px;
+        padding-bottom: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
+    &:hover {color: @green;}
+}
+
+
 .feature-view{
     &.config{
         .absolute(0, @margin, 0, calc(~"100% - @{panel-rightW} + @{margin}"));
@@ -62,7 +80,7 @@
             }
             &title{
                 font-weight: @light !important;
-                font-size: 330%;
+                font-size: 250%;
                 line-height: 90%;
                 letter-spacing: -1.5px;
                 margin-bottom: @margin;
@@ -91,7 +109,7 @@
         }
     }
 }
-}
+
 
 
 .map-and-table-and-feature  .feature-view {

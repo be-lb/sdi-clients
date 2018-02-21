@@ -42,7 +42,7 @@ const noExtractButton = button('toggle-on');
 
 const renderExtract =
     () => withExtract().fold(
-        () => DIV({ className: 'toggle' },
+        DIV({ className: 'toggle' },
             DIV({ className: 'active' }, tr('extractOff')),
             extractButton(startExtract),
             DIV({ className: 'no-active' }, tr('extractOn'))),
@@ -77,13 +77,13 @@ const onRowSelect: SelectRowHandler =
     (row: TableDataRow) =>
         scopeOption()
             .let('meta',
-            fromNullable(appQueries.getCurrentLayerInfo().metadata))
+                fromNullable(appQueries.getCurrentLayerInfo().metadata))
             .let('layer',
-            ({ meta }) => fromNullable(
-                appQueries.getLayerData(meta.uniqueResourceIdentifier)))
+                ({ meta }) => fromNullable(
+                    appQueries.getLayerData(meta.uniqueResourceIdentifier)))
             .let('feature',
-            ({ layer }) => fromNullable(
-                layer.features.find(f => f.id === row.from)))
+                ({ layer }) => fromNullable(
+                    layer.features.find(f => f.id === row.from)))
             .map(({ feature }) => {
                 appEvents.setCurrentFeature(feature);
                 appEvents.setLayout(AppLayout.MapAndTableAndFeature);

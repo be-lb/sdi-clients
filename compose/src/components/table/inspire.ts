@@ -92,8 +92,8 @@ const render =
         .let('row', fromNullable(getSelectedMetadataRow()))
         .let('md', ({ row }) => getDatasetMetadata(row.from as string))
         .fold(
-        () => DIV({ className: 'inspire-wrapper empty' }),
-        ({ md }) => renderInspireMD(md));
+            DIV({ className: 'inspire-wrapper empty' }),
+            ({ md }) => renderInspireMD(md));
 
 export default render;
 

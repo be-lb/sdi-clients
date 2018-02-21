@@ -52,7 +52,7 @@ const renderSimple = (config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, c
         olContext.drawGeometry(polygonGeometry);
     });
     const label = getDatasetMetadata(layerInfo.metadataId).fold(
-        () => '',
+        '',
         md => fromRecord(getMessageRecord(md.resourceTitle)));
 
     return [item('polygon', canvas.toDataURL(), label)];

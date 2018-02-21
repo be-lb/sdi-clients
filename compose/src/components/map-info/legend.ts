@@ -79,7 +79,7 @@ const renderVisible =
 const renderEditButton =
     (info: ILayerInfo) => {
         const md = getDatasetMetadata(info.metadataId).fold(
-            () => null,
+            null,
             md => md);
         const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
         const wrap = wrapItem(md);

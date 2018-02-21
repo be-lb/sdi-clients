@@ -26,7 +26,7 @@ const statusUpdate: FormAliasStatus = 'update';
 const formFromData =
     (select: string) =>
         getAliasData(select).fold(
-            () => defaultFormAlias(),
+            defaultFormAlias(),
             data => ({
                 status: statusUpdate,
                 id: data.id,
@@ -97,8 +97,8 @@ export const saveForm =
     () =>
         formIsCreate(getForm())
             .fold(
-            f => putAlias(getApiUrl(`alias/${f.id}`), formToAlias(f)),
-            f => postAlias(getApiUrl('alias'), formToAlias(f)),
+                f => putAlias(getApiUrl(`alias/${f.id}`), formToAlias(f)),
+                f => postAlias(getApiUrl('alias'), formToAlias(f)),
         )
             .then(updateAlias);
 

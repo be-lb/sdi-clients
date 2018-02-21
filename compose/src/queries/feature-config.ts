@@ -15,22 +15,27 @@
  */
 
 import { query } from 'sdi/shape';
-import appQueries from './app';
+import { getLang } from 'sdi/app';
 import { FeatureCollection, RowConfig } from 'sdi/source';
 import { getLayerPropertiesKeys } from 'sdi/util';
 
+import appQueries from './app';
 
-const queries = {
 
-    getFeatureViewType() {
+
+
+export const getFeatureViewType =
+    () => {
         const { info } = appQueries.getCurrentLayerInfo();
         if (info) {
             return info.featureViewOptions.type;
         }
         return null;
-    },
+    };
 
-    getConfig() {
+
+export const getConfig =
+    () => {
         const { info } = appQueries.getCurrentLayerInfo();
         if (info
             && info.featureViewOptions
@@ -39,19 +44,39 @@ const queries = {
         }
         const rows: RowConfig[] = [];
         return { type: 'config', rows };
-    },
+    };
 
-    getCurrentPropName() {
-        return query('component/feature-config').currentPropName;
-    },
 
-    getEditedValue() {
+export const getRows =
+    () => {
+        const lc = getLang();
+        const allRows = getConfig().rows;
+        return allRows.filter(r => r.lang === lc);
+    };
+
+
+export const getRow =
+    (index: number): (RowConfig | undefined) => getRows()[index];
+
+
+export const getCurrentIndex =
+    () => query('component/feature-config').currentRow;
+
+
+export const getCurrentRow =
+    () => getRow(getCurrentIndex());
+
+
+export const getEditedValue =
+    () => {
         return query('component/feature-config').editedValue;
-    },
+    };
 
-    // Layer / FeatureCollection
 
-    getLayer(): FeatureCollection {
+// Layer / FeatureCollection
+
+export const getLayer =
+    (): FeatureCollection => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata !== null) {
             const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
@@ -61,12 +86,12 @@ const queries = {
             }
         }
         return { type: 'FeatureCollection', features: [] };
-    },
+    };
 
-    getKeys(): string[] {
-        return getLayerPropertiesKeys(queries.getLayer());
-    },
 
-};
+export const getKeys =
+    (): string[] => {
+        return getLayerPropertiesKeys(getLayer());
+    };
 
-export default queries;
+

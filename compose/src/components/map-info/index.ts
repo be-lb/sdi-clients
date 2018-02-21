@@ -41,14 +41,14 @@ const renderRemove =
 const render =
     () => fromNullable(queries.getMapInfo())
         .fold(
-        () => DIV({ className: 'map-legend' }),
-        mi => (
-            DIV({ className: 'map-legend' },
-                info(mi),
-                attachments(mi),
-                legend(mi),
-                renderRemove(mi)
-            )));
+            DIV({ className: 'map-legend' }),
+            mi => (
+                DIV({ className: 'map-legend' },
+                    info(mi),
+                    attachments(mi),
+                    legend(mi),
+                    renderRemove(mi)
+                )));
 
 export default render;
 

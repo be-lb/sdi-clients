@@ -28,7 +28,7 @@ import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
-import featureConfigEvents from '../../events/feature-config';
+import * as featureConfigEvents from '../../events/feature-config';
 import selectMain from './select-main';
 import selectType from './select-type';
 import toolsMain from './tools-main';
@@ -143,7 +143,7 @@ const getInfo =
 const renderLabel =
     (lid: string) =>
         getInfo(lid).fold(
-            () => DIV(),
+            DIV(),
             (info) => {
                 const getLabel =
                     () =>
@@ -169,9 +169,9 @@ const renderZoomRange =
         const { info } = appQueries.getLayerInfo(lid);
         if (info) {
             const getMin =
-                () => getInfo(lid).fold(() => 0, i => i.minZoom || 0);
+                () => getInfo(lid).fold(0, i => i.minZoom || 0);
             const getMax =
-                () => getInfo(lid).fold(() => 0, i => i.maxZoom || 30);
+                () => getInfo(lid).fold(0, i => i.maxZoom || 30);
             const setMin =
                 (n: number) => {
                     events.setZoomRange(lid, n, getMax());

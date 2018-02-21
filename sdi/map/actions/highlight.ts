@@ -190,11 +190,12 @@ export const highlight =
         const hlSource = new source.Vector();
         const hlLayer = new layer.Vector({
             source: hlSource,
+            zIndex: 1000,
         });
 
         const update =
             () => getFeature(refLayers, fpg()).fold(
-                () => hlSource.clear(),
+                hlSource.clear(),
                 ({ layer, feature }) => {
                     const fc = feature.clone();
                     fc.setStyle(selectionStyle(layer));

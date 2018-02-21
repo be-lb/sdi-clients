@@ -91,6 +91,7 @@ export type MessageKey =
     | 'featureInfos'
     | 'featureTemplateEditor'
     | 'featureTemplateEditorReset'
+    | 'featureText'
     | 'featureViewTypeConfig'
     | 'featureViewTypeDefault'
     | 'featureViewTypePieChart'
@@ -330,13 +331,13 @@ export const messages: MessageDB = {
     },
 
     attachmentName: {
-        fr: 'Nom du document',
-        nl: 'Naam van het document',
+        fr: 'Nom du lien',
+        nl: 'Naam van het link',
     },
 
     attachmentUrl: {
-        fr: 'URL du document',
-        nl: 'URL van het document',
+        fr: 'URL du lien',
+        nl: 'URL van het link',
     },
 
     browseMaps: {
@@ -574,13 +575,13 @@ export const messages: MessageDB = {
     },
 
     mapLegend: {
-        fr: 'Légende',
-        nl: 'Legenda',
+        fr: 'Légende de la carte',
+        nl: 'Kaart legenda',
     },
 
     mapTools: {
-        fr: 'Outils',
-        nl: 'Gereedschappen',
+        fr: 'Outils de la carte',
+        nl: 'Kaart gereedschappen',
     },
 
     mapDatas: {
@@ -804,13 +805,13 @@ export const messages: MessageDB = {
     },
 
     highValue: {
-        fr: 'Valeur haute',
-        nl: 'Bovengrens', // Or Bovengrens
+        fr: 'Valeur haute (exclue)',
+        nl: 'Bovengrens (uitgesloten)',
     },
 
     lowValue: {
-        fr: 'Valeur basse',
-        nl: 'Ondergrens', // Or Ondergrens
+        fr: 'Valeur basse (incluse)',
+        nl: 'Ondergrens (ingesloten)',
     },
 
     map: {
@@ -1472,7 +1473,12 @@ export const messages: MessageDB = {
 
     layerLegendDefaultLabel: {
         fr: 'Étiquette de légende',
-        nl:'Legendelabel',
+        nl: 'Legendelabel',
+    },
+
+    featureText: {
+        fr: 'Texte',
+        nl: 'Tekst',
     },
 
     printMap: {

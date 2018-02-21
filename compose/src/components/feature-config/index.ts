@@ -55,14 +55,12 @@ const ensureTableSelection =
 
 export interface FeatureConfig {
     currentRow: number;
-    currentPropName: string;
     editedValue: string | null;
 }
 
 export const initialFeatureConfigState =
     (): FeatureConfig => ({
         currentRow: -1,
-        currentPropName: '',
         editedValue: null,
     });
 

@@ -101,9 +101,9 @@ export const scaleLine =
 
 export const renderScaleline =
     (sl: IMapScale) =>
-        DIV({ className: 'map-scale', style: { width: `${sl.width}px` } },
+        DIV({ className: 'map-scale' },
             DIV({ className: 'map-scale-label' }, `${sl.count} ${sl.unit}`),
-            DIV({ className: 'map-scale-line' },
+            DIV({ className: 'map-scale-line', style: { width: `${sl.width}px` } },
                 DIV({ className: 'quarter' }),
                 DIV({ className: 'quarter' }),
                 DIV({ className: 'half' })));

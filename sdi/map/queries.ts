@@ -52,15 +52,15 @@ export const measureQueryFactory =
         getMeasured() {
             return fromInteraction('measure', query())
                 .fold(
-                () => 'NotMeasuring',
-                ({ state }) => {
-                    switch (state.geometryType) {
-                        case 'LineString':
-                            return `${formatNumber(length(state))}&#8239;m`;
-                        case 'Polygon':
-                            return `${formatNumber(area(state))}&#8239;m²`;
-                    }
-                });
+                    'NotMeasuring',
+                    ({ state }) => {
+                        switch (state.geometryType) {
+                            case 'LineString':
+                                return `${formatNumber(length(state))}&#8239;m`;
+                            case 'Polygon':
+                                return `${formatNumber(area(state))}&#8239;m²`;
+                        }
+                    });
         },
     });
 

@@ -47,6 +47,9 @@ const loadMap =
                             return state;
                         });
                         events.loadLayer(ruid, url);
+                        addLayer(
+                            () => queries.getLayerInfo(l.id),
+                            () => queries.getLayerData(ruid));
                     })
                     .catch(err => logger(`Failed to load MD ${l.metadataId}: ${err}`));
             });
@@ -65,31 +68,31 @@ const loadMap =
 // });
 
 
-const reloadLayers =
-    () => {
-        const info = queries.getMapInfo();
-        logger(`reload layers ${info}`);
-        if (info) {
-            removeLayerAll();
-            info.layers.forEach(
-                l => fromNullable(queries.getDatasetMetadata(l.metadataId))
-                    .map(md => addLayer(
-                        () => queries.getLayerInfo(l.id),
-                        () => queries.getLayerData(md.uniqueResourceIdentifier))));
-        }
-    };
+// const reloadLayers =
+//     () => {
+//         const info = queries.getMapInfo();
+//         logger(`reload layers ${info}`);
+//         if (info) {
+//             removeLayerAll();
+//             info.layers.forEach(
+//                 l => fromNullable(queries.getDatasetMetadata(l.metadataId))
+//                     .map(md => addLayer(
+//                         () => queries.getLayerInfo(l.id),
+//                         () => queries.getLayerData(md.uniqueResourceIdentifier))));
+//         }
+//     };
 
-observe('data/layers', reloadLayers);
-observe('data/datasetMetadata', reloadLayers);
+// observe('data/layers', reloadLayers);
+// observe('data/datasetMetadata', reloadLayers);
 
 const attachments = dispatchK('data/attachments');
 
 observe('data/maps',
     () => fromNullable(queries.getMapInfo())
         .map(
-        info => info.attachments.forEach(
-            aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
-                .then(a => attachments(s => s.concat([a]))))));
+            info => info.attachments.forEach(
+                aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
+                    .then(a => attachments(s => s.concat([a]))))));
 
 
 
@@ -109,11 +112,11 @@ const events = {
     loadMap() {
         fromNullable(queries.getCurrentMap())
             .map(
-            mid => fetchMap(getApiUrl(`maps/${mid}`))
-                .then((info) => {
-                    dispatch('data/maps', () => [info]);
-                    loadMap(info);
-                }));
+                mid => fetchMap(getApiUrl(`maps/${mid}`))
+                    .then((info) => {
+                        dispatch('data/maps', () => [info]);
+                        loadMap(info);
+                    }));
     },
 
     loadBaseLayer(id: string, url: string) {
@@ -220,14 +223,14 @@ const events = {
 
         scopeOption()
             .let('md',
-            () => fromNullable(
-                queries.getLayerInfo(layerInfoId).metadata))
+                () => fromNullable(
+                    queries.getLayerInfo(layerInfoId).metadata))
             .let('data',
-            s => fromNullable(
-                queries.getLayerData(s.md.uniqueResourceIdentifier)))
+                s => fromNullable(
+                    queries.getLayerData(s.md.uniqueResourceIdentifier)))
             .let('feature',
-            s => fromNullable(
-                s.data.features.find(f => f.id === id)))
+                s => fromNullable(
+                    s.data.features.find(f => f.id === id)))
             .map(({ feature }) => {
                 dispatch('app/current-layer', () => layerInfoId);
                 dispatch('app/current-feature', () => feature);

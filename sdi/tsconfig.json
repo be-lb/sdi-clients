@@ -12,5 +12,13 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strictNullChecks": true,
+        "typeRoots": [
+            "../typings"
+        ],
+        "paths": {
+            "tslib": [
+                "../node_modules/tslib"
+            ]
+        }
     }
 }

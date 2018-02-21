@@ -24,22 +24,22 @@ export const mark =
         const update =
             (i: Interaction) =>
                 fromInteraction('mark', i)
-                    .fold(
-                    () => fromNullable(mapRef).map((m) => { m.removeOverlay(overlay); }),
-                    ({ state }) => fromNullable(mapRef).map(
-                        (m) => {
-                            if (state.started) {
-                                if (state.endTime <= Date.now()) {
-                                    m.removeOverlay(overlay);
-                                    endMark();
+                    .foldL(
+                        () => fromNullable(mapRef).map((m) => { m.removeOverlay(overlay); }),
+                        ({ state }) => fromNullable(mapRef).map(
+                            (m) => {
+                                if (state.started) {
+                                    if (state.endTime <= Date.now()) {
+                                        m.removeOverlay(overlay);
+                                        endMark();
+                                    }
                                 }
-                            }
-                            else {
-                                overlay.setPosition(state.coordinates);
-                                m.addOverlay(overlay);
-                                startMark();
-                            }
-                        }));
+                                else {
+                                    overlay.setPosition(state.coordinates);
+                                    m.addOverlay(overlay);
+                                    startMark();
+                                }
+                            }));
 
         const init =
             (map: Map) => {

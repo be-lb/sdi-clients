@@ -24,39 +24,62 @@ import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleCon
 import { StyleFn } from './index';
 import { makePattern } from './pattern';
 
-const makeStyle =
-    (fill: style.Fill, stroke: style.Stroke) => {
-        if (stroke.getWidth() < 0.5) {
-            return new style.Style({ fill });
-        }
-        return new style.Style({ fill, stroke });
-    };
 
 interface Patternisable {
     fillColor: string;
     strokeWidth: number;
     pattern: boolean;
+    patternColor?: string;
     patternAngle: PatternAngle;
 }
 
-const fillColor =
-    (p: Patternisable) => {
-        if (p.pattern) {
-            return makePattern(p.strokeWidth, p.patternAngle, p.fillColor);
+const makeStyle =
+    (fill: style.Fill, stroke?: style.Stroke) => {
+        if (stroke && stroke.getWidth() >= 0.5) {
+            return new style.Style({ fill, stroke });
         }
-        return p.fillColor;
-    }
+        return new style.Style({ fill });
+    };
+
+const makeStyles =
+    (p: Patternisable, stroke: style.Stroke) => {
+        if (p.pattern) {
+            if (p.patternColor) {
+                return [
+                    new style.Style({
+                        fill: new style.Fill({ color: p.fillColor }),
+                    }),
+                    makeStyle(
+                        new style.Fill({
+                            color: makePattern(p.strokeWidth, p.patternAngle, p.patternColor),
+                        }),
+                        stroke),
+                ];
+            }
+            return [
+                makeStyle(
+                    new style.Fill({
+                        color: makePattern(p.strokeWidth, p.patternAngle, p.fillColor),
+                    })),
+            ];
+        }
+        return [
+            makeStyle(
+                new style.Fill({ color: p.fillColor }),
+                stroke),
+        ];
+    };
 
 const polygonStyleSimple =
     (config: PolygonStyleConfigSimple) => {
-        const fill = new style.Fill({
-            color: fillColor(config),
-        });
+        // const fill = new style.Fill({
+        //     color: fillColor(config),
+        // });
         const stroke = new style.Stroke({
             color: config.strokeColor,
             width: config.strokeWidth,
         });
-        const styles = [makeStyle(fill, stroke)];
+        const styles = makeStyles(config, stroke);
 
         return (/* feature: Feature, resolution: number */) => {
             // const e = feature.getGeometry().getExtent();
@@ -74,16 +97,14 @@ const polygonStyleSimple =
 
 
 
-type StyleReg = { [k: number]: style.Style };
+type StyleReg = { [k: number]: style.Style[] };
 
 const polygonStyleContinuous = (config: PolygonStyleConfigContinuous) => {
     const intervals = config.intervals;
     const styles = intervals.reduce<StyleReg>((acc, itv) => {
         // const [r, g, b] = itv.rgb;
-        acc[itv.low] = makeStyle(
-            new style.Fill({
-                color: fillColor(itv),
-            }),
+        acc[itv.low] = makeStyles(
+            itv,
             new style.Stroke({
                 color: itv.strokeColor,
                 width: itv.strokeWidth,
@@ -111,7 +132,7 @@ const polygonStyleContinuous = (config: PolygonStyleConfigContinuous) => {
         if (!isNaN(value)) {
             const low = findLow(value);
             if (low !== null) {
-                return [styles[low]];
+                return styles[low];
             }
         }
         return [];
@@ -121,12 +142,10 @@ const polygonStyleContinuous = (config: PolygonStyleConfigContinuous) => {
 
 const polygonStyleDiscrete = (config: PolygonStyleConfigDiscrete) => {
     const groups = config.groups;
-    const styles = groups.reduce<style.Style[]>((acc, itv) => {
+    const styles = groups.reduce<style.Style[][]>((acc, itv) => {
         // const [r, g, b] = itv.rgb;
-        acc.push(makeStyle(
-            new style.Fill({
-                color: fillColor(itv),
-            }),
+        acc.push(makeStyles(
+            itv,
             new style.Stroke({
                 color: itv.strokeColor,
                 width: itv.strokeWidth,
@@ -151,7 +170,7 @@ const polygonStyleDiscrete = (config: PolygonStyleConfigDiscrete) => {
         if (value !== null) {
             const idx = findIndex(value.toString());
             if (idx >= 0) {
-                return [styles[idx]];
+                return styles[idx];
             }
         }
         return [];
