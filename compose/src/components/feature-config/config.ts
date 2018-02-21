@@ -258,31 +258,32 @@ const renderImageEditor =
 
 
 const renderPiechartPiece =
-    (piece: PiechartPiece, key: number) => {
-        const removeButton = remove(
-            `renderStyleGroupValue-${piece.propName}-${key}`);
+    (index: number) =>
+        (piece: PiechartPiece, key: number) => {
+            const removeButton = remove(
+                `renderStyleGroupValue-${piece.propName}-${key}`);
 
-        const inputColor = renderInputAlphaColor('style-tool color', '',
-            () => Color(piece.color),
-            c => setPiechartPieceColor(
-                key, piece.propName, c.string()));
+            const inputColor = renderInputAlphaColor('style-tool color', '',
+                () => Color(piece.color),
+                c => setPiechartPieceColor(
+                    index, piece.propName, c.string()));
 
-        const inputLabel = DIV({ className: `style-tool label` },
-            SPAN({ className: 'label' }, tr('alias')),
-            inputText(
-                () => (piece.label === undefined) ? piece.propName : piece.label,
-                newVal => setPiechartPieceLabel(key, piece.propName, newVal)));
+            const inputLabel = DIV({ className: `style-tool label` },
+                SPAN({ className: 'label' }, tr('alias')),
+                inputText(
+                    () => (piece.label === undefined) ? piece.propName : piece.label,
+                    newVal => setPiechartPieceLabel(index, piece.propName, newVal)));
 
-        return (
-            DIV({ className: 'value-name' },
-                DIV({ className: 'piece-header' },
-                    removeButton(
-                        () => removePieChartPiece(key, piece.propName)),
-                    SPAN({}, piece.propName),
-                    inputLabel),
-                DIV({ className: 'piece-body' },
-                    inputColor)));
-    };
+            return (
+                DIV({ className: 'value-name', key: `pie-piece-${piece.propName}-${key}` },
+                    DIV({ className: 'piece-header' },
+                        removeButton(
+                            () => removePieChartPiece(index, piece.propName)),
+                        SPAN({}, piece.propName),
+                        inputLabel),
+                    DIV({ className: 'piece-body' },
+                        inputColor)));
+        };
 
 const pieceAdd =
     (index: number, value: string) => {
@@ -325,7 +326,7 @@ const columnPicker =
 const renderPiechartEditor =
     (index: number, config: PiechartConfig) => {
         const columns = config.options.columns;
-        const pieces = columns.map(renderPiechartPiece);
+        const pieces = columns.map(renderPiechartPiece(index));
         const elements: ReactNode[] = [];
 
         elements.push(
