@@ -27,6 +27,7 @@ import {
     emptySource,
 } from 'sdi/components/table';
 import { formatNumber } from 'sdi/locale';
+import { getAlias } from 'sdi/app';
 
 import appQueries from './app';
 import { withExtract } from './map';
@@ -96,7 +97,8 @@ const getLayerData =
     };
 
 const getLayerKeys =
-    (layer: FeatureCollection) => getLayerPropertiesKeys(layer);
+    (layer: FeatureCollection) =>
+        getLayerPropertiesKeys(layer).map(getAlias);
 
 const getLayerTypes =
     (layer: FeatureCollection): TableDataType[] => {
