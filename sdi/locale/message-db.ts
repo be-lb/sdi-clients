@@ -91,6 +91,7 @@ export type MessageKey =
     | 'featureInfos'
     | 'featureTemplateEditor'
     | 'featureTemplateEditorReset'
+    | 'featureText'
     | 'featureViewTypeConfig'
     | 'featureViewTypeDefault'
     | 'featureViewTypePieChart'
@@ -1472,5 +1473,10 @@ export const messages: MessageDB = {
     layerLegendDefaultLabel: {
         fr: 'Étiquette de légende',
         nl: 'Legendelabel',
+    },
+
+    featureText: {
+        fr: 'Texte',
+        nl: 'Tekst',
     },
 };

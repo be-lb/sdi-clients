@@ -43,6 +43,8 @@ import {
     StringOptionStyle,
     TimeserieConfig,
     URLConfig,
+    TextConfig,
+    defaultTextOptions,
 } from 'sdi/source';
 import { getLang } from 'sdi/app';
 
@@ -69,7 +71,7 @@ const defaultRowConfig =
     });
 
 const configDefaultOptions =
-    (): FeatureViewConfig => ({ type: 'config', rows: [] });
+    (rows: RowConfig[]): FeatureViewConfig => ({ type: 'config', rows });
 
 const defaultDefaultOptions =
     (): FeatureViewDefault => ({ type: 'default' });
@@ -134,7 +136,8 @@ const updateOptions =
 
 
 const updateConfig =
-    (fn: UpdateFn<FeatureViewConfig>) => updateOptions(fn, configDefaultOptions);
+    (fn: UpdateFn<FeatureViewConfig>) =>
+        updateOptions(fn, () => configDefaultOptions([]));
 
 
 
@@ -176,16 +179,13 @@ export const setCurrentRow =
 export const addPropToConfig =
     (pn: string, propType = 'string' as PropType) =>
         updateConfig((c) => {
-            if (c.type !== 'config') {
-                const conf = configDefaultOptions();
-                conf.rows.push(defaultRowConfig(pn));
-                return conf;
-            }
-            const rows = c.rows;
+            const conf = (c.type !== 'config') ?
+                configDefaultOptions([]) :
+                c;
             const rowConfig = defaultRowConfig(pn);
             resetRowType(propType, rowConfig);
-            rows.push(rowConfig);
-            return c;
+            conf.rows.push(rowConfig);
+            return conf;
         });
 
 
@@ -260,6 +260,9 @@ const resetRowType =
             case 'timeserie':
                 (<TimeserieConfig>row).options = defaultTimeserieOptions();
                 break;
+            case 'text':
+                (<TextConfig>row).options = defaultTextOptions();
+                break;
         }
     };
 
@@ -300,6 +303,13 @@ export const setTimeserieReference =
             return row;
         });
 
+
+export const setTextText =
+    (index: number, text: string) =>
+        updateConfigRow(index, (row: TextConfig) => {
+            row.options.text = text;
+            return row;
+        });
 
 export const removePieChartPiece =
     (index: number, pieceName: string) =>
@@ -386,7 +396,7 @@ export const toDefault =
 
 
 export const toConfig =
-    () => setOptions<FeatureViewConfig>(configDefaultOptions());
+    () => setOptions<FeatureViewConfig>(configDefaultOptions([]));
 
 
 

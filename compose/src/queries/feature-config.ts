@@ -56,7 +56,7 @@ export const getRows =
 
 
 export const getRow =
-    (index: number) => getRows()[index];
+    (index: number): (RowConfig | undefined) => getRows()[index];
 
 
 export const getCurrentIndex =

@@ -33,6 +33,7 @@ import {
     StringConfig,
     StringOptionLevel,
     StringOptionStyle,
+    TextConfig,
     TimeserieConfig,
     URLConfig,
 } from 'sdi/source';
@@ -60,6 +61,7 @@ import {
     setPropWithLabelForConfig,
     setTimeserieReference,
     setTimeserieUrl,
+    setTextText,
 } from '../../events/feature-config';
 import { getKeys, getCurrentIndex, getRows, getRow } from '../../queries/feature-config';
 import appQueries from '../../queries/app';
@@ -81,13 +83,16 @@ const propStyle: StringOptionStyle[] = ['normal', 'bold', 'italic', 'bold-italic
 
 const WIDGET_TIMESERIE = '__WIDGET_TIMESERIE__';
 const WIDGET_PIECHART = '__WIDGET_PIECHART__';
+const WIDGET_TEXT = '__WIDGET_TEXT__';
 const WIDGETS = [
     WIDGET_PIECHART,
     WIDGET_TIMESERIE,
+    WIDGET_TEXT,
 ];
 const WIDGET_NAME: { [k: string]: PropType } = {
     [WIDGET_PIECHART]: 'piechart',
     [WIDGET_TIMESERIE]: 'timeserie',
+    [WIDGET_TEXT]: 'text',
 };
 
 const isWidget =
@@ -224,6 +229,19 @@ const renderStringEditor =
     (index: number, config: StringConfig | NumberConfig | BooleanConfig | URLConfig) => [
         DIV({ className: 'item' },
             inputWithLabel(index, config)),
+        DIV({ className: 'item' },
+            label('textFormat'), inputLevel(index, config)),
+        DIV({ className: 'item' },
+            label('textStyle'), inputStyle(index, config)),
+    ];
+
+const renderTextEditor =
+    (index: number, config: TextConfig) => [
+        DIV({ className: `style-tool text` },
+            SPAN({ className: 'label' }, tr('featureText')),
+            inputText(
+                () => config.options.text,
+                newVal => setTextText(index, newVal))),
         DIV({ className: 'item' },
             label('textFormat'), inputLevel(index, config)),
         DIV({ className: 'item' },
@@ -387,6 +405,8 @@ const renderRowEditor =
                     break;
                 case 'timeserie': elements.push(...renderTimeserieEditor(index, row));
                     break;
+                case 'text': elements.push(...renderTextEditor(index, row));
+                    break;
             }
         }
         return elements;
@@ -394,8 +414,8 @@ const renderRowEditor =
 
 
 const renderPanel =
-    (className: string, label: MessageKey, ...children: ReactNode[]) =>
-        DIV({ className: `app-col-wrapper ${className}` },
+    (key: string, className: string, label: MessageKey, ...children: ReactNode[]) =>
+        DIV({ className: `app-col-wrapper ${className}`, key: `${label}-${key}` },
             DIV({ className: 'app-col-header' },
                 DIV({ className: 'title' }, tr(label))),
             DIV({ className: 'app-col-main' }, ...children));
@@ -426,13 +446,15 @@ const render =
                 ...columElements));
         }
 
+        const row = getRow(current);
+        const key = `${row ? row.type : 'none'}-${current}`;
         return (
             DIV({ className: 'app-split-main' },
-                renderPanel('rows-remaining', 'infoChoice',
+                renderPanel(key, 'rows-remaining', 'infoChoice',
                     ...elements),
-                renderPanel('rows-selected', 'infoReorder',
+                renderPanel(key, 'rows-selected', 'infoReorder',
                     rows.map(renderSelectedRow)),
-                renderPanel('row-editor', 'style', editor))
+                renderPanel(key, 'row-editor', 'style', editor))
         );
     };
 

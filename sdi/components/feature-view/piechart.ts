@@ -16,8 +16,8 @@
 
 import { createElement as s } from 'react';
 
-import { DIV } from 'sdi/components/elements';
-import { PiechartConfig, PiechartPiece } from 'sdi/source';
+import { DIV } from '../elements';
+import { PiechartConfig, PiechartPiece } from '../../source';
 import { getAlias } from '../../app';
 
 interface NotNullProperties {

@@ -26,6 +26,7 @@ export const PropTypeIO = u([
     l('html'),
     l('piechart'),
     l('timeserie'),
+    l('text'),
 ], 'PropTypeIO');
 export type PropType = TypeOf<typeof PropTypeIO>;
 
@@ -144,6 +145,21 @@ export type HTMLOptions = TypeOf<typeof HTMLOptionsIO>;
 export const defaultHTMLOptions =
     (): HTMLOptions => ({});
 
+// Plain Text
+export const TextOptionsIO = i({
+    text: io.string,
+    level: StringOptionLevelIO,
+    style: StringOptionStyleIO,
+}, 'TextOptionsIO');
+export type TextOptions = TypeOf<typeof TextOptionsIO>;
+
+export const defaultTextOptions =
+    (): TextOptions => ({
+        text: '',
+        level: 'normal',
+        style: 'normal',
+    });
+
 
 
 export const BaseConfigIO = i({
@@ -236,6 +252,15 @@ export const HTMLConfigIO = io.intersection([
 ], 'HTMLConfigIO');
 export type HTMLConfig = TypeOf<typeof HTMLConfigIO>;
 
+export const TextConfigIO = io.intersection([
+    BaseConfigIO,
+    i({
+        type: l('text'),
+        options: TextOptionsIO,
+    })
+], 'TextConfigIO');
+export type TextConfig = TypeOf<typeof TextConfigIO>;
+
 export const RowConfigIO = u([
     StringConfigIO,
     NumberConfigIO,
@@ -245,13 +270,17 @@ export const RowConfigIO = u([
     PiechartConfigIO,
     TimeserieConfigIO,
     HTMLConfigIO,
+    TextConfigIO,
 ], 'RowConfigIO');
 export type RowConfig = TypeOf<typeof RowConfigIO>;
 
 
-export type ConfigWithLabel = StringConfig | NumberConfig | BooleanConfig | URLConfig | ImageConfig;
-export type ConfigWithLevel = StringConfig | NumberConfig | BooleanConfig | URLConfig;
-export type ConfigWithStyle = StringConfig | NumberConfig | BooleanConfig | URLConfig;
+export type ConfigWithLabel =
+    StringConfig | NumberConfig | BooleanConfig | URLConfig | ImageConfig;
+export type ConfigWithLevel =
+    StringConfig | NumberConfig | BooleanConfig | URLConfig | TextConfig;
+export type ConfigWithStyle =
+    StringConfig | NumberConfig | BooleanConfig | URLConfig | TextConfig;
 
 export const withLabel =
     (a: RowConfig): a is ConfigWithLabel => {
