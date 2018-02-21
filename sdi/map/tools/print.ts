@@ -66,11 +66,11 @@ export const print =
                         ({ baseLayers }) => fromNullable(baseLayers.item(0)))
                     .map(({ map, base }) => {
                         const source = base.getSource() as ol.source.ImageWMS;
+                        const target = map.getTargetElement() as HTMLCanvasElement;
                         const afterResize =
                             () => {
                                 map.once('postcompose', (event: any) => {
                                     const canvas: HTMLCanvasElement = event.context.canvas;
-
                                     source.once('imageloadstart', () => {
                                         updateResponseWithReq(reqId, { status: 'start' });
                                     });
@@ -87,11 +87,11 @@ export const print =
                                         }, 100);
                                     });
 
+                                    source.refresh();
                                 });
 
-                                source.refresh();
                                 map.renderSync();
-                            }
+                            };
 
 
                         const size = map.getSize();
@@ -101,12 +101,16 @@ export const print =
                         const height = Math.round(req.height * req.resolution / 25.4);
                         // const width = Math.round(req.width * req.resolution);
                         // const height = Math.round(req.height * req.resolution);
-                        logger(`size ${width}x${height} @${req.resolution}`)
+                        logger(`size ${width}x${height} @${req.resolution}`);
+                        target.width = width;
+                        target.height = height;
                         map.setSize([width, height]);
+
                         map.getView().fit(extent, {
                             size: [width, height],
                             callback: afterResize,
                         });
+
                         // logger(`B sz ${map.getSize()} ; extent ${map.getView().calculateExtent(map.getSize())}`);
                     })
                     .foldL(
