@@ -58,6 +58,9 @@ const render =
             const data = queries.getData(props, config);
 
             if (data) {
+                if (data.length === 0) {
+                    return DIV();
+                }
                 const s = queries.getSelection();
                 if (s.start < 0) {
                     events.startSelection(data[0][0]);
