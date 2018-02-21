@@ -109,7 +109,7 @@ const legendLegend =
 
 
 const render =
-    () => getMapInfo().fold(
+    () => getMapInfo().foldL(
         () => DIV(),
         info => legendLegend(info),
     );

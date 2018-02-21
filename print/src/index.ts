@@ -75,14 +75,6 @@ export const main =
             'port/map/printResponse': defaultPrintResponse(),
 
             'component/print': defaultPrintState(),
-
-            'component/timeserie': {
-                cursorPosition: 35,
-                selection: { start: -1, end: -1 },
-                active: false,
-                editingSelection: false,
-            },
-            'data/timeseries': {},
             'data/baselayers': {},
         };
 

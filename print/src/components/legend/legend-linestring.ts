@@ -49,7 +49,7 @@ const renderSimple =
             olContext.setStyle(style);
             olContext.drawGeometry(lineGeometry(atResolution(height)));
         });
-        const label = getDatasetMetadata(layerInfo.metadataId).fold(
+        const label = getDatasetMetadata(layerInfo.metadataId).foldL(
             () => '',
             md => fromRecord(getMessageRecord(md.resourceTitle)));
 

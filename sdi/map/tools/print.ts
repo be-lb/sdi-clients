@@ -63,30 +63,35 @@ export const print =
                     .let('map', fromNullable(mapRef))
                     .let('baseLayers', fromNullable(baseLayersRef))
                     .let('base',
-                    ({ baseLayers }) => fromNullable(baseLayers.item(0)))
+                        ({ baseLayers }) => fromNullable(baseLayers.item(0)))
                     .map(({ map, base }) => {
                         const source = base.getSource() as ol.source.ImageWMS;
-                        map.once('postcompose', (event: any) => {
-                            const canvas: HTMLCanvasElement = event.context.canvas;
-                            
-                                source.once('imageloadstart', () => {
-                                    updateResponseWithReq(reqId, { status: 'start' });
+                        const afterResize =
+                            () => {
+                                map.once('postcompose', (event: any) => {
+                                    const canvas: HTMLCanvasElement = event.context.canvas;
+
+                                    source.once('imageloadstart', () => {
+                                        updateResponseWithReq(reqId, { status: 'start' });
+                                    });
+
+                                    source.once('imageloaderror', () => {
+                                        updateResponseWithReq(reqId, { status: 'error' });
+                                    });
+
+                                    source.once('imageloadend', () => {
+                                        window.setTimeout(() => {
+                                            const data = canvas.toDataURL('image/png');
+                                            updateResponseWithReq(reqId,
+                                                { data, status: 'end' });
+                                        }, 100);
+                                    });
+
                                 });
 
-                                source.once('imageloaderror', () => {
-                                    updateResponseWithReq(reqId, { status: 'error' });
-                                });
-
-                                source.once('imageloadend', () => {
-                                    window.setTimeout(() => {
-                                        const data = canvas.toDataURL('image/png');
-                                        updateResponseWithReq(reqId,
-                                            { data, status: 'end' });
-                                    }, 100);
-                                });
-                            
                                 source.refresh();
-                        });
+                                map.renderSync();
+                            }
 
 
                         const size = map.getSize();
@@ -94,32 +99,37 @@ export const print =
                         // logger(`A sz ${size} ; extent ${extent}`);
                         const width = Math.round(req.width * req.resolution / 25.4);
                         const height = Math.round(req.height * req.resolution / 25.4);
+                        // const width = Math.round(req.width * req.resolution);
+                        // const height = Math.round(req.height * req.resolution);
+                        logger(`size ${width}x${height} @${req.resolution}`)
                         map.setSize([width, height]);
                         map.getView().fit(extent, {
                             size: [width, height],
-
+                            callback: afterResize,
                         });
-                        map.renderSync();
                         // logger(`B sz ${map.getSize()} ; extent ${map.getView().calculateExtent(map.getSize())}`);
-                    });
+                    })
+                    .foldL(
+                        () => logger(`Failed to start print`),
+                        () => logger(`Print Started`));
 
             };
 
         const update =
             (i: Interaction) =>
                 fromInteraction('print', i)
-                    .fold(
-                    () => null,
-                    () => {
-                        const req = getRequest();
-                        const reqId = req.id;
-                        if (reqId) {
-                            getResponseFromPendings(reqId)
-                                .fold(
-                                () => startPrint(req),
-                                () => null);
-                        }
-                    });
+                    .foldL(
+                        () => null,
+                        () => {
+                            const req = getRequest();
+                            const reqId = req.id;
+                            if (reqId) {
+                                getResponseFromPendings(reqId)
+                                    .foldL(
+                                        () => startPrint(req),
+                                        () => null);
+                            }
+                        });
 
         const init =
             (map: Map, baseLayers: Collection<layer.Image>) => {

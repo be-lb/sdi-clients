@@ -37,7 +37,7 @@ import {
 const logger = debug('sdi:comp/map');
 
 const getInfo =
-    () => getMapInfo().fold(() => null, m => m);
+    () => getMapInfo().foldL(() => null, m => m);
 
 const options: IMapOptions = {
     getBaseLayer,

@@ -50,7 +50,7 @@ const renderSimple =
             olContext.drawGeometry(polygonGeometry(atResolution(spec.rect.height)));
         });
 
-        const label = getDatasetMetadata(layerInfo.metadataId).fold(
+        const label = getDatasetMetadata(layerInfo.metadataId).foldL(
             () => '',
             md => fromRecord(getMessageRecord(md.resourceTitle)));
 
