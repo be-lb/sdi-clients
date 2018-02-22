@@ -92,6 +92,7 @@ export const viewEventsFactory =
                 zoom: data.zoom || viewState.zoom,
                 srs: viewState.srs,
                 feature: data.feature || null,
+                extent: data.extent || null,
             }));
         },
     });

@@ -67,6 +67,7 @@ export const main =
                 rotation: 0,
                 zoom: 6,
                 feature: null,
+                extent: null,
             },
 
             'port/map/interaction': defaultInteraction(),

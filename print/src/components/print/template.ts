@@ -72,7 +72,7 @@ const templates: TemplateCollection = {
         }),
 
         attribution: makeSpec({
-            rect: { x: 15, y: 180, width: 180, height: 10 },
+            rect: { x: 18, y: 192, width: 180, height: 10 },
         }),
 
         scaleline: makeSpec({

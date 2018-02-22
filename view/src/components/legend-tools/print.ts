@@ -15,13 +15,15 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 import { getRoot } from 'sdi/app';
 import tr from 'sdi/locale';
 import { DIV, H2, A } from 'sdi/components/elements';
+import { scopeOption } from 'sdi/lib';
 
 import queries from '../../queries/app';
-import { getView } from '../../queries/map';
+import { getMapExtent } from '../../queries/map';
 
 const logger = debug('sdi:tool-print');
 const location = document.location;
@@ -29,25 +31,30 @@ const origin = location.origin;
 // const path = location.pathname;
 
 
-const render = () => {
-    const { zoom, center } = getView();
+const render =
+    () =>
+        scopeOption()
+            .let('mapId', fromNullable(queries.getCurrentMap()))
+            .let('extent', getMapExtent())
+            .fold(
+                DIV({}, 'Print: Somethin missing'),
+                ({ mapId, extent }) => {
+                    const extentString = extent.map(n => n.toFixed()).join('/');
+                    const url = `${origin}${getRoot()}print/${mapId}`;
+                    const viewUrl = `${url}/${extentString}`;
 
-    const mapId = queries.getCurrentMap();
-    const url = `${origin}${getRoot()}print/${mapId}`;
-    const viewUrl = `${url}/${center[0]}/${center[1]}/${zoom}`;
-
-    return (
-        DIV({ className: 'tool-group share-embed' },
-            DIV({ className: 'tool print' },
-                H2({}, tr('printMap')),
-                DIV({ className: 'tool-body' },
-                    A({
-                        className: 'print-link link',
-                        href: viewUrl,
-                        target: '_blank',
-                    }, viewUrl))))
-    );
-};
+                    return (
+                        DIV({ className: 'tool-group share-embed' },
+                            DIV({ className: 'tool print' },
+                                H2({}, tr('printMap')),
+                                DIV({ className: 'tool-body' },
+                                    A({
+                                        className: 'print-link link',
+                                        href: viewUrl,
+                                        target: '_blank',
+                                    }, viewUrl))))
+                    );
+                });
 
 
 export default render;

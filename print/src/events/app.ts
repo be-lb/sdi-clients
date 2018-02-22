@@ -54,14 +54,14 @@ const setMapView =
     () => {
         const r = cleanRoute();
         scopeOption()
-            .let('lat', fromNullable(getNumber(r[1])))
-            .let('lon', fromNullable(getNumber(r[2])))
-            .let('zoom', fromNullable(getNumber(r[3])))
-            .map(({ lat, lon, zoom }) => {
+            .let('minx', fromNullable(getNumber(r[1])))
+            .let('miny', fromNullable(getNumber(r[2])))
+            .let('maxx', fromNullable(getNumber(r[3])))
+            .let('maxy', fromNullable(getNumber(r[4])))
+            .map(({ minx, miny, maxx, maxy }) => {
                 viewEvents.updateMapView({
-                    dirty: 'geo',
-                    center: [lat, lon],
-                    zoom,
+                    dirty: 'geo/extent',
+                    extent: [minx, miny, maxx, maxy],
                 });
             });
     };

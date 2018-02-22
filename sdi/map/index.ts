@@ -15,7 +15,7 @@
  */
 
 import * as proj4 from 'proj4';
-import { proj, format, Coordinate } from 'openlayers';
+import { proj, format, Coordinate, Extent } from 'openlayers';
 import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire, MessageRecord } from '../source';
 import { Getter, Setter } from '../shape';
 import { Option, fromPredicate } from 'fp-ts/lib/Option';
@@ -44,7 +44,7 @@ export interface IMapScale {
     width: number;
 }
 
-export type ViewDirt = 'none' | 'geo' | 'geo/feature' | 'style';
+export type ViewDirt = 'none' | 'geo' | 'geo/feature' | 'geo/extent' | 'style';
 
 export interface IMapViewData {
     dirty: ViewDirt;
@@ -53,6 +53,7 @@ export interface IMapViewData {
     rotation: number;
     zoom: number;
     feature: Feature | null;
+    extent: Extent | null;
 }
 
 
@@ -216,6 +217,7 @@ export interface IViewEvent {
     rotation?: number;
     zoom?: number;
     feature?: Feature;
+    extent?: Extent;
 }
 
 

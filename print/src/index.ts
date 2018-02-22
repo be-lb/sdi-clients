@@ -64,6 +64,7 @@ export const main =
             'port/map/view': {
                 dirty: 'geo',
                 feature: null,
+                extent: null,
                 srs: 'EPSG:31370',
                 center: [149546.27830713114, 169775.91753364357],
                 rotation: 0,

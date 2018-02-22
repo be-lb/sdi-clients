@@ -359,7 +359,7 @@ const getExtent =
             Number.MIN_VALUE,
         ];
 
-        if (feature.geometry.type == 'Point') {
+        if (feature.geometry.type === 'Point') {
             const [x, y] = feature.geometry.coordinates;
             return [x - buf, y - buf, x + buf, y + buf];
         }
@@ -380,23 +380,32 @@ const updateView =
         setView: IMapOptions['updateView'],
     ) =>
         () => {
-            const { dirty, zoom, rotation, center, feature } = getView();
+            const { dirty, zoom, rotation, center, feature, extent } = getView();
             const view = map.getView();
             const eq = viewEquals(zoom, rotation, center);
+            const size = map.getSize();
+            const mapExtent = () => view.calculateExtent(size);
 
             if (dirty === 'geo/feature' && feature !== null) {
-                const e = getExtent(feature);
-                view.fit(e, {
+                const extent = getExtent(feature);
+                view.fit(extent, {
+                    size,
+                    callback: () => setView({ dirty: 'none', extent }),
+                });
+            }
+            else if (dirty === 'geo/extent' && extent !== null) {
+                view.fit(extent, {
                     size: map.getSize(),
+                    callback: () => setView({ dirty: 'none', extent }),
                 });
             }
             else if (dirty === 'geo'
                 && !eq(view.getZoom(), view.getRotation(), view.getCenter())) {
-                window.setTimeout(() => setView({ dirty: 'none' }), 0);
-                view.animate({ zoom, rotation, center });
+                view.animate({ zoom, rotation, center },
+                    () => setView({ dirty: 'none', extent: mapExtent() }));
             }
             else if (dirty === 'style') {
-                window.setTimeout(() => setView({ dirty: 'none' }), 0);
+                window.setTimeout(() => setView({ dirty: 'none', extent: mapExtent() }), 0);
                 forceRedraw();
             }
         };

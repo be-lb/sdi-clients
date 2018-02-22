@@ -66,7 +66,7 @@ export const print =
                         ({ baseLayers }) => fromNullable(baseLayers.item(0)))
                     .map(({ map, base }) => {
                         const source = base.getSource() as ol.source.ImageWMS;
-                        const target = map.getTargetElement() as HTMLCanvasElement;
+                        const target = map.getTargetElement() as HTMLElement;
                         const afterResize =
                             () => {
                                 map.once('postcompose', (event: any) => {
@@ -102,8 +102,8 @@ export const print =
                         // const width = Math.round(req.width * req.resolution);
                         // const height = Math.round(req.height * req.resolution);
                         logger(`size ${width}x${height} @${req.resolution}`);
-                        target.width = width;
-                        target.height = height;
+                        target.style.width = `${width}px`;
+                        target.style.height = `${height}px`;
                         map.setSize([width, height]);
 
                         map.getView().fit(extent, {

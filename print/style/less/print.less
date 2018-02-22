@@ -1,7 +1,3 @@
-.print .map .control-box {
-    display: none;
-}
-
 .print {
     .absolute(@margin, @margin, @margin, @margin);
     border: 1px solid @light-grey;
@@ -11,13 +7,16 @@
         overflow: hidden;
 
         .map-wrapper {
-            .absolute(0, auto, auto, 0);
-            width: 30vw;
-            height: 30vw;
+            .absolute(0, auto, auto, @margin);
+            width: 100px;
+            height: 100px;
+            z-index: 0;
         }
 
         div.legend {
-            .absolute(0, 0, 0, calc(~"30vw + @{margin}"));
+            // .absolute(0, 0, 0, calc(~"30vw + @{margin}"));
+            .absolute(0, 0, 0, @margin);
+            z-index: 1;
             overflow-y: auto;
             background-color: @white;
             font-size: 80%;
