@@ -27,8 +27,8 @@ export const item =
                 },
                 // label
                 {
-                    x: textOffset, y: height / 2, width: width - textOffset, height,
-                    children: [makeText(label, fontSize)],
+                    x: textOffset, y: 0, width: width - textOffset, height,
+                    children: [makeText(label, fontSize, 'black', 'left', 'center')],
                 },
             ],
         };

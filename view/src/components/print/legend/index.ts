@@ -25,7 +25,7 @@ import legendItem from './legend-item';
 import { Box, makeText, Layout } from '../context';
 import { Spec, TemplateName, applySpec } from '../template';
 
-const logger = debug('sdi:legend');
+const logger = debug('sdi:print/legend');
 
 
 interface Group {
@@ -88,6 +88,7 @@ const renderGroups =
                         (info) => {
                             const box = legendItem(spec.legendItem, info);
                             const label = info.legend;
+                            box.name = `layer-${info.id}`;
 
                             logger(`box ${info.id} ${box.height}`);
                             if (label && fromRecord(label).trim().length > 0) {
@@ -96,6 +97,7 @@ const renderGroups =
                                 const lcBox: Box = {
                                     x: 0, y: 3, width: box.width, height: 7,
                                     children: [lc],
+                                    name: `label-${info.id}`,
                                 };
                                 const ll: Layout = {
                                     direction: 'vertical',
@@ -105,19 +107,42 @@ const renderGroups =
                                     x: 0, y: 0,
                                     width: box.width, height: box.height + 13,
                                     children: [ll],
+                                    name: fromRecord(label),
                                 };
                             }
                             return box;
                         });
 
                     if (group.g !== null) {
-                        const groupBox: Box = {
+                        const gnfs = spec.legendItem.fontSize * 1.2;
+                        const gnh = spec.legendItem.rect.height;
+                        const groupName = makeText(
+                            fromRecord(group.g.name),
+                            gnfs,
+                            spec.legendItem.color,
+                            'left', 'center',
+                        );
+                        const groupNameBox: Box = {
                             x: 0, y: 0,
-                            width: spec.legend.rect.width * 0.8, height: boxHeight(items) + 14,
-                            children: [
-                                makeText(fromRecord(group.g.name), spec.legendItem.fontSize),
+                            width: spec.legend.rect.width,
+                            height: gnh,
+                            children: [groupName],
+                        };
+
+                        const groupLayout: Layout = {
+                            direction: 'vertical',
+                            name: 'layout-vertical',
+                            items: [
+                                groupNameBox,
                                 ...items,
                             ],
+                        };
+                        const groupBox: Box = {
+                            name: `group-${fromRecord(group.g.name)}`,
+                            x: 5, y: 0,
+                            width: spec.legend.rect.width,
+                            height: boxHeight(items) + gnh,
+                            children: [groupLayout],
                         };
 
                         return boxes.concat(groupBox);
@@ -127,13 +152,17 @@ const renderGroups =
                 return boxes;
             }, []);
 
-        return {
-            ...spec.legend.rect, children: [{
-                name: 'legend',
+        const boxed: Box = {
+            ...spec.legend.rect,
+            name: 'legend',
+            children: [{
                 direction: 'vertical',
                 items,
             }],
         };
+
+        logger(boxed);
+        return boxed;
     };
 
 

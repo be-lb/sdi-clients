@@ -63,7 +63,7 @@ const templates: TemplateCollection = {
             color: '#006f90',
         }),
 
-        legend: makeSpec({ rect: { x: 205, y: 80, width: 65, height: 180 } }),
+        legend: makeSpec({ rect: { x: 205, y: 42, width: 65, height: 180 } }),
         legendItem: makeSpec({ rect: { x: 0, y: 0, width: 65, height: 10 } }),
 
         map: makeSpec({
@@ -72,7 +72,8 @@ const templates: TemplateCollection = {
         }),
 
         attribution: makeSpec({
-            rect: { x: 18, y: 192, width: 180, height: 10 },
+            rect: { x: 16, y: 192, width: 180, height: 10 },
+            fontSize: 9,
         }),
 
         scaleline: makeSpec({
@@ -80,7 +81,7 @@ const templates: TemplateCollection = {
             strokeWidth: 0.5,
         }),
 
-        logo: makeSpec({ rect: { x: 200, y: 165, width: 65, height: 30 } }),
+        logo: makeSpec({ rect: { x: 200, y: 165, width: 70, height: 30 } }),
     },
 
     'a0/portrait': {
