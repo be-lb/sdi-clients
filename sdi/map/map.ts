@@ -492,6 +492,7 @@ export const create =
                     center: view.getCenter(),
                     rotation: view.getRotation(),
                     zoom: view.getZoom(),
+                    extent: view.calculateExtent(map.getSize()),
                 });
             }
         });
