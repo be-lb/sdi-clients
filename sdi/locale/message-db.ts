@@ -347,7 +347,7 @@ export const messages: MessageDB = {
 
     browseMaps: {
         fr: 'Feuilleter des cartes',
-        nl: 'Blader door de kaarten',
+        nl: 'Verken de kaarten',
     },
 
     cancel: {
@@ -362,7 +362,7 @@ export const messages: MessageDB = {
 
     clear: {
         fr: 'Supprimer',
-        nl: 'Duidelijk',
+        nl: 'Verwijderen',
     },
 
     close: {
@@ -430,27 +430,27 @@ export const messages: MessageDB = {
 
     featureViewTypeTimeserie: {
         fr: 'Bar chart',
-        nl: 'Staaf diagram',
+        nl: 'Staafdiagram',
     },
 
     featureViewTypePieChart: {
         fr: 'Pie chart',
-        nl: 'Taart grafiek',
+        nl: 'Taartdiagram',
     },
 
     featureViewUnvalidTemplate: {
-        fr: 'Unvalid template',
+        fr: 'Template invalide',
         nl: 'Ongeldige template',
     },
 
     dataType: {
         fr: 'Type de données',
-        nl: 'Data type',
+        nl: 'Gegevenstype',
     },
 
     displayLabel: {
         fr: 'Afficher le titre de la colonne',
-        nl: 'Toon naam van de kolom',
+        nl: 'Geef naam van de kolom weer',
     },
 
     textFormat: {
@@ -479,8 +479,8 @@ export const messages: MessageDB = {
     },
 
     embed: {
-        fr: 'Inclure dans votre site',
-        nl: 'Opnemen in uw site',
+        fr: 'Inclure dans votre site web',
+        nl: 'Integreer in uw website',
     },
 
     emptyDescription: {
@@ -490,7 +490,7 @@ export const messages: MessageDB = {
 
     emptyMapDescription: {
         fr: 'Description de la carte',
-        nl: 'Kaart beschrijving',
+        nl: 'Kaartbeschrijving',
     },
 
     emptyTitle: {
@@ -521,17 +521,17 @@ export const messages: MessageDB = {
 
     featureInfos: {
         fr: 'Informations sur l\'élément',
-        nl: 'Artikel informatie',
+        nl: 'Informatie van het element',
     },
 
     go: {
         fr: 'Aller',
-        nl: 'Gaan',
+        nl: 'Ga',
     },
 
     geocode: {
         fr: 'Chercher une adresse',
-        nl: 'Zoeken naar een adres',
+        nl: 'Zoek een adres',
     },
 
     gpsTracker: {
@@ -571,7 +571,7 @@ export const messages: MessageDB = {
 
     location: {
         fr: 'Localisation',
-        nl: 'Plaats bepalen',
+        nl: 'Plaatsbepaling',
     },
 
     locationHelp: {
@@ -580,13 +580,13 @@ export const messages: MessageDB = {
     },
 
     mapLegend: {
-        fr: 'Légende de la carte',
-        nl: 'Kaart legenda',
+        fr: 'Légende',
+        nl: 'Legende',
     },
 
     mapTools: {
-        fr: 'Outils de la carte',
-        nl: 'Kaart gereedschappen',
+        fr: 'Outils',
+        nl: 'Tools',
     },
 
     mapDatas: {
@@ -650,43 +650,43 @@ export const messages: MessageDB = {
     },
 
     latitude: {
-        fr: 'Latitude',
-        nl: 'Breedte',
+        fr: 'Latitude (Y)',
+        nl: 'Breedtegraad (Y)',
     },
 
     legendBuilder: {
         fr: 'Éditeur de légende',
-        nl: 'Legenda verwerker',
+        nl: 'Legende bewerken',
     },
 
     legendType: {
         fr: 'Type de légende',
-        nl: 'Legenda type',
+        nl: 'Type legende',
     },
 
     legendTypeSimple: {
         fr: 'Simple',
-        nl: 'Eenvoudig',
+        nl: 'Enkel symbool',
     },
 
     legendTypeDiscrete: {
         fr: 'Catégorisée',
-        nl: 'Gecategoriseerd',
+        nl: 'Categorieën',
     },
 
     legendTypeContinuous: {
         fr: 'Continue',
-        nl: 'Interval',
+        nl: 'Intervallen',
     },
 
     legendTypeSelect: {
         fr: 'Type de légende',
-        nl: 'Legenda type',
+        nl: 'Type legende',
     },
 
     longitude: {
-        fr: 'Longitude',
-        nl: 'Lengte',
+        fr: 'Longitude (X)',
+        nl: 'Lengtegraad (X)',
     },
 
     measure: {
@@ -700,18 +700,18 @@ export const messages: MessageDB = {
     },
 
     measureArea: {
-        fr: 'Une aire',
-        nl: 'Een gebied',
+        fr: 'Superficie',
+        nl: 'Oppervlakte',
     },
 
     mapEmbed: {
         fr: 'Inclure la carte',
-        nl: 'Sluit deze kaart in',
+        nl: 'Voeg deze kaart in',
     },
 
     mapEmbedWithView: {
         fr: 'Inclure la vue actuelle de la carte',
-        nl: 'Sluit de huidige weergave van de kaart in',
+        nl: 'Voeg de huidige weergave van de kaart in',
     },
 
     mapInfoAddIllustration: {
@@ -721,7 +721,7 @@ export const messages: MessageDB = {
 
     mapInfoChangeIllustration: {
         fr: 'Sélectionnez une autre image',
-        nl: 'Selecteer een ander beeld',
+        nl: 'Selecteer een andere afbeelding',
     },
 
     mapLink: {
@@ -761,12 +761,12 @@ export const messages: MessageDB = {
 
     styleGroupAdd: {
         fr: 'Ajouter une catégorie',
-        nl: 'Klasse toevoegen',
+        nl: 'Categorie toevoegen',
     },
 
     styleGroupDefaultName: {
         fr: 'Catégorie sans titre',
-        nl: 'Naamloze klasse',
+        nl: 'Categorie zonder titel',
     },
 
     styleGroupSelectedItemsCount: {
@@ -776,7 +776,7 @@ export const messages: MessageDB = {
 
     styleGroupRemove: {
         fr: 'Supprimer la catégorie',
-        nl: 'Klasse verwijderen',
+        nl: 'Categorie verwijderen',
     },
 
     validate: {
@@ -796,7 +796,7 @@ export const messages: MessageDB = {
 
     wmsSwitch: {
         fr: 'Fond de carte',
-        nl: 'Basiskaart',
+        nl: 'Achtergrond',
     },
 
     loadingData: {
@@ -908,7 +908,7 @@ export const messages: MessageDB = {
 
     resetLegend: {
         fr: 'Réinitialiser la légende',
-        nl: 'Legenda wissen', // Can also be herstel of herinitialiseer
+        nl: 'Reset legende',
     },
 
     newLayer: {
@@ -948,7 +948,7 @@ export const messages: MessageDB = {
 
     legendItemAdd: {
         fr: 'Ajouter un élément de légende',
-        nl: 'Voeg een legenda object toe',
+        nl: 'Legende item toevoegen',
     },
 
     labelPostion: {
@@ -963,7 +963,7 @@ export const messages: MessageDB = {
 
     columnPickerMessage: {
         fr: 'Sélectionnez une colonne pour construire la légende.',
-        nl: 'Selecteer een kolom om de legenda te bouwen.',
+        nl: 'Selecteer een kolom om de legende te maken.',
     },
 
     templateEditorExplanation: {
@@ -978,7 +978,7 @@ export const messages: MessageDB = {
 
     addToLegend: {
         fr: 'Ajouter à la légende',
-        nl: 'Voeg de legenda toek',
+        nl: 'Toevoegen aan legende',
     },
 
     infoChoice: {
@@ -1003,12 +1003,12 @@ export const messages: MessageDB = {
 
     pointLabelHelp: {
         fr: 'Réglages des labels pour l\'ensemble de la couche',
-        nl: 'Instellingen alle labels in de laag',
+        nl: 'Instellingen van alle labels in de laag',
     },
 
     timeserieTemplateURL: {
-        fr: 'Un gabarit d\'URL pointant vers une ressource produisant une série temporelle de la forme "http://example.com/ts/\\{columnName\\}.json".',
-        nl: 'Een sjabloon voor de URL die verwijst naar een informatie bron voor de tijdreeks. Gebruik de volgende vorm: "http://example.com/ts/\\{kolomNaam\\}.json".',
+        fr: 'Un gabarit d\'URL pointant vers une ressource produisant une série temporelle de la forme "http://exemple.com/ts/\\{columnName\\}.json".',
+        nl: 'Een template voor de URL die verwijst naar de gegevensbron voor het maken van een tijdreeks. Gebruik de volgende vorm: "http://voorbeeld.com/ts/\\{kolomNaam\\}.json".',
     },
 
     timeserieReference: {
@@ -1048,7 +1048,7 @@ export const messages: MessageDB = {
 
     autoClass: {
         fr: 'Création automatique de classes',
-        nl: 'Automatic klassen',
+        nl: 'Automatische selectie van klassen',
     },
 
     offsetX: {
@@ -1073,7 +1073,7 @@ export const messages: MessageDB = {
 
     textDelimiter: {
         fr: 'Délimiteur de texte',
-        nl: 'Delimiter tekst',
+        nl: 'Scheidingsteken van tekst',
     },
 
     comma: {
@@ -1093,7 +1093,7 @@ export const messages: MessageDB = {
 
     space: {
         fr: 'Espace',
-        nl: 'Spactie',
+        nl: 'Spatie',
     },
 
     quotationMark: {
@@ -1112,18 +1112,18 @@ export const messages: MessageDB = {
     },
 
     setLatitude: {
-        fr: 'Latitude',
-        nl: 'Breedtegraad',
+        fr: 'Latitude (Y)',
+        nl: 'Breedtegraad (Y)',
     },
 
     setLongitude: {
-        fr: 'Longitude',
-        nl: 'Lengtegraad',
+        fr: 'Longitude (X)',
+        nl: 'Lengtegraad (X)',
     },
 
     uploadShpInfos: {
         fr: 'Veuillez séléctionner les quatre fichiers requis composant le shapefile.',
-        nl: 'Selecteer de vier benodigde bestanden component shapefile.',
+        nl: 'Selecteer de vier nodige bestanddelen van de shapefile.',
     },
 
     upload: {
@@ -1133,17 +1133,17 @@ export const messages: MessageDB = {
 
     uploadDatas: {
         fr: 'Upload de données',
-        nl: 'Upload datas',
+        nl: 'Upload van de gegevens',
     },
 
     metadataEditor: {
         fr: 'Édition des métadonnées',
-        nl: 'Metadatas editor',
+        nl: 'Metadata bewerken',
     },
 
     sheetList: {
         fr: 'Liste des fiches',
-        nl: 'Lijst van de sheets',
+        nl: 'Lijst van de fiches',
     },
 
     metaCommon: {
@@ -1153,22 +1153,22 @@ export const messages: MessageDB = {
 
     metaFrench: {
         fr: 'Métadonnées françaises',
-        nl: 'Frans metadata',
+        nl: 'Franse metadata',
     },
 
     metaDutch: {
         fr: 'Métadonnées Néerlandaises',
-        nl: 'Nederlands metadata',
+        nl: 'Nederlandse metadata',
     },
 
     title: {
         fr: 'Titre',
-        nl: 'Title',
+        nl: 'Titel',
     },
 
     geometryType: {
         fr: 'Geométrie',
-        nl: 'Type Meetkunde',
+        nl: 'Geometrie',
     },
 
     layerId: {
@@ -1213,7 +1213,7 @@ export const messages: MessageDB = {
 
     publicationStatus: {
         fr: 'État de publication',
-        nl: 'Publicatie status',
+        nl: 'Status van publicatie',
     },
 
     saving: {
@@ -1323,7 +1323,7 @@ export const messages: MessageDB = {
 
     createAlias: {
         fr: 'Créer un nouvel alias',
-        nl: 'Maak een nieuw alias',
+        nl: 'Maak een nieuw alias aan',
     },
 
     columnID: {
@@ -1338,7 +1338,7 @@ export const messages: MessageDB = {
 
     links: {
         fr: 'Liens',
-        nl: 'Koppelingen',
+        nl: 'Links',
     },
 
     extractSearch: {
@@ -1348,7 +1348,7 @@ export const messages: MessageDB = {
 
     extractOn: {
         fr: 'Intersection avec la zone visible',
-        nl: 'Kruising met zichtbaar gebied',
+        nl: 'Intersectie met het weergegeven gebied',
     },
 
     extractOff: {
@@ -1358,7 +1358,7 @@ export const messages: MessageDB = {
 
     changeBackgroundMap: {
         fr: 'Changer de fond de carte',
-        nl: 'Wijzig de achtergrond van de kaart',
+        nl: 'Wijzig de achtergrond',
     },
 
     zoomIn: {
@@ -1413,7 +1413,7 @@ export const messages: MessageDB = {
 
     'move-up': {
         fr: 'Remonter',
-        nl: 'Ga naar boven',
+        nl: 'Naar boven verplaatsen',
     },
 
     view: {
@@ -1473,7 +1473,7 @@ export const messages: MessageDB = {
 
     usePattern: {
         fr: 'Hachures',
-        nl: 'Uitbroeden',
+        nl: 'Arcering',
     },
 
     layerLegendDefaultLabel: {
@@ -1493,7 +1493,7 @@ export const messages: MessageDB = {
 
     printDownloadingBaseMap: {
         fr: 'Téléchargement du fond de carte',
-        nl: 'De basiskaart downloaden',
+        nl: 'De achtergrond downloaden',
     },
 
     printNotStarted: {
