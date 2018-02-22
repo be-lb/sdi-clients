@@ -1,8 +1,8 @@
 
 
-import { Box, makeImage, makeText, LayoutDirection } from '../print/context';
-import { Spec } from '../print/template';
-import { resolution } from '../print';
+import { Box, makeImage, makeText, LayoutDirection } from '../context';
+import { Spec } from '../template';
+import { resolution } from '../index';
 
 
 

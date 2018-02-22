@@ -21,14 +21,16 @@ import { IMapInfo } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { PrintResponse } from 'sdi/map';
 
-
-import { getTitle } from '../../queries/app';
+import appEvents from '../../events/app';
+import { getPrintTitle } from '../../queries/app';
 import { getScaleLine } from '../../queries/map';
+import { stopPrint } from '../../events/map';
 import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makeRect } from './context';
 import { applySpec, ApplyFn } from './template';
-import { renderLegend } from '../legend';
+import { renderLegend } from './legend';
 import { PrintProps, resolution } from './index';
 import { logoData } from './logo';
+import { AppLayout } from '../../shape/types';
 
 const logger = debug('sdi:print');
 
@@ -127,7 +129,7 @@ export const renderPDF =
             const apply = applySpec(template);
             const pdf = createContext(props.orientation, props.format);
             const boxes: Box[] = [];
-            const mapTitle = fromRecord(getTitle(mapInfo));
+            const mapTitle = fromRecord(getPrintTitle(mapInfo));
 
             renderTitle(apply, mapTitle)
                 .map(b => boxes.push(b));
@@ -149,7 +151,9 @@ export const renderPDF =
 
             paintBoxes(pdf, boxes);
 
-            pdf.save(`${fromRecord(getTitle(mapInfo))}.pdf`);
+            pdf.save(`${fromRecord(getPrintTitle(mapInfo))}.pdf`);
+            stopPrint();
+            appEvents.setLayout(AppLayout.MapAndInfo);
         });
 
 

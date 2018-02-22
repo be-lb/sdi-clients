@@ -20,8 +20,8 @@ import { ILayerInfo } from 'sdi/source';
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
-import { Box } from '../print/context';
-import { Spec } from '../print/template';
+import { Box } from '../context';
+import { Spec } from '../template';
 
 const logger = debug('sdi:legend-item');
 

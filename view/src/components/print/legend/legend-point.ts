@@ -15,41 +15,38 @@
  */
 
 import * as debug from 'debug';
-import { Feature, geom } from 'openlayers';
+import { geom, Feature } from 'openlayers';
+import { fromNullable } from 'fp-ts/lib/Option';
 
-import { getContext, IOLContext, polygonStyle } from 'sdi/map/style';
+import { pointStyle, getContext, IOLContext } from 'sdi/map/style';
 import { fromRecord } from 'sdi/locale';
-import { ILayerInfo, getMessageRecord, PolygonStyleConfig, PolygonStyleConfigSimple, PolygonStyleConfigDiscrete, PolygonStyleConfigContinuous } from 'sdi/source';
+import { ILayerInfo, getMessageRecord, PointStyleConfig, PointStyleConfigDiscrete, PointStyleConfigSimple, PointStyleConfigContinuous } from 'sdi/source';
 
-import { getDatasetMetadata } from '../../queries/app';
-import { Box } from '../print/context';
-import { Spec } from '../print/template';
-import { layout, item, atResolution } from './common';
+import appQueries from '../../../queries/app';
+import { Box } from '../context';
+import { Spec } from '../template';
+import { atResolution, item, layout } from './common';
 
-const logger = debug('sdi:legend-polygon');
+const logger = debug('sdi:legend-point');
+
+const pointGeometry =
+    (sz: number) => new geom.Point([sz / 2, sz / 2]);
 
 
-const polygonGeometry =
-    (sz: number) => {
-        return (
-            new geom.Polygon([[
-                [0, sz * 0.2],
-                [sz, sz * 0.2],
-                [sz, sz * 0.8],
-                [0, sz * 0.8],
-                [0, sz * 0.2],
-            ]]));
-    };
+const getDatasetMetadata =
+    (id: string) => fromNullable(appQueries.getDatasetMetadata(id));
 
 const renderSimple =
-    (spec: Spec, config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
+    (spec: Spec, config: PointStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, olContext } = ctx;
-        const styles = polygonStyle(config)(new Feature(polygonGeometry(atResolution(spec.rect.height))));
+        const styleFn = pointStyle(config);
+        const { height } = spec.rect;
+        const styles = styleFn(new Feature(pointGeometry(atResolution(height))));
+
         styles.forEach((style) => {
             olContext.setStyle(style);
-            olContext.drawGeometry(polygonGeometry(atResolution(spec.rect.height)));
+            olContext.drawGeometry(pointGeometry(atResolution(height)));
         });
-
         const label = getDatasetMetadata(layerInfo.metadataId).foldL(
             () => '',
             md => fromRecord(getMessageRecord(md.resourceTitle)));
@@ -57,25 +54,24 @@ const renderSimple =
         return item(spec, canvas.toDataURL(), label);
     };
 
+
 const renderDiscrete =
-    (spec: Spec, config: PolygonStyleConfigDiscrete, _layerInfo: ILayerInfo, ctx: IOLContext) => {
+    (spec: Spec, config: PointStyleConfigDiscrete, _layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, canvasContext, olContext } = ctx;
-        const { rect } = spec;
-        const styleFn = polygonStyle(config);
+        const styleFn = pointStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.groups.forEach((group) => {
             if (group.values.length > 0) {
                 canvasContext.clearRect(0, 0,
-                    atResolution(rect.height), atResolution(rect.height));
-                const f = new Feature(polygonGeometry(atResolution(rect.height)));
+                    atResolution(height), atResolution(height));
+                const f = new Feature(pointGeometry(atResolution(height)));
                 f.set(config.propName, group.values[0]);
                 const styles = styleFn(f);
                 styles.forEach((style) => {
                     olContext.drawFeature(f, style);
                 });
-
                 items.push(item(spec, canvas.toDataURL(), fromRecord(group.label)));
-
             }
         });
 
@@ -83,39 +79,36 @@ const renderDiscrete =
     };
 
 const renderContinuous =
-    (spec: Spec, config: PolygonStyleConfigContinuous, _layerInfo: ILayerInfo, ctx: IOLContext) => {
+    (spec: Spec, config: PointStyleConfigContinuous, _layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, canvasContext, olContext } = ctx;
-        const { rect } = spec;
-        const styleFn = polygonStyle(config);
+        const styleFn = pointStyle(config);
         const items: Box[] = [];
+        const { height } = spec.rect;
         config.intervals.forEach((interval) => {
             canvasContext.clearRect(0, 0,
-                atResolution(rect.height), atResolution(rect.height));
-            const f = new Feature(polygonGeometry(atResolution(rect.height)));
+                atResolution(height), atResolution(height));
+            const f = new Feature(pointGeometry(atResolution(height)));
             const v = interval.low + ((interval.high - interval.low) / 2);
             f.set(config.propName, v);
             const styles = styleFn(f);
             styles.forEach((style) => {
                 olContext.drawFeature(f, style);
             });
-
             items.push(item(spec, canvas.toDataURL(), fromRecord(interval.label)));
-
         });
 
         return layout('vertical', items);
     };
 
-
 const render =
-    (spec: Spec, config: PolygonStyleConfig, layerInfo: ILayerInfo): Box => {
+    (spec: Spec, config: PointStyleConfig, layerInfo: ILayerInfo) => {
         const { height } = spec.rect;
         const ctx = getContext(atResolution(height), atResolution(height));
         if (ctx) {
             switch (config.kind) {
-                case 'polygon-simple': return renderSimple(spec, config, layerInfo, ctx);
-                case 'polygon-discrete': return renderDiscrete(spec, config, layerInfo, ctx);
-                case 'polygon-continuous': return renderContinuous(spec, config, layerInfo, ctx);
+                case 'point-simple': return renderSimple(spec, config, layerInfo, ctx);
+                case 'point-discrete': return renderDiscrete(spec, config, layerInfo, ctx);
+                case 'point-continuous': return renderContinuous(spec, config, layerInfo, ctx);
             }
         }
 

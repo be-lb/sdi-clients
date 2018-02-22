@@ -16,6 +16,7 @@ export enum AppLayout {
     MapAndTableAndFeature,
     MapAndTracker,
     MapAndMeasure,
+    Print,
 }
 
 export enum SortDirection {

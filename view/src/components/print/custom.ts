@@ -4,18 +4,18 @@ import { inputText } from 'sdi/components/input';
 import { fromRecord, updateRecordRaw } from 'sdi/locale';
 import { IMapInfo } from 'sdi/source';
 
-import { setCustomTitle, resetCustomTitle } from '../../events/app';
-import { getTitle, hasCustomTitle } from '../../queries/app';
+import { setPrintTitle, resetPrintTitle } from '../../events/app';
+import { getPrintTitle, hasPrintTitle } from '../../queries/app';
 
 const renderCheckBox =
     (info: IMapInfo) => {
-        if (hasCustomTitle()) {
+        if (hasPrintTitle()) {
             return DIV({
-                onClick: () => setCustomTitle(getTitle(info))
+                onClick: () => setPrintTitle(getPrintTitle(info))
             }, 'with custom title')
         }
         return DIV({
-            onClick: () => resetCustomTitle()
+            onClick: () => resetPrintTitle()
         }, 'without custom title')
     };
 
@@ -24,9 +24,9 @@ const render =
         DIV({ className: 'custom-title' },
             renderCheckBox(info),
             inputText(
-                () => fromRecord(getTitle(info)),
-                t => setCustomTitle(updateRecordRaw(
-                    getTitle(info), t))),
+                () => fromRecord(getPrintTitle(info)),
+                t => setPrintTitle(updateRecordRaw(
+                    getPrintTitle(info), t))),
         );
 
 

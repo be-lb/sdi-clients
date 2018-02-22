@@ -17,7 +17,7 @@
 import * as debug from 'debug';
 
 import { dispatch, observe, dispatchK } from 'sdi/shape';
-import { Feature, IMapInfo } from 'sdi/source';
+import { Feature, IMapInfo, MessageRecord } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 import { getApiUrl } from 'sdi/app';
 import { scopeOption } from 'sdi/lib';
@@ -262,6 +262,16 @@ const events = {
 };
 
 export default events;
+
+export const setPrintTitle =
+    (customTitle: MessageRecord) =>
+        dispatch('component/print',
+            s => ({ ...s, customTitle }));
+
+export const resetPrintTitle =
+    () =>
+        dispatch('component/print',
+            s => ({ ...s, customTitle: null }));
 
 
 logger('loaded');

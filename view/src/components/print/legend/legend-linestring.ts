@@ -16,14 +16,15 @@
 
 import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 import { getContext, IOLContext, lineStyle } from 'sdi/map/style';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, LineStyleConfig, LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfigContinuous } from 'sdi/source';
 
-import { getDatasetMetadata } from '../../queries/app';
-import { Box } from '../print/context';
-import { Spec } from '../print/template';
+import appQueries from '../../../queries/app';
+import { Box } from '../context';
+import { Spec } from '../template';
 import { atResolution, item, layout } from './common';
 
 const logger = debug('sdi:legend-linestring');
@@ -38,7 +39,8 @@ const lineGeometry =
     };
 
 
-
+const getDatasetMetadata =
+    (id: string) => fromNullable(appQueries.getDatasetMetadata(id));
 
 const renderSimple =
     (spec: Spec, config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {

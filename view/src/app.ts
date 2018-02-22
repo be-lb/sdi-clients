@@ -30,6 +30,7 @@ import mapnavigator from './components/mapnavigator';
 import tracker from './components/geo-tracker';
 import measure from './components/geo-measure';
 import extract from './components/extract';
+import print from './components/print';
 import events from './events/app';
 import queries from './queries/app';
 import { viewEvents } from './events/map';
@@ -94,6 +95,9 @@ const renderMapAndMeasure =
 const renderMapAndExtract =
     () => wrappedMain('map-and-extract', map(), extract());
 
+const renderPrint =
+    () => wrappedMain('print', map(), print());
+
 const renderMain =
     () => {
         const layout = queries.getLayout();
@@ -108,6 +112,7 @@ const renderMain =
             case AppLayout.MapAndTracker: return renderMapAndTracker();
             case AppLayout.MapAndMeasure: return renderMapAndMeasure();
             case AppLayout.MapAndExtract: return renderMapAndExtract();
+            case AppLayout.Print: return renderPrint();
         }
     };
 

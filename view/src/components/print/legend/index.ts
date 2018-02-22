@@ -22,8 +22,8 @@ import { scopeOption } from 'sdi/lib';
 
 
 import legendItem from './legend-item';
-import { Box, makeText, Layout } from '../print/context';
-import { Spec, TemplateName, applySpec } from '../print/template';
+import { Box, makeText, Layout } from '../context';
+import { Spec, TemplateName, applySpec } from '../template';
 
 const logger = debug('sdi:legend');
 
@@ -146,7 +146,7 @@ export const renderLegend =
             .let('legend', withSpec('legend', s => s))
             .let('legendItem', withSpec('legendItem', s => s))
             .map(
-            scope => renderGroups(scope, groupItems(mapInfo.layers)));
+                scope => renderGroups(scope, groupItems(mapInfo.layers)));
     };
 
 

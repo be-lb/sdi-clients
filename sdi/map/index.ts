@@ -16,9 +16,10 @@
 
 import * as proj4 from 'proj4';
 import { proj, format, Coordinate, Extent } from 'openlayers';
+import { Option, fromPredicate } from 'fp-ts/lib/Option';
+
 import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire, MessageRecord } from '../source';
 import { Getter, Setter } from '../shape';
-import { Option, fromPredicate } from 'fp-ts/lib/Option';
 
 
 export const formatGeoJSON = new format.GeoJSON();

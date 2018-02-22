@@ -15,8 +15,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { fromNullable } from 'fp-ts/lib/Option';
+
 import { query } from 'sdi/shape';
-import { getMessageRecord } from 'sdi/source';
+import { getMessageRecord, IMapInfo } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
 
 
@@ -143,3 +145,15 @@ const queries = {
 };
 
 export default queries;
+
+
+export const hasPrintTitle =
+    () => null === query('component/print').customTitle;
+
+export const getPrintTitle =
+    (info: IMapInfo) =>
+        fromNullable(query('component/print').customTitle)
+            .fold(
+                info.title,
+                s => s);
+

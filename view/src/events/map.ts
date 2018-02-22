@@ -15,14 +15,15 @@
  */
 
 import { } from 'fp-ts/lib/Array';
+import { Coordinate } from 'openlayers';
 
 import { dispatch, dispatchK } from 'sdi/shape';
-import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction } from 'sdi/map';
+import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction, PrintRequest, PrintResponse } from 'sdi/map';
 import { tableEvents } from 'sdi/components/table';
 import { MessageRecord } from 'sdi/source';
 
 import { withExtract } from '../queries/map';
-import { Coordinate } from 'openlayers';
+import { PrintProps } from '../components/print';
 
 const interaction = dispatchK('port/map/interaction');
 
@@ -121,3 +122,18 @@ export const updateLoading =
     (ms: MessageRecord[]) =>
         dispatch('port/map/loading', () => ms);
 
+
+export const setPrintRequest =
+    (r: PrintRequest<PrintProps>) => {
+        dispatchK('port/map/printRequest')(() => r);
+        dispatchK('port/map/interaction')(() => ({
+            label: 'print',
+            state: null,
+        }));
+    };
+export const setPrintResponse =
+    (r: PrintResponse<PrintProps>) => dispatchK('port/map/printResponse')(() => r);
+
+
+export const stopPrint =
+    () => interaction(() => defaultInteraction());

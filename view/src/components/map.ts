@@ -31,6 +31,7 @@ import {
     getInteraction,
     getInteractionMode,
     getLoading,
+    getPrintRequest,
 } from '../queries/map';
 import {
     viewEvents,
@@ -41,6 +42,7 @@ import {
     startMark,
     endMark,
     updateLoading,
+    setPrintResponse,
 } from '../events/map';
 import { AppLayout } from '../shape/types';
 
@@ -105,6 +107,7 @@ const attachMap =
                     extractable,
                     markable,
                     highlightable,
+                    printable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
@@ -134,6 +137,12 @@ const attachMap =
                 markable({ startMark, endMark }, getInteraction);
 
                 highlightable(getSelected);
+
+                printable({
+                    getRequest: getPrintRequest,
+                    setResponse: setPrintResponse,
+                }, getInteraction);
+
 
             }
             if (element) {

@@ -75,3 +75,7 @@ export const extractTableQueries = tableQueries(
     queryK('component/table/extract'), getExtractSource);
 
 
+export const getPrintRequest =
+    queryK('port/map/printRequest');
+export const getPrintResponse =
+    queryK('port/map/printResponse');

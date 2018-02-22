@@ -25,7 +25,7 @@ import {
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
 import { ButtonComponent } from 'sdi/components/button';
-import { IMapViewData, IMapScale, Interaction } from 'sdi/map';
+import { IMapViewData, IMapScale, Interaction, PrintRequest, PrintResponse } from 'sdi/map';
 
 import {
     AppLayout,
@@ -39,6 +39,7 @@ import {
     ILayerColection,
     IDatasetMetadataCollection,
 } from './types';
+import { PrintProps, PrintState } from '../components/print';
 
 
 interface BaseLayerCollection {
@@ -66,11 +67,14 @@ declare module 'sdi/shape' {
         'component/legend/positioner': IPositioner;
         'component/legend/share': IShare;
         'component/button': ButtonComponent;
+        'component/print': PrintState;
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
         'port/map/interaction': Interaction;
         'port/map/loading': MessageRecord[];
+        'port/map/printRequest': PrintRequest<PrintProps>;
+        'port/map/printResponse': PrintResponse<PrintProps>;
 
 
         'data/layers': ILayerColection;

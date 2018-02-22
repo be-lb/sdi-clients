@@ -21,12 +21,13 @@ import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
-import { defaultInteraction } from 'sdi/map';
+import { defaultInteraction, defaultPrintRequest, defaultPrintResponse } from 'sdi/map';
 import { initialTableState } from 'sdi/components/table';
 import { initialTimeserieState } from 'sdi/components/timeserie';
 
 import App from './app';
 import { AppLayout } from './shape/types';
+import { defaultPrintState } from './components/print';
 
 const logger = debug('sdi:index');
 
@@ -133,6 +134,10 @@ export const main =
             },
 
             'port/map/interaction': defaultInteraction(),
+            'port/map/printRequest': defaultPrintRequest(),
+            'port/map/printResponse': defaultPrintResponse(),
+
+            'component/print': defaultPrintState(),
 
             'port/map/loading': [],
             'data/layers': {},
