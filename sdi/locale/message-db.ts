@@ -168,6 +168,7 @@ export type MessageKey =
     | 'metaDutch'
     | 'metaFrench'
     | 'minZoom'
+    | 'modifyTitle'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -185,6 +186,9 @@ export type MessageKey =
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'printMap'
+    | 'printDownloadingBaseMap'
+    | 'printNotStarted'
+    | 'printPreparingPDF'
     | 'propName'
     | 'propNameForLabel'
     | 'publicationStatus'
@@ -248,6 +252,7 @@ export type MessageKey =
     | 'toggle-on'
     | 'topics'
     | 'translate'
+    | 'unmodifiedTitle'
     | 'unpublish'
     | 'upload'
     | 'uploadDatas'
@@ -1483,6 +1488,31 @@ export const messages: MessageDB = {
 
     printMap: {
         fr: 'Imprimer la carte',
-        nl:'Print de kaart',
+        nl: 'Print de kaart',
+    },
+
+    printDownloadingBaseMap: {
+        fr: 'Téléchargement du fond de carte',
+        nl: 'De basiskaart downloaden',
+    },
+
+    printNotStarted: {
+        fr: 'Rendu des couches vectorielles',
+        nl: 'Weergave van vectorlagen',
+    },
+
+    printPreparingPDF: {
+        fr: 'Génération du PDF',
+        nl: 'PDF generatie',
+    },
+
+    modifyTitle: {
+        fr: 'Modifier le titre',
+        nl: 'Titel bewerken',
+    },
+
+    unmodifiedTitle: {
+        fr: 'Titre non-modifié',
+        nl: 'Ongemodificeerde titel',
     },
 };

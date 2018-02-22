@@ -1,7 +1,7 @@
 
 import { DIV } from 'sdi/components/elements';
 import { inputText } from 'sdi/components/input';
-import { fromRecord, updateRecordRaw } from 'sdi/locale';
+import tr, { fromRecord, updateRecordRaw } from 'sdi/locale';
 import { IMapInfo } from 'sdi/source';
 
 import { setPrintTitle, resetPrintTitle } from '../../events/app';
@@ -12,11 +12,11 @@ const renderCheckBox =
         if (hasPrintTitle()) {
             return DIV({
                 onClick: () => setPrintTitle(getPrintTitle(info))
-            }, 'with custom title')
+            }, tr('modifyTitle'))
         }
         return DIV({
             onClick: () => resetPrintTitle()
-        }, 'without custom title')
+        }, tr('unmodifiedTitle'))
     };
 
 const render =

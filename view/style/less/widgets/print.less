@@ -1,5 +1,42 @@
+.main.print {
+    .absolute(@headerH,@margin,@margin,@margin);
+    border: 1px solid @grey;
+    padding: @margin;
+    overflow: hidden;
+}
+
 .print-progress {
     .absolute(0,0,0,0);
     z-index: 10;
     background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .print-progress-item {
+        margin-bottom: @margin;
+        display: flex;
+
+        &.todo:before{
+            .awsomefont;
+            content: @fa-var-arrow-right;
+            margin-right: @margin / 2;
+        }
+        &.doing:before{
+            .awsomefont-spin;
+            content: @fa-var-circle-o-notch;
+            margin-right: @margin / 2;
+            color: @green;
+
+        }
+        &.done:before {
+            .awsomefont;
+            content: @fa-var-check-square-o;
+            margin-right: @margin / 2;
+            color: @green;
+        }
+    }
 }
+

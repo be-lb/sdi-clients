@@ -19,6 +19,8 @@ import { fromNullable } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
 import { MessageRecord, IMapInfo } from 'sdi/source';
+import tr from 'sdi/locale';
+
 
 import queries from '../../queries/app';
 import { getInteractionMode, getPrintResponse } from '../../queries/map';
@@ -63,17 +65,17 @@ const wrapItem =
 const renderInitial =
     (step: number) =>
         wrapItem(step > 0, step === 0,
-            DIV({}, 'Not Started'));
+            DIV({}, tr('printNotStarted')));
 
 const renderDownload =
     (step: number) =>
         wrapItem(step > 1, step === 1,
-            DIV({}, 'Downloading Base Map'));
+            DIV({}, tr('printDownloadingBaseMap')));
 
 const renderPrepare =
     (step: number) =>
         wrapItem(step > 2, step === 2,
-            DIV({}, 'Preparing PDF'));
+            DIV({}, tr('printPreparingPDF')));
 
 const renderItems =
     (step: number) =>

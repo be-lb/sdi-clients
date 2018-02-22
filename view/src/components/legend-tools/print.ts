@@ -55,12 +55,12 @@ const renderBody =
         DIV({ className: 'tool-body' },
             renderCustom(mapInfo),
             DIV({ className: 'print-block' },
-                renderButton('Paysage A4', {
+                renderButton('A4', {
                     template: 'a4/landscape',
                     format: 'a4',
                     orientation: 'landscape',
                 }),
-                renderButton('Portrait A4', {
+                renderButton('A4', {
                     template: 'a4/portrait',
                     format: 'a4',
                     orientation: 'portrait',
