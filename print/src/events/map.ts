@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -15,24 +14,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import webservices from './webservices';
-import measure from './measure';
-import share from './share';
-import tracker from './tracker';
-import location from './location';
-import print from './print';
+import { dispatchK } from 'sdi/shape';
+import { viewEventsFactory, scaleEventsFactory, PrintResponse, PrintRequest } from 'sdi/map';
+import { PrintProps } from '../components/print';
 
+export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
+export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
 
-const legendTools = () => {
-    return [
-        print(),
-        share(),
-        webservices(),
-        tracker(),
-        measure(),
-        location(),
-    ];
-};
-
-
-export default legendTools;
+export const setPrintRequest =
+    (r: PrintRequest<PrintProps>) => {
+        dispatchK('port/map/printRequest')(() => r);
+        dispatchK('port/map/interaction')(() => ({
+            label: 'print',
+            state: null,
+        }));
+    };
+export const setPrintResponse =
+    (r: PrintResponse<PrintProps>) => dispatchK('port/map/printResponse')(() => r);

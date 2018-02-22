@@ -1,4 +1,6 @@
 
+import { fromNullable } from 'fp-ts/lib/Option';
+
 import { query, queryK } from 'sdi/shape';
 import { measureQueryFactory, fromInteraction } from 'sdi/map';
 import tr from 'sdi/locale';
@@ -17,6 +19,9 @@ export const getScaleLine = queryK('port/map/scale');
 
 export const getLoading = queryK('port/map/loading');
 
+
+export const getMapExtent =
+    () => fromNullable(getView().extent);
 
 export const getBaseLayer =
     () => {

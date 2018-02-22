@@ -4,10 +4,11 @@ import * as debug from 'debug';
 import 'sdi/polyfill';
 import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
-import { defaultInteraction } from 'sdi/map';
+import { defaultInteraction, defaultPrintRequest, defaultPrintResponse } from 'sdi/map';
 
 import './shape';
 import App from './app';
+import { defaultPrintState } from './components/print';
 
 const logger = debug('sdi:index');
 
@@ -62,23 +63,19 @@ export const main =
 
             'port/map/view': {
                 dirty: 'geo',
+                feature: null,
+                extent: null,
                 srs: 'EPSG:31370',
                 center: [149546.27830713114, 169775.91753364357],
                 rotation: 0,
                 zoom: 6,
-                feature: null,
-                extent: null,
             },
 
             'port/map/interaction': defaultInteraction(),
+            'port/map/printRequest': defaultPrintRequest(),
+            'port/map/printResponse': defaultPrintResponse(),
 
-            'component/timeserie': {
-                cursorPosition: 35,
-                selection: { start: -1, end: -1 },
-                active: false,
-                editingSelection: false,
-            },
-            'data/timeseries': {},
+            'component/print': defaultPrintState(),
             'data/baselayers': {},
         };
 

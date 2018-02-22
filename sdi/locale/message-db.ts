@@ -184,6 +184,7 @@ export type MessageKey =
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
+    | 'printMap'
     | 'propName'
     | 'propNameForLabel'
     | 'publicationStatus'
@@ -1478,5 +1479,10 @@ export const messages: MessageDB = {
     featureText: {
         fr: 'Texte',
         nl: 'Tekst',
+    },
+
+    printMap: {
+        fr: 'Imprimer la carte',
+        nl:'Print de kaart',
     },
 };

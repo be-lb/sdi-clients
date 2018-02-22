@@ -15,7 +15,7 @@
  */
 
 import * as proj4 from 'proj4';
-import { proj, format, Coordinate } from 'openlayers';
+import { proj, format, Coordinate, Extent } from 'openlayers';
 import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire, MessageRecord } from '../source';
 import { Getter, Setter } from '../shape';
 import { Option, fromPredicate } from 'fp-ts/lib/Option';
@@ -44,7 +44,7 @@ export interface IMapScale {
     width: number;
 }
 
-export type ViewDirt = 'none' | 'geo' | 'geo/feature' | 'style';
+export type ViewDirt = 'none' | 'geo' | 'geo/feature' | 'geo/extent' | 'style';
 
 export interface IMapViewData {
     dirty: ViewDirt;
@@ -53,6 +53,7 @@ export interface IMapViewData {
     rotation: number;
     zoom: number;
     feature: Feature | null;
+    extent: Extent | null;
 }
 
 
@@ -145,6 +146,7 @@ export interface InteractionTrack extends InteractionBase<'track', IGeoTracker> 
 export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasure> { }
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
+export interface InteractionPrint extends InteractionBase<'print', null> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -154,6 +156,7 @@ interface InteractionMap {
     'measure': InteractionMeasure;
     'extract': InteractionExtract;
     'mark': InteractionMark;
+    'print': InteractionPrint;
 }
 
 
@@ -214,9 +217,46 @@ export interface IViewEvent {
     rotation?: number;
     zoom?: number;
     feature?: Feature;
+    extent?: Extent;
 }
 
 
+export interface PrintRequest<T> {
+    id: string | null;
+    width: number;
+    height: number;
+    resolution: number;
+    props: T | null;
+}
+export const defaultPrintRequest =
+    (): PrintRequest<null> => ({
+        id: null,
+        width: 0,
+        height: 0,
+        resolution: 0,
+        props: null,
+    });
+
+export type PrintResponseStatus = 'none' | 'start' | 'end' | 'error';
+
+export interface PrintResponse<T> {
+    id: string | null;
+    status: PrintResponseStatus;
+    data: string;
+    props: T | null;
+}
+export const defaultPrintResponse =
+    (): PrintResponse<null> => ({
+        id: null,
+        data: '',
+        status: 'none',
+        props: null,
+    });
+
+export interface PrintOptions<T> {
+    getRequest(): PrintRequest<T>;
+    setResponse(r: PrintResponse<T>): void;
+}
 
 
 export * from './map';

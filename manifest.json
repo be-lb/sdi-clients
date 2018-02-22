@@ -49,6 +49,10 @@
             }
         },
         {
+            "route": "print",
+            "root": "print/dist"
+        },
+        {
             "route": "embed",
             "root": "embed/dist"
         }

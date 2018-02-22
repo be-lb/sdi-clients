@@ -375,7 +375,7 @@ const defaultPointStyle = (s: SubType, propName?: string): PointStyleConfig => {
             marker: {
                 codePoint: 0xf111,
                 color: '#00729A',
-                size: 16,
+                size: 10,
             },
         });
         case 'continuous': return ({
@@ -459,7 +459,7 @@ export const addDefaultGroupStyle =
                     marker: {
                         codePoint: 0xf111,
                         color: '#00729A',
-                        size: 16,
+                        size: 10,
                     },
                 });
                 return s;
@@ -499,7 +499,7 @@ export const addDefaultIntervalStyle =
                     marker: {
                         codePoint: 0xf111,
                         color: '#00729A',
-                        size: 16,
+                        size: 10,
                     },
                 });
                 return s;
