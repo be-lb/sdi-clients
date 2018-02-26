@@ -52,9 +52,9 @@ export const print =
                 .let('extent', fromNullable(originalExtent))
                 .map(({ map, size, extent }) => {
                     const target = map.getTargetElement() as HTMLElement;
-                    const [width, height] = size;
-                    target.style.width = `${width}px`;
-                    target.style.height = `${height}px`;
+                    // const [width, height] = size;
+                    target.style.width = null; // `${width}px`;
+                    target.style.height = null;// `${height}px`;
                     map.setSize(size);
                     map.getView().fit(extent, { size });
                 });
