@@ -2,4 +2,4 @@
 
 echo "Watching $1"
 
-webpack --config $1/webpack.config.js --watch
+webpack --config $1/webpack.config.js --watch  --mode development
