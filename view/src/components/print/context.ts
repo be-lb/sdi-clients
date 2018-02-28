@@ -412,6 +412,21 @@ const processLayout =
         }
     };
 
+export const debugRect =
+    (line: (rect: Rect, command: CommandLine) => Rect) =>
+        (r: Rect) => line(r, {
+            kind: 'Line',
+            color: 'green',
+            strokeWidth: 0.2,
+            coords: [
+                [0, 0],
+                [r.width, 0],
+                [r.width, r.height],
+                [0, r.height],
+                [0, 0],
+            ],
+        });
+
 
 export const paintBoxes =
     (page: Page, boxes: Box[]) => {
@@ -420,24 +435,14 @@ export const paintBoxes =
         const line = renderLine(page);
         const rect = renderRect(page);
 
-        // const debugRect =
-        //     (r: Rect) => line(r, {
-        //         kind: 'Line',
-        //         color: 'green',
-        //         strokeWidth: 0.2,
-        //         coords: [
-        //             [0, 0],
-        //             [r.width, 0],
-        //             [r.width, r.height],
-        //             [0, r.height],
-        //             [0, 0],
-        //         ],
-        //     });
+
 
         const processBox =
             (box: Box) => {
                 printRect(box);
-                // debugRect(box);
+                if (debug.enabled('sdi:print/context')) {
+                    debugRect(line)(box);
+                }
                 const { children } = box;
                 for (let i = 0; i < children.length; i += 1) {
                     const child = children[i];
