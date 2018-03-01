@@ -11,12 +11,14 @@ const renderCheckBox =
     (info: IMapInfo) => {
         if (hasPrintTitle()) {
             return DIV({
-                onClick: () => setPrintTitle(getPrintTitle(info))
-            }, tr('modifyTitle'))
+                // onClick: () => setPrintTitle(getPrintTitle(info)) //is that needed ?
+                className: 'original-title',
+            }, tr('emptyMapTitle'));
         }
         return DIV({
-            onClick: () => resetPrintTitle()
-        }, tr('unmodifiedTitle'))
+            onClick: () => resetPrintTitle(),
+            className: 'original-title reset',
+        }, tr('originalTitle'));
     };
 
 const render =
