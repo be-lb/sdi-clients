@@ -155,6 +155,12 @@
     .tool.geocoder{display: none;}
 }
 .tool.tracker {
+    .btn-gps {
+        color: #000;
+        font-size: 1rem;
+        &:before {font-size: 1rem;}
+        &:hover:before {color: @green;}
+    }
 }
 
 
@@ -180,6 +186,13 @@
 
         div {
             margin-bottom: @small-margin;
+        }
+
+        .btn-measure {
+            color: #000;
+            font-size: 1rem;
+            &:before {font-size: 1rem;}
+            &:hover:before {color: @green;}
         }
     }
 }

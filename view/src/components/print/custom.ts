@@ -11,7 +11,7 @@ const renderCheckBox =
     (info: IMapInfo) => {
         if (hasPrintTitle()) {
             return DIV({
-                // onClick: () => setPrintTitle(getPrintTitle(info)) //is that needed ?
+                onClick: () => setPrintTitle(getPrintTitle(info)),
                 className: 'original-title',
             }, tr('emptyMapTitle'));
         }
