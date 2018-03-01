@@ -65,6 +65,7 @@ export type MessageKey =
     | 'connectionSDI'
     | 'copy'
     | 'createAlias'
+    | 'cursorLocalisation'
     | 'dashboard'
     | 'datas'
     | 'dataType'
@@ -1508,5 +1509,10 @@ export const messages: MessageDB = {
     originalTitle: {
         fr: 'Titre original',
         nl: 'Originele titel',
+    },
+
+    cursorLocalisation: {
+        fr: 'Localisation du curseur',
+        nl: 'Cursorlocatie',
     },
 };

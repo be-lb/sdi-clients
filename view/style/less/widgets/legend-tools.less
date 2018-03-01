@@ -169,6 +169,52 @@
     .tool-help {
         margin-bottom: @margin;
     }
+
+    .lat-lon-inputs {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input {
+            width: calc(~"50% - @{margin} / 2 - @{small-margin} / 2 - 25px");
+            margin: 0;
+        }
+        .btn-search {
+            color: #000;
+            font-size: 1rem;
+            &:before {font-size: 1rem;}
+            &:hover:before {color: @green;}
+        }
+    }
+
+    .cursor-location {
+        margin-top: @margin;
+        .lat-lon-label,
+        .lat-lon-value {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: @small-margin;
+            > div {width: calc(~"50% - @{margin}")}
+        }
+        .btn-check {
+            color: #000;
+            font-size: 1rem;
+            margin-bottom: @margin;
+            &:before {
+                .awsomefont;
+                font-size: 1em;
+                content: @fa-var-circle-o;
+            }
+            &:hover:before,
+            &.active:before {
+                content: @fa-var-dot-circle-o;
+            }
+            &.active:before {color: @green;}
+            &:hover.active:before {
+                content: @fa-var-circle-o;
+                color:#000;
+            }
+        }
+    }
 }
 
 
