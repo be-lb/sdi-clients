@@ -22,6 +22,7 @@ const logger = debug('sdi:print/context');
 
 export type Orientation = 'landscape' | 'portrait';
 export type TextAlign = 'left' | 'right' | 'center';
+export type VerticalAlign = 'top' | 'bottom' | 'center';
 
 type Dim = [number, number];
 const dims = {
@@ -64,15 +65,23 @@ export interface CommandText {
     fontSize: number;
     color: string;
     textAlign: TextAlign;
+    verticalAlign: VerticalAlign;
 }
 
 export const makeText =
-    (data: string, fontSize: number, color = 'black', textAlign = 'left' as TextAlign): CommandText => ({
+    (
+        data: string,
+        fontSize: number,
+        color = 'black',
+        textAlign = 'left' as TextAlign,
+        verticalAlign = 'top' as VerticalAlign,
+    ): CommandText => ({
         kind: 'Text',
         data,
         fontSize,
         color,
         textAlign,
+        verticalAlign,
     });
 
 
@@ -125,7 +134,8 @@ const rectToString =
     (r: Rect) =>
         `<${r.x} ${r.y} ${r.width} ${r.height}>`;
 
-
+const printRect =
+    (b: Box) => logger(`Box(${b.name ? b.name : ''}) ${rectToString(b)}`);
 
 
 
@@ -142,6 +152,7 @@ export type BoxChildren = BoxChild[];
 
 export type Box = Rect & {
     children: BoxChildren;
+    name?: string;
 };
 
 const isBox = (a: BoxChild): a is Box => {
@@ -214,32 +225,37 @@ const renderImage =
 const renderText =
     (page: Page) =>
         (rect: Rect, command: CommandText) => {
-            const { x, y, width } = rect;
-            const { data, fontSize, textAlign, color } = command;
-            const lineHeight = fontSize * page.getLineHeight() / 72;
+            const { x, y, width, height } = rect;
+            const { data, fontSize, textAlign, color, verticalAlign } = command;
+            // const lineHeight = fontSize * page.getLineHeight() / 72;
+            const lineHeight = fontSize * 0.8 * 0.35;
             const iColor = Color(color);
             const lines = page
                 .setFontSize(fontSize)
                 .splitTextToSize(data, width);
+
+            let adjustedY = y + lineHeight;
+            if (verticalAlign === 'bottom') {
+                adjustedY = y + height;
+            }
+            else if (verticalAlign === 'center') {
+                adjustedY = (y + (height / 2)) + (lineHeight / 2);
+            }
 
             page.setFont('helvetica', 'normal');
             page.setTextColor(iColor.red(), iColor.green(), iColor.blue());
 
             switch (textAlign) {
                 case 'left':
-                    page.text(lines, x, y + lineHeight);
+                    page.text(lines, x, adjustedY);
                     break;
                 case 'right':
-                    page.text(lines, x + width, y + lineHeight, null, null, 'right');
+                    page.text(lines, x + width, adjustedY, null, null, 'right');
                     break;
                 case 'center':
-                    page.text(lines, x + (width / 2), y + lineHeight, null, null, 'center');
+                    page.text(lines, x + (width / 2), adjustedY, null, null, 'center');
                     break;
             }
-
-            logger(`addText ${x} ${y}`);
-            // const textHeight = lines.length * fontSize * page.getLineHeight() / 72;
-            // return { x, y: y + textHeight, width, height: height - textHeight };
         };
 
 const renderLine =
@@ -374,6 +390,7 @@ const processLayout =
                         const nx = cx + cw;
                         ny = rect.y + b.y + b.height;
                         if (nx > maxx || ny > maxy) {
+                            logger(`Space Exhausted Dropping Box`);
                             return { ...s, overflow: true };
                         }
                         else {
@@ -395,6 +412,21 @@ const processLayout =
         }
     };
 
+export const debugRect =
+    (line: (rect: Rect, command: CommandLine) => Rect) =>
+        (r: Rect) => line(r, {
+            kind: 'Line',
+            color: 'green',
+            strokeWidth: 0.2,
+            coords: [
+                [0, 0],
+                [r.width, 0],
+                [r.width, r.height],
+                [0, r.height],
+                [0, 0],
+            ],
+        });
+
 
 export const paintBoxes =
     (page: Page, boxes: Box[]) => {
@@ -407,6 +439,10 @@ export const paintBoxes =
 
         const processBox =
             (box: Box) => {
+                printRect(box);
+                if (debug.enabled('sdi:print/context')) {
+                    debugRect(line)(box);
+                }
                 const { children } = box;
                 for (let i = 0; i < children.length; i += 1) {
                     const child = children[i];

@@ -41,7 +41,7 @@ const renderTitle =
             children: [
                 makeLayoutVertical(rect.width, rect.height / 2, [
                     makeText(title, fontSize, '#006f90', textAlign),
-                    makeText((new Date()).toLocaleDateString(), 8, 'grey'),
+                    // makeText((new Date()).toLocaleDateString(), 8, 'grey'),
                 ]),
             ],
         }));
