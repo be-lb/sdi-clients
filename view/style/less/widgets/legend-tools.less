@@ -126,7 +126,7 @@
             height: 20px;
             margin-left: @margin;
 
-            &:before {
+            &:before {//refactor needed
                 .awsomefont;
                 margin: 0 @small-margin;
                 font-size: 1em;
@@ -139,7 +139,6 @@
             &.active:before {color: @green;}
             &:hover.active:before {
                 content: @fa-var-circle-o;
-                color:#000;
             }
 
         }
@@ -155,7 +154,7 @@
     .tool.geocoder{display: none;}
 }
 .tool.tracker {
-    .btn-gps {
+    .btn-gps { //refactor needed
         color: #000;
         font-size: 1rem;
         &:before {font-size: 1rem;}
@@ -178,7 +177,7 @@
             width: calc(~"50% - @{margin} / 2 - @{small-margin} / 2 - 25px");
             margin: 0;
         }
-        .btn-search {
+        .btn-search {//refactor needed
             color: #000;
             font-size: 1rem;
             &:before {font-size: 1rem;}
@@ -195,7 +194,7 @@
             margin-bottom: @small-margin;
             > div {width: calc(~"50% - @{margin}")}
         }
-        .btn-check {
+        .btn-check {//refactor needed
             color: #000;
             font-size: 1rem;
             margin-bottom: @margin;
@@ -211,7 +210,6 @@
             &.active:before {color: @green;}
             &:hover.active:before {
                 content: @fa-var-circle-o;
-                color:#000;
             }
         }
     }
@@ -234,7 +232,7 @@
             margin-bottom: @small-margin;
         }
 
-        .btn-measure {
+        .btn-measure {//refactor needed
             color: #000;
             font-size: 1rem;
             &:before {font-size: 1rem;}

@@ -81,7 +81,7 @@ const render = () => {
                     })),
 
                 DIV({ className: 'cursor-location' },
-                    DIV({ className: 'btn-check' }, tr('cursorLocalisation')),
+                    DIV({ className: 'btn-check active' }, tr('cursorLocalisation')),
                     DIV({ className: 'lat-lon-label' },
                         DIV({}, tr('latitude')),
                         DIV({}, tr('longitude'))),
