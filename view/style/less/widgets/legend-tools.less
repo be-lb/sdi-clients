@@ -13,15 +13,15 @@
 
 // TOOLS :  WIDGET on MAP FULL SCREEN
 .tool-widget {
-    .absolute (@small-margin, @small-margin, initial, initial);
+    .absolute (@margin, @margin, initial, initial);
     width: 150px;
     height: auto !important;
-    padding: @margin;
+    padding: @small-margin;
     background: #fff;
     border: 1px solid @grey;
 
     > div {
-        margin-bottom: @margin;
+        margin-bottom: @small-margin;
         &:last-child {margin: 0px;}
     }
 }
@@ -127,6 +127,12 @@
 }
 
 // TOOLS : TRACKER
+
+.main.map-and-tracker {
+    right: @margin !important;
+    left: @margin !important;
+    .tool.geocoder{display: none;}
+}
 .tool.tracker {
 }
 
@@ -141,6 +147,12 @@
 
 
 // TOOLS : MEASURE
+.main.map-and-measure {
+    right: @margin !important;
+    left: @margin !important;
+    .tool.geocoder{display: none;}
+}
+
 .tool.measure {
     .tool-body {
         display: inline-grid;
