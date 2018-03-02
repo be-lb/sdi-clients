@@ -23,22 +23,23 @@ import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition, FeatureCollection } from '../source';
 
 import {
-    IMapOptions,
-    formatGeoJSON,
-    FetchData,
-    TrackerOptions,
-    MeasureOptions,
-    SelectOptions,
-    InteractionGetter,
     ExtractOptions,
-    MarkOptions,
     FeaturePathGetter,
+    FetchData,
+    formatGeoJSON,
+    IMapOptions,
+    InteractionGetter,
+    MarkOptions,
+    MeasureOptions,
+    PositionOptions,
     PrintOptions,
+    SelectOptions,
+    TrackerOptions,
 } from './index';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } from './controls';
 import { select, highlight } from './actions';
-import { measure, track, extract, mark, print } from './tools';
+import { measure, track, extract, mark, print, position } from './tools';
 import { credit } from './credit';
 // import { setTimeout } from 'timers';
 import { fromRecord } from '../locale';
@@ -571,6 +572,13 @@ export const create =
                 updatables.push({ name: 'Print', fn: () => update(g()) });
             };
 
+        const positionable =
+            (o: PositionOptions, g: InteractionGetter) => {
+                const { init, update } = position(o);
+                init(map);
+                updatables.push({ name: 'Position', fn: () => update(g()) });
+        }
+
 
         return {
             setTarget,
@@ -582,6 +590,7 @@ export const create =
             markable,
             highlightable,
             printable,
+            positionable,
         };
     };
 

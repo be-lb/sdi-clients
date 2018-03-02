@@ -4,3 +4,4 @@ export * from './measure';
 export * from './extract';
 export * from './mark';
 export * from './print';
+export * from './position';

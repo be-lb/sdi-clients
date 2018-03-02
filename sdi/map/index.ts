@@ -96,6 +96,10 @@ export interface ExtractOptions {
     setCollection(c: ExtractFeature[]): void;
 }
 
+export interface PositionOptions {
+    setPosition(p: Coordinate): void;
+}
+
 
 export interface IMark {
     started: boolean;
@@ -148,6 +152,7 @@ export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasu
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
 export interface InteractionPrint extends InteractionBase<'print', null> { }
+export interface InteractionPosition extends InteractionBase<'position', null> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -158,6 +163,7 @@ interface InteractionMap {
     'extract': InteractionExtract;
     'mark': InteractionMark;
     'print': InteractionPrint;
+    'position': InteractionPosition;
 }
 
 
