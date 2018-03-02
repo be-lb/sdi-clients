@@ -65,6 +65,7 @@ export type MessageKey =
     | 'connectionSDI'
     | 'copy'
     | 'createAlias'
+    | 'cursorLocalisation'
     | 'dashboard'
     | 'datas'
     | 'dataType'
@@ -168,7 +169,6 @@ export type MessageKey =
     | 'metaDutch'
     | 'metaFrench'
     | 'minZoom'
-    | 'modifyTitle'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -179,6 +179,7 @@ export type MessageKey =
     | 'north'
     | 'offsetX'
     | 'offsetY'
+    | 'originalTitle'
     | 'password'
     | 'piechartRadius'
     | 'piechartScale'
@@ -252,7 +253,6 @@ export type MessageKey =
     | 'toggle-on'
     | 'topics'
     | 'translate'
-    | 'unmodifiedTitle'
     | 'unpublish'
     | 'upload'
     | 'uploadDatas'
@@ -1506,13 +1506,13 @@ export const messages: MessageDB = {
         nl: 'PDF generatie',
     },
 
-    modifyTitle: {
-        fr: 'Modifier le titre',
-        nl: 'Titel bewerken',
+    originalTitle: {
+        fr: 'Titre original',
+        nl: 'Originele titel',
     },
 
-    unmodifiedTitle: {
-        fr: 'Titre non-modifié',
-        nl: 'Ongemodificeerde titel',
+    cursorLocalisation: {
+        fr: 'Localisation du curseur',
+        nl: 'Cursorlocatie',
     },
 };

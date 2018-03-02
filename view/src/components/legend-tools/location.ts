@@ -52,32 +52,42 @@ const render = () => {
             H2({}, tr('location')),
             DIV({ className: 'tool-body lat-lon' },
                 DIV({ className: 'tool-help' }, tr('locationHelp')),
-                INPUT({
-                    type: 'number',
-                    name: 'lat',
-                    placeholder: tr('latitude'),
-                    onChange: latChange,
-                    onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
-                        if (isENTER(e)) {
-                            position();
-                        }
-                    },
-                }),
-                INPUT({
-                    type: 'number',
-                    name: 'lon',
-                    placeholder: tr('longitude'),
-                    onChange: lonChange,
-                    onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
-                        if (isENTER(e)) {
-                            position();
-                        }
-                    },
-                }),
-                DIV({
-                    className: 'btn-search',
-                    onClick: position,
-                }, tr('go'))))
+                DIV({ className: 'lat-lon-inputs' },
+                    INPUT({
+                        type: 'number',
+                        name: 'lat',
+                        placeholder: tr('latitude'),
+                        onChange: latChange,
+                        onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
+                            if (isENTER(e)) {
+                                position();
+                            }
+                        },
+                    }),
+                    INPUT({
+                        type: 'number',
+                        name: 'lon',
+                        placeholder: tr('longitude'),
+                        onChange: lonChange,
+                        onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
+                            if (isENTER(e)) {
+                                position();
+                            }
+                        },
+                    }),
+                    DIV({
+                        className: 'btn-search',
+                        onClick: position,
+                    })),
+
+                DIV({ className: 'cursor-location' },
+                    DIV({ className: 'btn-check active' }, tr('cursorLocalisation')),
+                    DIV({ className: 'lat-lon-label' },
+                        DIV({}, tr('latitude')),
+                        DIV({}, tr('longitude'))),
+                    DIV({ className: 'lat-lon-value' },
+                        DIV({}, 'latitudeValue'),
+                        DIV({}, 'longitudeValue')))))
     );
 };
 

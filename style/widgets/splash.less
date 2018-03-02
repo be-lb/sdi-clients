@@ -1,15 +1,21 @@
 .splash{
+    .absolute(@headerH,@margin,@margin,@margin);
+    padding: @margin;
+    border: 1px solid @grey;
+    overflow-y: hidden;
+
     text-align: center;
+
     .splash-content {
         margin-top: 16%;
         margin-bottom: 33px;
-        
+
     }
-    .splash-spiner{    
+    .splash-spiner{
         .awsomefont-burst(3s);
         width: auto;
         height: auto;
-        
+
         &:before {
             color: @blue;
             content: @fa-var-circle-o;

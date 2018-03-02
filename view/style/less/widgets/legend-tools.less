@@ -13,59 +13,80 @@
 
 // TOOLS :  WIDGET on MAP FULL SCREEN
 .tool-widget {
-    .absolute (@small-margin, @small-margin, initial, initial);
+    .absolute (@margin, @margin, initial, initial);
     width: 150px;
     height: auto !important;
-    padding: @margin;
+    padding: @small-margin;
     background: #fff;
     border: 1px solid @grey;
 
     > div {
-        margin-bottom: @margin;
+        margin-bottom: @small-margin;
         &:last-child {margin: 0px;}
     }
 }
 
 // TOOLS :  PRINT
 
-.print-block {
-    .flex(@justify: flex-start;);
-    padding-right: @margin;
-    margin-top: @margin;
+.tool.print {
 
-    > div {
-        .transition;
-        .shadow;
-        display: flex;
-        flex-direction: column;
-        background: @white;
-        border: 1px solid @light-grey;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 80%;
-        font-weight: 700;
-        margin: @margin;
-        padding: @margin / 2;
+    .original-title {
+        margin-bottom: @small-margin;
 
-        &:hover {
+        &.reset {
             cursor: default;
-            color: @green;
-            border: 2px solid @green;
-            -webkit-box-shadow: 0px 0px 0px 0px rgba(50, 50, 50, 0.5);
-            -moz-box-shadow:    0px 0px 0px 0px rgba(50, 50, 50, 0.5);
-            box-shadow:         0px 0px 0px 0px rgba(50, 50, 50, 0.5);
+            &:before  {
+                .awsomefont;
+                content: @fa-var-undo;
+                margin-right: @small-margin;
+            }
+            &:hover:before {
+                color: @green;
+            }
+        }
+
+    }
+
+    .print-block {
+        .flex(@justify: flex-start;);
+        padding-right: @margin;
+        margin-top: @margin;
+
+        > div {
+            .transition;
+            .shadow;
+            display: flex;
+            flex-direction: column;
+            background: @white;
+            border: 1px solid @light-grey;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 80%;
+            font-weight: 700;
+            margin: @margin;
+            padding: @margin / 2;
+
+            &:hover {
+                cursor: default;
+                color: @green;
+                border: 2px solid @green;
+                -webkit-box-shadow: 0px 0px 0px 0px rgba(50, 50, 50, 0.5);
+                -moz-box-shadow:    0px 0px 0px 0px rgba(50, 50, 50, 0.5);
+                box-shadow:         0px 0px 0px 0px rgba(50, 50, 50, 0.5);
+            }
+        }
+        .portrait{
+            width: 40px;
+            height: 60px;
+        }
+        .landscape{
+            width: 60px;
+            height: 40px;
         }
     }
-    .portrait{
-        width: 40px;
-        height: 60px;
-    }
-    .landscape{
-        width: 60px;
-        height: 40px;
-    }
 }
+
 
 
 // TOOLS : EXTRACTOR - DRILL
@@ -105,7 +126,7 @@
             height: 20px;
             margin-left: @margin;
 
-            &:before {
+            &:before {//refactor needed
                 .awsomefont;
                 margin: 0 @small-margin;
                 font-size: 1em;
@@ -118,7 +139,6 @@
             &.active:before {color: @green;}
             &:hover.active:before {
                 content: @fa-var-circle-o;
-                color:#000;
             }
 
         }
@@ -127,7 +147,19 @@
 }
 
 // TOOLS : TRACKER
+
+.main.map-and-tracker {
+    right: @margin !important;
+    left: @margin !important;
+    .tool.geocoder{display: none;}
+}
 .tool.tracker {
+    .btn-gps { //refactor needed
+        color: #000;
+        font-size: 1rem;
+        &:before {font-size: 1rem;}
+        &:hover:before {color: @green;}
+    }
 }
 
 
@@ -136,17 +168,75 @@
     .tool-help {
         margin-bottom: @margin;
     }
+
+    .lat-lon-inputs {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input {
+            width: calc(~"50% - @{margin} / 2 - @{small-margin} / 2 - 25px");
+            margin: 0;
+        }
+        .btn-search {//refactor needed
+            color: #000;
+            font-size: 1rem;
+            &:before {font-size: 1rem;}
+            &:hover:before {color: @green;}
+        }
+    }
+
+    .cursor-location {
+        margin-top: @margin;
+        .lat-lon-label,
+        .lat-lon-value {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: @small-margin;
+            > div {width: calc(~"50% - @{margin}")}
+        }
+        .btn-check {//refactor needed
+            color: #000;
+            font-size: 1rem;
+            margin-bottom: @margin;
+            &:before {
+                .awsomefont;
+                font-size: 1em;
+                content: @fa-var-circle-o;
+            }
+            &:hover:before,
+            &.active:before {
+                content: @fa-var-dot-circle-o;
+            }
+            &.active:before {color: @green;}
+            &:hover.active:before {
+                content: @fa-var-circle-o;
+            }
+        }
+    }
 }
 
 
 
 // TOOLS : MEASURE
+.main.map-and-measure {
+    right: @margin !important;
+    left: @margin !important;
+    .tool.geocoder{display: none;}
+}
+
 .tool.measure {
     .tool-body {
         display: inline-grid;
 
         div {
             margin-bottom: @small-margin;
+        }
+
+        .btn-measure {//refactor needed
+            color: #000;
+            font-size: 1rem;
+            &:before {font-size: 1rem;}
+            &:hover:before {color: @green;}
         }
     }
 }
