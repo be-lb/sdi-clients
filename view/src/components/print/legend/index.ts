@@ -124,7 +124,7 @@ const renderGroups =
                         );
                         const groupNameBox: Box = {
                             x: 0, y: 0,
-                            width: spec.legend.rect.width,
+                            width: spec.legendItem.rect.width,
                             height: gnh,
                             children: [groupName],
                         };
@@ -139,8 +139,8 @@ const renderGroups =
                         };
                         const groupBox: Box = {
                             name: `group-${fromRecord(group.g.name)}`,
-                            x: 5, y: 0,
-                            width: spec.legend.rect.width,
+                            x: 3, y: 0,
+                            width: spec.legendItem.rect.width,
                             height: boxHeight(items) + gnh,
                             children: [groupLayout],
                         };
