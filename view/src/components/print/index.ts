@@ -24,6 +24,7 @@ import tr from 'sdi/locale';
 
 import queries from '../../queries/app';
 import { getInteractionMode, getPrintResponse } from '../../queries/map';
+import { setPrintResponse } from '../../events/map';
 import { Orientation, Format } from './context';
 import { TemplateName } from './template';
 import { renderPDF } from './generate';
@@ -102,6 +103,12 @@ const renderPrintProgress =
             case 'end':
                 window.setTimeout(
                     () => renderPDF(mapInfo, response), 0);
+                setPrintResponse({
+                    id: response.id,
+                    data: '',
+                    status: 'done',
+                    props: response.props,
+                });
                 return renderItems(2);
         }
         return renderItems(3);

@@ -245,7 +245,7 @@ export const defaultPrintRequest =
         props: null,
     });
 
-export type PrintResponseStatus = 'none' | 'start' | 'end' | 'error';
+export type PrintResponseStatus = 'none' | 'start' | 'end' | 'error' | 'done';
 
 export interface PrintResponse<T> {
     id: string | null;
