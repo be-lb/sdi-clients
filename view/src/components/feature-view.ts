@@ -2,7 +2,7 @@
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { ILayerInfo, Feature } from 'sdi/source';
-import { DIV } from 'sdi/components/elements';
+import { DIV, NODISPLAY } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { renderConfig, renderDefault as defaultView } from 'sdi/components/feature-view';
 import timeserie from 'sdi/components/timeserie';
@@ -30,7 +30,7 @@ const renderZoom =
 const zoomToFeature =
     () =>
         fromNullable(app.getCurrentFeature())
-            .fold(DIV(), renderZoom);
+            .fold(NODISPLAY(), renderZoom);
 
 
 export const switcher =

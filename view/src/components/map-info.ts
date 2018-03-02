@@ -18,7 +18,7 @@ import * as debug from 'debug';
 
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { IMapInfo } from 'sdi/source';
-import { DIV, H2, P, A, IMG } from 'sdi/components/elements';
+import { DIV, H2, P, A, IMG, NODISPLAY } from 'sdi/components/elements';
 
 import queries from '../queries/app';
 import { getAttachment } from '../queries/attachments';
@@ -45,15 +45,25 @@ const renderAttachments =
             );
         }
 
-        return DIV();
+        return NODISPLAY();
     };
 
 export default () => {
     const mapInfo = queries.getMapInfo();
     if (mapInfo) {
-        const description = fromRecord(mapInfo.description)
-            .split('\n')
-            .map(paragraph => P({}, paragraph));
+        const pars =
+            fromRecord(mapInfo.description)
+                .split('\n')
+                .filter(p => p.trim().length > 0);
+        const description = pars.map((paragraph, i) => P({ key: `map-desc-par-${i}` }, paragraph));
+        const mapDescription =
+            pars.length > 0 ?
+                DIV({ className: 'map-description' }, ...description) :
+                NODISPLAY();
+        const mapImage =
+            mapInfo.imageUrl ?
+                DIV({ className: 'map-illustration' }, IMG({ src: mapInfo.imageUrl })) :
+                NODISPLAY();
 
         return (
             DIV({ className: 'map-infos' },
@@ -61,13 +71,11 @@ export default () => {
                     DIV({ className: 'map-date-label' }, tr('lastModified')),
                     DIV({ className: 'map-date-value' },
                         formatDate(new Date(mapInfo.lastModified)))),
-                DIV({ className: 'map-illustration' }, IMG({
-                    src: mapInfo.imageUrl ? mapInfo.imageUrl : '',
-                })),
-                DIV({ className: 'map-description' }, ...description),
+                mapImage,
+                mapDescription,
                 renderAttachments(mapInfo)));
     }
-    return DIV();
+    return NODISPLAY();
 };
 
 logger('loaded');

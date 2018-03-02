@@ -17,7 +17,7 @@
 
 import * as debug from 'debug';
 import { loop, getApiUrl } from 'sdi/app';
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, NODISPLAY } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
 import tr from 'sdi/locale';
@@ -49,7 +49,7 @@ const renderAppListingButton =
                 },
                     SPAN({ className: 'label' }, tr('mapList'))));
         }
-        return DIV();
+        return NODISPLAY();
     };
 
 

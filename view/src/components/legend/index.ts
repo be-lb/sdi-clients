@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
+import { DIV, SPAN, H1, H2, NODISPLAY } from 'sdi/components/elements';
 import { getMessageRecord, LayerGroup, ILayerInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
@@ -195,7 +195,7 @@ const legend = () => {
                 );
         }
     }
-    return DIV();
+    return NODISPLAY();
 };
 
 

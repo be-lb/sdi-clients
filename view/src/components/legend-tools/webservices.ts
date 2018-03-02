@@ -18,7 +18,7 @@
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV, H2 } from 'sdi/components/elements';
+import { DIV, H2, NODISPLAY } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
 
 import appQueries from '../../queries/app';
@@ -30,7 +30,7 @@ const logger = debug('sdi:webservices');
 const renderBaseLayer =
     (id: string, current: string | null) =>
         fromNullable(appQueries.gteBaseLayer(id)).fold(
-            DIV(),
+            NODISPLAY(),
             bl => DIV({
                 className: `base-layer ${id === current ? 'active' : ''}`,
                 onClick: () => appEvents.setMapBaseLayer(id),

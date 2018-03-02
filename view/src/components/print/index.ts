@@ -17,7 +17,7 @@
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV } from 'sdi/components/elements';
+import { DIV, NODISPLAY } from 'sdi/components/elements';
 import { MessageRecord, IMapInfo } from 'sdi/source';
 import tr from 'sdi/locale';
 
@@ -110,7 +110,7 @@ const renderPrintProgress =
 const render =
     () =>
         fromNullable(queries.getMapInfo())
-            .fold(DIV(), renderPrintProgress);
+            .fold(NODISPLAY(), renderPrintProgress);
 
 export default render;
 
