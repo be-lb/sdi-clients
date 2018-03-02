@@ -574,3 +574,9 @@ export const SECTION = factory('section');
 
 // The HTML `abbr` element (or HTML Abbreviation Element) represents an abbreviation and optionally provides a full description for it. If present, the title attribute must contain this full description and nothing else.
 export const ABBR = factory('abbr');
+
+
+// A convenience when we need a non displayed element
+export const NODISPLAY =
+    <Attrs = React.AllHTMLAttributes<HTMLDivElement> & React.Attributes>(attrs = {} as Attrs, ...children: React.ReactNode[]) =>
+        DIV(Object.assign({}, attrs, { style: { display: 'none' } }), ...children);
