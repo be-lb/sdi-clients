@@ -11,7 +11,7 @@ import {
 
 
 export const position =
-    ({ setPosition }: PositionOptions) => {
+    ({ setPosition, stopPosition }: PositionOptions) => {
         let isActive = false;
 
         const update =
@@ -30,6 +30,12 @@ export const position =
                 map.on('pointermove', (event: MapBrowserEvent) => {
                     if (isActive) {
                         setPosition(event.coordinate);
+                    }
+                });
+
+                map.on('singleclick', (event: MapBrowserEvent) => {
+                    if (isActive) {
+                        stopPosition(event.coordinate);
                     }
                 });
             };

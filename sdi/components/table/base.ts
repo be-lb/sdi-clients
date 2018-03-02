@@ -54,7 +54,7 @@ export const baseTable =
         const scroll = (e: React.UIEvent<Element>): void => {
             const offsetTop = e.currentTarget.scrollTop;
             const rowOffset = Math.ceil(offsetTop / queries.rowHeight());
-
+            logger(`scroll ${offsetTop} ${rowOffset}`);
             events.setPosition(0, offsetTop);
             events.setTableWindowOffset(rowOffset);
         };

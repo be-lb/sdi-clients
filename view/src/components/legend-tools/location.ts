@@ -16,25 +16,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { ChangeEvent, KeyboardEvent } from 'react';
+import { ReactNode } from 'react';
 
-import { DIV, INPUT, H2 } from 'sdi/components/elements';
+import { DIV, H2 } from 'sdi/components/elements';
 import { isENTER } from 'sdi/components/keycodes';
+import { inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
+import { InteractionPosition } from 'sdi/map';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
-import { viewEvents } from '../../events/map';
+import { viewEvents, startPointerPosition, stopPointerPosition } from '../../events/map';
+import { getPointerPosition } from '../../queries/map';
 
-const latChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const latitude = parseFloat(e.target.value);
-    events.updatePositionerLatitude(latitude);
-};
 
-const lonChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const longitude = parseFloat(e.target.value);
-    events.updatePositionerLongitude(longitude);
-};
+const getPositionerPos =
+    () => queries.toolsPositioner().point;
 
 const position = () => {
     const state = queries.toolsPositioner();
@@ -46,49 +43,85 @@ const position = () => {
 };
 
 
-const render = () => {
-    return (
+
+const wrap =
+    (...children: ReactNode[]) =>
         DIV({ className: 'tool location' },
             H2({}, tr('location')),
             DIV({ className: 'tool-body lat-lon' },
                 DIV({ className: 'tool-help' }, tr('locationHelp')),
-                DIV({ className: 'lat-lon-inputs' },
-                    INPUT({
-                        type: 'number',
-                        name: 'lat',
-                        placeholder: tr('latitude'),
-                        onChange: latChange,
-                        onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
-                            if (isENTER(e)) {
-                                position();
-                            }
-                        },
-                    }),
-                    INPUT({
-                        type: 'number',
-                        name: 'lon',
-                        placeholder: tr('longitude'),
-                        onChange: lonChange,
-                        onKeyPress: (e: KeyboardEvent<HTMLInputElement>) => {
-                            if (isENTER(e)) {
-                                position();
-                            }
-                        },
-                    }),
-                    DIV({
-                        className: 'btn-search',
-                        onClick: position,
-                    })),
+                ...children));
 
-                DIV({ className: 'cursor-location' },
-                    DIV({ className: 'btn-check active' }, tr('cursorLocalisation')),
-                    DIV({ className: 'lat-lon-label' },
-                        DIV({}, tr('latitude')),
-                        DIV({}, tr('longitude'))),
-                    DIV({ className: 'lat-lon-value' },
-                        DIV({}, 'latitudeValue'),
-                        DIV({}, 'longitudeValue')))))
+
+const renderPointerPosition =
+    ({ state }: InteractionPosition) =>
+        wrap(DIV({ className: 'cursor-location' },
+            DIV({
+                className: 'btn-check active',
+                onClick: () => stopPointerPosition(state),
+            }, tr('cursorLocalisation')),
+            DIV({ className: 'lat-lon-label' },
+                DIV({}, tr('latitude')),
+                DIV({}, tr('longitude'))),
+            DIV({ className: 'lat-lon-value' },
+                DIV({}, state[1].toFixed()),
+                DIV({}, state[0].toFixed()))));
+
+
+const getOrNull =
+    (n: number) => n === 0 ? null : n;
+
+const latitudeInput =
+    () => inputNullableNumber(
+        () => getOrNull(getPositionerPos().latitude),
+        events.updatePositionerLatitude,
+        {
+            key: 'legend-tool-positioner-lat',
+            name: 'lat',
+            placeholder: tr('latitude'),
+            onKeyPress: (e) => {
+                if (isENTER(e)) {
+                    position();
+                }
+            }
+        }
     );
-};
+
+
+const longitudeInput =
+    () => inputNullableNumber(
+        () => getOrNull(getPositionerPos().longitude),
+        events.updatePositionerLongitude,
+        {
+            key: 'legend-tool-positioner-lon',
+            name: 'lon',
+            placeholder: tr('longitude'),
+            onKeyPress: (e) => {
+                if (isENTER(e)) {
+                    position();
+                }
+            }
+        }
+    );
+
+const renderInput =
+    () =>
+        wrap(DIV({ className: 'lat-lon-inputs' },
+            latitudeInput(),
+            longitudeInput(),
+            DIV({
+                className: 'btn-search',
+                onClick: position,
+            })),
+
+            DIV({ className: 'cursor-location' },
+                DIV({
+                    className: 'btn-check',
+                    onClick: startPointerPosition,
+                }, tr('cursorLocalisation'))));
+
+
+const render =
+    () => getPointerPosition().foldL(renderInput, renderPointerPosition);
 
 export default render;

@@ -37,6 +37,9 @@ export const measureQueries = measureQueryFactory(getInteraction);
 
 export const getInteractionMode = () => getInteraction().label;
 
+export const getPointerPosition =
+    () => fromInteraction('position', getInteraction());
+
 const getExtractKeys =
     () => [
         tr('identifier'),

@@ -26,23 +26,25 @@ import { MessageRecord } from 'sdi/source';
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
 import {
-    getView,
-    getScaleLine,
     getInteraction,
     getInteractionMode,
     getLoading,
     getPrintRequest,
+    getScaleLine,
+    getView,
 } from '../queries/map';
 import {
-    viewEvents,
-    scalelineEvents,
-    measureEvents,
-    trackerEvents,
-    setExtractCollection,
-    startMark,
     endMark,
-    updateLoading,
+    measureEvents,
+    scalelineEvents,
+    setExtractCollection,
+    setPointerPosition,
     setPrintResponse,
+    startMark,
+    stopPointerPosition,
+    trackerEvents,
+    updateLoading,
+    viewEvents,
 } from '../events/map';
 import { AppLayout } from '../shape/types';
 
@@ -93,6 +95,7 @@ const getSelected =
     };
 
 
+
 const attachMap =
     () =>
         (element: Element | null) => {
@@ -108,6 +111,7 @@ const attachMap =
                     markable,
                     highlightable,
                     printable,
+                    positionable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
@@ -143,7 +147,10 @@ const attachMap =
                     setResponse: setPrintResponse,
                 }, getInteraction);
 
-
+                positionable({
+                    setPosition: setPointerPosition,
+                    stopPosition: stopPointerPosition,
+                }, getInteraction);
             }
             if (element) {
                 mapSetTarget(element);

@@ -98,6 +98,7 @@ export interface ExtractOptions {
 
 export interface PositionOptions {
     setPosition(p: Coordinate): void;
+    stopPosition(p: Coordinate): void;
 }
 
 
@@ -152,7 +153,7 @@ export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasu
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
 export interface InteractionPrint extends InteractionBase<'print', null> { }
-export interface InteractionPosition extends InteractionBase<'position', null> { }
+export interface InteractionPosition extends InteractionBase<'position', Coordinate> { }
 
 interface InteractionMap {
     'select': InteractionSelect;

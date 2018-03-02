@@ -24,6 +24,7 @@ import { MessageRecord } from 'sdi/source';
 
 import { withExtract } from '../queries/map';
 import { PrintProps } from '../components/print';
+import legendEvents from './legend';
 
 const interaction = dispatchK('port/map/interaction');
 
@@ -116,6 +117,26 @@ export const putMark =
                 coordinates,
             },
         }));
+
+
+export const startPointerPosition =
+    () => interaction(() => ({
+        label: 'position',
+        state: [0, 0],
+    }));
+
+export const setPointerPosition =
+    (c: Coordinate) => interaction(() => ({
+        label: 'position',
+        state: c,
+    }));
+
+export const stopPointerPosition =
+    (c: Coordinate) => {
+        legendEvents.updatePositionerLongitude(Math.floor(c[0]));
+        legendEvents.updatePositionerLatitude(Math.floor(c[1]));
+        putMark(c);
+    };
 
 
 export const updateLoading =

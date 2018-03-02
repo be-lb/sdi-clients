@@ -11,10 +11,12 @@ type Getter<T> = () => T;
 type Setter<T> = (a: T) => void;
 
 type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
+type AllAttributes = InputAttributes & React.Attributes;
 
 interface InputProps<T> {
     get: Getter<T>;
     set: Setter<T>;
+    attrs: AllAttributes;
 }
 
 type InputValueT = string | number | null;
@@ -28,7 +30,7 @@ const value =
 
 
 class InputText extends Component<InputProps<string>, InputValue<string>> {
-    attrs: () => InputAttributes;
+    attrs: () => AllAttributes;
 
     constructor(props: InputProps<string>) {
         super(props);
@@ -46,6 +48,7 @@ class InputText extends Component<InputProps<string>, InputValue<string>> {
                 value: this.state.value,
                 type: 'text',
                 onChange: e => update(e.currentTarget.value),
+                ...props.attrs,
             });
     }
 
@@ -64,7 +67,7 @@ class InputText extends Component<InputProps<string>, InputValue<string>> {
 }
 
 class InputNumber extends Component<InputProps<number>, InputValue<number>> {
-    attrs: () => InputAttributes;
+    attrs: () => AllAttributes;
 
     constructor(props: InputProps<number>) {
         super(props);
@@ -79,7 +82,8 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
             () => ({
                 value: this.state.value,
                 type: 'number',
-                onChange: e => update(e.currentTarget.valueAsNumber),
+                onChange: e => update(e.currentTarget.valueAsNumber), 
+                ...props.attrs,
             });
     }
 
@@ -97,7 +101,7 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
 }
 
 class InputNullableNumber extends Component<InputProps<number | null>, InputValue<number | null>> {
-    attrs: () => InputAttributes;
+    attrs: () => AllAttributes;
 
     constructor(props: InputProps<number>) {
         super(props);
@@ -113,6 +117,7 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
                 value: this.state.value !== null ? this.state.value : undefined,
                 type: 'number',
                 onChange: e => update(e.currentTarget.valueAsNumber),
+                ...props.attrs,
             });
     }
 
@@ -130,24 +135,19 @@ class InputNullableNumber extends Component<InputProps<number | null>, InputValu
 }
 
 const extraAttributesFn =
-    (attrs?: React.Attributes): React.Attributes => {
-        if (attrs === undefined) {
-            return {};
-        }
-        return attrs;
-    }
+    (attrs = {} as AllAttributes): AllAttributes => attrs;
 
 export const inputText =
-    (get: Getter<string>, set: Setter<string>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputText, { set, get, ...extraAttributesFn(attrs) });
+    (get: Getter<string>, set: Setter<string>, attrs?: AllAttributes) =>
+        createElement(InputText, { set, get, attrs: extraAttributesFn(attrs) });
 
 export const inputNumber =
-    (get: Getter<number>, set: Setter<number>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputNumber, { set, get, ...extraAttributesFn(attrs) });
+    (get: Getter<number>, set: Setter<number>, attrs?: AllAttributes) =>
+        createElement(InputNumber, { set, get, attrs: extraAttributesFn(attrs) });
 
 export const inputNullableNumber =
-    (get: Getter<number | null>, set: Setter<number | null>, attrs?: InputAttributes & React.Attributes) =>
-        createElement(InputNullableNumber, { set, get, ...extraAttributesFn(attrs) });
+    (get: Getter<number | null>, set: Setter<number | null>, attrs?: AllAttributes) =>
+        createElement(InputNullableNumber, { set, get, attrs: extraAttributesFn(attrs) });
 
 
 logger('loaded');
