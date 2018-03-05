@@ -65,6 +65,11 @@ const renderBody =
                     format: 'a4',
                     orientation: 'portrait',
                 }),
+                renderButton('A0', {
+                    template: 'a0/portrait',
+                    format: 'a0',
+                    orientation: 'portrait',
+                }),
             ));
 
 

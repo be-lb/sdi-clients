@@ -117,7 +117,36 @@ const templates: TemplateCollection = {
     },
 
     'a0/portrait': {
+        title: makeSpec({
+            rect: { x: 30, y: 30, width: 781, height: 104 },
+            textAlign: 'left',
+            fontSize: 96,
+            color: '#006f90',
+        }),
 
+        map: makeSpec({
+            rect: { x: 30, y: 134, width: 781, height: 781 },
+            color: '#949499',
+        }),
+
+
+        legend: makeSpec({ rect: { x: 30, y: 781 + 134, width: 781, height: 220 } }),
+        legendItem: makeSpec({
+            rect: { x: 0, y: 0, width: 272, height: 20 },
+            fontSize: 24,
+        }),
+
+        attribution: makeSpec({
+            rect: { x: 32, y: 134 + 781 - 40 - 2, width: 500, height: 40 },
+            fontSize: 24,
+        }),
+
+        scaleline: makeSpec({
+            rect: { x: 781 + 30 - 2, y: 134 + 781 - 48 - 2, width: 200, height: 48 },
+            strokeWidth: 0.5,
+        }),
+
+        logo: makeSpec({ rect: { x: 719, y: 1119, width: 92, height: 40 } }),
     },
 
     'a0/landscape': {
