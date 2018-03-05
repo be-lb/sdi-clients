@@ -52,35 +52,35 @@ type TemplateCollection = {[k in TemplateName]: Template };
 const templates: TemplateCollection = {
     'a4/portrait': {
         title: makeSpec({
-            rect: { x: 15, y: 260, width: 180, height: 26 },
+            rect: { x: 15, y: 15, width: 180, height: 26 },
             textAlign: 'left',
             fontSize: 24,
             color: '#006f90',
         }),
 
         map: makeSpec({
-            rect: { x: 15, y: 15, width: 180, height: 180 },
+            rect: { x: 15, y: 35, width: 180, height: 180 },
             color: '#949499',
         }),
 
 
-        legend: makeSpec({ rect: { x: 15, y: 200, width: 200, height: 60 } }),
+        legend: makeSpec({ rect: { x: 15, y: 220, width: 180, height: 55 } }),
         legendItem: makeSpec({
-            rect: { x: 0, y: 0, width: 68, height: 8 },
-            fontSize: 9,
+            rect: { x: 0, y: 0, width: 68, height: 5 },
+            fontSize: 8,
         }),
 
         attribution: makeSpec({
-            rect: { x: 16, y: 192, width: 180, height: 10 },
-            fontSize: 9,
+            rect: { x: 16, y: 211, width: 180, height: 10 },
+            fontSize: 8,
         }),
 
         scaleline: makeSpec({
-            rect: { x: 155 - 2, y: 183 - 2, width: 40, height: 12 },
+            rect: { x: 155 - 2, y: 201, width: 40, height: 12 },
             strokeWidth: 0.5,
         }),
 
-        logo: makeSpec({ rect: { x: 160, y: 270, width: 70 / 2, height: 30 / 2 } }),
+        logo: makeSpec({ rect: { x: 173, y: 275, width: 23, height: 10 } }),
     },
 
     'a4/landscape': {
