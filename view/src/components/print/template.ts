@@ -36,6 +36,8 @@ export type SpecName =
     | 'logo'
     | 'attribution'
     | 'scaleline'
+    | 'north'
+    | 'credits'
     ;
 
 export type Template = {[k in SpecName]?: Spec};
@@ -75,9 +77,20 @@ const templates: TemplateCollection = {
             fontSize: 9,
         }),
 
+        north: makeSpec({
+            rect: { x: 185, y: 175, width: 6, height: 6 },
+            strokeWidth: 0.5,
+        }),
+
         scaleline: makeSpec({
             rect: { x: 155 - 2, y: 183 - 2, width: 40, height: 12 },
             strokeWidth: 0.5,
+        }),
+
+        credits: makeSpec({
+            rect: { x: 160 - 40, y: 270, width: 70 / 2, height: 30 / 2 },
+            fontSize: 8,
+            textAlign: 'right',
         }),
 
         logo: makeSpec({ rect: { x: 160, y: 270, width: 70 / 2, height: 30 / 2 } }),
@@ -108,11 +121,22 @@ const templates: TemplateCollection = {
             fontSize: 8,
         }),
 
+        north: makeSpec({
+            rect: { x: 185, y: 175, width: 6, height: 6 },
+            strokeWidth: 0.5,
+        }),
+
         scaleline: makeSpec({
             rect: { x: 155 - 2, y: 183 - 2, width: 40, height: 12 },
             strokeWidth: 0.5,
         }),
 
+
+        credits: makeSpec({
+            rect: { x: 200, y: 270, width: 58, height: 10 },
+            fontSize: 8,
+            textAlign: 'right',
+        }),
         logo: makeSpec({ rect: { x: 262, y: 185, width: 23, height: 10 } }),
     },
 

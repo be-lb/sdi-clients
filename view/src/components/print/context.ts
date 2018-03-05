@@ -100,6 +100,19 @@ export const makeLine =
         color,
     });
 
+export interface CommandPolygon {
+    kind: 'Polygon';
+    coords: Coords[];
+    color: string;
+}
+
+export const makePolygon =
+    (coords: Coords[], color = 'black'): CommandPolygon => ({
+        kind: 'Polygon',
+        coords,
+        color,
+    });
+
 
 export interface CommandRect {
     kind: 'Rect';
@@ -119,6 +132,7 @@ export type Command =
     | CommandImage
     | CommandText
     | CommandLine
+    | CommandPolygon
     | CommandRect
     ;
 
@@ -280,6 +294,29 @@ const renderLine =
             return rect;
         };
 
+const renderPolygon =
+    (page: Page) =>
+        (rect: Rect, command: CommandPolygon) => {
+            const { x, y } = rect;
+            const { coords, color } = command;
+            const ctx = page.context2d;
+            if (coords.length > 1) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.setFillStyle(color);
+                const start = coords[0];
+                ctx.moveTo(x + start[0], y + start[1]);
+                coords.slice(1)
+                    .forEach(c => ctx.lineTo(x + c[0], y + c[1]));
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            return rect;
+        };
+
+
 const renderRect =
     (page: Page) =>
         (rect: Rect, command: CommandRect) => {
@@ -433,6 +470,7 @@ export const paintBoxes =
         const image = renderImage(page);
         const text = renderText(page);
         const line = renderLine(page);
+        const polygon = renderPolygon(page);
         const rect = renderRect(page);
 
 
@@ -457,6 +495,7 @@ export const paintBoxes =
                             case 'Image': image(box, child); break;
                             case 'Text': text(box, child); break;
                             case 'Line': line(box, child); break;
+                            case 'Polygon': polygon(box, child); break;
                             case 'Rect': rect(box, child); break;
                         }
                     }

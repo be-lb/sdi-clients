@@ -25,7 +25,7 @@ import appEvents from '../../events/app';
 import { getPrintTitle } from '../../queries/app';
 import { getScaleLine } from '../../queries/map';
 import { stopPrint } from '../../events/map';
-import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makeRect } from './context';
+import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makeRect, makePolygon } from './context';
 import { applySpec, ApplyFn } from './template';
 import { renderLegend } from './legend';
 import { PrintProps, resolution } from './index';
@@ -54,6 +54,20 @@ const renderAttribution =
             children: [
                 makeLayoutVertical(rect.width, rect.height / 2, [
                     makeText('Bruxelles Environnement / Leefmilieu Brussel', fontSize, color, textAlign),
+                ]),
+            ],
+        }));
+
+const renderCredits =
+    (f: ApplyFn<Box>) =>
+        f('credits', ({ rect, textAlign, fontSize, color }) => ({
+            ...rect,
+            children: [
+                makeLayoutVertical(rect.width, rect.height / 2, [
+                    makeText(fromRecord({
+                        fr: 'Fond de plan: Brussels UrbIS ®© - CIRB - CIBG',
+                        nl: 'Achtergrond: Brussels UrbIS ®© - CIRB - CIBG',
+                    }), fontSize, color, textAlign),
                 ]),
             ],
         }));
@@ -103,13 +117,34 @@ const renderScaleline =
                     makeLine(scaleline, strokeWidth, color),
                     {
                         x: rect.x, y: rect.y + (rect.height / 3),
-                        width: rect.width - offset, height: rect.height / 2,
-                        children: [makeText(`${count} ${unit}`, fontSize, color, 'right')],
+                        width: rect.width, height: rect.height / 2,
+                        children: [
+                            makeText(`${count} ${unit}`,
+                                fontSize, color, 'center'),
+                        ],
                     },
                 ],
             };
         });
 
+const renderNorthArrow =
+    (f: ApplyFn<Box>) =>
+        f('north', ({ rect, color }) => {
+            const naSz = rect.width;
+            const northArrow: Coords[] = [
+                [naSz / 7.25, naSz / 7.25],
+                [naSz / 2, naSz / 1.2],
+                [naSz / 1.2, naSz / 7.25],
+                [naSz / 2, naSz / 3.2],
+            ].map(c => [c[0], naSz - c[1]] as Coords);
+
+            return {
+                ...rect,
+                children: [
+                    makePolygon(northArrow, color),
+                ],
+            };
+        });
 
 
 
@@ -143,7 +178,13 @@ export const renderPDF =
             renderScaleline(apply)
                 .map(b => boxes.push(b));
 
+            renderNorthArrow(apply)
+                .map(b => boxes.push(b));
+
             renderLogo(apply)
+                .map(b => boxes.push(b));
+
+            renderCredits(apply)
                 .map(b => boxes.push(b));
 
             renderAttribution(apply)

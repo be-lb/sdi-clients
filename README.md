@@ -74,7 +74,7 @@ So re-frame in brief:
   - Dom manipulation is a side effect managed by the vdom implementation
 
 
-## Typing
+## Typing and data
 
 ### shape
 
@@ -188,6 +188,58 @@ import { MyInterface } from './components/name';
 The idea behind putting types on top of this document is that following them along should help one picture some kind of architecture, an intent. Because some patterns emerged when writing this code which did not propagate to every corners of the codebase, we believe that the expression of this intent is better suited to guide further developments.
 
 
+## View
+
+Now that we've seen how application state is altered and queried, we can see how to build render functions to produce virtual nodes to be rendered by the virtual dom implementation (React here).
+
+To keep things simple, and minimize our dependencies on React specifics, we do not use JSX in this codebase, nor components usually, in favor of simple render functions. A module is provided with factory functions for all supported HTML elements in ```sdi/components/elements```. A minimalistic render function would look like this.
+
+```ts
+import { DIV, SPAN } from 'sdi/components/elements'
+
+const render = 
+    () => 
+        DIV({className:'mini'},
+            SPAN({}, 'text content'));
+```
+
+Note that these functions are rarely pure as they usually query the application state to build a node. Here's what a more typical render function would look like.
+
+```ts
+import { getLang } from 'sdi/app';
+import { myQuery } from '../queries/my_component';
+
+const render = 
+    () => 
+        DIV({className:`mini ${getLang()}`},
+            SPAN({}, myQuery()));
+```
+
+The whole screen is made of nested calls to these render functions from a root element when the application state has reached a new revision. This being taken care of by the base application from ```sdi/app``` with its ```loop``` function. We aknowledge that it might sound a bit scary (performance wise) but we didn't run into unmovable road blocks so far and benefited from this over simplistic design.
+
+At the application level has emerged a pattern of having a screen types (layouts) enumeration over which we switch to build the viewport, and that component select when needed, Here's a simplified version.
+
+```ts
+import { loop } from 'sdi/app';
+import { getLayout } from './queries/app';
+import { DIV } from 'sdi/components/elements';
+import header from 'sdi/components/header';
+import comp1 from './components/comp1';
+import comp2 from './components/comp2';
+
+const render =
+ () => switch(getLayout()) {
+     case 'layout1' : return DIV({className: 'layout1'}, header(), comp1());
+     case 'layout2' : return DIV({className: 'layout2'}, header(), comp2());
+ }
+
+export const app = loop(render);
+```
 
 
+
+
+## Example
+
+[A documented example application](./example_app/README.md) 
 
