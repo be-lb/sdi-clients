@@ -33,8 +33,6 @@ import { ReactNode } from 'react';
 
 const logger = debug('sdi:print');
 
-export const resolution = 300;
-
 export interface PrintProps {
     template: TemplateName;
     orientation: Orientation;

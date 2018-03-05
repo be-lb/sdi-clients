@@ -46,10 +46,10 @@ const renderSimple =
     (spec: Spec, config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
         const { canvas, olContext } = ctx;
         const { height } = spec.rect;
-        const styles = lineStyle(config)(new Feature(lineGeometry(atResolution(height))));
+        const styles = lineStyle(config)(new Feature(lineGeometry(atResolution(spec.resolution)(height))));
         styles.forEach((style) => {
             olContext.setStyle(style);
-            olContext.drawGeometry(lineGeometry(atResolution(height)));
+            olContext.drawGeometry(lineGeometry(atResolution(spec.resolution)(height)));
         });
         const label = getDatasetMetadata(layerInfo.metadataId).foldL(
             () => '',
@@ -68,7 +68,7 @@ const renderDiscrete =
         config.groups.forEach((group) => {
             if (group.values.length > 0) {
                 canvasContext.clearRect(0, 0, 100, 100);
-                const f = new Feature(lineGeometry(atResolution(height)));
+                const f = new Feature(lineGeometry(atResolution(spec.resolution)(height)));
                 f.set(config.propName, group.values[0]);
                 const styles = styleFn(f);
                 styles.forEach((style) => {
@@ -90,7 +90,7 @@ const renderContinuous =
         const { height } = spec.rect;
         config.intervals.forEach((interval) => {
             canvasContext.clearRect(0, 0, 100, 100);
-            const f = new Feature(lineGeometry(atResolution(height)));
+            const f = new Feature(lineGeometry(atResolution(spec.resolution)(height)));
             const v = interval.low + ((interval.high - interval.low) / 2);
             f.set(config.propName, v);
             const styles = styleFn(f);
@@ -106,7 +106,7 @@ const renderContinuous =
 const render =
     (spec: Spec, config: LineStyleConfig, layerInfo: ILayerInfo) => {
         const { height } = spec.rect;
-        const ctx = getContext(atResolution(height), atResolution(height));
+        const ctx = getContext(atResolution(spec.resolution)(height), atResolution(spec.resolution)(height));
         if (ctx) {
             switch (config.kind) {
                 case 'line-simple': return renderSimple(spec, config, layerInfo, ctx);

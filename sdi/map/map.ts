@@ -47,7 +47,7 @@ import { fromRecord } from '../locale';
 
 const logger = debug('sdi:map');
 
-const baseLayerCollection = new Collection<layer.Image>();
+const baseLayerCollection = new Collection<layer.Tile>();
 const baseLayerGroup = new layer.Group({
     layers: baseLayerCollection,
 });
@@ -252,11 +252,12 @@ export const addLayer =
 const fromBaseLayer =
     (baseLayer: IMapBaseLayer) => {
         const baseLayerTranslated = translateMapBaseLayer(baseLayer);
-        const l = new layer.Image({
-            source: new source.ImageWMS({
+        const l = new layer.Tile({
+            source: new source.TileWMS({
                 projection: proj.get(baseLayerTranslated.srs),
                 params: {
                     ...baseLayerTranslated.params,
+                    TILED: true,
                 },
                 url: baseLayerTranslated.url,
             }),
@@ -577,7 +578,7 @@ export const create =
                 const { init, update } = position(o);
                 init(map);
                 updatables.push({ name: 'Position', fn: () => update(g()) });
-        }
+            }
 
 
         return {

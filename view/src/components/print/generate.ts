@@ -28,7 +28,7 @@ import { stopPrint } from '../../events/map';
 import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makeRect, makePolygon } from './context';
 import { applySpec, ApplyFn } from './template';
 import { renderLegend } from './legend';
-import { PrintProps, resolution } from './index';
+import { PrintProps } from './index';
 import { logoData } from './logo';
 import { AppLayout } from '../../shape/types';
 
@@ -96,7 +96,7 @@ const renderMap =
 
 const renderScaleline =
     (f: ApplyFn<Box>) =>
-        f('scaleline', ({ rect, strokeWidth, color, fontSize }) => {
+        f('scaleline', ({ rect, strokeWidth, color, fontSize, resolution }) => {
             const { width, count, unit } = getScaleLine();
             const y = rect.height * 0.66;
             const sWidth = (width / (resolution / 72)) * 0.3528;

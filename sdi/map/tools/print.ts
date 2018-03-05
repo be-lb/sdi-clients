@@ -1,7 +1,7 @@
 
 import * as debug from 'debug';
 import {
-    Map, Collection, layer, Size, Extent,
+    Map, Collection, layer, Size, Extent, source
 } from 'openlayers';
 import { fromNullable } from 'fp-ts/lib/Option';
 
@@ -88,30 +88,55 @@ export const print =
                     .let('base',
                         ({ baseLayers }) => fromNullable(baseLayers.item(0)))
                     .map(({ map, base, extent }) => {
-                        const source = base.getSource() as ol.source.ImageWMS;
+                        const baseSource = base.getSource() as ol.source.TileWMS;
+                        // const grid = baseSource.getTileGrid();
                         const target = map.getTargetElement() as HTMLElement;
                         const afterResize =
                             () => {
                                 map.once('postcompose', (event: any) => {
                                     const canvas: HTMLCanvasElement = event.context.canvas;
-                                    source.once('imageloadstart', () => {
-                                        updateResponseWithReq(reqId, { status: 'start' });
-                                    });
+                                    let loaded = 0;
+                                    let loading = 0;
 
-                                    source.once('imageloaderror', () => {
+                                    const loadStart = () => {
+                                        loading += 1;
+                                        if (loading === 1) {
+                                            updateResponseWithReq(reqId, { status: 'start' });
+                                        }
+                                    };
+
+                                    const loadError = () => {
                                         updateResponseWithReq(reqId, { status: 'error' });
-                                    });
+                                        clearHandlers();
+                                        restoreMap();
+                                    };
 
-                                    source.once('imageloadend', () => {
+                                    const loadEnd = (e: source.TileEvent) => {
+                                        loaded += 1;
+                                        logger(`loadEnd ${loaded}, ${e.tile.getTileCoord()}`);
+                                        if (loading > loaded) {
+                                            return;
+                                        }
+                                        clearHandlers();
                                         window.setTimeout(() => {
                                             const data = canvas.toDataURL('image/png');
                                             updateResponseWithReq(reqId,
                                                 { data, status: 'end' });
                                             restoreMap();
                                         }, 100);
-                                    });
+                                    };
 
-                                    source.refresh();
+                                    const clearHandlers = () => {
+                                        baseSource.un('tileloadstart', loadStart);
+                                        baseSource.un('tileloaderror', loadError);
+                                        baseSource.un('tileloadend', loadEnd);
+                                    };
+
+                                    baseSource.on('tileloadstart', loadStart);
+                                    baseSource.on('tileloaderror', loadError);
+                                    baseSource.on('tileloadend', loadEnd);
+
+                                    baseSource.refresh();
                                 });
 
                                 map.renderSync();

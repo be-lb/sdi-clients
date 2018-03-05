@@ -25,8 +25,8 @@ import { uniqId } from 'sdi/util';
 import queries from '../../queries/app';
 import events from '../../events/app';
 import { setPrintRequest } from '../../events/map';
-import { PrintProps, resolution } from '../print';
-import { applySpec } from '../print/template';
+import { PrintProps } from '../print';
+import { applySpec, getResolution } from '../print/template';
 import renderCustom from '../print/custom';
 import { AppLayout } from '../../shape/types';
 
@@ -38,6 +38,7 @@ const renderButton =
         DIV({
             className: props.orientation,
             onClick: () => {
+                const resolution = getResolution(props.template);
                 applySpec(props.template)('map', spec => spec.rect)
                     .map(({ width, height }) => {
                         events.setLayout(AppLayout.Print);
@@ -63,6 +64,11 @@ const renderBody =
                 renderButton('A4', {
                     template: 'a4/portrait',
                     format: 'a4',
+                    orientation: 'portrait',
+                }),
+                renderButton('A0', {
+                    template: 'a0/portrait',
+                    format: 'a0',
                     orientation: 'portrait',
                 }),
             ));

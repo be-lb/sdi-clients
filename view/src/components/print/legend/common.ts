@@ -2,12 +2,11 @@
 
 import { Box, makeImage, makeText, LayoutDirection } from '../context';
 import { Spec } from '../template';
-import { resolution } from '../index';
 
 
 
 export const atResolution =
-    (n: number) => n * resolution / 25.4;
+    (resolution: number) => (n: number) => n * resolution / 25.4;
 
 
 

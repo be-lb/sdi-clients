@@ -58,6 +58,19 @@ export const makeImage =
         data,
     });
 
+export interface CommandTileImage {
+    kind: 'TileImage';
+    data: string;
+    splitRatio: number;
+}
+
+
+export const makeLargeImage =
+    (data: string): CommandImage => ({
+        kind: 'Image',
+        data,
+    });
+
 
 export interface CommandText {
     kind: 'Text';
@@ -227,6 +240,18 @@ export const createContext =
 const renderImage =
     (page: Page) =>
         (rect: Rect, command: CommandImage) => {
+            const { x, y, width, height } = rect;
+            const { data } = command;
+            logger(`addImage ${x} ${y}`);
+            page.addImage(
+                data, 'PNG', x, y, width, height);
+
+            return rect;
+        };
+
+export const renderTileImage =
+    (page: Page) =>
+        (rect: Rect, command: CommandTileImage) => {
             const { x, y, width, height } = rect;
             const { data } = command;
             logger(`addImage ${x} ${y}`);
