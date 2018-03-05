@@ -83,8 +83,8 @@ const latitudeInput =
                 if (isENTER(e)) {
                     position();
                 }
-            }
-        }
+            },
+        },
     );
 
 
@@ -100,8 +100,8 @@ const longitudeInput =
                 if (isENTER(e)) {
                     position();
                 }
-            }
-        }
+            },
+        },
     );
 
 const renderInput =

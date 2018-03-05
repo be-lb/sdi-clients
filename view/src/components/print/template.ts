@@ -85,14 +85,18 @@ const templates: TemplateCollection = {
 
     'a4/landscape': {
         title: makeSpec({
-            rect: { x: 205, y: 15, width: 65, height: 60 },
+            rect: { x: 205, y: 15, width: 80, height: 30 },
             textAlign: 'left',
             fontSize: 24,
             color: '#006f90',
         }),
 
-        legend: makeSpec({ rect: { x: 205, y: 42, width: 65, height: 180 } }),
-        legendItem: makeSpec({ rect: { x: 0, y: 0, width: 65, height: 10 } }),
+        legend: makeSpec({ rect: { x: 205, y: 47, width: 80, height: 135 } }),
+
+        legendItem: makeSpec({
+            rect: { x: 0, y: 0, width: 80, height: 5 },
+            fontSize: 8,
+        }),
 
         map: makeSpec({
             rect: { x: 15, y: 15, width: 180, height: 180 },
@@ -101,7 +105,7 @@ const templates: TemplateCollection = {
 
         attribution: makeSpec({
             rect: { x: 16, y: 192, width: 180, height: 10 },
-            fontSize: 9,
+            fontSize: 8,
         }),
 
         scaleline: makeSpec({
@@ -109,7 +113,7 @@ const templates: TemplateCollection = {
             strokeWidth: 0.5,
         }),
 
-        logo: makeSpec({ rect: { x: 200, y: 165, width: 70, height: 30 } }),
+        logo: makeSpec({ rect: { x: 262, y: 185, width: 23, height: 10 } }),
     },
 
     'a0/portrait': {
