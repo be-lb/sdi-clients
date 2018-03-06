@@ -142,7 +142,7 @@ const templates: TemplateCollection = {
 
 
         credits: makeSpec({
-            rect: { x: 200, y: 270, width: 58, height: 10 },
+            rect: { x: 200, y: 190, width: 58, height: 10 },
             fontSize: 8,
             textAlign: 'right',
         }),

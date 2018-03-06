@@ -74,12 +74,12 @@ const renderCredits =
 
 
 const coordsFromRect =
-    (rect: Rect): Coords[] => [
-        [0, 0],
+    (rect: Rect, strokeWidth: number): Coords[] => [
+        [-(strokeWidth / 2), 0],
         [rect.width, 0],
         [rect.width, rect.height],
         [0, rect.height],
-        [0, 0],
+        [0, -(strokeWidth / 2)],
     ];
 
 
@@ -89,7 +89,7 @@ const renderMap =
             ...rect,
             children: [
                 makeImage(imageData),
-                makeLine(coordsFromRect(rect), strokeWidth, color),
+                makeLine(coordsFromRect(rect, strokeWidth), strokeWidth, color),
             ],
         }));
 
@@ -103,7 +103,7 @@ const renderScaleline =
             const { width, count, unit } = getScaleLine();
             const y = rect.height * 0.66;
             const sWidth = (width / (resolution / getScreenRes())); // * 0.3528;
-            const offset = (rect.width - sWidth) / 2;
+            const offset = rect.width - sWidth;
             const scaleline: Coords[] = [
                 [offset, y - 1],
                 [offset, y],
@@ -119,8 +119,8 @@ const renderScaleline =
                     // makeRect(coordsFromRect(rect), 'white'),
                     makeLine(scaleline, strokeWidth, color),
                     {
-                        x: rect.x, y: rect.y + (rect.height / 3),
-                        width: rect.width, height: rect.height / 2,
+                        x: rect.x + offset, y: rect.y + (rect.height / 3),
+                        width: sWidth, height: rect.height / 2,
                         children: [
                             makeText(`${count} ${unit}`,
                                 fontSize, color, 'center'),
