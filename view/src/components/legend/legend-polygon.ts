@@ -18,7 +18,7 @@ import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
 
 import { getContext, IOLContext, polygonStyle } from 'sdi/map/style';
-import { DIV, SPAN, IMG } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PolygonStyleConfig, PolygonStyleConfigSimple, PolygonStyleConfigDiscrete, PolygonStyleConfigContinuous } from 'sdi/source';
 
@@ -28,21 +28,58 @@ const logger = debug('sdi:legend-polygon');
 
 
 const polygonGeometry = new geom.Polygon([[
-    [0, 34],
-    [100, 34],
-    [100, 66],
-    [0, 66],
-    [0, 34],
+    [0, 0],
+    [100, 0],
+    [100, 100],
+    [0, 100],
+    [0, 0],
 ]]);
 
+interface Stroke {
+    width: number;
+    color: string;
+}
 
-const item = (geomType: string, dataUrl: string, label: string) => {
-    return DIV({ className: `legend-item ${geomType}` },
-        DIV({ className: 'item-style' },
-            IMG({ src: dataUrl })),
-        DIV({ className: 'item-label' },
-            SPAN({}, label)));
+type StrokeSource = {
+    strokeWidth: number,
+    strokeColor: string;
+    pattern: boolean;
+    patternColor?: string;
 };
+
+const makeStroke =
+    (config: StrokeSource): (Stroke | null) => {
+        if (config.strokeWidth >= 0.5) {
+            if (config.pattern && config.patternColor === undefined) {
+                return null;
+            }
+            return {
+                width: config.strokeWidth,
+                color: config.strokeColor,
+            }
+        }
+        return null;
+    }
+
+const item =
+    (geomType: string, dataUrl: string, label: string, stroke: Stroke | null) =>
+        DIV({ className: `legend-item ${geomType}` },
+            DIV({ className: 'item-style' },
+                DIV({
+                    style: {
+                        width: '100%',
+                        height: '50%',
+                        backgroundImage: `url(${dataUrl})`,
+                        backgroundPosition: 'center',
+                        borderWidth: stroke === null ? '0' : `${stroke.width}px`,
+                        borderColor: stroke === null ? 'inherit' : stroke.color,
+                        borderStyle: stroke === null ? 'none' : 'solid',
+                    },
+                })),
+            // IMG({ src: dataUrl })),
+            DIV({ className: 'item-label' },
+                SPAN({}, label)));
+
 
 const renderSimple = (config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
     const { canvas, olContext } = ctx;
@@ -54,7 +91,7 @@ const renderSimple = (config: PolygonStyleConfigSimple, layerInfo: ILayerInfo, c
     const md = appQueries.getDatasetMetadata(layerInfo.metadataId);
     const label = md === null ? '' : fromRecord(getMessageRecord(md.resourceTitle));
 
-    return [item('polygon', canvas.toDataURL(), label)];
+    return [item('polygon', canvas.toDataURL(), label, makeStroke(config))];
 };
 
 const renderDiscrete = (config: PolygonStyleConfigDiscrete, _layerInfo: ILayerInfo, ctx: IOLContext) => {
@@ -70,7 +107,9 @@ const renderDiscrete = (config: PolygonStyleConfigDiscrete, _layerInfo: ILayerIn
             styles.forEach((style) => {
                 olContext.drawFeature(f, style);
             });
-            items.push(item('polygon', canvas.toDataURL(), fromRecord(group.label)));
+            items.push(
+                item('polygon', canvas.toDataURL(),
+                    fromRecord(group.label), makeStroke(group)));
         }
     });
 
@@ -90,7 +129,9 @@ const renderContinuous = (config: PolygonStyleConfigContinuous, _layerInfo: ILay
         styles.forEach((style) => {
             olContext.drawFeature(f, style);
         });
-        items.push(item('polygon', canvas.toDataURL(), fromRecord(interval.label)));
+        items.push(
+            item('polygon', canvas.toDataURL(),
+                fromRecord(interval.label), makeStroke(interval)));
     });
 
     return items;
