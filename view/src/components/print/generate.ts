@@ -25,7 +25,7 @@ import appEvents from '../../events/app';
 import { getPrintTitle } from '../../queries/app';
 import { getScaleLine } from '../../queries/map';
 import { stopPrint } from '../../events/map';
-import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makeRect, makePolygon } from './context';
+import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makePolygon } from './context';
 import { applySpec, ApplyFn } from './template';
 import { renderLegend } from './legend';
 import { PrintProps } from './index';
@@ -93,13 +93,16 @@ const renderMap =
             ],
         }));
 
+// https://github.com/ryanve/res/blob/master/res.js
+const getScreenRes =
+    () => window.devicePixelRatio * 96;
 
 const renderScaleline =
     (f: ApplyFn<Box>) =>
         f('scaleline', ({ rect, strokeWidth, color, fontSize, resolution }) => {
             const { width, count, unit } = getScaleLine();
             const y = rect.height * 0.66;
-            const sWidth = (width / (resolution / 72)) * 0.3528;
+            const sWidth = (width / (resolution / getScreenRes())); // * 0.3528;
             const offset = (rect.width - sWidth) / 2;
             const scaleline: Coords[] = [
                 [offset, y - 1],
@@ -113,7 +116,7 @@ const renderScaleline =
             return {
                 ...rect,
                 children: [
-                    makeRect(coordsFromRect(rect), 'white'),
+                    // makeRect(coordsFromRect(rect), 'white'),
                     makeLine(scaleline, strokeWidth, color),
                     {
                         x: rect.x, y: rect.y + (rect.height / 3),
