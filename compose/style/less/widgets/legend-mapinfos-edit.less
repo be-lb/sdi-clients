@@ -161,6 +161,18 @@
         .toggle{
             margin-bottom: @margin;
         }
+
+        .preview-link {
+            .absolute(0, 0, auto, auto);
+            a {
+                .awsomefont;
+                color: @light-blue;
+
+                &:hover {
+                    color: @blue;
+                }
+            }
+        }
     }
 
     .legend-block {

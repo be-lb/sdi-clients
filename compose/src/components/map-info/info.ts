@@ -18,9 +18,10 @@ import * as debug from 'debug';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { FormEvent } from 'react';
 
-import { DIV, H1, P, IMG, INPUT, SPAN } from 'sdi/components/elements';
+import { DIV, H1, P, IMG, INPUT, SPAN, A } from 'sdi/components/elements';
 import { IMapInfo } from 'sdi/source';
 import tr, { formatDate, fromRecord } from 'sdi/locale';
+import { getRoot } from 'sdi/app';
 
 import queries from '../../queries/app';
 import events, { toDataURL } from '../../events/app';
@@ -66,6 +67,18 @@ const renderStatus =
             publishButton(() => mapInfoEvents.mapStatus('published')),
             DIV({ className: 'no-active' }, tr('published')));
     };
+
+
+const renderPreviewLink =
+    ({ id }: IMapInfo) =>
+        DIV({
+            className: 'preview-link',
+        }, A({
+            title: tr('preview'),
+            target: '_blank',
+            href: `${getRoot()}view/${id}`,
+        }, String.fromCodePoint(0xf06e)));
+
 
 const formatTitle = (props: React.ClassAttributes<Element>, title: string) => {
     const isEmpty = title.trim().length === 0;
@@ -242,6 +255,7 @@ const render =
         DIV({ className: 'map-infos' },
             renderCategories(mapInfo),
             renderStatus(mapInfo),
+            renderPreviewLink(mapInfo),
 
             editable(`map_info_title`, getTitle, events.setMapTitle, formatTitle)(),
 

@@ -186,6 +186,7 @@ export type MessageKey =
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
+    | 'preview'
     | 'printMap'
     | 'printDownloadingBaseMap'
     | 'printNotStarted'
@@ -1514,5 +1515,10 @@ export const messages: MessageDB = {
     cursorLocalisation: {
         fr: 'Localisation du curseur',
         nl: 'Cursorlocatie',
+    },
+
+    preview: {
+        fr: 'Aperçu',
+        nl: 'Voorvertoning',
     },
 };
