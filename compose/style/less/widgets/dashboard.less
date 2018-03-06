@@ -38,6 +38,22 @@
         color: @green;
     }
 
+    &.published:before{
+        .awsomefont;
+        .absolute(@small-margin, @small-margin, auto, auto);
+        font-size: 80%;
+        content: @fa-var-circle;
+        color: @green;
+    }
+    &.draft:before{
+        .awsomefont;
+        .absolute(@small-margin, @small-margin, auto, auto);
+        font-size: 80%;
+        content: @fa-var-circle-o;
+        color: @grey;
+    }
+
+
     .image {
         height: 120px;
         background-size: cover;

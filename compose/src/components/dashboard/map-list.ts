@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, NODISPLAY } from 'sdi/components/elements';
 import queries from '../../queries/app';
 import events from '../../events/app';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
@@ -51,7 +51,7 @@ const renderItems = (maps: string[]) => {
         maps.map((mid) => {
             const map = queries.getMap(mid);
             if (!map) {
-                return DIV();
+                return NODISPLAY();
             }
             const elements: ReactNode[] = [];
             elements.push(DIV({ className: 'dashboard-map-title' },
@@ -69,7 +69,7 @@ const renderItems = (maps: string[]) => {
                 editButton(selectMap(map.id)));
 
             return (
-                DIV({ className: 'dashboard-map-item' }, ...elements)
+                DIV({ className: `dashboard-map-item ${map.status}` }, ...elements)
             );
         })
     );
