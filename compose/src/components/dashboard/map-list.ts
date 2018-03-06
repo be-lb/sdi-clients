@@ -15,19 +15,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { ReactNode } from 'react';
+
+import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { DIV, SPAN, NODISPLAY } from 'sdi/components/elements';
+
 import queries from '../../queries/app';
 import events from '../../events/app';
-import tr, { fromRecord, formatDate } from 'sdi/locale';
-import { AppLayout } from '../../shape/types';
 import { button } from '../button';
-import { ReactNode } from 'react';
+import { navigateMap } from '../../events/route';
 
 
 const selectMap = (mid?: string) => () => {
     if (mid) {
-        events.setCurrentMapId(mid);
-        events.setLayout(AppLayout.MapAndInfo);
+        navigateMap(mid);
     }
 };
 

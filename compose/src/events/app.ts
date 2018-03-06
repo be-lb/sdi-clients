@@ -49,6 +49,7 @@ import queries from '../queries/app';
 import { AppLayout } from '../shape/types';
 import { initialLegendEditorState } from '../components/legend-editor/index';
 import { getDatasetMetadata } from '../queries/metadata';
+import { navigateMap, navigateHome } from './route';
 
 const logger = debug('sdi:events/app');
 
@@ -371,15 +372,13 @@ const events = {
                         }
                         return user;
                     });
-                    events.setCurrentMapId(mid);
-                    events.setLayout(AppLayout.MapAndInfo);
+                    navigateMap(mid);
                 }
             });
     },
 
     deleteMap(id: string) {
-        events.setCurrentMapId(null);
-        events.setLayout(AppLayout.Dashboard);
+        navigateHome();
         deleteMap(getApiUrl(`maps/${id}`))
             .then(() =>
                 dispatch('data/maps', state => state.filter(m => m.id !== id)))

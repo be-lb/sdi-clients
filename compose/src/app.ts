@@ -45,6 +45,7 @@ import composeSplash from './components/splash';
 
 import upload from './components/upload';
 import { AppLayout } from './shape/types';
+import { navigateHome } from './events/route';
 
 
 const logger = debug('sdi:app');
@@ -56,7 +57,7 @@ const renderAppListingButton =
             return (
                 DIV({
                     className: 'navigate app-listview',
-                    onClick: () => events.setLayout(AppLayout.Dashboard),
+                    onClick: navigateHome,
                 }, SPAN({ className: 'label' }, tr('myMaps'))));
         }
         return DIV();
@@ -145,8 +146,7 @@ const effects =
         events.loadAlias(getApiUrl(`alias`));
         baseLayers.forEach(id =>
             events.loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
-        events.loadAllDatasetMetadata(() =>
-            events.setLayout(AppLayout.Dashboard));
+        events.loadAllDatasetMetadata(navigateHome);
     };
 
 
