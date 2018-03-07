@@ -1,6 +1,3 @@
-
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -17,10 +14,19 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV } from './elements';
+import { DIV, SPAN, A } from './elements';
+
+
+
+const acCredits = () => (
+    DIV({ className: 'ac-credits', title: 'Spatial Data Infrastructure © Atelier Cartographique' },
+        SPAN({}, 'sdi © '),
+        A({ href: 'http://atelier-cartographique.be', target: '_blank' }, 'a.-c.')));
 
 const render = () => (
-    DIV({ className: 'footer' })
+    DIV({ className: 'footer' },
+        acCredits(),
+    )
 );
 
 export default render;
