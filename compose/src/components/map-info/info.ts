@@ -253,9 +253,12 @@ const renderCategories =
 const render =
     (mapInfo: IMapInfo) => (
         DIV({ className: 'map-infos' },
-            renderCategories(mapInfo),
-            renderStatus(mapInfo),
-            renderPreviewLink(mapInfo),
+            DIV({ className: 'map-publishing-tools' },
+                renderCategories(mapInfo),
+                renderPreviewLink(mapInfo),
+                renderStatus(mapInfo),
+                ),
+
 
             editable(`map_info_title`, getTitle, events.setMapTitle, formatTitle)(),
 

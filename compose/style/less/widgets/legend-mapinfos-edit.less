@@ -158,21 +158,28 @@
     }
 
     .map-infos {
-        .toggle{
+
+        .map-publishing-tools {
+            display: flex;
             margin-bottom: @margin;
-        }
 
-        .preview-link {
-            .absolute(0, 0, auto, auto);
-            a {
-                .awsomefont;
-                color: @light-blue;
+            .toggle{
+            }
 
-                &:hover {
-                    color: @blue;
+            .preview-link {
+                margin-right: @margin;
+                a {
+                    .awsomefont;
+                    text-decoration: none;
+                    color: #000;
+
+                    &:hover {
+                        color: @green;
+                    }
                 }
             }
         }
+
     }
 
     .legend-block {

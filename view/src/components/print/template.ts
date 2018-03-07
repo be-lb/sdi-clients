@@ -96,12 +96,12 @@ const templates: TemplateCollection = {
         }),
 
         credits: makeSpec({
-            rect: { x: 160 - 40, y: 270, width: 70 / 2, height: 30 / 2 },
-            fontSize: 8,
+            rect: { x: 160 - 35, y: 270, width: 70 / 2, height: 30 / 2 },
+            fontSize: 6,
             textAlign: 'right',
         }),
 
-        logo: makeSpec({ rect: { x: 173, y: 275, width: 23, height: 10 } }),
+        logo: makeSpec({ rect: { x: 175, y: 275, width: 23, height: 10 } }),
     },
 
     'a4/landscape': {
