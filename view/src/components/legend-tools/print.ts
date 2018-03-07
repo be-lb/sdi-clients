@@ -67,6 +67,11 @@ const renderBody =
                     orientation: 'portrait',
                 }),
                 renderButton('A0', {
+                    template: 'a0/landscape',
+                    format: 'a0',
+                    orientation: 'landscape',
+                }),
+                renderButton('A0', {
                     template: 'a0/portrait',
                     format: 'a0',
                     orientation: 'portrait',
