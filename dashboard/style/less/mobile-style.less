@@ -1,0 +1,51 @@
+@media @portrait {
+    .dashboard-wrapper {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        border: 0px;
+        padding: 0;
+        padding-bottom: 50px;
+
+        .login-widget, .my-apps {
+            position: relative;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left : auto;
+        }
+
+        .login-widget {
+            flex-direction: row;
+            justify-content: space-between;
+            border-left: 0px;
+            font-size: 100%;
+            border-bottom: 1px solid #000;
+            padding: 0;
+            margin-bottom: @margin;
+        }
+
+        .app-list {
+            justify-content: space-around;
+            padding: 0;
+            margin-top: @margin * 3;
+            .app-item {
+                width: 125px;
+                height: 125px;
+                margin: @small-margin;
+                margin-bottom: @margin * 1.5;
+                font-size: 125%;
+
+                .app-picto {
+                    padding-bottom: @margin;
+                    &:before {
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+
+    }
+
+
+}
