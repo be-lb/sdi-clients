@@ -14,14 +14,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { DIV, SPAN, A } from './elements';
+import { DIV, A } from './elements';
 
 
 
 const acCredits = () => (
-    DIV({ className: 'ac-credits', title: 'Spatial Data Infrastructure © Atelier Cartographique' },
-        SPAN({}, 'sdi © '),
-        A({ href: 'http://atelier-cartographique.be', target: '_blank' }, 'a.-c.')));
+    DIV({ className: 'ac-credits', title: 'Spatial Data Infrastructure © atelier cartographique' },
+        A({ href: 'http://atelier-cartographique.be', target: '_blank' }, 'sdi © atelier cartographique')));
 
 const render = () => (
     DIV({ className: 'footer' },
