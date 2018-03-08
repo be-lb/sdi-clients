@@ -41,9 +41,13 @@ body[lang="nl"]  .embed .be-logo-box {
     .main {
         .absolute(10px,10px,10px,10px);
         overflow: hidden;
+        margin: 0; // override @media querie
 
         .map-wrapper {
             .absolute(0, 30%, 0, 0);
+            width: auto; // override @media querie
+            height: auto; // override @media querie
+            margin : 0; // override @media querie
         }
 
         div.legend {
