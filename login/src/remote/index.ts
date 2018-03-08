@@ -23,27 +23,12 @@ import {
     IUserIO,
     postIO,
 } from 'sdi/source';
-import { getCSRF } from 'sdi/app';
-
-
-const fetchOptions =
-    (): RequestInit => {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
-
-        return {
-            credentials: 'same-origin',
-            headers,
-        };
-    };
-
 
 
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
 // export const logoutUser = (url: string): Promise<string> => fetchIO(io.string, url);
 
-export const logoutUser = (url: string): Promise<string> => postIO(io.string, url, null, fetchOptions());
-export const loginUser = (url: string, data: Credentials): Promise<IUser> => postIO(IUserIO, url, data, fetchOptions());
+export const logoutUser = (url: string): Promise<string> => postIO(io.string, url, null);
+export const loginUser = (url: string, data: Credentials): Promise<IUser> => postIO(IUserIO, url, data);
 
 

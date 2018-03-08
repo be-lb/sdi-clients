@@ -40,38 +40,23 @@ import {
 
 
 import * as io from 'io-ts';
-import { getCSRF } from 'sdi/app';
-
-
-const fetchOptions =
-    (): RequestInit => {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
-
-        return {
-            credentials: 'same-origin',
-            headers,
-        };
-    };
 
 
 const putOptions =
     (): RequestInit => ({
         method: 'PUT',
-        ...fetchOptions(),
     });
 
-export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url, fetchOptions());
-export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url, fetchOptions());
-export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
+export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url);
+export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
+export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
 export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url, fetchOptions());
+export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
 
-export const fetchAllDatasetMetadata = (url: string) => fetchPaginatedIO(InspireIO, url, fetchOptions());
+export const fetchAllDatasetMetadata = (url: string) => fetchPaginatedIO(InspireIO, url);
 
-export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url, fetchOptions());
-export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
+export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url);
+export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url);
 
 
 
@@ -85,14 +70,9 @@ export type Uploaded = io.TypeOf<typeof UploadedIO>;
 export const upload =
     (url: string, f: File): Promise<Uploaded> => {
         const data = new FormData();
-        const headers = new Headers();
         const options: RequestInit = {};
 
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
         data.append('file', f);
-        // headers.append('Content-Type', null);
-        options.credentials = 'same-origin';
-        options.headers = headers;
         options.body = data;
 
         return postIO(UploadedIO, url, null, options);
@@ -101,5 +81,5 @@ export const upload =
 
 export const putMetadata = (url: string, data: Inspire): Promise<Inspire> => postIO(InspireIO, url, data, putOptions());
 
-export const fetchAllTopic = (url: string): Promise<TopicCategory[]> => fetchIO(io.array(TopicCategoryIO), url, fetchOptions());
-export const fetchAllKeyword = (url: string): Promise<Keyword[]> => fetchIO(io.array(KeywordIO), url, fetchOptions());
+export const fetchAllTopic = (url: string): Promise<TopicCategory[]> => fetchIO(io.array(TopicCategoryIO), url);
+export const fetchAllKeyword = (url: string): Promise<Keyword[]> => fetchIO(io.array(KeywordIO), url);

@@ -18,9 +18,26 @@
 import * as io from 'io-ts';
 import { some, fromNullable, none } from 'fp-ts/lib/Option';
 import { Task } from 'fp-ts/lib/Task';
+import { getCSRF } from '../app';
 
 const headers = new Headers();
 headers.append('Content-Type', 'application/json');
+
+
+const defaultFetchOptions =
+    (): RequestInit => {
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
+
+        return {
+            mode: 'cors',
+            cache: 'default',
+            redirect: 'follow',
+            credentials: 'same-origin',
+            headers,
+        };
+    };
 
 const stringify = (value: any): string => {
     return typeof value === 'function' ? io.getFunctionName(value) : JSON.stringify(value);
@@ -52,9 +69,7 @@ export const fetchWithoutValidationIO =
     <T>(url: string, getOptions: RequestInit = {}) => {
         const options: RequestInit = {
             method: 'GET',
-            mode: 'cors',
-            cache: 'default',
-            redirect: 'follow',
+            ...defaultFetchOptions(),
             ...getOptions,
         };
 
@@ -74,9 +89,7 @@ export const fetchIO =
     <T>(ioType: io.Type<T>, url: string, getOptions: RequestInit = {}) => {
         const options: RequestInit = {
             method: 'GET',
-            mode: 'cors',
-            cache: 'default',
-            redirect: 'follow',
+            ...defaultFetchOptions(),
             ...getOptions,
         };
 
@@ -127,7 +140,7 @@ class Inc {
 
 
 export const fetchPaginatedIO =
-    <T>(ioType: io.Type<T>, url0: string, getOptions: RequestInit = {}) => {
+    <T>(ioType: io.Type<T>, url0: string, getOptions?: RequestInit) => {
         const pagetType = makePageType(ioType);
         let pageSize = 0;
         let nextUrl = some(`${url0}?page=1`);
@@ -171,10 +184,7 @@ export const postIO =
         const options: RequestInit = {
             body: JSON.stringify(data),
             method: 'POST',
-            mode: 'cors',
-            cache: 'default',
-            redirect: 'follow',
-            headers,
+            ...defaultFetchOptions(),
             ...postOptions,
         };
 
@@ -204,9 +214,7 @@ export const deleteIO =
     (url: string, getOptions: RequestInit = {}) => {
         const options: RequestInit = {
             method: 'DELETE',
-            mode: 'cors',
-            cache: 'default',
-            redirect: 'follow',
+            ...defaultFetchOptions(),
             ...getOptions,
         };
 

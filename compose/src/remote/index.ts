@@ -44,58 +44,67 @@ import {
 
 
 import * as io from 'io-ts';
-import { getCSRF } from 'sdi/app';
+// import { getCSRF } from 'sdi/app';
 
-
-const fetchOptions =
-    (): RequestInit => {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
-
-        return {
-            credentials: 'same-origin',
-            headers,
-        };
-    };
 
 
 const putOptions =
     (): RequestInit => ({
         method: 'PUT',
-        ...fetchOptions(),
     });
 
 
 export const fetchLayer =
     (url: string): Promise<FeatureCollection> =>
-        fetchWithoutValidationIO(url, fetchOptions());
+        fetchWithoutValidationIO(url);
 
+export const fetchMap =
+    (url: string): Promise<IMapInfo> =>
+        fetchIO(IMapInfoIO, url);
 
-export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url, fetchOptions());
-export const fetchBaseLayer = (url: string): Promise<IMapBaseLayer> => fetchIO(IMapBaseLayerIO, url, fetchOptions());
+export const fetchBaseLayer =
+    (url: string): Promise<IMapBaseLayer> =>
+        fetchIO(IMapBaseLayerIO, url);
 
-export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url, fetchOptions());
-export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url, fetchOptions());
-export const fetchAllDatasetMetadata = (url: string) => fetchPaginatedIO(InspireIO, url, fetchOptions());
+export const fetchAlias =
+    (url: string): Promise<IAliasCollection> =>
+        fetchIO(IAliasCollectionIO, url);
 
-export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url, fetchOptions());
-export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url, fetchOptions());
+export const fetchUser =
+    (url: string): Promise<IUser> =>
+        fetchIO(IUserIO, url);
 
-export const fetchAttachment = (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url, fetchOptions());
+export const fetchDatasetMetadata =
+    (url: string): Promise<Inspire> =>
+        fetchIO(InspireIO, url);
+
+export const fetchAllDatasetMetadata =
+    (url: string) =>
+        fetchPaginatedIO(InspireIO, url);
+
+export const fetchTimeserie =
+    (url: string): Promise<ITimeserie> =>
+        fetchIO(ITimeserieIO, url);
+
+export const fetchCategories =
+    (url: string): Promise<Category[]> =>
+        fetchIO(CategoryCollectionIO, url);
+
+export const fetchAttachment =
+    (url: string): Promise<Attachment> =>
+        fetchIO(AttachmentIO, url);
 
 
 export const postAttachment =
     (url: string, data: Partial<Attachment>): Promise<Attachment> =>
-        postIO(AttachmentIO, url, data, fetchOptions());
+        postIO(AttachmentIO, url, data);
 
 export const putAttachment =
     (url: string, data: Attachment): Promise<Attachment> =>
         postIO(AttachmentIO, url, data, putOptions());
 
 export const delAttachment =
-    (url: string): Promise<void> => deleteIO(url, fetchOptions());
+    (url: string): Promise<void> => deleteIO(url);
 
 
 export const putMap =
@@ -104,17 +113,22 @@ export const putMap =
 
 export const postMap =
     (url: string, data: IMapInfo): Promise<IMapInfo> =>
-        postIO(IMapInfoIO, url, data, fetchOptions());
+        postIO(IMapInfoIO, url, data);
 
 export const deleteMap =
     (url: string): Promise<void> =>
-        deleteIO(url, fetchOptions());
+        deleteIO(url);
 
 export const postLayerInfo =
-    (url: string, data: ILayerInfo): Promise<ILayerInfo> => postIO(ILayerInfoIO, url, data, fetchOptions());
+    (url: string, data: ILayerInfo): Promise<ILayerInfo> => postIO(ILayerInfoIO, url, data);
 
-export const postLayer = (url: string, data: FeatureCollection): Promise<FeatureCollection> => postIO(FeatureCollectionIO, url, data, fetchOptions());
-export const postUser = (url: string, data: IUser): Promise<IUser> => postIO(IUserIO, url, data, fetchOptions());
+export const postLayer =
+    (url: string, data: FeatureCollection): Promise<FeatureCollection> =>
+        postIO(FeatureCollectionIO, url, data);
+
+export const postUser =
+    (url: string, data: IUser): Promise<IUser> =>
+        postIO(IUserIO, url, data);
 
 
 
@@ -128,14 +142,14 @@ export type Uploaded = io.TypeOf<typeof UploadedIO>;
 export const upload =
     (url: string, f: File): Promise<Uploaded> => {
         const data = new FormData();
-        const headers = new Headers();
+        // const headers = new Headers();
         const options: RequestInit = {};
 
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
+        // getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
         data.append('file', f);
         // headers.append('Content-Type', null);
-        options.credentials = 'same-origin';
-        options.headers = headers;
+        // options.credentials = 'same-origin';
+        // options.headers = headers;
         options.body = data;
 
         return postIO(UploadedIO, url, null, options);

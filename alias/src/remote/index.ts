@@ -27,26 +27,12 @@ import {
     // fetchPaginatedIO,
     deleteIO,
 } from 'sdi/source';
-import { getCSRF } from 'sdi/app';
 
-
-const fetchOptions =
-    (): RequestInit => {
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
-
-        return {
-            credentials: 'same-origin',
-            headers,
-        };
-    };
 
 
 const putOptions =
     (): RequestInit => ({
         method: 'PUT',
-        ...fetchOptions(),
     });
 
 
@@ -56,11 +42,11 @@ export const fetchUser =
 
 export const fetchAllAlias =
     (url: string) =>
-        fetchIO(io.array(IAliasIO), url, fetchOptions());
+        fetchIO(io.array(IAliasIO), url);
 
 export const postAlias =
     (url: string, data: Partial<IAlias>): Promise<IAlias> =>
-        postIO(IAliasIO, url, data, fetchOptions());
+        postIO(IAliasIO, url, data);
 
 export const putAlias =
     (url: string, data: IAlias): Promise<IAlias> =>
@@ -69,4 +55,4 @@ export const putAlias =
 
 export const delAlias =
     (url: string): Promise<void> =>
-        deleteIO(url, fetchOptions());
+        deleteIO(url);

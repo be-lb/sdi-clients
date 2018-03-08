@@ -18,6 +18,8 @@ import { FeatureCollection, IMapInfoIO, IMapInfo, IAliasCollection, IAliasCollec
 
 import * as io from 'io-ts';
 
+
+
 const mapArray = io.array(IMapInfoIO);
 
 const BaseLayerCollectionIO = io.dictionary(io.string, IMapBaseLayerIO, 'BaseLayerCollection');
