@@ -3,4 +3,19 @@
     padding: 0 @margin;
     font-size: 70%;
     background: #fff;
+
+    .ac-credits {
+        .absolute(auto, @margin, auto, auto);
+        font-size: 70%;
+        color: @grey;
+        a {
+            color: @grey;
+            text-decoration: none;
+            cursor: default;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }

@@ -16,7 +16,7 @@
 
 import { fromPredicate } from 'fp-ts/lib/Option';
 
-import { DIV, H1 } from 'sdi/components/elements';
+import { DIV, H1, NODISPLAY } from 'sdi/components/elements';
 import { AppManifest, MessageRecord } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 
@@ -29,7 +29,7 @@ type AppWithName = AppManifest & { name: MessageRecord }
 
 const renderApp =
     (app: AppManifest) => withName(app).fold(
-        DIV(),
+        NODISPLAY(),
         (app: AppWithName) => DIV({
             className: `app-item ${app.codename}`,
             onClick: () => window.location.assign(app.url),
