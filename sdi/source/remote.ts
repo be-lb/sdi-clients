@@ -24,7 +24,7 @@ const headers = new Headers();
 headers.append('Content-Type', 'application/json');
 
 
-const defaultFetchOptions =
+export const defaultFetchOptions =
     (): RequestInit => {
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -181,6 +181,7 @@ export const fetchPaginatedIO =
 
 export const postIO =
     <T, DT>(ioType: io.Type<T>, url: string, data: DT, postOptions: RequestInit = {}) => {
+
         const options: RequestInit = {
             body: JSON.stringify(data),
             method: 'POST',

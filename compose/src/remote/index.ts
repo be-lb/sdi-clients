@@ -40,6 +40,7 @@ import {
     fetchWithoutValidationIO,
     IMapBaseLayer,
     IMapBaseLayerIO,
+    defaultFetchOptions,
 } from 'sdi/source';
 
 
@@ -141,16 +142,14 @@ const UploadedIO = io.interface({
 export type Uploaded = io.TypeOf<typeof UploadedIO>;
 export const upload =
     (url: string, f: File): Promise<Uploaded> => {
+        const options = defaultFetchOptions();
         const data = new FormData();
-        // const headers = new Headers();
-        const options: RequestInit = {};
-
-        // getCSRF().map(csrf => headers.append('X-CSRFToken', csrf));
         data.append('file', f);
-        // headers.append('Content-Type', null);
-        // options.credentials = 'same-origin';
-        // options.headers = headers;
         options.body = data;
+        const headers = options.headers as Headers;
+        if (headers) {
+            headers.delete('Content-Type');
+        }
 
         return postIO(UploadedIO, url, null, options);
     };
