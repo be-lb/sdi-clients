@@ -1,4 +1,6 @@
 
+import * as debug from 'debug';
+
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { getApiUrl } from 'sdi/app';
@@ -7,8 +9,9 @@ import { scopeOption } from 'sdi/lib';
 import { dispatchK, dispatch } from 'sdi/shape';
 
 import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
-import { putMetadata } from '../remote';
+import { putMetadata, fetchPointOfContact, fetchOrganisation } from '../remote';
 
+const logger = debug('sdi:queries/metadata');
 const single = dispatchK('component/single');
 const apiUrl = (s: string) => getApiUrl(s);
 
@@ -27,6 +30,11 @@ export const selectMetadata =
     (id: string) => {
         dispatch('app/current-metadata', () => id);
         getDatasetMetadata(id)
+            .map(md => {
+                md.metadataPointOfContact.forEach(loadPersonOfContact);
+                md.responsibleOrganisation.forEach(loadResponsibleOrganisation);
+                return md;
+            })
             .map(md => dispatch('component/single', s => ({
                 ...s,
                 keywords: md.keywords,
@@ -35,6 +43,26 @@ export const selectMetadata =
                 description: getMessageRecord(md.resourceAbstract),
             })));
     };
+
+
+export const loadPersonOfContact =
+    (id: number) =>
+        fetchPointOfContact(getApiUrl(`md/poc/${id}`))
+            .then(poc =>
+                dispatch('data/md/poc', (state) => {
+                    return state.filter(p => p.id !== id).concat(poc);
+                }))
+            .catch(err => logger(`loadPersonOfContact error ${err}`));
+
+
+export const loadResponsibleOrganisation =
+    (id: number) =>
+        fetchOrganisation(getApiUrl(`md/org/${id}`))
+            .then(org =>
+                dispatch('data/md/org', (state) => {
+                    return state.filter(o => o.id !== id).concat(org);
+                }))
+            .catch(err => logger(`loadResponsible error ${err}`));
 
 
 const updatedMd =
@@ -98,3 +126,5 @@ export const mdDraft =
 // observe('data/datasetMetadata',
 //     () => dispatch('component/table',
 //         ts => ({ ...ts, loaded: false })));
+
+logger('loaded');

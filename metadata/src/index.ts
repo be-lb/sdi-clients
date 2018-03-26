@@ -79,6 +79,8 @@ export const main =
             'data/keywords': [],
             'data/topics': [],
             'data/alias': [],
+            'data/md/poc': [],
+            'data/md/org': [],
 
         };
 

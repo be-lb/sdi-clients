@@ -1,6 +1,6 @@
 import { fromPredicate } from 'fp-ts/lib/Either';
 
-import { DIV, H1, INPUT, TEXTAREA, SPAN } from 'sdi/components/elements';
+import { DIV, H1, INPUT, TEXTAREA, SPAN, NODISPLAY } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
 import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
 import buttonFactory from 'sdi/components/button';
@@ -16,6 +16,7 @@ import {
     getMdTitle,
     getTemporalReference,
     getKeywords,
+    getPersonOfContact,
     // getTopics,
     // getTopicList,
     // isSelectedTopic,
@@ -132,12 +133,14 @@ const renderEdit =
 
 const renderPoc =
     (m: Inspire) => m.metadataPointOfContact.map(
-        poc => (
-            DIV({ className: 'point-of-contact' },
-                SPAN({ className: 'contact-name' }, poc.contactName),
-                SPAN({ className: 'contact-email' }, poc.email),
-                SPAN({ className: 'contact-organisation' },
-                    fromRecord(getMessageRecord(poc.organisationName))))));
+        id => getPersonOfContact(id).fold(
+            NODISPLAY(),
+            poc =>
+                DIV({ className: 'point-of-contact' },
+                    SPAN({ className: 'contact-name' }, poc.contactName),
+                    SPAN({ className: 'contact-email' }, poc.email),
+                    SPAN({ className: 'contact-organisation' },
+                        fromRecord(getMessageRecord(poc.organisationName))))));
 
 
 

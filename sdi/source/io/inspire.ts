@@ -139,6 +139,7 @@ export const MetadataLanguageCodeIO = u([
 
 // metadata/2.0/req/common/md-point-of-contact
 export const MdPointOfContactIO = i({
+    id: io.number,
     organisationName: FreeTextIO,
     email: io.string,
     contactName: io.string,
@@ -569,10 +570,10 @@ export const InspireIO = io.intersection([
         temporalReference: TemporalReferenceIO,
 
         // responsibleOrganisation: Multiplicity1Star<ResponsibleOrganisation>('ResponsibleOrganisation', ResponsibleOrganisationIO),
-        responsibleOrganisation: a(ResponsibleOrganisationIO),
+        responsibleOrganisation: a(io.number), //a(ResponsibleOrganisationIO),
 
         // metadataPointOfContact: Multiplicity1Star<MdPointOfContact>('MdPointOfContact', MdPointOfContactIO),
-        metadataPointOfContact: a(MdPointOfContactIO),
+        metadataPointOfContact: a(io.number), //a(MdPointOfContactIO),
 
         metadataDate: MdDateIO,
         // doe not fit with our multilingual environment

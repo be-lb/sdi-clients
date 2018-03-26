@@ -15,20 +15,20 @@
  */
 
 import {
-    Category,
-    CategoryCollectionIO,
-    FeatureCollection,
-    FeatureCollectionIO,
+    // Category,
+    // CategoryCollectionIO,
+    // FeatureCollection,
+    // FeatureCollectionIO,
     fetchIO,
     fetchPaginatedIO,
     IAliasCollection,
     IAliasCollectionIO,
-    IMapInfo,
-    IMapInfoIO,
+    // IMapInfo,
+    // IMapInfoIO,
     Inspire,
     InspireIO,
-    ITimeserie,
-    ITimeserieIO,
+    // ITimeserie,
+    // ITimeserieIO,
     IUser,
     IUserIO,
     postIO,
@@ -36,6 +36,10 @@ import {
     TopicCategory,
     KeywordIO,
     Keyword,
+    MdPointOfContact,
+    MdPointOfContactIO,
+    ResponsibleOrganisation,
+    ResponsibleOrganisationIO,
 } from 'sdi/source';
 
 
@@ -47,16 +51,30 @@ const putOptions =
         method: 'PUT',
     });
 
-export const fetchLayer = (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url);
-export const fetchMap = (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
-export const fetchAlias = (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
-export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-export const fetchDatasetMetadata = (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
+// export const fetchLayer = 
+// (url: string): Promise<FeatureCollection> => fetchIO(FeatureCollectionIO, url);
+// export const fetchMap = 
+// (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
 
-export const fetchAllDatasetMetadata = (url: string) => fetchPaginatedIO(InspireIO, url);
+export const fetchAlias =
+    (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
 
-export const fetchTimeserie = (url: string): Promise<ITimeserie> => fetchIO(ITimeserieIO, url);
-export const fetchCategories = (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url);
+export const fetchUser =
+    (url: string): Promise<IUser> => fetchIO(IUserIO, url);
+
+export const fetchDatasetMetadata =
+    (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
+
+export const fetchAllDatasetMetadata =
+    (url: string) => fetchPaginatedIO(InspireIO, url);
+
+export const fetchPointOfContact =
+    (url: string): Promise<MdPointOfContact> =>
+        fetchIO(MdPointOfContactIO, url);
+
+export const fetchOrganisation =
+    (url: string): Promise<ResponsibleOrganisation> =>
+        fetchIO(ResponsibleOrganisationIO, url);
 
 
 
@@ -79,7 +97,13 @@ export const upload =
     };
 
 
-export const putMetadata = (url: string, data: Inspire): Promise<Inspire> => postIO(InspireIO, url, data, putOptions());
+export const putMetadata =
+    (url: string, data: Inspire): Promise<Inspire> =>
+        postIO(InspireIO, url, data, putOptions());
 
-export const fetchAllTopic = (url: string): Promise<TopicCategory[]> => fetchIO(io.array(TopicCategoryIO), url);
-export const fetchAllKeyword = (url: string): Promise<Keyword[]> => fetchIO(io.array(KeywordIO), url);
+export const fetchAllTopic =
+    (url: string): Promise<TopicCategory[]> =>
+        fetchIO(io.array(TopicCategoryIO), url);
+
+export const fetchAllKeyword =
+    (url: string): Promise<Keyword[]> => fetchIO(io.array(KeywordIO), url);

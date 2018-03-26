@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Inspire, IUser, TopicCategory, Keyword } from 'sdi/source';
+import { Inspire, IUser, TopicCategory, Keyword, MdPointOfContact, ResponsibleOrganisation } from 'sdi/source';
 import { ButtonComponent } from 'sdi/components/button';
 import { IDataTable } from 'sdi/components/table';
 
@@ -41,5 +41,7 @@ declare module 'sdi/shape' {
         'data/datasetMetadata': Inspire[];
         'data/keywords': Keyword[];
         'data/topics': TopicCategory[];
+        'data/md/poc': MdPointOfContact[];
+        'data/md/org': ResponsibleOrganisation[];
     }
 }
