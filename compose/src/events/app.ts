@@ -349,6 +349,9 @@ const events = {
                                     () => queries.getLayerData(i.uniqueResourceIdentifier),
                                 );
                                 events.setCurrentLayerId(result.id);
+                                events.loadLayer(i.uniqueResourceIdentifier,
+                                    getApiUrl(
+                                        `layers/${i.uniqueResourceIdentifier}`));
                             })
                             .catch(err => logger(`addMapLayer map ${err}`));
 

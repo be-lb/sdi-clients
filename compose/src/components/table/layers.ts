@@ -24,6 +24,7 @@ import tr from 'sdi/locale';
 import { metadataTableQueries } from '../../queries/metadata';
 import { metadataTableEvents } from '../../events/table';
 import appEvents from '../../events/app';
+import { selectMetadata } from '../../events/metadata';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
 
@@ -40,7 +41,8 @@ const toolbar = () => {
 };
 
 const onRowSelect: SelectRowHandler =
-    (_row) => {
+    (row) => {
+        selectMetadata(row.from as string);
         appEvents.setLayout(AppLayout.LayerSelectAndInspire);
     };
 

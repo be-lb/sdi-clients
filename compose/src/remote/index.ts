@@ -41,6 +41,10 @@ import {
     IMapBaseLayer,
     IMapBaseLayerIO,
     defaultFetchOptions,
+    MdPointOfContact,
+    MdPointOfContactIO,
+    ResponsibleOrganisation,
+    ResponsibleOrganisationIO,
 } from 'sdi/source';
 
 
@@ -131,6 +135,15 @@ export const postUser =
     (url: string, data: IUser): Promise<IUser> =>
         postIO(IUserIO, url, data);
 
+
+
+export const fetchPointOfContact =
+    (url: string): Promise<MdPointOfContact> =>
+        fetchIO(MdPointOfContactIO, url);
+
+export const fetchOrganisation =
+    (url: string): Promise<ResponsibleOrganisation> =>
+        fetchIO(ResponsibleOrganisationIO, url);
 
 
 // tslint:disable-next-line:variable-name

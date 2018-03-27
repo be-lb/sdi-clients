@@ -18,12 +18,11 @@
 import * as debug from 'debug';
 
 import tr, { fromRecord, formatDate } from 'sdi/locale';
-import { DIV, SPAN, H1, A } from 'sdi/components/elements';
-import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference } from 'sdi/source';
-import { getApiUrl } from 'sdi/app';
+import { DIV, SPAN, H1, A, NODISPLAY } from 'sdi/components/elements';
+import { Inspire, FreeText, isAnchor, ResponsibleOrganisation, isTemporalExtent, TemporalReference, MdPointOfContact } from 'sdi/source';
 import { scopeOption } from 'sdi/lib';
 
-import { getSelectedMetadataRow, getDatasetMetadata } from '../../queries/metadata';
+import { getSelectedMetadataRow, getDatasetMetadata, getPersonOfContact, getResponsibleOrg } from '../../queries/metadata';
 import appEvents from '../../events/app';
 import { AppLayout } from '../../shape/types';
 import { button } from '../button';
@@ -51,12 +50,24 @@ const renderTemporalReference = (t: TemporalReference) => {
     return SPAN({}, tr('lastModified')), formatDate(new Date(t.revision));
 };
 
-const renderContact = (ro: ResponsibleOrganisation) => (
-    DIV({ className: 'ro-block' },
-        renderFreeText(ro.organisationName, 'ro-org-name'),
-        SPAN({ className: 'ro-contact-name' }, ro.contactName),
-        SPAN({ className: 'ro-role-code' }, ro.roleCode))
-);
+const renderContact =
+    (id: number) =>
+        getPersonOfContact(id).fold(
+            NODISPLAY(),
+            (ro: MdPointOfContact) =>
+                DIV({ className: 'ro-block' },
+                    renderFreeText(ro.organisationName, 'ro-org-name'),
+                    SPAN({ className: 'ro-contact-name' }, ro.contactName)));
+
+const renderOrg =
+    (id: number) =>
+        getResponsibleOrg(id).fold(
+            NODISPLAY(),
+            (ro: ResponsibleOrganisation) =>
+                DIV({ className: 'ro-block' },
+                    renderFreeText(ro.organisationName, 'ro-org-name'),
+                    SPAN({ className: 'ro-contact-name' }, ro.contactName),
+                    SPAN({ className: 'ro-role-code' }, ro.roleCode)));
 
 
 const renderInspireMD = (i: Inspire) => (
@@ -71,7 +82,8 @@ const renderInspireMD = (i: Inspire) => (
                 DIV({ className: 'abstract' }, renderFreeText(i.resourceAbstract)),
                 DIV({},
                     SPAN({ className: 'label' }, tr('responsibleAndContact')),
-                    i.responsibleOrganisation.map(renderContact))),
+                    i.metadataPointOfContact.map(renderContact),
+                    i.responsibleOrganisation.map(renderOrg))),
             // DIV({ className: 'inspire-other-items' }, 'TODO')
         ),
         // goButton(() => {
@@ -81,9 +93,6 @@ const renderInspireMD = (i: Inspire) => (
             appEvents.addMapLayer(i);
             appEvents.resetLegendEditor();
             appEvents.setLayout(AppLayout.LegendEditor);
-            appEvents.loadLayer(i.uniqueResourceIdentifier,
-                getApiUrl(
-                    `layers/${i.uniqueResourceIdentifier}`));
         }))
 );
 

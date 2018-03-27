@@ -17,8 +17,8 @@ const loadLayerListKeys =
         tr('geometryType'),
         tr('title'),
         tr('temporalReference'),
-        tr('pointOfContact'),
-        tr('responsibleOrganisation'),
+        // tr('pointOfContact'),
+        // tr('responsibleOrganisation'),
     ]);
 
 const loadLayerListTypes =
@@ -28,8 +28,8 @@ const loadLayerListTypes =
         'string',
         'string',
         'string',
-        'string',
-        'string',
+        // 'string',
+        // 'string',
     ]);
 
 export const getTemporalReference = (t: TemporalReference) => {
@@ -60,14 +60,14 @@ const getLayerListData =
                     md.geometryType,
                     getFreeText(md.resourceTitle),
                     getTemporalReference(md.temporalReference),
-                    md.metadataPointOfContact.reduce((acc, poc, idx) => {
-                        const sep = idx === 0 ? '' : ', ';
-                        return `${acc}${sep}${poc.contactName}`;
-                    }, ''),
-                    md.responsibleOrganisation.reduce((acc, ri, idx) => {
-                        const sep = idx === 0 ? '' : '; ';
-                        return acc + sep + getFreeText(ri.organisationName);
-                    }, ''),
+                    // md.metadataPointOfContact.reduce((acc, poc, idx) => {
+                    //     const sep = idx === 0 ? '' : ', ';
+                    //     return `${acc}${sep}${poc.contactName}`;
+                    // }, ''),
+                    // md.responsibleOrganisation.reduce((acc, ri, idx) => {
+                    //     const sep = idx === 0 ? '' : '; ';
+                    //     return acc + sep + getFreeText(ri.organisationName);
+                    // }, ''),
                 ];
                 return { from: md.id, cells };
             }));
@@ -99,6 +99,13 @@ export const getMetadataRow =
 export const getSelectedMetadataRow =
     () => getMetadataRow(getSelectedMetadata());
 
+export const getPersonOfContact =
+    (id: number) =>
+        fromNullable(query('data/md/poc').find(poc => poc.id === id));
+
+export const getResponsibleOrg =
+    (id: number) =>
+        fromNullable(query('data/md/org').find(org => org.id === id));
 
 
 

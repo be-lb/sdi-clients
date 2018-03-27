@@ -11,7 +11,7 @@ import { dispatchK, dispatch } from 'sdi/shape';
 import { getDatasetMetadata, getMdForm, getMetadataId } from '../queries/metadata';
 import { putMetadata, fetchPointOfContact, fetchOrganisation } from '../remote';
 
-const logger = debug('sdi:queries/metadata');
+const logger = debug('sdi:events/metadata');
 const single = dispatchK('component/single');
 const apiUrl = (s: string) => getApiUrl(s);
 

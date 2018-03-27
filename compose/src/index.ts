@@ -97,6 +97,8 @@ export const main =
             'data/categories': [],
             'data/attachments': [],
             'data/baselayers': {},
+            'data/md/org': [],
+            'data/md/poc': [],
 
             'port/map/scale': {
                 count: 0,
