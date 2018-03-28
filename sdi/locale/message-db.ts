@@ -197,6 +197,7 @@ export type MessageKey =
     | 'publish'
     | 'published'
     | 'quotationMark'
+    | 'relatedMapsLabel'
     | 'remove'
     | 'removeMap'
     | 'replaceFR'
@@ -1520,5 +1521,11 @@ export const messages: MessageDB = {
     preview: {
         fr: 'Aperçu',
         nl: 'Voorvertoning',
+    },
+
+
+    relatedMapsLabel: {
+        fr: 'Cartes Liées',
+        nl: 'Gerelateerde kaarten',
     },
 };

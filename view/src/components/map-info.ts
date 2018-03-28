@@ -17,32 +17,73 @@
 import * as debug from 'debug';
 
 import tr, { fromRecord, formatDate } from 'sdi/locale';
-import { IMapInfo } from 'sdi/source';
-import { DIV, H2, P, A, IMG, NODISPLAY } from 'sdi/components/elements';
+import { IMapInfo, Attachment } from 'sdi/source';
+import { DIV, H2, P, A, IMG, NODISPLAY, SPAN } from 'sdi/components/elements';
+import { filterNotNull } from 'sdi/util';
 
 import queries from '../queries/app';
 import { getAttachment } from '../queries/attachments';
+import { navigateMap } from '../events/route';
 
 const logger = debug('sdi:map-info');
 
 
-const makeAttachment =
-    (aid: string) =>
-        getAttachment(aid).fold(
-            DIV({}, 'NOT LOADED YET'),
-            a => DIV({ className: 'map-file', key: aid },
-                A({ href: fromRecord(a.url), target: '_blank' }, fromRecord(a.name))));
+// const internalRe = new RegExp('.*\/client\/view\/([\\w-]+)\/?.+$');
+const internalRe = new RegExp('.*\/client\/view\/(.+)');
+
+
+
+const renderInternal =
+    (a: Attachment) => {
+        const rs = internalRe.exec(fromRecord(a.url));
+        if (rs === null) { return NODISPLAY(); }
+        return DIV({ className: 'internal-nav', key: a.id },
+            SPAN({
+                onClick: () => navigateMap(rs[1]),
+            }, fromRecord(a.name)));
+    };
+
+const renderExternal =
+    (a: Attachment) =>
+        DIV({ className: 'map-file', key: a.id },
+            A({ href: fromRecord(a.url), target: '_blank' },
+                fromRecord(a.name)));
+
+const isInternal =
+    (a: Attachment) => internalRe.exec(fromRecord(a.url)) !== null;
+
+const isExternal =
+    (a: Attachment) => !isInternal(a);
+
 
 
 const renderAttachments =
     (info: IMapInfo) => {
-        const aLen = info.attachments.length;
-        if (aLen > 0) {
+        const ats = filterNotNull(
+            info.attachments.map(
+                id => getAttachment(id).fold(null, a => a)));
+
+        if (ats.length > 0) {
+            const ints = ats.filter(isInternal);
+            const exts = ats.filter(isExternal);
+            if (ints.length == 0) {
+                return (
+                    DIV({ className: 'map-attached-files' },
+                        H2({}, tr('links')),
+                        exts.map(renderExternal))
+                );
+            }
+
+            const sectionTitle = exts.length > 0 ? H2({}, tr('links')) : NODISPLAY();
             return (
                 DIV({ className: 'map-attached-files' },
-                    H2({}, tr('links')),
-                    info.attachments.map(makeAttachment))
+                    sectionTitle,
+                    exts.map(renderExternal),
+                    DIV({ className: 'related-maps' },
+                        H2({}, tr('relatedMapsLabel')),
+                        ints.map(renderInternal)))
             );
+
         }
 
         return NODISPLAY();
@@ -55,7 +96,7 @@ export default () => {
             fromRecord(mapInfo.description)
                 .split('\n')
                 .filter(p => p.trim().length > 0);
-        const description = pars.map((paragraph, i) => P({ key: `map-desc-par-${i}` }, paragraph));
+        const description = pars.map((paragraph, i) => P({ key: `map - desc - par - ${i} ` }, paragraph));
         const mapDescription =
             pars.length > 0 ?
                 DIV({ className: 'map-description' }, ...description) :

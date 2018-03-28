@@ -153,4 +153,19 @@ export const binarySearch: (a: number, b: number, c: BinaryPredicate) => number 
             return binarySearch(pivot + 1, max, predicate);
         }
         return pivot;
-    }
+    };
+
+
+
+
+export const filterNotNull =
+    <T>(xs: (T | null)[]): T[] => {
+        const r: T[] = [];
+        for (let i = 0; i < xs.length; i += 1) {
+            const v = xs[i];
+            if (v !== null) {
+                r.push(v);
+            }
+        }
+        return r;
+    };

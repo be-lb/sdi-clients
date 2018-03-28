@@ -26,7 +26,7 @@
     .map-attached-files {
         margin: @margin 0;
 
-        .map-file {
+        .map-file,.internal-nav {
             .link;
             .word-wrap;
             display: flex;
@@ -37,6 +37,13 @@
                 .legendItemPosition;
                 justify-content: center;
                 content: @fa-var-link;
+            }
+        }
+
+        .related-maps {
+            margin-top: @margin;
+            .internal-nav:before {
+                content: @fa-var-play;
             }
         }
     }
