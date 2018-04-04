@@ -67,8 +67,8 @@ export const initialTimeserieState =
         editingSelection: false,
     });
 
-export type QueryTimeserie = () => ITimeserieInteractive;
-export type DispatchTimeserie = (handler: (s: ITimeserieInteractive) => ITimeserieInteractive) => void;
+export type QueryTimeserie = (a: string) => ITimeserieInteractive;
+export type DispatchTimeserie = (a: string, handler: (s: ITimeserieInteractive) => ITimeserieInteractive) => void;
 
 export type PlotDataLoader = (id: string, url: string) => void;
 export type PlotDataGetter = (id: string) => ITimeserie | null;
@@ -78,21 +78,21 @@ export interface PlotQuerySet {
     getData(props: NotNullProperties, config: TimeserieConfig): ITimeserie | null;
     getTimeserieId(props: NotNullProperties, config: TimeserieConfig): string | null;
     getTimeserieUrl(props: NotNullProperties, config: TimeserieConfig): string;
-    getSelection(): IChartWindow;
-    isEditing(): Boolean;
-    isActive(): Boolean;
-    getCursorPosition(): number;
+    getSelection(d: string): IChartWindow;
+    isEditing(d: string): Boolean;
+    isActive(d: string): Boolean;
+    getCursorPosition(d: string): number;
 }
 
 
 export interface PlotEventSet {
     loadData: PlotDataLoader;
-    startSelection(start: number): void;
-    endSelection(end: number): void;
-    startEditing(): void;
-    stopEditing(): void;
-    setCursorPosition(position: number): void;
-    clearSelection(): void;
+    startSelection(d: string, start: number): void;
+    endSelection(d: string, end: number): void;
+    startEditing(d: string): void;
+    stopEditing(d: string): void;
+    setCursorPosition(d: string, position: number): void;
+    clearSelection(d: string): void;
 }
 
 

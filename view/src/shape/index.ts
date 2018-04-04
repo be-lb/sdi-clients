@@ -61,7 +61,7 @@ declare module 'sdi/shape' {
         'component/table': IDataTable;
         'component/table/extract': IDataTable;
         'component/mapnavigator': IMapNavigator;
-        'component/timeserie': ITimeserieInteractive;
+        'component/timeserie': { [id: string]: ITimeserieInteractive };
         'component/legend/webservices': IToolWebServices;
         'component/legend/geocoder': IToolGeocoder;
         'component/legend/positioner': IPositioner;

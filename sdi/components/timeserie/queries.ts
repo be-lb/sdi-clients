@@ -77,20 +77,20 @@ export const plotQueries =
                 return buildURL(config.options.urlTemplate, props);
             },
 
-            getSelection() {
-                return timeserie().selection;
+            getSelection(id: string) {
+                return timeserie(id).selection;
             },
 
-            isEditing() {
-                return timeserie().editingSelection;
+            isEditing(id: string) {
+                return timeserie(id).editingSelection;
             },
 
-            isActive() {
-                return timeserie().active;
+            isActive(id: string) {
+                return timeserie(id).active;
             },
 
-            getCursorPosition() {
-                return timeserie().cursorPosition;
+            getCursorPosition(id: string) {
+                return timeserie(id).cursorPosition;
             },
         };
 

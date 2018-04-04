@@ -23,7 +23,6 @@ import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction, defaultPrintRequest, defaultPrintResponse } from 'sdi/map';
 import { initialTableState } from 'sdi/components/table';
-import { initialTimeserieState } from 'sdi/components/timeserie';
 
 import App from './app';
 import { AppLayout } from './shape/types';
@@ -89,7 +88,7 @@ export const main =
             'component/table': initialTableState(),
             'component/table/extract': initialTableState(),
 
-            'component/timeserie': initialTimeserieState(),
+            'component/timeserie': {},
 
             'component/legend/webservices': {
                 folded: true,

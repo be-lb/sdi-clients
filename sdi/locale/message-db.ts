@@ -70,6 +70,7 @@ export type MessageKey =
     | 'datas'
     | 'dataType'
     | 'displayLabel'
+    | 'downloadCSV'
     | 'draft'
     | 'edit'
     | 'editFeatureTemplate'
@@ -1527,5 +1528,10 @@ export const messages: MessageDB = {
     relatedMapsLabel: {
         fr: 'Cartes Liées',
         nl: 'Gerelateerde kaarten',
+    },
+
+    downloadCSV: {
+        fr: 'Télécharger le fichier CSV',
+        nl: 'Download CSV-bestand',
     },
 };

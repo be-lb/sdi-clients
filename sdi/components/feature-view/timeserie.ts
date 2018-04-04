@@ -17,7 +17,7 @@
 import * as debug from 'debug';
 
 
-import { DIV, INPUT, SPAN } from '../elements';
+import { DIV, INPUT, SPAN, A } from '../elements';
 import tr from '../../locale';
 
 import { TimeserieConfig, ITimeserie } from '../../source';
@@ -55,19 +55,21 @@ const render =
     (tsPlotter: TimeseriePlotter) =>
         (props: NotNullProperties, config: TimeserieConfig) => {
             const { plotter, queries, events } = tsPlotter;
+            const id = queries.getTimeserieId(props, config);
+            const url = queries.getTimeserieUrl(props, config);
             const data = queries.getData(props, config);
 
-            if (data) {
+            if (id && data && url) {
                 if (data.length === 0) {
                     return DIV();
                 }
-                const s = queries.getSelection();
+                const s = queries.getSelection(id);
                 if (s.start < 0) {
-                    events.startSelection(data[0][0]);
+                    events.startSelection(id, data[0][0]);
                     return DIV();
                 }
                 else if (s.end < s.start) {
-                    events.endSelection(data[data.length - 1][0]);
+                    events.endSelection(id, data[data.length - 1][0]);
                     return DIV();
                 }
                 const selectionWindow = s.start >= 0 ? absoluteWindow(s) : { start: data[0][0], end: data[data.length - 1][0] };
@@ -83,7 +85,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.startSelection(d / 1000);
+                                events.startSelection(id, d / 1000);
                             }
                         },
                     }));
@@ -98,7 +100,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.endSelection(d / 1000);
+                                events.endSelection(id, d / 1000);
                             }
                         },
                     }));
@@ -109,7 +111,9 @@ const render =
                         key: `chart|${selectionWindow.start.toString()}|${selectionWindow.end.toString()}`,
                     },
                         plotter(selectionData, selectionWindow, config.options.referencePoint)),
-                    DIV({ className: 'chart-date-wrapper' }, inputStart, inputEnd));
+                    DIV({ className: 'chart-date-wrapper' }, inputStart, inputEnd),
+                    DIV({ className: 'download-link-wrapper' },
+                        A({ href: `${url}.csv` }, tr('downloadCSV'))));
             }
             else {
                 const id = queries.getTimeserieId(props, config);

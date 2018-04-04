@@ -52,6 +52,7 @@ export const switcher =
 const tsPlotter = timeserie(
     queryTimeserie, getData, app.getCurrentLayer,
     dispatchTimeserie, loadData);
+
 const noView = () => DIV({ className: 'feature-view no' });
 
 

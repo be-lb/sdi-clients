@@ -16,15 +16,17 @@
 
 import { PlotQuerySet, DispatchTimeserie, PlotDataLoader, PlotEventSet } from './index';
 
+
+
+
 export const plotEvents =
     (dispatch: DispatchTimeserie, loadData: PlotDataLoader, queries: PlotQuerySet): PlotEventSet => {
-
 
         const events = {
             loadData,
 
-            startSelection(start: number) {
-                dispatch(state => ({
+            startSelection(id: string, start: number) {
+                dispatch(id, state => ({
                     ...state,
                     selection: {
                         ...state.selection,
@@ -33,8 +35,8 @@ export const plotEvents =
                 }));
             },
 
-            endSelection(end: number) {
-                dispatch(state => ({
+            endSelection(id: string, end: number) {
+                dispatch(id, state => ({
                     ...state,
                     selection: {
                         ...state.selection,
@@ -43,31 +45,31 @@ export const plotEvents =
                 }));
             },
 
-            startEditing(): void {
-                dispatch((state) => {
+            startEditing(id: string): void {
+                dispatch(id, (state) => {
                     state.editingSelection = true;
                     return state;
                 });
             },
 
-            stopEditing(): void {
-                dispatch((state) => {
+            stopEditing(id: string): void {
+                dispatch(id, (state) => {
                     state.editingSelection = false;
                     return state;
                 });
             },
 
-            setCursorPosition(position: number): void {
-                if (queries.getCursorPosition() !== position) {
-                    dispatch((state) => {
+            setCursorPosition(id: string, position: number): void {
+                if (queries.getCursorPosition(id) !== position) {
+                    dispatch(id, (state) => {
                         state.cursorPosition = position;
                         return state;
                     });
                 }
             },
 
-            clearSelection(): void {
-                dispatch((state) => {
+            clearSelection(id: string): void {
+                dispatch(id, (state) => {
                     state.selection = { start: -1, end: -1 };
                     state.cursorPosition = -1;
                     return state;
