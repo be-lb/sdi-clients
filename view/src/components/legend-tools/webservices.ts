@@ -18,23 +18,43 @@
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { DIV, H2, NODISPLAY } from 'sdi/components/elements';
+import { DIV, H2, NODISPLAY, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
+import { translateMapBaseLayer } from 'sdi/util';
+import { IMapBaseLayer } from 'sdi/source';
 
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
 
 const logger = debug('sdi:webservices');
 
+const renderCurrentBaseLayer =
+    (bl: IMapBaseLayer) => {
+        const tl = translateMapBaseLayer(bl)
+        // const lyrs = tl.params.LAYERS.split(',');
+        // const legends = lyrs.map(lyr => IMG({
+        //     key: `legend-image-${tl.url}-${lyr}`,
+        //     src: `${tl.url}?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=${tl.params.VERSION}&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${lyr}`,
+        // }));
+
+        return DIV({ className: 'base-layer active' },
+            SPAN({}, tl.name))
+    };
+
 
 const renderBaseLayer =
     (id: string, current: string | null) =>
         fromNullable(appQueries.gteBaseLayer(id)).fold(
             NODISPLAY(),
-            bl => DIV({
-                className: `base-layer ${id === current ? 'active' : ''}`,
-                onClick: () => appEvents.setMapBaseLayer(id),
-            }, fromRecord(bl.name)));
+            (bl) => {
+                if (id === current) {
+                    return renderCurrentBaseLayer(bl);
+                }
+                return DIV({
+                    className: `base-layer`,
+                    onClick: () => appEvents.setMapBaseLayer(id),
+                }, fromRecord(bl.name));
+            });
 
 
 const renderService =

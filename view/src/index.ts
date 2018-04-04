@@ -90,6 +90,8 @@ export const main =
 
             'component/timeserie': {},
 
+            'component/legend/show-wms-legend': false,
+
             'component/legend/webservices': {
                 folded: true,
                 url: '',

@@ -62,6 +62,7 @@ declare module 'sdi/shape' {
         'component/table/extract': IDataTable;
         'component/mapnavigator': IMapNavigator;
         'component/timeserie': { [id: string]: ITimeserieInteractive };
+        'component/legend/show-wms-legend': boolean;
         'component/legend/webservices': IToolWebServices;
         'component/legend/geocoder': IToolGeocoder;
         'component/legend/positioner': IPositioner;

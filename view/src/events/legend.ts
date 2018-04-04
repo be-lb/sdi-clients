@@ -31,6 +31,10 @@ const events = {
         });
     },
 
+    setWMSLegendVisible(b: boolean) {
+        dispatch('component/legend/show-wms-legend', () => b);
+    },
+
     updateWebServiceURL(url: string) {
         dispatch('component/legend/webservices', state => ({ ...state, url }));
     },

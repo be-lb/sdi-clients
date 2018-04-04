@@ -15,9 +15,10 @@
  */
 
 import * as debug from 'debug';
-import { DIV, SPAN, H1, H2, NODISPLAY } from 'sdi/components/elements';
+import { DIV, SPAN, H1, H2, NODISPLAY, IMG } from 'sdi/components/elements';
 import { getMessageRecord, LayerGroup, ILayerInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
+import { translateMapBaseLayer } from 'sdi/util';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
@@ -162,6 +163,34 @@ export const switcher = () => {
 
 };
 
+
+const wmsLegend =
+    () => {
+        const bl = appQueries.getCurrentBaseLayer();
+        if (null === bl) {
+            return NODISPLAY();
+        }
+        if (queries.displayWMSLegend()) {
+            const tl = translateMapBaseLayer(bl)
+            const lyrs = tl.params.LAYERS.split(',');
+            const legends = lyrs.map(lyr => IMG({
+                key: `legend-image-${tl.url}-${lyr}`,
+                src: `${tl.url}?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=${tl.params.VERSION}&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${lyr}`,
+            }));
+
+            return DIV({},
+                DIV({
+                    onClick: () => events.setWMSLegendVisible(false),
+                }, 'Hide WMS Legend'),
+                ...legends)
+        }
+
+        return DIV({},
+            DIV({
+                onClick: () => events.setWMSLegendVisible(true),
+            }, 'Show WMS Legend'))
+    }
+
 const legend = () => {
     const currentPage = queries.currentPage();
     const mapInfo = appQueries.getMapInfo();
@@ -176,7 +205,7 @@ const legend = () => {
                             info(),
                             DIV({ className: 'styles-wrapper' },
                                 H2({}, tr('mapLegend')),
-                                ...renderLegend(groupItems(mapInfo.layers))),
+                                ...renderLegend(groupItems(mapInfo.layers)), wmsLegend()),
                             DIV({ className: 'datas-wrapper' },
                                 H2({}, tr('mapDatas')),
                                 ...renderData(groupItems(mapInfo.layers)))),

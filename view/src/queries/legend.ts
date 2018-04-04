@@ -19,6 +19,10 @@ import { query } from 'sdi/shape';
 
 const queries = {
 
+    displayWMSLegend() {
+        return query('component/legend/show-wms-legend');
+    },
+
     currentPage() {
         return query('component/legend').currentPage;
     },
