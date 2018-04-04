@@ -14,9 +14,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { query, queryK } from 'sdi/shape';
+import { query } from 'sdi/shape';
+import { initialTimeserieState } from 'sdi/components/timeserie';
 
-export const queryTimeserie = queryK('component/timeserie');
+export const queryTimeserie =
+    (id: string) => {
+        const ts = query('component/timeserie');
+        if (id in ts) {
+            return ts[id];
+        }
+        return initialTimeserieState();
+    };
 
 export const getData =
     (id: string) => {

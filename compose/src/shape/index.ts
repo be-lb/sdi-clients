@@ -60,7 +60,7 @@ declare module 'sdi/shape' {
         'component/button': ButtonComponent;
         'component/feature-config': FeatureConfig;
         'component/layer-editor': LayerEditor;
-        'component/timeserie': ITimeserieInteractive;
+        'component/timeserie': { [id: string]: ITimeserieInteractive };
         'component/attachments': AttachmentForm[];
 
         'port/map/view': IMapViewData;

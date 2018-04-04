@@ -42,7 +42,3 @@ export const loadData =
             });
     };
 
-
-// observe('app/current-feature',
-//     () => dispatch('component/timeserie',
-//         () => initialTimeserieState()));

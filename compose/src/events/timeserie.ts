@@ -14,10 +14,22 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, dispatchK } from 'sdi/shape';
+import { dispatch } from 'sdi/shape';
+import { ITimeserieInteractive, initialTimeserieState } from 'sdi/components/timeserie';
+
 import { fetchTimeserie } from '../remote';
 
-export const dispatchTimeserie = dispatchK('component/timeserie');
+type TimeserieStateUpdater = (state: ITimeserieInteractive) => ITimeserieInteractive;
+
+export const dispatchTimeserie =
+    (id: string, f: TimeserieStateUpdater) =>
+        dispatch('component/timeserie', (interactives) => {
+            if (id in interactives) {
+                return { ...interactives, [id]: f(interactives[id]) };
+            }
+            return { ...interactives, [id]: f(initialTimeserieState()) };
+        });
+
 
 export const loadData =
     (id: string, url: string) => {
@@ -29,3 +41,5 @@ export const loadData =
                 });
             });
     };
+
+

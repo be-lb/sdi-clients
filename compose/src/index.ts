@@ -19,7 +19,6 @@ import './shape';
 import * as debug from 'debug';
 import { source } from 'sdi/source';
 import { initialTableState } from 'sdi/components/table';
-import { initialTimeserieState } from 'sdi/components/timeserie';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction } from 'sdi/map';
 
@@ -85,7 +84,7 @@ export const main =
             'component/button': {},
             'component/feature-config': initialFeatureConfigState(),
             'component/layer-editor': initialLayerEditorState(),
-            'component/timeserie': initialTimeserieState(),
+            'component/timeserie': {},
             'component/attachments': [],
 
             'data/user': null,
