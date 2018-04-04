@@ -175,6 +175,7 @@ export const select =
             features: selectedFeature,
             condition: events.condition.click,
             multi: false,
+            hitTolerance: 6,
         });
 
         selectInteraction.on('change:active',
