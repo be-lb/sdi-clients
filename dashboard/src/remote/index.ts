@@ -24,11 +24,22 @@ import {
     postIO,
 } from 'sdi/source';
 
+const lo = io.interface({
+    logout: io.string,
+})
 
-export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-// export const logoutUser = (url: string): Promise<string> => fetchIO(io.string, url);
+type Lo = io.TypeOf<typeof lo>
 
-export const logoutUser = (url: string): Promise<string> => postIO(io.string, url, null);
-export const loginUser = (url: string, data: Credentials): Promise<IUser> => postIO(IUserIO, url, data);
+export const fetchUser =
+    (url: string): Promise<IUser> =>
+        fetchIO(IUserIO, url);
+
+export const logoutUser =
+    (url: string): Promise<Lo> =>
+        postIO(lo, url, null);
+
+export const loginUser =
+    (url: string, data: Credentials): Promise<IUser> =>
+        postIO(IUserIO, url, data);
 
 
