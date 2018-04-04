@@ -55,21 +55,20 @@ const render =
     (tsPlotter: TimeseriePlotter) =>
         (props: NotNullProperties, config: TimeserieConfig) => {
             const { plotter, queries, events } = tsPlotter;
-            const id = queries.getTimeserieId(props, config);
             const url = queries.getTimeserieUrl(props, config);
             const data = queries.getData(props, config);
 
-            if (id && data && url) {
+            if (data && url) {
                 if (data.length === 0) {
                     return DIV();
                 }
-                const s = queries.getSelection(id);
+                const s = queries.getSelection(url);
                 if (s.start < 0) {
-                    events.startSelection(id, data[0][0]);
+                    events.startSelection(url, data[0][0]);
                     return DIV();
                 }
                 else if (s.end < s.start) {
-                    events.endSelection(id, data[data.length - 1][0]);
+                    events.endSelection(url, data[data.length - 1][0]);
                     return DIV();
                 }
                 const selectionWindow = s.start >= 0 ? absoluteWindow(s) : { start: data[0][0], end: data[data.length - 1][0] };
@@ -85,7 +84,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.startSelection(id, d / 1000);
+                                events.startSelection(url, d / 1000);
                             }
                         },
                     }));
@@ -100,7 +99,7 @@ const render =
                         onChange: (e) => {
                             const d = Date.parse(e.currentTarget.value);
                             if (!isNaN(d)) {
-                                events.endSelection(id, d / 1000);
+                                events.endSelection(url, d / 1000);
                             }
                         },
                     }));
@@ -116,11 +115,11 @@ const render =
                         A({ href: `${url}.csv` }, tr('downloadCSV'))));
             }
             else {
-                const id = queries.getTimeserieId(props, config);
+                // const id = queries.getTimeserieId(props, config);
                 const url = queries.getTimeserieUrl(props, config);
 
-                if (id !== null && url !== null) {
-                    events.loadData(id, url);
+                if (url !== null) {
+                    events.loadData(url);
                     return [DIV({}, tr('loadingData'))];
                 }
                 else {

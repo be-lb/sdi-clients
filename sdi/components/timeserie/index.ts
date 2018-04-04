@@ -70,7 +70,7 @@ export const initialTimeserieState =
 export type QueryTimeserie = (a: string) => ITimeserieInteractive;
 export type DispatchTimeserie = (a: string, handler: (s: ITimeserieInteractive) => ITimeserieInteractive) => void;
 
-export type PlotDataLoader = (id: string, url: string) => void;
+export type PlotDataLoader = (url: string) => void;
 export type PlotDataGetter = (id: string) => ITimeserie | null;
 export type CLidGetter = () => string | null;
 

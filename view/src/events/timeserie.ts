@@ -22,21 +22,21 @@ import { fetchTimeserie } from '../remote';
 type TimeserieStateUpdater = (state: ITimeserieInteractive) => ITimeserieInteractive;
 
 export const dispatchTimeserie =
-    (id: string, f: TimeserieStateUpdater) =>
+    (url: string, f: TimeserieStateUpdater) =>
         dispatch('component/timeserie', (interactives) => {
-            if (id in interactives) {
-                return { ...interactives, [id]: f(interactives[id]) };
+            if (url in interactives) {
+                return { ...interactives, [url]: f(interactives[url]) };
             }
-            return { ...interactives, [id]: f(initialTimeserieState()) };
+            return { ...interactives, [url]: f(initialTimeserieState()) };
         });
 
 
 export const loadData =
-    (id: string, url: string) => {
+    (url: string) => {
         fetchTimeserie(url)
             .then((ts) => {
                 dispatch('data/timeseries', (state) => {
-                    state[id] = ts;
+                    state[url] = ts;
                     return state;
                 });
             });

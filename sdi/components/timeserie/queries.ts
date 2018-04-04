@@ -54,9 +54,9 @@ export const plotQueries =
 
         const queries = {
             getData(props: NotNullProperties, config: TimeserieConfig) {
-                const id = queries.getTimeserieId(props, config);
-                if (id) {
-                    return getData(id);
+                const url = queries.getTimeserieUrl(props, config);
+                if (url) {
+                    return getData(url);
                 }
                 return null;
             },
