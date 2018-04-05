@@ -8,6 +8,7 @@
 
         .legend-label {
             font-weight: 100;
+            margin: @margin 0;
         }
 
         .legend-item {
@@ -47,13 +48,44 @@
 
         .legend-group-title {
             font-weight: 100;
-            margin-bottom: @small-margin;
+            margin: @margin auto @small-margin auto;
         }
 
         .legend-group-items {
             border-left: 1px solid @grey;
             padding-left: @margin;
             margin-left: @margin;
+        }
+    }
+
+    .wms-legend-wrapper {
+        width: 100%;
+        margin-top: @small-margin;
+        padding: @margin 0;
+        border-top: 0.5px solid @grey;
+        border-bottom: 0.5px solid @grey;
+        overflow-x: auto;
+        overflow-y: hidden;
+        .wms-legend-switch {
+            .interactive;
+            font-weight: 100;
+            display: flex;
+            &::before{
+                .awsomefont;
+                .legendItemPosition;
+                justify-content: center;
+            }
+            &.opened::before{
+                content: @fa-var-chevron-down;
+            }
+            &.closed::before{
+                content: @fa-var-chevron-right;
+            }
+        }
+
+        .wms-legend-item {
+            margin-left:  @legend-itemW + @margin;
+            margin-top:  @small-margin;
         }
     }
 }

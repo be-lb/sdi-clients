@@ -171,25 +171,30 @@ const wmsLegend =
             return NODISPLAY();
         }
         if (queries.displayWMSLegend()) {
-            const tl = translateMapBaseLayer(bl)
-            const lyrs = tl.params.LAYERS.split(',');
-            const legends = lyrs.map(lyr => IMG({
-                key: `legend-image-${tl.url}-${lyr}`,
-                src: `${tl.url}?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=${tl.params.VERSION}&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${lyr}`,
-            }));
-
-            return DIV({},
+            const tl = translateMapBaseLayer(bl);
+            const lyrs = tl.params.LAYERS.split(',').reverse();
+            const legends = lyrs.map(lyr =>
                 DIV({
+                    className: 'wms-legend-item',
+                    key: `legend-image-${tl.url}-${lyr}`,
+                }, IMG({
+                    src: `${tl.url}?SERVICE=WMS&REQUEST=GetLegendGraphic&VERSION=${tl.params.VERSION}&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=${lyr}`,
+                })));
+
+            return DIV({ className: 'wms-legend-wrapper' },
+                DIV({
+                    className: 'wms-legend-switch opened',
                     onClick: () => events.setWMSLegendVisible(false),
-                }, 'Hide WMS Legend'),
-                ...legends)
+                }, tr('wmsLegendHide')),
+                ...legends);
         }
 
-        return DIV({},
+        return DIV({ className: 'wms-legend-wrapper' },
             DIV({
+                className: 'wms-legend-switch closed',
                 onClick: () => events.setWMSLegendVisible(true),
-            }, 'Show WMS Legend'))
-    }
+            }, tr('wmsLegendDisplay')));
+    };
 
 const legend = () => {
     const currentPage = queries.currentPage();

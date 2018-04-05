@@ -269,6 +269,8 @@ export type MessageKey =
     | 'visible'
     | 'webServiceUrl'
     | 'widgets'
+    | 'wmsLegendHide'
+    | 'wmsLegendDisplay'
     | 'wmsSwitch'
     | 'zoomIn'
     | 'zoomOut'
@@ -1533,5 +1535,15 @@ export const messages: MessageDB = {
     downloadCSV: {
         fr: 'Télécharger le fichier CSV',
         nl: 'Download CSV-bestand',
+    },
+
+    wmsLegendDisplay: {
+        fr: 'Montrer la légende du fond de carte',
+        nl: 'Toon achtergrondkaartlegenda',
+    },
+
+    wmsLegendHide: {
+        fr: 'Masquer la légende du fond de carte',
+        nl: 'Verberg achtergrondlegenda',
     },
 };
