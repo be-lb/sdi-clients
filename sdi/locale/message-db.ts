@@ -1290,7 +1290,7 @@ export const messages: MessageDB = {
     setLongitude: {
         fr: 'Longitude (X)',
         nl: 'Lengtegraad (X)',
-        En: 'Longitude (X)',
+        en: 'Longitude (X)',
     },
 
     uploadShpInfos: {
@@ -1763,8 +1763,8 @@ export const messages: MessageDB = {
 
     cursorLocalisation: {
         fr: 'Localisation du curseur',
-        nl: 'Cursorlocatie'
-        en: 'Cursor location',,
+        nl: 'Cursorlocatie',
+        en: 'Cursor location',
     },
 
     preview: {
