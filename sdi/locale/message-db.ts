@@ -293,1257 +293,1508 @@ export const messages: MessageDB = {
     all: {
         fr: 'Tout',
         nl: 'Alles',
+        en: 'All',
     },
 
     add: {
         fr: 'Ajouter',
         nl: 'Toevoegen',
+        en: 'Add',
     },
 
     address: {
         fr: 'Adresse',
         nl: 'Adres',
+        en: 'Adress',
     },
 
     addInterval: {
         fr: 'Ajouter un intervale',
         nl: 'Interval toevoegen',
+        en: 'Add an interval',
     },
 
     addLayer: {
         fr: 'Ajouter',
         nl: 'Toevoegen',
+        en: 'Add',
     },
 
     attributesTable: {
         fr: 'Table attributaire',
         nl: 'Attributentabel',
+        en: 'Attribute table',
     },
 
     attachedFiles: {
         fr: 'Documents',
         nl: 'Documenten',
+        en: 'Documents',
     },
 
     attachmentAdd: {
         fr: 'Ajouter document',
         nl: 'Document toevoegen',
+        en: 'Add document',
     },
 
     attachmentUpload: {
         fr: 'Upload',
         nl: 'Uploaden',
+        en: 'Upload',
     },
 
     attachmentUploadActive: {
         fr: 'Uploading',
         nl: 'Bezig met uploaden',
+        en: 'Uploading',
     },
 
     attachmentName: {
         fr: 'Nom du lien',
         nl: 'Naam van het link',
+        en: 'Link name',
     },
 
     attachmentUrl: {
         fr: 'URL du lien',
         nl: 'URL van het link',
+        en: 'Link URL',
     },
 
     browseMaps: {
         fr: 'Feuilleter des cartes',
         nl: 'Verken de kaarten',
+        en: 'Browse maps',
     },
 
     cancel: {
         fr: 'Annuler',
         nl: 'Annuleer',
+        en: 'Cancel',
     },
 
     charts: {
         fr: 'Graphiques',
         nl: 'Grafieken',
+        en: 'Charts',
     },
 
     clear: {
         fr: 'Supprimer',
         nl: 'Verwijderen',
+        en: 'Delete',
     },
 
     close: {
         fr: 'Fermer',
         nl: 'Sluiten',
+        en: 'Close',
     },
 
     colorOpacity: {
         fr: 'Opacité',
         nl: 'Opaciteit',
+        en: 'Opacity',
     },
     colorSaturation: {
         fr: 'Saturation',
         nl: 'Verzadiging',
+        en: 'Saturation',
     },
     colorLightness: {
         fr: 'Luminosité',
         nl: 'Helderheid',
+        en: 'Lightness',
     },
 
     connect: {
         fr: 'Connecter',
         nl: 'Inloggen',
+        en: 'Connect',
     },
 
     copy: {
         fr: 'Copier',
-        nl: 'kopiëren',
+        nl: 'Kopiëren',
+        en: 'Copy',
     },
 
     datas: {
         fr: 'Données',
         nl: 'Gegevens',
+        en: 'Datas',
     },
 
     editFeatureTemplate: {
         fr: 'Éditer la fiche individuelle',
         nl: 'Bewerk de individuele fiche',
+        en: 'Edit feature view',
     },
 
     featureTemplateEditor: {
         fr: 'Éditeur de fiche individuelle',
         nl: 'Individuele fiche bewerken',
+        en: 'Feature view editor',
     },
 
     featureTemplateEditorReset: {
         fr: 'Réinitialiser la fiche individuelle',
         nl: 'Reset individuele fiche',
+        en: 'Reset feature view',
     },
 
     featureViewTypeDefault: {
-        fr: 'Standaard',
+        fr: 'Standard',
         nl: 'Standaard',
+        en: 'Default',
     },
 
     featureViewTypeTemplate: {
         fr: 'Template',
         nl: 'Template',
+        en: 'Template',
     },
 
     featureViewTypeConfig: {
         fr: 'Configurable',
         nl: 'Instelbaar',
+        en: 'Configuration',
     },
 
     featureViewTypeTimeserie: {
         fr: 'Bar chart',
         nl: 'Staafdiagram',
+        en: 'Bar chart',
     },
 
     featureViewTypePieChart: {
-        fr: 'Pie chart',
+        fr: 'Diagramme circulaire',
         nl: 'Taartdiagram',
+        en: 'Pie chart',
     },
 
     featureViewUnvalidTemplate: {
         fr: 'Template invalide',
         nl: 'Ongeldige template',
+        en: 'Invalid template',
     },
 
     dataType: {
         fr: 'Type de données',
         nl: 'Gegevenstype',
+        en: 'Datas type',
     },
 
     displayLabel: {
         fr: 'Afficher le titre de la colonne',
         nl: 'Geef naam van de kolom weer',
+        en: 'Display column title',
     },
 
     textFormat: {
         fr: 'Format du text',
         nl: 'Tekst formaat',
+        en: 'Text format',
     },
 
     textStyle: {
         fr: 'Style du texte',
         nl: 'Tekst stijl',
+        en: 'Text style',
     },
 
     editLegend: {
         fr: 'Éditer',
         nl: 'Bewerken',
+        en: 'Edit',
     },
 
     editMap: {
         fr: 'Éditer',
         nl: 'Bewerken',
+        en: 'Edit',
     },
 
     editLayer: {
         fr: 'Éditer',
         nl: 'Bewerken',
+        en: 'Edit',
     },
 
     embed: {
         fr: 'Inclure dans votre site web',
         nl: 'Integreer in uw website',
+        en: 'Embed in your web site',
     },
 
     emptyDescription: {
         fr: 'Description',
         nl: 'Beschrijving',
+        en: 'Description',
     },
 
     emptyMapDescription: {
         fr: 'Description de la carte',
         nl: 'Kaartbeschrijving',
+        en: 'Map description',
     },
 
     emptyTitle: {
         fr: 'Titre',
         nl: 'Titel',
+        en: 'Title',
     },
 
     emptyMapTitle: {
         fr: 'Titre de la carte',
         nl: 'Kaarttitel',
+        en: 'Map title',
     },
 
     export: {
         fr: 'Export',
         nl: 'Exporteer',
+        en: 'Export',
     },
 
     extentBegin: {
         fr: 'Début',
         nl: 'Begin',
+        en: 'Begining',
     },
 
     extentEnd: {
         fr: 'Fin',
         nl: 'Einde',
+        en: 'End',
     },
 
 
     featureInfos: {
         fr: 'Informations sur l\'élément',
         nl: 'Informatie van het element',
+        en: 'Feature informations',
     },
 
     go: {
         fr: 'Aller',
         nl: 'Ga',
+        en: 'Go',
     },
 
     geocode: {
         fr: 'Chercher une adresse',
         nl: 'Zoek een adres',
+        en: 'Search an adress',
     },
 
     gpsTracker: {
         fr: 'Tracker GPS',
         nl: 'GPS tracker',
+        en: 'GPS tracker',
     },
 
     imageGeneratingPreview: {
         fr: 'Création de la prévisualisation',
         nl: 'Voorvertoning genereren',
+        en: 'Generating preview',
     },
 
     imagePreview: {
         fr: 'Aperçu',
         nl: 'Voorvertoning',
+        en: 'Preview',
     },
 
     imageUploading: {
         fr: 'Uploading',
         nl: 'Afbeelding wordt geupload',
+        en: 'Uploading',
     },
 
     lastModified: {
         fr: 'Dernière mise à jour le ',
         nl: 'Laatste wijziging ',
+        en: 'Last update on ',
     },
 
     login: {
         fr: 'Se connecter',
         nl: 'Inloggen',
+        en: 'Sign in',
     },
 
     logout: {
         fr: 'Se déconnecter',
         nl: 'Uitloggen',
+        en: 'Logout',
     },
 
     location: {
         fr: 'Localisation',
         nl: 'Plaatsbepaling',
+        en: 'Location',
     },
 
     locationHelp: {
         fr: 'Les coordonnées doivent être encodées dans le système Lambert Belge 72 (EPSG:31370)',
         nl: 'Coördinaten moeten worden geëncodeerd in het Belgische Lambert systeem 72 (EPSG: 31370)',
+        en: 'Coordinates must be encoded in Belgian Lambert 72 system (EPSG:31370)',
     },
 
     mapLegend: {
         fr: 'Légende',
         nl: 'Legende',
+        en: 'Legend',
     },
 
     mapTools: {
         fr: 'Outils',
         nl: 'Tools',
+        en: 'Tools',
     },
 
     mapDatas: {
         fr: 'Couches',
         nl: 'Lagen',
+        en: 'Layers',
     },
 
     mapRefList: {
-        fr: 'Maps',
+        fr: 'Cartes',
         nl: 'Kaarten',
+        en: 'Maps',
     },
 
     rowNumberColTitle: {
         fr: '#',
         nl: '#',
+        en: '#',
     },
 
     save: {
         fr: 'Sauvegarder',
         nl: 'Opslaan',
+        en: 'Save',
     },
 
     search: {
         fr: 'Recherche',
         nl: 'Zoeken',
+        en: 'Search',
     },
 
     searchAtlas: {
         fr: 'Chercher dans l\'atlas',
         nl: 'Zoek in de atlas',
+        en: 'Search in atlas',
     },
 
     start: {
         fr: 'Démarrer',
         nl: 'Beginnen',
+        en: 'Start',
     },
 
     stop: {
         fr: 'Arrêter',
         nl: 'Stoppen',
+        en: 'Stop',
     },
 
     timeserieFeatureProperty: {
         fr: 'Attribute',
         nl: 'Attribuut',
+        en: 'Attributes',
     },
 
     timeserieFeaturePropertyNone: {
-        fr: 'N\'utilise pas une attribute',
+        fr: 'N\'utilise pas d\'attribut',
         nl: 'Gebruik geen attribuut',
+        en: 'Doesn\'t use attribute',
     },
 
     timeserieURL: {
         fr: 'url',
         nl: 'url',
+        en: 'url',
     },
 
     timeserieConfigError: {
         fr: 'No or malformed configuration for this timeserie',
         nl: 'Fout in het laden van de voorkeuren voor deze grafiek',
+        en: 'No or malformed configuration for this timeserie',
     },
 
     latitude: {
         fr: 'Latitude (Y)',
         nl: 'Breedtegraad (Y)',
+        en: 'Latitude (Y)',
     },
 
     legendBuilder: {
         fr: 'Éditeur de légende',
         nl: 'Legende bewerken',
+        en: 'Legend editor',
     },
 
     legendType: {
         fr: 'Type de légende',
         nl: 'Type legende',
+        en: 'Legend type',
     },
 
     legendTypeSimple: {
         fr: 'Simple',
         nl: 'Enkel symbool',
+        en: 'Simple',
     },
 
     legendTypeDiscrete: {
         fr: 'Catégorisée',
         nl: 'Categorieën',
+        en: 'Categorised',
     },
 
     legendTypeContinuous: {
         fr: 'Continue',
         nl: 'Intervallen',
+        en: 'Continuous',
     },
 
     legendTypeSelect: {
         fr: 'Type de légende',
         nl: 'Type legende',
+        en: 'Legend type',
     },
 
     longitude: {
         fr: 'Longitude (X)',
         nl: 'Lengtegraad (X)',
+        en: 'Longitude (X)',
     },
 
     measure: {
         fr: 'Mesurer',
         nl: 'Meten',
+        en: 'Measure',
     },
 
     measureLength: {
         fr: 'Longueur',
         nl: 'Lengte',
+        en: 'Length',
     },
 
     measureArea: {
         fr: 'Superficie',
         nl: 'Oppervlakte',
+        en: 'Area',
     },
 
     mapEmbed: {
         fr: 'Inclure la carte',
         nl: 'Voeg deze kaart in',
+        en: 'Embed map',
     },
 
     mapEmbedWithView: {
         fr: 'Inclure la vue actuelle de la carte',
         nl: 'Voeg de huidige weergave van de kaart in',
+        en: 'Embed current view',
     },
 
     mapInfoAddIllustration: {
         fr: 'Sélectionnez une image',
         nl: 'Selecteer een afbeelding',
+        en: 'Select an image',
     },
 
     mapInfoChangeIllustration: {
         fr: 'Sélectionnez une autre image',
         nl: 'Selecteer een andere afbeelding',
+        en: 'Select another image',
     },
 
     mapLink: {
         fr: 'Partager un lien vers la carte',
         nl: 'Deel een link naar deze kaart',
+        en: 'Share a link to the map',
     },
 
     mapLinkWithView: {
         fr: 'Partager un lien vers la vue actuelle de la carte',
         nl: 'Deel een link naar de huidige kaartweergave',
+        en: 'Share a link to the current view of the map',
     },
 
     remove: {
         fr: 'Supprimer',
         nl: 'Verwijder',
+        en: 'Remove',
     },
 
     removeMap: {
         fr: 'Supprimer cette carte',
         nl: 'Verwijder deze kaart',
+        en: 'Delete this map',
     },
 
     share: {
         fr: 'Partager',
         nl: 'Delen',
+        en: 'Share',
     },
 
     shareWithView: {
         fr: 'Partager avec le niveau de zoom et le centrage actuel.',
         nl: 'Delen met het huidige zoomniveau en middelpunt.',
+        en: 'Share with zoom level and actual center',
     },
 
     switchLang: {
         fr: 'NL',
         nl: 'FR',
+        en: 'the interface is not trilingiual yet :)',
     },
 
     styleGroupAdd: {
         fr: 'Ajouter une catégorie',
         nl: 'Categorie toevoegen',
+        en: 'Add a category',
     },
 
     styleGroupDefaultName: {
         fr: 'Catégorie sans titre',
         nl: 'Categorie zonder titel',
+        en: 'Category without title',
     },
 
     styleGroupSelectedItemsCount: {
         fr: 'Éléments séléctionné',
         nl: 'Geselecteerde rijen',
+        en: 'Selected item',
     },
 
     styleGroupRemove: {
         fr: 'Supprimer la catégorie',
         nl: 'Categorie verwijderen',
+        en: 'Delete category',
     },
 
     validate: {
         fr: 'Valider',
         nl: 'Bevestigen',
+        en: 'Validate',
     },
 
     visible: {
         fr: 'Visibilité',
         nl: 'Zichtbaarheid',
+        en: 'Visibility',
     },
 
     webServiceUrl: {
         fr: 'URL d\'un webservice',
         nl: 'URL voor een webservice',
+        en: 'Web service URL',
     },
 
     wmsSwitch: {
         fr: 'Fond de carte',
         nl: 'Achtergrond',
+        en: 'Background map',
     },
 
     loadingData: {
         fr: 'Chargement des données',
         nl: 'Data wordt geladen',
+        en: 'Loading datas',
     },
 
     valuesCovered: {
         fr: 'match',
         nl: 'match',
+        en: 'match',
     },
 
     highValue: {
         fr: 'Valeur haute (exclue)',
         nl: 'Bovengrens (uitgesloten)',
+        en: 'High value (excluded)',
     },
 
     lowValue: {
         fr: 'Valeur basse (incluse)',
         nl: 'Ondergrens (ingesloten)',
+        en: 'Low value (included)',
     },
 
     map: {
         fr: '{n, plural, =0 {Carte} =1 {Carte} other {Cartes}}',
         nl: '{n, plural, =0 {Kaart} =1 {Kaart} other {Kaarten}}',
+        en: '{n, plural, =0 {Map} =1 {Map} other {Maps}}',
         parameters: { n: 1 },
     },
 
     layer: {
         fr: '{n, plural, =0 {Couche} =1 {Couche} other {Couches}}',
         nl: '{n, plural, =0 {Laag} =1 {Laag} other {Lagen}}',
+        en: '{n, plural, =0 {Layer} =1 {Layer} other {Layers}}',
         parameters: { n: 1 },
     },
 
     lineWidth: {
         fr: 'Épaisseur du filet (px)',
         nl: 'Lijnbreedte (px)',
+        en: 'Stroke width (px)',
     },
 
     lineColor: {
         fr: 'Couleur du filet',
         nl: 'Lijnkleur',
+        en: 'Stroke color',
     },
 
     fillColor: {
         fr: 'Couleur de remplissage',
         nl: 'Vulkleur',
+        en: 'Fill color',
     },
 
     pointColor: {
         fr: 'Couleur du pictogramme',
         nl: 'Kleur van het pictogram',
+        en: 'Pictogram color',
     },
 
     confirm: {
         fr: 'Confirmer',
         nl: 'Bevestigen',
+        en: 'Confirm',
     },
 
     confirmDelete: {
         fr: 'Confirmer la suppression ?',
         nl: 'Bevestig de verwijdering ?',
+        en: 'Confirm delete ?',
     },
 
     propName: {
         fr: 'Nom d\'attribut',
         nl: 'Naam van het attribuut',
+        en: 'Attribute name',
     },
 
     propNameForLabel: {
         fr: 'Colonne à utiliser pour le label',
         nl: 'Kolom om het label op te baseren',
+        en: 'Column to be used as a label',
     },
 
     fontColor: {
         fr: 'Couleur du texte',
         nl: 'Letterkleur van label',
+        en: 'Text color',
     },
 
     fontSize: {
         fr: 'Corps du texte (px)',
         nl: 'Lettergrootte van label (px)',
+        en: 'Text size (px)',
     },
 
     switchLabel: {
         fr: 'Label',
         nl: 'Label',
+        en: 'Label',
     },
 
     switchMarker: {
         fr: 'Icône',
         nl: 'Icoon',
+        en: 'Icon',
     },
 
     legendInfoHeader: {
         fr: 'Informations et réglages',
         nl: 'Informatie en instellingen',
+        en: 'Informations and settings',
     },
 
     style: {
         fr: 'Réglage des styles',
         nl: 'Instellen van stijlen',
+        en: 'Styles settings',
     },
 
     legendItems: {
         fr: 'Classification',
         nl: 'Classificatie',
+        en: 'Classification',
     },
 
     resetLegend: {
         fr: 'Réinitialiser la légende',
         nl: 'Reset legende',
+        en: 'Reset legend',
     },
 
     newLayer: {
         fr: 'Nouvelle couche',
         nl: 'Nieuwe laag',
+        en: 'New layer',
     },
 
     newMap: {
         fr: 'Nouvelle carte',
         nl: 'Nieuwe kaart',
+        en: 'New map',
     },
 
     selectLayer: {
         fr: 'Sélection de couche',
         nl: 'Kies een laag',
+        en: 'Layer selection',
     },
 
     responsibleAndContact: {
         fr: 'Organisation responsable',
         nl: 'Verantwoordelijke organisatie',
+        en: 'Responsible organisation',
     },
 
     responsiblePerson: {
         fr: 'Personne responsable',
         nl: 'Verantwoordelijke persoon',
+        en: 'Responsible individual',
     },
 
     size: {
         fr: 'Taille (px)',
         nl: 'Grootte (px)',
+        en: 'Size (px)',
     },
 
     codePoint: {
         fr: 'Code de caractère',
         nl: 'Tekencode',
+        en: 'Character code',
     },
 
     legendItemAdd: {
         fr: 'Ajouter un élément de légende',
         nl: 'Legende item toevoegen',
+        en: 'Add a legend item',
     },
 
     labelPostion: {
         fr: 'Position du label',
         nl: 'Plaats van het label',
+        en: 'Label position',
     },
 
     columnPicker: {
         fr: 'Sélecteur de colonne',
         nl: 'Kolomkiezer',
+        en: 'Column selector',
     },
 
     columnPickerMessage: {
         fr: 'Sélectionnez une colonne pour construire la légende.',
         nl: 'Selecteer een kolom om de legende te maken.',
+        en: 'Select a column to build a legend',
     },
 
     templateEditorExplanation: {
         fr: 'Template. The template will be updated on blur. Variable: <%= attribute_name %>. Or between <% %> plain javascript.',
         nl: 'Template. The template will be updated on blur. Variable: <%= attribute_name %>. Or between <% %> plain javascript.',
+        en: 'Template. The template will be updated on blur. Variable: <%= attribute_name %>. Or between <% %> plain javascript.',
     },
 
     dashboard: {
         fr: 'Tableau de bord',
         nl: 'Dashboard',
+        en: 'Dashboard',
     },
 
     addToLegend: {
         fr: 'Ajouter à la légende',
         nl: 'Toevoegen aan legende',
+        en: 'Add to legend',
     },
 
     infoChoice: {
         fr: 'Choix des informations',
         nl: 'Keuze van de informatie',
+        en: 'Chose informations',
     },
 
     infoReorder: {
         fr: 'Organisation des informations',
         nl: 'Ordening van de informatie',
+        en: 'Ordering informations',
     },
 
     addTerm: {
         fr: 'Ajouter un terme',
         nl: 'Een woord toevoegen',
+        en: 'Add term',
     },
 
     noResults: {
         fr: 'Pas de résultat',
         nl: 'Geen resultaten',
+        en: 'No results',
     },
 
     pointLabelHelp: {
         fr: 'Réglages des labels pour l\'ensemble de la couche',
         nl: 'Instellingen van alle labels in de laag',
+        en: 'Label settings for the whole layer',
     },
 
     timeserieTemplateURL: {
         fr: 'Un gabarit d\'URL pointant vers une ressource produisant une série temporelle de la forme "http://exemple.com/ts/\\{columnName\\}.json".',
         nl: 'Een template voor de URL die verwijst naar de gegevensbron voor het maken van een tijdreeks. Gebruik de volgende vorm: "http://voorbeeld.com/ts/\\{kolomNaam\\}.json".',
+        en: 'URL template pointing to a timeserie ressource "http://exemple.com/ts/\\{columnName\\}.json".',
     },
 
     timeserieReference: {
         fr: 'Valeur de référence',
         nl: 'Referentiewaarde',
+        en: 'Reference value',
     },
 
     viewLayer: {
         fr: 'Visualiser la couche',
         nl: 'Toon de laag',
+        en: 'View layer',
     },
 
     columns: {
         fr: 'Colonnes',
         nl: 'Kolommen',
+        en: 'Column',
     },
 
     widgets: {
         fr: 'Widgets',
         nl: 'Widgets',
+        en: 'Widgets',
     },
 
     piechartScale: {
         fr: 'Échelle',
         nl: 'Schaal',
+        en: 'Scale',
     },
 
     piechartRadius: {
         fr: 'Rayon',
         nl: 'Straal',
+        en: 'Radius',
     },
 
     label: {
         fr: 'Label',
         nl: 'Label',
+        en: 'Label',
     },
 
     autoClass: {
         fr: 'Création automatique de classes',
         nl: 'Automatische selectie van klassen',
+        en: 'Autoamtic classes generation',
     },
 
     offsetX: {
         fr: 'Offset X',
         nl: 'Offset X',
+        en: 'Offset X',
     },
 
     offsetY: {
         fr: 'Offset Y',
         nl: 'Offset Y',
+        en: 'Offset Y',
     },
 
     skipFirstLine: {
         fr: 'Ne pas prendre en compte la première ligne',
         nl: 'Houden geen rekening met de eerste lijn',
+        en: 'Do not take the first line',
     },
 
     separatedBy: {
         fr: 'Séparateur',
         nl: 'Separator',
+        en: 'Separator',
     },
 
     textDelimiter: {
         fr: 'Délimiteur de texte',
         nl: 'Scheidingsteken van tekst',
+        en: 'Text delimiter',
     },
 
     comma: {
         fr: 'Virgule',
         nl: 'Komma',
+        en: 'Comma',
     },
 
     semicolon: {
         fr: 'Point virgule',
         nl: 'Puntkomma',
+        en: 'Semicolon',
     },
 
     tab: {
         fr: 'Tabulation',
         nl: 'Tab',
+        en: 'Tab',
     },
 
     space: {
         fr: 'Espace',
         nl: 'Spatie',
+        en: 'Space',
     },
 
     quotationMark: {
         fr: 'Guillemet',
         nl: 'Aanhalingsteken',
+        en: 'Quotation mark',
     },
 
     apostrophe: {
         fr: 'Apostrophe',
         nl: 'Apostrof',
+        en: 'Apostrophe',
     },
 
     columnNumber: {
         fr: 'N° de colonne',
         nl: 'Kolomnummer',
+        en: 'Column number',
     },
 
     setLatitude: {
         fr: 'Latitude (Y)',
         nl: 'Breedtegraad (Y)',
+        en: 'Latitude (Y)',
     },
 
     setLongitude: {
         fr: 'Longitude (X)',
         nl: 'Lengtegraad (X)',
+        En: 'Longitude (X)',
     },
 
     uploadShpInfos: {
         fr: 'Veuillez séléctionner les quatre fichiers requis composant le shapefile.',
         nl: 'Selecteer de vier nodige bestanddelen van de shapefile.',
+        en: 'Please select the four requiered files composing the shapefile.',
     },
 
     upload: {
         fr: 'Upload',
         nl: 'Uploaden',
+        en: 'Uppload',
     },
 
     uploadDatas: {
         fr: 'Upload de données',
         nl: 'Upload van de gegevens',
+        en: 'Datas upload',
     },
 
     metadataEditor: {
         fr: 'Édition des métadonnées',
         nl: 'Metadata bewerken',
+        en: 'Metadatas editor',
     },
 
     sheetList: {
         fr: 'Liste des fiches',
         nl: 'Lijst van de fiches',
+        en: 'Sheet list',
     },
 
     metaCommon: {
         fr: 'Métadonnées bilingues',
         nl: 'Tweetalige metadata',
+        en: 'Métadonées bilingues',
     },
 
     metaFrench: {
         fr: 'Métadonnées françaises',
         nl: 'Franse metadata',
+        en: 'French metadata',
     },
 
     metaDutch: {
         fr: 'Métadonnées Néerlandaises',
         nl: 'Nederlandse metadata',
+        en: 'Dutch metadata',
     },
 
     title: {
         fr: 'Titre',
         nl: 'Titel',
+        en: 'Title',
     },
 
     geometryType: {
         fr: 'Geométrie',
         nl: 'Geometrie',
+        en: 'Geometry',
     },
 
     layerId: {
         fr: 'Identifiant de la ressource',
         nl: 'Bronidentificatie',
+        en: 'Resource ID',
     },
 
     layerInfo: {
         fr: 'Informations',
         nl: 'Informatie',
+        en: 'Informations',
     },
 
     temporalReference: {
         fr: 'Référence temporelle',
         nl: 'Tijdelijke referentie',
+        en: 'Temporal reference',
     },
 
     pointOfContact: {
         fr: 'Point de contact',
         nl: 'Contactpunt',
+        en: 'Point of contact',
     },
 
     responsibleOrganisation: {
         fr: 'Organisation responsable',
         nl: 'Verantwoordelijke organisatie',
+        en: 'Responsible organisation',
     },
 
     draft: {
         fr: 'Brouillon',
         nl: 'Ontwerp',
+        en: 'Draft',
     },
 
     published: {
         fr: 'Publié',
         nl: 'Gepubliceerd',
+        en: 'Published',
     },
 
     publish: {
         fr: 'Publier',
         nl: 'Publiceren',
+        en: 'Publish',
     },
 
     publicationStatus: {
         fr: 'État de publication',
         nl: 'Status van publicatie',
+        en: 'Publication state',
     },
 
     saving: {
         fr: 'Mise à jour des données',
         nl: 'Gegevens bijwerken',
+        en: 'Updating datas',
     },
 
     identifier: {
         fr: 'Identifiant',
         nl: 'Identifier',
+        en: 'Identifier',
     },
 
     keywords: {
         fr: 'Mots clés',
         nl: 'Trefwoorden',
+        en: 'Keyword',
     },
 
     topics: {
         fr: 'Thème',
         nl: 'Thema',
+        en: 'Topic',
     },
 
     unpublish: {
         fr: 'Dépublier',
         nl: 'Unpublish',
+        en: 'Unpublish',
     },
 
     myMaps: {
         fr: 'Mes cartes',
         nl: 'Mijn kaarten',
+        en: 'My maps',
     },
 
     atlas: {
         fr: 'Atlas',
         nl: 'Atlas',
+        en: 'Atlas',
     },
 
     atlasEnv: {
         fr: 'Atlas de l\'environnement',
         nl: 'Milieu-Atlas',
+        en: 'Environnement atlas',
     },
 
     userName: {
         fr: 'Nom d\'utilisateur',
         nl: 'Gebruikersnaam',
+        en: 'User name',
     },
 
     password: {
         fr: 'Mot de passe',
         nl: 'Wachtwoord',
+        en: 'Password',
     },
 
     connectionSDI: {
         fr: 'Connection',
         nl: 'Verbinding',
+        en: 'Connection',
     },
 
     alias: {
         fr: 'Alias',
         nl: 'Alias',
+        en: 'Alias',
     },
 
     mapList: {
         fr: 'Liste des cartes',
         nl: 'kaartlijst',
+        en: 'Maps list',
     },
 
     studio: {
         fr: 'Studio',
         nl: 'Studio',
+        en: 'Studio',
     },
 
     metadata: {
         fr: 'Métadonnées',
         nl: 'Metadata',
+        en: 'Metadatas',
     },
 
     myApps: {
         fr: 'Outils et applications',
         nl: 'Tools en apps',
+        en: 'Tools and applications',
     },
 
     thesaurus: {
         fr: 'Thesaurus',
         nl: 'Thesaurus',
+        en: 'Thesaurus',
     },
 
     term: {
         fr: 'Terme',
         nl: 'Term',
+        en: 'Term',
     },
 
     replaceFR: {
         fr: 'Alias FR',
         nl: 'Alias FR',
+        en: 'Alias FR',
     },
 
     replaceNL: {
         fr: 'Alias NL',
         nl: 'Alias NL',
+        en: 'Alias NL',
     },
 
     aliasDictonary: {
         fr: 'Dictionnaire des alias',
         nl: 'Woordenboek van aliassen',
+        en: 'Alias dictionary',
     },
 
     createAlias: {
         fr: 'Créer un nouvel alias',
         nl: 'Maak een nieuw alias aan',
+        en: 'Create a new alias',
     },
 
     columnID: {
         fr: 'Identifiant de colonne',
         nl: 'Kolom naam',
+        en: 'Column ID',
     },
 
     extractFeatures: {
         fr: 'Forage',
         nl: 'Boren',
+        en: 'Extract',
     },
 
     links: {
         fr: 'Liens',
         nl: 'Links',
+        en: 'Links',
     },
 
     extractSearch: {
         fr: 'Recherche par forage',
         nl: 'Boren onderzoek',
+        en: 'Extract search',
     },
 
     extractOn: {
         fr: 'Intersection avec la zone visible',
         nl: 'Intersectie met het weergegeven gebied',
+        en: 'Intersection with visible zone',
     },
 
     extractOff: {
         fr: 'Tous les éléments',
         nl: 'Alle elementen',
+        en: 'All items',
     },
 
     changeBackgroundMap: {
         fr: 'Changer de fond de carte',
         nl: 'Wijzig de achtergrond',
+        en: 'Change background map',
     },
 
     zoomIn: {
         fr: 'Zoomer',
         nl: 'Zoomen',
+        en: 'Zoom in',
     },
 
     zoomOut: {
         fr: 'Dézoomer',
         nl: 'Uitzoomen',
+        en: 'Zoom out',
     },
 
     north: {
         fr: 'Nord',
         nl: 'Noord',
+        en: 'North',
     },
 
     fullscreen: {
         fr: 'Plein écran',
         nl: 'Volledig scherm',
+        en: 'Full screen',
     },
 
     translate: {
         fr: 'Traduire',
         nl: 'Vertalen',
+        en: 'Translate',
     },
 
     switch: {
         fr: 'Changer',
         nl: 'Omschakelen',
+        en: 'Switch',
     },
 
     edit: {
         fr: 'Éditer',
         nl: 'Bewerk',
+        en: 'Edit',
     },
 
     'toggle-off': {
         fr: 'Désactiver',
         nl: 'Deactiveren',
+        en: 'Toggle off',
     },
 
     'toggle-on': {
         fr: 'Activer',
         nl: 'Activeren',
+        en: 'Toggle on',
     },
 
     'move-down': {
         fr: 'Redescendre',
         nl: 'Naar beneden verplaatsen',
+        en: 'Move down',
     },
 
     'move-up': {
         fr: 'Remonter',
         nl: 'Naar boven verplaatsen',
+        en: 'Move up',
     },
 
     view: {
         fr: 'Visiblité',
         nl: 'Zichtbaarheid',
+        en: 'Visibility',
     },
 
     settings: {
         fr: 'Réglages',
         nl: 'Instellingen',
+        en: 'Settings',
     },
 
     filter: {
         fr: 'Filtrer',
         nl: 'Filter',
+        en: 'Filter',
     },
 
     startDate: {
         fr: 'Date de début',
         nl: 'Startdatum',
+        en: 'Start date',
     },
 
     endDate: {
         fr: 'Date de fin',
         nl: 'Einddatum',
+        en: 'End date',
     },
 
     minZoom: {
         fr: 'Zoom minimal',
         nl: 'Minimale zoom',
+        en: 'Zoom min',
     },
 
     maxZoom: {
         fr: 'Zoom maximal',
         nl: 'Maximale zoom',
+        en: 'Zoom max',
     },
 
     zoomOnFeature: {
         fr: 'Zoomer sur l\'entité',
         nl: 'Zoom in op de entiteit',
+        en: 'Zoom to item',
     },
 
     layerInfoSettings: {
         fr: 'Éditer la fiche individuelle',
         nl: 'Bewerk de individuele fiche',
+        en: 'Edit feature view',
     },
 
     layerInfoSwitchMap: {
         fr: 'Carte',
         nl: 'Kaart',
+        en: 'Map',
     },
 
     layerInfoSwitchTable: {
         fr: 'Table attributaire',
         nl: 'Attributentabel',
+        en: 'Attribute table',
     },
 
     usePattern: {
         fr: 'Hachures',
         nl: 'Arcering',
+        en: 'Hatches',
     },
 
     layerLegendDefaultLabel: {
         fr: 'Étiquette de légende',
         nl: 'Legendelabel',
+        en: 'Legend label',
     },
 
     featureText: {
         fr: 'Texte',
         nl: 'Tekst',
+        en: 'Text',
     },
 
     printMap: {
         fr: 'Imprimer la carte',
         nl: 'Print de kaart',
+        en: 'Print map',
     },
 
     printDownloadingBaseMap: {
         fr: 'Téléchargement du fond de carte',
         nl: 'De achtergrond downloaden',
+        en: 'Downloading background map',
     },
 
     printNotStarted: {
         fr: 'Rendu des couches vectorielles',
         nl: 'Weergave van vectorlagen',
+        en: 'Rendering datas',
     },
 
     printPreparingPDF: {
         fr: 'Génération du PDF',
         nl: 'PDF generatie',
+        en: 'PDF generation',
     },
 
     originalTitle: {
         fr: 'Titre original',
         nl: 'Originele titel',
+        en: 'Original title',
     },
 
     cursorLocalisation: {
         fr: 'Localisation du curseur',
-        nl: 'Cursorlocatie',
+        nl: 'Cursorlocatie'
+        en: 'Cursor location',,
     },
 
     preview: {
         fr: 'Aperçu',
         nl: 'Voorvertoning',
+        en: 'Preview',
     },
 
 
     relatedMapsLabel: {
         fr: 'Cartes Liées',
         nl: 'Gerelateerde kaarten',
+        en: 'Related maps',
     },
 
     downloadCSV: {
         fr: 'Télécharger le fichier CSV',
         nl: 'Download CSV-bestand',
+        en: 'Download as CSV file',
     },
 
     wmsLegendDisplay: {
         fr: 'Montrer la légende du fond de carte',
         nl: 'Toon achtergrondkaartlegenda',
+        en: 'Show background legend',
     },
 
     wmsLegendHide: {
         fr: 'Masquer la légende du fond de carte',
         nl: 'Verberg achtergrondlegenda',
+        en: 'Hide background legend',
     },
 };
