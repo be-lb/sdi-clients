@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { i, u, l, p, a, MessageRecordIO, TypeOf } from './io';
+import { i, u, l, p, a, MessageRecordIO, TypeOf, makeRecord } from './io';
 import { GeometryType } from './geojson';
 import * as io from 'io-ts';
 
@@ -454,7 +454,7 @@ export const addDefaultGroupStyle =
         switch (s.kind) {
             case 'point-discrete':
                 s.groups.push({
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     values: [],
                     marker: {
                         codePoint: 0xf111,
@@ -467,7 +467,7 @@ export const addDefaultGroupStyle =
             case 'line-discrete':
                 s.groups.push({
                     values: [],
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     strokeColor: '#00729A',
                     dash: [],
                     strokeWidth: 1,
@@ -477,7 +477,7 @@ export const addDefaultGroupStyle =
             case 'polygon-discrete':
                 s.groups.push({
                     values: [],
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     strokeColor: '#00729A',
                     fillColor: '#00729A',
                     strokeWidth: 1,
@@ -493,7 +493,7 @@ export const addDefaultIntervalStyle =
         switch (s.kind) {
             case 'point-continuous':
                 s.intervals.push({
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     low: 0,
                     high: 0,
                     marker: {
@@ -505,7 +505,7 @@ export const addDefaultIntervalStyle =
                 return s;
             case 'line-continuous':
                 s.intervals.push({
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     low: 0,
                     high: 0,
                     strokeColor: '#00729A',
@@ -514,7 +514,7 @@ export const addDefaultIntervalStyle =
                 return s;
             case 'polygon-continuous':
                 s.intervals.push({
-                    label: { fr: '', nl: '' },
+                    label: makeRecord(),
                     low: 0,
                     high: 0,
                     strokeColor: '#00729A',

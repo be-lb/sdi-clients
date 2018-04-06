@@ -26,6 +26,7 @@ import {
     IMapInfo,
     Inspire,
     MessageRecord,
+    makeRecord,
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 import { addLayer, removeLayerAll } from 'sdi/map';
@@ -129,8 +130,8 @@ const makeMap =
     (): IMapInfo => {
         return {
             status: 'draft',
-            title: { fr: '', nl: '' },
-            description: { fr: '', nl: '' },
+            title: makeRecord(),
+            description: makeRecord(),
             attachments: [],
             layers: [],
             categories: [],

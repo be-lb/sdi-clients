@@ -2,12 +2,12 @@
 import { getApiUrl } from 'sdi/app';
 import { dispatchK, observe } from 'sdi/shape';
 import { tableEvents } from 'sdi/components/table';
+import { IAlias, makeRecord } from 'sdi/source';
 
 import { fetchAllAlias, putAlias, postAlias, delAlias } from '../remote';
 import { FormAliasStatus, defaultFormAlias, FormAlias } from '../components/alias';
 import { getAliasData, getForm } from '../queries/alias';
 import { fromPredicate } from 'fp-ts/lib/Either';
-import { IAlias } from '../sdi/source/index';
 
 const aliasData = dispatchK('data/alias');
 const aliasForm = dispatchK('component/form');
@@ -76,11 +76,8 @@ const formToAlias =
     (f: FormAlias): IAlias => ({
         id: f.id !== null ? f.id : -1,
         select: f.select,
-        replace: {
-            fr: f.fr,
-            nl: f.nl,
-        }
-    })
+        replace: makeRecord(f.fr, f.nl),
+    });
 
 const updateAlias =
     (a: IAlias) => {

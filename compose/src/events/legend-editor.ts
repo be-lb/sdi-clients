@@ -47,6 +47,7 @@ import {
     PolygonInterval,
     StyleConfig,
     PatternAngle,
+    makeRecord,
 } from 'sdi/source';
 
 import appQueries from '../queries/app';
@@ -90,7 +91,7 @@ type PointStyleEditFn = <T extends PointStyleConfig>(g: T, l: string) => void;
 
 
 const defaultPointLabel = (): PointLabel => ({
-    propName: { fr: '', nl: '' },
+    propName: makeRecord(),
     align: 'center',
     baseline: 'alphabetic',
     resLimit: 3,
@@ -813,10 +814,7 @@ const events = {
                                 interval.low = min + (i * step);
                                 interval.high = interval.low + step;
                                 const label = `${interval.low} - ${interval.high}`;
-                                interval.label = {
-                                    fr: label,
-                                    nl: label,
-                                };
+                                interval.label = makeRecord(label, label, label);
                             }
                             saveMap(lid, style);
                         }

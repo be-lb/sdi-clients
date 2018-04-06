@@ -181,18 +181,6 @@ export const addLayer =
                 logger(`addLayer.abort`);
                 return;
             }
-            // let layerAlreadyAdded = false;
-            // mainLayerCollection.getArray().forEach((l) => {
-            //     // logger(`addLayer.forEach ${l.get('id')} (${info.id})`);
-            //     if (l.get('id') === info.id) {
-            //         layerAlreadyAdded = true;
-            //     }
-            // });
-            // logger(`addLayer.collection: ${mainLayerCollection.getArray().map(l => l.get('id')).join('; ')}`);
-            // logger(`addLayer ${fromRecord(title)} ${layerAlreadyAdded}`);
-            // if (layerAlreadyAdded) {
-            //     return;
-            // }
 
 
             const styleFn: StyleFn = (a: Feature, b?: number) => {

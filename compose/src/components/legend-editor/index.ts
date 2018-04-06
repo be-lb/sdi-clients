@@ -22,7 +22,7 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { DIV, H1, SPAN } from 'sdi/components/elements';
 import { inputNumber } from 'sdi/components/input';
 import tr, { fromRecord } from 'sdi/locale';
-import { StyleConfig, SubType } from 'sdi/source';
+import { StyleConfig, SubType, makeRecord } from 'sdi/source';
 
 import queries from '../../queries/legend-editor';
 import events from '../../events/legend-editor';
@@ -147,7 +147,7 @@ const renderLabel =
             (info) => {
                 const getLabel =
                     () =>
-                        info.legend !== null ? info.legend : { fr: '', nl: '' };
+                        info.legend !== null ? info.legend : makeRecord();
                 const setLabel =
                     (r: MessageRecord) =>
                         events.setLegendLabel(lid, r);

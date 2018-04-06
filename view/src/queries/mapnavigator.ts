@@ -15,7 +15,7 @@
  */
 
 import { query } from 'sdi/shape';
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, makeRecord } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 
 export const getCategories =
@@ -38,7 +38,7 @@ export const getCategories =
             }
             return acc;
         }, []);
-        ret.push([{ id: '', name: { fr: '', nl: '' } }, uncategorized]);
+        ret.push([{ id: '', name: makeRecord() }, uncategorized]);
         return ret;
     };
 

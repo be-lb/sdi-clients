@@ -17,7 +17,7 @@
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, makeRecord } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { PrintResponse } from 'sdi/map';
 
@@ -64,10 +64,9 @@ const renderCredits =
             ...rect,
             children: [
                 makeLayoutVertical(rect.width, rect.height / 2, [
-                    makeText(fromRecord({
-                        fr: 'Fond de plan: Brussels UrbIS ®© - CIRB - CIBG',
-                        nl: 'Achtergrond: Brussels UrbIS ®© - CIRB - CIBG',
-                    }), fontSize, color, textAlign),
+                    makeText(fromRecord(makeRecord(
+                        'Fond de plan: Brussels UrbIS ®© - CIRB - CIBG',
+                        'Achtergrond: Brussels UrbIS ®© - CIRB - CIBG')), fontSize, color, textAlign),
                 ]),
             ],
         }));

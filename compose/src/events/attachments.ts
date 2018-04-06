@@ -1,7 +1,7 @@
 
 import { fromNullable } from 'fp-ts/lib/Option';
 
-import { Attachment, MessageRecord, IMapInfo } from 'sdi/source';
+import { Attachment, MessageRecord, IMapInfo, makeRecord } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 import { dispatch, dispatchK, observe, dispatchAsync } from 'sdi/shape';
 import { fromRecord } from 'sdi/locale';
@@ -93,8 +93,8 @@ export const addAttachment =
             .map(
                 mid => postAttachment(getApiUrl(`attachments`), {
                     mapId: mid,
-                    url: { nl: '', fr: '' },
-                    name: { nl: '', fr: '' },
+                    url: makeRecord(),
+                    name: makeRecord(),
                 }).then((a) => {
                     setAttachment(a);
                     updateMapInfo(m => ({

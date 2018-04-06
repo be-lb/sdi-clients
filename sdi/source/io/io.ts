@@ -32,6 +32,7 @@ export const MessageRecordIO = iots.intersection([
     i({
         fr: iots.string,
         nl: iots.string,
+        en: iots.string,
     }),
     p({
         parameters: iots.dictionary(iots.string, iots.any),
@@ -40,4 +41,6 @@ export const MessageRecordIO = iots.intersection([
 
 export type MessageRecord = iots.TypeOf<typeof MessageRecordIO>;
 
+export const makeRecord =
+    (fr = '', nl = '', en = ''): MessageRecord => ({ fr, nl, en });
 

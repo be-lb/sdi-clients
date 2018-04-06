@@ -2,7 +2,7 @@ import { fromPredicate } from 'fp-ts/lib/Either';
 
 import { DIV, H1, INPUT, TEXTAREA, SPAN, NODISPLAY } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { Inspire, MessageRecord, getMessageRecord } from 'sdi/source';
+import { Inspire, MessageRecord, getMessageRecord, makeRecord } from 'sdi/source';
 import buttonFactory from 'sdi/components/button';
 import {
     queryK,
@@ -50,12 +50,11 @@ const removeButton = button.make('remove');
 const publishButton = button.make('toggle-off');
 const unpublishButton = button.make('toggle-on');
 
-const defaultMessage = () => ({ fr: '', nl: '' });
 
 export const defaultMdFormState =
     (): MdForm => ({
-        title: defaultMessage(),
-        description: defaultMessage(),
+        title: makeRecord(),
+        description: makeRecord(),
         topics: [],
         keywords: [],
         published: false,

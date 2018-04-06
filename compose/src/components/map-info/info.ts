@@ -19,7 +19,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { FormEvent } from 'react';
 
 import { DIV, H1, P, IMG, INPUT, SPAN, A } from 'sdi/components/elements';
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, makeRecord } from 'sdi/source';
 import tr, { formatDate, fromRecord } from 'sdi/locale';
 import { getRoot } from 'sdi/app';
 
@@ -44,9 +44,9 @@ const getInfo = <T>(a: (b: IMapInfo) => T, c: T): T => {
     return c;
 };
 
-const getTitle = () => getInfo(m => m.title, { fr: '', nl: '' });
+const getTitle = () => getInfo(m => m.title, makeRecord());
 
-const getDescription = () => getInfo(m => m.description, { fr: '', nl: '' });
+const getDescription = () => getInfo(m => m.description, makeRecord());
 
 const toP = (p: string) => P({}, p);
 
@@ -257,7 +257,7 @@ const render =
                 renderCategories(mapInfo),
                 renderPreviewLink(mapInfo),
                 renderStatus(mapInfo),
-                ),
+            ),
 
 
             editable(`map_info_title`, getTitle, events.setMapTitle, formatTitle)(),
