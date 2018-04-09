@@ -107,9 +107,9 @@ const renderTextArea =
 
 
 const renderEditLang =
-    (l: MessageRecordLang, title: string, abstract: string) =>
+    (l: MessageRecordLang, title: string, abstract: string, notice?: string) =>
         DIV({ className: `app-col-wrapper meta-${l}` },
-            DIV({ className: 'app-col-header' }, l),
+            DIV({ className: 'app-col-header' }, `${l}${notice !== undefined ? ` (${notice})` : ''}`),
             DIV({ className: 'app-col-main' },
                 DIV({ className: 'label' }, title),
                 renderInputText(title,
@@ -130,7 +130,7 @@ const renderEdit =
                 leftPane,
                 renderEditLang('fr', 'Titre', 'Résumé'),
                 renderEditLang('nl', 'Titel', 'Overzicht'),
-                renderEditLang('en', 'Title', 'Abstract')));
+                renderEditLang('en', 'Title', 'Abstract', 'catalog')));
     };
 
 
@@ -180,14 +180,14 @@ const renderPublishState =
     ({ published }: Inspire) => {
         if (published) {
             return DIV({ className: 'toggle' },
-                DIV({ className: 'no-active' }, tr('draft')),
+                DIV({ className: 'no-active' }, tr('internal')),
                 unpublishButton(mdDraft),
-                DIV({ className: 'active' }, tr('published')));
+                DIV({ className: 'active' }, tr('inspireCompliant')));
         }
         return DIV({ className: 'toggle' },
-            DIV({ className: 'active' }, tr('draft')),
+            DIV({ className: 'active' }, tr('internal')),
             publishButton(mdPublish),
-            DIV({ className: 'no-active' }, tr('published')));
+            DIV({ className: 'no-active' }, tr('inspireCompliant')));
     };
 
 

@@ -6,85 +6,81 @@
     margin: auto;
     border: 1px solid @grey;
     padding: @margin;
-
-
     * {
-        box-sizing: border-box;}
-
+        box-sizing: border-box;
+    }
     h1 {
         margin-bottom: @margin * 2;
     }
-
     .label {
         font-weight: 100;
         text-transform: uppercase;
         margin-bottom: @small-margin;
         font-size: 0.8rem;
     }
-
     .meta-wrapper {
-        .flex(@justify: flex-start, @align:flex-start);
-        .absolute(82px, @margin * 2, 50px, @margin * 2);
-        // flex: 1;
-
+        .flex(@justify: flex-start, @align: flex-start);
+        .absolute(82px, @margin * 2, 50px, @margin * 2); // flex: 1;
         .meta-edit {
-            .flex(@wrap:nowrap, @align:flex-start, @justify:initial);
+            .flex(@wrap: nowrap, @align: flex-start, @justify: initial);
             .widgetBackground;
             height: 100%;
-            padding: @margin 0 ;
+            padding: @margin 0;
             width: calc(~"100vw - 2 * @{margin}");
         }
-
+        .metadata-info,
+        .meta-common {
+            flex: 1.5;
+        }
+        .meta-fr,
+        .meta-nl,
+        .meta-en {
+            flex: 1;
+        }
         .metadata-info,
         .meta-fr,
         .meta-nl,
+        .meta-en,
         .meta-common {
-            flex: 1;
             padding: 0 @margin;
-
-            > * {
+            >* {
                 .word-wrap;
                 display: block;
                 width: 100%;
             }
-
             .app-col-header {
                 .labelStyle;
                 display: flex;
                 text-align: center;
                 margin-bottom: @margin;
             }
-
             .app-col-main {
                 height: 100%;
             }
         }
-
         .metadata-info,
+        .meta-common,
         .meta-fr,
         .meta-nl {
             border-right: 1px solid #000;
         }
-
-        .metadata-label {margin-bottom: @margin;}
+        .metadata-label {
+            margin-bottom: @margin;
+        }
     }
-
     .meta-action {
         .absolute(auto, 0px, 0px, 0px);
         height: 50px;
         display: flex;
         text-align: center;
-
-        > div {
+        >div {
             padding: @margin 0;
             width: 100%;
             height: 25px !important;
         }
-
         .btn-validate {
             .high-btn;
-            font-size: 18px!important;
+            font-size: 18px !important;
         }
-
     }
 }

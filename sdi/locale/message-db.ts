@@ -116,6 +116,8 @@ export type MessageKey =
     | 'imageUploading'
     | 'infoChoice'
     | 'infoReorder'
+    | 'inspireCompliant'
+    | 'internal'
     | 'keywords'
     | 'label'
     | 'labelPostion'
@@ -1796,5 +1798,17 @@ export const messages: MessageDB = {
         fr: 'Masquer la légende du fond de carte',
         nl: 'Verberg achtergrondlegenda',
         en: 'Hide background legend',
+    },
+
+    inspireCompliant: {
+        fr: 'Catalogue',
+        nl: 'Catalogus',
+        en: 'Catalog',
+    },
+
+    internal: {
+        fr: 'Interne',
+        nl: 'Interne',
+        en: 'Internal',
     },
 };
