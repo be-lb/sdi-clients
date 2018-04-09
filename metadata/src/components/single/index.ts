@@ -2,13 +2,15 @@ import { fromPredicate } from 'fp-ts/lib/Either';
 
 import { DIV, H1, INPUT, TEXTAREA, SPAN, NODISPLAY } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { Inspire, MessageRecord, getMessageRecord, makeRecord } from 'sdi/source';
+import { Inspire, MessageRecord, getMessageRecord, makeRecord, MessageRecordLang } from 'sdi/source';
 import buttonFactory from 'sdi/components/button';
 import {
     queryK,
     dispatchK,
 } from 'sdi/shape';
 
+import appQueries from '../../queries/app';
+import appEvents from '../../events/app';
 import {
     formIsSaving,
     getCurrentDatasetMetadata,
@@ -49,6 +51,7 @@ const saveButton = button.make('validate', 'save');
 const removeButton = button.make('remove');
 const publishButton = button.make('toggle-off');
 const unpublishButton = button.make('toggle-on');
+const addKeyword = button.make('add', 'add');
 
 
 export const defaultMdFormState =
@@ -103,31 +106,32 @@ const renderTextArea =
     };
 
 
-
+const renderEditLang =
+    (l: MessageRecordLang, title: string, abstract: string) =>
+        DIV({ className: `app-col-wrapper meta-${l}` },
+            DIV({ className: 'app-col-header' }, l),
+            DIV({ className: 'app-col-main' },
+                DIV({ className: 'label' }, title),
+                renderInputText(title,
+                    getMdTitle(l), setMdTitle(l)),
+                DIV({ className: 'label' }, abstract),
+                renderTextArea(abstract,
+                    getMdDescription(l), setMdDescription(l))));
 
 
 const renderEdit =
-    (m: Inspire) => (DIV({ className: 'meta-edit' },
-        renderInfo(m),
-        DIV({ className: 'app-col-wrapper meta-fr' },
-            DIV({ className: 'app-col-header' }, 'FR'),
-            DIV({ className: 'app-col-main' },
-                DIV({ className: 'label' }, 'Titre'),
-                renderInputText('Titre',
-                    getMdTitle('fr'), setMdTitle('fr')),
-                DIV({ className: 'label' }, 'Résumé'),
-                renderTextArea('Résumé',
-                    getMdDescription('fr'), setMdDescription('fr')))),
-        DIV({ className: 'app-col-wrapper meta-nl' },
-            DIV({ className: 'app-col-header' }, 'NL'),
-            DIV({ className: 'app-col-main' },
-                DIV({ className: 'label' }, 'Titel'),
-                renderInputText('Titel',
-                    getMdTitle('nl'), setMdTitle('nl')),
-                DIV({ className: 'label' }, 'Overzicht'),
-                renderTextArea('Overzicht',
-                    getMdDescription('nl'), setMdDescription('nl')))),
-        renderCommon(m)));
+    (m: Inspire) => {
+        const leftPane = (
+            appQueries.getLayout() === 'Single' ?
+                renderInfo(m) :
+                renderCommon(m));
+        return (
+            DIV({ className: 'meta-edit' },
+                leftPane,
+                renderEditLang('fr', 'Titre', 'Résumé'),
+                renderEditLang('nl', 'Titel', 'Overzicht'),
+                renderEditLang('en', 'Title', 'Abstract')));
+    };
 
 
 const renderPoc =
@@ -141,26 +145,6 @@ const renderPoc =
                     SPAN({ className: 'contact-organisation' },
                         fromRecord(getMessageRecord(poc.organisationName))))));
 
-
-
-
-// const renderSelectTopic =
-//     () => {
-//         const choice =
-//             getTopicList()
-//                 .filter(topic => !isSelectedTopic(topic.id))
-//                 .map(t => DIV({
-//                     key: t.id,
-//                     onClick: () => isSelectedTopic(t.id) ? removeTopic(t.id) : addTopic(t.id),
-//                 }, fromRecord(t.name)));
-
-//         return (
-//             DIV({ className: 'topics-wrapper' },
-//                 DIV({ className: 'label' }, tr('topics')),
-//                 DIV({
-//                     className: 'select-topic',
-//                 }, ...choice)));
-//     };
 
 
 
@@ -206,12 +190,7 @@ const renderPublishState =
             DIV({ className: 'no-active' }, tr('published')));
     };
 
-// const renderTopics =
-//     () => DIV({}, ...getTopics()
-//         .map(topic => (
-//             DIV({ className: 'topic' },
-//                 removeButton(() => removeTopic(topic.id)),
-//                 SPAN({ className: 'value' }, fromRecord(topic.name))))));
+
 
 const renderKeywords =
     () => DIV({}, ...getKeywords()
@@ -228,7 +207,9 @@ const renderInfo =
                 labeledNode(tr('publicationStatus'), renderPublishState(m)),
                 labeledString(tr('layerId'), m.uniqueResourceIdentifier),
                 // labeledNode(tr('topics'), renderTopics()),
-                labeledNode(tr('keywords'), renderKeywords()),
+                labeledNode(tr('keywords'),
+                    DIV({}, addKeyword(() => appEvents.setLayout('SingleAndKeywords')),
+                        renderKeywords())),
                 labeledString(tr('geometryType'), m.geometryType),
                 labeledString(tr('temporalReference'), getTemporalReference(m.temporalReference)),
                 labeledNode(tr('pointOfContact'), renderPoc(m)),

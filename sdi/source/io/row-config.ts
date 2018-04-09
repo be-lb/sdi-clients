@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { i, u, l, a, TypeOf, p } from './io';
+import { i, u, l, a, TypeOf, p, MessageRecordLangIO } from './io';
 import * as io from 'io-ts';
 
 export const PropTypeIO = u([
@@ -163,7 +163,7 @@ export const defaultTextOptions =
 
 
 export const BaseConfigIO = i({
-    lang: u([l('fr'), l('nl')]),
+    lang: MessageRecordLangIO,
     propName: io.string,
 }, 'BaseConfigIO');
 

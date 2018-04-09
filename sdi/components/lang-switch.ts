@@ -15,13 +15,14 @@
  */
 
 import * as debug from 'debug';
-import { SPAN } from './elements';
+import { SPAN, NODISPLAY } from './elements';
 import tr from '../locale';
 import { getLang, setLang } from '../app';
+import { MessageRecordLang } from '../source';
 
 const logger = debug('sdi:lang-switch');
 
-const sl = (lc: 'fr' | 'nl') => () => {
+const sl = (lc: MessageRecordLang) => () => {
     setLang(lc);
 };
 
@@ -41,6 +42,9 @@ export default () => {
                 onClick: sl('fr'),
             }, SPAN({ className: 'lang-switch-label' },
                 `${tr('switchLang')}`)));
+
+        default:
+            return NODISPLAY()
     }
 };
 

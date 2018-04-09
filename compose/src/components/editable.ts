@@ -19,7 +19,7 @@ import { ReactNode } from 'react';
 
 import { getLang, setLang } from 'sdi/app';
 import { fromRecord } from 'sdi/locale';
-import { MessageRecord } from 'sdi/source';
+import { MessageRecord, MessageRecordLang } from 'sdi/source';
 import { DIV } from 'sdi/components/elements';
 
 import queries from '../queries/editable';
@@ -36,7 +36,7 @@ type HFn = (props: React.ClassAttributes<Element> | undefined, ...children: Reac
 type GetFn = () => MessageRecord;
 type SetFn = (a: MessageRecord) => void;
 
-const sl = (lc: 'fr' | 'nl') => () => {
+const sl = (lc: MessageRecordLang) => () => {
     setLang(lc);
 };
 
@@ -87,6 +87,7 @@ const langSwitch = () => {
     switch (lc) {
         case 'fr': return sl('nl');
         case 'nl': return sl('fr');
+        default: return sl('fr');
     }
 };
 

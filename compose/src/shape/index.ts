@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Feature, IUser, IMapInfo, Category, Attachment, Inspire, IMapBaseLayer, MdPointOfContact, ResponsibleOrganisation } from 'sdi/source';
+import { Feature, IUser, IMapInfo, Category, Attachment, Inspire, IMapBaseLayer, MdPointOfContact, ResponsibleOrganisation, MessageRecordLang } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ButtonComponent } from 'sdi/components/button';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
@@ -42,7 +42,7 @@ declare module 'sdi/shape' {
     export interface IShape {
         'app/user': string | null;
         'app/api-root': string;
-        'app/lang': 'fr' | 'nl';
+        'app/lang': MessageRecordLang;
         'app/layout': AppLayout[];
         'app/current-map': string | null;
         'app/current-layer': string | null;

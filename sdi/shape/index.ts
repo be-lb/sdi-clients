@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 
-import { IStoreInteractions, IReducer, IAliasCollection, IReducerAsync } from '../source';
+import { IStoreInteractions, IReducer, IAliasCollection, IReducerAsync, MessageRecordLang } from '../source';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:shape');
@@ -24,7 +24,7 @@ const logger = debug('sdi:shape');
 export interface IShape {
     'app/user': string | null;
     'app/api-root': string;
-    'app/lang': 'fr' | 'nl';
+    'app/lang': MessageRecordLang;
     'app/csrf': string | null;
     'app/root': string;
 

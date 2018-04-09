@@ -39,9 +39,10 @@ export type FileOrNull = File | null;
 export interface FileRecord {
     nl: FileOrNull;
     fr: FileOrNull;
+    en: FileOrNull;
 }
 
-export const fromRecordTemplated = <T>(r: { fr: T, nl: T }) => {
+export const fromRecordTemplated = <T>(r: { fr: T, nl: T, en: T }) => {
     const lc = getLang();
     return r[lc];
 };

@@ -39,7 +39,10 @@ export const MessageRecordIO = iots.intersection([
     }),
 ]);
 
+export const MessageRecordLangIO = u([l('fr'), l('nl'), l('en')]);
+
 export type MessageRecord = iots.TypeOf<typeof MessageRecordIO>;
+export type MessageRecordLang = iots.TypeOf<typeof MessageRecordLangIO>;
 
 export const makeRecord =
     (fr = '', nl = '', en = ''): MessageRecord => ({ fr, nl, en });

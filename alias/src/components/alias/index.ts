@@ -8,6 +8,7 @@ export interface FormAlias {
     select: string;
     fr: string;
     nl: string;
+    en: string;
 }
 
 export const defaultFormAlias =
@@ -17,4 +18,5 @@ export const defaultFormAlias =
         select: '',
         fr: '',
         nl: '',
+        en: '',
     });

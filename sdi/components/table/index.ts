@@ -48,6 +48,7 @@ export interface ITableSearch {
     resultMap: number[];
 }
 
+
 export type LoadingStatus = 'none' | 'loading' | 'done';
 
 export interface IDataTable {

@@ -22,6 +22,7 @@ import { getApiUrl } from 'sdi/app';
 import { dispatch } from 'sdi/shape';
 import { Inspire } from 'sdi/source';
 import { uniq } from 'sdi/util';
+import { LoadingStatus } from 'sdi/components/table';
 
 import {
     fetchAllDatasetMetadata,
@@ -82,19 +83,19 @@ const events = {
 
     loadAllDatasetMetadata(done?: () => void) {
         dispatch('component/table/layers',
-            ts => ({ ...ts, loaded: 'loading' }));
+            ts => ({ ...ts, loaded: 'none' as LoadingStatus }));
 
         fetchAllDatasetMetadata(getApiUrl('metadatas'))(
             (frame) => {
                 dispatch('data/datasetMetadata',
                     state => uniqInspire(state.concat(frame.results)));
                 dispatch('component/table/layers',
-                    ts => ({ ...ts, loaded: 'loading' }));
+                    ts => ({ ...ts, loaded: 'loading' as LoadingStatus }));
                 dispatch('component/splash', () => Math.floor(frame.page * 100 / frame.total));
             },
             () => {
                 dispatch('component/table/layers',
-                    ts => ({ ...ts, loaded: 'done' }));
+                    ts => ({ ...ts, loaded: 'done' as LoadingStatus }));
                 if (done) {
                     done();
                 }

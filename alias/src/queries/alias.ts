@@ -1,6 +1,6 @@
 
 import tr from 'sdi/locale';
-import { IAlias } from 'sdi/source';
+import { IAlias, MessageRecordLang } from 'sdi/source';
 import { tableQueries, TableSource } from 'sdi/components/table';
 import { subscribe, queryK } from 'sdi/shape';
 import { fromNullable } from 'fp-ts/lib/Option';
@@ -49,7 +49,7 @@ export const getFormSelect =
     () => formAlias().select;
 
 export const getFormReplace =
-    (lc: 'fr' | 'nl') =>
+    (lc: MessageRecordLang) =>
         () => formAlias()[lc];
 
 

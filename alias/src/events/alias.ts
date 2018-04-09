@@ -2,7 +2,7 @@
 import { getApiUrl } from 'sdi/app';
 import { dispatchK, observe } from 'sdi/shape';
 import { tableEvents } from 'sdi/components/table';
-import { IAlias, makeRecord } from 'sdi/source';
+import { IAlias, makeRecord, MessageRecordLang } from 'sdi/source';
 
 import { fetchAllAlias, putAlias, postAlias, delAlias } from '../remote';
 import { FormAliasStatus, defaultFormAlias, FormAlias } from '../components/alias';
@@ -33,6 +33,7 @@ const formFromData =
                 select: data.select,
                 fr: data.replace.fr,
                 nl: data.replace.nl,
+                en: '',
             })
         )
 
@@ -56,7 +57,7 @@ export const setFormSelect =
         aliasForm(s => ({ ...s, select }));
 
 export const setFormReplace =
-    (lc: 'fr' | 'nl') =>
+    (lc: MessageRecordLang) =>
         (r: string) =>
             aliasForm(s => ({ ...s, [lc]: r }));
 

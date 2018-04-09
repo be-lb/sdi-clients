@@ -4,7 +4,7 @@ import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { getApiUrl } from 'sdi/app';
-import { getMessageRecord, Inspire } from 'sdi/source';
+import { getMessageRecord, Inspire, MessageRecordLang } from 'sdi/source';
 import { scopeOption } from 'sdi/lib';
 import { dispatchK, dispatch } from 'sdi/shape';
 
@@ -16,12 +16,12 @@ const single = dispatchK('component/single');
 const apiUrl = (s: string) => getApiUrl(s);
 
 export const setMdTitle =
-    (l: 'fr' | 'nl') =>
+    (l: MessageRecordLang) =>
         (t: string) => single(
             s => ({ ...s, title: { ...s.title, [l]: t } }));
 
 export const setMdDescription =
-    (l: 'fr' | 'nl') =>
+    (l: MessageRecordLang) =>
         (t: string) => single(
             s => ({ ...s, description: { ...s.description, [l]: t } }));
 

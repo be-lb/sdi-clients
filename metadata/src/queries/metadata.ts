@@ -1,7 +1,8 @@
 import * as debug from 'debug';
-import { query, subscribe } from 'sdi/shape';
 import { none, fromNullable } from 'fp-ts/lib/Option';
-import { TemporalReference, FreeText, isAnchor, isTemporalExtent, Inspire, Keyword } from 'sdi/source';
+
+import { query, subscribe } from 'sdi/shape';
+import { MessageRecordLang, TemporalReference, FreeText, isAnchor, isTemporalExtent, Inspire, Keyword } from 'sdi/source';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { TableDataType, TableDataRow, TableSource } from 'sdi/components/table';
 
@@ -125,10 +126,10 @@ export const getMdForm =
     () => query('component/single');
 
 export const getMdTitle =
-    (l: 'fr' | 'nl') => () => getMdForm().title[l];
+    (l: MessageRecordLang) => () => getMdForm().title[l];
 
 export const getMdDescription =
-    (l: 'fr' | 'nl') => () => getMdForm().description[l];
+    (l: MessageRecordLang) => () => getMdForm().description[l];
 
 export const formIsSaving =
     () => getMdForm().saving;

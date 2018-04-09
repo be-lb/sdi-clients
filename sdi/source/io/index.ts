@@ -30,4 +30,4 @@ export * from './style';
 export * from './timeserie';
 export * from './user';
 export * from './uuid';
-export { MessageRecord, makeRecord } from './io';
+export { MessageRecord, MessageRecordLang, makeRecord } from './io';

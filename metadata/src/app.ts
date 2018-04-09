@@ -36,6 +36,7 @@ const logger = debug('sdi:app');
 export type AppLayout =
     | 'List'
     | 'Single'
+    | 'SingleAndKeywords'
     | 'Splash'
     ;
 
@@ -75,6 +76,7 @@ const renderMain = () => {
     switch (layout) {
         case 'Splash': return renderSplash();
         case 'List': return renderList();
+        case 'SingleAndKeywords':
         case 'Single': return renderSingle();
     }
 };
