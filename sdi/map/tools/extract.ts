@@ -3,8 +3,9 @@ import {
     Feature,
     layer,
     Map,
+    Extent,
 } from 'openlayers';
-import { some, fromNullable } from 'fp-ts/lib/Option';
+import { some, none, fromNullable } from 'fp-ts/lib/Option';
 
 import { scopeOption } from '../../lib/scope';
 import {
@@ -35,6 +36,10 @@ const getExtent =
             map.getView()
                 .calculateExtent(map.getSize()));
 
+const sameExtent =
+    (e1: Extent, e2: Extent) =>
+        e1[0] === e2[0] && e1[1] === e2[1] && e1[2] === e2[2] && e1[3] === e2[3];
+
 const fromExtract =
     ({ fs, lid }: FeatureExtract): ExtractFeature[] =>
         fs.map(f => ({
@@ -50,24 +55,35 @@ const extractFeatures =
                 fs: l.getSource().getFeaturesInExtent(extent),
             }))
             .reduce<ExtractFeature[]>(
-            (acc, fe) => acc.concat(fromExtract(fe)),
-            []);
+                (acc, fe) => acc.concat(fromExtract(fe)),
+                []);
 
 export const extract =
     ({ setCollection }: ExtractOptions) => {
         let mapRef: ol.Map;
         let colRef: Collection<layer.Vector>;
+        let lastExtent: Extent = [0, 0, 0, 0];
 
         const update =
             (i: Interaction) =>
                 fromInteraction('extract', i)
-                    .map(() =>
-                        scopeOption()
-                            .let('map', fromNullable(mapRef))
-                            .let('layers', fromNullable(colRef))
-                            .let('extent', getExtent)
-                            .map(extractFeatures)
-                            .map(setCollection));
+                    .foldL(
+                        () => { lastExtent = [0, 0, 0, 0]; },
+                        () =>
+                            scopeOption()
+                                .let('map', fromNullable(mapRef))
+                                .let('layers', fromNullable(colRef))
+                                .let('extent', getExtent)
+                                .let('shouldUpdate', ({ extent }) => {
+                                    const su = !sameExtent(lastExtent, extent);
+                                    if (su) {
+                                        lastExtent = extent;
+                                        return some(true);
+                                    }
+                                    return none;
+                                })
+                                .map(extractFeatures)
+                                .map(setCollection));
 
         const init =
             (map: Map, layers: Collection<layer.Vector>) => {
