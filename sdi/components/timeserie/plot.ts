@@ -236,8 +236,22 @@ export const plotter =
                         //         Math.floor(x / barwidth / zoom + window.start);
 
                         const valueAt =
-                            (y: number) =>
-                                scale.min + spread * (y / graphsize.height);
+                            (y: number) => {
+                                const inv = graphsize.height - y ;
+                                const r = inv * 100 / graphsize.height;
+                                return scale.min + (r * spread / 100);
+                            };
+
+                        const pixelAt =
+                            (y: number) => {
+                                const ny = y - scale.min;
+                                const inv = spread - ny ;
+                                const r = inv * 100 / spread;
+                                return r * graphsize.height / 100;
+                            };
+
+                        logger(`valueAt(0) -> ${valueAt(0)} ${scale.min}`);
+                        logger(`valueAt(200) -> ${valueAt(200)}  ${scale.max}`);
 
                         const drawBars =
                             () => {
@@ -247,8 +261,7 @@ export const plotter =
                                 const bars = data.map((v, k) => {
                                     const val = v[1];
                                     if (val) {
-                                        const y =
-                                            ((ensureNumber(val) - scale.min) / spread) * graphsize.height;
+                                        const y = pixelAt(ensureNumber(val));
                                         const x = k * barwidth + (barwidth / 2);
 
                                         const cl = line(
@@ -279,15 +292,6 @@ export const plotter =
                                         }));
                                 }
 
-                                // return svg(bars, {
-                                //     // style: { position: 'absolute', top: 0, left: 0 },
-                                //     // onMouseMove: (e: MouseEvent<SVGElement>) => {
-                                //     //     e.preventDefault();
-                                //     //     events.setCursorPosition(barAt(asSvgX(e.currentTarget, e.clientX)));
-                                //     // },
-                                //     key: `bars|${window.start.toString()}|${window.end.toString()}|${activeBar.toString()}`,
-                                // });
-
                                 return bars;
                             };
 
@@ -302,14 +306,16 @@ export const plotter =
                             const timestampEnd = data[data.length - 1][0] * 1000;
                             const timeSpread = timestampEnd - timestampStart;
 
-                            const horizontal = mappableEmptyArray(horizontalLineCount).map((_v, k) => {
-                                const y = graphsize.height - k * horizontalLineIncrement;
-                                const valueLabel = valueAt(k * horizontalLineIncrement).toFixed(2).toString();
-                                return group([
-                                    line(0, y, graphsize.width, y, { className: 'timeserie-grid' }),
-                                    text(0, y, valueLabel, 'start', { className: 'timeserie-tick-label' }),
-                                ]);
-                            });
+                            const horizontal = mappableEmptyArray(horizontalLineCount)
+                                .map((_v, k) => k * horizontalLineIncrement)
+                                .map((v) => {
+                                    const y = graphsize.height - v;
+                                    const valueLabel = valueAt(y).toFixed(2).toString();
+                                    return group([
+                                        line(0, y, graphsize.width, y, { className: 'timeserie-grid' }),
+                                        text(0, y, valueLabel, 'start', { className: 'timeserie-tick-label' }),
+                                    ]);
+                                });
 
                             const vertical = mappableEmptyArray(verticalLineCount).map((_v, k) => {
                                 const x = k * verticalLineIncrement;
