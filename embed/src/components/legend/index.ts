@@ -31,7 +31,7 @@ const renderTitle =
     () => getMapInfo().fold(
         DIV(),
         mapInfo => DIV({ className: 'map-title' },
-            H1({}, A({ href: `${getRoot()}view`, target: '_top' }, fromRecord(mapInfo.title)))));
+            H1({}, A({ href: `${getRoot()}view/${mapInfo.id}`, target: '_top' }, fromRecord(mapInfo.title)))));
 
 
 interface Group {
