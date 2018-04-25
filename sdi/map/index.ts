@@ -17,6 +17,7 @@
 import * as proj4 from 'proj4';
 import { proj, format, Coordinate, Extent } from 'openlayers';
 import { Option, fromPredicate } from 'fp-ts/lib/Option';
+import { Either } from 'fp-ts/lib/Either';
 
 import { IMapBaseLayer, IMapInfo, FeatureCollection, GeometryType, Feature, DirectGeometryObject, Inspire, MessageRecord } from '../source';
 import { Getter, Setter } from '../shape';
@@ -35,7 +36,8 @@ const EPSG31370 = new proj.Projection({
 
 proj.addProjection(EPSG31370);
 
-export type FetchData = () => FeatureCollection | null;
+// export type FeatureCollectionOrNull = FeatureCollection | null;
+export type FetchData = () => Either<string, Option<FeatureCollection>>;
 export type SetScaleLine = (count: number, unit: string, width: number) => void;
 
 

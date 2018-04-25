@@ -310,11 +310,13 @@ const columnPicker =
         const { metadata } = appQueries.getCurrentLayerInfo();
         const children: React.ReactNode[] = [];
         if (metadata) {
-            const layerData = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-            if (layerData) {
-                const keys = getLayerPropertiesKeys(layerData);
-                children.push(...renderColumnNames(index, keys));
-            }
+            appQueries.getLayerData(metadata.uniqueResourceIdentifier)
+                .map(
+                    opt => opt.map(
+                        (layerData) => {
+                            const keys = getLayerPropertiesKeys(layerData);
+                            children.push(...renderColumnNames(index, keys));
+                        }));
         }
 
         return (

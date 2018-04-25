@@ -117,6 +117,8 @@ export const main =
 
             'port/map/interaction': defaultInteraction(),
 
+            'remote/errors': {},
+
         };
 
 

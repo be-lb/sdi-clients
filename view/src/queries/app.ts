@@ -15,11 +15,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { fromNullable } from 'fp-ts/lib/Option';
+import { fromNullable, none, some } from 'fp-ts/lib/Option';
+import { left, right, Either } from 'fp-ts/lib/Either';
 
 import { query } from 'sdi/shape';
-import { getMessageRecord, IMapInfo } from 'sdi/source';
+import { getMessageRecord, IMapInfo, FeatureCollection } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
+import { Option } from 'fp-ts/lib/Option';
 
 
 const queries = {
@@ -35,12 +37,16 @@ const queries = {
         return ll[ll.length - 1];
     },
 
-    getLayerData(id: string) {
+    getLayerData(id: string): Either<string, Option<FeatureCollection>> {
         const layers = query('data/layers');
+        const errors = query('remote/errors');
         if (id in layers) {
-            return layers[id];
+            return right(some<FeatureCollection>(layers[id]));
         }
-        return null;
+        else if (id in errors) {
+            return left(errors[id]);
+        }
+        return right(none);
     },
 
     getMap(mid: string) {

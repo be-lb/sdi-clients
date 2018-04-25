@@ -32,6 +32,7 @@ import { button } from '../button';
 import { startExtract, stopExtract } from '../../events/map';
 import { withExtract } from '../../queries/map';
 import { fromNullable } from 'fp-ts/lib/Option';
+import { none } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:table/feature-collection');
 
@@ -79,8 +80,8 @@ const onRowSelect: SelectRowHandler =
             .let('meta',
                 fromNullable(appQueries.getCurrentLayerInfo().metadata))
             .let('layer',
-                ({ meta }) => fromNullable(
-                    appQueries.getLayerData(meta.uniqueResourceIdentifier)))
+                ({ meta }) => appQueries.getLayerData(
+                    meta.uniqueResourceIdentifier).getOrElse(none))
             .let('feature',
                 ({ layer }) => fromNullable(
                     layer.features.find(f => f.id === row.from)))

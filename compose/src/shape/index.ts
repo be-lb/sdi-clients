@@ -26,6 +26,7 @@ import {
     ILayerCollection,
     MapInfoIllustrationState,
     AttachmentForm,
+    RemoteErrors,
 } from './types';
 import { ILegendEditor } from '../components/legend-editor';
 import { EditableState } from '../components/editable';
@@ -78,5 +79,7 @@ declare module 'sdi/shape' {
 
         'data/md/poc': MdPointOfContact[];
         'data/md/org': ResponsibleOrganisation[];
+
+        'remote/errors': RemoteErrors;
     }
 }

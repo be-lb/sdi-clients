@@ -108,3 +108,10 @@ export interface AttachmentForm {
     url: string;
     uploading: boolean;
 }
+
+
+
+export interface RemoteErrors {
+    [k: string]: string;
+}
+

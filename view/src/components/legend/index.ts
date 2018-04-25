@@ -29,6 +29,7 @@ import legendTools from './../legend-tools';
 import info from './../map-info';
 import { AppLayout, LegendPage } from '../../shape/types';
 import { fromNullable } from 'fp-ts/lib/Option';
+import { ReactNode } from 'react';
 
 const logger = debug('sdi:legend');
 
@@ -90,8 +91,11 @@ const renderLegend =
                 DIV({ className: 'legend-group anonymous' }, items));
         });
 
+
+
+
 const dataItem =
-    (info: ILayerInfo) => (
+    (info: ILayerInfo) => 
         DIV({ className: 'layer-item' },
             DIV({ className: 'layer-actions' },
                 SPAN({
@@ -109,13 +113,18 @@ const dataItem =
                         appEvents.setLayout(AppLayout.MapAndTable);
                     },
                 })),
-            DIV({ className: 'layer-title' }, SPAN({},
+            DIV({ className: 'layer-title' },
                 fromNullable(
                     appQueries.getDatasetMetadata(info.metadataId))
                     .fold(
                         info.id,
-                        md => fromRecord(getMessageRecord(md.resourceTitle))))))
-    );
+                        md => appQueries.getLayerData(md.uniqueResourceIdentifier)
+                            .fold<ReactNode>(
+                                err => SPAN({
+                                    className: 'error',
+                                    title: err,
+                                }, fromRecord(getMessageRecord(md.resourceTitle))),
+                                () => SPAN({}, fromRecord(getMessageRecord(md.resourceTitle)))))));
 
 const renderData =
     (groups: Group[]) =>

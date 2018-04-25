@@ -17,6 +17,7 @@
  */
 
 import * as debug from 'debug';
+import { none } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
@@ -40,13 +41,14 @@ const ensureTableSelection =
             if (row) {
                 const lid = appQueries.getCurrentLayerId();
                 if (lid) {
-                    const layer = appQueries.getLayerData(lid);
-                    if (layer) {
-                        selectFeatureRow(0);
-                        const idx = row.from as number;
-                        const feature = layer.features[idx];
-                        appEvents.setCurrentFeatureData(feature);
-                    }
+                    appQueries.getLayerData(lid)
+                        .getOrElse(none)
+                        .map((layer) => {
+                            selectFeatureRow(0);
+                            const idx = row.from as number;
+                            const feature = layer.features[idx];
+                            appEvents.setCurrentFeatureData(feature);
+                        });
                 }
 
             }

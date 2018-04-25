@@ -187,21 +187,24 @@ const events = {
 
 
     loadLayer(id: string, url: string) {
-        const lyr = queries.getLayerData(id);
-        if (!lyr) {
-            fetchLayer(url)
-                .then((layer) => {
-                    dispatch('data/layers', (state) => {
-                        if (id in state) {
-                            return state;
-                        }
-                        // layer.features.forEach(addAppIdToFeature);
-                        state[id] = layer;
-                        return state;
-                    });
-                })
-                .catch(e => logger(e));
-        }
+        queries.getLayerData(id)
+            .map(o =>
+                o.foldL(
+                    () => fetchLayer(url)
+                        .then((layer) => {
+                            dispatch('data/layers', (state) => {
+                                if (id in state) {
+                                    return state;
+                                }
+                                state[id] = layer;
+                                return state;
+                            });
+                        })
+                        .catch((err) => {
+                            logger(`Failed to load layer at ${url} due to ${err}`);
+                            dispatch('remote/errors', state => ({ ...state, [id]: `${err}` }));
+                        }),
+                    () => void 0));
     },
 
     loadCategories(url: string) {

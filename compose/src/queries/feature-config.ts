@@ -78,14 +78,13 @@ export const getEditedValue =
 export const getLayer =
     (): FeatureCollection => {
         const { metadata } = appQueries.getCurrentLayerInfo();
+        const empty: FeatureCollection = { type: 'FeatureCollection', features: [] };
         if (metadata !== null) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-
-            if (layer !== null) {
-                return layer;
-            }
+            return appQueries.getLayerData(metadata.uniqueResourceIdentifier).fold(
+                () => empty,
+                o => o.fold(empty, fc => fc));
         }
-        return { type: 'FeatureCollection', features: [] };
+        return empty;
     };
 
 

@@ -107,18 +107,16 @@ const queries = {
     getValues(column: string): ValueType[] {
         const lid = appQueries.getCurrentLayerId();
         if (lid) {
-            const layer = appQueries.getLayerData(lid);
-            if (layer) {
-                return (
-                    layer.features.map((f) => {
+            return appQueries.getLayerData(lid).fold(
+                () => [],
+                o => o.fold([],
+                    layer => layer.features.map((f) => {
                         const props = f.properties;
                         if (props && column in props) {
                             return props[column];
                         }
                         return null;
-                    }).filter(v => v !== null)
-                );
-            }
+                    }).filter(v => v !== null)));
         }
         return [];
     },

@@ -15,9 +15,11 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable, none } from 'fp-ts/lib/Option';
 
 import { dispatch } from 'sdi/shape';
 import { getLang } from 'sdi/app';
+import { scopeOption } from 'sdi/lib';
 import {
     addDefaultGroupStyle,
     addDefaultIntervalStyle,
@@ -786,14 +788,15 @@ const events = {
         const n = queries.getAutoClassValue();
         if (lid && n > 1) {
             dispatch('data/maps', (maps) => {
-                const layer = getLayer(getCurrentMap(maps), lid);
-                if (layer) {
-                    const { metadata } = appQueries.getCurrentLayerInfo();
-                    const data = metadata ?
-                        appQueries.getLayerData(metadata.uniqueResourceIdentifier) :
-                        null;
-
-                    if (data) {
+                const { metadata } = appQueries.getCurrentLayerInfo();
+                scopeOption()
+                    .let('layer', fromNullable(getLayer(getCurrentMap(maps), lid)))
+                    .let('metadata', fromNullable(metadata))
+                    .let('data',
+                        ({ metadata }) =>
+                            appQueries.getLayerData(metadata.uniqueResourceIdentifier)
+                                .getOrElse(none))
+                    .map(({ data, layer }) => {
                         const style = { ...layer.style };
                         if (isContinuous(style)) {
                             style.intervals = [];
@@ -818,9 +821,8 @@ const events = {
                             }
                             saveMap(lid, style);
                         }
+                    });
 
-                    }
-                }
                 return maps;
             });
         }

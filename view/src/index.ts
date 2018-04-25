@@ -149,6 +149,8 @@ export const main =
             'data/datasetMetadata': {},
             'data/attachments': [],
             'data/baselayers': {},
+
+            'remote/errors': {},
         };
 
         try {

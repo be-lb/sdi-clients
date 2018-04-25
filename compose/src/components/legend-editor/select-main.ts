@@ -15,12 +15,14 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import { none } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
-import appQueries from '../../queries/app';
-import events from '../../events/legend-editor';
 import { getLayerPropertiesKeys } from 'sdi/util';
 import tr from 'sdi/locale';
+
+import appQueries from '../../queries/app';
+import events from '../../events/legend-editor';
 
 const renderKeys = (keys: string[]) => {
     return (
@@ -47,20 +49,22 @@ const render = (lid: string) => {
     const { metadata } = appQueries.getLayerInfo(lid);
     const children: React.ReactNode[] = [];
     if (metadata) {
-        const layerData = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-        if (layerData) {
-            // const legendType = queries.getLegendType();
-            // const keys = legendType !== 'continuous' ?
-            //     getLayerPropertiesKeys(layerData) :
-            //     getLayerPropertiesKeysFiltered(
-            //         layerData, a => typeof a === 'number');
-            const keys = getLayerPropertiesKeys(layerData);
-            children.push(DIV({ className: 'column-picker-infos' },
-                DIV({}, tr('columnPickerMessage')),
-            ),
-                DIV({ className: 'column-name' }, tr('all')),
-                ...renderKeys(keys));
-        }
+        appQueries.getLayerData(metadata.uniqueResourceIdentifier)
+            .getOrElse(none)
+            .map((layerData) => {
+                // const legendType = queries.getLegendType();
+                // const keys = legendType !== 'continuous' ?
+                //     getLayerPropertiesKeys(layerData) :
+                //     getLayerPropertiesKeysFiltered(
+                //         layerData, a => typeof a === 'number');
+                const keys = getLayerPropertiesKeys(layerData);
+                children.push(DIV({ className: 'column-picker-infos' },
+                    DIV({}, tr('columnPickerMessage')),
+                ),
+                    DIV({ className: 'column-name' }, tr('all')),
+                    ...renderKeys(keys));
+            });
+
     }
 
     return wrapRender(...children);

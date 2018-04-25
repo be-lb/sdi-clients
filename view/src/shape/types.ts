@@ -90,3 +90,7 @@ export interface IDatasetMetadataCollection {
     [id: string]: Inspire;
 }
 
+
+export interface RemoteErrors {
+    [k: string]: string;
+}

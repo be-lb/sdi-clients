@@ -26,7 +26,7 @@ import { AppLayout } from '../shape/types';
 import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment, fetchBaseLayer, fetchBaseLayerAll } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
-import { fromNullable } from 'fp-ts/lib/Option';
+import { fromNullable, none } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:events/app');
 
@@ -149,7 +149,10 @@ const events = {
                     return state;
                 });
             })
-            .catch(err => logger(`Failed to load layer at ${url} due to ${err}`));
+            .catch((err) => {
+                logger(`Failed to load layer at ${url} due to ${err}`);
+                dispatch('remote/errors', state => ({ ...state, [id]: `${err}` }));
+            });
     },
 
     loadAlias(url: string) {
@@ -226,8 +229,8 @@ const events = {
                 () => fromNullable(
                     queries.getLayerInfo(layerInfoId).metadata))
             .let('data',
-                s => fromNullable(
-                    queries.getLayerData(s.md.uniqueResourceIdentifier)))
+                s => queries.getLayerData(
+                    s.md.uniqueResourceIdentifier).getOrElse(none))
             .let('feature',
                 s => fromNullable(
                     s.data.features.find(f => f.id === id)))

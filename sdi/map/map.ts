@@ -131,24 +131,52 @@ const getLayerData =
             (count: number) => {
                 logger(`getLayerData ${fromRecord(title)} ${count}`);
 
-                const data = fetchData();
-                if (data) {
-                    const complete = () => loadLayerData(vs, data);
-                    if (vl.getVisible()) {
-                        complete();
-                    }
-                    else {
-                        // setTimeout(complete, 3000 + (Math.random() * 10000));
-                        vl.once('change:visible', complete);
-                    }
-                    loadingMonitor.remove(title);
-                }
-                else if (count < 100) {
-                    setTimeout(() => fetcher(count + 1), 1000);
-                }
-                else {
-                    logger(`getLayerData GiveUp on ${fromRecord(title)}`);
-                }
+                const cleanup =
+                    () => {
+                        logger(`getLayerData GiveUp on ${fromRecord(title)}`);
+                        loadingMonitor.remove(title);
+
+                    };
+
+                fetchData().fold(
+                    () => cleanup(),
+                    opt => opt.foldL(
+                        () => {
+                            if (count < 100) {
+                                setTimeout(() => fetcher(count + 1), 1000);
+                            }
+                            else {
+                                cleanup();
+                            }
+                        },
+                        (data) => {
+                            const complete = () => loadLayerData(vs, data);
+                            if (vl.getVisible()) {
+                                complete();
+                            }
+                            else {
+                                vl.once('change:visible', complete);
+                            }
+                            loadingMonitor.remove(title);
+                        }));
+
+                // if (data) {
+                //     const complete = () => loadLayerData(vs, data);
+                //     if (vl.getVisible()) {
+                //         complete();
+                //     }
+                //     else {
+                //         // setTimeout(complete, 3000 + (Math.random() * 10000));
+                //         vl.once('change:visible', complete);
+                //     }
+                //     loadingMonitor.remove(title);
+                // }
+                // else if (count < 100) {
+                //     setTimeout(() => fetcher(count + 1), 1000);
+                // }
+                // else {
+                //     logger(`getLayerData GiveUp on ${fromRecord(title)}`);
+                // }
             };
 
         fetcher(0);
@@ -566,7 +594,7 @@ export const create =
                 const { init, update } = position(o);
                 init(map);
                 updatables.push({ name: 'Position', fn: () => update(g()) });
-            }
+            };
 
 
         return {

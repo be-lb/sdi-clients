@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { fromNullable } from 'fp-ts/lib/Option';
+import { Option, none } from 'fp-ts/lib/Option';
 
 import { queryK } from 'sdi/shape';
 import {
@@ -36,29 +36,27 @@ import appQueries from './app';
 // Layer / FeatureCollection
 
 export const getLayer =
-    (): FeatureCollection | null => {
+    (): Option<FeatureCollection> => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata !== null) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
+            return appQueries.getLayerData(metadata.uniqueResourceIdentifier).getOrElse(none);
 
-            if (layer !== null) {
-                return layer;
-            }
         }
-        return null;
+        return none;
     }
 
 export const getLayerOption =
-    () => fromNullable(getLayer());
+    () => getLayer();
 
 export const getFeatureData =
-    (numRow: number): Feature | null => {
-        const layer = getLayer();
-        if (layer && numRow >= 0 && numRow < layer.features.length) {
-            return layer.features[numRow];
-        }
-        return null;
-    }
+    (numRow: number): Feature | null =>
+        getLayer().fold(null,
+        (layer) => {
+            if (layer && numRow >= 0 && numRow < layer.features.length) {
+                return layer.features[numRow];
+            }
+            return null;
+        });
 
 const getLayerData =
     (layer: FeatureCollection): TableDataRow[] => {

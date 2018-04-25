@@ -1,4 +1,5 @@
-import { fromNullable } from 'fp-ts/lib/Option';
+import { fromNullable, some } from 'fp-ts/lib/Option';
+import { right } from 'fp-ts/lib/Either';
 
 import { queryK, dispatch } from 'sdi/shape';
 import { scopeOption } from 'sdi/lib';
@@ -81,7 +82,7 @@ const loadLayer =
                         info,
                         metadata,
                     }),
-                    () => layer,
+                    () => right(some(layer)),
                 );
             });
     };

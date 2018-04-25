@@ -38,6 +38,7 @@ import {
     IShare,
     ILayerColection,
     IDatasetMetadataCollection,
+    RemoteErrors,
 } from './types';
 import { PrintProps, PrintState } from '../components/print';
 
@@ -85,6 +86,7 @@ declare module 'sdi/shape' {
         'data/datasetMetadata': IDatasetMetadataCollection;
         'data/attachments': Attachment[];
         'data/baselayers': BaseLayerCollection;
+        'remote/errors': RemoteErrors;
     }
 }
 

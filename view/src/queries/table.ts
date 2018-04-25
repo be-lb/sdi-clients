@@ -1,11 +1,11 @@
 /*
- *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, version 3 of the License.
- *
- *  This program is distributed in the hope that it will be useful,
+*  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, version 3 of the License.
+*
+*  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -15,7 +15,7 @@
  */
 
 import * as debug from 'debug';
-import { fromNullable } from 'fp-ts/lib/Option';
+import { Option, none } from 'fp-ts/lib/Option';
 
 import { FeatureCollection, Feature } from 'sdi/source';
 import { queryK, subscribe } from 'sdi/shape';
@@ -40,29 +40,27 @@ type ObjOrNull = { [k: string]: any } | null;
 // Layer / FeatureCollection
 
 export const getLayer =
-    (): FeatureCollection | null => {
+    (): Option<FeatureCollection> => {
         const { metadata } = appQueries.getCurrentLayerInfo();
         if (metadata !== null) {
-            const layer = appQueries.getLayerData(metadata.uniqueResourceIdentifier);
-
-            if (layer !== null) {
-                return layer;
-            }
+            return appQueries.getLayerData(metadata.uniqueResourceIdentifier).getOrElse(none);
         }
-        return null;
-    }
+        return none;
+    };
 
 export const getLayerOption =
-    () => fromNullable(getLayer());
+    () => getLayer();
 
 export const getFeatureData =
     (numRow: number): Feature | null => {
-        const layer = getLayer();
-        if (layer && numRow >= 0 && numRow < layer.features.length) {
-            return layer.features[numRow];
-        }
-        return null;
-    }
+        return getLayer().fold(null,
+            (layer) => {
+                if (layer && numRow >= 0 && numRow < layer.features.length) {
+                    return layer.features[numRow];
+                }
+                return null;
+            });
+    };
 
 const getLayerData =
     (layer: FeatureCollection): TableDataRow[] => {
@@ -70,7 +68,7 @@ const getLayerData =
         const features = withExtract().fold(
             layer.features,
             ({ state }) => layer.features.filter(f => state.findIndex(fe => (
-                fe.featureId === f.id)) >= 0)
+                fe.featureId === f.id)) >= 0),
         );
 
         return (
@@ -126,7 +124,7 @@ const getLayerTypes =
         }
 
         return [];
-    }
+    };
 
 export const getSource =
     subscribe('app/current-layer',

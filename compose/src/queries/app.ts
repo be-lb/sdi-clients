@@ -15,6 +15,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { Option, none, some } from 'fp-ts/lib/Option';
+import { Either, right, left } from 'fp-ts/lib/Either';
+
 import { query } from 'sdi/shape';
 import { getMessageRecord, FeatureCollection } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
@@ -46,12 +49,16 @@ const queries = {
     },
 
 
-    getLayerData(id: string | null) {
+    getLayerData(id: string): Either<string, Option<FeatureCollection>> {
         const layers = query('data/layers');
-        if (id && id in layers) {
-            return layers[id];
+        const errors = query('remote/errors');
+        if (id in layers) {
+            return right(some<FeatureCollection>(layers[id]));
         }
-        return null;
+        else if (id in errors) {
+            return left(errors[id]);
+        }
+        return right(none);
     },
 
 

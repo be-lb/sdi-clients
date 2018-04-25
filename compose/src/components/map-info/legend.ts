@@ -14,6 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { fromNullable } from 'fp-ts/lib/Option';
+
 import { ILayerInfo, getMessageRecord, Inspire, IMapInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 import { DIV, H2, SPAN } from 'sdi/components/elements';
@@ -38,17 +40,16 @@ const visibleButton = button('view');
 
 const wrapItem =
     (md: Inspire | null) =>
-        (...nodes: React.ReactNode[]) => {
-            if (md) {
-                const data = queries.getLayerData(md.uniqueResourceIdentifier);
-                if (data) {
-                    return nodes;
-                }
-            }
-            return nodes.concat(SPAN({
-                className: 'loader-spinner',
-            }));
-        };
+        (...nodes: React.ReactNode[]) =>
+            fromNullable(md).fold(nodes,
+                md => queries.getLayerData(md.uniqueResourceIdentifier).fold(
+                    err => [SPAN({
+                        className: 'load-error',
+                        title: err,
+                    }, ...nodes)],
+                    o => o.fold(nodes.concat(SPAN({
+                        className: 'loader-spinner',
+                    })), () => nodes)));
 
 const renderLegendItem =
     (layerInfo: ILayerInfo): React.ReactNode[] => {
