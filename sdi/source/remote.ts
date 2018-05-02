@@ -20,9 +20,26 @@ import { some, fromNullable, none } from 'fp-ts/lib/Option';
 import { Task } from 'fp-ts/lib/Task';
 import { getCSRF } from '../app';
 
-const headers = new Headers();
-headers.append('Content-Type', 'application/json');
 
+const absRe = new RegExp('^https?:');
+/**
+ * checkScheme ensures that URL has the same scheme than the location
+ * fixes Mixed Content when getting URLs from a proxied server
+ * @param url 
+ */
+const checkScheme =
+    (url: string): string => {
+        if (!absRe.test(url)) {
+            return url; // browser will take care
+        }
+        const lp = window.location.protocol;
+        if ('http:' === lp || url.slice(0, lp.length) === lp) {
+            return url; // we're on the same page
+        }
+
+        // we're asking for http while we're on https
+        return 'https' + url.slice(4);
+    };
 
 export const defaultFetchOptions =
     (): RequestInit => {
@@ -74,7 +91,7 @@ export const fetchWithoutValidationIO =
         };
 
         return (
-            fetch(url, options)
+            fetch(checkScheme(url), options)
                 .then((response) => {
                     if (response.ok) {
                         return response.json() as Promise<T>;
@@ -94,7 +111,7 @@ export const fetchIO =
         };
 
         return (
-            fetch(url, options)
+            fetch(checkScheme(url), options)
                 .then((response) => {
                     if (response.ok) {
                         return response.json();
@@ -195,7 +212,7 @@ export const postIO =
         ]);
 
         return (
-            fetch(url, options)
+            fetch(checkScheme(url), options)
                 .then((response) => {
                     if (response.ok) {
                         return response.json();
@@ -220,7 +237,7 @@ export const deleteIO =
         };
 
         return (
-            fetch(url, options)
+            fetch(checkScheme(url), options)
                 .then((response) => {
                     if (response.ok) {
                         return void 0;
