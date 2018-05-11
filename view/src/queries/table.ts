@@ -64,7 +64,7 @@ export const getFeatureData =
 
 const getLayerData =
     (layer: FeatureCollection): TableDataRow[] => {
-        const keys = getLayerKeys(layer);
+        const keys = getLayerPropertiesKeys(layer);
         const features = withExtract().fold(
             layer.features,
             ({ state }) => layer.features.filter(f => state.findIndex(fe => (
@@ -100,7 +100,7 @@ const getLayerKeys =
 
 const getLayerTypes =
     (layer: FeatureCollection): TableDataType[] => {
-        const keys = getLayerKeys(layer);
+        const keys = getLayerPropertiesKeys(layer);
         if (layer.features.length > 0) {
             const row = layer.features[0].properties;
             if (row != null) {
