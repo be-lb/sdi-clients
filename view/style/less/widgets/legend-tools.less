@@ -149,8 +149,15 @@
 // TOOLS : TRACKER
 
 .main.map-and-tracker {
-    right: @margin !important;
-    left: @margin !important;
+    right: @margin ;
+    left: @margin;
+
+    @media @portrait {
+        right: initial;
+        left: initial;
+    }
+
+
     .tool.geocoder{display: none;}
 }
 .tool.tracker {

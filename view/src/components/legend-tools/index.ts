@@ -18,7 +18,6 @@
 import webservices from './webservices';
 import measure from './measure';
 import share from './share';
-import tracker from './tracker';
 import location from './location';
 import print from './print';
 
@@ -28,7 +27,6 @@ const legendTools = () => {
         print(),
         share(),
         webservices(),
-        tracker(),
         measure(),
         location(),
     ];
