@@ -20,12 +20,14 @@ import * as debug from 'debug';
 import { DIV } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
-import { getUserId, loop, getApiUrl } from 'sdi/app';
+import { getUserId, loop } from 'sdi/app';
+import { scopeOption } from 'sdi/lib';
 
 import login from './components/login';
 import logout from './components/logout';
 import { getLayout } from './queries/app';
-import { loadUser } from './events/app';
+import { fromNullable } from 'fp-ts/lib/Option';
+import { getNext } from './queries/login';
 
 const logger = debug('sdi:app');
 
@@ -55,10 +57,11 @@ const renderMain =
 
 const effects =
     () =>
-        getUserId()
-            .map(userId =>
-                loadUser(
-                    getApiUrl(`users/${userId}`)));
+        scopeOption()
+            .let('uid', getUserId())
+            .let('next', fromNullable(getNext()))
+            .map(({ next }) => window.location.assign(next));
+
 
 
 
