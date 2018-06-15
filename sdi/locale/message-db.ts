@@ -227,6 +227,7 @@ export type MessageKey =
     | 'skipFirstLine'
     | 'space'
     | 'start'
+    | 'startGPS'
     | 'startDate'
     | 'stop'
     | 'studio'
@@ -1801,14 +1802,20 @@ export const messages: MessageDB = {
     },
 
     inspireCompliant: {
-        fr: 'Catalogue',
-        nl: 'Catalogus',
-        en: 'Catalog',
+        fr: 'Interne & Catalogue',
+        nl: 'Interne & Catalogus',
+        en: 'Internal & Catalog',
     },
 
     internal: {
         fr: 'Interne',
         nl: 'Interne',
         en: 'Internal',
+    },
+
+    startGPS: {
+        fr: 'Démarrer la localisation GPS',
+        nl: 'Start de GPS-locatie',
+        en: 'Start GPS location',
     },
 };

@@ -29,23 +29,13 @@ const stopTracker = () => {
     trackerEvents.stopTrack();
 };
 
-const saveTrack = () => {
-    appEvents.setLayout(AppLayout.MapFS);
-    trackerEvents.stopTrack();
-};
-
-
 
 const render = () => {
     return DIV({ className: 'tool-widget geo-tracker' },
         DIV({
-            className: 'btn-stop tracker-stop',
+            className: 'btn-close high-btn',
             onClick: stopTracker,
-        }, SPAN({}, tr('stop'))),
-        DIV({
-            className: 'btn-save tracker-save',
-            onClick: saveTrack,
-        }, SPAN({}, tr('save'))));
+        }, SPAN({}, tr('stop'))));
 };
 
 export default render;

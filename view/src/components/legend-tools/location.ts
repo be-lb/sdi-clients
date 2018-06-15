@@ -23,11 +23,19 @@ import { isENTER } from 'sdi/components/keycodes';
 import { inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { InteractionPosition } from 'sdi/map';
+import { AppLayout } from '../../shape/types';
+import appEvents from '../../events/app';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
-import { viewEvents, startPointerPosition, stopPointerPosition } from '../../events/map';
+import { trackerEvents, viewEvents, startPointerPosition, stopPointerPosition } from '../../events/map';
 import { getPointerPosition } from '../../queries/map';
+
+
+const startTracker = () => {
+    appEvents.setLayout(AppLayout.MapAndTracker);
+    trackerEvents.startTrack();
+};
 
 
 const getPositionerPos =
@@ -118,7 +126,11 @@ const renderInput =
                 DIV({
                     className: 'btn-check',
                     onClick: startPointerPosition,
-                }, tr('cursorLocalisation'))));
+                }, tr('cursorLocalisation')),
+                DIV({
+                    className: 'btn-check',
+                    onClick: startTracker,
+                }, tr('startGPS'))));
 
 
 const render =
