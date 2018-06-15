@@ -228,7 +228,7 @@ export const movePropDown =
             if (index >= 0 && index + 1 < rows.length) {
                 const next = index + 1;
                 const row = rows[index];
-                rows[index] = rows[index];
+                rows[index] = rows[next];
                 rows[next] = row;
             }
             conf.rows = rows.concat(rest);
