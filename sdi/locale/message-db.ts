@@ -224,8 +224,9 @@ export type MessageKey =
     | 'shareWithView'
     | 'sheetList'
     | 'size'
-    | 'skipFirstLine'
+    | 'solar'
     | 'space'
+    | 'skipFirstLine'
     | 'start'
     | 'startGPS'
     | 'startDate'
@@ -1817,5 +1818,11 @@ export const messages: MessageDB = {
         fr: 'Démarrer la localisation GPS',
         nl: 'Start de GPS-locatie',
         en: 'Start GPS location',
+    },
+
+    solar: {
+        fr: 'Solar',
+        nl: 'Solar',
+        en: 'Solar',
     },
 };

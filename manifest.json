@@ -49,6 +49,14 @@
             }
         },
         {
+            "route": "solar",
+            "root": "solar/dist",
+            "name": {
+                "fr": "Solar",
+                "nl": "Solar"
+            }
+        },
+        {
             "route": "embed",
             "root": "embed/dist"
         }
