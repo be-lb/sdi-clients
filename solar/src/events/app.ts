@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -16,11 +15,13 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
 
-import { dispatch } from 'sdi/shape';
+import { dispatch, query } from 'sdi/shape';
+import { getApiUrl } from 'sdi/app';
 
 import { AppLayout } from '../app';
-import { fetchUser } from '../remote';
+import { fetchMap } from '../remote';
 
 const logger = debug('sdi:events/app');
 
@@ -28,5 +29,16 @@ const logger = debug('sdi:events/app');
 export const setLayout =
     (l: AppLayout) =>
         dispatch('app/layout', state => state.concat([l]));
+
+export const startMap =
+    () =>
+        fromNullable(query('app/current-map'))
+            .map((mid) => {
+                fetchMap(getApiUrl(`/maps/${mid}`))
+                    .then(
+                        info => dispatch('data/maps',
+                            state => ({ ...state, [mid]: info })));
+            });
+
 
 logger('loaded');

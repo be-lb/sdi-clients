@@ -14,21 +14,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import * as io from 'io-ts';
 
 import {
-    Credentials,
-    fetchIO,
-    IUser,
-    IUserIO,
-    postIO,
+    fetchIO, IMapInfo, IMapInfoIO, FeatureCollection, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO, InspireIO, Inspire,
 } from 'sdi/source';
 
 
-export const fetchUser = (url: string): Promise<IUser> => fetchIO(IUserIO, url);
-// export const logoutUser = (url: string): Promise<string> => fetchIO(io.string, url);
-
-export const logoutUser = (url: string): Promise<string> => postIO(io.string, url, null);
-export const loginUser = (url: string, data: Credentials): Promise<IUser> => postIO(IUserIO, url, data);
 
 
+export const fetchLayer =
+    (url: string): Promise<FeatureCollection> => fetchWithoutValidationIO(url);
+
+export const fetchBaseLayer =
+    (url: string): Promise<IMapBaseLayer> => fetchIO(IMapBaseLayerIO, url);
+
+export const fetchMap =
+    (url: string): Promise<IMapInfo> => fetchIO(IMapInfoIO, url);
+
+
+export const fetchDatasetMetadata =
+    (url: string): Promise<Inspire> => fetchIO(InspireIO, url);

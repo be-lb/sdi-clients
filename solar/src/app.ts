@@ -1,4 +1,3 @@
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -24,6 +23,7 @@ import { loop } from 'sdi/app';
 
 
 import { getLayout } from './queries/app';
+import { startMap } from './events/app';
 import locate from './components/locate';
 import preview from './components/preview';
 import detail from './components/detail';
@@ -56,17 +56,15 @@ const renderMain =
     };
 
 
-// const effects =
-//     () =>
-//         scopeOption()
-//             .let('uid', getUserId())
-//             .let('next', fromNullable(getNext()))
-//             .map(({ next }) => window.location.assign(next));
+const effects =
+    () => {
+        startMap();
+    };
 
 
 
 
-const app = loop(renderMain);
+const app = loop(renderMain, effects);
 export default app;
 
 logger('loaded');
