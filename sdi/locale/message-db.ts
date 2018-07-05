@@ -32,10 +32,13 @@ export type MessageKey =
     | 'alias'
     | 'aliasDictonary'
     | 'all'
+    | 'amountBorrowed'
+    | 'analyse'
+    | 'annualConsumptionKWh'
+    | 'annualMaintenance'
     | 'apostrophe'
     | 'atlas'
     | 'atlasEnv'
-    | 'analyse'
     | 'attachedFiles'
     | 'attachmentAdd'
     | 'attachmentName'
@@ -46,6 +49,7 @@ export type MessageKey =
     | 'autoClass'
     | 'autoproduction'
     | 'backToMap'
+    | 'boiler'
     | 'browseMaps'
     | 'buyingPrice'
     | 'cancel'
@@ -76,9 +80,11 @@ export type MessageKey =
     | 'dashboard'
     | 'datas'
     | 'dataType'
+    | 'dayConsumption'
     | 'displayLabel'
     | 'downloadCSV'
     | 'draft'
+    | 'durationYear'
     | 'edit'
     | 'editFeatureTemplate'
     | 'editLayer'
@@ -122,7 +128,9 @@ export type MessageKey =
     | 'geometryType'
     | 'go'
     | 'gpsTracker'
+    | 'heatPump'
     | 'highValue'
+    | 'hotWaterDuringDay'
     | 'identifier'
     | 'imageGeneratingPreview'
     | 'imagePreview'
@@ -133,6 +141,8 @@ export type MessageKey =
     | 'inspireCompliant'
     | 'installation'
     | 'installationObstacle'
+    | 'installationPrice'
+    | 'installBatteries'
     | 'internal'
     | 'keywords'
     | 'label'
@@ -189,6 +199,9 @@ export type MessageKey =
     | 'metaDutch'
     | 'metaFrench'
     | 'minZoom'
+    | 'monocristal'
+    | 'monocristalHR'
+    | 'monthlyPayment'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -203,6 +216,7 @@ export type MessageKey =
     | 'originalTitle'
     | 'orientationGreat'
     | 'orientationGood'
+    | 'panelIntegration'
     | 'password'
     | 'personalize'
     | 'piechartRadius'
@@ -210,6 +224,7 @@ export type MessageKey =
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
+    | 'polycristal'
     | 'power'
     | 'preview'
     | 'printMap'
@@ -222,6 +237,7 @@ export type MessageKey =
     | 'publish'
     | 'published'
     | 'quotationMark'
+    | 'reduceConsumption'
     | 'relatedMapsLabel'
     | 'remove'
     | 'removeMap'
@@ -239,6 +255,8 @@ export type MessageKey =
     | 'search'
     | 'searchAtlas'
     | 'selectLayer'
+    | 'sellingGreenCertifPrice'
+    | 'sellingPrice'
     | 'semicolon'
     | 'separatedBy'
     | 'setLatitude'
@@ -270,6 +288,7 @@ export type MessageKey =
     | 'switchLang'
     | 'switchMarker'
     | 'tab'
+    | 'technoType'
     | 'templateEditorExplanation'
     | 'temporalReference'
     | 'term'
@@ -296,6 +315,10 @@ export type MessageKey =
     | 'uploadShpInfos'
     | 'usePattern'
     | 'userName'
+    | 'VAT'
+    | 'VAT21'
+    | 'VAT6'
+    | 'VAT0'
     | 'validate'
     | 'valuesCovered'
     | 'view'
@@ -2049,4 +2072,143 @@ export const messages: MessageDB = {
         nl: 'Terugverdientijd',
         en: 'Return time',
     },
+
+    reduceConsumption: {
+        fr: 'Je diminue ma consommation',
+        nl: 'Ik verminder mijn verbruik',
+        en: 'I reduce my consumption',
+    },
+
+    dayConsumption: {
+        fr: 'Je consomme en journée',
+        nl: 'Ik gebruik overdag',
+        en: 'I use during the day',
+    },
+
+    hotWaterDuringDay: {
+        fr: 'Eau chaude préparée en journée',
+        nl: 'Warm water overdag bereid',
+        en: 'Hot water prepared during the day',
+    },
+
+    boiler: {
+        fr: 'Boiler',
+        nl: 'Ketel',
+        en: 'Boiler',
+    },
+
+    heatPump: {
+        fr: 'Pompe à chaleur',
+        nl: 'warmtepomp',
+        en: 'Heat pump',
+    },
+
+    installBatteries: {
+        fr: 'J\'installe des batteries',
+        nl: 'Ik ben batterijen aan het plaatsen',
+        en: 'I install bateries',
+    },
+
+    technoType: {
+        fr: 'Type de technologie',
+        nl: 'Type technologie',
+        en: 'Technologie type',
+    },
+
+    monocristal: {
+        fr: 'Monocristalin',
+        nl: 'Monokristallijn',
+        en: 'Monocrystalin',
+    },
+
+    polycristal: {
+        fr: 'Polycristalin',
+        nl: 'Polykristallijn',
+        en: 'Polycrystalin',
+    },
+
+    monocristalHR: {
+        fr: 'Monocristalin haut rendement',
+        nl: 'Hoog rendement van monokristaline',
+        en: 'High efficiency monocrystalin',
+    },
+
+    panelIntegration: {
+        fr: 'Intégration des panneaux à la toiture',
+        nl: 'Integratie van de panelen in het dak',
+        en: 'Integration of the panels into the roof',
+    },
+
+    annualConsumptionKWh: {
+        fr: 'Consomation annuelle (kWh)',
+        nl: 'Jaarlijks verbruik (kWh)',
+        en: 'Annual consumption (kWh)',
+    },
+
+    annualMaintenance: {
+        fr: 'Frais d\'entretiens et de monitoring annuel',
+        nl: 'Jaarlijkse onderhouds en monitoringkosten',
+        en: 'Annual maintenance and monitoring costs',
+    },
+
+    sellingPrice: {
+        fr: 'Prix de vente de l\'électricité injectée dans le réseau',
+        nl: 'Verkoopprijs van aan het net geleverde elektriciteit',
+        en: 'Selling price of electricity fed into the grid',
+    },
+
+    installationPrice: {
+        fr: 'Prix de l\'installation',
+        nl: 'Installatie prijs',
+        en: 'Installation price',
+    },
+
+    VAT: {
+        fr: 'TVA',
+        nl: 'BTW',
+        en: 'VAT',
+    },
+
+    VAT21: {
+        fr: '21%',
+        nl: '21%',
+        en: '21%',
+    },
+
+    VAT6: {
+        fr: '6%',
+        nl: '6%',
+        en: '6%',
+    },
+
+    VAT0: {
+        fr: '0%',
+        nl: '0%',
+        en: '0%',
+    },
+
+    sellingGreenCertifPrice: {
+        fr: 'Prix de revente des Certificats Verts',
+        nl: 'Doorverkoopprijs van Groenestroomcertificaten',
+        en: 'Resale price of Green Certificates',
+    },
+
+    monthlyPayment: {
+        fr: 'Mensualité',
+        nl: 'maandelijkse betalingen',
+        en: 'Monthly payment',
+    },
+
+    durationYear: {
+        fr: 'Durée en années',
+        nl: 'Looptijd in jaren',
+        en: 'Duration in year',
+    },
+
+    amountBorrowed: {
+        fr: 'Montant emprunté',
+        nl: 'Geleend bedrag',
+        en: 'Amount borrowed',
+    },
+
 };
