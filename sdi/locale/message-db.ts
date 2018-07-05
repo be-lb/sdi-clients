@@ -44,11 +44,13 @@ export type MessageKey =
     | 'attachmentUrl'
     | 'attributesTable'
     | 'autoClass'
+    | 'autoproduction'
     | 'backToMap'
     | 'browseMaps'
     | 'buyingPrice'
     | 'cancel'
     | 'changeBackgroundMap'
+    | 'changeMyHabits'
     | 'charts'
     | 'clear'
     | 'close'
@@ -61,7 +63,9 @@ export type MessageKey =
     | 'columnPicker'
     | 'columnPickerMessage'
     | 'columns'
+    | 'consumption'
     | 'comma'
+    | 'contactInstallator'
     | 'confirm'
     | 'confirmDelete'
     | 'connect'
@@ -86,6 +90,7 @@ export type MessageKey =
     | 'emptyMapTitle'
     | 'emptyTitle'
     | 'endDate'
+    | 'energy'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -105,12 +110,14 @@ export type MessageKey =
     | 'featureViewUnvalidTemplate'
     | 'fillColor'
     | 'filter'
+    | 'finance'
     | 'fontColor'
     | 'fontSize'
     | 'fullscreen'
     | 'gainGreenCertif'
     | 'gainElecInvoice10Y'
     | 'gainEnvironment'
+    | 'gainTotal25Y'
     | 'geocode'
     | 'geometryType'
     | 'go'
@@ -124,6 +131,8 @@ export type MessageKey =
     | 'infoChoice'
     | 'infoReorder'
     | 'inspireCompliant'
+    | 'installation'
+    | 'installationObstacle'
     | 'internal'
     | 'keywords'
     | 'label'
@@ -150,6 +159,7 @@ export type MessageKey =
     | 'lineWidth'
     | 'links'
     | 'loadingData'
+    | 'loan'
     | 'location'
     | 'locationHelp'
     | 'login'
@@ -187,17 +197,20 @@ export type MessageKey =
     | 'newMap'
     | 'noResults'
     | 'north'
+    | 'obstacleEstimation'
     | 'offsetX'
     | 'offsetY'
     | 'originalTitle'
     | 'orientationGreat'
     | 'orientationGood'
     | 'password'
+    | 'personalize'
     | 'piechartRadius'
     | 'piechartScale'
     | 'pointColor'
     | 'pointLabelHelp'
     | 'pointOfContact'
+    | 'power'
     | 'preview'
     | 'printMap'
     | 'printDownloadingBaseMap'
@@ -218,6 +231,7 @@ export type MessageKey =
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
     | 'responsiblePerson'
+    | 'returnTime'
     | 'rowNumberColTitle'
     | 'roofTotalArea'
     | 'save'
@@ -235,6 +249,7 @@ export type MessageKey =
     | 'sheetList'
     | 'size'
     | 'solar'
+    | 'solarAutonomy'
     | 'solarPV'
     | 'solarThermal'
     | 'space'
@@ -249,6 +264,7 @@ export type MessageKey =
     | 'styleGroupDefaultName'
     | 'styleGroupRemove'
     | 'styleGroupSelectedItemsCount'
+    | 'surface'
     | 'switch'
     | 'switchLabel'
     | 'switchLang'
@@ -290,6 +306,8 @@ export type MessageKey =
     | 'wmsLegendHide'
     | 'wmsLegendDisplay'
     | 'wmsSwitch'
+    | 'yearConsumption'
+    | 'yearProduction'
     | 'zoomIn'
     | 'zoomOut'
     | 'zoomOnFeature'
@@ -1922,5 +1940,113 @@ export const messages: MessageDB = {
         fr: 'Non utilisable',
         nl: 'Niet bruikbaar',
         en: 'Not usable',
+    },
+
+    personalize: {
+        fr: 'Personnaliser',
+        nl: 'Personaliseren',
+        en: 'personaliseren',
+    },
+
+    contactInstallator: {
+        fr: 'Contacter un installateur',
+        nl: 'Neem contact op met een installateur',
+        en: 'Contact an installer',
+    },
+
+    changeMyHabits: {
+        fr: 'Profiter au maximum de mon installation',
+        nl: 'Profiteer optimaal van mijn installatie',
+        en: 'Make the most of my installation',
+    },
+
+    installationObstacle: {
+        fr: 'Obstacles à l\'installation',
+        nl: 'Hindernissen voor de installatie',
+        en: 'Obstacles to installation',
+    },
+
+    consumption: {
+        fr: 'Consommation',
+        nl: 'Consumerend',
+        en: 'Consumption',
+    },
+
+    autoproduction: {
+        fr: 'Autoproduction',
+        nl: 'Zelfgeneratie',
+        en: 'Self-generation',
+    },
+
+    finance: {
+        fr: 'Finance',
+        nl: 'Geldwezen',
+        en: 'Finance',
+    },
+
+    loan: {
+        fr: 'Loan',
+        nl: 'Leenwoord',
+        en: 'Loan',
+    },
+
+    installation: {
+        fr: 'Installation',
+        nl: 'Inbouw',
+        en: 'Installation',
+    },
+
+    surface: {
+        fr: 'Superficie',
+        nl: 'Plaats',
+        en: 'Area',
+    },
+
+    power: {
+        fr: 'Puissance',
+        nl: 'Mogendheid',
+        en: 'Power',
+    },
+
+    obstacleEstimation: {
+        fr: 'Pourcentage estimé d\'obstacles',
+        nl: 'Geschat percentage belemmeringen',
+        en: 'Estimated percentage of obstacles',
+    },
+
+    energy: {
+        fr: 'Énergie',
+        nl: 'Energie',
+        en: 'Energy',
+    },
+
+    yearProduction: {
+        fr: 'Production annuelle',
+        nl: 'Jaarlijkse productie',
+        en: 'Annual production',
+    },
+
+    yearConsumption: {
+        fr: 'Consommation annuelle',
+        nl: 'Jaarlijks verbruik',
+        en: 'Annual consumption',
+    },
+
+    solarAutonomy: {
+        fr: 'Autonomie solaire',
+        nl: 'Zonne autonomie',
+        en: 'Solar autonomy',
+    },
+
+    gainTotal25Y: {
+        fr: 'Gains totaux sur 25 ans',
+        nl: 'Totale winst over 25 jaar',
+        en: 'Total earnings over 25 years',
+    },
+
+    returnTime: {
+        fr: 'Temps de retour',
+        nl: 'Terugverdientijd',
+        en: 'Return time',
     },
 };

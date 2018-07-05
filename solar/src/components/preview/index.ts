@@ -1,11 +1,5 @@
-
-
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-
-
-
-
 
 
 const switchThermal =
@@ -39,8 +33,8 @@ const wrapper3D =
 const summaryAdress =
     () =>
         DIV({ className: 'adress' },
-            DIV({ className: 'street-name' }, '$streetName $streetNumber'),
-            DIV({ className: 'locality' },
+            H1({ className: 'street-name' }, '$streetName $streetNumber'),
+            H1({ className: 'locality' },
                 SPAN({}, tr('in')),
                 SPAN({}, ' $locality')));
 
@@ -98,10 +92,10 @@ const summary =
 const action =
     () =>
         DIV({ className: 'wrapper-actions' },
-            DIV({ className: 'action-settings' }, 'personalisaer'),
-            DIV({ className: 'action-contact' }, 'contacter un installateur'),
-            DIV({ className: 'action-change' }, 'changer mes habitudes'),
-            DIV({ className: 'action-print' }, 'PDF'),
+            DIV({ className: 'action-settings' }, tr('personalize')),
+            DIV({ className: 'action-contact' }, tr('contactInstallator')),
+            DIV({ className: 'action-change' }, tr('changeMyHabits')),
+            DIV({ className: 'action-print' }, 'download PDF'),
         );
 
 
