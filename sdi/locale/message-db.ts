@@ -35,6 +35,7 @@ export type MessageKey =
     | 'apostrophe'
     | 'atlas'
     | 'atlasEnv'
+    | 'analyse'
     | 'attachedFiles'
     | 'attachmentAdd'
     | 'attachmentName'
@@ -43,7 +44,9 @@ export type MessageKey =
     | 'attachmentUrl'
     | 'attributesTable'
     | 'autoClass'
+    | 'backToMap'
     | 'browseMaps'
+    | 'buyingPrice'
     | 'cancel'
     | 'changeBackgroundMap'
     | 'charts'
@@ -105,6 +108,9 @@ export type MessageKey =
     | 'fontColor'
     | 'fontSize'
     | 'fullscreen'
+    | 'gainGreenCertif'
+    | 'gainElecInvoice10Y'
+    | 'gainEnvironment'
     | 'geocode'
     | 'geometryType'
     | 'go'
@@ -114,6 +120,7 @@ export type MessageKey =
     | 'imageGeneratingPreview'
     | 'imagePreview'
     | 'imageUploading'
+    | 'in'
     | 'infoChoice'
     | 'infoReorder'
     | 'inspireCompliant'
@@ -183,6 +190,8 @@ export type MessageKey =
     | 'offsetX'
     | 'offsetY'
     | 'originalTitle'
+    | 'orientationGreat'
+    | 'orientationGood'
     | 'password'
     | 'piechartRadius'
     | 'piechartScale'
@@ -210,6 +219,7 @@ export type MessageKey =
     | 'responsibleOrganisation'
     | 'responsiblePerson'
     | 'rowNumberColTitle'
+    | 'roofTotalArea'
     | 'save'
     | 'saving'
     | 'search'
@@ -225,6 +235,8 @@ export type MessageKey =
     | 'sheetList'
     | 'size'
     | 'solar'
+    | 'solarPV'
+    | 'solarThermal'
     | 'space'
     | 'skipFirstLine'
     | 'start'
@@ -249,6 +261,7 @@ export type MessageKey =
     | 'textFormat'
     | 'textStyle'
     | 'thesaurus'
+    | 'thisBuildingGotA'
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
@@ -261,6 +274,7 @@ export type MessageKey =
     | 'topics'
     | 'translate'
     | 'unpublish'
+    | 'unusable'
     | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
@@ -1824,5 +1838,89 @@ export const messages: MessageDB = {
         fr: 'Solar',
         nl: 'Solar',
         en: 'Solar',
+    },
+
+    analyse: {
+        fr: 'Analyser',
+        nl: 'Examineren',
+        en: 'Analyse',
+    },
+
+    backToMap: {
+        fr: 'Retour à la carte',
+        nl: 'Terug naar de kaart',
+        en: 'Back to map',
+    },
+
+    roofTotalArea: {
+        fr: 'Surface totale de toiture',
+        nl: 'Totale dakoppervlakte ',
+        en: 'Total rooftop area',
+    },
+
+    solarPV: {
+        fr: 'Solaire photovoltaïque',
+        nl: 'Fotovoltaïsche zonne-energie ',
+        en: 'Solar photovoltaic',
+    },
+
+    solarThermal: {
+        fr: 'Solaire thermique',
+        nl: 'Zonthermische',
+        en: 'Solar thermal',
+    },
+
+    in: {
+        fr: 'à',
+        nl: 'in',
+        en: 'in',
+    },
+
+    thisBuildingGotA: {
+        fr: 'Ce bâtiment a un :',
+        nl: 'Dit gebouw heeft een:',
+        en: 'This building got a',
+    },
+
+    buyingPrice: {
+        fr: 'Prix d\'achat :',
+        nl: 'Aankoopprijs :',
+        en: 'buying price :',
+    },
+
+    gainGreenCertif: {
+        fr: 'Gain Certificats Verts sur 10 ans :',
+        nl: 'Groenestroomcertificaten behalen over 10 jaar :',
+        en: 'Gain Green Certificates over 10 years :',
+    },
+
+    gainElecInvoice10Y: {
+        fr: 'Gain facture d\'électricité sur 10 ans :',
+        nl: 'Besparing op elektriciteitsrekeningen over 10 jaar :',
+        en: 'Electricity bill savings over 10 years :',
+    },
+
+    gainEnvironment: {
+        fr: 'Gain environnemental :',
+        nl: 'Milieubaten :',
+        en: 'Environmental gain :',
+    },
+
+    orientationGreat: {
+        fr: 'Excellente orientation',
+        nl: 'Uitstekende oriëntatie',
+        en: 'Excellente orientation',
+    },
+
+    orientationGood: {
+        fr: 'Bonne orientation',
+        nl: 'Goede oriëntatie',
+        en: 'Good orientation',
+    },
+
+    unusable: {
+        fr: 'Non utilisable',
+        nl: 'Niet bruikbaar',
+        en: 'Not usable',
     },
 };
