@@ -8,10 +8,10 @@
     .potential-rank {
         margin-top: @margin;
         .this-building {
-            font-size: 0.8rem;
+            font-size: @small-font;
         }
         .potential-rank-value {
-            font-size: 2rem;
+            font-size: @big-font;
             font-weight: 700;
             color: @green;
         }
@@ -19,14 +19,70 @@
 
     .potential-values {
         margin-top: @margin;
+        margin-bottom: @margin;
         .kv {
-            font-size: 1.25rem;
+            font-size: @medium-font;
             .key {
                 font-weight: 100;
+                &:after {
+                    content: ' : ';
+                }
             }
             .value {
                 font-weight: 700;
             }
+        }
+    }
+}
+
+
+.actions {
+    border-top: 1px solid #000;
+    margin-top: @margin;
+    padding-top: @margin;
+    display: flex;
+    justify-content: space-between;
+    > div {
+        width: 20vw; //TO DO BETTER
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1 {}
+        action-infos {
+            font-size: @small-font;
+        }
+        &::before {
+            .awsomefont;
+            content: ".";
+            width: 5vw;
+            height: 5vw;
+            border-radius: 5vw;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 2.5vw;
+        }
+
+        &.action-settings::before {
+            content: @fa-var-pencil;
+            color: #fff;
+            background-color: @green;
+        }
+        &.action-contact::before {
+            content: @fa-var-wrench;
+            color: #fff;
+            background-color: @blue;
+        }
+        &.action-change::before {
+            content: @fa-var-lightbulb-o;
+            color: #000;
+            background-color: @yellow;
+        }
+        &.action-print::before {
+            content: @fa-var-thumb-tack;
+            color: #fff;
+            background-color: @yellow;
         }
     }
 }

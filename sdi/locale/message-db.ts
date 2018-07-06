@@ -97,6 +97,7 @@ export type MessageKey =
     | 'emptyTitle'
     | 'endDate'
     | 'energy'
+    | 'estim10Y'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -121,7 +122,7 @@ export type MessageKey =
     | 'fontSize'
     | 'fullscreen'
     | 'gainGreenCertif'
-    | 'gainElecInvoice10Y'
+    | 'gainElecInvoice'
     | 'gainEnvironment'
     | 'gainTotal25Y'
     | 'geocode'
@@ -1919,32 +1920,32 @@ export const messages: MessageDB = {
 
     thisBuildingGotA: {
         fr: 'Ce bâtiment a un :',
-        nl: 'Dit gebouw heeft een:',
-        en: 'This building got a',
+        nl: 'Dit gebouw heeft een :',
+        en: 'This building got a :',
     },
 
     buyingPrice: {
-        fr: 'Prix d\'achat :',
-        nl: 'Aankoopprijs :',
-        en: 'buying price :',
+        fr: 'Prix d\'achat',
+        nl: 'Aankoopprijs',
+        en: 'buying price',
     },
 
     gainGreenCertif: {
-        fr: 'Gain Certificats Verts sur 10 ans :',
-        nl: 'Groenestroomcertificaten behalen over 10 jaar :',
-        en: 'Gain Green Certificates over 10 years :',
+        fr: 'Gain Certificats Verts',
+        nl: 'Groenestroomcertificaten behalen',
+        en: 'Gain Green Certificates',
     },
 
-    gainElecInvoice10Y: {
-        fr: 'Gain facture d\'électricité sur 10 ans :',
-        nl: 'Besparing op elektriciteitsrekeningen over 10 jaar :',
-        en: 'Electricity bill savings over 10 years :',
+    gainElecInvoice: {
+        fr: 'Gain facture d\'électricité',
+        nl: 'Besparing op elektriciteitsrekeningen',
+        en: 'Electricity bill savings',
     },
 
     gainEnvironment: {
-        fr: 'Gain environnemental :',
-        nl: 'Milieubaten :',
-        en: 'Environmental gain :',
+        fr: 'Gain environnemental',
+        nl: 'Milieubaten',
+        en: 'Environmental gain',
     },
 
     orientationGreat: {
@@ -2209,6 +2210,12 @@ export const messages: MessageDB = {
         fr: 'Montant emprunté',
         nl: 'Geleend bedrag',
         en: 'Amount borrowed',
+    },
+
+    estim10Y: {
+        fr: 'Estimation sur 10 ans',
+        nl: '10-jarige schatting',
+        en: '10-year estimate',
     },
 
 };

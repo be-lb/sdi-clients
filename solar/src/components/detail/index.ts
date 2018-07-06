@@ -144,7 +144,7 @@ const sumPotentialValues =
         DIV({ className: 'potential-values' },
             kv('buyingPrice'),
             kv('gainGreenCertif'),
-            kv('gainElecInvoice10Y'),
+            kv('gainElecInvoice'),
             kv('gainEnvironment'));
 
 
@@ -170,7 +170,7 @@ const sumFinance =
             H2({}, tr('finance')),
             kv('buyingPrice'),
             kv('gainGreenCertif'),
-            kv('gainElecInvoice10Y'),
+            kv('gainElecInvoice'),
             kv('gainTotal25Y'),
             kv('returnTime'));
 

@@ -1,5 +1,6 @@
 import { DIV, SPAN, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { MessageKey } from 'sdi/locale/message-db';
 
 
 
@@ -39,21 +40,22 @@ const wrapperPlan =
                 tr('roofTotalArea'),
                 SPAN({}, '$m2')));
 
-const sumArea =
+const barChart =
     () =>
-        DIV({ className: 'summary-area' },
-            DIV({ className: 'area-barchart' }),
-            DIV({ className: 'area-kv-wrapper' },
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
-                    SPAN({ className: 'key' }, tr('orientationGreat'))),
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
-                    SPAN({ className: 'key' }, tr('orientationGood'))),
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
-                    SPAN({ className: 'key' }, tr('unusable'))),
-            ));
+        DIV({ className: 'barchart' },
+            DIV({
+                className: 'great',
+                width: '%value'
+            }, '$area'),
+            DIV({
+                className: 'good',
+                width: '%value'
+            }, '$area'),
+            DIV({
+                className: 'unusable',
+                width: '%value'
+            }, '$area'),
+        );
 
 const wrapper3D =
     () =>
@@ -63,7 +65,7 @@ const wrapper3D =
                     DIV({ className: 'pin-end' }),
                     DIV({ className: 'pin-body' }),
                     DIV({ className: 'pin-end' }))),
-            sumArea());
+            barChart());
 
 
 const context =
@@ -72,6 +74,8 @@ const context =
             wrapperOrtho(),
             wrapperPlan(),
             wrapper3D());
+
+
 
 
 
@@ -95,10 +99,26 @@ const sumPotentialValues =
         DIV({ className: 'potential-values' },
             kv('buyingPrice'),
             kv('gainGreenCertif'),
-            kv('gainElecInvoice10Y'),
-            kv('gainEnvironment'));
+            kv('gainElecInvoice'),
+            kv('gainEnvironment'),
+            DIV({ className: 'note' }, tr('estim10Y'))
+        );
 
-
+const sumArea =
+    () =>
+        DIV({ className: 'summary-area' },
+            DIV({ className: 'area-barchart' }),
+            DIV({ className: 'area-kv-wrapper' },
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('orientationGreat'))),
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('orientationGood'))),
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('unusable'))),
+            ));
 
 
 
@@ -109,18 +129,29 @@ const summary =
             sumAdress(),
             sumPotentialRank(),
             sumPotentialValues(),
+            sumArea(),
         );
 
 
 
 const action =
     () =>
-        DIV({ className: 'wrapper-actions' },
-            DIV({ className: 'action-settings' }, tr('personalize')),
-            DIV({ className: 'action-contact' }, tr('contactInstallator')),
-            DIV({ className: 'action-change' }, tr('changeMyHabits')),
-            DIV({ className: 'action-print' }, 'download PDF'),
-        );
+        DIV({ className: 'actions' },
+            DIV({ className: 'action-settings' },
+                H1({}, tr('personalize')),
+                DIV({ className: 'action-info' }, 'test'),
+            ),
+            DIV({ className: 'action-contact' },
+                H1({}, tr('contactInstallator')),
+                DIV({ className: 'action-info' }, 'test'),
+            ),
+            DIV({ className: 'action-change' },
+                H1({}, tr('changeMyHabits')),
+                DIV({ className: 'action-info' }, 'test'),
+            ),
+            DIV({ className: 'action-print' },
+                H1({}, tr('changeMyHabits')),
+                DIV({ className: 'action-info' }, 'test')));
 
 
 

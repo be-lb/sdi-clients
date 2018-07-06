@@ -15,6 +15,7 @@
     border: 1px solid #000;
     border-radius: 20vw;
     background: pink;
+    margin-bottom: @margin * 2;
 }
 
 .map-pin.top {
@@ -68,4 +69,33 @@
     height: calc(~"100% - 1.3rem - 4px/2");
     width : 1px;
     background-color: #000;
+}
+
+
+.barchart {
+    height: 30px;
+    border: 1px solid #000;
+    display: flex;
+
+    > div {
+        height: 100%;
+        display: flex;
+        text-align: center;
+        align-items: center;
+    }
+
+    .great{
+        background-color: @green;
+        color: #fff;
+        border-right: 1px solid #000;
+    }
+    .good{
+        background-color: @yellow;
+        color:#000;
+    }
+    .unusable{
+        background-color: @blue;
+        color: #fff;
+        border-left: 1px solid #000;
+    }
 }
