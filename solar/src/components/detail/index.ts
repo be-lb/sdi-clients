@@ -24,22 +24,22 @@ const kv =
 
 const wrapperOrtho =
     () =>
-        DIV({ className: 'wrapper-ortho' },
-            DIV({ className: 'illu-ortho' }, 'ortho'),
+        DIV({ className: 'wrapper' },
+            DIV({ className: 'illu' }, '$ortho'),
             DIV({ className: 'back-to-map' }, tr('backToMap')));
 
 const wrapperPlan =
     () =>
-        DIV({ className: 'wrapper-plan' },
-            DIV({ className: 'illu-plan' }, 'plan'),
+        DIV({ className: 'wrapper' },
+            DIV({ className: 'illu' }, '$plan'),
             DIV({ className: 'roof-area' },
                 tr('roofTotalArea'),
                 SPAN({}, '$m2')));
 
 const wrapper3D =
     () =>
-        DIV({ className: 'wrapper-3D' },
-            DIV({ className: 'illu-3D' }, '3D'));
+        DIV({ className: 'wrapper' },
+            DIV({ className: 'illu' }, '$3D'));
 
 const context =
     () =>
@@ -177,7 +177,7 @@ const sumFinance =
 
 const summary =
     () =>
-        DIV({ className: 'sidebar'},
+        DIV({ className: 'sidebar' },
             sumAdress(),
             sumPotentialValues(),
             sumInstallation(),

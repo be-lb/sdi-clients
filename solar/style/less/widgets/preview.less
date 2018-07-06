@@ -3,11 +3,15 @@
     justify-content: space-between;
 }
 
-.wrapper-ortho,
-.wrapper-plan,
-.wrapper-3D {
-    width: 20vw;
-    height: 20vw;
+
+
+.wrapper-illu {
+    width: calc(~"(100% - 2 * @{margin}) / 3");
+}
+
+.illu {
+    width: 100%;
+    padding-bottom: 100%; // for a square ratio
     border: 1px solid #000;
     border-radius: 20vw;
     background: pink;
@@ -16,4 +20,28 @@
 
 .sidebar *{
     .word-wrap;
+}
+
+
+.sidebar {
+    .potential-rank {
+        .this-building {
+            font-size: 0.8rem;
+        }
+        .potential-rank-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: @green;
+        }
+    }
+
+    .potential-values .kv {
+        font-size: 1.25rem;
+        .key {
+            font-weight: 100;
+        }
+        .value {
+            font-weight: 700;
+        }
+    }
 }

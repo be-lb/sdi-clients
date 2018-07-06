@@ -3,33 +3,57 @@ import tr from 'sdi/locale';
 
 
 
+const kv =
+    (key: MessageKey) => DIV({ className: 'kv' },
+        SPAN({ className: 'key' }, tr(key)),
+        SPAN({ className: 'value' }, '$value'));
+
+
+
 const switchThermal =
     () =>
         DIV({ className: 'switch-thermal' },
-            DIV({ className: 'illu-ortho' }, tr('solarPV')),
+            DIV({}, tr('solarPV')),
             DIV({ className: 'switch-icon' }),
-            DIV({ className: 'illu-ortho' }, tr('solarThermal')));
+            DIV({}, tr('solarThermal')));
 
 
 
 const wrapperOrtho =
     () =>
-        DIV({ className: 'wrapper-ortho' },
-            DIV({ className: 'illu-ortho' }, 'ortho'),
+        DIV({ className: 'wrapper-illu' },
+            DIV({ className: 'illu' }, '$ortho'),
             DIV({ className: 'back-to-map' }, tr('backToMap')));
 
 const wrapperPlan =
     () =>
-        DIV({ className: 'wrapper-plan' },
-            DIV({ className: 'illu-plan' }, 'plan'),
+        DIV({ className: 'wrapper-illu' },
+            DIV({ className: 'illu' }, '$plan'),
             DIV({ className: 'roof-area' },
                 tr('roofTotalArea'),
                 SPAN({}, '$m2')));
 
+const sumArea =
+    () =>
+        DIV({ className: 'summary-area' },
+            DIV({ className: 'area-barchart' }),
+            DIV({ className: 'area-kv-wrapper' },
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('orientationGreat'))),
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('orientationGood'))),
+                DIV({ className: 'kv' },
+                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'key' }, tr('unusable'))),
+            ));
+
 const wrapper3D =
     () =>
-        DIV({ className: 'wrapper-3D' },
-            DIV({ className: 'illu-3D' }, '3D'));
+        DIV({ className: 'wrapper-illu' },
+            DIV({ className: 'illu' }, '$3D'),
+            sumArea());
 
 
 const context =
@@ -59,36 +83,14 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            DIV({ className: 'potential-kv' },
-                SPAN({ className: 'potential-key' }, tr('buyingPrice')),
-                SPAN({ className: 'potential-value' }, ' $value')),
-            DIV({ className: 'potential-kv' },
-                SPAN({ className: 'potential-key' }, tr('gainGreenCertif')),
-                SPAN({ className: 'potential-value' }, ' $value')),
-            DIV({ className: 'potential-kv' },
-                SPAN({ className: 'potential-key' }, tr('gainElecInvoice10Y')),
-                SPAN({ className: 'potential-value' }, ' $value')),
-            DIV({ className: 'potential-kv' },
-                SPAN({ className: 'potential-key' }, tr('gainEnvironment')),
-                SPAN({ className: 'potential-value' }, ' $value')));
+            kv('buyingPrice'),
+            kv('gainGreenCertif'),
+            kv('gainElecInvoice10Y'),
+            kv('gainEnvironment'));
 
 
 
-const sumArea =
-    () =>
-        DIV({ className: 'summary-area' },
-            DIV({ className: 'area-barchart' }),
-            DIV({ className: 'area-kv-wrapper' },
-                DIV({ className: 'area-kv' },
-                    SPAN({ className: 'area-value' }, '$value : '),
-                    SPAN({ className: 'area-key' }, tr('orientationGreat'))),
-                DIV({ className: 'area-kv' },
-                    SPAN({ className: 'area-value' }, '$value : '),
-                    SPAN({ className: 'area-key' }, tr('orientationGood'))),
-                DIV({ className: 'area-kv' },
-                    SPAN({ className: 'area-value' }, '$value : '),
-                    SPAN({ className: 'area-key' }, tr('unusable'))),
-            ));
+
 
 const summary =
     () =>
@@ -97,7 +99,6 @@ const summary =
             sumAdress(),
             sumPotentialRank(),
             sumPotentialValues(),
-            sumArea(),
         );
 
 
