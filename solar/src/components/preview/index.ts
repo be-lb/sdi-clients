@@ -22,13 +22,19 @@ const switchThermal =
 const wrapperOrtho =
     () =>
         DIV({ className: 'wrapper-illu' },
-            DIV({ className: 'illu' }, '$ortho'),
+            DIV({ className: 'illu ortho' },
+                DIV({ className: 'map-pin top' },
+                    DIV({ className: 'pin-head' }, '$n'),
+                    DIV({ className: 'pin-body' }),
+                    DIV({ className: 'pin-end' }))),
             DIV({ className: 'back-to-map' }, tr('backToMap')));
 
 const wrapperPlan =
     () =>
         DIV({ className: 'wrapper-illu' },
-            DIV({ className: 'illu' }, '$plan'),
+            DIV({ className: 'illu plan' },
+                DIV({ className: 'map-pin middle' },
+                    DIV({ className: 'pin-head' }, '$n'))),
             DIV({ className: 'roof-area' },
                 tr('roofTotalArea'),
                 SPAN({}, '$m2')));
@@ -52,7 +58,11 @@ const sumArea =
 const wrapper3D =
     () =>
         DIV({ className: 'wrapper-illu' },
-            DIV({ className: 'illu' }, '$3D'),
+            DIV({ className: 'illu volume' },
+                DIV({ className: 'map-pin right' },
+                    DIV({ className: 'pin-end' }),
+                    DIV({ className: 'pin-body' }),
+                    DIV({ className: 'pin-end' }))),
             sumArea());
 
 
@@ -117,7 +127,7 @@ const action =
 const render =
     () =>
         DIV({ className: 'main-and-right-sidebar preview-box' },
-            DIV({},
+            DIV({ className: 'content' },
                 context(),
                 action()),
             summary(),
