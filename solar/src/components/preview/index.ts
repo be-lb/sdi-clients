@@ -2,12 +2,14 @@ import { DIV, SPAN, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 
+
 const switchThermal =
     () =>
         DIV({ className: 'switch-thermal' },
             DIV({ className: 'illu-ortho' }, tr('solarPV')),
             DIV({ className: 'switch-icon' }),
             DIV({ className: 'illu-ortho' }, tr('solarThermal')));
+
 
 
 const wrapperOrtho =
@@ -30,7 +32,16 @@ const wrapper3D =
             DIV({ className: 'illu-3D' }, '3D'));
 
 
-const summaryAdress =
+const context =
+    () =>
+        DIV({ className: 'context' },
+            wrapperOrtho(),
+            wrapperPlan(),
+            wrapper3D());
+
+
+
+const sumAdress =
     () =>
         DIV({ className: 'adress' },
             H1({ className: 'street-name' }, '$streetName $streetNumber'),
@@ -38,14 +49,14 @@ const summaryAdress =
                 SPAN({}, tr('in')),
                 SPAN({}, ' $locality')));
 
-const summaryPotentialRank =
+const sumPotentialRank =
     () =>
         DIV({ className: 'potential-rank' },
             DIV({ className: 'this-building' }, tr('thisBuildingGotA')),
             DIV({ className: 'potential-rank-value' }, '$SolarPotential'));
 
 
-const summaryPotentialValues =
+const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
             DIV({ className: 'potential-kv' },
@@ -63,7 +74,7 @@ const summaryPotentialValues =
 
 
 
-const summaryArea =
+const sumArea =
     () =>
         DIV({ className: 'summary-area' },
             DIV({ className: 'area-barchart' }),
@@ -81,12 +92,14 @@ const summaryArea =
 
 const summary =
     () =>
-        DIV({ className: 'wrapper-summary' },
-            summaryAdress(),
-            summaryPotentialRank(),
-            summaryPotentialValues(),
-            summaryArea(),
+        DIV({ className: 'sidebar' },
+            switchThermal(),
+            sumAdress(),
+            sumPotentialRank(),
+            sumPotentialValues(),
+            sumArea(),
         );
+
 
 
 const action =
@@ -100,16 +113,13 @@ const action =
 
 
 
-
 const render =
     () =>
-        DIV({ className: 'preview-box' },
-            switchThermal(),
-            wrapperOrtho(),
-            wrapperPlan(),
-            wrapper3D(),
+        DIV({ className: 'main-and-right-sidebar preview-box' },
+            DIV({},
+                context(),
+                action()),
             summary(),
-            action(),
         );
 
 

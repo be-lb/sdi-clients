@@ -22,6 +22,33 @@ const kv =
 
 
 
+const wrapperOrtho =
+    () =>
+        DIV({ className: 'wrapper-ortho' },
+            DIV({ className: 'illu-ortho' }, 'ortho'),
+            DIV({ className: 'back-to-map' }, tr('backToMap')));
+
+const wrapperPlan =
+    () =>
+        DIV({ className: 'wrapper-plan' },
+            DIV({ className: 'illu-plan' }, 'plan'),
+            DIV({ className: 'roof-area' },
+                tr('roofTotalArea'),
+                SPAN({}, '$m2')));
+
+const wrapper3D =
+    () =>
+        DIV({ className: 'wrapper-3D' },
+            DIV({ className: 'illu-3D' }, '3D'));
+
+const context =
+    () =>
+        DIV({ className: 'context' },
+            wrapperOrtho(),
+            wrapperPlan(),
+            wrapper3D());
+
+
 
 
 const calcObstacle =
@@ -92,6 +119,7 @@ const calculator =
     () =>
         DIV({ className: 'calculator' },
             H1({}, tr('personalize')),
+            context(),
             calcObstacle(),
             calcConsumption(),
             calcAutoproduction(),
@@ -110,11 +138,6 @@ const sumAdress =
             H1({ className: 'locality' },
                 SPAN({}, tr('in')),
                 SPAN({}, ' $locality')));
-
-const wrapper3D =
-    () =>
-        DIV({ className: 'wrapper-3D' },
-            DIV({ className: 'illu-3D' }, '3D'));
 
 const sumPotentialValues =
     () =>
@@ -154,9 +177,8 @@ const sumFinance =
 
 const summary =
     () =>
-        DIV({},
+        DIV({ className: 'sidebar'},
             sumAdress(),
-            wrapper3D(),
             sumPotentialValues(),
             sumInstallation(),
             sumEnergy(),
