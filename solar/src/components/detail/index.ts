@@ -2,6 +2,8 @@ import { DIV, H1, H2, SPAN, INPUT } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
+import { context, summary } from '../context';
+
 
 
 const inputItem =
@@ -21,32 +23,6 @@ const kv =
 
 
 
-
-const wrapperOrtho =
-    () =>
-        DIV({ className: 'wrapper' },
-            DIV({ className: 'illu' }, '$ortho'),
-            DIV({ className: 'back-to-map' }, tr('backToMap')));
-
-const wrapperPlan =
-    () =>
-        DIV({ className: 'wrapper' },
-            DIV({ className: 'illu' }, '$plan'),
-            DIV({ className: 'roof-area' },
-                tr('roofTotalArea'),
-                SPAN({}, '$m2')));
-
-const wrapper3D =
-    () =>
-        DIV({ className: 'wrapper' },
-            DIV({ className: 'illu' }, '$3D'));
-
-const context =
-    () =>
-        DIV({ className: 'context' },
-            wrapperOrtho(),
-            wrapperPlan(),
-            wrapper3D());
 
 
 
@@ -175,7 +151,7 @@ const sumFinance =
             kv('returnTime'));
 
 
-const summary =
+const summary2 =
     () =>
         DIV({ className: 'sidebar' },
             sumAdress(),
@@ -192,6 +168,7 @@ const render =
         DIV({ className: 'main-and-right-sidebar custom-box' },
             calculator(),
             summary(),
+            summary2(),
         );
 
 export default render;
