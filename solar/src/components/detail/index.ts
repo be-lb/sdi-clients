@@ -167,7 +167,7 @@ const summary =
 
 const render =
     () =>
-        DIV({ className: 'custom-box' },
+        DIV({ className: 'main-and-right-sidebar custom-box' },
             calculator(),
             summary(),
         );
