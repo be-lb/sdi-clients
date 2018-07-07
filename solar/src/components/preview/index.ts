@@ -1,13 +1,8 @@
 import { DIV, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { context, summary } from '../context';
-
-
-// const kv =
-//     (key: MessageKey) => DIV({ className: 'kv' },
-//         SPAN({ className: 'key' }, tr(key)),
-//         SPAN({ className: 'value' }, '$value'));
+import { context } from '../context';
+import { summary } from '../summary';
 
 
 
@@ -45,12 +40,14 @@ const action =
 
 const render =
     () =>
-        DIV({ className: 'main-and-right-sidebar preview-box' },
-            DIV({ className: 'content' },
+        DIV({ className: 'main-splitted-height' },
+            DIV({ className: 'top' },
                 context(),
-                action()),
-            summary(),
-        );
+                summary()),
+            DIV({ className: 'bottom' },
+                DIV({ className: 'action-title' }, 'etmaintenant ?'),
+                action(),
+            ));
 
 
 export default render;

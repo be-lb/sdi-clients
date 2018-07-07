@@ -14,7 +14,7 @@ const render =
                     className: 'locate-input',
                     type: 'text',
                     name: 'adress',
-                    placeholder: tr('geocode')
+                    placeholder: tr('geocode'),
                 }),
                 DIV({ className: 'btn-analyse' }, tr('analyse'))),
             map());

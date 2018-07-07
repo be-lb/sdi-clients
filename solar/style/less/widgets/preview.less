@@ -1,6 +1,30 @@
 
+@contextW : 70%;
 
-.sidebar {
+.main-splitted-height {
+    display: flex;
+    flex-direction: column;
+    padding: @margin;
+    overflow-y: auto;
+    .top {
+        display: flex;
+
+        .context, .summary {
+            padding: @margin*2 0;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .context {
+            width: @contextW;
+            margin-right: @margin;
+        }
+        .summary {}
+    }
+}
+
+
+.summary {
     .switch-thermal {
         .absolute(-@margin * 2, auto, auto, 0);
         font-size: 0.8rem;
@@ -36,17 +60,27 @@
 }
 
 
-.actions {
-    border-top: 1px solid #000;
+.action-title {
+    width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
+    text-align: center;
+    font-size: @big-font * 0.8;
+    font-weight: 700;
+    color: @green;
     margin-top: @margin;
-    padding-top: @margin;
+}
+
+.actions {
+    margin-top: @margin;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     > div {
         width: 20vw; //TO DO BETTER
+        width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        margin-right: @margin;
         h1 {}
         action-infos {
             font-size: @small-font;
@@ -82,7 +116,7 @@
         &.action-print::before {
             content: @fa-var-thumb-tack;
             color: #fff;
-            background-color: @yellow;
+            background-color: @green;
         }
     }
 }

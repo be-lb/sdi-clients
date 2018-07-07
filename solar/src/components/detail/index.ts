@@ -1,8 +1,9 @@
-import { DIV, H1, H2, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, H1, H2, INPUT } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
-import { context, summary } from '../context';
+import { context } from '../context';
+import { summary, summaryDetailed } from '../summary';
 
 
 
@@ -15,12 +16,6 @@ const inputItem =
 const checkBox =
     (label: MessageKey) => DIV({ className: 'wrapper-checkbox' }, DIV({ className: 'input-label' }, tr(label)),
         DIV({ className: 'checkbox' }, '$•'));
-
-const kv =
-    (key: MessageKey) => DIV({ className: 'kv' },
-        SPAN({ className: 'key' }, tr(key)),
-        SPAN({ className: 'value' }, '$value'));
-
 
 
 
@@ -104,62 +99,11 @@ const calculator =
             calcLoan());
 
 
-
-
-
-const sumAdress =
-    () =>
-        DIV({ className: 'adress' },
-            H1({ className: 'street-name' }, '$streetName $streetNumber'),
-            H1({ className: 'locality' },
-                SPAN({}, tr('in')),
-                SPAN({}, ' $locality')));
-
-const sumPotentialValues =
-    () =>
-        DIV({ className: 'potential-values' },
-            kv('buyingPrice'),
-            kv('gainGreenCertif'),
-            kv('gainElecInvoice'),
-            kv('gainEnvironment'));
-
-
-const sumInstallation =
-    () =>
-        DIV({ className: 'sum-installation-wrapper' },
-            H2({}, tr('installation')),
-            kv('surface'),
-            kv('power'),
-            kv('obstacleEstimation'));
-
-const sumEnergy =
-    () =>
-        DIV({ className: 'sum-energy-wrapper' },
-            H2({}, tr('energy')),
-            kv('yearProduction'),
-            kv('yearConsumption'),
-            kv('solarAutonomy'));
-
-const sumFinance =
-    () =>
-        DIV({ className: 'sum-finance-wrapper' },
-            H2({}, tr('finance')),
-            kv('buyingPrice'),
-            kv('gainGreenCertif'),
-            kv('gainElecInvoice'),
-            kv('gainTotal25Y'),
-            kv('returnTime'));
-
-
-const summary2 =
+const sidebar =
     () =>
         DIV({ className: 'sidebar' },
-            sumAdress(),
-            sumPotentialValues(),
-            sumInstallation(),
-            sumEnergy(),
-            sumFinance(),
-        );
+            summary(),
+            summaryDetailed());
 
 
 
@@ -167,8 +111,7 @@ const render =
     () =>
         DIV({ className: 'main-and-right-sidebar custom-box' },
             calculator(),
-            summary(),
-            summary2(),
+            sidebar(),
         );
 
 export default render;
