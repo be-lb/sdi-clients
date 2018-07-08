@@ -56,6 +56,8 @@ export type MessageKey =
     | 'changeBackgroundMap'
     | 'changeMyHabits'
     | 'charts'
+    | 'chimneyAir'
+    | 'chimneySmoke'
     | 'clear'
     | 'close'
     | 'codePoint'
@@ -82,6 +84,7 @@ export type MessageKey =
     | 'dataType'
     | 'dayConsumption'
     | 'displayLabel'
+    | 'dormerWindow'
     | 'downloadCSV'
     | 'draft'
     | 'durationYear'
@@ -98,6 +101,7 @@ export type MessageKey =
     | 'endDate'
     | 'energy'
     | 'estim10Y'
+    | 'existingSolarPannel'
     | 'export'
     | 'extentBegin'
     | 'extentEnd'
@@ -118,6 +122,7 @@ export type MessageKey =
     | 'fillColor'
     | 'filter'
     | 'finance'
+    | 'flatRoofWindow'
     | 'fontColor'
     | 'fontSize'
     | 'fullscreen'
@@ -166,6 +171,7 @@ export type MessageKey =
     | 'legendTypeDiscrete'
     | 'legendTypeSelect'
     | 'legendTypeSimple'
+    | 'lift'
     | 'lineColor'
     | 'lineWidth'
     | 'links'
@@ -292,6 +298,7 @@ export type MessageKey =
     | 'technoType'
     | 'templateEditorExplanation'
     | 'temporalReference'
+    | 'terraceInUse'
     | 'term'
     | 'textDelimiter'
     | 'textFormat'
@@ -314,6 +321,7 @@ export type MessageKey =
     | 'upload'
     | 'uploadDatas'
     | 'uploadShpInfos'
+    | 'usableArea'
     | 'usePattern'
     | 'userName'
     | 'VAT'
@@ -322,6 +330,7 @@ export type MessageKey =
     | 'VAT0'
     | 'validate'
     | 'valuesCovered'
+    | 'velux'
     | 'view'
     | 'viewLayer'
     | 'visible'
@@ -2216,6 +2225,60 @@ export const messages: MessageDB = {
         fr: 'Estimation sur 10 ans',
         nl: '10-jarige schatting',
         en: '10-year estimate',
+    },
+
+    velux: {
+        fr: 'Fenêtre de toit (Velux)',
+        nl: 'Dakraam (Velux)',
+        en: 'Roof window (Velux)',
+    },
+
+    dormerWindow: {
+        fr: 'Chien-assis',
+        nl: 'Dakkapel',
+        en: 'Dormer window',
+    },
+
+    flatRoofWindow: {
+        fr: 'Fenêtre de toit plat',
+        nl: 'Plat dakraam',
+        en: 'Flat roof window',
+    },
+
+    existingSolarPannel: {
+        fr: 'Panneaux solaires existants',
+        nl: 'Bestaande zonnepanelen',
+        en: 'Existing solar pannels',
+    },
+
+    chimneyAir: {
+        fr: 'Cheminée de ventilation',
+        nl: 'Ventilatieschoorsteen',
+        en: 'Ventilation chimney',
+    },
+
+    chimneySmoke: {
+        fr: 'Cheminée de combustion',
+        nl: 'Verbrandingsschoorsteen',
+        en: 'Combustion chimney',
+    },
+
+    terraceInUse: {
+        fr: 'Terrasse en cours d\'utilisation',
+        nl: 'Terras in gebruik',
+        en: 'Terrace in use',
+    },
+
+    lift: {
+        fr: 'Ascenseur',
+        nl: 'Lift',
+        en: 'Lift',
+    },
+
+    usableArea: {
+        fr: 'Surface utile',
+        nl: 'bruikbare ruimte',
+        en: 'Usable area',
     },
 
 };

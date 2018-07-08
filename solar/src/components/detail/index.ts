@@ -1,22 +1,38 @@
-import { DIV, H1 } from 'sdi/components/elements';
+import { DIV, INPUT } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { MessageKey } from 'sdi/locale/message-db';
 
 import { context } from '../context';
 import { summary, summaryDetailed } from '../summary';
 
-import { calcObstacle } from '../adjust-obstacle'
-import { calcConsumption } from '../adjust-consumption'
-import { calcAutoproduction } from '../adjust-autoproduction'
-import { calcInstallation } from '../adjust-installation'
-import { calcFinance } from '../adjust-finance'
-import { calcLoan } from '../adjust-loan'
+import { calcObstacle } from '../adjust-obstacle';
+import { calcConsumption } from '../adjust-consumption';
+import { calcAutoproduction } from '../adjust-autoproduction';
+import { calcInstallation } from '../adjust-installation';
+import { calcFinance } from '../adjust-finance';
+import { calcLoan } from '../adjust-loan';
 
 
-const calculator =
+const inputItem =
+    (label: MessageKey) => DIV({ className: 'input-box' },
+        DIV({ className: 'input-label' }, tr(label)),
+        INPUT({ type: 'number' }),
+    );
+
+
+
+const calculatorTitle =
     () =>
-        DIV({ className: 'calculator' },
+        DIV({ className: 'adjust-item' },
+            DIV({ className: 'calculator-title' }, 'Ajusteur'),
+            inputItem('usableArea'),
+        );
+
+const content =
+    () =>
+        DIV({ className: 'content calculator' },
             context(),
-            H1({}, tr('personalize')),
+            calculatorTitle(),
             calcObstacle(),
             calcConsumption(),
             calcAutoproduction(),
@@ -35,7 +51,7 @@ const sidebar =
 const render =
     () =>
         DIV({ className: 'main-and-right-sidebar' },
-            calculator(),
+            content(),
             sidebar(),
         );
 
