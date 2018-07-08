@@ -5,14 +5,14 @@ import { MessageKey } from 'sdi/locale/message-db';
 
 export const checkBox =
     (label: MessageKey) => DIV({ className: 'wrapper-checkbox' },
-        DIV({ className: 'checkbox' }, '$•'),
-        DIV({ className: 'input-label' }, tr(label)));
+        DIV({ className: 'checkbox' }),
+        DIV({ className: 'checkbox-label' }, tr(label)));
 
 
 
 export const inputItem =
     (label: MessageKey) => DIV({ className: 'input-box' },
-        DIV({ className: 'input-label' }, tr(label)),
+        DIV({ className: 'input-label' }, tr(label) + ' : '),
         INPUT({ type: 'number' }),
     );
 

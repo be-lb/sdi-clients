@@ -10,11 +10,10 @@ export const calcAutoproduction =
             DIV({ className: 'adjust-item-title' }, '3. ' + tr('autoproduction') + ' : '),
             checkBox('reduceConsumption'),
             checkBox('dayConsumption'),
-            DIV({ className: 'wrapper-checkbox' },
-                DIV({ className: 'input-label' }, tr('hotWaterDuringDay')),
-                DIV({ className: 'double-checkBox' },
-                    checkBox('boiler'),
-                    checkBox('heatPump'))),
+            DIV({ className: 'wrapper-dble-checkbox' },
+                DIV({ className: 'input-label' }, tr('hotWaterDuringDay') + ' : '),
+                checkBox('boiler'),
+                checkBox('heatPump')),
             checkBox('installBatteries'));
 
 

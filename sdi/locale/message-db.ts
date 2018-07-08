@@ -215,6 +215,7 @@ export type MessageKey =
     | 'myMaps'
     | 'newLayer'
     | 'newMap'
+    | 'no'
     | 'noResults'
     | 'north'
     | 'obstacleEstimation'
@@ -342,6 +343,7 @@ export type MessageKey =
     | 'wmsSwitch'
     | 'yearConsumption'
     | 'yearProduction'
+    | 'yes'
     | 'zoomIn'
     | 'zoomOut'
     | 'zoomOnFeature'
@@ -2019,7 +2021,7 @@ export const messages: MessageDB = {
     },
 
     loan: {
-        fr: 'Loan',
+        fr: 'Emprunt',
         nl: 'Leenwoord',
         en: 'Loan',
     },
@@ -2286,6 +2288,18 @@ export const messages: MessageDB = {
         fr: 'Fiche',
         nl: 'Blad',
         en: 'Sheet',
+    },
+
+    yes: {
+        fr: 'Oui',
+        nl: 'Ja',
+        en: 'Yes',
+    },
+
+    no: {
+        fr: 'Non',
+        nl: 'Nee',
+        en: 'No',
     },
 
 };

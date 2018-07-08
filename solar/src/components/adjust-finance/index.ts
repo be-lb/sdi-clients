@@ -11,12 +11,11 @@ export const calcFinance =
             inputItem('annualMaintenance'),
             inputItem('sellingPrice'),
             inputItem('installationPrice'),
-            DIV({ className: 'input-wrapper' },
-                DIV({ className: 'input-label' }, tr('VAT')),
-                DIV({ className: 'checkbox-list' },
-                    checkBox('VAT21'),
-                    checkBox('VAT6'),
-                    checkBox('VAT0'))),
+            DIV({ className: 'vat-wrapper' },
+                DIV({ className: 'input-label' }, tr('VAT') + ' : '),
+                checkBox('VAT21'),
+                checkBox('VAT6'),
+                checkBox('VAT0')),
             inputItem('sellingGreenCertifPrice'),
         );
 

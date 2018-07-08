@@ -13,8 +13,52 @@ h1 {
     display: flex;
     align-items: flex-end;
 
+    input {
+        width: 4em;
+        margin-bottom: -0.5em;
+        margin-top: 0.7em;
+    }
+
     .input-label {
         margin-right: @margin / 2;
+    }
+}
+
+.wrapper-checkbox {
+    display: flex;
+    cursor: default;
+
+    .checkbox {
+        .awsomefont;
+        position: relative;
+        font-size: 1em;
+        width : 1em;
+        height: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 0.3em;
+
+        &:before {
+            .absolute(0,0,0,0);
+            content: @fa-var-circle-thin;
+            width : 1em;
+            height: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &:hover .checkbox:after,
+    .checkbox.active:after {
+        .absolute(0,0,0,0);
+        content: @fa-var-circle;
+        color: @green;
+        font-size: 0.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
