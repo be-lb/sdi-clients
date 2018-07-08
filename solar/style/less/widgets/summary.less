@@ -1,0 +1,61 @@
+
+.summary {
+    .switch-thermal {
+        .absolute(-@margin * 2, auto, auto, 0);
+        font-size: 0.8rem;
+    }
+    .potential-rank {
+        margin-top: @margin;
+        .this-building {
+            font-size: @small-font;
+        }
+        .potential-rank-value {
+            font-size: @big-font;
+            font-weight: 700;
+            color: @green;
+        }
+    }
+
+    .potential-values {
+        margin-top: @margin;
+        margin-bottom: @margin;
+        .kv {
+            font-size: @medium-font;
+            font-weight: 100;
+            .key {
+                font-weight: 100;
+                &:after {
+                    content: ' : ';
+                }
+            }
+            .value {
+                font-weight: 700;
+            }
+        }
+    }
+
+    .summary-area .kv {
+        font-size: @small-font;
+        font-weight: 100;
+    }
+}
+
+.summary-detailled {
+    &-title {
+        font-size: @big-font;
+        font-weight: 700;
+        margin-bottom: @margin;
+    }
+    h2{
+        font-size: @medium-font;
+        font-weight: 700;
+        margin-top: @margin;
+        margin-bottom: @margin / 2;
+    }
+    .kv {
+        font-size: @small-font;
+        .key {font-weight: 100;}
+        .key::after{content: " : ";}
+        .value {font-weight: 500;}
+    }
+}

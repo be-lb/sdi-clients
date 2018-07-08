@@ -35,4 +35,86 @@
         font-weight: 100;
         margin-bottom: @margin;
     }
+
+    &-widget {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.adjust-item.calculator-header {
+    display: flex;
+    align-items: center;
+
+    .calculator-title {
+        font-size: @big-font;
+        font-weight: 700;
+        margin-right: @margin;
+    }
+}
+
+
+// ADJUST OBSTACLES
+
+.obstacle-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    .obstacle-icon{
+        width: 4vw;
+        height: 4vw;
+        border-radius: 3vw;
+        border: 1px solid #000;
+        background-color: @yellow;
+        margin-bottom: @margin / 2;
+    }
+    .obstacle-label {
+        font-size: @small-font;
+        font-weight: 100;
+    }
+}
+
+
+// ADJUST CONSUMPTION
+
+.consumption {
+    .consumption-select {
+        height: calc(~"4vw + 2px");
+        width : 50%; // to do better
+        background-color: @yellow;
+        border: 1px solid #000;
+        border-radius: 4vw;
+        display: flex;
+        justify-content: space-between;
+
+        .select-item {
+            width: 4vw;
+            height: 4vw;
+            border-radius: 4vw;
+            // border: 1px solid #000;
+            // background-color: @green;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {background-color: @green;}
+
+            &::before {
+                .awsomefont;
+                content: @fa-var-bolt;
+                color: #fff;
+            }
+
+            &.first{font-size: 4vw / 5 * 1.25 ;}
+            &.second{font-size: 4vw / 5 * 1.75 ;}
+            &.third{font-size: 4vw / 5 * 2.5 ;}
+            &.fourth{font-size: 4vw / 5 * 3.25;}
+            &.fifth{font-size: 4vw / 5 * 4 ;}
+
+
+        }
+    }
 }

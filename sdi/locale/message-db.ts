@@ -271,6 +271,7 @@ export type MessageKey =
     | 'settings'
     | 'share'
     | 'shareWithView'
+    | 'sheet'
     | 'sheetList'
     | 'size'
     | 'solar'
@@ -2279,6 +2280,12 @@ export const messages: MessageDB = {
         fr: 'Surface utile',
         nl: 'bruikbare ruimte',
         en: 'Usable area',
+    },
+
+    sheet: {
+        fr: 'Fiche',
+        nl: 'Blad',
+        en: 'Sheet',
     },
 
 };

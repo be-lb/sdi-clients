@@ -10,10 +10,6 @@ const kv =
         SPAN({ className: 'value' }, '$value'));
 
 
-
-
-
-
 const sumAdress =
     () =>
         DIV({ className: 'adress' },
@@ -103,6 +99,7 @@ const sumFinance =
 export const summaryDetailed =
     () =>
         DIV({ className: 'summary-detailled' },
+            DIV({ className: 'summary-detailled-title' }, tr('sheet')),
             sumInstallation(),
             sumEnergy(),
             sumFinance(),

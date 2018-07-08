@@ -24,41 +24,6 @@
 }
 
 
-.summary {
-    .switch-thermal {
-        .absolute(-@margin * 2, auto, auto, 0);
-        font-size: 0.8rem;
-    }
-    .potential-rank {
-        margin-top: @margin;
-        .this-building {
-            font-size: @small-font;
-        }
-        .potential-rank-value {
-            font-size: @big-font;
-            font-weight: 700;
-            color: @green;
-        }
-    }
-
-    .potential-values {
-        margin-top: @margin;
-        margin-bottom: @margin;
-        .kv {
-            font-size: @medium-font;
-            .key {
-                font-weight: 100;
-                &:after {
-                    content: ' : ';
-                }
-            }
-            .value {
-                font-weight: 700;
-            }
-        }
-    }
-}
-
 
 .action-title {
     width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here

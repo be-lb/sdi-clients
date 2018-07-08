@@ -1,13 +1,7 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { MessageKey } from 'sdi/locale/message-db';
 
-
-const checkBox =
-    (label: MessageKey) => DIV({ className: 'wrapper-checkbox' }, DIV({ className: 'input-label' }, tr(label)),
-        DIV({ className: 'checkbox' }, '$•'));
-
-
+import { checkBox } from '../item-factory';
 
 
 export const calcInstallation =
