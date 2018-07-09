@@ -286,10 +286,33 @@ export type MessageKey =
     | 'sheet'
     | 'sheetList'
     | 'size'
+    | 'solAndNow'
     | 'solar'
     | 'solSolarGeocode'
     | 'solarAutonomy'
     | 'solarPV'
+    | 'solAdjustStr1'
+    | 'solAdjustStr2'
+    | 'solActSettingStr1'
+    | 'solActSettingStr2'
+    | 'solActSettingStr3'
+    | 'solActSettingStr4'
+    | 'solContactStr1'
+    | 'solContactStr2'
+    | 'solActContactStr1'
+    | 'solActContactStr2'
+    | 'solActContactStr3'
+    | 'solActContactStr4'
+    | 'solChangeStr1'
+    | 'solChangeStr2'
+    | 'solActChangeStr1'
+    | 'solActChangeStr2'
+    | 'solActChangeStr3'
+    | 'solActChangeStr4'
+    | 'solPrintStr1'
+    | 'solPrintStr2'
+    | 'solActPrintStr1'
+    | 'solActPrintStr2'
     | 'solSolarPotential'
     | 'solarThermal'
     | 'solBackTo'
@@ -321,7 +344,7 @@ export type MessageKey =
     | 'textFormat'
     | 'textStyle'
     | 'thesaurus'
-    | 'thisBuildingGotA'
+    | 'solThisBuildingGotA'
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
@@ -1945,7 +1968,7 @@ export const messages: MessageDB = {
         en: 'in',
     },
 
-    thisBuildingGotA: {
+    solThisBuildingGotA: {
         fr: 'Ce bâtiment a un :',
         nl: 'Dit gebouw heeft een :',
         en: 'This building got a :',
@@ -2407,5 +2430,146 @@ export const messages: MessageDB = {
         nl: 'algemene kaart',
         en: 'general map',
     },
+
+    solAndNow: {
+        fr: 'Et maintenant ?',
+        nl: 'Wat nu ?',
+        en: 'Now what ?',
+    },
+
+    solActSettingStr1: {
+        fr: 'avec les données',
+        nl: 'met gedetailleerde',
+        en: 'with detailed',
+    },
+
+    solActSettingStr2: {
+        fr: 'détaillées',
+        nl: 'projectgegevens',
+        en: 'project data',
+    },
+
+    solActSettingStr3: {
+        fr: 'du projet',
+        nl: 'en bijzonderheden',
+        en: 'and specifics',
+    },
+
+    solActSettingStr4: {
+        fr: 'et ses spécificités',
+        nl: '',
+        en: '',
+    },
+
+    solActContactStr1: {
+        fr: 'pour une installation',
+        nl: 'voor een optimale',
+        en: 'for optimal',
+    },
+
+    solActContactStr2: {
+        fr: 'optimale',
+        nl: 'installatie',
+        en: 'installation',
+    },
+
+    solActContactStr3: {
+        fr: 'et se renseigner',
+        nl: 'en informatie',
+        en: 'and information',
+    },
+
+    solActContactStr4: {
+        fr: 'sur les aides potentielles',
+        nl: 'over mogelijke hulpmiddelen',
+        en: 'on potential aids',
+    },
+
+    solActChangeStr1: {
+        fr: 'l\'énergie produite',
+        nl: 'van de energie',
+        en: 'of the energy produced',
+    },
+
+    solActChangeStr2: {
+        fr: 'par les panneaux',
+        nl: 'die de panelen produceren',
+        en: 'by the panels',
+    },
+
+    solActChangeStr3: {
+        fr: 'et optimiser',
+        nl: 'en het verbruik',
+        en: 'and optimize',
+    },
+
+    solActChangeStr4: {
+        fr: 'la consommation',
+        nl: 'optimaliseren',
+        en: 'consumption',
+    },
+
+    solActPrintStr1: {
+        fr: 'la fiche détaillée',
+        nl: 'het gedetailleerde',
+        en: 'the detailed',
+    },
+
+    solActPrintStr2: {
+        fr: 'de l\'analyse',
+        nl: 'analyseformulier',
+        en: 'analysis sheet',
+    },
+
+    solAdjustStr1: {
+        fr: 'Ajuster',
+        nl: 'De berekening',
+        en: 'Adjust',
+    },
+
+    solAdjustStr2: {
+        fr: 'le calcul',
+        nl: 'aanpassen',
+        en: 'the calculation',
+    },
+
+    solContactStr1: {
+        fr: 'Contacter',
+        nl: 'Contacteer',
+        en: 'Contact',
+    },
+
+    solContactStr2: {
+        fr: 'un installateur',
+        nl: 'een installateur',
+        en: 'an installer',
+    },
+
+    solChangeStr1: {
+        fr: 'Mieux',
+        nl: 'Beter',
+        en: 'Making',
+    },
+
+    solChangeStr2: {
+        fr: 'utiliser',
+        nl: 'benutten',
+        en: 'better use',
+    },
+
+    solPrintStr1: {
+        fr: 'Voir et',
+        nl: 'Bekijken en',
+        en: 'View and',
+    },
+
+    solPrintStr2: {
+        fr: 'télécharger',
+        nl: 'downloaden',
+        en: 'download',
+    },
+
+
+
 
 };

@@ -24,7 +24,7 @@ const sumAdress =
 const sumPotentialRank =
     () =>
         DIV({ className: 'potential-rank' },
-            DIV({ className: 'this-building' }, tr('thisBuildingGotA')),
+            DIV({ className: 'this-building' }, tr('solThisBuildingGotA')),
             DIV({ className: 'potential-rank-value' }, '$SolarPotential'));
 
 
