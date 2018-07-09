@@ -6,6 +6,12 @@ import { summary, summaryDetailed } from '../summary';
 import { inputItem } from '../item-factory';
 
 import {
+    actionContact,
+    actionChange,
+    actionPrint
+} from '../action';
+
+import {
     calcAutoproduction,
     calcConsumption,
     calcFinance,
@@ -23,17 +29,26 @@ const calculatorTitle =
             inputItem('usableArea'),
         );
 
+const action =
+    () =>
+        DIV({ className: 'actions' },
+            actionContact(),
+            actionChange(),
+            actionPrint());
+
 const content =
     () =>
-        DIV({ className: 'content calculator' },
+        DIV({ className: 'content' },
             context(),
-            calculatorTitle(),
-            calcObstacle(),
-            calcConsumption(),
-            calcAutoproduction(),
-            calcInstallation(),
-            calcFinance(),
-            calcLoan());
+            DIV({ className: 'calculator' },
+                calculatorTitle(),
+                calcObstacle(),
+                calcConsumption(),
+                calcAutoproduction(),
+                calcInstallation(),
+                calcFinance(),
+                calcLoan()),
+            action());
 
 
 const sidebar =
