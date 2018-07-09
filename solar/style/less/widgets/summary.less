@@ -21,9 +21,7 @@
         margin-bottom: @margin;
         .kv {
             font-size: @medium-font;
-            font-weight: 100;
             .key {
-                font-weight: 100;
                 &:after {
                     content: ' : ';
                 }
@@ -32,11 +30,13 @@
                 font-weight: 700;
             }
         }
+        .note {
+            font-size: @small-font;
+        }
     }
 
     .summary-area .kv {
         font-size: @small-font;
-        font-weight: 100;
     }
 }
 
@@ -54,7 +54,6 @@
     }
     .kv {
         font-size: @small-font;
-        .key {font-weight: 100;}
         .key::after{content: " : ";}
         .value {font-weight: 500;}
     }

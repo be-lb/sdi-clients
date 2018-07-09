@@ -344,7 +344,7 @@ export type MessageKey =
     | 'textFormat'
     | 'textStyle'
     | 'thesaurus'
-    | 'thisBuildingGotA'
+    | 'solThisBuildingGotA'
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
@@ -1968,7 +1968,7 @@ export const messages: MessageDB = {
         en: 'in',
     },
 
-    thisBuildingGotA: {
+    solThisBuildingGotA: {
         fr: 'Ce bâtiment a un :',
         nl: 'Dit gebouw heeft een :',
         en: 'This building got a :',
