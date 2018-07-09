@@ -73,6 +73,11 @@ export const main =
             'data/user': null,
         }
 
+        if ((SDI.user !== null) && (next !== null)) {
+            window.location.assign(next);
+            return;
+        }
+
         try {
             const start = source<IShape, keyof IShape>(['app/lang']);
             const store = start(initialState);
