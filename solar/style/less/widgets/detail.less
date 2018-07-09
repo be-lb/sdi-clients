@@ -1,11 +1,14 @@
 .detail {
-    .calculator {
+    .content {
         overflow-y: auto;
         overflow-x: hidden;
+        right: calc(~"30% - 30px") !important; //override base value to hide scrollbar under sidebar
+        padding-right: 30px;  // trick to hide scrollbar
     }
     .sidebar {
         overflow-y: auto;
         overflow-x: hidden;
+        background-color: #fff;
 
         .summary {
             padding-bottom: @margin;
@@ -14,12 +17,17 @@
         }
     }
 }
-
+//
+// .detail .context .illu {
+//     transform: scale(0.5);
+//     margin: auto;
+//     margin-bottom: -4vw;
+//     margin-top: -6vw;
+// }
 
 .calculator {
     margin-top: @margin;
     padding: @margin 0;
-    border-top: 1px solid #000;
 
     .context {
         padding-bottom: @margin;
@@ -28,11 +36,12 @@
 }
 
 .adjust-item {
+    font-size: @medium-font;
     border-top: 1px solid #000;
-    padding: @margin 0;
+    padding-bottom: @margin * 2;
     &-title {
         font-size: @big-font;
-        margin-bottom: @margin;
+        margin: @margin * 2 0;
     }
 
     &-widget {
