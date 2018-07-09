@@ -1,5 +1,6 @@
 import { IMapBaseLayer, Feature, Properties, FeatureCollection } from '../source';
-import { fromRecord } from '../locale';
+import tr, { fromRecord } from '../locale';
+import { MessageKey } from '../locale/message-db';
 import { Setoid } from 'fp-ts/lib/Setoid';
 
 export interface IMapBaseLayerTranslated {
@@ -169,3 +170,16 @@ export const filterNotNull =
         }
         return r;
     };
+
+
+const withUnit = (k: MessageKey) => (value: number) => `${value} ${tr(k, { value })}`;
+
+export const withEuro = withUnit('unitEuro');
+export const withEuroY = withUnit('unitEuroY');
+export const withKWc = withUnit('unitKWc');
+export const withTCO2Y = withUnit('unitTCO2Y');
+export const withYear = withUnit('unitYear');
+export const withM2 = withUnit('unitM2');
+export const withPercent = withUnit('unitPercent');
+export const withKWh = withUnit('unitKWh');
+export const withKWhY = withUnit('unitKWhY');

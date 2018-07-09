@@ -3,11 +3,14 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
 
+import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime } from '../../queries/simulation';
+
+
 
 const kv =
-    (key: MessageKey) => DIV({ className: 'kv' },
+    (key: MessageKey, v: string) => DIV({ className: 'kv' },
         SPAN({ className: 'key' }, tr(key)),
-        SPAN({ className: 'value' }, '$value'));
+        SPAN({ className: 'value' }, v));
 
 
 const sumAdress =
@@ -28,10 +31,10 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            kv('buyingPrice'),
-            kv('gainGreenCertif'),
-            kv('gainElecInvoice'),
-            kv('gainEnvironment'),
+            kv('buyingPrice', '$price'),
+            kv('gainGreenCertif', '$certi'),
+            kv('gainElecInvoice', '$invoice'),
+            kv('gainEnvironment', '$env'),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -71,27 +74,27 @@ const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            kv('surface'),
-            kv('power'),
-            kv('obstacleEstimation'));
+            kv('surface', area()),
+            kv('power', power()),
+            kv('obstacleEstimation', obstacleRate()));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            kv('yearProduction'),
-            kv('yearConsumption'),
-            kv('solarAutonomy'));
+            kv('yearProduction', annualProduction()),
+            kv('yearConsumption', annualConsumption()),
+            kv('solarAutonomy', autonomy()));
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            kv('buyingPrice'),
-            kv('gainGreenCertif'),
-            kv('gainElecInvoice'),
-            kv('gainTotal25Y'),
-            kv('returnTime'));
+            kv('buyingPrice', installationCost()),
+            kv('gainGreenCertif', CVAmountYearN()),
+            kv('gainElecInvoice', '$elec'),
+            kv('gainTotal25Y', totalGain25Y()),
+            kv('returnTime', returnTime()));
 
 
 
