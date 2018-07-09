@@ -1,26 +1,6 @@
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-
-const wrapperOrtho =
-    () =>
-        DIV({ className: 'wrapper-illu' },
-            DIV({ className: 'illu ortho' },
-                DIV({ className: 'map-pin top' },
-                    DIV({ className: 'pin-head' }, '$n'),
-                    DIV({ className: 'pin-body' }),
-                    DIV({ className: 'pin-end' }))),
-            DIV({ className: 'back-to-map' }, tr('backToMap')));
-
-const wrapperPlan =
-    () =>
-        DIV({ className: 'wrapper-illu' },
-            DIV({ className: 'illu plan' },
-                DIV({ className: 'map-pin middle' },
-                    DIV({ className: 'pin-head' }, '$n'))),
-            DIV({ className: 'roof-area' },
-                tr('roofTotalArea'),
-                SPAN({}, '$m2')));
 
 const barChart =
     () =>
@@ -36,8 +16,32 @@ const barChart =
             DIV({
                 className: 'unusable',
                 width: '%value',
-            }, '$area'),
-        );
+            }, '$area'));
+
+const wrapperOrtho =
+    () =>
+        DIV({ className: 'wrapper-illu' },
+            DIV({ className: 'illu ortho' },
+                DIV({ className: 'map-pin top' },
+                    DIV({ className: 'pin-head' }, '$n'),
+                    DIV({ className: 'pin-body' }),
+                    DIV({ className: 'pin-end' }))),
+            DIV({ className: 'illu-text back-to-map' },
+                DIV({}, '<-'),
+                DIV({}, tr('solBackTo')),
+                DIV({}, tr('solGeneralMap')),
+
+            ));
+
+const wrapperPlan =
+    () =>
+        DIV({ className: 'wrapper-illu' },
+            DIV({ className: 'illu plan' },
+                DIV({ className: 'map-pin middle' },
+                    DIV({ className: 'pin-head' }, '$n'))),
+            DIV({ className: 'illu-text roof-area' },
+                DIV({}, tr('roofTotalArea')),
+                DIV({}, '$value')));
 
 const wrapper3D =
     () =>

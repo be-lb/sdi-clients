@@ -37,7 +37,7 @@ export type MessageKey =
     | 'annualConsumptionKWh'
     | 'annualMaintenance'
     | 'apostrophe'
-    | 'atBxl'
+    | 'solAtBxl'
     | 'atlas'
     | 'atlasEnv'
     | 'attachedFiles'
@@ -53,9 +53,9 @@ export type MessageKey =
     | 'boiler'
     | 'browseMaps'
     | 'buyingPrice'
-    | 'byRoof'
-    | 'calculateStrPart1'
-    | 'calculateStrPart2'
+    | 'solByRoof'
+    | 'solCalculateStrPart1'
+    | 'solCalculateStrPart2'
     | 'cancel'
     | 'changeBackgroundMap'
     | 'changeMyHabits'
@@ -143,7 +143,7 @@ export type MessageKey =
     | 'heatPump'
     | 'highValue'
     | 'hotWaterDuringDay'
-    | 'howMuchOf'
+    | 'solHowMuchOf'
     | 'identifier'
     | 'imageGeneratingPreview'
     | 'imagePreview'
@@ -231,8 +231,8 @@ export type MessageKey =
     | 'originalTitle'
     | 'orientationGreat'
     | 'orientationGood'
-    | 'orOf'
-    | 'orSelectBuildingOnMap'
+    | 'solOrOf'
+    | 'solOrSelectBuildingOnMap'
     | 'panelIntegration'
     | 'password'
     | 'personalize'
@@ -242,7 +242,7 @@ export type MessageKey =
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'polycristal'
-    | 'possibleToProduce'
+    | 'solPossibleToProduce'
     | 'power'
     | 'preview'
     | 'printMap'
@@ -261,7 +261,7 @@ export type MessageKey =
     | 'removeMap'
     | 'replaceFR'
     | 'replaceNL'
-    | 'research'
+    | 'solResearch'
     | 'resetLegend'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -287,11 +287,13 @@ export type MessageKey =
     | 'sheetList'
     | 'size'
     | 'solar'
-    | 'solarGeocode'
+    | 'solSolarGeocode'
     | 'solarAutonomy'
     | 'solarPV'
-    | 'solarPotential'
+    | 'solSolarPotential'
     | 'solarThermal'
+    | 'solBackTo'
+    | 'solGeneralMap'
     | 'space'
     | 'skipFirstLine'
     | 'start'
@@ -2315,7 +2317,7 @@ export const messages: MessageDB = {
         en: 'No',
     },
 
-    howMuchOf: {
+    solHowMuchOf: {
         fr: 'Combien d\'',
         nl: 'hoeveel ',
         en: 'How much ',
@@ -2327,7 +2329,7 @@ export const messages: MessageDB = {
         en: 'electricity ',
     },
 
-    orOf: {
+    solOrOf: {
         fr: 'ou de ',
         nl: 'of ',
         en: 'or ',
@@ -2339,65 +2341,71 @@ export const messages: MessageDB = {
         en: 'heat ',
     },
 
-    possibleToProduceByRoofBxl: {
-        fr: 'est-il possible de produire sur le toit d\'un bâtiment à Bruxelles ?',
-        nl: 'kan er worden opgewekt op het dak van een gebouw in Brussel ?',
-        en: 'can be generated on the roof of a building in Brussels?',
-    },
-
-    possibleToProduce: {
+    solPossibleToProduce: {
         fr: 'est-il possible de produire',
         nl: 'kan er worden opgewekt',
         en: 'can be generated',
     },
 
 
-    byRoof: {
+    solByRoof: {
         fr: 'sur le toit d\'un bâtiment',
         nl: 'op het dak van een gebouw',
         en: 'on the roof of a building',
     },
 
-    atBxl: {
+    solAtBxl: {
         fr: 'à Bruxelles ?',
         nl: 'in Brussel ?',
         en: 'in Brussels ?',
     },
 
-    calculateStrPart1: {
+    solCalculateStrPart1: {
         fr: 'Calculez le ',
         nl: 'Het ',
         en: 'calculate the',
     },
 
-    solarPotential: {
+    solSolarPotential: {
         fr: 'potentiel solaire ',
         nl: 'zonnepotentieel ',
         en: 'solar potential',
     },
 
-    calculateStrPart2: {
+    solCalculateStrPart2: {
         fr: 'd\'un bâtiment',
         nl: 'van een gebouw berekenen',
         en: 'of a building',
     },
 
-    orSelectBuildingOnMap: {
+    solOrSelectBuildingOnMap: {
         fr: 'Ou sélectionnez le bâtiment sur la carte',
         nl: 'Of selecteer het gebouw op de kaart',
         en: 'Or select the building on the map',
     },
 
-    solarGeocode: {
+    solSolarGeocode: {
         fr: 'Adresse : rue, numéro, commune',
         nl: 'Adres: straat, nummer, plaats',
         en: 'Address: street, number, town',
     },
 
-    research: {
+    solResearch: {
         fr: 'Chercher',
         nl: 'Zoeken',
         en: 'Search',
+    },
+
+    solBackTo: {
+        fr: 'Revenir à la',
+        nl: 'terug naar de',
+        en: 'back to the',
+    },
+
+    solGeneralMap: {
+        fr: 'carte générale',
+        nl: 'algemene kaart',
+        en: 'general map',
     },
 
 };
