@@ -5,12 +5,14 @@ import { summary, summaryDetailed } from '../summary';
 
 import { inputItem } from '../item-factory';
 
-import { calcObstacle } from '../adjust-obstacle';
-import { calcConsumption } from '../adjust-consumption';
-import { calcAutoproduction } from '../adjust-autoproduction';
-import { calcInstallation } from '../adjust-installation';
-import { calcFinance } from '../adjust-finance';
-import { calcLoan } from '../adjust-loan';
+import {
+    calcAutoproduction,
+    calcConsumption,
+    calcFinance,
+    calcInstallation,
+    calcLoan,
+    calcObstacle,
+} from '../adjust';
 
 
 
