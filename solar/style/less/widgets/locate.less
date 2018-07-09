@@ -60,17 +60,24 @@
     margin-bottom: @margin;
 
     input {
-        // min-width: 75%;
         width: 100%;
         font-size: @big-font;
         font-weight: 100;
+        background-color: @extra-light-grey;
     }
 
     .btn-analyse {
-        background-color: @yellow;
+        background-color: @green;
         color: #fff;
         font-size: @big-font;
-        padding: .3em;
+        padding: .4em;
         margin-left: @margin;
+        display: flex;
+
+        .bolt:before {
+            .awsomefont;
+            content: @fa-var-bolt;
+            margin-right: @margin/2;
+        }
     }
 }
