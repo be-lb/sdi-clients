@@ -24,6 +24,32 @@ h1 {
     }
 }
 
+
+
+.toggle {
+    display: flex;
+    cursor: default;
+
+    .toggle-icon {
+        .awsomefont;
+        height: 1em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0.5em;
+
+        &:before {
+            content: @fa-var-toggle-on;
+            transform: rotate(0deg);
+        }
+        &.active:before {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+
+
 .wrapper-checkbox {
     display: flex;
     cursor: default;

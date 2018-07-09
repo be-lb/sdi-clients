@@ -1,20 +1,14 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { checkBox } from '../item-factory';
+import { checkBox, toggle } from '../item-factory';
 
 
 const panelIntegration =
     () =>
         DIV({ className: 'switch-wrapper' },
             DIV({ className: 'switch-title' }, tr('panelIntegration') + ' : '),
-            DIV({ className: 'switch' },
-                DIV({ className: 'value first-value' }, tr('yes') + ' '),
-                DIV({ className: 'switch-icon' }),
-                DIV({ className: 'value second-value' }, ' ' + tr('no')),
-            ),
-
-        );
+            toggle('yes', 'no'));
 
 export const calcInstallation =
     () =>

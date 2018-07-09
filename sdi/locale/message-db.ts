@@ -52,6 +52,8 @@ export type MessageKey =
     | 'boiler'
     | 'browseMaps'
     | 'buyingPrice'
+    | 'calculateStrPart1'
+    | 'calculateStrPart2'
     | 'cancel'
     | 'changeBackgroundMap'
     | 'changeMyHabits'
@@ -93,6 +95,7 @@ export type MessageKey =
     | 'editLayer'
     | 'editLegend'
     | 'editMap'
+    | 'electricity'
     | 'embed'
     | 'emptyDescription'
     | 'emptyMapDescription'
@@ -134,9 +137,11 @@ export type MessageKey =
     | 'geometryType'
     | 'go'
     | 'gpsTracker'
+    | 'heat'
     | 'heatPump'
     | 'highValue'
     | 'hotWaterDuringDay'
+    | 'howMuchOf'
     | 'identifier'
     | 'imageGeneratingPreview'
     | 'imagePreview'
@@ -224,6 +229,8 @@ export type MessageKey =
     | 'originalTitle'
     | 'orientationGreat'
     | 'orientationGood'
+    | 'orOf'
+    | 'orSelectBuildingOnMap'
     | 'panelIntegration'
     | 'password'
     | 'personalize'
@@ -233,6 +240,7 @@ export type MessageKey =
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'polycristal'
+    | 'possibleToProduceByRoofBxl'
     | 'power'
     | 'preview'
     | 'printMap'
@@ -251,6 +259,7 @@ export type MessageKey =
     | 'removeMap'
     | 'replaceFR'
     | 'replaceNL'
+    | 'research'
     | 'resetLegend'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -276,8 +285,10 @@ export type MessageKey =
     | 'sheetList'
     | 'size'
     | 'solar'
+    | 'solarGeocode'
     | 'solarAutonomy'
     | 'solarPV'
+    | 'solarPotential'
     | 'solarThermal'
     | 'space'
     | 'skipFirstLine'
@@ -2300,6 +2311,72 @@ export const messages: MessageDB = {
         fr: 'Non',
         nl: 'Nee',
         en: 'No',
+    },
+
+    howMuchOf: {
+        fr: 'Combien d\'',
+        nl: 'hoeveel ',
+        en: 'How much ',
+    },
+
+    electricity: {
+        fr: 'électricité ',
+        nl: 'elektriciteit ',
+        en: 'electricity ',
+    },
+
+    orOf: {
+        fr: 'ou de ',
+        nl: 'of ',
+        en: 'or ',
+    },
+
+    heat: {
+        fr: 'chaleur ',
+        nl: 'warmte ',
+        en: 'heat ',
+    },
+
+    possibleToProduceByRoofBxl: {
+        fr: 'est-il possible de produire sur le toit d\'un bâtiment à Bruxelles ?',
+        nl: 'kan er worden opgewekt op het dak van een gebouw in Brussel ?',
+        en: 'can be generated on the roof of a building in Brussels?',
+    },
+
+    calculateStrPart1: {
+        fr: 'Calculez le ',
+        nl: 'Het ',
+        en: 'calculate the',
+    },
+
+    solarPotential: {
+        fr: 'potentiel solaire ',
+        nl: 'zonnepotentieel ',
+        en: 'solar potential',
+    },
+
+    calculateStrPart2: {
+        fr: 'd\'un bâtiment',
+        nl: 'van een gebouw berekenen',
+        en: 'of a building',
+    },
+
+    orSelectBuildingOnMap: {
+        fr: 'Ou sélectionnez le bâtiment sur la carte',
+        nl: 'Of selecteer het gebouw op de kaart',
+        en: 'Or select the building on the map',
+    },
+
+    solarGeocode: {
+        fr: 'Adresse : rue, numéro, commune',
+        nl: 'Adres: straat, nummer, plaats',
+        en: 'Address: street, number, town',
+    },
+
+    research: {
+        fr: 'Chercher',
+        nl: 'Zoeken',
+        en: 'Search',
     },
 
 };

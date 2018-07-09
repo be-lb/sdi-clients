@@ -1,24 +1,69 @@
 .locate-box {
-    border-top: 2px solid #000;
+    border-top: 1px solid #000;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin: 0 @margin;
+    font-size: @big-font;
+    font-weight: 100;
 
-    > div {
-        height: 50%;
+    .wrapper-top {
+        height: 40%;
+        position: relative;
+    }
+    .map-wrapper {
+        height: 60%;
         position: relative;
     }
 }
 
-.locate-adress {
+
+
+.wrapper-top {
+    display: flex;
+    padding-top: @margin * 2;
+}
+
+.locate-pitch {
+    width: 40%;
+    padding-right: 2*@margin;
+
+    .bolt:before{
+        .awsomefont;
+        content: @fa-var-bolt + ' ';
+    }
+    .pitch-bold {
+        font-weight: 700;
+    }
+}
+
+.locate-geocode {
+    width: 60%;
+    padding-bottom: @margin;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .pitch-bold {
+        color: @green;
+        font-weight: 700;
+    }
+
+    .toggle {
+        margin: @margin 0;
+    }
+}
+
+.locate-geocode .input-wrapper {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: @margin;
 
     input {
-        min-width: 75%;
+        // min-width: 75%;
+        width: 100%;
         font-size: @big-font;
+        font-weight: 100;
     }
 
     .btn-analyse {
@@ -26,5 +71,6 @@
         color: #fff;
         font-size: @big-font;
         padding: .3em;
+        margin-left: @margin;
     }
 }
