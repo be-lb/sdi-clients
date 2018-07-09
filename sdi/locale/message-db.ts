@@ -37,6 +37,7 @@ export type MessageKey =
     | 'annualConsumptionKWh'
     | 'annualMaintenance'
     | 'apostrophe'
+    | 'atBxl'
     | 'atlas'
     | 'atlasEnv'
     | 'attachedFiles'
@@ -52,6 +53,7 @@ export type MessageKey =
     | 'boiler'
     | 'browseMaps'
     | 'buyingPrice'
+    | 'byRoof'
     | 'calculateStrPart1'
     | 'calculateStrPart2'
     | 'cancel'
@@ -240,7 +242,7 @@ export type MessageKey =
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'polycristal'
-    | 'possibleToProduceByRoofBxl'
+    | 'possibleToProduce'
     | 'power'
     | 'preview'
     | 'printMap'
@@ -2341,6 +2343,25 @@ export const messages: MessageDB = {
         fr: 'est-il possible de produire sur le toit d\'un bâtiment à Bruxelles ?',
         nl: 'kan er worden opgewekt op het dak van een gebouw in Brussel ?',
         en: 'can be generated on the roof of a building in Brussels?',
+    },
+
+    possibleToProduce: {
+        fr: 'est-il possible de produire',
+        nl: 'kan er worden opgewekt',
+        en: 'can be generated',
+    },
+
+
+    byRoof: {
+        fr: 'sur le toit d\'un bâtiment',
+        nl: 'op het dak van een gebouw',
+        en: 'on the roof of a building',
+    },
+
+    atBxl: {
+        fr: 'à Bruxelles ?',
+        nl: 'in Brussel ?',
+        en: 'in Brussels ?',
     },
 
     calculateStrPart1: {
