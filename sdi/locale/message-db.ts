@@ -37,7 +37,6 @@ export type MessageKey =
     | 'annualConsumptionKWh'
     | 'annualMaintenance'
     | 'apostrophe'
-    | 'solAtBxl'
     | 'atlas'
     | 'atlasEnv'
     | 'attachedFiles'
@@ -53,9 +52,6 @@ export type MessageKey =
     | 'boiler'
     | 'browseMaps'
     | 'buyingPrice'
-    | 'solByRoof'
-    | 'solCalculateStrPart1'
-    | 'solCalculateStrPart2'
     | 'cancel'
     | 'changeBackgroundMap'
     | 'changeMyHabits'
@@ -73,13 +69,13 @@ export type MessageKey =
     | 'columnPicker'
     | 'columnPickerMessage'
     | 'columns'
-    | 'consumption'
     | 'comma'
-    | 'contactInstallator'
     | 'confirm'
     | 'confirmDelete'
     | 'connect'
     | 'connectionSDI'
+    | 'consumption'
+    | 'contactInstallator'
     | 'copy'
     | 'createAlias'
     | 'cursorLocalisation'
@@ -131,9 +127,9 @@ export type MessageKey =
     | 'fontColor'
     | 'fontSize'
     | 'fullscreen'
-    | 'gainGreenCertif'
     | 'gainElecInvoice'
     | 'gainEnvironment'
+    | 'gainGreenCertif'
     | 'gainTotal25Y'
     | 'geocode'
     | 'geometryType'
@@ -143,7 +139,6 @@ export type MessageKey =
     | 'heatPump'
     | 'highValue'
     | 'hotWaterDuringDay'
-    | 'solHowMuchOf'
     | 'identifier'
     | 'imageGeneratingPreview'
     | 'imagePreview'
@@ -198,16 +193,16 @@ export type MessageKey =
     | 'mapInfoChangeIllustration'
     | 'mapLegend'
     | 'mapLink'
-    | 'mapList'
     | 'mapLinkWithView'
+    | 'mapList'
     | 'mapRefList'
     | 'mapTools'
     | 'maxZoom'
     | 'measure'
     | 'measureArea'
     | 'measureLength'
-    | 'metadata'
     | 'metaCommon'
+    | 'metadata'
     | 'metadataEditor'
     | 'metadataEditor'
     | 'metaDutch'
@@ -228,11 +223,9 @@ export type MessageKey =
     | 'obstacleEstimation'
     | 'offsetX'
     | 'offsetY'
-    | 'originalTitle'
-    | 'orientationGreat'
     | 'orientationGood'
-    | 'solOrOf'
-    | 'solOrSelectBuildingOnMap'
+    | 'orientationGreat'
+    | 'originalTitle'
     | 'panelIntegration'
     | 'password'
     | 'personalize'
@@ -242,11 +235,10 @@ export type MessageKey =
     | 'pointLabelHelp'
     | 'pointOfContact'
     | 'polycristal'
-    | 'solPossibleToProduce'
     | 'power'
     | 'preview'
-    | 'printMap'
     | 'printDownloadingBaseMap'
+    | 'printMap'
     | 'printNotStarted'
     | 'printPreparingPDF'
     | 'propName'
@@ -261,14 +253,13 @@ export type MessageKey =
     | 'removeMap'
     | 'replaceFR'
     | 'replaceNL'
-    | 'solResearch'
     | 'resetLegend'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
     | 'responsiblePerson'
     | 'returnTime'
-    | 'rowNumberColTitle'
     | 'roofTotalArea'
+    | 'rowNumberColTitle'
     | 'save'
     | 'saving'
     | 'search'
@@ -286,42 +277,54 @@ export type MessageKey =
     | 'sheet'
     | 'sheetList'
     | 'size'
-    | 'solAndNow'
-    | 'solar'
-    | 'solSolarGeocode'
-    | 'solarAutonomy'
-    | 'solarPV'
-    | 'solAdjustStr1'
-    | 'solAdjustStr2'
-    | 'solActSettingStr1'
-    | 'solActSettingStr2'
-    | 'solActSettingStr3'
-    | 'solActSettingStr4'
-    | 'solContactStr1'
-    | 'solContactStr2'
-    | 'solActContactStr1'
-    | 'solActContactStr2'
-    | 'solActContactStr3'
-    | 'solActContactStr4'
-    | 'solChangeStr1'
-    | 'solChangeStr2'
+    | 'skipFirstLine'
     | 'solActChangeStr1'
     | 'solActChangeStr2'
     | 'solActChangeStr3'
     | 'solActChangeStr4'
-    | 'solPrintStr1'
-    | 'solPrintStr2'
+    | 'solActContactStr1'
+    | 'solActContactStr2'
+    | 'solActContactStr3'
+    | 'solActContactStr4'
     | 'solActPrintStr1'
     | 'solActPrintStr2'
-    | 'solSolarPotential'
+    | 'solActSettingStr1'
+    | 'solActSettingStr2'
+    | 'solActSettingStr3'
+    | 'solActSettingStr4'
+    | 'solAdjustStr1'
+    | 'solAdjustStr2'
+    | 'solAndNow'
+    | 'solar'
+    | 'solarAutonomy'
+    | 'solarPV'
     | 'solarThermal'
+    | 'solAtBxl'
     | 'solBackTo'
+    | 'solByRoof'
+    | 'solCalculateStrPart1'
+    | 'solCalculateStrPart2'
+    | 'solChangeStr1'
+    | 'solChangeStr2'
+    | 'solContactStr1'
+    | 'solContactStr2'
     | 'solGeneralMap'
+    | 'solHowMuchOf'
+    | 'solOrOf'
+    | 'solOrSelectBuildingOnMap'
+    | 'solPossibleToProduce'
+    | 'solPrintStr1'
+    | 'solPrintStr2'
+    | 'solResearch'
+    | 'solSolarGeocode'
+    | 'solSolarPotential'
+    | 'solSolarPotentialExcellent'
+    | 'solSolarPotentialGood'
+    | 'solThisBuildingGotA'
     | 'space'
-    | 'skipFirstLine'
     | 'start'
-    | 'startGPS'
     | 'startDate'
+    | 'startGPS'
     | 'stop'
     | 'studio'
     | 'style'
@@ -338,13 +341,12 @@ export type MessageKey =
     | 'technoType'
     | 'templateEditorExplanation'
     | 'temporalReference'
-    | 'terraceInUse'
     | 'term'
+    | 'terraceInUse'
     | 'textDelimiter'
     | 'textFormat'
     | 'textStyle'
     | 'thesaurus'
-    | 'solThisBuildingGotA'
     | 'timeserieConfigError'
     | 'timeserieFeatureProperty'
     | 'timeserieFeaturePropertyNone'
@@ -356,6 +358,15 @@ export type MessageKey =
     | 'toggle-on'
     | 'topics'
     | 'translate'
+    | 'unitEuro'
+    | 'unitEuroY'
+    | 'unitKWc'
+    | 'unitKWh'
+    | 'unitKWhY'
+    | 'unitM2'
+    | 'unitPercent'
+    | 'unitTCO2Y'
+    | 'unitYear'
     | 'unpublish'
     | 'unusable'
     | 'upload'
@@ -364,27 +375,27 @@ export type MessageKey =
     | 'usableArea'
     | 'usePattern'
     | 'userName'
-    | 'VAT'
-    | 'VAT21'
-    | 'VAT6'
-    | 'VAT0'
     | 'validate'
     | 'valuesCovered'
+    | 'VAT'
+    | 'VAT0'
+    | 'VAT21'
+    | 'VAT6'
     | 'velux'
     | 'view'
     | 'viewLayer'
     | 'visible'
     | 'webServiceUrl'
     | 'widgets'
-    | 'wmsLegendHide'
     | 'wmsLegendDisplay'
+    | 'wmsLegendHide'
     | 'wmsSwitch'
     | 'yearConsumption'
     | 'yearProduction'
     | 'yes'
     | 'zoomIn'
-    | 'zoomOut'
     | 'zoomOnFeature'
+    | 'zoomOut'
     ;
 
 
@@ -2395,6 +2406,18 @@ export const messages: MessageDB = {
         en: 'solar potential',
     },
 
+    solSolarPotentialExcellent: {
+        fr: 'Excellent potentiel solaire',
+        nl: '***',
+        en: '***',
+    },
+
+    solSolarPotentialGood: {
+        fr: 'Bon potentiel solaire ',
+        nl: '***',
+        en: '***',
+    },
+
     solCalculateStrPart2: {
         fr: 'd\'un bâtiment',
         nl: 'van een gebouw berekenen',
@@ -2570,6 +2593,50 @@ export const messages: MessageDB = {
     },
 
 
-
+    unitEuro: {
+        fr: '€',
+        nl: '€',
+        en: '€',
+    },
+    unitEuroY: {
+        fr: '€/an',
+        nl: '€/jaar',
+        en: '€/year',
+    },
+    unitKWc: {
+        fr: 'KWc',
+        nl: 'KWc',
+        en: 'KWc',
+    },
+    unitTCO2Y: {
+        fr: 'TCO2/an',
+        nl: 'TCO2/jaar',
+        en: 'TCO2/year',
+    },
+    unitYear: {
+        fr: 'an',
+        nl: 'jaar',
+        en: 'year',
+    },
+    unitM2: {
+        fr: 'm2',
+        nl: 'm2',
+        en: 'm2',
+    },
+    unitPercent: {
+        fr: '%',
+        nl: '%',
+        en: '%',
+    },
+    unitKWh: {
+        fr: 'KWh',
+        nl: 'KWu',
+        en: 'KWh',
+    },
+    unitKWhY: {
+        fr: 'KWh/an',
+        nl: 'KWu/jaar',
+        en: 'KWh/year',
+    },
 
 };

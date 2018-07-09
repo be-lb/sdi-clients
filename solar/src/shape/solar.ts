@@ -13,13 +13,16 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+import { IUgWsAddress } from 'sdi/ports/geocoder';
+import { inputs, roof } from 'solar-sim';
 import { } from 'sdi/source';
 
 // State Augmentation
 
 declare module 'sdi/shape' {
     export interface IShape {
-        'data/solar-sim': null;
+        'data/solar-sim': roof[];
+        'solar-sim/address': IUgWsAddress | null;
+        'solar-sim/inputs': inputs;
     }
 }

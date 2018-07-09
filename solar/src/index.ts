@@ -23,6 +23,8 @@ import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction } from 'sdi/map';
 
+import { inputsFactory } from 'solar-sim';
+
 import App from './app';
 
 const logger = debug('sdi:index');
@@ -90,9 +92,12 @@ export const main =
 
             'data/baselayers': {},
             'data/maps': [],
-            'data/solar-sim': null,
             'data/alias': [],
             'data/user': null,
+
+            'data/solar-sim': [],
+            'solar-sim/address': null,
+            'solar-sim/inputs': inputsFactory([]),
         };
 
         try {

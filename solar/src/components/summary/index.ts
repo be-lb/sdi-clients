@@ -1,9 +1,10 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
+import { withM2 } from 'sdi/util';
 
 
-import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime } from '../../queries/simulation';
+import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime, savedCO2emissions, potential, streetName, streetNumber, locality, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
 
 
 
@@ -16,25 +17,25 @@ const kv =
 const sumAdress =
     () =>
         DIV({ className: 'adress' },
-            H1({ className: 'street-name' }, '$streetName $streetNumber'),
+            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),
             H1({ className: 'locality' },
                 SPAN({}, tr('in')),
-                SPAN({}, ' $locality')));
+                SPAN({}, ` ${locality()}`)));
 
 const sumPotentialRank =
     () =>
         DIV({ className: 'potential-rank' },
             DIV({ className: 'this-building' }, tr('solThisBuildingGotA')),
-            DIV({ className: 'potential-rank-value' }, '$SolarPotential'));
+            DIV({ className: 'potential-rank-value' }, potential()));
 
 
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            kv('buyingPrice', '$price'),
-            kv('gainGreenCertif', '$certi'),
+            kv('buyingPrice', installationCost()),
+            kv('gainGreenCertif', CVAmountYearN()),
             kv('gainElecInvoice', '$invoice'),
-            kv('gainEnvironment', '$env'),
+            kv('gainEnvironment', savedCO2emissions()),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -44,13 +45,13 @@ const sumArea =
             DIV({ className: 'area-barchart' }),
             DIV({ className: 'area-kv-wrapper' },
                 DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'value' }, withM2(areaExcellent())),
                     SPAN({ className: 'key' }, tr('orientationGreat'))),
                 DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'value' }, withM2(areaMedium())),
                     SPAN({ className: 'key' }, tr('orientationGood'))),
                 DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, '$value : '),
+                    SPAN({ className: 'value' }, withM2(areaLow())),
                     SPAN({ className: 'key' }, tr('unusable'))),
             ));
 

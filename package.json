@@ -79,6 +79,7 @@
         "yargs": "^8.0.2"
     },
     "dependencies": {
-        "collectable": "^0.31.0"
+        "collectable": "^0.31.0",
+        "solar-sim": "file:../../atelier/solar-sim"
     }
 }
