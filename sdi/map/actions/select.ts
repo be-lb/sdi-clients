@@ -25,8 +25,6 @@ import {
     events,
 } from 'openlayers';
 
-import {
-} from '../source';
 // import { fontSizeExtractRegexp, fontSizeReplaceRegexp } from '../style';
 import {
     Interaction,
@@ -182,7 +180,7 @@ export const select =
             () => logger(`select active ${selectInteraction.getActive()}`));
 
         selectInteraction.on('select', () => {
-            logger('selectInteraction.on select')
+            logger('selectInteraction.on select');
             if (selectedFeature.getLength() > 0) {
                 const f = selectedFeature.item(0);
                 const lid = f.get('lid') as string;

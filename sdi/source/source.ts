@@ -104,20 +104,26 @@ const proxyfy =
 export const source =
     <IShape, KI extends keyof IShape>(localKeys: KI[]) => {
 
+        const isObject = (o: Object): o is object => {
+            if (o instanceof Object) {
+                return true;
+            }
+            return false;
+        };
 
         const toLocalStorage =
             (state: IShape) => {
                 const storage = getLocaleStorage();
                 if (storage) {
                     localKeys.forEach((key) => {
-                        storage.setItem(key, JSON.stringify(state[key]));
+                        storage.setItem(key as string, JSON.stringify(state[key]));
                     });
                 }
             };
 
         const getLocalStorageValue =
             <K extends keyof IShape>(storage: Storage, key: K): IShape[K] | null => {
-                const jsonString = storage.getItem(key);
+                const jsonString = storage.getItem(key as string);
                 if (jsonString) {
                     return JSON.parse(jsonString);
                 }
@@ -163,7 +169,7 @@ export const source =
                     const state = head();
                     const value = state[key];
 
-                    if (value instanceof Object) {
+                    if (value instanceof Object && isObject(value)) {
                         return proxyfy(value);
                     }
 
