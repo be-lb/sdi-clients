@@ -22,6 +22,7 @@ import tr from 'sdi/locale';
 import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
 
 
+
 export const streetName =
     () => fromNullable(query('solar-sim/address'))
         .fold('--', ({ street }) => street.name);
@@ -88,7 +89,16 @@ interface outputs {
 };
 */
 
-// const inputs = queryK('solar-sim/inputs');
+const queryInputs = queryK('solar-sim/inputs');
+export type GetNumKeyOfInputs =
+    | 'nYears'
+    | 'currentYear'
+    | 'elecSellingPrice'
+    | 'CVPrice'
+    | 'pvArea';
+
+export const getNumInputF =
+    <K extends GetNumKeyOfInputs>(k: K) => () => queryInputs()[k];
 
 export const installationCost = () => withEuro(1000);
 

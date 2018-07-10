@@ -1,4 +1,4 @@
-import { DIV, H1 } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';

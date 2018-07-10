@@ -65,6 +65,7 @@
         "qs": "^6.5.0",
         "react": "^16.0.0",
         "react-dom": "^16.0.0",
+        "solar-sim": "github:be-lb/solar-sim",
         "source-map-loader": "^0.2.3",
         "style-loader": "^0.20.2",
         "ts-loader": "^4.0.0",
@@ -79,7 +80,6 @@
         "yargs": "^8.0.2"
     },
     "dependencies": {
-        "collectable": "^0.31.0",
-        "solar-sim": "file:../../atelier/solar-sim"
+        "collectable": "^0.31.0"
     }
 }

@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withM2 } from 'sdi/util';
+import { withPercent } from 'sdi/util';
 
 
 import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime, savedCO2emissions, potential, streetName, streetNumber, locality, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
@@ -40,20 +40,24 @@ const sumPotentialValues =
         );
 
 const sumArea =
-    () =>
-        DIV({ className: 'summary-area' },
+    () => {
+        const excellent = withPercent(areaExcellent());
+        const medium = withPercent(areaMedium());
+        const low = withPercent(areaLow());
+        return DIV({ className: 'summary-area' },
             DIV({ className: 'area-barchart' }),
             DIV({ className: 'area-kv-wrapper' },
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, withM2(areaExcellent())),
+                DIV({ className: 'kv', style: { width: excellent } },
+                    SPAN({ className: 'value' }, excellent),
                     SPAN({ className: 'key' }, tr('orientationGreat'))),
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, withM2(areaMedium())),
+                DIV({ className: 'kv', style: { width: medium } },
+                    SPAN({ className: 'value' }, medium),
                     SPAN({ className: 'key' }, tr('orientationGood'))),
-                DIV({ className: 'kv' },
-                    SPAN({ className: 'value' }, withM2(areaLow())),
+                DIV({ className: 'kv', style: { width: low } },
+                    SPAN({ className: 'value' }, low),
                     SPAN({ className: 'key' }, tr('unusable'))),
             ));
+    };
 
 
 export const summary =
