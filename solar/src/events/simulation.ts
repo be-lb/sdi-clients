@@ -25,7 +25,10 @@ export type SetNumKeyOfInputs =
     | 'currentYear'
     | 'elecSellingPrice'
     | 'CVPrice'
-    | 'pvArea';
+    | 'pvArea'
+    | 'annualConsumptionKWh'
+    | 'installationPrice'
+    ;
 
 export const setNumInputF =
     <K extends SetNumKeyOfInputs>(k: K) =>

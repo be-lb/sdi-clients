@@ -24,6 +24,7 @@ import { loop } from 'sdi/app';
 
 import { getLayout } from './queries/app';
 import { startMap } from './events/app';
+import { navigate } from './events/route';
 import locate from './components/locate';
 import preview from './components/preview';
 import detail from './components/detail';
@@ -58,6 +59,7 @@ const renderMain =
 
 const effects =
     () => {
+        navigate();
         startMap();
     };
 

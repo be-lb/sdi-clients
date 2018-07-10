@@ -8,15 +8,15 @@ export const calcFinance =
     () =>
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-title' }, '5. ' + tr('finance') + ' : '),
-            inputItem('annualMaintenance'),
-            inputItem('sellingPrice'),
-            inputItem('installationPrice'),
+            // inputItem('annualMaintenance'),
+            inputItem('sellingPrice', 'elecSellingPrice'),
+            inputItem('installationPrice', 'installationPrice'),
             DIV({ className: 'vat-wrapper' },
                 DIV({ className: 'input-label' }, tr('VAT') + ' : '),
                 checkBox('VAT21'),
                 checkBox('VAT6'),
                 checkBox('VAT0')),
-            inputItem('sellingGreenCertifPrice'),
+            inputItem('sellingGreenCertifPrice', 'CVPrice'),
         );
 
 

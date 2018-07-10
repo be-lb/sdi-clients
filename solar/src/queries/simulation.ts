@@ -95,7 +95,10 @@ export type GetNumKeyOfInputs =
     | 'currentYear'
     | 'elecSellingPrice'
     | 'CVPrice'
-    | 'pvArea';
+    | 'pvArea'
+    | 'annualConsumptionKWh'
+    | 'installationPrice'
+    ;
 
 export const getNumInputF =
     <K extends GetNumKeyOfInputs>(k: K) => () => queryInputs()[k];

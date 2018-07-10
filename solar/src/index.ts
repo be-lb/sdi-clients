@@ -1,5 +1,3 @@
-
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -63,7 +61,8 @@ export const main =
             'app/api-root': SDI.api,
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
-            'app/layout': ['Detail'],
+            'app/layout': ['Locate'],
+            'app/route': SDI.args,
 
             'app/current-map': null,
 

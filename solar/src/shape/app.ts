@@ -26,6 +26,7 @@ declare module 'sdi/shape' {
     export interface IShape {
         'app/layout': AppLayout[];
         'app/current-map': string | null;
+        'app/route': string[];
 
         'component/button': ButtonComponent;
 

@@ -1,10 +1,10 @@
-import { DIV, INPUT } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import { inputNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
-import { getNumInputF, GetNumKeyOfInputs } from '../../queries/simulation'
-import { setNumInputF, SetNumKeyOfInputs } from '../../events/simulation'
+import { getNumInputF, GetNumKeyOfInputs } from '../../queries/simulation';
+import { setNumInputF, SetNumKeyOfInputs } from '../../events/simulation';
 
 export const checkBox =
     (label: MessageKey) =>
@@ -14,20 +14,14 @@ export const checkBox =
 
 
 export const inputItem =
-    (label: MessageKey) =>
-        DIV({ className: 'input-box' },
-            DIV({ className: 'input-label' }, tr(label) + ' : '),
-            INPUT({ type: 'number' }));
-
-export const inputItem2 =
     (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
-        const get = getNumInputF(k)
-        const set = setNumInputF(k)
-        const input = inputNumber(get, set)
-        DIV({ className: 'input-box' },
+        const get = getNumInputF(k);
+        const set = setNumInputF(k);
+        const input = inputNumber(get, set);
+        return DIV({ className: 'input-box' },
             DIV({ className: 'input-label' }, tr(label) + ' : '),
             input);
-    }
+    };
 
 
 export const toggle =

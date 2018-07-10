@@ -1,0 +1,150 @@
+
+
+import { query, queryK, dispatchK } from 'sdi/shape';
+
+import { setLayout } from './app';
+
+
+const hasHistory = ((typeof window !== 'undefined') && window.history && window.history.pushState);
+
+type historyStateKind = 'locate' | 'preview' | 'detail';
+
+interface HistoryState {
+    kind: historyStateKind;
+    route: string[];
+}
+
+
+const getRoute = queryK('app/route');
+const setRoute = dispatchK('app/route');
+
+
+
+const cleanRoute =
+    () => getRoute()
+        .reduce((acc, s) => {
+            if (s.length > 0) {
+                return acc.concat([s]);
+            }
+            return acc;
+        }, [] as string[]);
+
+// const getNumber =
+//     (s?: string) => {
+//         if (s) {
+//             const n = parseFloat(s);
+//             if (!Number.isNaN(n)) {
+//                 return n;
+//             }
+//         }
+//         return null;
+//     };
+
+// const setMapView =
+//     () => {
+//         const r = cleanRoute();
+//         scopeOption()
+//             .let('lat', fromNullable(getNumber(r[1])))
+//             .let('lon', fromNullable(getNumber(r[2])))
+//             .let('zoom', fromNullable(getNumber(r[3])))
+//             .map(({ lat, lon, zoom }) => {
+//                 viewEvents.updateMapView({
+//                     dirty: 'geo',
+//                     center: [lat, lon],
+//                     zoom,
+//                 });
+//             });
+//     };
+
+export const navigate =
+    () => {
+        const r = cleanRoute();
+        if (r.length > 0) {
+
+            const screen = r[0];
+            switch (screen) {
+                case 'preview':
+                    setLayout('Preview');
+                    break;
+                case 'detail':
+                    setLayout('Detail');
+                    break;
+                default:
+                    setLayout('Locate');
+            }
+        }
+        else {
+            setLayout('Locate');
+        }
+    };
+
+
+// const pushMap =
+//     (mid: string) => {
+//         if (hasHistory) {
+//             const s: HistoryState = {
+//                 kind: 'map',
+//                 route: [mid],
+//             };
+
+//             window.history.pushState(
+//                 s,
+//                 `View - ${mid}`,
+//                 `${query('app/root')}view/${mid}`);
+//         }
+//     };
+
+const push =
+    (kind: historyStateKind, route: string[]) => {
+        if (hasHistory) {
+            const s: HistoryState = {
+                kind,
+                route,
+            };
+
+            window.history.pushState(
+                s,
+                `Solar - ${kind}`,
+                `${query('app/root')}solar/${route.join('/')}`);
+        }
+    };
+
+
+
+export const navigateLocate =
+    () => {
+        setRoute(() => ([]));
+        navigate();
+        push('locate', []);
+    };
+
+export const navigatePreview =
+    (capakey: string) => {
+        setRoute(() => ([capakey]));
+        navigate();
+        push('preview', [capakey]);
+    };
+
+export const navigateDetail =
+    (capakey: string) => {
+        setRoute(() => ([capakey]));
+        navigate();
+        push('detail', [capakey]);
+    };
+
+
+(function () {
+    if (hasHistory) {
+        window.onpopstate = (event) => {
+            const s = event.state as HistoryState;
+            switch (s.kind) {
+                case 'locate':
+                case 'preview':
+                case 'detail':
+                    setRoute(() => s.route);
+                    break;
+            }
+            navigate();
+        };
+    }
+})();

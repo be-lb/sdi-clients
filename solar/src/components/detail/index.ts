@@ -8,7 +8,7 @@ import { inputItem } from '../item-factory';
 import {
     actionContact,
     actionChange,
-    actionPrint
+    actionPrint,
 } from '../action';
 
 import {
@@ -26,7 +26,7 @@ const calculatorTitle =
     () =>
         DIV({ className: 'adjust-item calculator-header' },
             DIV({ className: 'calculator-title' }, 'Ajusteur'),
-            inputItem('usableArea'),
+            inputItem('usableArea', 'pvArea'),
         );
 
 const action =

@@ -24,7 +24,7 @@ export const calcConsumption =
             DIV({ className: 'adjust-item-title' }, '2. ' + tr('consumption') + ' : '),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                inputItem('annualConsumptionKWh')));
+                inputItem('annualConsumptionKWh', 'annualConsumptionKWh')));
 
 
 

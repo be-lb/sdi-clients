@@ -17,6 +17,14 @@ import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { inputs, roof } from 'solar-sim';
 import { } from 'sdi/source';
 
+export type TypologyEnum =
+    | 'closed'
+    | 'detached'
+    | 'apartments'
+    | 'administrative'
+    | 'collective'
+    | 'industrial'
+    ;
 // State Augmentation
 
 declare module 'sdi/shape' {
