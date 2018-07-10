@@ -23,7 +23,7 @@ const obstacleItemAndInput =
 export const calcObstacle =
     () =>
         DIV({ className: 'adjust-item obstacle' },
-            DIV({ className: 'adjust-item-title' }, '1. ' + tr('installationObstacle') + ' : '),
+            DIV({ className: 'adjust-item-title' }, '1. ' + tr('installationObstacle')),
             DIV({ className: 'adjust-item-widget' },
                 obstacleItemAndInput('velux', 'icon-velux'),
                 obstacleItem('dormerWindow', 'icon-dormer'),

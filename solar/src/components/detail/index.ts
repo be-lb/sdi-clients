@@ -8,7 +8,7 @@ import { inputItem } from '../item-factory';
 import {
     actionContact,
     actionChange,
-    actionPrint
+    actionPrint,
 } from '../action';
 
 import {
