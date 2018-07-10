@@ -47,7 +47,6 @@ export type MessageKey =
     | 'attachmentUrl'
     | 'attributesTable'
     | 'autoClass'
-    | 'autoproduction'
     | 'backToMap'
     | 'boiler'
     | 'browseMaps'
@@ -295,6 +294,7 @@ export type MessageKey =
     | 'solAdjustStr1'
     | 'solAdjustStr2'
     | 'solAndNow'
+    | 'solAutoproduction'
     | 'solar'
     | 'solarAutonomy'
     | 'solarPV'
@@ -377,7 +377,7 @@ export type MessageKey =
     | 'userName'
     | 'validate'
     | 'valuesCovered'
-    | 'VAT'
+    | 'VATinstallation'
     | 'VAT0'
     | 'VAT21'
     | 'VAT6'
@@ -2057,10 +2057,10 @@ export const messages: MessageDB = {
         en: 'Consumption',
     },
 
-    autoproduction: {
-        fr: 'Autoproduction',
-        nl: 'Zelfgeneratie',
-        en: 'Self-generation',
+    solAutoproduction: {
+        fr: 'Autonomie solaire',
+        nl: 'Zonne autonomie',
+        en: 'Solar autonomy',
     },
 
     finance: {
@@ -2208,27 +2208,27 @@ export const messages: MessageDB = {
     },
 
     annualMaintenance: {
-        fr: 'Frais d\'entretiens et de monitoring annuel',
-        nl: 'Jaarlijkse onderhouds en monitoringkosten',
-        en: 'Annual maintenance and monitoring costs',
+        fr: 'Entretiens et monitoring annuel',
+        nl: 'Jaarlijkse onderhouds en monitoring',
+        en: 'Annual maintenance and monitoring',
     },
 
     sellingPrice: {
-        fr: 'Prix de vente de l\'électricité injectée dans le réseau',
+        fr: 'Vente de l\'électricité injectée dans le réseau',
         nl: 'Verkoopprijs van aan het net geleverde elektriciteit',
-        en: 'Selling price of electricity fed into the grid',
+        en: 'Price of electricity fed into the grid',
     },
 
     installationPrice: {
-        fr: 'Prix de l\'installation',
-        nl: 'Installatie prijs',
-        en: 'Installation price',
+        fr: 'Installation',
+        nl: 'Installatie',
+        en: 'Installation',
     },
 
-    VAT: {
-        fr: 'TVA',
-        nl: 'BTW',
-        en: 'VAT',
+    VATinstallation: {
+        fr: 'TVA installation',
+        nl: 'BTW installatie',
+        en: 'VAT installation',
     },
 
     VAT21: {
@@ -2250,9 +2250,9 @@ export const messages: MessageDB = {
     },
 
     sellingGreenCertifPrice: {
-        fr: 'Prix de revente des Certificats Verts',
-        nl: 'Doorverkoopprijs van Groenestroomcertificaten',
-        en: 'Resale price of Green Certificates',
+        fr: 'Revente des Certificats Verts',
+        nl: 'Doorverkoop van Groenestroomcertificaten',
+        en: 'Resale of Green Certificates',
     },
 
     monthlyPayment: {

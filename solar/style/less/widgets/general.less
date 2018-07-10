@@ -45,6 +45,18 @@ h1 {
     }
 }
 
+.input-box-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width : 8em;
+    text-align: center;
+    input {
+        width: 4em;
+        margin-bottom: @margin / 2;
+    }
+}
+
 
 
 .toggle {
@@ -75,9 +87,17 @@ h1 {
 
 
 
+.wrapper-multi-checkbox {
+    display: flex;
+    .multi-checkbox-label {
+        margin-right: 0.5em;
+    }
+}
+
 .wrapper-checkbox {
     display: flex;
     cursor: default;
+    margin-bottom: @margin / 2;
 
     .checkbox {
         .awsomefont;

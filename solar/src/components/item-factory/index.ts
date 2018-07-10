@@ -19,6 +19,14 @@ export const inputItem =
             DIV({ className: 'input-label' }, tr(label) + ' : '),
             INPUT({ type: 'number' }));
 
+
+export const vertInputItem =
+    (label: MessageKey) =>
+        DIV({ className: 'input-box-vertical' },
+            INPUT({ type: 'number' }),
+            DIV({ className: 'input-label' }, tr(label)));
+
+
 export const inputItem2 =
     (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
         const get = getNumInputF(k)

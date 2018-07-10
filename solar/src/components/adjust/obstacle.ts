@@ -28,11 +28,11 @@ export const calcObstacle =
                 obstacleItemAndInput('velux', 'icon-velux'),
                 obstacleItem('dormerWindow', 'icon-dormer'),
                 obstacleItem('flatRoofWindow', 'icon-window'),
-                obstacleItem('existingSolarPannel', 'icon-panel'),
                 obstacleItem('chimneyAir', 'icon-cheminey-air'),
                 obstacleItem('chimneySmoke', 'icon-cheminey-smoke'),
                 obstacleItem('terraceInUse', 'icon-terrace'),
-                obstacleItem('lift', 'icon-lift')),
+                obstacleItem('lift', 'icon-lift'),
+                obstacleItem('existingSolarPannel', 'icon-panel')),
         );
 
 
