@@ -62,6 +62,33 @@
 }
 
 
+//  ICONS
+
+.adjust-picto-wrapper {
+    display: flex;
+    align-items:center;
+    margin-bottom: 15px;
+}
+
+.adjust-picto {
+    width: 2em;
+    height: 2em;
+    margin-right: @margin / 2;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    &.reduce    {background-image: url("../../asset/svg/reduce.svg");}
+    &.day       {background-image: url("../../asset/svg/day.svg");}
+    &.battery   {background-image: url("../../asset/svg/battery.svg");}
+    &.heat      {background-image: url("../../asset/svg/waterheating.svg");}
+    &.panel     {background-image: url("../../asset/svg/solarpanel.svg");}
+    &.gain      {background-image: url("../../asset/svg/gain.svg");}
+    &.spend     {background-image: url("../../asset/svg/spend.svg");}
+}
+
+
+
 // ADJUST OBSTACLES
 
 .obstacle-item {
@@ -172,12 +199,14 @@
 }
 
 
+
+
 // ADJUST CONSUMPTION
 
 .consumption {
     .consumption-select {
         .shadow-border;
-        height: calc(~"4vw + 2px");
+        height: calc(~"4vw");
         width : 50%; // to do better
         background-color: @yellow;
         border-radius: 4vw;
@@ -185,16 +214,20 @@
         justify-content: space-between;
 
         .select-item {
+            box-shadow: 0 0 1px transparent;
             width: 4vw;
             height: 4vw;
             border-radius: 4vw;
-            // border: 1px solid #000;
-            // background-color: @green;
             display: flex;
             align-items: center;
             justify-content: center;
 
-            &:hover {background-color: @green;}
+            &:hover,
+            &.active {
+                .shadow-border;
+                margin: 0;
+                background-color: @green;
+            }
 
             &::before {
                 .awsomefont;
@@ -231,19 +264,25 @@
         .switch-wrapper {
             width: 100%;
             display: flex;
-            margin-bottom: @margin;
 
             .switch-title {margin-right: 1em}
         }
+    }
+
+    .input-label {
+        width: 100%;
+        margin-bottom: @margin / 2;
     }
 }
 
 // ADJUST AUTOPRODUCTION
 
 .autoproduction {
-    .checkbox {
-        margin-bottom: @margin;
+
+    .toggle {
+        margin-left: 0.5em;
     }
+
     .wrapper-dble-checkbox {
         display: flex;
         .checkbox {margin-left: @margin;}
@@ -253,11 +292,35 @@
 // ADJUST FINANCE
 
 .finance {
-    .vat-wrapper {
+    .cost,
+    .gain {
         display: flex;
-        margin-top: @margin;
+    }
+    .cost {
+        margin-bottom: @margin * 2;
+    }
 
-        > div {margin-right: @margin;}
+    .vat-installation {
+        text-align: center;
+        .wrapper-multi-checkbox {
+            border: 1px solid transparent; //to get same height as input
+            padding: .4em;
+            margin-bottom: @margin / 2;
+            .wrapper-checkbox {
+                margin: 0;
+                margin-right: 1em;
+                &:last-child{margin-right: 0;}
+            }
+        }
+    }
+}
+
+// LOAN
+
+.loan {
+    .inputs {
+        display: flex;
+        justify-content: space-around;
     }
 }
 

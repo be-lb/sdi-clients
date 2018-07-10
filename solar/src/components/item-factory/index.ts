@@ -13,6 +13,17 @@ export const checkBox =
             DIV({ className: 'checkbox-label' }, tr(label)));
 
 
+
+export const vertInputItem =
+    (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
+        const get = getNumInputF(k);
+        const set = setNumInputF(k);
+        const input = inputNumber(get, set);
+        return DIV({ className: 'input-box-vertical' },
+            input,
+            DIV({ className: 'input-label' }, tr(label)));
+    };
+
 export const inputItem =
     (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
         const get = getNumInputF(k);
