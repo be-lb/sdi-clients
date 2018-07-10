@@ -44,7 +44,7 @@ const selectWidget =
 // Note text per selected rank
 const rankedNote =
     (rank: string, n: MessageKey, active: string) =>
-        DIV({ className: 'rank-note' + ' ' + rank + ' ' + active }, n);
+        DIV({ className: 'rank-note' + ' ' + rank + ' ' + active }, tr(n));
 
 
 const adjustNote =
