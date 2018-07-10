@@ -310,6 +310,11 @@ export type MessageKey =
     | 'solContactStr2'
     | 'solGeneralMap'
     | 'solHowMuchOf'
+    | 'solNoteConsRank1'
+    | 'solNoteConsRank2'
+    | 'solNoteConsRank3'
+    | 'solNoteConsRank4'
+    | 'solNoteConsRank5'
     | 'solOrOf'
     | 'solOrSelectBuildingOnMap'
     | 'solPossibleToProduce'
@@ -2638,5 +2643,36 @@ export const messages: MessageDB = {
         nl: 'KWu/jaar',
         en: 'KWh/year',
     },
+
+    solNoteConsRank1: {
+        fr: 'Petit consommateur (studio/appartement avec éclairage, réfrigérateur etc.)',
+        nl: 'Kleinverbruiker (studio/appartement met verlichting, koelkast enz.)',
+        en: 'Small consumer (studio/apartment with lighting, refrigerator etc.)',
+    },
+
+    solNoteConsRank2: {
+        fr: 'Petite famille (avec machine à laver/lave-vaisselle)',
+        nl: 'Klein gezin (met wasmachine/vaatwasser)',
+        en: 'Small family (with washing machine/dishwasher)',
+    },
+
+    solNoteConsRank3: {
+        fr: 'Consommateur médian',
+        nl: 'Mediaan verbruiker',
+        en: 'Median consumer',
+    },
+
+    solNoteConsRank4: {
+        fr: 'Ménage moyen',
+        nl: 'Gemiddeld huishouden',
+        en: 'Average household',
+    },
+
+    solNoteConsRank5: {
+        fr: 'Gros consomateur',
+        nl: 'Grootverbruiker',
+        en: ' Large consumer',
+    },
+
 
 };

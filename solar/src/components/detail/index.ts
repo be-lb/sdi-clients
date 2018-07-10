@@ -44,8 +44,8 @@ const content =
                 calculatorTitle(),
                 calcObstacle(),
                 calcConsumption(),
-                calcAutoproduction(),
                 calcInstallation(),
+                calcAutoproduction(),
                 calcFinance(),
                 calcLoan()),
             action());

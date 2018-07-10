@@ -7,7 +7,7 @@ import { toggle } from '../item-factory';
 export const calcAutoproduction =
     () =>
         DIV({ className: 'adjust-item autoproduction' },
-            DIV({ className: 'adjust-item-title' }, '3. ' + tr('solAutoproduction')),
+            DIV({ className: 'adjust-item-title' }, '4. ' + tr('solAutoproduction')),
             DIV({ className: 'adjust-picto-wrapper' },
                 DIV({ className: 'adjust-picto reduce' }),
                 DIV({}, tr('reduceConsumption') + ' : '),

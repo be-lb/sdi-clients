@@ -13,7 +13,7 @@ const panelIntegration =
 export const calcInstallation =
     () =>
         DIV({ className: 'adjust-item installation' },
-            DIV({ className: 'adjust-item-title' }, '4. ' + tr('installation')),
+            DIV({ className: 'adjust-item-title' }, '3. ' + tr('installation')),
             DIV({ className: 'adjust-item-widget' },
                 DIV({ className: 'adjust-picto-wrapper' },
                     DIV({ className: 'adjust-picto panel' }),
