@@ -17,9 +17,10 @@ export const calcInstallation =
             DIV({ className: 'adjust-item-widget' },
                 panelIntegration(),
                 DIV({ className: 'input-label' }, tr('technoType') + ' : '),
-                checkBox('monocristal'),
-                checkBox('polycristal'),
-                checkBox('monocristalHR')));
+                DIV({ className: 'techno-type-checkboxes' },
+                    checkBox('monocristal'),
+                    checkBox('polycristal'),
+                    checkBox('monocristalHR'))));
 
 
 

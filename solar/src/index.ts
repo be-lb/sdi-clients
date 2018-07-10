@@ -63,7 +63,7 @@ export const main =
             'app/api-root': SDI.api,
             'app/csrf': SDI.csrf,
             'app/lang': 'fr',
-            'app/layout': ['Detail'],
+            'app/layout': ['Preview'],
 
             'app/current-map': null,
 
