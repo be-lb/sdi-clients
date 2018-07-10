@@ -71,16 +71,71 @@
     text-align: center;
     align-items: center;
     justify-content: flex-start;
+    max-width: 5vw;
     .obstacle-icon{
-        width: 4vw;
-        height: 4vw;
+        position: relative;
+        width: 5vw;
+        height: 5vw;
         border-radius: 3vw;
         border: 1px solid #000;
         background-color: @yellow;
         margin-bottom: @margin / 2;
+
+        &.active {
+            background-color: @green;
+            &::after {
+                .absolute(0,0,auto, auto);
+                content: ' ';
+                width: 1.5vw;
+                height: 1.5vw;
+                background-image: url("../../asset/svg/check.svg");
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
     }
+
     .obstacle-label {
         font-size: @small-font;
+    }
+
+    .obstacle-icon {
+        background-size: 60%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .icon-velux {
+        background-image: url("../../asset/svg/velux.svg");
+        &.active {background-image: url("../../asset/svg/veluxW.svg");}
+    }
+    .icon-dormer {
+        background-image: url("../../asset/svg/dormer.svg");
+        &.active {background-image: url("../../asset/svg/dormerW.svg");}
+    }
+    .icon-window {
+        background-image: url("../../asset/svg/flatwindow.svg");
+        &.active {background-image: url("../../asset/svg/flatwindowW.svg");}
+    }
+    .icon-panel {
+        background-image: url("../../asset/svg/solarpanel.svg");
+        &.active {background-image: url("../../asset/svg/solarpanelW.svg");}
+    }
+    .icon-cheminey-air {
+        background-image: url("../../asset/svg/cheminey-air.svg");
+        &.active {background-image: url("../../asset/svg/cheminey-airW.svg");}
+    }
+    .icon-cheminey-smoke {
+        background-image: url("../../asset/svg/cheminey-smoke.svg");
+        &.active {background-image: url("../../asset/svg/cheminey-smokeW.svg");}
+    }
+    .icon-terrace {
+        background-image: url("../../asset/svg/terrace.svg");
+        &.active {background-image: url("../../asset/svg/terraceW.svg");}
+    }
+    .icon-lift {
+        background-image: url("../../asset/svg/lift.svg");
+        &.active {background-image: url("../../asset/svg/liftW.svg");}
     }
 }
 
