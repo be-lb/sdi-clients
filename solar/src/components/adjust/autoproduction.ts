@@ -7,14 +7,14 @@ import { checkBox } from '../item-factory';
 export const calcAutoproduction =
     () =>
         DIV({ className: 'adjust-item autoproduction' },
-            DIV({ className: 'adjust-item-title' }, '3. ' + tr('autoproduction') + ' : '),
+            DIV({ className: 'adjust-item-title' }, '3. ' + tr('autoproduction')),
             checkBox('reduceConsumption'),
             checkBox('dayConsumption'),
+            checkBox('installBatteries'),
             DIV({ className: 'wrapper-dble-checkbox' },
                 DIV({ className: 'input-label' }, tr('hotWaterDuringDay') + ' : '),
                 checkBox('boiler'),
-                checkBox('heatPump')),
-            checkBox('installBatteries'));
+                checkBox('heatPump')));
 
 
 

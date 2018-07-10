@@ -13,13 +13,14 @@ const panelIntegration =
 export const calcInstallation =
     () =>
         DIV({ className: 'adjust-item installation' },
-            DIV({ className: 'adjust-item-title' }, '4. ' + tr('installation') + ' : '),
+            DIV({ className: 'adjust-item-title' }, '4. ' + tr('installation')),
             DIV({ className: 'adjust-item-widget' },
+                panelIntegration(),
                 DIV({ className: 'input-label' }, tr('technoType') + ' : '),
-                checkBox('monocristal'),
-                checkBox('polycristal'),
-                checkBox('monocristalHR'),
-                panelIntegration()));
+                DIV({ className: 'techno-type-checkboxes' },
+                    checkBox('monocristal'),
+                    checkBox('polycristal'),
+                    checkBox('monocristalHR'))));
 
 
 

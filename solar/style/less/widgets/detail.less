@@ -71,16 +71,103 @@
     text-align: center;
     align-items: center;
     justify-content: flex-start;
+    max-width: calc(~"5vw + 2px");
+    height: 12vw;
+
     .obstacle-icon{
-        width: 4vw;
-        height: 4vw;
+        .shadow-border;
+        position: relative;
+        width: 5vw;
+        height: 5vw;
         border-radius: 3vw;
-        border: 1px solid #000;
         background-color: @yellow;
         margin-bottom: @margin / 2;
+
+        &.active {
+            background-color: @green;
+            &::after {
+                .absolute(0,0,auto, auto);
+                content: ' ';
+                width: 1.5vw;
+                height: 1.5vw;
+                background-image: url("../../asset/svg/check.svg");
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+        &:hover {
+            background-color: @green;
+        }
     }
+
     .obstacle-label {
         font-size: @small-font;
+    }
+
+    .obstacle-input {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: @small-font;
+        margin-top: auto; //put the element at the bottom of the flex column
+
+        .obstacle-input-value {
+            font-size: @medium-font;
+        }
+
+        .obstacle-input-minus,
+        .obstacle-input-plus {
+            .awsomefont;
+            width: 1em;
+            height: 1em;
+        }
+        .obstacle-input-minus:before {
+            content: @fa-var-minus;
+        }
+        .obstacle-input-plus:before {
+            content: @fa-var-plus;
+        }
+
+    }
+
+    .obstacle-icon {
+        background-size: 60%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .icon-velux {
+        background-image: url("../../asset/svg/velux.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/veluxW.svg");}
+    }
+    .icon-dormer {
+        background-image: url("../../asset/svg/dormer.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/dormerW.svg");}
+    }
+    .icon-window {
+        background-image: url("../../asset/svg/flatwindow.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/flatwindowW.svg");}
+    }
+    .icon-panel {
+        background-image: url("../../asset/svg/solarpanel.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/solarpanelW.svg");}
+    }
+    .icon-cheminey-air {
+        background-image: url("../../asset/svg/cheminey-air.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/cheminey-airW.svg");}
+    }
+    .icon-cheminey-smoke {
+        background-image: url("../../asset/svg/cheminey-smoke.svg");
+        &.actactive, &:hoverive {background-image: url("../../asset/svg/cheminey-smokeW.svg");}
+    }
+    .icon-terrace {
+        background-image: url("../../asset/svg/terrace.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/terraceW.svg");}
+    }
+    .icon-lift {
+        background-image: url("../../asset/svg/lift.svg");
+        &.active, &:hover {background-image: url("../../asset/svg/liftW.svg");}
     }
 }
 
@@ -89,10 +176,10 @@
 
 .consumption {
     .consumption-select {
+        .shadow-border;
         height: calc(~"4vw + 2px");
         width : 50%; // to do better
         background-color: @yellow;
-        border: 1px solid #000;
         border-radius: 4vw;
         display: flex;
         justify-content: space-between;
@@ -144,7 +231,7 @@
         .switch-wrapper {
             width: 100%;
             display: flex;
-            margin-top: @margin;
+            margin-bottom: @margin;
 
             .switch-title {margin-right: 1em}
         }
@@ -172,4 +259,14 @@
 
         > div {margin-right: @margin;}
     }
+}
+
+
+//ACTIONS
+
+.actions {
+    border-top: 1px solid #000;
+    justify-content: space-around;
+    padding-top: 2 * @margin;
+    padding-bottom: 4*@margin;
 }
