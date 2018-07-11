@@ -43,27 +43,42 @@ export const potential = () => tr('solSolarPotentialExcellent');
 
 const roofs = queryK('solar/data/roofs');
 
-const PROD_THESH_HIGH = 1000;
-const PROD_THESH_MEDIUM = 1000;
+const PROD_THESH_HIGH = 12000 * 1000;
+const PROD_THESH_MEDIUM = 8000 * 1000;
 
+
+const getRoofFeatures =
+    () => getCapakey().chain((ck) => {
+        const rc = roofs();
+        if (ck in rc) {
+            return some(rc[ck].features);
+        }
+        return none;
+    });
 
 export const totalArea =
-    () => getCapakey()
-        .fold(0,
-            (key) => {
-                const fc = roofs()[key];
-                if (fc) {
-                    return fc.features.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0);
-                }
-                return 0;
-            });
+    () => getRoofFeatures()
+        .fold(
+            0,
+            fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
+    );
 
 const areaProductivity =
-    (_low: number, _high: number) => () => 10;
-// () =>
-//     roofs()
-//         .filter(r => r.productivity >= low && r.productivity < high)
-//         .reduce((acc, r) => acc + r.area, 0) * 100 / Math.max(0.1, totalArea());
+    (low: number, high: number) =>
+        () => getRoofFeatures()
+            .fold(
+                0,
+                (features) => {
+                    const ta = Math.max(0.1, totalArea()); // ugly but...
+                    const catArea = features
+                        .filter((f) => {
+                            const p = getFeatureProp(f, 'productivity', 0);
+                            return (p >= low) && (p < high);
+                        })
+                        .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
+                    return catArea * 100 / ta;
+                },
+        );
 
 
 export const areaExcellent = areaProductivity(PROD_THESH_HIGH, Number.MAX_VALUE);
