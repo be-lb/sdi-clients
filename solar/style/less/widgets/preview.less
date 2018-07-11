@@ -2,7 +2,7 @@
 .main-splitted-height {
     display: flex;
     flex-direction: column;
-    padding: @margin;
+    margin: 0 @margin;
     overflow-y: auto;
     .top {
         display: flex;
@@ -16,6 +16,7 @@
         .context {
             width: @contextW;
             margin-right: @margin;
+            padding-right: @margin!important;
         }
         .summary {}
     }
