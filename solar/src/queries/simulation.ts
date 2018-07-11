@@ -189,7 +189,7 @@ export const getOrthoURL =
                     ];
 
                     const bboxString = abbox.map(c => c.toFixed(2)).join('%2C');
-                    const url = `https://geodata.environnement.brussels/webservice/wmsproxy/urbis.irisnet.be?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=Ortho2016&WIDTH=256&HEIGHT=256&SRS=EPSG%3A31370&STYLES=&BBOX=${bboxString}`;
+                    const url = `https://geodata.environnement.brussels/webservice/wmsproxy/urbis.irisnet.be?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=Ortho2016&WIDTH=1024&HEIGHT=1024&SRS=EPSG%3A31370&STYLES=&BBOX=${bboxString}`;
                     return some(url);
                 }
                 return none;
