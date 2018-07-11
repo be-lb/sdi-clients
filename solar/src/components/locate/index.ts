@@ -1,11 +1,93 @@
 
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import * as debug from 'debug';
 
-import map from '../map';
+import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import { isENTER } from 'sdi/components/keycodes';
 import tr from 'sdi/locale';
 
+import map from '../map';
 import { toggle } from '../item-factory';
+import { geocoderResponse, geocoderInput } from '../../queries/map';
+import { IUgWsAddress, IUgWsResult, queryGeocoder } from 'sdi/ports/geocoder';
+import { updateGeocoderTerm, updateGeocoderResponse } from '../../events/map';
+import { fetchKey } from '../../remote/index';
+import { navigatePreview } from '../../events/route';
 
+const logger = debug('sdi:solar');
+
+const updateAddress = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateGeocoderTerm(e.target.value);
+};
+
+const searchAddress = () => {
+    geocoderInput()
+        .foldL(
+            () => updateGeocoderResponse(null),
+            ({ addr, lang }) => {
+                queryGeocoder(addr, lang)
+                    .then(updateGeocoderResponse);
+
+            })
+};
+
+const addressToString = (a: IUgWsAddress) =>
+    `${a.street.name} ${a.number}, ${a.street.postCode} ${a.street.municipality}`;
+
+
+const renderGeocoderInput =
+    () => INPUT({
+        className: 'locate-input',
+        type: 'text',
+        name: 'adress',
+        placeholder: tr('solSolarGeocode'),
+        onChange: updateAddress,
+        onKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (isENTER(e)) {
+                searchAddress();
+            }
+        },
+    });
+
+const renderGeocoderButton =
+    () => DIV({ className: 'btn-analyse' },
+        SPAN({
+            className: 'bolt',
+            onClick: searchAddress,
+        }),
+        tr('solResearch'));
+
+const renderGeocoderResults =
+    (results: IUgWsResult[]) => {
+        return results.map(({ point, address }, key) => {
+            // const coords: [number, number] = [result.point.x, result.point.y];
+            return DIV({ className: 'adress-result', key },
+                SPAN({
+                    onClick: () => {
+                        updateGeocoderResponse(null);
+                        fetchKey(point.x, point.y)
+                            .then(({ capakey }) => navigatePreview(capakey))
+                            .catch((err: string) => {
+                                logger(`Could not fetch a capakey: ${err}`)
+                                // viewEvents.updateMapView({
+                                //     dirty: 'geo',
+                                //     center: coords,
+                                //     zoom: 12,
+                                // });
+                            })
+                    },
+                }, addressToString(address)));
+        });
+    };
+
+const renderGeocoderWrapper =
+    (...n: React.ReactNode[]) => DIV({ className: 'input-wrapper' }, ...n);
+
+const renderGeocoder =
+    () =>
+        geocoderResponse()
+            .fold(
+                renderGeocoderWrapper(renderGeocoderInput(), renderGeocoderButton()),
+                ({ result }) => renderGeocoderWrapper(renderGeocoderResults(result)));
 
 const wrapperTop =
     () =>
@@ -24,16 +106,7 @@ const wrapperTop =
                     SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
                     SPAN({}, tr('solCalculateStrPart2'))),
                 toggle('solarThermal', 'solarPV'),
-                DIV({ className: 'input-wrapper' },
-                    INPUT({
-                        className: 'locate-input',
-                        type: 'text',
-                        name: 'adress',
-                        placeholder: tr('solSolarGeocode'),
-                    }),
-                    DIV({ className: 'btn-analyse' },
-                        SPAN({ className: 'bolt' }),
-                        tr('solResearch'))),
+                renderGeocoder(),
                 DIV({}, tr('solOrSelectBuildingOnMap'))));
 
 
@@ -44,3 +117,6 @@ const render =
             map());
 
 export default render;
+
+
+logger('loaded')

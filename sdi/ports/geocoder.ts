@@ -107,3 +107,6 @@ export const queryService = (address: string, language: MessageRecordLang): Prom
             .then((data: IUgWsResponse) => data)
     );
 };
+
+// aliasing
+export const queryGeocoder = queryService;

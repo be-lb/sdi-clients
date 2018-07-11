@@ -14,9 +14,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import { fromNullable, some, none, Option } from 'fp-ts/lib/Option';
 
 import { query, queryK } from 'sdi/shape';
 import { scopeOption, fnOpt0, fnOpt1 } from 'sdi/lib';
+import { getLang } from 'sdi/app';
+import { MessageRecordLang } from 'sdi/source';
 
 
 
@@ -47,3 +50,24 @@ export const getCurrentBaseLayer = () => getCurrentBaseLayerOpt().fold(null, a =
 
 
 export const getView = queryK('port/map/view');
+
+
+
+export const geocoderResponse =
+    () => fromNullable(query('component/geocoder/response'));
+
+interface GeocoderInput {
+    addr: string;
+    lang: MessageRecordLang;
+}
+
+export const geocoderInput =
+    (): Option<GeocoderInput> => {
+        const addr = query('component/geocoder/input').trim();
+        const lang = getLang();
+        if (addr.length > 0) {
+            const i: GeocoderInput = { addr, lang };
+            return some(i);
+        }
+        return none;
+    };

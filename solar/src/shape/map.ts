@@ -23,7 +23,8 @@ import { IMapViewData, Interaction, IMapScale } from 'sdi/map';
 
 declare module 'sdi/shape' {
     export interface IShape {
-        'component/legend/geocoder': IUgWsResponse | null;
+        'component/geocoder/response': IUgWsResponse | null;
+        'component/geocoder/input': string;
 
         'port/map/view': IMapViewData;
         'port/map/interaction': Interaction;

@@ -15,6 +15,7 @@
  */
 
 import { query } from 'sdi/shape';
+import { fromNullable } from 'fp-ts/lib/Option';
 
 export const getUserData =
     () => query('data/user');
@@ -36,3 +37,7 @@ export const getMapInfo =
         const info = query('data/maps').find(m => m.id === mid);
         return (info !== undefined) ? info : null;
     };
+
+
+export const getCapakey =
+    () => fromNullable(query('app/capakey'));

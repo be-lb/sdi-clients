@@ -18,7 +18,35 @@
 import {
     fetchIO, IMapInfo, IMapInfoIO, FeatureCollection, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO, InspireIO, Inspire,
 } from 'sdi/source';
+import { getApiUrl } from 'sdi/app';
 
+import { CapakeyIO } from './io';
+
+export const fetchKey =
+    (longitude: number, latitude: number) => {
+        const url = getApiUrl(`geodata/solar/key/${longitude}/${latitude}`);
+        return fetchIO(CapakeyIO, url);
+    };
+
+export const fetchRoof =
+    (capakey: string): Promise<FeatureCollection> => {
+        const url = getApiUrl(`geodata/solar/${capakey}/`);
+        return fetchWithoutValidationIO(url);
+    };
+
+
+export const fetchGeom =
+    (capakey: string): Promise<FeatureCollection> => {
+        const url = getApiUrl(`geodata/solar/geom/for/${capakey}/`);
+        return fetchWithoutValidationIO(url);
+    };
+
+
+export const fetchBuilding =
+    (capakey: string): Promise<FeatureCollection> => {
+        const url = getApiUrl(`geodata/solar/3d/for/${capakey}/`);
+        return fetchWithoutValidationIO(url);
+    };
 
 
 

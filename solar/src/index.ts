@@ -65,9 +65,11 @@ export const main =
             'app/route': SDI.args,
 
             'app/current-map': null,
+            'app/capakey': null,
 
             'component/button': {},
-            'component/legend/geocoder': null,
+            'component/geocoder/response': null,
+            'component/geocoder/input': '',
 
 
             'port/map/scale': {
@@ -94,9 +96,11 @@ export const main =
             'data/alias': [],
             'data/user': null,
 
-            'data/solar-sim': [],
-            'solar-sim/address': null,
-            'solar-sim/inputs': inputsFactory([]),
+            'solar/address': null,
+            'solar/inputs': inputsFactory([]),
+            'solar/data/roofs': {},
+            'solar/data/geoms': {},
+            'solar/data/buildings': {},
         };
 
         try {

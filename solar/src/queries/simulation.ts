@@ -20,36 +20,55 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { query, queryK } from 'sdi/shape';
 import tr from 'sdi/locale';
 import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
+import { Feature } from 'sdi/source';
 
+import { getCapakey } from './app';
 
 
 export const streetName =
-    () => fromNullable(query('solar-sim/address'))
+    () => fromNullable(query('solar/address'))
         .fold('--', ({ street }) => street.name);
 export const streetNumber =
-    () => fromNullable(query('solar-sim/address'))
+    () => fromNullable(query('solar/address'))
         .fold('--', ({ number }) => number);
 export const locality =
-    () => fromNullable(query('solar-sim/address'))
+    () => fromNullable(query('solar/address'))
         .fold('--', ({ street }) => street.municipality);
 
 export const potential = () => tr('solSolarPotentialExcellent');
 
 
-const roofs = queryK('data/solar-sim');
+const roofs = queryK('solar/data/roofs');
 
 const PROD_THESH_HIGH = 1000;
 const PROD_THESH_MEDIUM = 1000;
 
+const getFeatureNumber =
+    (f: Feature, k: string, dflt = 0): number => {
+        const props = f.properties;
+        if (props && k in props) {
+            return props[k]
+        }
+        return dflt;
+    }
 
-const totalArea = () => roofs().reduce((acc, r) => acc + r.area, 0);
+export const totalArea =
+    getCapakey()
+        .fold(0,
+            (key) => {
+                const fc = roofs()[key]
+                if (fc) {
+                    return fc.features.reduce((acc, r) => acc + getFeatureNumber(r, 'area'), 0);
+                }
+                return 0;
+            });
 
 const areaProductivity =
-    (low: number, high: number) =>
-        () =>
-            roofs()
-                .filter(r => r.productivity >= low && r.productivity < high)
-                .reduce((acc, r) => acc + r.area, 0) * 100 / Math.max(0.1, totalArea());
+    (_low: number, _high: number) => () => 10
+// () =>
+//     roofs()
+//         .filter(r => r.productivity >= low && r.productivity < high)
+//         .reduce((acc, r) => acc + r.area, 0) * 100 / Math.max(0.1, totalArea());
 
 
 export const areaExcellent = areaProductivity(PROD_THESH_HIGH, Number.MAX_VALUE);
@@ -89,7 +108,7 @@ interface outputs {
 };
 */
 
-const queryInputs = queryK('solar-sim/inputs');
+const queryInputs = queryK('solar/inputs');
 export type GetNumKeyOfInputs =
     | 'nYears'
     | 'currentYear'

@@ -2,7 +2,7 @@
 
 import { query, queryK, dispatchK } from 'sdi/shape';
 
-import { setLayout } from './app';
+import { setLayout, loadCapakey } from './app';
 
 
 const hasHistory = ((typeof window !== 'undefined') && window.history && window.history.pushState);
@@ -59,9 +59,10 @@ const cleanRoute =
 export const navigate =
     () => {
         const r = cleanRoute();
-        if (r.length > 0) {
-
+        if (r.length > 1) {
             const screen = r[0];
+            const capakey = r[1];
+            loadCapakey(capakey);
             switch (screen) {
                 case 'preview':
                     setLayout('Preview');
@@ -113,21 +114,21 @@ const push =
 
 export const navigateLocate =
     () => {
-        setRoute(() => ([]));
+        setRoute(() => (['locate']));
         navigate();
         push('locate', []);
     };
 
 export const navigatePreview =
     (capakey: string) => {
-        setRoute(() => ([capakey]));
+        setRoute(() => (['preview', capakey]));
         navigate();
         push('preview', [capakey]);
     };
 
 export const navigateDetail =
     (capakey: string) => {
-        setRoute(() => ([capakey]));
+        setRoute(() => (['detail', capakey]));
         navigate();
         push('detail', [capakey]);
     };

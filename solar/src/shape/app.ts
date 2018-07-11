@@ -31,5 +31,7 @@ declare module 'sdi/shape' {
         'component/button': ButtonComponent;
 
         'data/user': IUser | null;
+
+        'app/capakey': null | string;
     }
 }

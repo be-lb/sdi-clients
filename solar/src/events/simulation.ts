@@ -19,7 +19,7 @@ import { dispatchK } from 'sdi/shape';
 import { inputs } from 'solar-sim';
 
 
-const dispatchInputs = dispatchK('solar-sim/inputs');
+const dispatchInputs = dispatchK('solar/inputs');
 export type SetNumKeyOfInputs =
     | 'nYears'
     | 'currentYear'

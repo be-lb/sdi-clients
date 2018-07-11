@@ -16,9 +16,20 @@
  */
 
 
-import { dispatchK } from 'sdi/shape';
+import { dispatchK, dispatch } from 'sdi/shape';
 import { viewEventsFactory, scaleEventsFactory } from 'sdi/map';
+import { IUgWsResponse } from 'sdi/ports/geocoder';
 
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
 export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
+
+export const updateGeocoderResponse =
+    (serviceResponse: IUgWsResponse | null) =>
+        dispatch('component/geocoder/response', () => serviceResponse);
+
+export const updateGeocoderTerm =
+    (address: string) =>
+        dispatch('component/geocoder/input', () => address);
+
+
