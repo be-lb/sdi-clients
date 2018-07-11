@@ -1,4 +1,4 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, NODISPLAY } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { getObstacle } from '../../queries/simulation';
@@ -86,11 +86,27 @@ const renderObstacle =
         return obstacleItem(on);
     };
 
+export const renderGraphics =
+    () => {
+        const cats: Obstacle[] = ['velux', 'dormerWindow', 'flatRoofWindow', 'chimneySmoke', 'terraceInUse', 'lift', 'existingSolarPannel'];
+
+        const elems = cats.map((cat) => {
+            const n = getObstacle(cat);
+            if (n > 0) {
+                return DIV({ className: 'obstacle-graphic-item' },
+                    ...(Array(n).fill(DIV({ className: `obstacle-icon ${icons[cat]}` }))));
+            }
+            return NODISPLAY();
+        });
+
+        return DIV({ className: 'obstacle-graphic' }, elems);
+    };
 
 export const calcObstacle =
     () =>
         DIV({ className: 'adjust-item obstacle' },
             DIV({ className: 'adjust-item-title' }, '1. ' + tr('installationObstacle')),
+            renderGraphics(),
             DIV({ className: 'adjust-item-widget' },
                 renderObstacle('velux'),
                 renderObstacle('dormerWindow'),
