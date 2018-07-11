@@ -30,26 +30,27 @@ export const inputSelect =
 
 
 export const vertInputItem =
-    (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
         const get = getNumInputF(k);
         const set = setInputF(k);
         const input = inputNumber(get, set);
-        const tail: React.ReactNode[] = [];
-        ns.forEach(n => tail.push(n));
-        ns.push(DIV({ className: 'input-label' }, tr(label)));
+        const label = DIV({ className: 'input-label' }, tr(labelKey))
+
         return DIV({ className: 'input-box-vertical' },
-            input,
-            tail);
+            DIV({ className: 'input-and-unit' },
+                input, ...ns),
+            label);
     };
 
 export const inputItem =
-    (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
         const get = getNumInputF(k);
         const set = setInputF(k);
         const input = inputNumber(get, set);
+        const label = DIV({ className: 'input-label' }, tr(labelKey))
+
         return DIV({ className: 'input-box' },
-            DIV({ className: 'input-label' }, tr(label) + ' : '),
-            input);
+            label, input, ...ns);
     };
 
 

@@ -1,4 +1,5 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summary, summaryDetailed } from '../summary';
@@ -26,7 +27,7 @@ const calculatorTitle =
     () =>
         DIV({ className: 'adjust-item calculator-header' },
             DIV({ className: 'calculator-title' }, 'Ajusteur'),
-            inputItem('usableArea', 'pvArea'),
+            inputItem('usableArea', 'pvArea', SPAN({ className: 'unit'}, tr('unitM2'))),
         );
 
 const action =

@@ -2,7 +2,7 @@
 @medium-font:1.75vw;
 @small-font: 1.2vw;
 
-@contextW : 70%;
+@contextW : 80vw;
 
 
 .shadow-border {
@@ -43,6 +43,8 @@ h1 {
     .input-label {
         margin-right: @margin / 2;
     }
+
+    .unit {padding-left: 1ch;}
 }
 
 .input-box-vertical {
@@ -51,6 +53,15 @@ h1 {
     align-items: center;
     width : 8em;
     text-align: center;
+
+    .input-and-unit {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        .unit {padding-left: 0.5ch;}
+    }
+
     input {
         width: 4em;
         margin-bottom: @margin / 2;
@@ -137,16 +148,16 @@ input[type="number"] {
 }
 
 
+
+
 .content {
     border-top: 1px solid #000;
     padding-top: @margin;
-    margin-top: @margin;
 }
 
 .sidebar  {
     border-top: 1px solid #000;
     padding-top: @margin;
-    margin-top: @margin;
 
     & *{
         .word-wrap;
