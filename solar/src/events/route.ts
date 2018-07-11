@@ -97,6 +97,7 @@ export const navigate =
 
 const push =
     (kind: historyStateKind, route: string[]) => {
+        setRoute(() => route);
         if (hasHistory) {
             const s: HistoryState = {
                 kind,
@@ -114,23 +115,20 @@ const push =
 
 export const navigateLocate =
     () => {
-        setRoute(() => (['locate']));
+        push('locate', ['locate']);
         navigate();
-        push('locate', []);
     };
 
 export const navigatePreview =
     (capakey: string) => {
-        setRoute(() => (['preview', capakey]));
+        push('preview', ['preview', capakey]);
         navigate();
-        push('preview', [capakey]);
     };
 
 export const navigateDetail =
     (capakey: string) => {
-        setRoute(() => (['detail', capakey]));
+        push('detail', ['detail', capakey]);
         navigate();
-        push('detail', [capakey]);
     };
 
 

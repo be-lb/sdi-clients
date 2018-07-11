@@ -21,7 +21,7 @@ import { dispatch, query } from 'sdi/shape';
 import { getApiUrl } from 'sdi/app';
 
 import { AppLayout } from '../app';
-import { fetchMap, fetchRoof } from '../remote';
+import { fetchMap, fetchRoof, fetchGeom, fetchBuilding } from '../remote';
 
 const logger = debug('sdi:events/app');
 
@@ -45,10 +45,10 @@ const loadRoofs =
         fromNullable(query('solar/data/roofs')[capakey])
             .foldL(
                 () => fetchRoof(capakey).then((fc) => {
-                    dispatch('solar/data/roofs', state => ({ ...state, [capakey]: fc }))
+                    dispatch('solar/data/roofs', state => ({ ...state, [capakey]: fc }));
                     return fc;
                 }),
-                fc => Promise.resolve(fc)
+                fc => Promise.resolve(fc),
             );
 
 
@@ -56,30 +56,30 @@ const loadGeometry =
     (capakey: string) =>
         fromNullable(query('solar/data/geoms')[capakey])
             .foldL(
-                () => fetchRoof(capakey).then((fc) => {
-                    dispatch('solar/data/geoms', state => ({ ...state, [capakey]: fc }))
+                () => fetchGeom(capakey).then((fc) => {
+                    dispatch('solar/data/geoms', state => ({ ...state, [capakey]: fc }));
                     return fc;
                 }),
-                fc => Promise.resolve(fc)
+                fc => Promise.resolve(fc),
             );
 
 const loadBuildings =
     (capakey: string) =>
         fromNullable(query('solar/data/buildings')[capakey])
             .foldL(
-                () => fetchRoof(capakey).then((fc) => {
-                    dispatch('solar/data/buildings', state => ({ ...state, [capakey]: fc }))
+                () => fetchBuilding(capakey).then((fc) => {
+                    dispatch('solar/data/buildings', state => ({ ...state, [capakey]: fc }));
                     return fc;
                 }),
-                fc => Promise.resolve(fc)
+                fc => Promise.resolve(fc),
             );
 
 export const loadCapakey =
     (capakey: string) => {
         dispatch('app/capakey', () => capakey);
-        loadRoofs(capakey)
-        loadGeometry(capakey)
-        loadBuildings(capakey)
+        loadRoofs(capakey);
+        loadGeometry(capakey);
+        loadBuildings(capakey);
     };
 
 logger('loaded');
