@@ -19,15 +19,12 @@
     .potential-values {
         margin-top: @margin;
         margin-bottom: @margin;
-        .kv {
+        .vk {
             font-size: @medium-font;
-            .key {
-                &:after {
-                    content: ' : ';
-                }
-            }
             .value {
                 font-weight: 700;
+                width: 100%;
+                display: block;
             }
         }
         .note {
@@ -35,8 +32,9 @@
         }
     }
 
-    .summary-area .kv {
+    .summary-area .vk {
         font-size: @small-font;
+        .value {margin-right: 1ch;}
     }
 }
 
@@ -52,9 +50,11 @@
         margin-top: @margin;
         margin-bottom: @margin / 2;
     }
-    .kv {
+    .vk {
         font-size: @small-font;
-        .key::after{content: " : ";}
-        .value {font-weight: 500;}
+        .value {
+            font-weight: 500;
+            margin-right: 1ch;
+        }
     }
 }
