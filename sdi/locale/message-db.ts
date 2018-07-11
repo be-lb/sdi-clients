@@ -2206,12 +2206,6 @@ export const messages: MessageDB = {
         en: 'Integration of the panels into the roof',
     },
 
-    annualConsumptionKWh: {
-        fr: 'Consommation annuelle (kWh)',
-        nl: 'Jaarlijks verbruik (kWh)',
-        en: 'Annual consumption (kWh)',
-    },
-
     annualMaintenance: {
         fr: 'Entretiens et monitoring annuel',
         nl: 'Jaarlijkse onderhouds en monitoring',
