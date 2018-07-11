@@ -27,7 +27,7 @@ const searchAddress = () => {
                 queryGeocoder(addr, lang)
                     .then(updateGeocoderResponse);
 
-            })
+            });
 };
 
 const addressToString = (a: IUgWsAddress) =>
@@ -70,13 +70,13 @@ const renderGeocoderResults =
                         fetchKey(point.x, point.y)
                             .then(({ capakey }) => navigatePreview(capakey))
                             .catch((err: string) => {
-                                logger(`Could not fetch a capakey: ${err}`)
+                                logger(`Could not fetch a capakey: ${err}`);
                                 // viewEvents.updateMapView({
                                 //     dirty: 'geo',
                                 //     center: coords,
                                 //     zoom: 12,
                                 // });
-                            })
+                            });
                     },
                 }, addressToString(address)));
         });
@@ -121,4 +121,4 @@ const render =
 export default render;
 
 
-logger('loaded')
+logger('loaded');
