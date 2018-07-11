@@ -30,13 +30,16 @@ export const inputSelect =
 
 
 export const vertInputItem =
-    (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
+    (label: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
         const get = getNumInputF(k);
         const set = setInputF(k);
         const input = inputNumber(get, set);
+        const tail: React.ReactNode[] = [];
+        ns.forEach(n => tail.push(n));
+        ns.push(DIV({ className: 'input-label' }, tr(label)));
         return DIV({ className: 'input-box-vertical' },
             input,
-            DIV({ className: 'input-label' }, tr(label)));
+            tail);
     };
 
 export const inputItem =
