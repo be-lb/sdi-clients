@@ -231,7 +231,7 @@
 
 
 
-// ADJUST CONSUMPTION
+// ADJUST CONSUMPTION & AUTOPRODUCTION
 
 .consumption {
     .adjust-item-title {
@@ -257,46 +257,44 @@
     }
 }
 
-.consumption {
-    .consumption-select {
-        .shadow-border;
-        height: calc(~"4vw");
-        width : 50%; // to do better
-        background-color: @yellow;
+.consumption-select,
+.autoproduction-select {
+    .shadow-border;
+    height: calc(~"4vw");
+    width : 50%; // to do better
+    background-color: @yellow;
+    border-radius: 4vw;
+    display: flex;
+    justify-content: space-between;
+
+    .select-item {
+        box-shadow: 0 0 1px transparent;
+        width: 4vw;
+        height: 4vw;
         border-radius: 4vw;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
 
-        .select-item {
-            box-shadow: 0 0 1px transparent;
-            width: 4vw;
-            height: 4vw;
-            border-radius: 4vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            &:hover,
-            &.active {
-                .shadow-border;
-                margin: 0;
-                background-color: @green;
-            }
-
-            &::before {
-                .awsomefont;
-                content: @fa-var-bolt;
-                color: #fff;
-            }
-
-            &.first{font-size: 4vw / 5 * 1.25 ;}
-            &.second{font-size: 4vw / 5 * 1.75 ;}
-            &.third{font-size: 4vw / 5 * 2.5 ;}
-            &.fourth{font-size: 4vw / 5 * 3.25;}
-            &.fifth{font-size: 4vw / 5 * 4 ;}
-
-
+        &:hover,
+        &.active {
+            .shadow-border;
+            margin: 0;
+            background-color: @green;
         }
+
+        &::before {
+            .awsomefont;
+            content: @fa-var-bolt;
+            color: #fff;
+        }
+
+        &.first{font-size: 4vw / 5 * 1.25 ;}
+        &.second{font-size: 4vw / 5 * 1.75 ;}
+        &.third{font-size: 4vw / 5 * 2.5 ;}
+        &.fourth{font-size: 4vw / 5 * 3.25;}
+        &.fifth{font-size: 4vw / 5 * 4 ;}
+
     }
 
     .adjust-item-widget {
@@ -339,15 +337,35 @@
 // ADJUST AUTOPRODUCTION
 
 .autoproduction {
-
-    .toggle {
-        margin-left: 0.5em;
-    }
-
-    .wrapper-dble-checkbox {
+    .adjust-item-title {
         display: flex;
-        .checkbox {margin-left: @margin;}
     }
+    .picto-collection {
+        height: 1em;
+        width: auto;
+        display: flex;
+
+        > div {
+            width: 1em;
+            height: 1em;
+            margin-left: 0.5em;
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: contain;
+            display: none;
+
+            &.active {display: block;}
+
+            &.reduce    {background-image: url("../../asset/svg/reduce.svg");}
+            &.day       {background-image: url("../../asset/svg/day.svg");}
+            &.battery   {background-image: url("../../asset/svg/battery.svg");}
+        }
+    }
+    .adjust-item-note div {
+        display: none;
+        &.active {display: block;}
+    }
+
 }
 
 // ADJUST FINANCE
