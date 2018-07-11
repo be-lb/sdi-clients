@@ -117,6 +117,8 @@ export const getNumInputF =
 
 export const installationCost = () => withEuro(1000);
 
+
+// tslint:disable-next-line:variable-name
 export const CVAmountYearN = () => withEuro(1000);
 
 // export const selfConsumptionAmountYearN = () => withEuro(1000)
@@ -132,7 +134,8 @@ export const obstacleRate = () => withPercent(1000);
 
 export const annualProduction = () => withKWhY(1000);
 
-export const annualConsumption = () => withTCO2Y(1000);
+export const annualConsumption =
+    () => queryInputs()['annualConsumptionKWh'];// withTCO2Y(1000);
 
 export const autonomy = () => withPercent(1000);
 
