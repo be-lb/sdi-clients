@@ -1,4 +1,4 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
@@ -64,7 +64,7 @@ export const calcConsumption =
             titleAndPicto(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                inputItem('annualConsumptionKWh', 'annualConsumptionKWh')),
+                inputItem('annualConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh')))),
             adjustNote(),
         );
 
