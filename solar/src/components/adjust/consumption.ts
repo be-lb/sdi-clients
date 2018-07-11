@@ -1,3 +1,4 @@
+
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
@@ -5,6 +6,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { inputItem } from '../item-factory';
 import { annualConsumption } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+
 
 
 // Petit consommateur(studio / appartement avec éclairage, réfrigérateur etc.) : 600 kWh / an
@@ -110,7 +112,6 @@ export const calcConsumption =
             ),
             adjustNote(),
         );
-
 
 
 
