@@ -47,16 +47,16 @@ const getFeatureNumber =
     (f: Feature, k: string, dflt = 0): number => {
         const props = f.properties;
         if (props && k in props) {
-            return props[k]
+            return props[k];
         }
         return dflt;
-    }
+    };
 
 export const totalArea =
-    getCapakey()
+    () => getCapakey()
         .fold(0,
             (key) => {
-                const fc = roofs()[key]
+                const fc = roofs()[key];
                 if (fc) {
                     return fc.features.reduce((acc, r) => acc + getFeatureNumber(r, 'area'), 0);
                 }
@@ -64,7 +64,7 @@ export const totalArea =
             });
 
 const areaProductivity =
-    (_low: number, _high: number) => () => 10
+    (_low: number, _high: number) => () => 10;
 // () =>
 //     roofs()
 //         .filter(r => r.productivity >= low && r.productivity < high)
