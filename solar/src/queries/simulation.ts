@@ -14,8 +14,8 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { fromNullable } from 'fp-ts/lib/Option';
-// import { identity } from 'fp-ts/lib/function';
+import { fromNullable, none, some } from 'fp-ts/lib/Option';
+import bbox from '@turf/bbox';
 
 import { query, queryK } from 'sdi/shape';
 import tr from 'sdi/locale';
@@ -24,6 +24,7 @@ import { getFeatureProp } from 'sdi/source';
 
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust/index';
+import { identity } from 'fp-ts/lib/function';
 
 
 export const streetName =
@@ -150,3 +151,30 @@ export const pvTechnology =
 
 export const getObstacle =
     (o: Obstacle) => query('solar/obstacle')[o];
+
+
+export const getOrthoURL =
+    () =>
+        getCapakey()
+            .chain((ck) => {
+                const geoms = query('solar/data/geoms');
+                if (ck in geoms) {
+                    const [minx, miny, maxx, maxy] = bbox(geoms[ck]);
+                    const width = maxx - minx;
+                    const height = maxy - miny;
+                    const sideMax = Math.max(width, height);
+                    const sideMin = Math.min(width, height);
+                    const abbox = [
+                        minx - ((sideMax - sideMin) / 2),
+                        miny - ((sideMax - sideMin) / 2),
+                        minx + sideMax,
+                        miny + sideMax,
+                    ];
+
+                    const bboxString = abbox.map(c => c.toFixed(2)).join('%2C');
+                    const url = `https://geodata.environnement.brussels/webservice/wmsproxy/urbis.irisnet.be?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=Ortho2016&WIDTH=256&HEIGHT=256&SRS=EPSG%3A31370&STYLES=&BBOX=${bboxString}`;
+                    return some(url);
+                }
+                return none;
+            })
+            .fold('', identity);

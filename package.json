@@ -21,6 +21,7 @@
     },
     "homepage": "https://github.com/be-lb/sdi-clients#readme",
     "devDependencies": {
+        "@turf/bbox": "^6.0.1",
         "@turf/center": "^4.2.0",
         "@types/bluebird": "^3.5.0",
         "@types/color": "^1.0.4",

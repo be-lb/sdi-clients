@@ -45,7 +45,7 @@ export const setInputF =
 
 export const updateRoofs =
     (capakey: string) => fromNullable(query('solar/data/roofs')[capakey])
-        .map(fc => dispatchInputs(ins => {
+        .map(fc => dispatchInputs((ins) => {
             const ns = {
                 ...ins,
                 roofs: fc.features.map<roof>(f => ({
@@ -54,7 +54,6 @@ export const updateRoofs =
                     tilt: getFeatureProp(f, 'tilt', 0),
                 })),
             };
-            console.log(JSON.stringify(ns));
             return ns;
         }));
 

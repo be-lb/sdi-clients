@@ -1,5 +1,7 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, IMG } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { getOrthoURL } from '../../queries/simulation';
+import map from '../map';
 
 
 const barChart =
@@ -22,6 +24,7 @@ const wrapperOrtho =
     () =>
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu ortho' },
+                IMG({ src: getOrthoURL() }),
                 DIV({ className: 'map-pin top' },
                     DIV({ className: 'pin-head' }, '$n'),
                     DIV({ className: 'pin-body' }),
@@ -37,6 +40,7 @@ const wrapperPlan =
     () =>
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu plan' },
+                map(),
                 DIV({ className: 'map-pin middle' },
                     DIV({ className: 'pin-head' }, '$n'))),
             DIV({ className: 'illu-text roof-area' },
