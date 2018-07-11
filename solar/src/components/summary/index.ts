@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent } from 'sdi/util';
+import { withPercent, withTCO2Y } from 'sdi/util';
 
 
 import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime, savedCO2emissions, potential, streetName, streetNumber, locality, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
@@ -9,9 +9,10 @@ import { area, power, obstacleRate, annualProduction, annualConsumption, autonom
 
 
 const vk =
-    (vkClass: string, v: string, key: MessageKey) => DIV({ className: 'vk' + ' ' + vkClass },
-        SPAN({ className: 'value' }, v),
-        SPAN({ className: 'key' }, tr(key)));
+    <T>(v: T, key: MessageKey, vkClass = '') =>
+        DIV({ className: `vk ${vkClass}` },
+            SPAN({ className: 'value' }, `${v}`),
+            SPAN({ className: 'key' }, tr(key)));
 
 
 const sumAdress =
@@ -32,10 +33,10 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            vk('buying-price', installationCost(), 'buyingPrice'),
-            vk('green-cert', CVAmountYearN(), 'gainGreenCertif'),
-            vk('gain-elec', '$invoice', 'gainElecInvoice'),
-            vk('gain-env', savedCO2emissions(), 'gainEnvironment'),
+            vk(installationCost(), 'buyingPrice', 'buying-price'),
+            vk(CVAmountYearN(), 'gainGreenCertif', 'green-cert'),
+            vk('$invoice', 'gainElecInvoice', 'gain-elec'),
+            vk(savedCO2emissions(), 'gainEnvironment', 'gain-env'),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -69,37 +70,31 @@ export const summary =
             sumArea(),
         );
 
-
-
-
-
-
-
 const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            vk('', area(), 'surface'),
-            vk('', power(), 'power'),
-            vk('', obstacleRate(), 'obstacleEstimation'));
+            vk(area(), 'surface'),
+            vk(power(), 'power'),
+            vk(obstacleRate(), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk('', annualProduction(), 'yearProduction'),
-            vk('', annualConsumption(), 'yearConsumption'),
-            vk('', autonomy(), 'solarAutonomy'));
+            vk(annualProduction(), 'yearProduction'),
+            vk(withTCO2Y(annualConsumption()), 'yearConsumption'),
+            vk(autonomy(), 'solarAutonomy'));
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk('', installationCost(), 'buyingPrice'),
-            vk('', CVAmountYearN(), 'gainGreenCertif'),
-            vk('', '$elec', 'gainElecInvoice'),
-            vk('', totalGain25Y(), 'gainTotal25Y'),
-            vk('', returnTime(), 'returnTime'));
+            vk(installationCost(), 'buyingPrice'),
+            vk(CVAmountYearN(), 'gainGreenCertif'),
+            vk('$elec', 'gainElecInvoice'),
+            vk(totalGain25Y(), 'gainTotal25Y'),
+            vk(returnTime(), 'returnTime'));
 
 
 

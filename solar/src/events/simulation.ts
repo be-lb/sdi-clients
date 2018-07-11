@@ -35,9 +35,9 @@ export type SetNumKeyOfInputs =
     | 'installationPrice'
     ;
 
-export const setNumInputF =
-    <K extends SetNumKeyOfInputs>(k: K) =>
-        (v: inputs[K]) => dispatchInputs(state => ({
+export const setInputF =
+    <K extends keyof inputs, T extends inputs[K]>(k: K) =>
+        (v: T) => dispatchInputs(state => ({
             ...state,
             [k]: v,
         }));

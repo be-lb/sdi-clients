@@ -4,7 +4,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 
 import { inputItem } from '../item-factory';
 import { annualConsumption } from '../../queries/simulation';
-import { setNumInputF } from '../../events/simulation';
+import { setInputF } from '../../events/simulation';
 
 
 // Petit consommateur(studio / appartement avec éclairage, réfrigérateur etc.) : 600 kWh / an
@@ -34,7 +34,7 @@ const notes: { [k in rank]: MessageKey } = {
     fifth: 'solNoteConsRank5',
 };
 
-const setConsumption = setNumInputF('annualConsumptionKWh');
+const setConsumption = setInputF('annualConsumptionKWh');
 
 // we build the icons next to the title
 const icon =

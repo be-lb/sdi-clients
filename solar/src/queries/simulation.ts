@@ -144,6 +144,8 @@ export const totalGain25Y = () => withEuro(1000);
 export const returnTime = () => withYear(1000);
 
 
+export const pvTechnology =
+    () => queryInputs()['pvTechnology'];
 
 
 export const getObstacle =
