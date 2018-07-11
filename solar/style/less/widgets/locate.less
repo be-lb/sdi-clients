@@ -24,20 +24,16 @@
 }
 
 .locate-pitch {
-    width: 40%;
+    width: 35%;
     padding-right: 2*@margin;
 
-    .bolt:before{
-        .awsomefont;
-        content: @fa-var-bolt + ' ';
-    }
     .pitch-bold {
         font-weight: 700;
     }
 }
 
 .locate-geocode {
-    width: 60%;
+    width: 65%;
     padding-bottom: @margin;
     display: flex;
     flex-direction: column;
@@ -49,6 +45,27 @@
 
     .toggle {
         margin: @margin 0;
+        .value {display: flex; flex-wrap: nowrap;}
+        .first-value:after,
+        .second-value:before {
+            content: ' ';
+            width: 1em;
+            height: 1em;
+            display: block;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin: 0 @margin/2;
+        }
+        .first-value:after {
+            background-image: url("../../asset/svg/electricity.svg");
+        }
+
+        .second-value:before {
+            background-image: url("../../asset/svg/waterheating.svg");
+        }
+
+        .toggle-icon {margin: 0;}
     }
 }
 
@@ -77,6 +94,25 @@
             .awsomefont;
             content: @fa-var-bolt;
             margin-right: @margin/2;
+        }
+    }
+}
+
+.locate {
+    .geocoder-wrapper {
+        height: 2.4em;
+        overflow-y: auto;
+    }
+    .adress-result {
+        font-size: 75%;
+        cursor: default;
+        &:before {
+            .awsomefont;
+            content: @fa-var-circle-o;
+            margin-right: 0.5em;
+        }
+        &:hover:before {
+            content: @fa-var-dot-circle-o;
         }
     }
 }

@@ -56,6 +56,9 @@ const renderGeocoderButton =
         }),
         tr('solResearch'));
 
+const renderGeocoderInputWrapper =
+    (...n: React.ReactNode[]) => DIV({ className: 'input-wrapper' }, ...n);
+
 const renderGeocoderResults =
     (results: IUgWsResult[]) => {
         return results.map(({ point, address }, key) => {
@@ -79,21 +82,20 @@ const renderGeocoderResults =
         });
     };
 
-const renderGeocoderWrapper =
-    (...n: React.ReactNode[]) => DIV({ className: 'input-wrapper' }, ...n);
+const renderGeocoderResultsWrapper =
+    (...n: React.ReactNode[]) => DIV({ className: 'geocoder-wrapper' }, ...n);
 
 const renderGeocoder =
     () =>
         geocoderResponse()
             .fold(
-                renderGeocoderWrapper(renderGeocoderInput(), renderGeocoderButton()),
-                ({ result }) => renderGeocoderWrapper(renderGeocoderResults(result)));
+                renderGeocoderInputWrapper(renderGeocoderInput(), renderGeocoderButton()),
+                ({ result }) => renderGeocoderResultsWrapper(renderGeocoderResults(result)));
 
 const wrapperTop =
     () =>
         DIV({ className: 'wrapper-top' },
             DIV({ className: 'locate-pitch' },
-                SPAN({ className: 'bolt' }),
                 SPAN({}, tr('solHowMuchOf')),
                 SPAN({ className: 'pitch-bold' }, tr('electricity')),
                 DIV({}, tr('solOrOf'), SPAN({ className: 'pitch-bold' }, tr('heat'))),
@@ -105,7 +107,7 @@ const wrapperTop =
                     SPAN({}, tr('solCalculateStrPart1')),
                     SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
                     SPAN({}, tr('solCalculateStrPart2'))),
-                toggle('solarThermal', 'solarPV'),
+                toggle('solarPV', 'solarThermal'),
                 renderGeocoder(),
                 DIV({}, tr('solOrSelectBuildingOnMap'))));
 

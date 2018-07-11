@@ -38,8 +38,8 @@ export const inputItem =
 export const toggle =
     (value1: MessageKey, value2: MessageKey) =>
         DIV({ className: 'toggle' },
-            DIV({ className: 'value first-value inactive' }, tr(value1) + ' '),
+            DIV({ className: 'value first-value' }, tr(value1) + ' '),
             DIV({ className: 'toggle-icon' }),
-            DIV({ className: 'value second-value' }, ' ' + tr(value2)));
+            DIV({ className: 'value second-value inactive' }, ' ' + tr(value2)));
 
 
