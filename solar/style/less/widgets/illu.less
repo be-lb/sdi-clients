@@ -55,7 +55,7 @@
 .map-pin.top {
     height: calc(~"50% + .75rem");
     width: 100%;
-    position: absolute !important;
+    position: absolute;
     bottom: 50%;
     display: flex;
     flex-direction: column;
@@ -87,12 +87,36 @@
 
 .pin-head {
     background: #000;
-    font-size: 1.25rem;
+    font-size: 100%;
     font-weight: 700;
     color: #fff;
-    border-radius: 10px;
     padding: .15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+.numnum-1 .pin-head{
+    border-radius: 2ch;
+    width: 2ch;
+    height: 2ch;
+
+}
+.numnum-2 .pin-head{
+    border-radius: 3ch;
+    width: 3ch;
+    height: 3ch;
+}
+.numnum-3 .pin-head{
+    border-radius: 4ch;
+    width: 4ch;
+    height: 4ch;
+}
+.numnum-4 .pin-head{
+    border-radius: 5ch;
+    width: 5ch;
+    height: 5ch;
+}
+
 .pin-end {
     width: 3px;
     height: 3px;
