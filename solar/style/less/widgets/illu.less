@@ -1,3 +1,5 @@
+@illuRadius : 20vw;
+
 .context {
     padding-top: @margin;
     display: flex;
@@ -8,13 +10,19 @@
     width: calc(~"(100% - 2 * @{margin}) / 3");
 
     .illu {
-        .shadow-border;
         position: relative;
-        width: 100%;
-        padding-bottom: 100%; // for a square ratio
-        border-radius: 20vw;
+        width: @illuRadius;
+        height: @illuRadius;
         background: pink;
         margin-bottom: @margin * 2;
+
+        .circle-wrapper {
+            .shadow-border;
+            border-radius: 20vw;
+            width: @illuRadius;
+            height: @illuRadius;
+            overflow: hidden;
+        }
     }
 
     .illu-text, .barchart {
