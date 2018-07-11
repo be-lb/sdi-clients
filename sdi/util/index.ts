@@ -172,7 +172,7 @@ export const filterNotNull =
     };
 
 
-const withUnit = (k: MessageKey) => (value: number) => `${value} ${tr(k, { value })}`;
+const withUnit = (k: MessageKey) => (value: number) => `${value.toFixed(0)} ${tr(k, { value })}`;
 
 export const withEuro = withUnit('unitEuro');
 export const withEuroY = withUnit('unitEuroY');

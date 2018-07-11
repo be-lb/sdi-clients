@@ -14,15 +14,20 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
+
+
 import { fromNullable } from 'fp-ts/lib/Option';
 import { inputs, solarSim, roof } from 'solar-sim';
 
 import { IUgWsAddress } from 'sdi/ports/geocoder';
-import { dispatch, dispatchK, query } from 'sdi/shape';
+import { dispatch, dispatchK, query, observe } from 'sdi/shape';
 import { getFeatureProp } from 'sdi/source';
 
 import { Obstacle } from '../components/adjust';
+import { getCapakey } from '../queries/app';
 
+const logger = debug('sdi:solar/events')
 
 const dispatchInputs = dispatchK('solar/inputs');
 const dispatchOutputs = dispatchK('solar/outputs');
@@ -39,6 +44,12 @@ export type SetNumKeyOfInputs =
 
 export const setAddress =
     (a: IUgWsAddress) => dispatch('solar/address', () => a);
+
+
+observe('solar/inputs', () => {
+    logger('SIMULATION!!!')
+    getCapakey().map(simulate)
+});
 
 export const setInputF =
     <K extends keyof inputs, T extends inputs[K]>(k: K) =>
@@ -62,9 +73,8 @@ export const updateRoofs =
             return ns;
         }));
 
-export const simulate =
-    (capakey: string) => {
-        updateRoofs(capakey);
+const simulate =
+    () => {
         dispatchOutputs(() => {
             try {
                 return solarSim(query('solar/inputs'));
@@ -82,3 +92,5 @@ export const setObstacle =
     (o: Obstacle, n: number) => {
         dispatch('solar/obstacle', state => ({ ...state, [o]: n }));
     };
+
+logger('loaded')

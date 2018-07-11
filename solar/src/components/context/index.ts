@@ -1,6 +1,6 @@
 import { DIV, IMG } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { getOrthoURL } from '../../queries/simulation';
+import { getOrthoURL, streetNumber } from '../../queries/simulation';
 import map from '../map';
 
 
@@ -26,8 +26,8 @@ const wrapperOrtho =
             DIV({ className: 'illu ortho' },
                 DIV({ className: 'circle-wrapper' },
                     IMG({ src: getOrthoURL() })),
-                DIV({ className: 'map-pin top' },
-                    DIV({ className: 'pin-head' }, '$n'),
+                DIV({ className: `map-pin top numnum-${streetNumber().length}` },
+                    DIV({ className: 'pin-head' }, `${streetNumber()}`),
                     DIV({ className: 'pin-body' }),
                     DIV({ className: 'pin-end' }))),
             DIV({ className: 'illu-text back-to-map' },
@@ -44,7 +44,7 @@ const wrapperPlan =
                 DIV({ className: 'circle-wrapper' },
                     map()),
                 DIV({ className: 'map-pin middle' },
-                    DIV({ className: 'pin-head' }, '$n'))),
+                    DIV({ className: 'pin-head' }, `${streetNumber()}`))),
             DIV({ className: 'illu-text roof-area' },
                 DIV({}, tr('roofTotalArea')),
                 DIV({}, '$value')));

@@ -24,7 +24,7 @@ import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 
 import { AppLayout } from '../app';
 import { fetchMap, fetchRoof, fetchGeom, fetchBuilding } from '../remote';
-import { simulate } from './simulation';
+import { updateRoofs } from './simulation';
 
 const logger = debug('sdi:events/app');
 
@@ -121,7 +121,7 @@ export const loadCapakey =
             loadBuildings(capakey),
         ];
         Promise.all(loaders)
-            .then(() => simulate(capakey))
+            .then(() => updateRoofs(capakey))
             .then(() => {
                 checkAddress(capakey);
             });
