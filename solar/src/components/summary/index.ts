@@ -49,13 +49,13 @@ const sumArea =
             DIV({ className: 'area-kv-wrapper' },
                 DIV({ className: 'vk', style: { width: excellent } },
                     SPAN({ className: 'value' }, excellent),
-                    SPAN({ className: 'key' }, ' ' + tr('orientationGreat'))),
+                    SPAN({ className: 'key' }, tr('orientationGreat'))),
                 DIV({ className: 'vk', style: { width: medium } },
                     SPAN({ className: 'value' }, medium),
-                    SPAN({ className: 'key' }, ' ' + tr('orientationGood'))),
+                    SPAN({ className: 'key' }, tr('orientationGood'))),
                 DIV({ className: 'vk', style: { width: low } },
                     SPAN({ className: 'value' }, low),
-                    SPAN({ className: 'key' }, ' ' + tr('unusable'))),
+                    SPAN({ className: 'key' }, tr('unusable'))),
             ));
     };
 
