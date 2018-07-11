@@ -61,7 +61,7 @@ const sidebar =
 
 const render =
     () =>
-        DIV({ className: 'main-and-right-sidebar' },
+        DIV({ className: 'solar-main-and-right-sidebar' },
             content(),
             sidebar(),
         );
