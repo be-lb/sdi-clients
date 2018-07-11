@@ -1,24 +1,29 @@
 import { DIV, IMG } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { getOrthoURL, streetNumber } from '../../queries/simulation';
+import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
 import map from '../map';
+import { withM2, withPercent } from 'sdi/util';
 
 
 const barChart =
-    () =>
-        DIV({ className: 'barchart' },
+    () => {
+        const a = areaExcellent()
+        const b = areaMedium()
+        const c = areaLow()
+        return DIV({ className: 'barchart' },
             DIV({
                 className: 'great',
-                width: '%value',
-            }, '$area'),
+                style: { width: `${a}%` },
+            }, withPercent(a)),
             DIV({
                 className: 'good',
-                width: '%value',
-            }, '$area'),
+                style: { width: `${b}%` },
+            }, withPercent(b)),
             DIV({
                 className: 'unusable',
-                width: '%value',
-            }, '$area'));
+                style: { width: `${c}%` },
+            }, withPercent(c)));
+    }
 
 const wrapperOrtho =
     () =>
@@ -47,7 +52,7 @@ const wrapperPlan =
                     DIV({ className: 'pin-head' }, `${streetNumber()}`))),
             DIV({ className: 'illu-text roof-area' },
                 DIV({}, tr('roofTotalArea')),
-                DIV({}, '$value')));
+                DIV({}, withM2(totalArea()))));
 
 const wrapper3D =
     () =>
