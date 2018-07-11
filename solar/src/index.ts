@@ -24,6 +24,7 @@ import { defaultInteraction } from 'sdi/map';
 import { inputsFactory } from 'solar-sim';
 
 import App from './app';
+import { defaulObstacles } from './components/adjust';
 
 const logger = debug('sdi:index');
 
@@ -98,6 +99,8 @@ export const main =
 
             'solar/address': null,
             'solar/inputs': inputsFactory([]),
+            'solar/outputs': null,
+            'solar/obstacle': defaulObstacles(),
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},

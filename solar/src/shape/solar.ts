@@ -14,8 +14,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { IUgWsAddress } from 'sdi/ports/geocoder';
-import { inputs } from 'solar-sim';
+import { inputs, outputs } from 'solar-sim';
 import { FeatureCollection } from 'sdi/source';
+import { Obstacles } from '../components/adjust';
 
 export type TypologyEnum =
     | 'closed'
@@ -35,6 +36,8 @@ declare module 'sdi/shape' {
     export interface IShape {
         'solar/address': IUgWsAddress | null;
         'solar/inputs': inputs;
+        'solar/outputs': outputs | null;
+        'solar/obstacle': Obstacles;
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;
