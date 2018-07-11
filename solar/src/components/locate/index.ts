@@ -12,6 +12,7 @@ import { IUgWsAddress, IUgWsResult, queryGeocoder } from 'sdi/ports/geocoder';
 import { updateGeocoderTerm, updateGeocoderResponse } from '../../events/map';
 import { fetchKey } from '../../remote/index';
 import { navigatePreview } from '../../events/route';
+import { setAddress } from '../../events/simulation';
 
 const logger = debug('sdi:solar');
 
@@ -66,6 +67,7 @@ const renderGeocoderResults =
             return DIV({ className: 'adress-result', key },
                 SPAN({
                     onClick: () => {
+                        setAddress(address);
                         updateGeocoderResponse(null);
                         fetchKey(point.x, point.y)
                             .then(({ capakey }) => navigatePreview(capakey))

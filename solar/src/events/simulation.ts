@@ -17,8 +17,10 @@
 import { fromNullable } from 'fp-ts/lib/Option';
 import { inputs, solarSim, roof } from 'solar-sim';
 
+import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query } from 'sdi/shape';
 import { getFeatureProp } from 'sdi/source';
+
 import { Obstacle } from '../components/adjust';
 
 
@@ -34,6 +36,9 @@ export type SetNumKeyOfInputs =
     | 'annualConsumptionKWh'
     | 'installationPrice'
     ;
+
+export const setAddress =
+    (a: IUgWsAddress) => dispatch('solar/address', () => a);
 
 export const setInputF =
     <K extends keyof inputs, T extends inputs[K]>(k: K) =>

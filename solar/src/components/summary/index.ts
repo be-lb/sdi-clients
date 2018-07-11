@@ -1,10 +1,10 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withTCO2Y } from 'sdi/util';
+import { withPercent, withTCO2Y, withEuro, withEuroY, withM2, withKWc, withKWhY, withYear } from 'sdi/util';
 
 
-import { area, power, obstacleRate, annualProduction, annualConsumption, autonomy, installationCost, CVAmountYearN, totalGain25Y, returnTime, savedCO2emissions, potential, streetName, streetNumber, locality, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
+import { getOutput, streetName, streetNumber, locality, potential, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
 
 
 
@@ -33,10 +33,10 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            vk(installationCost(), 'buyingPrice', 'buying-price'),
-            vk(CVAmountYearN(), 'gainGreenCertif', 'green-cert'),
-            vk('$invoice', 'gainElecInvoice', 'gain-elec'),
-            vk(savedCO2emissions(), 'gainEnvironment', 'gain-env'),
+            vk(withEuro(getOutput('installationCost', 0)), 'buyingPrice', 'buying-price'),
+            vk(withEuroY(getOutput('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
+            vk(withEuro(getOutput('totalGain25Y')), 'gainElecInvoice', 'gain-elec'),
+            vk(withTCO2Y(getOutput('savedCO2emissions')), 'gainEnvironment', 'gain-env'),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -74,27 +74,27 @@ const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            vk(area(), 'surface'),
-            vk(power(), 'power'),
-            vk(obstacleRate(), 'obstacleEstimation'));
+            vk(withM2(getOutput('area')), 'surface'),
+            vk(withKWc(getOutput('power')), 'power'),
+            vk(withPercent(getOutput('obstacleRate')), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk(annualProduction(), 'yearProduction'),
-            vk(withTCO2Y(annualConsumption()), 'yearConsumption'),
-            vk(autonomy(), 'solarAutonomy'));
+            vk(withKWhY(getOutput('annualProduction')), 'yearProduction'),
+            vk(withKWhY(getOutput('annualConsumption')), 'yearConsumption'),
+            vk(withPercent(getOutput('autonomy')), 'solarAutonomy'));
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(installationCost(), 'buyingPrice'),
-            vk(CVAmountYearN(), 'gainGreenCertif'),
+            vk(withEuro(getOutput('installationCost')), 'buyingPrice'),
+            vk(withEuroY(getOutput('CVAmountYearN')), 'gainGreenCertif'),
             vk('$elec', 'gainElecInvoice'),
-            vk(totalGain25Y(), 'gainTotal25Y'),
-            vk(returnTime(), 'returnTime'));
+            vk(withEuro(getOutput('totalGain25Y')), 'gainTotal25Y'),
+            vk(withYear(getOutput('returnTime')), 'returnTime'));
 
 
 

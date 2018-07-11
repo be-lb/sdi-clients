@@ -16,9 +16,11 @@
 
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
+import pointOnFeature from '@turf/point-on-feature';
 
 import { dispatch, query } from 'sdi/shape';
-import { getApiUrl } from 'sdi/app';
+import { getApiUrl, getLang } from 'sdi/app';
+import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 
 import { AppLayout } from '../app';
 import { fetchMap, fetchRoof, fetchGeom, fetchBuilding } from '../remote';
@@ -75,6 +77,41 @@ const loadBuildings =
                 fc => Promise.resolve(fc),
         );
 
+
+const checkAddress =
+    (ck: string) => {
+        logger('checkAddress');
+        const a = query('solar/address');
+        if (a) {
+            return Promise.resolve();
+        }
+        const gs = query('solar/data/geoms');
+        if (!(ck in gs)) {
+            return Promise.reject();
+        }
+        const { geometry } = pointOnFeature(gs[ck]);
+        if (null === geometry) {
+            return Promise.reject();
+        }
+        const [x, y] = geometry.coordinates;
+        return (new Promise((resolve, reject) => {
+            queryReverseGeocoder(x, y, getLang())
+                .then((response) => {
+                    if (!response.error) {
+                        logger(`Got address ${response.result.address}`);
+                        dispatch('solar/address', () => response.result.address);
+                        resolve();
+                    }
+                    else {
+                        reject();
+                    }
+                })
+                .catch(reject);
+        }));
+
+
+    };
+
 export const loadCapakey =
     (capakey: string) => {
         dispatch('app/capakey', () => capakey);
@@ -83,7 +120,12 @@ export const loadCapakey =
             loadGeometry(capakey),
             loadBuildings(capakey),
         ];
-        Promise.all(loaders).then(() => simulate(capakey));
+        Promise.all(loaders)
+            .then(() => simulate(capakey))
+            .then(() => {
+                checkAddress(capakey);
+            });
+
     };
 
 logger('loaded');

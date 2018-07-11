@@ -18,6 +18,7 @@ import { MessageRecordLang } from '../source';
 
 
 const restServiceURL = 'https://geoservices.irisnet.be/localization/Rest/Localize/getaddresses?';
+const restServiceReverseURL = 'https://geoservices.irisnet.be/localization/Rest/Localize/getaddressfromxy?';
 
 export interface IUgWsAddress {
     street: {
@@ -72,7 +73,19 @@ export interface IUgWsResponse {
     status: string;
     version: string;
 }
+export interface IUgWsResponseSingle {
+    result: IUgWsResult;
+    error: boolean;
+    status: string;
+    version: string;
+}
 
+// // { "language": "fr", "point": { "x": "149785", "y": "170561" }, "spatialReference": "31370" }
+
+// export interface IUgWsResponse {
+//     language: MessageRecordLang;
+//     point: IUgWsPoint;
+// }
 
 const queryString = (o: { [k: string]: any }) => {
     return Object.keys(o).reduce((a, k) => {
@@ -110,3 +123,34 @@ export const queryService = (address: string, language: MessageRecordLang): Prom
 
 // aliasing
 export const queryGeocoder = queryService;
+
+export const queryReverseGeocoder =
+    (x: number, y: number, language: MessageRecordLang): Promise<IUgWsResponseSingle> => {
+        // works => json={"language":"fr","point":{"x":"149785","y":"170561"},"SRS_In":"31370"}
+        const qs = queryString({
+            json: JSON.stringify({
+                language,
+                SRS_In: '31370',
+                point: { x, y },
+            }),
+        });
+
+        return (
+            fetch(`${restServiceReverseURL}${qs}`)
+                .then(response => response.text())
+                .then((text) => {
+                    try {
+                        return JSON.parse(text);
+                    }
+                    catch (e) {
+                        return {
+                            result: [],
+                            error: true,
+                            status: 'FailedToParse',
+                            version: '2.0',
+                        };
+                    }
+                })
+                .then((data: IUgWsResponseSingle) => data)
+        );
+    };

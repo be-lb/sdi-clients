@@ -25,6 +25,7 @@ import { getFeatureProp } from 'sdi/source';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust/index';
 import { identity } from 'fp-ts/lib/function';
+import { outputs } from 'solar-sim';
 
 
 export const streetName =
@@ -116,13 +117,14 @@ export type GetNumKeyOfInputs =
 export const getNumInputF =
     <K extends GetNumKeyOfInputs>(k: K) => () => queryInputs()[k];
 
-export const installationCost = () => withEuro(1000);
-
-
-// tslint:disable-next-line:variable-name
-export const CVAmountYearN = () => withEuro(1000);
 
 // export const selfConsumptionAmountYearN = () => withEuro(1000)
+
+type OutputKey = keyof outputs;
+
+export const getOutput =
+    <K extends OutputKey>(k: K, dflt = 0): number =>
+        fromNullable(query('solar/outputs')).fold(dflt, out => Math.ceil(out[k]));
 
 
 export const savedCO2emissions = () => withTCO2Y(1000);
