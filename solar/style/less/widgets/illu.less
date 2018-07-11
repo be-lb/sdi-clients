@@ -1,3 +1,5 @@
+@illuRadius : 20vw;
+
 .context {
     padding-top: @margin;
     display: flex;
@@ -8,13 +10,25 @@
     width: calc(~"(100% - 2 * @{margin}) / 3");
 
     .illu {
-        .shadow-border;
         position: relative;
-        width: 100%;
-        padding-bottom: 100%; // for a square ratio
-        border-radius: 20vw;
-        background: pink;
+        width: @illuRadius;
+        height: @illuRadius;
+        // background: pink; //debug
         margin-bottom: @margin * 2;
+
+        .circle-wrapper {
+            .shadow-border;
+            position: relative;
+            border-radius: @illuRadius;
+            width: @illuRadius;
+            height: @illuRadius;
+            overflow: hidden;
+
+            > div {
+                width : 100%;
+                height: 100%;
+            }
+        }
     }
 
     .illu-text, .barchart {
@@ -23,6 +37,12 @@
     }
 }
 
+
+.illu.plan .map-wrapper {
+    .control-box {
+        display: none;
+    }
+}
 
 
 
