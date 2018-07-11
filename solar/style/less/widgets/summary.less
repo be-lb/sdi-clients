@@ -19,15 +19,12 @@
     .potential-values {
         margin-top: @margin;
         margin-bottom: @margin;
-        .kv {
+        .vk {
             font-size: @medium-font;
-            .key {
-                &:after {
-                    content: ' : ';
-                }
-            }
             .value {
                 font-weight: 700;
+                width: 100%;
+                display: block;
             }
         }
         .note {
@@ -52,9 +49,8 @@
         margin-top: @margin;
         margin-bottom: @margin / 2;
     }
-    .kv {
+    .vk {
         font-size: @small-font;
-        .key::after{content: " : ";}
         .value {font-weight: 500;}
     }
 }

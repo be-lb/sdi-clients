@@ -8,10 +8,10 @@ import { area, power, obstacleRate, annualProduction, annualConsumption, autonom
 
 
 
-const kv =
-    (key: MessageKey, v: string) => DIV({ className: 'kv' },
-        SPAN({ className: 'key' }, tr(key)),
-        SPAN({ className: 'value' }, v));
+const vk =
+    (v: string, key: MessageKey) => DIV({ className: 'vk' },
+        SPAN({ className: 'value' }, v),
+        SPAN({ className: 'key' }, tr(key)));
 
 
 const sumAdress =
@@ -32,10 +32,10 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            kv('buyingPrice', installationCost()),
-            kv('gainGreenCertif', CVAmountYearN()),
-            kv('gainElecInvoice', '$invoice'),
-            kv('gainEnvironment', savedCO2emissions()),
+            vk(installationCost(), 'buyingPrice'),
+            vk(CVAmountYearN(), 'gainGreenCertif'),
+            vk('$invoice', 'gainElecInvoice'),
+            vk(savedCO2emissions(), 'gainEnvironment'),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -47,15 +47,15 @@ const sumArea =
         return DIV({ className: 'summary-area' },
             DIV({ className: 'area-barchart' }),
             DIV({ className: 'area-kv-wrapper' },
-                DIV({ className: 'kv', style: { width: excellent } },
+                DIV({ className: 'vk', style: { width: excellent } },
                     SPAN({ className: 'value' }, excellent),
-                    SPAN({ className: 'key' }, tr('orientationGreat'))),
-                DIV({ className: 'kv', style: { width: medium } },
+                    SPAN({ className: 'key' }, ' ' + tr('orientationGreat'))),
+                DIV({ className: 'vk', style: { width: medium } },
                     SPAN({ className: 'value' }, medium),
-                    SPAN({ className: 'key' }, tr('orientationGood'))),
-                DIV({ className: 'kv', style: { width: low } },
+                    SPAN({ className: 'key' }, ' ' + tr('orientationGood'))),
+                DIV({ className: 'vk', style: { width: low } },
                     SPAN({ className: 'value' }, low),
-                    SPAN({ className: 'key' }, tr('unusable'))),
+                    SPAN({ className: 'key' }, ' ' + tr('unusable'))),
             ));
     };
 
@@ -79,27 +79,27 @@ const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            kv('surface', area()),
-            kv('power', power()),
-            kv('obstacleEstimation', obstacleRate()));
+            vk(area(), 'surface'),
+            vk(power(), 'power'),
+            vk(obstacleRate(), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            kv('yearProduction', annualProduction()),
-            kv('yearConsumption', annualConsumption()),
-            kv('solarAutonomy', autonomy()));
+            vk(annualProduction(), 'yearProduction'),
+            vk(annualConsumption(), 'yearConsumption'),
+            vk(autonomy(), 'solarAutonomy'));
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            kv('buyingPrice', installationCost()),
-            kv('gainGreenCertif', CVAmountYearN()),
-            kv('gainElecInvoice', '$elec'),
-            kv('gainTotal25Y', totalGain25Y()),
-            kv('returnTime', returnTime()));
+            vk(installationCost(), 'buyingPrice'),
+            vk(CVAmountYearN(), 'gainGreenCertif'),
+            vk('$elec', 'gainElecInvoice'),
+            vk(totalGain25Y(), 'gainTotal25Y'),
+            vk(returnTime(), 'returnTime'));
 
 
 

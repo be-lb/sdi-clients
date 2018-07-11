@@ -2207,7 +2207,7 @@ export const messages: MessageDB = {
     },
 
     annualConsumptionKWh: {
-        fr: 'Consomation annuelle (kWh)',
+        fr: 'Consommation annuelle (kWh)',
         nl: 'Jaarlijks verbruik (kWh)',
         en: 'Annual consumption (kWh)',
     },
@@ -2669,7 +2669,7 @@ export const messages: MessageDB = {
     },
 
     solNoteConsRank5: {
-        fr: 'Gros consomateur',
+        fr: 'Gros consommateur',
         nl: 'Grootverbruiker',
         en: ' Large consumer',
     },
