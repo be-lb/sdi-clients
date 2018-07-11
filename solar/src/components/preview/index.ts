@@ -31,10 +31,10 @@ const action =
 const render =
     () =>
         DIV({ className: 'main-splitted-height' },
-            DIV({ className: 'top' },
+            DIV({ className: 'upper-part' },
                 context(),
                 summary()),
-            DIV({ className: 'bottom' },
+            DIV({ className: 'lower-part' },
                 DIV({ className: 'action-title' }, tr('solAndNow')),
                 action(),
             ));

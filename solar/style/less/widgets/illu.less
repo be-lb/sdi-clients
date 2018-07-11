@@ -1,4 +1,4 @@
-@illuRadius : 20vw;
+@illuRadius : @illuW;
 
 .context {
     padding-top: @margin;
@@ -13,7 +13,6 @@
         position: relative;
         width: @illuRadius;
         height: @illuRadius;
-        // background: pink; //debug
         margin-bottom: @margin * 2;
 
         .circle-wrapper {
@@ -54,10 +53,10 @@
 
 
 .map-pin.top {
-    height: calc(~"50% + 1.25rem");
+    height: calc(~"50% + .75rem");
     width: 100%;
     position: absolute;
-    top: -1.25rem/2 - 0.15rem;
+    bottom: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,10 +71,11 @@
 
 
 .map-pin.right {
-    width: calc(~"50% + 1.25rem");
+    width: calc(~"50% + .75rem");
     height: 100%;
     position: absolute;
-    right: -1.25rem/2 - 0.15rem;
+    left:50%;
+    top:0;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -87,12 +87,36 @@
 
 .pin-head {
     background: #000;
-    font-size: 1.25rem;
+    font-size: 100%;
     font-weight: 700;
     color: #fff;
-    border-radius: 10px;
     padding: .15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+.numnum-1 .pin-head{
+    border-radius: 2ch;
+    width: 2ch;
+    height: 2ch;
+
+}
+.numnum-2 .pin-head{
+    border-radius: 3ch;
+    width: 3ch;
+    height: 3ch;
+}
+.numnum-3 .pin-head{
+    border-radius: 4ch;
+    width: 4ch;
+    height: 4ch;
+}
+.numnum-4 .pin-head{
+    border-radius: 5ch;
+    width: 5ch;
+    height: 5ch;
+}
+
 .pin-end {
     width: 3px;
     height: 3px;

@@ -4,11 +4,11 @@
     flex-direction: column;
     margin: 0 @margin;
     overflow-y: auto;
-    .top {
+    .upper-part {
         display: flex;
+        flex-wrap: wrap;
 
         .context, .summary {
-            padding: @margin*2 0;
             border-top: 1px solid #000;
             border-bottom: 1px solid #000;
         }
@@ -16,8 +16,11 @@
         .context {
             width: @contextW;
             margin-right: @margin;
-            padding-right: @margin!important;
+            padding: @margin*2 0;
         }
-        .summary {}
+        .summary {
+            padding: @margin 0;
+            width: @sidebarW;
+        }
     }
 }
