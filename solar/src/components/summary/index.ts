@@ -9,7 +9,7 @@ import { area, power, obstacleRate, annualProduction, annualConsumption, autonom
 
 
 const vk =
-    (v: string, key: MessageKey) => DIV({ className: 'vk' },
+    (vkClass: string, v: string, key: MessageKey) => DIV({ className: 'vk' + ' ' + vkClass },
         SPAN({ className: 'value' }, v),
         SPAN({ className: 'key' }, tr(key)));
 
@@ -32,10 +32,10 @@ const sumPotentialRank =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            vk(installationCost(), 'buyingPrice'),
-            vk(CVAmountYearN(), 'gainGreenCertif'),
-            vk('$invoice', 'gainElecInvoice'),
-            vk(savedCO2emissions(), 'gainEnvironment'),
+            vk('buying-price', installationCost(), 'buyingPrice'),
+            vk('green-cert', CVAmountYearN(), 'gainGreenCertif'),
+            vk('gain-elec', '$invoice', 'gainElecInvoice'),
+            vk('gain-env', savedCO2emissions(), 'gainEnvironment'),
             DIV({ className: 'note' }, tr('estim10Y')),
         );
 
@@ -79,27 +79,27 @@ const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            vk(area(), 'surface'),
-            vk(power(), 'power'),
-            vk(obstacleRate(), 'obstacleEstimation'));
+            vk('', area(), 'surface'),
+            vk('', power(), 'power'),
+            vk('', obstacleRate(), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk(annualProduction(), 'yearProduction'),
-            vk(annualConsumption(), 'yearConsumption'),
-            vk(autonomy(), 'solarAutonomy'));
+            vk('', annualProduction(), 'yearProduction'),
+            vk('', annualConsumption(), 'yearConsumption'),
+            vk('', autonomy(), 'solarAutonomy'));
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(installationCost(), 'buyingPrice'),
-            vk(CVAmountYearN(), 'gainGreenCertif'),
-            vk('$elec', 'gainElecInvoice'),
-            vk(totalGain25Y(), 'gainTotal25Y'),
-            vk(returnTime(), 'returnTime'));
+            vk('', installationCost(), 'buyingPrice'),
+            vk('', CVAmountYearN(), 'gainGreenCertif'),
+            vk('', '$elec', 'gainElecInvoice'),
+            vk('', totalGain25Y(), 'gainTotal25Y'),
+            vk('', returnTime(), 'returnTime'));
 
 
 

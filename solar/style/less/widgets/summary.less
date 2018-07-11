@@ -26,6 +26,21 @@
                 width: 100%;
                 display: block;
             }
+
+            &:before {
+                content: ' ';
+                display: block;
+                width: 1em;
+                height: 1em;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+
+            &.buying-price:before {background-image: url(../../asset/svg/paper-money.svg);}
+            &.green-cert:before {background-image: url(../../asset/svg/paper-green.svg);}
+            &.gain-elec:before {background-image: url(../../asset/svg/paper-elec.svg);}
+            &.gain-env:before {background-image: url(../../asset/svg/paper-env.svg);}
         }
         .note {
             font-size: @small-font;
