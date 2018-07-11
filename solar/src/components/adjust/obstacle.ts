@@ -86,7 +86,7 @@ const renderObstacle =
         return obstacleItem(on);
     };
 
-const renderGraphics =
+export const renderGraphics =
     () => {
         const cats: Obstacle[] = ['velux', 'dormerWindow', 'flatRoofWindow', 'chimneySmoke', 'terraceInUse', 'lift', 'existingSolarPannel'];
 
@@ -96,10 +96,10 @@ const renderGraphics =
                 return DIV({ className: 'obstacle-graphic-item' },
                     ...(Array(n).fill(DIV({ className: `obstacle-icon ${icons[cat]}` }))));
             }
-            return NODISPLAY;
+            return NODISPLAY();
         });
 
-        return DIV({ className: 'obstacle-graphic' }, ...elems);
+        return DIV({ className: 'obstacle-graphic' }, elems);
     };
 
 export const calcObstacle =
