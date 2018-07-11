@@ -1,11 +1,16 @@
 import { DIV, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { navigateDetail } from '../../events/route';
+import { getCapakey } from '../../queries/app';
 
 
 
 export const actionSettings =
     () =>
-        DIV({ className: 'action-settings' },
+        DIV({
+            className: 'action-settings',
+            onClick: () => getCapakey().map(navigateDetail),
+        },
             H1({}, tr('solAdjustStr1')),
             H1({}, tr('solAdjustStr2')),
             DIV({ className: 'action-info' },

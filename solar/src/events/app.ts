@@ -22,6 +22,7 @@ import { getApiUrl } from 'sdi/app';
 
 import { AppLayout } from '../app';
 import { fetchMap, fetchRoof, fetchGeom, fetchBuilding } from '../remote';
+import { simulate } from './simulation';
 
 const logger = debug('sdi:events/app');
 
@@ -49,7 +50,7 @@ const loadRoofs =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 
 const loadGeometry =
@@ -61,7 +62,7 @@ const loadGeometry =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 const loadBuildings =
     (capakey: string) =>
@@ -72,14 +73,17 @@ const loadBuildings =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 export const loadCapakey =
     (capakey: string) => {
         dispatch('app/capakey', () => capakey);
-        loadRoofs(capakey);
-        loadGeometry(capakey);
-        loadBuildings(capakey);
+        const loaders = [
+            loadRoofs(capakey),
+            loadGeometry(capakey),
+            loadBuildings(capakey),
+        ];
+        Promise.all(loaders).then(() => simulate(capakey));
     };
 
 logger('loaded');

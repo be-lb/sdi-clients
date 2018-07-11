@@ -14,12 +14,17 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatchK } from 'sdi/shape';
+import { fromNullable } from 'fp-ts/lib/Option';
+import { inputs, solarSim, roof } from 'solar-sim';
 
-import { inputs } from 'solar-sim';
+import { dispatch, dispatchK, query } from 'sdi/shape';
+import { getFeatureProp } from 'sdi/source';
+import { Obstacle } from '../components/adjust';
 
 
 const dispatchInputs = dispatchK('solar/inputs');
+const dispatchOutputs = dispatchK('solar/outputs');
+
 export type SetNumKeyOfInputs =
     | 'nYears'
     | 'currentYear'
@@ -38,8 +43,38 @@ export const setNumInputF =
         }));
 
 
+export const updateRoofs =
+    (capakey: string) => fromNullable(query('solar/data/roofs')[capakey])
+        .map(fc => dispatchInputs(ins => {
+            const ns = {
+                ...ins,
+                roofs: fc.features.map<roof>(f => ({
+                    area: getFeatureProp(f, 'area', 0),
+                    productivity: getFeatureProp(f, 'productivity', 0),
+                    tilt: getFeatureProp(f, 'tilt', 0),
+                })),
+            };
+            console.log(JSON.stringify(ns));
+            return ns;
+        }));
+
+export const simulate =
+    (capakey: string) => {
+        updateRoofs(capakey);
+        dispatchOutputs(() => {
+            try {
+                return solarSim(query('solar/inputs'));
+            }
+            catch (_err) {
+                return null;
+            }
+        });
+    };
 
 
 
 
-
+export const setObstacle =
+    (o: Obstacle, n: number) => {
+        dispatch('solar/obstacle', state => ({ ...state, [o]: n }));
+    };

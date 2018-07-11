@@ -20,9 +20,10 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { query, queryK } from 'sdi/shape';
 import tr from 'sdi/locale';
 import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
-import { Feature } from 'sdi/source';
+import { getFeatureProp } from 'sdi/source';
 
 import { getCapakey } from './app';
+import { Obstacle } from '../components/adjust/index';
 
 
 export const streetName =
@@ -43,14 +44,6 @@ const roofs = queryK('solar/data/roofs');
 const PROD_THESH_HIGH = 1000;
 const PROD_THESH_MEDIUM = 1000;
 
-const getFeatureNumber =
-    (f: Feature, k: string, dflt = 0): number => {
-        const props = f.properties;
-        if (props && k in props) {
-            return props[k];
-        }
-        return dflt;
-    };
 
 export const totalArea =
     () => getCapakey()
@@ -58,7 +51,7 @@ export const totalArea =
             (key) => {
                 const fc = roofs()[key];
                 if (fc) {
-                    return fc.features.reduce((acc, r) => acc + getFeatureNumber(r, 'area'), 0);
+                    return fc.features.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0);
                 }
                 return 0;
             });
@@ -150,4 +143,5 @@ export const returnTime = () => withYear(1000);
 
 
 
-
+export const getObstacle =
+    (o: Obstacle) => query('solar/obstacle')[o];
