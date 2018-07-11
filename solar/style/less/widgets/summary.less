@@ -23,24 +23,30 @@
             font-size: @medium-font;
             .value {
                 font-weight: 700;
-                width: 100%;
-                display: block;
+                display: inline-block;
             }
 
             &:before {
                 content: ' ';
-                display: block;
-                width: 1em;
-                height: 1em;
-                background-position: center;
+                display: inline-block;
+                width: 1.5em;
+                height: 1.5em;
+                background-position: bottom left;
                 background-repeat: no-repeat;
                 background-size: contain;
+                margin-bottom: -.2em;
             }
 
             &.buying-price:before {background-image: url(../../asset/svg/paper-money.svg);}
             &.green-cert:before {background-image: url(../../asset/svg/paper-green.svg);}
             &.gain-elec:before {background-image: url(../../asset/svg/paper-elec.svg);}
             &.gain-env:before {background-image: url(../../asset/svg/paper-env.svg);}
+
+            .key {
+                width: 100%;
+                display: block;
+                padding-left: 1.5em;
+            }
         }
         .note {
             font-size: @small-font;
