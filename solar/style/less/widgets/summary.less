@@ -21,10 +21,32 @@
         margin-bottom: @margin;
         .vk {
             font-size: @medium-font;
+            margin-bottom: @margin / 2 ;
             .value {
                 font-weight: 700;
+                display: inline-block;
+            }
+
+            &:before {
+                content: ' ';
+                display: inline-block;
+                width: 2em;
+                height: 2em;
+                background-position: bottom left;
+                background-repeat: no-repeat;
+                background-size: contain;
+                margin-bottom: -1.2em;
+            }
+
+            &.buying-price:before {background-image: url(../../asset/svg/paper-money.svg);}
+            &.green-cert:before {background-image: url(../../asset/svg/paper-green.svg);}
+            &.gain-elec:before {background-image: url(../../asset/svg/paper-elec.svg);}
+            &.gain-env:before {background-image: url(../../asset/svg/paper-env.svg);}
+
+            .key {
                 width: 100%;
                 display: block;
+                padding-left: 2em;
             }
         }
         .note {
