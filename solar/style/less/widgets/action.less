@@ -24,6 +24,7 @@
         h1 {}
         .action-info {
             font-size: @small-font;
+            margin-top: @margin / 2;
         }
         &::before {
             .awsomefont;
@@ -58,6 +59,16 @@
             content: @fa-var-thumb-tack;
             color: #fff;
             background-color: @green;
+        }
+
+        .action-info .pdf {
+            width: 4vw;
+            height: 4vw;
+            margin: @margin auto;
+            background-image: url("../../asset/svg/pdf.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
         }
     }
 }

@@ -49,7 +49,6 @@ const wrapperOrtho =
                 className: 'illu-text back-to-map',
                 onClick: () => navigateLocate(),
             },
-                DIV({}, '<-'),
                 DIV({}, tr('solBackTo')),
                 DIV({}, tr('solGeneralMap')),
 

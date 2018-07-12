@@ -52,7 +52,7 @@ export const actionPrint =
             DIV({ className: 'action-info' },
                 DIV({}, tr('solActPrintStr1')),
                 DIV({}, tr('solActPrintStr2')),
-                DIV({}, 'PDF'),
+                DIV({ className: 'pdf' }),
             ));
 
 
