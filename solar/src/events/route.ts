@@ -135,13 +135,15 @@ export const navigateDetail =
 (function () {
     if (hasHistory) {
         window.onpopstate = (event) => {
-            const s = event.state as HistoryState;
-            switch (s.kind) {
-                case 'locate':
-                case 'preview':
-                case 'detail':
-                    setRoute(() => s.route);
-                    break;
+            if (event.state) {
+                const s = event.state as HistoryState;
+                switch (s.kind) {
+                    case 'locate':
+                    case 'preview':
+                    case 'detail':
+                        setRoute(() => s.route);
+                        break;
+                }
             }
             navigate();
         };
