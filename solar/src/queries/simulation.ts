@@ -42,19 +42,32 @@ export const potential = () => tr('solSolarPotentialExcellent');
 
 
 const roofs = queryK('solar/data/roofs');
+const buildings = queryK('solar/data/buildings');
 
-const PROD_THESH_HIGH = 12000 * 1000;
-const PROD_THESH_MEDIUM = 8000 * 1000;
+export const PROD_THESH_HIGH = 12000 * 1000;
+export const PROD_THESH_MEDIUM = 8000 * 1000;
 
 
-const getRoofFeatures =
+export const getRoofs =
     () => getCapakey().chain((ck) => {
         const rc = roofs();
         if (ck in rc) {
-            return some(rc[ck].features);
+            return some(rc[ck]);
         }
-        return none;
-    });
+        return none
+    })
+
+export const getBuildings =
+    () => getCapakey().chain((ck) => {
+        const rc = buildings();
+        if (ck in rc) {
+            return some(rc[ck]);
+        }
+        return none
+    })
+
+const getRoofFeatures =
+    () => getRoofs().map(fc => fc.features);
 
 export const totalArea =
     () => getRoofFeatures()
