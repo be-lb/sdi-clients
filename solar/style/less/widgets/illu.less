@@ -36,6 +36,19 @@
         font-size: @small-font;
         text-align: center;
     }
+
+    .illu-text.back-to-map {
+        cursor: default;
+        &::before {
+            .awsomefont;
+            content: @fa-var-long-arrow-left;
+            width: 100%;
+            height: 1em;
+            margin-bottom: @margin / 2;
+        }
+
+        &:hover {color: @green;}
+    }
 }
 
 
