@@ -64,11 +64,14 @@ export const updateRoofs =
         .map(fc => dispatchInputs((ins) => {
             const ns = {
                 ...ins,
-                roofs: fc.features.map<roof>(f => ({
-                    area: getFeatureProp(f, 'area', 0),
-                    productivity: getFeatureProp(f, 'productivity', 0) / 1000,
-                    tilt: getFeatureProp(f, 'tilt', 0),
-                })),
+                roofs: fc.features.map<roof>(f => {
+                    const area = getFeatureProp(f, 'area', 0.000001);
+                    return {
+                        area,
+                        productivity: (getFeatureProp(f, 'productivity', 0) / 1000) / area,
+                        tilt: getFeatureProp(f, 'tilt', 0),
+                    };
+                }),
             };
             return ns;
         }));
