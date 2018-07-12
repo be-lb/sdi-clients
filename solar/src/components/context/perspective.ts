@@ -153,7 +153,7 @@ export function perspective(
         (c) => {
             c.save();
             c.strokeStyle = '#666';
-            c.lineWidth = 0.5;
+            c.lineWidth = 1;
             return () => c.restore();
         };
 

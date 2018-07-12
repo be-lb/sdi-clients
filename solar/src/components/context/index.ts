@@ -11,6 +11,7 @@ import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLo
 import { perspective, Camera, reduceMultiPolygon, Reducer, reducePolygon } from './perspective'
 import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
+import { navigateLocate } from '../../events/route';
 
 
 
@@ -44,7 +45,10 @@ const wrapperOrtho =
                     DIV({ className: 'pin-head' }, `${streetNumber()}`),
                     DIV({ className: 'pin-body' }),
                     DIV({ className: 'pin-end' }))),
-            DIV({ className: 'illu-text back-to-map' },
+            DIV({
+                className: 'illu-text back-to-map',
+                onClick: () => navigateLocate(),
+            },
                 DIV({}, '<-'),
                 DIV({}, tr('solBackTo')),
                 DIV({}, tr('solGeneralMap')),
