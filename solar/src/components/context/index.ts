@@ -83,34 +83,34 @@ const getCamera =
     (fc: FeatureCollection): Option<Camera> => {
         type n3 = [number, number, number];
         const [minx, miny, maxx, maxy] = bbox(fc);
-        const cx = minx + (maxx - minx)
-        const cy = miny + (maxy - miny)
+        const cx = minx + ((maxx - minx) / 2)
+        const cy = miny + ((maxy - miny) / 2)
         const minzzer = (acc: number, p: n3) => Math.min(acc, p[2])
         const minz = fc.features.reduce((acc, f) => {
             const geom = f.geometry;
-            const gt = geom.type
+            const gt = geom.type;
             const r: Reducer = {
                 f: minzzer,
                 init: acc,
-            }
+            };
             if ('MultiPolygon' === gt) {
-                return Math.min(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]))
+                return Math.min(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
             }
             else if ('Polygon' === gt) {
-                return Math.min(acc, reducePolygon(r, geom.coordinates as n3[][]))
+                return Math.min(acc, reducePolygon(r, geom.coordinates as n3[][]));
             }
-            return acc
+            return acc;
         }, ALTITUDE_100);
 
         if (minz !== undefined) {
-            const pos = vec3.fromValues(cx, cy - Math.max((maxx - minx), (maxy - miny)), minz + 33)
-            const target = vec3.fromValues(cx, cy, minz)
-            const viewport = vec2.fromValues(1024, 1024)
+            const pos = vec3.fromValues(cx, cy - Math.max((maxx - minx), (maxy - miny)), minz + 16);
+            const target = vec3.fromValues(cx, cy, minz);
+            const viewport = vec2.fromValues(1024, 1024);
             return some({
                 pos,
                 target,
                 viewport,
-            })
+            });
         }
         return none;
     };
