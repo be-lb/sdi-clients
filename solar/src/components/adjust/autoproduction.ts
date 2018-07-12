@@ -1,35 +1,90 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { getInputF } from '../../queries/simulation';
+import { setInputF } from '../../events/simulation';
+
+
+const getEnergySobriety = getInputF('energySobriety');
+const getChargeShift = getInputF('chargeShift');
+const getPVHeater = getInputF('pvHeater');
+const getBattery = getInputF('battery');
+
+const setEnergySobriety = setInputF('energySobriety');
+const setChargeShift = setInputF('chargeShift');
+const setPVHeater = setInputF('pvHeater');
+const setBattery = setInputF('battery');
+
+const A = 0x2;
+const B = A << 1;
+const C = B << 1;
+const D = C << 1;
+
+// const getLevel =
+//     () => {
+//         if (getBattery()) { return D; }
+//         if (getPVHeater()) { return C; }
+//         if (getChargeShift()) { return B; }
+//         if (getEnergySobriety()) { return A; }
+//         return 0;
+//     };
+
+const setLevel =
+    (l: number) => {
+        setEnergySobriety(l >= A)
+        setChargeShift(l >= B)
+        setPVHeater(l >= C)
+        setBattery(l >= D)
+    };
+
+const isActive =
+    (n: number) => {
+        let score = 0x1;
+        if (getEnergySobriety()) { score = score << 1; }
+        if (getChargeShift()) { score = score << 1; }
+        if (getPVHeater()) { score = score << 1; }
+        if (getBattery()) { score = score << 1; }
+
+        return n === score;
+    }
 
 const pictoCollection =
     () =>
         DIV({ className: 'picto-collection' },
-            DIV({ className: 'reduce active' }),
-            DIV({ className: 'day' }),
-            DIV({ className: 'battery' }),
+            DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }),
+            DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }),
+            DIV({ className: 'battery' + (getBattery() ? ' active' : '') }),
         );
 
+const ranks = {
+    [A]: 'first',
+    [B]: 'second',
+    [C]: 'third',
+    [D]: 'fourth',
+}
 
 const selectItem =
-    (rank: string) =>
-        DIV({ className: 'select-item' + ' ' + rank });
+    (rank: number) =>
+        DIV({
+            className: 'select-item' + ' ' + ranks[rank] + (isActive(rank) ? ' active' : ''),
+            onClick: () => setLevel(rank),
+        });
 
 const selectWidget =
     () =>
         DIV({ className: 'autoproduction-select' },
-            selectItem('first'),
-            selectItem('second active'),
-            selectItem('third'),
-            selectItem('fourth'),
+            selectItem(A),
+            selectItem(B),
+            selectItem(C),
+            selectItem(D),
         );
 
 
 const notes =
     () =>
         DIV({ className: 'adjust-item-note' },
-            DIV({ className: 'reduce active' }, tr('reduceConsumption')),
-            DIV({ className: 'day' }, tr('dayConsumption')),
-            DIV({ className: 'battery' }, tr('installBatteries')),
+            DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }, tr('reduceConsumption')),
+            DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }, tr('dayConsumption')),
+            DIV({ className: 'battery' + (getBattery() ? ' active' : '') }, tr('installBatteries')),
         );
 
 
