@@ -162,13 +162,13 @@ export function perspective(
             c.save();
             const p = getFeatureProp(f, 'productivity', 0);
             if (p >= PROD_THESH_HIGH) {
-                c.fillStyle = '#00f';
+                c.fillStyle = '#8db63c';
             }
             else if (p > PROD_THESH_MEDIUM && p < PROD_THESH_HIGH) {
-                c.fillStyle = '#0f0';
+                c.fillStyle = '#ebe316';
             }
             else {
-                c.fillStyle = '#f00';
+                c.fillStyle = '#006f90';
             }
 
             return () => c.restore();
