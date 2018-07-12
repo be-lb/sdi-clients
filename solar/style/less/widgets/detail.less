@@ -22,12 +22,8 @@
         }
     }
     .sidebar {
-        // overflow-y: auto;
-        // overflow-x: hidden;
         background-color: #fff;
         width: @sidebarW;
-        // left: calc(~"70vw + @{margin} - 1px") !important; // override base value from sdi
-        // width: 10vw; //debug
 
         .summary {
             padding-bottom: @margin;
@@ -36,13 +32,7 @@
         }
     }
 }
-//
-// .detail .context .illu {
-//     transform: scale(0.5);
-//     margin: auto;
-//     margin-bottom: -4vw;
-//     margin-top: -6vw;
-// }
+
 
 .calculator {
     margin-top: @margin;
@@ -74,14 +64,29 @@
     }
 }
 
+// HEADER
+
 .adjust-item.calculator-header {
     display: flex;
     align-items: center;
+    padding-top: @margin * 2;
 
     .calculator-title {
         font-size: @big-font;
         font-weight: 700;
         margin-right: @margin;
+        height: 4vw;
+        display: flex;
+        align-items: center;
+        margin-top: -.25em;
+    }
+
+    .input-box {
+        height: 4vw;
+        align-items: center;
+        input {
+            margin: 0 !important;
+        }
     }
 }
 
