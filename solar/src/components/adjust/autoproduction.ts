@@ -1,39 +1,47 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { toggle } from '../item-factory';
+const pictoCollection =
+    () =>
+        DIV({ className: 'picto-collection' },
+            DIV({ className: 'reduce active' }),
+            DIV({ className: 'day' }),
+            DIV({ className: 'battery' }),
+        );
+
+
+const selectItem =
+    (rank: string) =>
+        DIV({ className: 'select-item' + ' ' + rank });
+
+const selectWidget =
+    () =>
+        DIV({ className: 'autoproduction-select' },
+            selectItem('first'),
+            selectItem('second active'),
+            selectItem('third'),
+            selectItem('fourth'),
+        );
+
+
+const notes =
+    () =>
+        DIV({ className: 'adjust-item-note' },
+            DIV({ className: 'reduce active' }, tr('reduceConsumption')),
+            DIV({ className: 'day' }, tr('dayConsumption')),
+            DIV({ className: 'battery' }, tr('installBatteries')),
+        );
 
 
 export const calcAutoproduction =
     () =>
         DIV({ className: 'adjust-item autoproduction' },
-            DIV({ className: 'adjust-item-title' }, '4. ' + tr('solAutoproduction')),
-            DIV({ className: 'adjust-picto-wrapper' },
-                DIV({ className: 'adjust-picto reduce' }),
-                DIV({}, tr('reduceConsumption') + ' : '),
-                toggle('yes', 'no'),
-            ),
-            DIV({ className: 'adjust-picto-wrapper' },
-                DIV({ className: 'adjust-picto day' }),
-                DIV({}, tr('dayConsumption') + ' : '),
-                toggle('yes', 'no'),
-            ),
-            DIV({ className: 'adjust-picto-wrapper' },
-                DIV({ className: 'adjust-picto battery' }),
-                DIV({}, tr('installBatteries') + ' : '),
-                toggle('yes', 'no'),
-            ));
-
-
-
-// DIV({ className: 'adjust-picto-wrapper' },
-//     DIV({ className: 'adjust-picto heat' }),
-//     DIV({ className: 'wrapper-multi-checkbox' },
-//         DIV({ className: 'multi-checkbox-label' }, tr('hotWaterDuringDay') + ' : '),
-//         DIV({},
-//             checkBox('boiler'),
-//             checkBox('heatPump'))))
-
+            DIV({ className: 'adjust-item-title' },
+                DIV({}, '4. ' + tr('solAutoproduction')),
+                pictoCollection()),
+            selectWidget(),
+            notes(),
+        );
 
 
 
