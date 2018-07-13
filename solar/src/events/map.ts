@@ -19,6 +19,7 @@
 import { dispatchK, dispatch } from 'sdi/shape';
 import { viewEventsFactory, scaleEventsFactory } from 'sdi/map';
 import { IUgWsResponse } from 'sdi/ports/geocoder';
+import { IMapInfo } from 'sdi/source';
 
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
@@ -33,3 +34,24 @@ export const updateGeocoderTerm =
         dispatch('component/geocoder/input', () => address);
 
 
+const mapTemplate =
+    (): IMapInfo => ({
+        id: 'solar-locate',
+        url: '/dev/null/solar-locate',
+        lastModified: 1523599299611,
+        status: 'published',
+        title: { fr: 'SOLAR', nl: 'SOLAR', en: 'SOLAR' },
+        description: { fr: 'SOLAR', nl: 'SOLAR', en: 'SOLAR' },
+        baseLayer: 'urbis.irisnet.be/urbis_gray',
+        categories: [],
+        attachments: [],
+        layers: [],
+    });
+
+
+export const loadLocateMap =
+    () => {
+        dispatch('app/current-map', () => 'solar-locate');
+        dispatch('data/maps',
+            state => state.concat([mapTemplate()]));
+    };

@@ -1,5 +1,6 @@
 // tslint:disable:variable-name
 import * as iots from 'io-ts';
+import { IMapBaseLayerIO } from 'sdi/source';
 
 export const i = iots.interface;
 export const u = iots.union;
@@ -14,3 +15,5 @@ export const CapakeyIO = i({
 
 export type Capakey = iots.TypeOf<typeof CapakeyIO>;
 
+export const BaseLayerCollectionIO = iots.dictionary(iots.string, IMapBaseLayerIO, 'BaseLayerCollection');
+export type BaseLayerCollection = iots.TypeOf<typeof BaseLayerCollectionIO>;

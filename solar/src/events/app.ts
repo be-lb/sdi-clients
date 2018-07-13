@@ -19,11 +19,11 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import pointOnFeature from '@turf/point-on-feature';
 
 import { dispatch, query } from 'sdi/shape';
-import { getApiUrl, getLang } from 'sdi/app';
 import { queryReverseGeocoder } from 'sdi/ports/geocoder';
+import { getLang } from 'sdi/app';
 
 import { AppLayout } from '../app';
-import { fetchMap, fetchRoof, fetchGeom, fetchBuilding } from '../remote';
+import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll } from '../remote';
 import { updateRoofs } from './simulation';
 
 const logger = debug('sdi:events/app');
@@ -33,15 +33,6 @@ export const setLayout =
     (l: AppLayout) =>
         dispatch('app/layout', state => state.concat([l]));
 
-export const startMap =
-    () =>
-        fromNullable(query('app/current-map'))
-            .map((mid) => {
-                fetchMap(getApiUrl(`/maps/${mid}`))
-                    .then(
-                        info => dispatch('data/maps',
-                            state => ({ ...state, [mid]: info })));
-            });
 
 const loadRoofs =
     (capakey: string) =>
@@ -126,6 +117,14 @@ export const loadCapakey =
                 checkAddress(capakey);
             });
 
+    };
+
+export const loadAllBaseLayers =
+    (url: string) => {
+        fetchBaseLayerAll(url)
+            .then((blc) => {
+                dispatch('data/baselayers', () => blc);
+            });
     };
 
 logger('loaded');

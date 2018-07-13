@@ -25,7 +25,7 @@ import { getFeatureProp } from 'sdi/source';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust/index';
 import { identity } from 'fp-ts/lib/function';
-import { outputs } from 'solar-sim';
+import { outputs, inputs } from 'solar-sim';
 
 
 export const streetName =
@@ -98,38 +98,6 @@ export const areaExcellent = areaProductivity(PROD_THESH_HIGH, Number.MAX_VALUE)
 export const areaMedium = areaProductivity(PROD_THESH_MEDIUM, PROD_THESH_HIGH);
 export const areaLow = areaProductivity(Number.MIN_VALUE, PROD_THESH_MEDIUM);
 
-/*
-interface mainOutputs {
-    'installationCost': number, euro
-    'CVAmountYearN': number, euro
-    'selfConsumptionAmountYearN': number,  ??
-    'savedCO2emissions': number; TCO2Y
-}
-
-interface setupOutputs {
-    'area': number, m2
-    'power': number, kwc
-    'obstacleRate': number percent
-}
-
-interface energyOutputs {
-    'annualProduction': number, kwhy
-    'annualConsumption': number, kwhy
-    'autonomy': number percent
-}
-
-interface financeOutputs {
-    'totalGain25Y': number, euro
-    'returnTime': number year
-}
-
-interface outputs {
-    'main': mainOutputs,
-    'setup': setupOutputs,
-    'energy': energyOutputs,
-    'finance': financeOutputs
-};
-*/
 
 const queryInputs = queryK('solar/inputs');
 export type GetNumKeyOfInputs =
@@ -142,8 +110,11 @@ export type GetNumKeyOfInputs =
     | 'installationPrice'
     ;
 
+export const getInputF =
+    <K extends keyof inputs>(k: K) => () => queryInputs()[k];
+
 export const getNumInputF =
-    <K extends GetNumKeyOfInputs>(k: K) => () => queryInputs()[k];
+    <K extends GetNumKeyOfInputs>(k: K) => getInputF(k);
 
 
 // export const selfConsumptionAmountYearN = () => withEuro(1000)

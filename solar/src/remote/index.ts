@@ -20,7 +20,10 @@ import {
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import { CapakeyIO } from './io';
+import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO } from './io';
+
+
+
 
 export const fetchKey =
     (longitude: number, latitude: number) => {
@@ -62,3 +65,7 @@ export const fetchMap =
 
 export const fetchDatasetMetadata =
     (url: string): Promise<Inspire> => fetchIO(InspireIO, url);
+
+
+export const fetchBaseLayerAll =
+    (url: string): Promise<BaseLayerCollection> => fetchIO(BaseLayerCollectionIO, url);

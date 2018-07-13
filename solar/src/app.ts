@@ -19,15 +19,16 @@ import * as debug from 'debug';
 import { DIV } from 'sdi/components/elements';
 import header from 'sdi/components/header';
 import footer from 'sdi/components/footer';
-import { loop } from 'sdi/app';
+import { loop, getApiUrl } from 'sdi/app';
 
 
 import { getLayout } from './queries/app';
-import { startMap } from './events/app';
 import { navigate } from './events/route';
 import locate from './components/locate';
 import preview from './components/preview';
 import detail from './components/detail';
+import { loadLocateMap } from './events/map';
+import { loadAllBaseLayers } from './events/app';
 
 const logger = debug('sdi:app');
 
@@ -59,8 +60,9 @@ const renderMain =
 
 const effects =
     () => {
+        loadAllBaseLayers(getApiUrl(`wmsconfig/`));
+        loadLocateMap();
         navigate();
-        startMap();
     };
 
 
