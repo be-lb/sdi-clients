@@ -61,7 +61,7 @@ const lineStyleDiscrete = (config: LineStyleConfigDiscrete) => {
 
         const props = feature.getProperties();
         const value = props[config.propName];
-        if (value !== null) {
+        if (value !== null && value !== undefined) {
             const idx = findIndex(value.toString());
             if (idx >= 0) {
                 styles.push(groupStyles[idx]);
