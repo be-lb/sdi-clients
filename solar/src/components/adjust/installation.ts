@@ -1,16 +1,10 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { toggle, inputSelect } from '../item-factory';
+import { inputSelect } from '../item-factory';
 import { pvTechnology } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
-
-const panelIntegration =
-    () =>
-        DIV({ className: 'switch-wrapper' },
-            DIV({ className: 'switch-title' }, tr('panelIntegration') + ' : '),
-            toggle('yes', 'no'));
 
 const renderSelect =
     () => {
@@ -26,11 +20,11 @@ const renderSelect =
 export const calcInstallation =
     () =>
         DIV({ className: 'adjust-item installation' },
-            DIV({ className: 'adjust-item-title' }, '3. ' + tr('installation')),
+            DIV({ className: 'adjust-item-title' },
+                '3. ' + tr('installation'),
+                DIV({ className: 'adjust-picto panel' })),
             DIV({ className: 'adjust-item-widget' },
-                DIV({ className: 'adjust-picto-wrapper' },
-                    DIV({ className: 'adjust-picto panel' }),
-                    panelIntegration()),
+                // DIV({ className: 'adjust-picto-wrapper' },
                 renderSelect()));
 
 

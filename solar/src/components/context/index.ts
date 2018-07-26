@@ -1,6 +1,6 @@
 import bbox from '@turf/bbox'
 
-import { DIV, IMG, NODISPLAY } from 'sdi/components/elements';
+import { DIV, IMG } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
@@ -126,7 +126,7 @@ const render3D =
             .let('camera', ({ roofs }) => getCamera(roofs))
             .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
             .foldL<React.ReactNode>(
-                () => NODISPLAY,
+                () => DIV({ className: 'wrapper-loader' }, 'loading...'),
                 scope => wrapper3D(scope.src),
         );
 

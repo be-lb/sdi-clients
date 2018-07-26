@@ -84,7 +84,7 @@ const sumEnergy =
             H2({}, tr('energy')),
             vk(withKWhY(getOutput('annualProduction')), 'yearProduction'),
             vk(withKWhY(getOutput('annualConsumption')), 'yearConsumption'),
-            vk(withPercent(getOutput('autonomy')), 'solarAutonomy'));
+            vk(withPercent(getOutput('autonomy') * 100), 'solarAutonomy'));
 
 const sumFinance =
     () =>
