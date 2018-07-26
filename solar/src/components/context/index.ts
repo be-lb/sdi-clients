@@ -1,6 +1,6 @@
 import bbox from '@turf/bbox'
 
-import { DIV, IMG, NODISPLAY } from 'sdi/components/elements';
+import { DIV, IMG } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
