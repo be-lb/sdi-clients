@@ -126,7 +126,7 @@ const render3D =
             .let('camera', ({ roofs }) => getCamera(roofs))
             .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
             .foldL<React.ReactNode>(
-                () => NODISPLAY,
+                () => DIV({ className: 'wrapper-loader' }, 'loading...'),
                 scope => wrapper3D(scope.src),
         );
 
