@@ -25,7 +25,7 @@ import {
     SortDirection,
     // TableDataRow,
     TableSetter,
-} from './index';
+} from '.';
 
 // interface numberSortMapEntry { index: number; value: number; }
 // interface stringSortMapEntry { index: number; value: string; }
@@ -108,7 +108,7 @@ export const tableEvents =
                     search: {
                         ...search,
                         filters: search.filters.concat([filter]),
-                    }
+                    },
                 };
             });
         };

@@ -27,7 +27,7 @@ import {
     TableGetter,
     TableSourceGetter,
     SortDirection,
-} from './index';
+} from '.';
 
 const logger = debug('sdi:table/queries');
 

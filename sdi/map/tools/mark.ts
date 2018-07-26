@@ -8,7 +8,7 @@ import {
     MarkOptions,
     Interaction,
     fromInteraction,
-} from '../index';
+} from '..';
 
 
 

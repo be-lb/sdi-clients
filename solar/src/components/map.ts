@@ -16,12 +16,14 @@
  */
 
 import * as debug from 'debug';
+import { Coordinate } from 'openlayers';
 
 import { DIV } from 'sdi/components/elements';
 
 import { IMapOptions, create } from 'sdi/map';
-import { getCurrentBaseLayer, getView } from '../queries/map';
+import { getCurrentBaseLayer, getView, getInteraction } from '../queries/map';
 import { scalelineEvents, viewEvents } from '../events/map';
+import { loadCoordinate } from '../events/app';
 import { getMapInfo } from '../queries/app';
 
 const logger = debug('sdi:comp:map');
@@ -40,14 +42,19 @@ const options: IMapOptions = {
 let mapSetTarget: (t: Element | null) => void;
 let mapUpdate: () => void;
 
+const pickPlace =
+    (coords: Coordinate) => loadCoordinate(coords);
+
 const attachMap = (element: Element | null) => {
     if (!mapUpdate) {
-        const { update, setTarget } = create({
+        const { update, setTarget, clickable } = create({
             ...options,
             element,
         });
         mapSetTarget = setTarget;
         mapUpdate = update;
+
+        clickable({ setPosition: pickPlace }, getInteraction);
     }
     if (element) {
         logger('mapSetTarget');

@@ -29,32 +29,7 @@ const cleanRoute =
             return acc;
         }, [] as string[]);
 
-// const getNumber =
-//     (s?: string) => {
-//         if (s) {
-//             const n = parseFloat(s);
-//             if (!Number.isNaN(n)) {
-//                 return n;
-//             }
-//         }
-//         return null;
-//     };
 
-// const setMapView =
-//     () => {
-//         const r = cleanRoute();
-//         scopeOption()
-//             .let('lat', fromNullable(getNumber(r[1])))
-//             .let('lon', fromNullable(getNumber(r[2])))
-//             .let('zoom', fromNullable(getNumber(r[3])))
-//             .map(({ lat, lon, zoom }) => {
-//                 viewEvents.updateMapView({
-//                     dirty: 'geo',
-//                     center: [lat, lon],
-//                     zoom,
-//                 });
-//             });
-//     };
 
 export const navigate =
     () => {
@@ -80,20 +55,7 @@ export const navigate =
     };
 
 
-// const pushMap =
-//     (mid: string) => {
-//         if (hasHistory) {
-//             const s: HistoryState = {
-//                 kind: 'map',
-//                 route: [mid],
-//             };
 
-//             window.history.pushState(
-//                 s,
-//                 `View - ${mid}`,
-//                 `${query('app/root')}view/${mid}`);
-//         }
-//     };
 
 const push =
     (kind: historyStateKind, route: string[]) => {

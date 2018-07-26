@@ -103,6 +103,10 @@ export interface PositionOptions {
     stopPosition(p: Coordinate): void;
 }
 
+export interface SingleClickOptions {
+    setPosition(p: Coordinate): void;
+}
+
 
 export interface IMark {
     started: boolean;
@@ -156,6 +160,7 @@ export interface InteractionExtract extends InteractionBase<'extract', ExtractFe
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
 export interface InteractionPrint extends InteractionBase<'print', null> { }
 export interface InteractionPosition extends InteractionBase<'position', Coordinate> { }
+export interface InteractionSingleClick extends InteractionBase<'singleclick', null> { }
 
 interface InteractionMap {
     'select': InteractionSelect;
@@ -167,6 +172,7 @@ interface InteractionMap {
     'mark': InteractionMark;
     'print': InteractionPrint;
     'position': InteractionPosition;
+    'singleclick': InteractionSingleClick;
 }
 
 

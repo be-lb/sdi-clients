@@ -46,6 +46,9 @@ export const getCurrentBaseLayerOpt =
             }))
             .pick('baseLayer');
 
+
+export const getInteraction = queryK('port/map/interaction');
+
 export const getCurrentBaseLayer = () => getCurrentBaseLayerOpt().fold(null, a => a);
 
 

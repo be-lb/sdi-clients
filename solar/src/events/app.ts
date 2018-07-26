@@ -21,17 +21,28 @@ import pointOnFeature from '@turf/point-on-feature';
 import { dispatch, query } from 'sdi/shape';
 import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 import { getLang } from 'sdi/app';
+import { defaultInteraction } from 'sdi/map';
 
 import { AppLayout } from '../app';
-import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll } from '../remote';
+import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey } from '../remote';
 import { updateRoofs } from './simulation';
+import { Coordinate } from 'openlayers';
+import { updateGeocoderResponse } from './map';
+import { navigatePreview } from './route';
 
 const logger = debug('sdi:events/app');
 
 
 export const setLayout =
-    (l: AppLayout) =>
+    (l: AppLayout) => {
         dispatch('app/layout', state => state.concat([l]));
+        if ('Locate' === l) {
+            dispatch('port/map/interaction', () => ({ label: 'singleclick', state: null }));
+        }
+        else {
+            dispatch('port/map/interaction', defaultInteraction);
+        }
+    };
 
 
 const loadRoofs =
@@ -99,8 +110,22 @@ const checkAddress =
                 })
                 .catch(reject);
         }));
+    };
 
-
+export const loadCoordinate =
+    (coord: Coordinate) => {
+        queryReverseGeocoder(coord[0], coord[1], getLang())
+            .then((response) => {
+                if (!response.error) {
+                    dispatch('solar/address', () => response.result.address);
+                    updateGeocoderResponse(null);
+                    fetchKey(coord[0], coord[1])
+                        .then(({ capakey }) => navigatePreview(capakey))
+                        .catch((err: string) => {
+                            logger(`Could not fetch a capakey: ${err}`);
+                        });
+                }
+            });
     };
 
 export const loadCapakey =

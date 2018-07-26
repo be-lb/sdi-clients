@@ -16,7 +16,7 @@
 
 
 import { i, u, l, a, p, MessageRecordIO, MessageRecord, TypeOf } from './io';
-import { Type } from 'io-ts/lib';
+import { Type } from 'io-ts';
 import { GeometryTypeIO } from './geojson';
 import * as io from 'io-ts';
 
@@ -570,10 +570,10 @@ export const InspireIO = io.intersection([
         temporalReference: TemporalReferenceIO,
 
         // responsibleOrganisation: Multiplicity1Star<ResponsibleOrganisation>('ResponsibleOrganisation', ResponsibleOrganisationIO),
-        responsibleOrganisation: a(io.number), //a(ResponsibleOrganisationIO),
+        responsibleOrganisation: a(io.number), // a(ResponsibleOrganisationIO),
 
         // metadataPointOfContact: Multiplicity1Star<MdPointOfContact>('MdPointOfContact', MdPointOfContactIO),
-        metadataPointOfContact: a(io.number), //a(MdPointOfContactIO),
+        metadataPointOfContact: a(io.number), // a(MdPointOfContactIO),
 
         metadataDate: MdDateIO,
         // doe not fit with our multilingual environment

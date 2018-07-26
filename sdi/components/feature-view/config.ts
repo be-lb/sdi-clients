@@ -18,12 +18,12 @@ import { ReactNode } from 'react';
 
 import { getLang, getAlias } from '../../app';
 import { formatNumber } from '../../locale';
-import { DIV, A, IMG } from '../../components/elements';
+import { DIV, A, IMG } from '../elements';
 import { RowConfig, StringConfig, URLConfig, ImageConfig, ConfigWithLabel, BooleanConfig, NumberConfig, withLabel, Feature, FeatureViewConfig, HTMLConfig, TextConfig } from '../../source';
 
 import piechart from './piechart';
 import timeserie from './timeserie';
-import { TimeseriePlotter } from '../timeserie/index';
+import { TimeseriePlotter } from '../timeserie';
 
 interface NotNullProperties {
     [key: string]: any;

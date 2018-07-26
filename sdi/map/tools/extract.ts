@@ -13,7 +13,7 @@ import {
     Interaction,
     fromInteraction,
     ExtractFeature,
-} from '../index';
+} from '..';
 
 
 interface FeatureExtract {

@@ -1,22 +1,26 @@
+import * as debug from 'debug';
+
+const logger = debug('sdi:map/singleclick');
+
 import {
     Map,
     MapBrowserEvent,
 } from 'openlayers';
 
 import {
-    PositionOptions,
+    SingleClickOptions,
     Interaction,
     fromInteraction,
 } from '..';
 
 
-export const position =
-    ({ setPosition, stopPosition }: PositionOptions) => {
+export const singleclick =
+    ({ setPosition }: SingleClickOptions) => {
         let isActive = false;
 
         const update =
             (i: Interaction) =>
-                fromInteraction('position', i)
+                fromInteraction('singleclick', i)
                     .foldL(
                         () => {
                             isActive = false;
@@ -27,18 +31,16 @@ export const position =
 
         const init =
             (map: Map) => {
-                map.on('pointermove', (event: MapBrowserEvent) => {
+                map.on('singleclick', (event: MapBrowserEvent) => {
+                    logger(`hit ${isActive}`);
                     if (isActive) {
                         setPosition(event.coordinate);
-                    }
-                });
-
-                map.on('singleclick', (event: MapBrowserEvent) => {
-                    if (isActive) {
-                        stopPosition(event.coordinate);
                     }
                 });
             };
 
         return { init, update };
     };
+
+
+logger('loaded');

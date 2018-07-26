@@ -18,7 +18,7 @@
 
 import * as debug from 'debug';
 import { MapEvent, control } from 'openlayers';
-import { SetScaleLine, IMapScale } from './index';
+import { SetScaleLine, IMapScale } from '.';
 import { DIV } from '../components/elements';
 import { MessageRecord } from '../source';
 import tr, { fromRecord } from '../locale';

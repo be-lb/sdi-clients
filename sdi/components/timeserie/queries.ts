@@ -16,7 +16,7 @@
 
 
 import { TimeserieConfig } from '../../source';
-import { NotNullProperties, QueryTimeserie, PlotDataGetter, CLidGetter, PlotQuerySet } from './index';
+import { NotNullProperties, QueryTimeserie, PlotDataGetter, CLidGetter, PlotQuerySet } from '.';
 
 
 const extractPropNamePat = new RegExp('.*\{(.+)\}.*');

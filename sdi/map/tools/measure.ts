@@ -12,7 +12,7 @@ import {
     MeasureOptions,
     Interaction,
     fromInteraction,
-} from '../index';
+} from '..';
 
 
 // measure

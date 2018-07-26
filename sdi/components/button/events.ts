@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { Step, MAX_DURATION, ButtonQuerySet, ButtonSetter } from './index';
+import { Step, MAX_DURATION, ButtonQuerySet, ButtonSetter } from '.';
 
 
 export const buttonEvents =
