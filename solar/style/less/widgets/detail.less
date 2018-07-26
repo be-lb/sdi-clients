@@ -300,9 +300,8 @@
         width: 4vw;
         height: 4vw;
         border-radius: 4vw;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        background-position: center;
+        background-repeat: no-repeat;
 
         &:hover,
         &.active {
@@ -310,19 +309,6 @@
             margin: 0;
             background-color: @green;
         }
-
-        &::before {
-            .awsomefont;
-            content: @fa-var-bolt;
-            color: #fff;
-        }
-
-        &.first{font-size: 4vw / 5 * 1.25 ;}
-        &.second{font-size: 4vw / 5 * 1.75 ;}
-        &.third{font-size: 4vw / 5 * 2.5 ;}
-        &.fourth{font-size: 4vw / 5 * 3.25;}
-        &.fifth{font-size: 4vw / 5 * 4 ;}
-
     }
 
     .adjust-item-widget {
@@ -337,11 +323,35 @@
     }
 }
 
+.consumption-select .select-item {
+    background-image: url(../../asset/svg/electricityW.svg);
+
+    &.first{background-size: 4vw / 5 * 1 ;}
+    &.second{background-size: 4vw / 5 * 1.5 ;}
+    &.third{background-size: 4vw / 5 * 2 ;}
+    &.fourth{background-size: 4vw / 5 * 2.75;}
+    &.fifth{background-size: 4vw / 5 * 3.75 ;}
+}
+
+.autoproduction-select .select-item {
+    background-image: url(../../asset/svg/solarenergyW.svg);
+
+    &.first{background-size: 4vw / 5 * 1.75 ;}
+    &.second{background-size: 4vw / 5 * 2.5 ;}
+    &.third{background-size: 4vw / 5 * 3.25 ;}
+    &.fourth{background-size: 4vw / 5 * 4;}
+}
+
 
 
 // ADJUST INSTALLATION
 
 .installation {
+
+    .adjust-item-title .adjust-picto {
+        width: 1.75em;
+        height: 1em;
+    }
     .adjust-item-widget {
         flex-wrap: wrap;
         justify-content: flex-start;
