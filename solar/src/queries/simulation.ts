@@ -123,7 +123,7 @@ type OutputKey = keyof outputs;
 
 export const getOutput =
     <K extends OutputKey>(k: K, dflt = 0): number =>
-        fromNullable(query('solar/outputs')).fold(dflt, out => Math.ceil(out[k]));
+        fromNullable(query('solar/outputs')).fold(dflt, out => out[k]);
 
 
 // export const savedCO2emissions = () => withTCO2Y(1000);

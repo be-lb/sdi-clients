@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withTCO2Y, withEuro, withEuroY, withM2, withKWc, withKWhY, withYear } from 'sdi/util';
+import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2 } from 'sdi/util';
 
 
 import { getOutput, streetName, streetNumber, locality, potential, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
@@ -34,10 +34,10 @@ const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
             vk(withEuro(getOutput('installationCost', 0)), 'buyingPrice', 'buying-price'),
-            vk(withEuroY(getOutput('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
-            vk(withEuro(getOutput('totalGain25Y')), 'gainElecInvoice', 'gain-elec'),
-            vk(withTCO2Y(getOutput('savedCO2emissions')), 'gainEnvironment', 'gain-env'),
-            DIV({ className: 'note' }, tr('estim10Y')),
+            vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
+            vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice', 'gain-elec'),
+            vk(withTCO2(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            // DIV({ className: 'note' }, tr('estim10Y')),
         );
 
 const sumArea =
@@ -76,7 +76,7 @@ const sumInstallation =
             H2({}, tr('installation')),
             vk(withM2(getOutput('area')), 'surface'),
             vk(withKWc(getOutput('power')), 'power'),
-            vk(withPercent(getOutput('obstacleRate')), 'obstacleEstimation'));
+            vk(withPercent(getOutput('obstacleRate') * 100), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
@@ -91,8 +91,8 @@ const sumFinance =
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
             vk(withEuro(getOutput('installationCost')), 'buyingPrice'),
-            vk(withEuroY(getOutput('CVAmountYearN')), 'gainGreenCertif'),
-            vk('$elec', 'gainElecInvoice'),
+            vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif'),
+            vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice'),
             vk(withEuro(getOutput('totalGain25Y')), 'gainTotal25Y'),
             vk(withYear(getOutput('returnTime')), 'returnTime'));
 

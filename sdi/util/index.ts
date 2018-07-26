@@ -180,6 +180,7 @@ export const withEuro = withUnit('unitEuro');
 export const withEuroY = withUnit('unitEuroY');
 export const withKWc = withUnit('unitKWc');
 export const withTCO2Y = withUnit('unitTCO2Y');
+export const withTCO2 = withUnit('unitTCO2');
 export const withYear = withUnit('unitYear');
 export const withM2 = withUnit('unitM2');
 export const withPercent = withUnit('unitPercent');

@@ -98,7 +98,7 @@ export const main =
             'data/user': null,
 
             'solar/address': null,
-            'solar/inputs': inputsFactory([]),
+            'solar/inputs': inputsFactory([], 'poly', 25),
             'solar/outputs': null,
             'solar/obstacle': defaulObstacles(),
             'solar/data/roofs': {},

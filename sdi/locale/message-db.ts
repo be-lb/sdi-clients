@@ -370,6 +370,7 @@ export type MessageKey =
     | 'unitKWhY'
     | 'unitM2'
     | 'unitPercent'
+    | 'unitTCO2'
     | 'unitTCO2Y'
     | 'unitYear'
     | 'unpublish'
@@ -2612,6 +2613,11 @@ export const messages: MessageDB = {
         fr: 'KWc',
         nl: 'KWc',
         en: 'KWc',
+    },
+    unitTCO2: {
+        fr: 'TCO2',
+        nl: 'TCO2',
+        en: 'TCO2',
     },
     unitTCO2Y: {
         fr: 'TCO2/an',
