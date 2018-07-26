@@ -19,7 +19,7 @@ import bbox from '@turf/bbox';
 
 import { query, queryK } from 'sdi/shape';
 import tr from 'sdi/locale';
-import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
+// import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
 import { getFeatureProp } from 'sdi/source';
 
 import { getCapakey } from './app';
@@ -54,8 +54,8 @@ export const getRoofs =
         if (ck in rc) {
             return some(rc[ck]);
         }
-        return none
-    })
+        return none;
+    });
 
 export const getBuildings =
     () => getCapakey().chain((ck) => {
@@ -63,8 +63,8 @@ export const getBuildings =
         if (ck in rc) {
             return some(rc[ck]);
         }
-        return none
-    })
+        return none;
+    });
 
 const getRoofFeatures =
     () => getRoofs().map(fc => fc.features);
@@ -126,24 +126,24 @@ export const getOutput =
         fromNullable(query('solar/outputs')).fold(dflt, out => Math.ceil(out[k]));
 
 
-export const savedCO2emissions = () => withTCO2Y(1000);
+// export const savedCO2emissions = () => withTCO2Y(1000);
 
-export const area = () => withM2(1000);
+// export const area = () => withM2(1000);
 
-export const power = () => withKWc(1000);
+// export const power = () => withKWc(1000);
 
-export const obstacleRate = () => withPercent(1000);
+// export const obstacleRate = () => withPercent(1000);
 
-export const annualProduction = () => withKWhY(1000);
+// export const annualProduction = () => withKWhY(1000);
 
 export const annualConsumption =
-    () => queryInputs()['annualConsumptionKWh'];// withTCO2Y(1000);
+    () => queryInputs()['annualConsumptionKWh'];
 
-export const autonomy = () => withPercent(1000);
+// export const autonomy = () => withPercent(1000);
 
-export const totalGain25Y = () => withEuro(1000);
+// export const totalGain25Y = () => withEuro(1000);
 
-export const returnTime = () => withYear(1000);
+// export const returnTime = () => withYear(1000);
 
 
 export const pvTechnology =

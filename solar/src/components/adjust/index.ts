@@ -4,3 +4,4 @@ export * from './finance';
 export * from './installation';
 export * from './loan';
 export * from './obstacle';
+export * from './area';
