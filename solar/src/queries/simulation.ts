@@ -174,3 +174,6 @@ export const getOrthoURL =
                 return none;
             })
             .fold('', identity);
+
+
+export const getLoading = queryK('solar/loading');

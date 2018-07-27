@@ -1,14 +1,14 @@
-import bbox from '@turf/bbox'
+import bbox from '@turf/bbox';
 
-import { DIV, IMG } from 'sdi/components/elements';
+import { DIV, IMG, NODISPLAY } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
 import { FeatureCollection } from 'sdi/source';
 
 import map from '../map';
-import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
-import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective'
+import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs, getLoading } from '../../queries/simulation';
+import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
 import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
@@ -18,9 +18,9 @@ import { navigateLocate } from '../../events/route';
 
 const barChart =
     () => {
-        const a = areaExcellent()
-        const b = areaMedium()
-        const c = areaLow()
+        const a = areaExcellent();
+        const b = areaMedium();
+        const c = areaLow();
         return DIV({ className: 'barchart' },
             DIV({
                 className: 'great',
@@ -34,7 +34,7 @@ const barChart =
                 className: 'unusable',
                 style: { width: `${c}%` },
             }, withPercent(c)));
-    }
+    };
 
 const wrapperOrtho =
     () =>
@@ -69,7 +69,7 @@ const wrapperPlan =
 
 
 
-const wrapper3D =
+export const wrapper3D =
     (src: string) =>
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu volume' },
@@ -88,9 +88,9 @@ const getCamera =
     (fc: FeatureCollection): Option<Camera> => {
         type n3 = [number, number, number];
         const [minx, miny, maxx, maxy] = bbox(fc);
-        const cx = minx + ((maxx - minx) / 2)
-        const cy = miny + ((maxy - miny) / 2)
-        const maxxer = (acc: number, p: n3) => Math.max(acc, p[2])
+        const cx = minx + ((maxx - minx) / 2);
+        const cy = miny + ((maxy - miny) / 2);
+        const maxxer = (acc: number, p: n3) => Math.max(acc, p[2]);
         const maxz = fc.features.reduce((acc, f) => {
             const geom = f.geometry;
             const gt = geom.type;
@@ -107,7 +107,7 @@ const getCamera =
             return acc;
         }, ALTITUDE_0);
 
-        const minzzer = (acc: number, p: n3) => Math.min(acc, p[2])
+        const minzzer = (acc: number, p: n3) => Math.min(acc, p[2]);
         const minz = fc.features.reduce((acc, f) => {
             const geom = f.geometry;
             const gt = geom.type;
@@ -125,12 +125,13 @@ const getCamera =
         }, ALTITUDE_100);
 
         if (maxz !== undefined && minz !== undefined) {
-            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1.25);
+            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1);
             const pos = vec3.fromValues(
                 cx,
                 cy - dist,
                 maxz + dist);
-            const target = vec3.fromValues(cx, cy, maxz /*minz + ((maxz - minz) / 2)*/);
+            const target = vec3.fromValues(cx, cy,
+                maxz - (dist / 2));
             const viewport = vec2.fromValues(1024, 1024);
             return some({
                 pos,
@@ -141,6 +142,18 @@ const getCamera =
         return none;
     };
 
+// FIXME this is a hack!!
+const renderLoader =
+    () => {
+        const l = getLoading();
+        if (l.loading) {
+            return DIV({ className: `wrapper-loader ${l.even ? 'even' : 'odd'}` },
+                DIV({ className: 'loading-label' }, tr('loadingData')));
+        }
+        return NODISPLAY();
+    };
+
+
 const render3D =
     () =>
         scopeOption()
@@ -149,7 +162,7 @@ const render3D =
             .let('camera', ({ roofs }) => getCamera(roofs))
             .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
             .foldL<React.ReactNode>(
-                () => DIV({ className: 'wrapper-loader' }, 'loading...'),
+                () => renderLoader(),
                 scope => wrapper3D(scope.src),
         );
 

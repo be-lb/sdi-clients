@@ -131,6 +131,7 @@ export const loadCoordinate =
 export const loadCapakey =
     (capakey: string) => {
         dispatch('app/capakey', () => capakey);
+        dispatch('solar/loading', state => ({ ...state, loading: true }));
         const loaders = [
             loadRoofs(capakey),
             loadGeometry(capakey),
@@ -140,6 +141,7 @@ export const loadCapakey =
             .then(() => updateRoofs(capakey))
             .then(() => {
                 checkAddress(capakey);
+                dispatch('solar/loading', state => ({ ...state, loading: false }));
             });
 
     };

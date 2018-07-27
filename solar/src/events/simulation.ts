@@ -125,4 +125,14 @@ export const setObstacle =
         dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
     };
 
+
+// FIXME - and please call it once only and only once
+export const startLoadingLoop =
+    () => {
+        setInterval(() => {
+            dispatch('solar/loading',
+                state => ({ ...state, even: !state.even }));
+        }, 800);
+    };
+
 logger('loaded');

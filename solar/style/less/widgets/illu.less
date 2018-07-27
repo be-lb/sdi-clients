@@ -51,6 +51,20 @@
     }
 }
 
+.wrapper-loader {
+    width: calc(~"(100% - 2 * @{margin}) / 3");
+    
+    .loading-label {
+        margin-top: 100px;
+        font-size: 140%;
+        text-align: center;
+    }
+
+    &.even {
+        text-decoration-line: underline;
+    }
+}
+
 
 .illu.plan .map-wrapper {
     .control-box {
