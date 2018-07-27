@@ -8,7 +8,8 @@ import { FeatureCollection } from 'sdi/source';
 
 import map from '../map';
 import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
-import { perspective, Camera, reduceMultiPolygon, Reducer, reducePolygon } from './perspective'
+import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective'
+import { Camera } from './mat';
 import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
@@ -80,6 +81,7 @@ const wrapper3D =
                     DIV({ className: 'pin-end' }))),
             barChart());
 
+const ALTITUDE_0 = 0;
 const ALTITUDE_100 = 100;
 
 const getCamera =
@@ -88,6 +90,23 @@ const getCamera =
         const [minx, miny, maxx, maxy] = bbox(fc);
         const cx = minx + ((maxx - minx) / 2)
         const cy = miny + ((maxy - miny) / 2)
+        const maxxer = (acc: number, p: n3) => Math.max(acc, p[2])
+        const maxz = fc.features.reduce((acc, f) => {
+            const geom = f.geometry;
+            const gt = geom.type;
+            const r: Reducer = {
+                f: maxxer,
+                init: acc,
+            };
+            if ('MultiPolygon' === gt) {
+                return Math.max(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
+            }
+            else if ('Polygon' === gt) {
+                return Math.max(acc, reducePolygon(r, geom.coordinates as n3[][]));
+            }
+            return acc;
+        }, ALTITUDE_0);
+
         const minzzer = (acc: number, p: n3) => Math.min(acc, p[2])
         const minz = fc.features.reduce((acc, f) => {
             const geom = f.geometry;
@@ -105,9 +124,13 @@ const getCamera =
             return acc;
         }, ALTITUDE_100);
 
-        if (minz !== undefined) {
-            const pos = vec3.fromValues(cx, cy - Math.max((maxx - minx), (maxy - miny)), minz + 16);
-            const target = vec3.fromValues(cx, cy, minz);
+        if (maxz !== undefined && minz !== undefined) {
+            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1.25);
+            const pos = vec3.fromValues(
+                cx,
+                cy - dist,
+                maxz + dist);
+            const target = vec3.fromValues(cx, cy, maxz /*minz + ((maxz - minz) / 2)*/);
             const viewport = vec2.fromValues(1024, 1024);
             return some({
                 pos,
