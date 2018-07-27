@@ -26,8 +26,9 @@ import { getFeatureProp } from 'sdi/source';
 
 import { Obstacle } from '../components/adjust';
 import { getCapakey } from '../queries/app';
+import { totalArea } from '../queries/simulation';
 
-const logger = debug('sdi:solar/events')
+const logger = debug('sdi:solar/events');
 
 const dispatchInputs = dispatchK('solar/inputs');
 const dispatchOutputs = dispatchK('solar/outputs');
@@ -47,8 +48,8 @@ export const setAddress =
 
 
 observe('solar/inputs', () => {
-    logger('SIMULATION!!!')
-    getCapakey().map(simulate)
+    logger('SIMULATION!!!');
+    getCapakey().map(simulate);
 });
 
 export const setInputF =
@@ -89,11 +90,27 @@ const simulate =
     };
 
 
-
+type ObsValue = { [k in Obstacle]: number };
+const obstacleValues: ObsValue = {
+    velux: 0.75,
+    dormerWindow: 1.5,
+    flatRoofWindow: 0.75,
+    chimneySmoke: 1,
+    terraceInUse: 15,
+    lift: 3,
+    existingSolarPannel: 1.2,
+};
 
 export const setObstacle =
     (o: Obstacle, n: number) => {
-        dispatch('solar/obstacle', state => ({ ...state, [o]: n }));
+        let obsSurface = 0.0;
+        dispatch('solar/obstacle', (state) => {
+            const ns = { ...state, [o]: n };
+            Object.keys(ns).forEach((k: Obstacle) => obsSurface += obstacleValues[k] * ns[k]);
+            return ns;
+        });
+        const obstacleRate = obsSurface / totalArea();
+        dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
     };
 
-logger('loaded')
+logger('loaded');

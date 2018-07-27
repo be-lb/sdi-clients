@@ -16,6 +16,7 @@ export interface Obstacles {
     existingSolarPannel: number;
 }
 
+
 export type Obstacle = keyof Obstacles;
 
 export const defaulObstacles =
@@ -105,7 +106,7 @@ export const renderGraphics =
 export const calcObstacle =
     () =>
         DIV({ className: 'adjust-item obstacle' },
-            DIV({ className: 'adjust-item-title' }, 
+            DIV({ className: 'adjust-item-title' },
                 '1. ' + tr('installationObstacle'),
                 renderGraphics()),
             DIV({ className: 'adjust-item-widget' },
