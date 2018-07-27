@@ -41,6 +41,9 @@ export type SetNumKeyOfInputs =
     | 'pvArea'
     | 'annualConsumptionKWh'
     | 'installationPrice'
+    | 'VATrate'
+    | 'annualMaintenanceCost'
+    | 'loanPeriod'
     ;
 
 export const setAddress =
@@ -91,10 +94,10 @@ const simulate =
         if (inputs.pvArea >= 0) {
             // here we want to still have optimal area for the whole thing
             const oa = solarSim({ ...inputs, pvArea: -9999 }).maxArea;
-            dispatch('solar/optimalArea', () => oa)
+            dispatch('solar/optimalArea', () => oa);
         }
         else {
-            dispatch('solar/optimalArea', () => null)
+            dispatch('solar/optimalArea', () => null);
         }
     };
 

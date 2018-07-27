@@ -108,6 +108,10 @@ export type GetNumKeyOfInputs =
     | 'pvArea'
     | 'annualConsumptionKWh'
     | 'installationPrice'
+    | 'VATrate'
+    | 'annualMaintenanceCost'
+    | 'loanPeriod'
+    | 'loanRate'
     ;
 
 export const getInputF =
