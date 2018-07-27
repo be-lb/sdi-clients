@@ -30,10 +30,10 @@ const D = C << 1;
 
 const setLevel =
     (l: number) => {
-        setEnergySobriety(l >= A)
-        setChargeShift(l >= B)
-        setPVHeater(l >= C)
-        setBattery(l >= D)
+        setEnergySobriety(l >= A);
+        setChargeShift(l >= B);
+        setPVHeater(l >= C);
+        setBattery(l >= D);
     };
 
 const isActive =
@@ -45,13 +45,14 @@ const isActive =
         if (getBattery()) { score = score << 1; }
 
         return n === score;
-    }
+    };
 
 const pictoCollection =
     () =>
         DIV({ className: 'picto-collection' },
             DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }),
             DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }),
+            DIV({ className: 'waterheating' + (getPVHeater() ? ' active' : '') }),
             DIV({ className: 'battery' + (getBattery() ? ' active' : '') }),
         );
 
@@ -60,7 +61,7 @@ const ranks = {
     [B]: 'second',
     [C]: 'third',
     [D]: 'fourth',
-}
+};
 
 const selectItem =
     (rank: number) =>
@@ -84,6 +85,7 @@ const notes =
         DIV({ className: 'adjust-item-note' },
             DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }, tr('reduceConsumption')),
             DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }, tr('dayConsumption')),
+            DIV({ className: 'day' + (getPVHeater() ? ' active' : '') }, tr('hotWaterDuringDay')),
             DIV({ className: 'battery' + (getBattery() ? ' active' : '') }, tr('installBatteries')),
         );
 
