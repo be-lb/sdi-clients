@@ -1,7 +1,7 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { getOutput } from '../../queries/simulation';
+import { getOutput, getOptimalArea } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 const getArea = () => getOutput('maxArea');// getNumInputF('pvArea');
@@ -9,7 +9,7 @@ const getArea = () => getOutput('maxArea');// getNumInputF('pvArea');
 type rank = number;
 const areas = () => {
     const ret: number[] = [];
-    for (let i = getOutput('maxArea'); i >= 5; i -= 10) {
+    for (let i = getOptimalArea(); i >= 5; i -= 10) {
         ret.push(i);
     }
     return ret.reverse();

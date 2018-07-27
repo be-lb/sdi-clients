@@ -38,6 +38,7 @@ declare module 'sdi/shape' {
         'solar/inputs': inputs;
         'solar/outputs': outputs | null;
         'solar/obstacle': Obstacles;
+        'solar/optimalArea': number | null;
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;

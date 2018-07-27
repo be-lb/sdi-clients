@@ -126,24 +126,9 @@ export const getOutput =
         fromNullable(query('solar/outputs')).fold(dflt, out => out[k]);
 
 
-// export const savedCO2emissions = () => withTCO2Y(1000);
-
-// export const area = () => withM2(1000);
-
-// export const power = () => withKWc(1000);
-
-// export const obstacleRate = () => withPercent(1000);
-
-// export const annualProduction = () => withKWhY(1000);
 
 export const annualConsumption =
     () => queryInputs()['annualConsumptionKWh'];
-
-// export const autonomy = () => withPercent(1000);
-
-// export const totalGain25Y = () => withEuro(1000);
-
-// export const returnTime = () => withYear(1000);
 
 
 export const pvTechnology =
@@ -153,6 +138,12 @@ export const pvTechnology =
 export const getObstacle =
     (o: Obstacle) => query('solar/obstacle')[o];
 
+
+export const getOptimalArea =
+    () => fromNullable(query('solar/optimalArea')).foldL(
+        () => getOutput('maxArea'),
+        n => n,
+    );
 
 export const getOrthoURL =
     () =>

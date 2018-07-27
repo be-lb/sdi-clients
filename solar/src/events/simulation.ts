@@ -79,14 +79,23 @@ export const updateRoofs =
 
 const simulate =
     () => {
+        const inputs = query('solar/inputs');
         dispatchOutputs(() => {
             try {
-                return solarSim(query('solar/inputs'));
+                return solarSim(inputs);
             }
             catch (_err) {
                 return null;
             }
         });
+        if (inputs.pvArea >= 0) {
+            // here we want to still have optimal area for the whole thing
+            const oa = solarSim({ ...inputs, pvArea: -9999 }).maxArea;
+            dispatch('solar/optimalArea', () => oa)
+        }
+        else {
+            dispatch('solar/optimalArea', () => null)
+        }
     };
 
 

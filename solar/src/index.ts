@@ -101,6 +101,7 @@ export const main =
             'solar/inputs': inputsFactory([], 'poly', 25),
             'solar/outputs': null,
             'solar/obstacle': defaulObstacles(),
+            'solar/optimalArea': null,
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},
