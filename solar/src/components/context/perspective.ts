@@ -168,7 +168,7 @@ export function perspective(
                 const ps = sortedPlanes(planes, c);
                 ps.forEach((p) => {
                     const end = prep(ctx, p.props);
-                    drawLineRingCoord(ctx, fin, getLineRingCoord((pt: vec3) => t(pt, false /* perspective || ortho */), p.plane));
+                    drawLineRingCoord(ctx, fin, getLineRingCoord((pt: vec3) => t(pt, false), p.plane));
                     end();
                 });
             };
