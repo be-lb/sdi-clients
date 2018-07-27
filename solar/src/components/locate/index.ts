@@ -109,7 +109,7 @@ const wrapperTop =
                     SPAN({}, tr('solCalculateStrPart1')),
                     SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
                     SPAN({}, tr('solCalculateStrPart2'))),
-                toggle('solarPV', 'solarThermal'),
+                toggle(() => true, () => void 0)('solarPV', 'solarThermal'),
                 renderGeocoder(),
                 DIV({}, tr('solOrSelectBuildingOnMap'))));
 

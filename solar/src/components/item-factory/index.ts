@@ -34,7 +34,7 @@ export const vertInputItem =
         const get = getNumInputF(k);
         const set = setInputF(k);
         const input = inputNumber(get, set);
-        const label = DIV({ className: 'input-label' }, tr(labelKey))
+        const label = DIV({ className: 'input-label' }, tr(labelKey));
 
         return DIV({ className: 'input-box-vertical' },
             DIV({ className: 'input-and-unit' },
@@ -47,18 +47,24 @@ export const inputItem =
         const get = getNumInputF(k);
         const set = setInputF(k);
         const input = inputNumber(get, set);
-        const label = DIV({ className: 'input-label' }, tr(labelKey))
+        const label = DIV({ className: 'input-label' }, tr(labelKey));
 
         return DIV({ className: 'input-box' },
             label, input, ...ns);
     };
 
 
+const activeClass = (a: boolean) => a ? '' /* 'active' hits a greeny CSS rule */ : 'inactive';
+
 export const toggle =
-    (value1: MessageKey, value2: MessageKey) =>
-        DIV({ className: 'toggle' },
-            DIV({ className: 'value first-value' }, tr(value1) + ' '),
-            DIV({ className: 'toggle-icon' }),
-            DIV({ className: 'value second-value inactive' }, ' ' + tr(value2)));
+    (get: () => boolean, set: (a: boolean) => void) =>
+        (value1: MessageKey, value2: MessageKey) =>
+            DIV({
+                className: 'toggle',
+                onClick: () => set(!get()),
+            },
+                DIV({ className: `value first-value ${activeClass(get())}` }, tr(value1) + ' '),
+                DIV({ className: 'toggle-icon' }),
+                DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)));
 
 
