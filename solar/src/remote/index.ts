@@ -20,7 +20,7 @@ import {
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO } from './io';
+import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO, RoofIdentifiersIO } from './io';
 
 
 
@@ -31,9 +31,15 @@ export const fetchKey =
         return fetchIO(CapakeyIO, url);
     };
 
+export const fetchRoofIdentifiers =
+    (capakey: string) => {
+        const url = getApiUrl(`geodata/solar/roofs/${capakey}/`);
+        return fetchIO(RoofIdentifiersIO, url);
+    };
+
 export const fetchRoof =
-    (capakey: string): Promise<FeatureCollection> => {
-        const url = getApiUrl(`geodata/solar/${capakey}/`);
+    (roofId: number): Promise<FeatureCollection> => {
+        const url = getApiUrl(`geodata/solar/radiations/${roofId}/`);
         return fetchWithoutValidationIO(url);
     };
 

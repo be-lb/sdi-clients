@@ -25,7 +25,6 @@ import { inputsFactory } from 'solar-sim';
 
 import App from './app';
 import { defaulObstacles } from './components/adjust';
-import { defaultLoaderState } from './shape';
 
 const logger = debug('sdi:index');
 
@@ -103,7 +102,8 @@ export const main =
             'solar/outputs': null,
             'solar/obstacle': defaulObstacles(),
             'solar/optimalArea': null,
-            'solar/loading': defaultLoaderState(),
+            'solar/loading': [],
+            'solar/loaded': [],
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},

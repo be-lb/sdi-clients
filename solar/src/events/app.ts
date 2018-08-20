@@ -23,8 +23,10 @@ import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 import { getLang } from 'sdi/app';
 import { defaultInteraction } from 'sdi/map';
 
+import { FeatureCollection } from 'sdi/source';
+
 import { AppLayout } from '../app';
-import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey } from '../remote';
+import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofIdentifiers } from '../remote';
 import { updateRoofs } from './simulation';
 import { Coordinate } from 'openlayers';
 import { updateGeocoderResponse } from './map';
@@ -45,14 +47,45 @@ export const setLayout =
     };
 
 
+const loadRoof =
+    (capakey: string, r: (a: FeatureCollection) => void, s: () => void) => {
+        const rids = query('solar/loading');
+        if (rids.length > 0) {
+            const rid = rids[0];
+            fetchRoof(rid)
+                .then((fc) => {
+                    dispatch('solar/loading', ids => ids.filter(id => id !== rid));
+                    dispatch('solar/loaded', ids => [...ids, rid]);
+                    dispatch('solar/data/roofs', (state) => {
+                        const ns = { ...state };
+                        if (capakey in ns) {
+                            ns[capakey].features = state[capakey].features.concat(fc.features);
+                        }
+                        else {
+                            ns[capakey] = fc;
+                        }
+                        return ns;
+                    });
+                })
+                .then(() => loadRoof(capakey, r, s))
+                .catch(s);
+        }
+        else {
+            r(query('solar/data/roofs')[capakey]);
+        }
+    };
+
 const loadRoofs =
     (capakey: string) =>
         fromNullable(query('solar/data/roofs')[capakey])
             .foldL(
-                () => fetchRoof(capakey).then((fc) => {
-                    dispatch('solar/data/roofs', state => ({ ...state, [capakey]: fc }));
-                    return fc;
-                }),
+                () => {
+                    return fetchRoofIdentifiers(capakey)
+                        .then(({ roofs }) => {
+                            dispatch('solar/loading', () => roofs);
+                            return (new Promise((solve, ject) => loadRoof(capakey, solve, ject)));
+                        });
+                },
                 fc => Promise.resolve(fc),
         );
 
@@ -131,7 +164,8 @@ export const loadCoordinate =
 export const loadCapakey =
     (capakey: string) => {
         dispatch('app/capakey', () => capakey);
-        dispatch('solar/loading', state => ({ ...state, loading: true }));
+        dispatch('solar/loading', () => []);
+        dispatch('solar/loaded', () => []);
         const loaders = [
             loadRoofs(capakey),
             loadGeometry(capakey),
@@ -141,7 +175,6 @@ export const loadCapakey =
             .then(() => updateRoofs(capakey))
             .then(() => {
                 checkAddress(capakey);
-                dispatch('solar/loading', state => ({ ...state, loading: false }));
             });
 
     };

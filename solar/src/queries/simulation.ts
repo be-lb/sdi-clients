@@ -176,4 +176,32 @@ export const getOrthoURL =
             .fold('', identity);
 
 
-export const getLoading = queryK('solar/loading');
+export interface LoadingStatus {
+    loading: boolean;
+    total: number;
+    loaded: number;
+    remaining: number;
+}
+
+const defaultLoading = (): LoadingStatus => ({
+    loading: false,
+    total: 0,
+    loaded: 0,
+    remaining: 0,
+});
+
+export const getLoading =
+    () => {
+        const loading = query('solar/loading').length;
+        const loaded = query('solar/loaded').length;
+        if (loading > 0) {
+            return {
+                loading: true,
+                total: loading + loaded, loaded, remaining: loading,
+            };
+
+        }
+
+        return defaultLoading();
+
+    };

@@ -32,14 +32,6 @@ interface GenericContainer<T> {
     [k: string]: T;
 }
 
-export interface SolarLoader {
-    loading: boolean;
-    even: boolean;
-}
-
-export const defaultLoaderState =
-    (): SolarLoader => ({ loading: false, even: true });
-
 declare module 'sdi/shape' {
     export interface IShape {
         'solar/address': IUgWsAddress | null;
@@ -47,8 +39,8 @@ declare module 'sdi/shape' {
         'solar/outputs': outputs | null;
         'solar/obstacle': Obstacles;
         'solar/optimalArea': number | null;
-        // TODO - this is a hack while computation is crazy slow
-        'solar/loading': SolarLoader;
+        'solar/loading': number[];
+        'solar/loaded': number[];
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;

@@ -147,8 +147,8 @@ const renderLoader =
     () => {
         const l = getLoading();
         if (l.loading) {
-            return DIV({ className: `wrapper-loader ${l.even ? 'even' : 'odd'}` },
-                DIV({ className: 'loading-label' }, tr('loadingData')));
+            return DIV({ className: `wrapper-loader` },
+                DIV({ className: 'loading-label' }, `${tr('loadingData')} ${l.loaded}/${l.total}`));
         }
         return NODISPLAY();
     };

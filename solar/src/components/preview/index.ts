@@ -4,6 +4,7 @@ import tr from 'sdi/locale';
 import { context } from '../context';
 import { actionSettings, actionContact, actionChange, actionPrint } from '../action';
 import { summary } from '../summary';
+import { getLoading } from '../../queries/simulation';
 
 
 
@@ -29,8 +30,15 @@ const action =
 
 
 const render =
-    () =>
-        DIV({ className: 'main-splitted-height' },
+    () => {
+        const l = getLoading();
+        if (l.loading) {
+            return DIV({ className: 'main-splitted-height' },
+                DIV({ className: 'upper-part' }, context()),
+                DIV({ className: 'lower-part' }, `${tr('loadingData')} ${l.loaded}/${l.total}`,
+                ));
+        }
+        return DIV({ className: 'main-splitted-height' },
             DIV({ className: 'upper-part' },
                 context(),
                 summary()),
@@ -38,6 +46,7 @@ const render =
                 DIV({ className: 'action-title' }, tr('solAndNow')),
                 action(),
             ));
+    };
 
 
 export default render;
