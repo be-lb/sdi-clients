@@ -1,9 +1,6 @@
 
 .main-splitted-height {
-    // display: flex;
-    // flex-direction: column;
     margin: 0 @margin;
-    // height: auto !important;
     overflow-y: auto;
     .upper-part {
         display: flex;
@@ -23,5 +20,30 @@
             padding: @margin 0;
             width: @sidebarW;
         }
+    }
+}
+
+.main-loader {
+    .absolute(0,@margin,0,@margin);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    H1 {
+        text-align: center;}
+
+    .context {
+        width: @contextW;
+        margin: auto;
+        padding: @margin*2 0;
+    }
+
+    .loading-msg {
+        text-align: center;
+        font-size: @big-font;
+        font-weight: 700;
+        color: @green;
     }
 }
