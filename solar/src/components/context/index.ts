@@ -7,7 +7,7 @@ import { scopeOption } from 'sdi/lib';
 import { FeatureCollection } from 'sdi/source';
 
 import map from '../map';
-import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs, getLoading } from '../../queries/simulation';
+import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
 import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
 import { vec3, vec2 } from 'gl-matrix';
@@ -142,29 +142,23 @@ const getCamera =
         return none;
     };
 
-// FIXME this is a hack!!
-const renderLoader =
-    () => {
-        const l = getLoading();
-        if (l.loading) {
-            return DIV({ className: `wrapper-loader` },
-                DIV({ className: 'loading-label' }, `${tr('loadingData')} ${l.loaded}/${l.total}`));
-        }
-        return NODISPLAY();
-    };
 
+const emptyRoofs = some<FeatureCollection>({
+    type: 'FeatureCollection',
+    features: [],
+});
 
 const render3D =
     () =>
         scopeOption()
             .let('buildings', getBuildings())
-            .let('roofs', getRoofs())
-            .let('camera', ({ roofs }) => getCamera(roofs))
+            .let('roofs', getRoofs().fold(emptyRoofs, roofs => some(roofs)))
+            .let('camera', ({ buildings }) => getCamera(buildings))
             .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
             .foldL<React.ReactNode>(
-                () => renderLoader(),
-                scope => wrapper3D(scope.src),
-        );
+                () => NODISPLAY(),
+                scope => wrapper3D(scope.src));
+
 
 
 export const context =
