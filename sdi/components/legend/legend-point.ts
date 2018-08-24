@@ -16,20 +16,25 @@
 
 import * as debug from 'debug';
 import { geom, Feature } from 'openlayers';
+import { Option } from 'fp-ts/lib/Option';
 
-import { getContext, IOLContext, lineStyle } from 'sdi/map/style';
-import { DIV, SPAN, IMG } from 'sdi/components/elements';
-import { fromRecord } from 'sdi/locale';
-import { ILayerInfo, getMessageRecord, LineStyleConfig, LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfigContinuous } from 'sdi/source';
+import { pointStyle, getContext, IOLContext } from '../../map/style';
+import { DIV, SPAN, IMG } from '../elements';
+import { fromRecord } from '../../locale';
+import {
+    ILayerInfo,
+    getMessageRecord,
+    PointStyleConfig,
+    PointStyleConfigDiscrete,
+    PointStyleConfigSimple,
+    PointStyleConfigContinuous,
+    Inspire,
+} from '../../source';
 
-import { getDatasetMetadata } from '../../queries/app';
 
-const logger = debug('sdi:legend-linestring');
+const logger = debug('sdi:legend-point');
 
-const lineGeometry = new geom.LineString([
-    [0, 15],
-    [32, 15],
-]);
+const pointGeometry = new geom.Point([15, 15]);
 
 
 const item = (geomType: string, dataUrl: string, label: string) => {
@@ -41,73 +46,72 @@ const item = (geomType: string, dataUrl: string, label: string) => {
 };
 
 
-const renderSimple = (config: LineStyleConfigSimple, layerInfo: ILayerInfo, ctx: IOLContext) => {
+const renderSimple = (config: PointStyleConfigSimple, _layerInfo: ILayerInfo, md: Option<Inspire>, ctx: IOLContext) => {
     const { canvas, olContext } = ctx;
-    const styles = lineStyle(config)(new Feature(lineGeometry));
+    const styleFn = pointStyle(config);
+    const styles = styleFn(new Feature(pointGeometry));
+
     styles.forEach((style) => {
         olContext.setStyle(style);
-        olContext.drawGeometry(lineGeometry);
+        olContext.drawGeometry(pointGeometry);
     });
-    const label = getDatasetMetadata(layerInfo.metadataId).fold(
-        '',
-        md => fromRecord(getMessageRecord(md.resourceTitle)));
+    const label = md.fold('', m => fromRecord(getMessageRecord(m.resourceTitle)));
 
-    return [item('line', canvas.toDataURL(), label)];
-
+    return [item('point', canvas.toDataURL(), label)];
 };
 
-const renderDiscrete = (config: LineStyleConfigDiscrete, _layerInfo: ILayerInfo, ctx: IOLContext) => {
+
+const renderDiscrete = (config: PointStyleConfigDiscrete, _layerInfo: ILayerInfo, _md: Option<Inspire>, ctx: IOLContext) => {
     const { canvas, canvasContext, olContext } = ctx;
-    const styleFn = lineStyle(config);
+    const styleFn = pointStyle(config);
     const items: React.DOMElement<{}, Element>[] = [];
     config.groups.forEach((group) => {
         if (group.values.length > 0) {
             canvasContext.clearRect(0, 0, 100, 100);
-            const f = new Feature(lineGeometry);
+            const f = new Feature(pointGeometry);
             f.set(config.propName, group.values[0]);
             const styles = styleFn(f);
             styles.forEach((style) => {
                 olContext.drawFeature(f, style);
             });
-            items.push(item('line', canvas.toDataURL(), fromRecord(group.label)));
+            items.push(item('point', canvas.toDataURL(), fromRecord(group.label)));
         }
     });
 
     return items;
-
 };
 
-const renderContinuous = (config: LineStyleConfigContinuous, _layerInfo: ILayerInfo, ctx: IOLContext) => {
+const renderContinuous = (config: PointStyleConfigContinuous, _layerInfo: ILayerInfo, _md: Option<Inspire>, ctx: IOLContext) => {
     const { canvas, canvasContext, olContext } = ctx;
-    const styleFn = lineStyle(config);
+    const styleFn = pointStyle(config);
     const items: React.DOMElement<{}, Element>[] = [];
     config.intervals.forEach((interval) => {
         canvasContext.clearRect(0, 0, 100, 100);
-        const f = new Feature(lineGeometry);
+        const f = new Feature(pointGeometry);
         const v = interval.low + ((interval.high - interval.low) / 2);
         f.set(config.propName, v);
         const styles = styleFn(f);
         styles.forEach((style) => {
             olContext.drawFeature(f, style);
         });
-        items.push(item('line', canvas.toDataURL(), fromRecord(interval.label)));
+        items.push(item('point', canvas.toDataURL(), fromRecord(interval.label)));
     });
 
     return items;
 };
 
-const render = (config: LineStyleConfig, layerInfo: ILayerInfo) => {
-    const ctx = getContext(20, 32);
+const render = (config: PointStyleConfig, layerInfo: ILayerInfo, md: Option<Inspire>) => {
+    const ctx = getContext(32, 32);
     if (ctx) {
         switch (config.kind) {
-            case 'line-simple': return renderSimple(config, layerInfo, ctx);
-            case 'line-discrete': return renderDiscrete(config, layerInfo, ctx);
-            case 'line-continuous': return renderContinuous(config, layerInfo, ctx);
+            case 'point-simple': return renderSimple(config, layerInfo, md, ctx);
+            case 'point-discrete': return renderDiscrete(config, layerInfo, md, ctx);
+            case 'point-continuous': return renderContinuous(config, layerInfo, md, ctx);
         }
     }
-
     return [];
 };
+
 
 export default render;
 

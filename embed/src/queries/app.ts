@@ -7,6 +7,8 @@ import { query } from 'sdi/shape';
 export const getUserData =
     () => query('data/user');
 
+export const getLayout =
+    () => query('app/layout');
 
 export const getMapInfo =
     () => fromNullable(query('data/map'));

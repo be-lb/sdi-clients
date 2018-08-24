@@ -9,6 +9,7 @@ import { removeLayerAll, addLayer } from 'sdi/map';
 
 import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer, fetchBaseLayer } from '../remote';
 import { viewEvents } from './map';
+import { AppLayout } from '../shape';
 
 
 export const loadUser =
@@ -18,7 +19,8 @@ export const loadUser =
                 dispatch('data/user', () => user);
             });
 
-
+export const setLayout =
+    (l: AppLayout) => dispatch('app/layout', () => l);
 
 export const setCurrentFeatureById =
     (lid: string, fid: string | number) => {
@@ -26,6 +28,11 @@ export const setCurrentFeatureById =
         dispatch('app/featureId', () => fid);
     };
 
+export const unsetCurrentFeature =
+    () => {
+        dispatch('app/layerId', () => null);
+        dispatch('app/featureId', () => null);
+    };
 
 // Very simple route mod
 

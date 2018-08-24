@@ -6,7 +6,7 @@ import {
 
 declare module 'sdi/shape' {
     export interface IShape {
-        'component/timeserie': ITimeserieInteractive;
+        'component/timeserie': { [id: string]: ITimeserieInteractive };
         'data/timeseries': ITimeserieCollection;
     }
 }

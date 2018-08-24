@@ -1,31 +1,43 @@
-// /*
-//  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
-//  *
-//  *  This program is free software: you can redistribute it and/or modify
-//  *  it under the terms of the GNU General Public License as published by
-//  *  the Free Software Foundation, version 3 of the License.
-//  *
-//  *  This program is distributed in the hope that it will be useful,
-//  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//  *  GNU General Public License for more details.
-//  *
-//  *  You should have received a copy of the GNU General Public License
-//  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//  */
+/*
+ *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, version 3 of the License.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
-// import { dispatch, dispatchK } from 'sdi/shape';
-// import { fetchTimeserie } from '../remote';
+import { dispatch } from 'sdi/shape';
+import { ITimeserieInteractive, initialTimeserieState } from 'sdi/components/timeserie';
 
-// export const dispatchTimeserie = dispatchK('component/timeserie');
+import { fetchTimeserie } from '../remote';
 
-// export const loadData =
-//     (id: string, url: string) => {
-//         fetchTimeserie(url)
-//             .then((ts) => {
-//                 dispatch('data/timeseries', (state) => {
-//                     state[id] = ts;
-//                     return state;
-//                 });
-//             });
-//     };
+
+type TimeserieStateUpdater = (state: ITimeserieInteractive) => ITimeserieInteractive;
+
+export const dispatchTimeserie =
+    (url: string, f: TimeserieStateUpdater) =>
+        dispatch('component/timeserie', (interactives) => {
+            if (url in interactives) {
+                return { ...interactives, [url]: f(interactives[url]) };
+            }
+            return { ...interactives, [url]: f(initialTimeserieState()) };
+        });
+
+export const loadData =
+    (url: string) => {
+        fetchTimeserie(url)
+            .then((ts) => {
+                dispatch('data/timeseries', (state) => {
+                    state[url] = ts;
+                    return state;
+                });
+            });
+    };

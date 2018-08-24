@@ -45,8 +45,10 @@ export const main =
             'app/route': SDI.args,
             'app/lang': 'fr',
 
+            'app/layout': 'map',
             'app/layerId': null,
             'app/featureId': null,
+            'app/current-feature': null,
 
             'data/user': null,
             'data/alias': [],
@@ -72,12 +74,7 @@ export const main =
 
             'port/map/interaction': defaultInteraction(),
 
-            'component/timeserie': {
-                cursorPosition: 35,
-                selection: { start: -1, end: -1 },
-                active: false,
-                editingSelection: false,
-            },
+            'component/timeserie': {},
             'data/timeseries': {},
             'data/baselayers': {},
         };

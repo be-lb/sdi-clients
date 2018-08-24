@@ -8,6 +8,8 @@ import { initMap, loadBaseLayer } from './events/app';
 
 import map from './components/map';
 import legend from './components/legend';
+import feature from './components/feature-view';
+import { getLayout } from './queries/app';
 
 const logger = debug('sdi:app');
 
@@ -22,12 +24,18 @@ const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
         DIV({ className: 'embed' },
             DIV({ className: `main ${name}` }, ...elements),
-            logoBe()
+            logoBe(),
         )
     );
 
+
 const render =
-    () => wrappedMain('main', map(), legend());
+    () => {
+        switch (getLayout()) {
+            case 'map': return wrappedMain('main', map(), legend());
+            case 'map-and-feature': return wrappedMain('main', map(), feature());
+        }
+    };
 
 const baseLayers = [
     'urbis.irisnet.be/urbis_gray',

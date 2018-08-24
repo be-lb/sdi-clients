@@ -15,13 +15,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { fromNullable, none, some } from 'fp-ts/lib/Option';
+import { fromNullable, none, some, Option } from 'fp-ts/lib/Option';
 import { left, right, Either } from 'fp-ts/lib/Either';
 
 import { query } from 'sdi/shape';
 import { getMessageRecord, IMapInfo, FeatureCollection } from 'sdi/source';
 import { SyntheticLayerInfo } from 'sdi/app';
-import { Option } from 'fp-ts/lib/Option';
 
 
 const queries = {

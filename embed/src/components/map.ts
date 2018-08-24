@@ -26,17 +26,31 @@ import { getBaseLayer, getMapInfo, getFeatureId, getLayerId } from '../queries/a
 import {
     getView,
     getInteractionMode,
+    getInteraction,
 } from '../queries/map';
 import {
     viewEvents,
     scalelineEvents,
 } from '../events/map';
+import { setLayout, setCurrentFeatureById, unsetCurrentFeature } from '../events/app';
 
 
 const logger = debug('sdi:comp/map');
 
 const getInfo =
     () => getMapInfo().fold(null, m => m);
+
+const selectFeature =
+    (lid: string, fid: string | number) => {
+        setCurrentFeatureById(lid, fid);
+        setLayout('map-and-feature');
+    };
+
+const clearSelection =
+    () => {
+        unsetCurrentFeature();
+        setLayout('map');
+    };
 
 const options: IMapOptions = {
     getBaseLayer,
@@ -68,9 +82,15 @@ const attachMap =
                     update,
                     setTarget,
                     highlightable,
+                    selectable,
                 } = create({ ...options, element });
                 mapSetTarget = setTarget;
                 mapUpdate = update;
+
+                selectable({
+                    selectFeature,
+                    clearSelection,
+                }, getInteraction);
 
                 highlightable(getSelected);
 
