@@ -1,0 +1,89 @@
+
+.styles-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .legend-label {
+        font-weight: 100;
+        margin: @margin 0;
+    }
+
+    .legend-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: @small-margin;
+        min-height: 20px;
+
+        &:last-child {margin-bottom: 0px;}
+
+        &.polygon {
+            .item-style {
+                height: 32px;
+            }
+        }
+
+        .item-style {
+            .legendItemPosition;
+            // margin-top: @small-margin;
+            img {
+                width: 100%;
+                height:auto;
+            }
+        }
+        .item-label {
+            min-height: 20px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.legend-group.named{
+    width: 100%;
+    margin-bottom: @margin;
+
+    .legend-group-title {
+        font-weight: 100;
+        margin: @margin auto @small-margin auto;
+    }
+
+    .legend-group-items {
+        border-left: 1px solid @grey;
+        padding-left: @margin;
+        margin-left: @margin;
+    }
+}
+
+.wms-legend-wrapper {
+    width: 100%;
+    margin-top: @small-margin;
+    padding: @margin 0;
+    border-top: 0.5px solid @grey;
+    border-bottom: 0.5px solid @grey;
+    overflow-x: auto;
+    overflow-y: hidden;
+    .wms-legend-switch {
+        .interactive;
+        font-weight: 100;
+        display: flex;
+        &::before{
+            .awsomefont;
+            .legendItemPosition;
+            justify-content: center;
+        }
+        &.opened::before{
+            content: @fa-var-chevron-down;
+        }
+        &.closed::before{
+            content: @fa-var-chevron-right;
+        }
+    }
+
+    .wms-legend-item {
+        margin-left:  @legend-itemW + @margin;
+        margin-top:  @small-margin;
+    }
+}

@@ -43,7 +43,9 @@ const legendLegend =
                 fromRecord(mapInfo.description),
             ),
             H2({}, tr('mapLegend')),
-            ...renderLegend(mapInfo.layers),
+            DIV({ className: 'styles-wrapper' },
+                ...renderLegend(mapInfo.layers),
+            ),
         );
 
 
