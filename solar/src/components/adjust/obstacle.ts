@@ -107,7 +107,7 @@ export const calcObstacle =
     () =>
         DIV({ className: 'adjust-item obstacle' },
             DIV({ className: 'adjust-item-title' },
-                '1. ' + tr('installationObstacle'),
+                '2. ' + tr('installationObstacle'),
                 renderGraphics()),
             DIV({ className: 'adjust-item-widget' },
                 renderObstacle('velux'),

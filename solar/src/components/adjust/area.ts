@@ -44,7 +44,7 @@ const selectWidget =
         );
 
 const title =
-    () => DIV({ className: 'adjust-item-title' }, `0. ${tr('usableArea')} (m2)`);
+    () => DIV({ className: 'adjust-item-title' }, `1. ${tr('usableArea')} (m2)`);
 
 
 
