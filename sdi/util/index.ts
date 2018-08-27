@@ -1,5 +1,5 @@
 import { IMapBaseLayer, Feature, Properties, FeatureCollection } from '../source';
-import tr, { fromRecord } from '../locale';
+import tr, { fromRecord, formatNumber } from '../locale';
 import { MessageKey } from '../locale/message-db';
 import { Setoid } from 'fp-ts/lib/Setoid';
 
@@ -174,7 +174,7 @@ export const filterNotNull =
 
 const withUnit =
     (k: MessageKey) =>
-        (value: number, tf = 0) => `${value.toFixed(tf)} ${tr(k, { value })}`;
+        (value: number, tf = 0) => `${formatNumber(parseFloat(value.toFixed(tf)))} ${tr(k, { value })}`;
 
 export const withEuro = withUnit('unitEuro');
 export const withEuroY = withUnit('unitEuroY');
