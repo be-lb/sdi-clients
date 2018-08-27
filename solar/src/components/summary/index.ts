@@ -102,7 +102,6 @@ const sumFinance =
 export const summaryDetailed =
     () =>
         DIV({ className: 'summary-detailled' },
-            DIV({ className: 'summary-detailled-title' }, tr('sheet')),
             sumInstallation(),
             sumEnergy(),
             sumFinance(),

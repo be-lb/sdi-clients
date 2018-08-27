@@ -46,7 +46,7 @@ const icon =
 
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-title' },
-        '2. ' + tr('consumption'),
+        '3. ' + tr('consumption'),
         icon('first'),
         icon('second'),
         icon('third'),

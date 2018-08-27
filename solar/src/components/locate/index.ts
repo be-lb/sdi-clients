@@ -52,7 +52,7 @@ const renderGeocoderInput =
 const renderGeocoderButton =
     () => DIV({ className: 'btn-analyse' },
         SPAN({
-            className: 'bolt',
+            className: 'sun',
             onClick: searchAddress,
         }),
         tr('solResearch'));

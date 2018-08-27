@@ -90,9 +90,9 @@
         margin-left: @margin;
         display: flex;
 
-        .bolt:before {
+        .sun:before {
             .awsomefont;
-            content: @fa-var-bolt;
+            content: @fa-var-sun-o;
             margin-right: @margin/2;
         }
     }
@@ -106,12 +106,12 @@
     .adress-result {
         font-size: 75%;
         cursor: default;
-        &:before {
+        span:before {
             .awsomefont;
             content: @fa-var-circle-o;
             margin-right: 0.5em;
         }
-        &:hover:before {
+        span:hover:before {
             content: @fa-var-dot-circle-o;
         }
     }

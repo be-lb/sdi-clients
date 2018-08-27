@@ -21,7 +21,7 @@ const withLoan =
 export const calcLoan =
     () =>
         DIV({ className: 'adjust-item loan' },
-            DIV({ className: 'adjust-item-title' }, '6. ' + tr('loan')),
+            DIV({ className: 'adjust-item-title' }, '7. ' + tr('loan')),
             toggleLoan('loanYes', 'loanNo'),
             hasLoan() ? withLoan() : NODISPLAY());
 

@@ -4,26 +4,30 @@
         display: flex;
         flex-wrap: wrap;
         margin: 0 @margin;
-        overflow-y: auto;
+        overflow-y: hidden;
     }
     .content {
         width: calc(~"@{contextW} + @{margin}");
-        // margin-right: @margin;
-        // overflow-y: auto;
-        // overflow-x: hidden;
-        // padding-right: 30px;  // trick to hide scrollbar
-        padding-right: 15px;
         padding-top: 0 !important; //override
         border: 0px !important; //override
 
+        height: 100%;
+        margin-right: -@margin;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 30px;  // trick to hide scrollbar
+
         .context {
             padding-top: 2 * @margin; // trick to hide scrollbar
-            border-top: 1px solid #000; // trick to hide scrollbar
+            border-top: 1px solid #000 !important; 
         }
     }
     .sidebar {
         background-color: #fff;
-        width: @sidebarW;
+        // width: @sidebarW;
+        width: calc(~"30vw - @{margin} * 2");
+        height: 100%;
+        overflow-y: auto;
 
         .summary {
             padding-bottom: @margin;
@@ -63,7 +67,7 @@
         font-size: @small-font;
         margin-top: @margin * 2;
     }
-    
+
 }
 
 // HEADER

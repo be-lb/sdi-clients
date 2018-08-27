@@ -21,7 +21,7 @@ export const calcInstallation =
     () =>
         DIV({ className: 'adjust-item installation' },
             DIV({ className: 'adjust-item-title' },
-                '3. ' + tr('installation'),
+                '4. ' + tr('installation'),
                 DIV({ className: 'adjust-picto panel' })),
             DIV({ className: 'adjust-item-widget' },
                 // DIV({ className: 'adjust-picto-wrapper' },
