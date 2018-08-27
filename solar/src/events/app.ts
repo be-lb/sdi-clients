@@ -17,6 +17,7 @@
 import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 import pointOnFeature from '@turf/point-on-feature';
+import bbox from '@turf/bbox';
 
 import { dispatch, query } from 'sdi/shape';
 import { queryReverseGeocoder } from 'sdi/ports/geocoder';
@@ -28,7 +29,7 @@ import { FeatureCollection, Feature } from 'sdi/source';
 import { AppLayout } from '../app';
 import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofIdentifiers } from '../remote';
 import { updateRoofs } from './simulation';
-import { Coordinate } from 'openlayers';
+import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse } from './map';
 import { navigatePreview } from './route';
 
@@ -46,6 +47,30 @@ export const setLayout =
         }
     };
 
+
+const centerMap =
+    (capakey: string) => {
+        const geoms = query('solar/data/geoms');
+        if (capakey in geoms) {
+            const [minx, miny, maxx, maxy] = bbox(geoms[capakey]);
+            const width = maxx - minx;
+            const height = maxy - miny;
+            const sideMax = Math.max(width, height);
+            const sideMin = Math.min(width, height);
+            const abbox: Extent = [
+                minx - ((sideMax - sideMin) / 2),
+                miny - ((sideMax - sideMin) / 2),
+                minx + sideMax,
+                miny + sideMax,
+            ];
+
+            dispatch('port/map/view', state => ({
+                ...state,
+                dirty: 'geo/extent',
+                extent: abbox,
+            }));
+        }
+    };
 
 const createCollection =
     (fs: Feature[]): FeatureCollection => ({
@@ -186,6 +211,7 @@ export const loadCapakey =
         ];
         Promise.all(loaders)
             .then(() => updateRoofs(capakey))
+            .then(() => centerMap(capakey))
             .then(() => {
                 checkAddress(capakey);
             });

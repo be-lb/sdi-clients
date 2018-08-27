@@ -125,7 +125,7 @@ const getCamera =
         }, ALTITUDE_100);
 
         if (maxz !== undefined && minz !== undefined) {
-            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1);
+            const dist = (Math.max((maxx - minx), (maxy - miny)) * 0.7);
             const pos = vec3.fromValues(
                 cx,
                 cy - dist,
