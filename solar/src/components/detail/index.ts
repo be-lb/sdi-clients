@@ -1,4 +1,5 @@
 import { DIV } from 'sdi/components/elements';
+import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summary, summaryDetailed } from '../summary';
@@ -25,7 +26,10 @@ import {
 const calculatorTitle =
     () =>
         DIV({ className: 'adjust-item calculator-header' },
-            DIV({ className: 'calculator-title' }, 'Ajusteur'),
+            DIV({ className: 'calculator-title' },
+                    tr('solAdjustStr1'),
+                    ' ',
+                    tr('solAdjustStr2')),
             
         );
 
