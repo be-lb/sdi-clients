@@ -14,6 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import * as debug from 'debug';
 import { fromNullable, none, some } from 'fp-ts/lib/Option';
 import bbox from '@turf/bbox';
 
@@ -27,6 +28,8 @@ import { Obstacle } from '../components/adjust/index';
 import { identity } from 'fp-ts/lib/function';
 import { outputs, inputs } from 'solar-sim';
 
+
+const logger = debug('sdi:simulation');
 
 export const streetName =
     () => fromNullable(query('solar/address'))
@@ -44,8 +47,8 @@ export const potential = () => tr('solSolarPotentialExcellent');
 const roofs = queryK('solar/data/roofs');
 const buildings = queryK('solar/data/buildings');
 
-export const PROD_THESH_HIGH = 12000 * 1000;
-export const PROD_THESH_MEDIUM = 8000 * 1000;
+export const PROD_THESH_HIGH = 1200 * 1000;
+export const PROD_THESH_MEDIUM = 800 * 1000;
 
 
 export const getRoofs =
@@ -82,13 +85,16 @@ const areaProductivity =
             .fold(
                 0,
                 (features) => {
-                    const ta = Math.max(0.1, totalArea()); // ugly but...
+                    const ta = Math.max(0.01, totalArea()); // ugly but...
                     const catArea = features
                         .filter((f) => {
                             const p = getFeatureProp(f, 'productivity', 0);
-                            return (p >= low) && (p < high);
+                            const a = getFeatureProp(f, 'area', 0.001);
+                            const irm2 = p / a;
+                            return (irm2 >= low) && (irm2 < high);
                         })
                         .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
+
                     return catArea * 100 / ta;
                 },
         );
@@ -127,7 +133,10 @@ type OutputKey = keyof outputs;
 
 export const getOutput =
     <K extends OutputKey>(k: K, dflt = 0): number =>
-        fromNullable(query('solar/outputs')).fold(dflt, out => out[k]);
+        fromNullable(query('solar/outputs')).fold(dflt, out => {
+            // Object.keys(out).forEach((ok: OutputKey) => logger(`${ok}: ${out[ok]}`));
+            return out[k];
+        });
 
 
 
@@ -205,3 +214,6 @@ export const getLoading =
         return defaultLoading();
 
     };
+
+
+logger('loaded');

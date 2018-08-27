@@ -70,10 +70,10 @@ const getMessage = (value: any, context: io.Context): string => {
 
 
 const onValidationError =
-    <T>(ioType: io.Type<T>) =>
+    <T>(ioType: io.Type<T>, url: string) =>
         (errors: io.ValidationError[]) => {
             const msg = errors.map(e => getMessage(e.value, e.context));
-            console.group(`Validation Failed: ${ioType.name}`);
+            console.group(`Validation Failed: ${url}(${ioType.name})`);
             msg.forEach(m => console.log(m));
             console.groupEnd();
             throw (new Error(`${ioType.name} failed validation`));
@@ -119,7 +119,7 @@ export const fetchIO =
                     throw new Error(`Network response was not ok.\n[${url}]\n${response.statusText}`);
                 })
                 .then(obj => ioType.decode(obj)
-                    .fold(onValidationError(ioType), identity))
+                    .fold(onValidationError(ioType, url), identity))
         );
     };
 
@@ -222,7 +222,7 @@ export const postIO =
                 .then((obj) => {
                     return (
                         recType.decode(obj)
-                            .fold(onValidationError(ioType), identity)
+                            .fold(onValidationError(ioType, url), identity)
                     );
                 })
         );

@@ -75,7 +75,7 @@ const sumInstallation =
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
             vk(withM2(getOutput('maxArea')), 'surface'),
-            vk(withKWc(getOutput('power')), 'power'),
+            vk(withKWc(getOutput('power'), 1), 'power'),
             vk(withPercent(getOutput('obstacleRate') * 100), 'obstacleEstimation'));
 
 const sumEnergy =

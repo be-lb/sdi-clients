@@ -16,7 +16,7 @@
 
 
 import {
-    fetchIO, IMapInfo, IMapInfoIO, FeatureCollection, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO, InspireIO, Inspire,
+    fetchIO, IMapInfo, IMapInfoIO, FeatureCollection, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO, InspireIO, Inspire, FeatureIO, FeatureCollectionIO,
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
@@ -38,23 +38,23 @@ export const fetchRoofIdentifiers =
     };
 
 export const fetchRoof =
-    (roofId: number): Promise<FeatureCollection> => {
+    (roofId: number) => {
         const url = getApiUrl(`geodata/solar/radiations/${roofId}/`);
-        return fetchWithoutValidationIO(url);
+        return fetchIO(FeatureIO, url);
     };
 
 
 export const fetchGeom =
-    (capakey: string): Promise<FeatureCollection> => {
+    (capakey: string) => {
         const url = getApiUrl(`geodata/solar/geom/for/${capakey}/`);
-        return fetchWithoutValidationIO(url);
+        return fetchIO(FeatureCollectionIO, url);
     };
 
 
 export const fetchBuilding =
-    (capakey: string): Promise<FeatureCollection> => {
+    (capakey: string) => {
         const url = getApiUrl(`geodata/solar/3d/for/${capakey}/`);
-        return fetchWithoutValidationIO(url);
+        return fetchIO(FeatureCollectionIO, url);
     };
 
 

@@ -21,7 +21,7 @@ const expenses =
             DIV({ className: 'vat-installation' },
                 DIV({ className: 'wrapper-multi-checkbox' },
                     vatSelect('VAT21', 0.21),
-                    vatSelect('VAT6', 0.6),
+                    vatSelect('VAT6', 0.06),
                     vatSelect('VAT0', 0)),
                 // vatSelect('VATinstallation', getNumInputF('VATrate')()),
                 DIV({ className: 'multi-checkbox-label' }, tr('VATinstallation'))),
