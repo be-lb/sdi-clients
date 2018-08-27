@@ -198,7 +198,7 @@ export function perspective(
             c.save();
             c.strokeStyle = '#666';
             c.lineWidth = 0.4;
-            const p = getProp(f, 'productivity', 0);
+            const p = getProp(f, 'productivity', 0) / getProp(f, 'area', 0.0001);
             if (p >= PROD_THESH_HIGH) {
                 c.fillStyle = '#8db63c';
             }

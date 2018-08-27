@@ -23,7 +23,7 @@ import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 import { getLang } from 'sdi/app';
 import { defaultInteraction } from 'sdi/map';
 
-import { FeatureCollection } from 'sdi/source';
+import { FeatureCollection, Feature } from 'sdi/source';
 
 import { AppLayout } from '../app';
 import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofIdentifiers } from '../remote';
@@ -47,22 +47,35 @@ export const setLayout =
     };
 
 
+const createCollection =
+    (fs: Feature[]): FeatureCollection => ({
+        type: 'FeatureCollection',
+        crs: {
+            type: 'name',
+            properties: {
+                name: 'urn:ogc:def:crs:EPSG::31370',
+            },
+        },
+        features: fs,
+    });
+
+
 const loadRoof =
     (capakey: string, r: (a: FeatureCollection) => void, s: () => void) => {
         const rids = query('solar/loading');
         if (rids.length > 0) {
             const rid = rids[0];
             fetchRoof(rid)
-                .then((fc) => {
+                .then((feature) => {
                     dispatch('solar/loading', ids => ids.filter(id => id !== rid));
                     dispatch('solar/loaded', ids => [...ids, rid]);
                     dispatch('solar/data/roofs', (state) => {
                         const ns = { ...state };
                         if (capakey in ns) {
-                            ns[capakey].features = state[capakey].features.concat(fc.features);
+                            ns[capakey].features = state[capakey].features.concat([feature]);
                         }
                         else {
-                            ns[capakey] = fc;
+                            ns[capakey] = createCollection([feature]);
                         }
                         return ns;
                     });
