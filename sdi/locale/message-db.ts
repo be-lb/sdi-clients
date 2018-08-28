@@ -2644,9 +2644,12 @@ export const messages: MessageDB = {
         en: 'TCO2/year',
     },
     unitYear: {
-        fr: 'an',
-        nl: 'jaar',
-        en: 'year',
+        fr: '{value, plural, =0 {an} =1 {an} other {ans}}',
+        nl: '{value, plural, =0 {jaar} =1 {jaar} other {jaar}}',
+        en: '{value, plural, =0 {years} =1 {year} other {years}}',
+        parameters: {
+            value: 1,
+        },
     },
     unitM2: {
         fr: 'm2',

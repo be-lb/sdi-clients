@@ -3,6 +3,7 @@ import tr, { fromRecord, formatNumber } from '../locale';
 import { MessageKey } from '../locale/message-db';
 import { Setoid } from 'fp-ts/lib/Setoid';
 
+
 export interface IMapBaseLayerTranslated {
     name: string;
     srs: string;

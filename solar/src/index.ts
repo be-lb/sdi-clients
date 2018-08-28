@@ -98,7 +98,7 @@ export const main =
             'data/user': null,
 
             'solar/address': null,
-            'solar/inputs': { ...inputsFactory([]), nYears: 25, VATrate: 0.6 },
+            'solar/inputs': { ...inputsFactory([]), nYears: 25, VATrate: 0.06 },
             'solar/outputs': null,
             'solar/obstacle': defaulObstacles(),
             'solar/optimalArea': null,
