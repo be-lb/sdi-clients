@@ -60,9 +60,7 @@ const wrapperPlan =
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu plan' },
                 DIV({ className: 'circle-wrapper' },
-                    map()),
-                DIV({ className: 'map-pin middle' },
-                    DIV({ className: 'pin-head' }, `${streetNumber()}`))),
+                    map())),
             DIV({ className: 'illu-text roof-area' },
                 DIV({}, tr('roofTotalArea')),
                 DIV({}, withM2(totalArea()))));
@@ -74,11 +72,7 @@ export const wrapper3D =
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu volume' },
                 DIV({ className: 'circle-wrapper' },
-                    IMG({ src })),
-                DIV({ className: 'map-pin right' },
-                    DIV({ className: 'pin-end' }),
-                    DIV({ className: 'pin-body' }),
-                    DIV({ className: 'pin-end' }))),
+                    IMG({ src }))),
             barChart());
 
 const ALTITUDE_0 = 0;
