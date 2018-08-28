@@ -1,33 +1,28 @@
 .detail {
 
     .solar-main-and-right-sidebar {
-        display: flex;
-        // flex-wrap: wrap;
         margin: 0 @margin;
-        overflow-y: hidden;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .content {
-        width: calc(~"@{contextW} + @{margin}");
+        width: @contextW;
         padding-top: 0 !important; //override
         border: 0px !important; //override
 
-        height: 100%;
-        margin-right: -@margin;
-        overflow-y: auto;
-        overflow-x: hidden;
-        padding-right: 15px;  // trick to hide scrollbar
-
         .context {
-            padding-top: 2 * @margin; // trick to hide scrollbar
+            padding-top: 2 * @margin;
             border-top: 1px solid #000 !important;
         }
     }
     .sidebar {
-        background-color: #fff;
+        position: fixed;
+        right: @margin;
+        top: @headerH;
         width: @sidebarW;
-        width: calc(~"30vw - @{margin} * 2");
+        background-color: #fff;
         height: 100%;
-        overflow-y: auto;
 
         .summary {
             padding-bottom: @margin;
