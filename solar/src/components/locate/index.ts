@@ -9,7 +9,7 @@ import map from '../map';
 import { toggle } from '../item-factory';
 import { geocoderResponse, geocoderInput } from '../../queries/map';
 import { IUgWsAddress, IUgWsResult, queryGeocoder } from 'sdi/ports/geocoder';
-import { updateGeocoderTerm, updateGeocoderResponse } from '../../events/map';
+import { updateGeocoderTerm, updateGeocoderResponse, clearGeocoderResponse } from '../../events/map';
 import { fetchKey } from '../../remote/index';
 import { navigatePreview } from '../../events/route';
 import { setAddress } from '../../events/simulation';
@@ -73,19 +73,21 @@ const renderGeocoderResults =
                             .then(({ capakey }) => navigatePreview(capakey))
                             .catch((err: string) => {
                                 logger(`Could not fetch a capakey: ${err}`);
-                                // viewEvents.updateMapView({
-                                //     dirty: 'geo',
-                                //     center: coords,
-                                //     zoom: 12,
-                                // });
                             });
                     },
                 }, addressToString(address)));
         });
     };
 
+const renderClearResults =
+    () => DIV({
+        className: 'geocoder-clear',
+        onClick: clearGeocoderResponse,
+    }, tr('clear'));
+
 const renderGeocoderResultsWrapper =
-    (...n: React.ReactNode[]) => DIV({ className: 'geocoder-wrapper' }, ...n);
+    (...n: React.ReactNode[]) =>
+        DIV({ className: 'geocoder-wrapper' }, renderClearResults(), ...n);
 
 const renderGeocoder =
     () =>
