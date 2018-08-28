@@ -29,6 +29,8 @@ export const updateGeocoderResponse =
     (serviceResponse: IUgWsResponse | null) =>
         dispatch('component/geocoder/response', () => serviceResponse);
 
+export const clearGeocoderResponse = () => updateGeocoderResponse(null);
+
 export const updateGeocoderTerm =
     (address: string) =>
         dispatch('component/geocoder/input', () => address);

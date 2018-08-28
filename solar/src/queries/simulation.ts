@@ -133,7 +133,7 @@ type OutputKey = keyof outputs;
 
 export const getOutput =
     <K extends OutputKey>(k: K, dflt = 0): number =>
-        fromNullable(query('solar/outputs')).fold(dflt, out => {
+        fromNullable(query('solar/outputs')).fold(dflt, (out) => {
             // Object.keys(out).forEach((ok: OutputKey) => logger(`${ok}: ${out[ok]}`));
             return out[k];
         });
