@@ -2,7 +2,7 @@ import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
-import { summary, summaryDetailed } from '../summary';
+import { summaryDetailed } from '../summary';
 
 
 import {
@@ -27,10 +27,10 @@ const calculatorTitle =
     () =>
         DIV({ className: 'adjust-item calculator-header' },
             DIV({ className: 'calculator-title' },
-                    tr('solAdjustStr1'),
-                    ' ',
-                    tr('solAdjustStr2')),
-            
+                tr('solAdjustStr1'),
+                ' ',
+                tr('solAdjustStr2')),
+
         );
 
 const action =
@@ -59,7 +59,7 @@ const content =
 const sidebar =
     () =>
         DIV({ className: 'sidebar' },
-            summary(),
+            // summary(),
             summaryDetailed());
 
 

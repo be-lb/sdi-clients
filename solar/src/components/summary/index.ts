@@ -63,7 +63,9 @@ const sumEnergy =
             H2({}, tr('energy')),
             vk(withKWhY(getOutput('annualProduction')), 'yearProduction'),
             vk(withKWhY(getOutput('annualConsumption')), 'yearConsumption'),
-            vk(withPercent(getOutput('autonomy') * 100), 'solarAutonomy'));
+            vk(withPercent(getOutput('autonomy') * 100), 'solarAutonomy'),
+            vk(withTCO2(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+        );
 
 const sumFinance =
     () =>
@@ -81,6 +83,7 @@ const sumFinance =
 export const summaryDetailed =
     () =>
         DIV({ className: 'summary-detailled' },
+            sumAdress(),
             sumInstallation(),
             sumEnergy(),
             sumFinance(),
