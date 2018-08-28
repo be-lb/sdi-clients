@@ -1,4 +1,3 @@
-@illuRadius : @illuW;
 
 .context {
     padding-top: @margin;
@@ -7,20 +6,21 @@
 }
 
 .wrapper-illu {
-    width: calc(~"(100% - 2 * @{margin}) / 3");
+    // width: calc(~"(100% - 2 * @{margin}) / 3");
+    width: 100%;
 
     .illu {
         position: relative;
-        width: @illuRadius;
-        height: @illuRadius;
+        width: @illuW;
+        height: @illuW;
         margin-bottom: @margin * 2;
 
         .circle-wrapper {
             .shadow-border;
             position: relative;
-            border-radius: @illuRadius;
-            width: @illuRadius;
-            height: @illuRadius;
+            border-radius: @illuW;
+            width: @illuW;
+            height: @illuW;
             overflow: hidden;
 
             > div {

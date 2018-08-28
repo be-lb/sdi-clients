@@ -2,7 +2,7 @@
 
     .solar-main-and-right-sidebar {
         display: flex;
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         margin: 0 @margin;
         overflow-y: hidden;
     }
@@ -15,16 +15,16 @@
         margin-right: -@margin;
         overflow-y: auto;
         overflow-x: hidden;
-        padding-right: 30px;  // trick to hide scrollbar
+        padding-right: 15px;  // trick to hide scrollbar
 
         .context {
             padding-top: 2 * @margin; // trick to hide scrollbar
-            border-top: 1px solid #000 !important; 
+            border-top: 1px solid #000 !important;
         }
     }
     .sidebar {
         background-color: #fff;
-        // width: @sidebarW;
+        width: @sidebarW;
         width: calc(~"30vw - @{margin} * 2");
         height: 100%;
         overflow-y: auto;
