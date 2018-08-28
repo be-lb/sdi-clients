@@ -4,7 +4,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2 } from 'sdi/util';
 
 
-import { getOutput, streetName, streetNumber, locality, potential, areaExcellent, areaMedium, areaLow } from '../../queries/simulation';
+import { getOutput, streetName, streetNumber, locality, potential } from '../../queries/simulation';
 
 
 
@@ -40,26 +40,6 @@ const sumPotentialValues =
             // DIV({ className: 'note' }, tr('estim10Y')),
         );
 
-const sumArea =
-    () => {
-        const excellent = withPercent(areaExcellent());
-        const medium = withPercent(areaMedium());
-        const low = withPercent(areaLow());
-        return DIV({ className: 'summary-area' },
-            DIV({ className: 'area-barchart' }),
-            DIV({ className: 'area-kv-wrapper' },
-                DIV({ className: 'vk', style: { width: excellent } },
-                    SPAN({ className: 'value' }, excellent),
-                    SPAN({ className: 'key' }, tr('orientationGreat'))),
-                DIV({ className: 'vk', style: { width: medium } },
-                    SPAN({ className: 'value' }, medium),
-                    SPAN({ className: 'key' }, tr('orientationGood'))),
-                DIV({ className: 'vk', style: { width: low } },
-                    SPAN({ className: 'value' }, low),
-                    SPAN({ className: 'key' }, tr('unusable'))),
-            ));
-    };
-
 
 export const summary =
     () =>
@@ -67,7 +47,6 @@ export const summary =
             sumAdress(),
             sumPotentialRank(),
             sumPotentialValues(),
-            sumArea(),
         );
 
 const sumInstallation =

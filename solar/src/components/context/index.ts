@@ -15,26 +15,41 @@ import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
 
 
-
 const barChart =
     () => {
         const a = areaExcellent();
         const b = areaMedium();
         const c = areaLow();
         return DIV({ className: 'barchart' },
-            DIV({
-                className: 'great',
-                style: { width: `${a}%` },
-            }, withPercent(a)),
-            DIV({
-                className: 'good',
-                style: { width: `${b}%` },
-            }, withPercent(b)),
-            DIV({
-                className: 'unusable',
-                style: { width: `${c}%` },
-            }, withPercent(c)));
+
+            DIV({ className: 'bar' },
+                DIV({ className: 'bar-color-wrapper' },
+                    DIV({
+                        className: 'bar-color great',
+                        style: { width: `${a}%` },
+                    })),
+                DIV({ className: 'bar-value' }, withPercent(a)),
+                DIV({ className: 'bar-label' }, tr('orientationGreat'))),
+
+            DIV({ className: 'bar' },
+                DIV({ className: 'bar-color-wrapper' },
+                    DIV({
+                        className: 'bar-color good',
+                        style: { width: `${b}%` },
+                    })),
+                DIV({ className: 'bar-value' }, withPercent(b)),
+                DIV({ className: 'bar-label' }, tr('orientationGood'))),
+
+            DIV({ className: 'bar' },
+                DIV({ className: 'bar-color-wrapper' },
+                    DIV({
+                        className: 'bar-color unusable',
+                        style: { width: `${c}%` },
+                    })),
+                DIV({ className: 'bar-value' }, withPercent(c)),
+                DIV({ className: 'bar-label' }, tr('unusable'))));
     };
+
 
 const wrapperOrtho =
     () =>

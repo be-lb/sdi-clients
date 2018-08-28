@@ -32,7 +32,7 @@
         }
     }
 
-    .illu-text, .barchart {
+    .illu-text {
         font-size: @small-font;
         text-align: center;
     }
@@ -139,30 +139,40 @@
 
 
 
-.barchart {
-    height: 30px;
-    border: 1px solid #000;
-    display: flex;
 
-    > div {
-        height: 100%;
+
+.barchart {
+    font-size: @small-font;
+    width: 100%;
+
+    .bar {
         display: flex;
-        text-align: center;
         align-items: center;
     }
 
-    .great{
-        background-color: @green;
-        color: #fff;
-        border-right: 1px solid #000;
+    .bar-color-wrapper {
+        width: 29%;
+        text-align: right;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
-    .good{
-        background-color: @yellow;
-        color:#000;
+
+    .bar-value {
+        flex-shrink: 0;
     }
-    .unusable{
-        background-color: @blue;
-        color: #fff;
-        border-left: 1px solid #000;
+
+    .bar-value,
+    .bar-label {
+        padding-left: 1ch;
     }
+
+    .bar-color {
+        height: 4px;
+        &.great     {background-color: @green;}
+        &.good      {background-color: @yellow;}
+        &.unusable  {background-color: @blue;}
+    }
+
 }
