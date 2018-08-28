@@ -2662,14 +2662,14 @@ export const messages: MessageDB = {
         en: '%',
     },
     unitKWh: {
-        fr: 'KWh',
-        nl: 'KWu',
-        en: 'KWh',
+        fr: 'kWh',
+        nl: 'kWu',
+        en: 'kWh',
     },
     unitKWhY: {
-        fr: 'KWh/an',
-        nl: 'KWu/jaar',
-        en: 'KWh/year',
+        fr: 'kWh/an',
+        nl: 'kWu/jaar',
+        en: 'kWh/year',
     },
 
     solNoteConsRank1: {
