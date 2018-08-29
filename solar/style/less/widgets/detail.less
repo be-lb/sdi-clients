@@ -142,13 +142,13 @@
     justify-content: space-evenly;
 
     .select-item {
+        .rounded-border;
         background-color: white;
         cursor: default;
         width: 4vw;
         height: 4vw;
         line-height: 4vw;
         border-radius: 4vw;
-        border: 1px solid #000;
         background-position: center;
         background-repeat: no-repeat;
         text-align: center;
@@ -187,11 +187,11 @@
     height: 12vw;
 
     .obstacle-icon{
+        .rounded-border;
         position: relative;
         width: 5vw;
         height: 5vw;
         border-radius: 3vw;
-        border: 1px solid #000;
         background-color: @yellow;
         margin-bottom: @margin / 2;
 
@@ -335,11 +335,11 @@
 
 .consumption-select,
 .autoproduction-select {
+    .rounded-border;
     height: calc(~"4vw");
     width : 50%; // to do better
     background-color: @yellow;
     border-radius: 4vw;
-    border: 1px solid #000;
     display: flex;
     justify-content: space-between;
 
@@ -351,12 +351,16 @@
         background-repeat: no-repeat;
         border: 1px solid transparent;
 
+        &:first-child {margin-left: -1px} //because of border width
+        &:last-child {margin-right: -1px} //because of border width
 
         &:hover,
         &.active {
-            margin: 0;
+            .rounded-border;
+            // margin: 0;
             background-color: @green;
-            border: 1px solid #000;
+            margin-top: -1px; //because of border width
+
         }
     }
 
