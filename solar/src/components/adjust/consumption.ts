@@ -108,7 +108,7 @@ export const calcConsumption =
             titleAndPicto(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                inputItem('annualConsumptionKWh', 'annualConsumptionKWh', SPAN({}, tr('unitKWh'))),
+                inputItem('annualConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh'))),
             ),
             adjustNote(),
         );

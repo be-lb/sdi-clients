@@ -34,19 +34,20 @@ h1 {
 
 .input-box {
     display: flex;
-    align-items: flex-end;
+    // align-items: flex-end;
+    align-items: center;
 
     input {
         width: 4em;
-        margin-bottom: -0.5em;
-        margin-top: 0.7em;
+        // margin-bottom: -0.5em;
+        // margin-top: 0.7em;
     }
 
     .input-label {
         margin-right: @margin / 2;
     }
 
-    .unit {padding-left: 1ch;}
+    .unit {padding-left: 0.5ch;}
 }
 
 .input-box-vertical {
@@ -72,6 +73,9 @@ h1 {
 
 input[type="number"] {
     text-align: right;
+    -moz-appearance: textfield; //remove spin buttons
+    -webkit-appearance: none;
+    appearance: textfield;
 }
 
 
