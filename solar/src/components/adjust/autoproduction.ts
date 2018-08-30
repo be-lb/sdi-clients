@@ -93,8 +93,8 @@ const notes =
 export const calcAutoproduction =
     () =>
         DIV({ className: 'adjust-item autoproduction' },
-            DIV({ className: 'adjust-item-title' },
-                DIV({}, '5. ' + tr('solAutoproduction')),
+            DIV({ className: 'adjust-item-header' },
+                DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 pictoCollection()),
             selectWidget(),
             notes(),

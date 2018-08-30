@@ -47,10 +47,14 @@
     font-size: @medium-font;
     border-top: 1px solid #000;
     padding-bottom: @margin * 2;
-    &-title {
+    &-header {
         font-size: @big-font;
         margin: @margin * 2 0;
         display: flex;
+
+        .adjust-item-title {
+            flex-shrink: 0;
+        }
     }
 
     &-widget {
@@ -292,8 +296,9 @@
 .obstacle-graphic {
     display: flex;
 
-    .obstacle-graphic-item {
+    &-item {
         display: flex;
+        flex-wrap: wrap;
     }
     .obstacle-icon {
         width: 2em;
@@ -310,7 +315,7 @@
 // ADJUST CONSUMPTION & AUTOPRODUCTION
 
 .consumption {
-    .adjust-item-title {
+    .adjust-item-header {
         display: flex;
         flex-wrap: nowrap;;
         .rank-icon {
@@ -395,7 +400,7 @@
 
 .installation {
 
-    .adjust-item-title .adjust-picto {
+    .adjust-item-header .adjust-picto {
         width: 1.75em;
         height: 1em;
     }
