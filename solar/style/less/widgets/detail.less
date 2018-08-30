@@ -336,7 +336,7 @@
 .consumption-select,
 .autoproduction-select {
     .rounded-border;
-    height: calc(~"4vw");
+    height: 4vw;
     width : 50%; // to do better
     background-color: @yellow;
     border-radius: 4vw;
@@ -345,22 +345,16 @@
 
     .select-item {
         width: 4vw;
-        height: 4vw;
+        height: calc(~"4vw - 2px");
         border-radius: 4vw;
         background-position: center;
         background-repeat: no-repeat;
-        border: 1px solid transparent;
-
-        &:first-child {margin-left: -1px} //because of border width
-        &:last-child {margin-right: -1px} //because of border width
+        border: 2px solid transparent;
 
         &:hover,
         &.active {
-            .rounded-border;
-            // margin: 0;
+            border: 2px solid #fff !important;
             background-color: @green;
-            margin-top: -1px; //because of border width
-
         }
     }
 
@@ -379,19 +373,19 @@
 .consumption-select .select-item {
     background-image: url(../../asset/svg/electricityW.svg);
 
-    &.first{background-size: 4vw / 5 * 1 ;}
+    &.first {background-size: 4vw / 5 * 1 ;}
     &.second{background-size: 4vw / 5 * 1.5 ;}
-    &.third{background-size: 4vw / 5 * 2 ;}
+    &.third {background-size: 4vw / 5 * 2 ;}
     &.fourth{background-size: 4vw / 5 * 2.75;}
-    &.fifth{background-size: 4vw / 5 * 3.75 ;}
+    &.fifth {background-size: 4vw / 5 * 3.75 ;}
 }
 
 .autoproduction-select .select-item {
     background-image: url(../../asset/svg/solarenergyW.svg);
 
-    &.first{background-size: 4vw / 5 * 1.75 ;}
+    &.first {background-size: 4vw / 5 * 1.75 ;}
     &.second{background-size: 4vw / 5 * 2.5 ;}
-    &.third{background-size: 4vw / 5 * 3.25 ;}
+    &.third {background-size: 4vw / 5 * 3.25 ;}
     &.fourth{background-size: 4vw / 5 * 4;}
 }
 
@@ -447,10 +441,10 @@
 
             &.active {display: block;}
 
-            &.reduce    {background-image: url("../../asset/svg/reduce.svg");}
-            &.day       {background-image: url("../../asset/svg/day.svg");}
-            &.waterheating       {background-image: url("../../asset/svg/waterheating.svg");}
-            &.battery   {background-image: url("../../asset/svg/battery.svg");}
+            &.reduce        {background-image: url("../../asset/svg/reduce.svg");}
+            &.day           {background-image: url("../../asset/svg/day.svg");}
+            &.waterheating  {background-image: url("../../asset/svg/waterheating.svg");}
+            &.battery       {background-image: url("../../asset/svg/battery.svg");}
         }
     }
     .adjust-item-note div {
@@ -458,6 +452,24 @@
         &.active {display: block;}
     }
 
+    .autoproduction-select {
+        position: relative;
+
+        .select-item {
+            position: absolute;
+            background-position: calc(~"100% - @{margin}");
+
+            &.first     {width: 4vw;}
+            &.second    {width: 33%;}
+            &.third     {width: 66%;}
+            &.fourth    {width: 100%;}
+
+            &.first     {z-index: 4;}
+            &.second    {z-index: 3;}
+            &.third     {z-index: 2;}
+            &.fourth    {z-index: 1;}
+        }
+    }
 }
 
 // ADJUST FINANCE
