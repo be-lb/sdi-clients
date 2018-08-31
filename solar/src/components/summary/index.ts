@@ -4,7 +4,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2 } from 'sdi/util';
 
 
-import { getOutput, streetName, streetNumber, locality, potential } from '../../queries/simulation';
+import { getOutput, streetName, streetNumber, locality, potential, getSystem } from '../../queries/simulation';
 
 
 
@@ -80,7 +80,7 @@ const sumFinance =
 
 
 
-export const summaryDetailed =
+export const summaryDetailedPhotovoltaic =
     () =>
         DIV({ className: 'summary-detailled' },
             sumAdress(),
@@ -88,6 +88,22 @@ export const summaryDetailed =
             sumEnergy(),
             sumFinance(),
         );
+
+export const summaryDetailedThermal =
+    () =>
+        DIV({ className: 'summary-detailled' },
+            sumAdress(),
+            // TODO
+        );
+
+
+export const summaryDetailed =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return summaryDetailedPhotovoltaic();
+            case 'thermal': return summaryDetailedThermal();
+        }
+    };
 
 
 
