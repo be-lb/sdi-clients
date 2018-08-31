@@ -49,6 +49,7 @@ export type MessageKey =
     | 'autoClass'
     | 'backToMap'
     | 'boiler'
+    | 'bonus'
     | 'browseMaps'
     | 'buyingPrice'
     | 'cancel'
@@ -127,6 +128,7 @@ export type MessageKey =
     | 'fontSize'
     | 'fullscreen'
     | 'gainElecInvoice'
+    | 'gainEnergyInvoice'
     | 'gainEnvironment'
     | 'gainGreenCertif'
     | 'gainTotal25Y'
@@ -324,6 +326,8 @@ export type MessageKey =
     | 'solOrSelectBuildingOnMap'
     | 'solPhotovoltaic'
     | 'solPossibleToProduce'
+    | 'solPriceProdBonus'
+    | 'solPriceProdNoBonus'
     | 'solPrintStr1'
     | 'solPrintStr2'
     | 'solResearch'
@@ -2729,6 +2733,31 @@ export const messages: MessageDB = {
         nl: 'Thermisch',
         en: 'Thermal',
     },
+
+    gainEnergyInvoice: {
+        fr: 'Gain facture énergétique',
+        nl: 'Energierekening winnen',
+        en: 'Gain energy bill',
+    },
+
+    bonus: {
+        fr: 'Prime',
+        nl: 'Bonus',
+        en: 'Bonus',
+    },
+
+    solPriceProdBonus: {
+        fr: 'Prix de production avec prime',
+        nl: 'Productieprijs met toeslag',
+        en: 'Production price with bonus',
+    },
+
+    solPriceProdNoBonus: {
+        fr: 'Prix de production sans prime',
+        nl: 'Productieprijs zonder toeslag',
+        en: 'Production price without bonus',
+    },
+
 
 
 };

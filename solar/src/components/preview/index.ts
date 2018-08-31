@@ -3,20 +3,8 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { actionSettings, actionContact, actionChange, actionPrint } from '../action';
-import { summary } from '../summary';
+import { summary } from '../summary/summary-pv';
 import { getLoading, streetName, streetNumber, locality } from '../../queries/simulation';
-
-
-
-// const switchThermal =
-//     () =>
-//         DIV({ className: 'switch-thermal' },
-//             DIV({}, tr('solarPV')),
-//             DIV({ className: 'switch-icon' }),
-//             DIV({}, tr('solarThermal')));
-
-
-
 
 
 const action =
@@ -26,7 +14,6 @@ const action =
             actionContact(),
             actionChange(),
             actionPrint());
-
 
 
 const render =
