@@ -6,7 +6,6 @@ import { isENTER } from 'sdi/components/keycodes';
 import tr from 'sdi/locale';
 
 import map from '../map';
-import { toggle } from '../item-factory';
 import { geocoderResponse, geocoderInput } from '../../queries/map';
 import { IUgWsAddress, IUgWsResult, queryGeocoder } from 'sdi/ports/geocoder';
 import { updateGeocoderTerm, updateGeocoderResponse, clearGeocoderResponse } from '../../events/map';
@@ -111,7 +110,6 @@ const wrapperTop =
                     SPAN({}, tr('solCalculateStrPart1')),
                     SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
                     SPAN({}, tr('solCalculateStrPart2'))),
-                toggle(() => true, () => void 0)('solarPV', 'solarThermal'),
                 renderGeocoder(),
                 DIV({}, tr('solOrSelectBuildingOnMap'))));
 

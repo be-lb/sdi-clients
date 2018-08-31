@@ -64,7 +64,6 @@ export const toggle =
                 onClick: () => set(!get()),
             },
                 DIV({ className: `value first-value ${activeClass(get())}` }, tr(value1) + ' '),
-                DIV({ className: 'toggle-icon' }),
                 DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)));
 
 

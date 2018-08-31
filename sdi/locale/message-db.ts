@@ -256,6 +256,7 @@ export type MessageKey =
     | 'replaceFR'
     | 'replaceNL'
     | 'resetLegend'
+    | 'resetValue'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
     | 'responsiblePerson'
@@ -320,6 +321,7 @@ export type MessageKey =
     | 'solNoteConsRank5'
     | 'solOrOf'
     | 'solOrSelectBuildingOnMap'
+    | 'solPhotovoltaic'
     | 'solPossibleToProduce'
     | 'solPrintStr1'
     | 'solPrintStr2'
@@ -328,6 +330,7 @@ export type MessageKey =
     | 'solSolarPotential'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
+    | 'solThermal'
     | 'solThisBuildingGotA'
     | 'space'
     | 'start'
@@ -2700,6 +2703,24 @@ export const messages: MessageDB = {
         fr: 'Gros consommateur',
         nl: 'Grootverbruiker',
         en: ' Large consumer',
+    },
+
+    resetValue: {
+        fr: 'Réinitialiser',
+        nl: 'Gereset',
+        en: 'Reset values',
+    },
+
+    solPhotovoltaic: {
+        fr: 'Photovoltaïque',
+        nl: 'Fotovoltaïsch',
+        en: 'Photovoltaic',
+    },
+
+    solThermal: {
+        fr: 'Thermique',
+        nl: 'Thermisch',
+        en: 'Thermal',
     },
 
 

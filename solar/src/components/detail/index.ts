@@ -1,6 +1,7 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
+import { toggle } from '../item-factory';
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
 
@@ -30,7 +31,8 @@ const calculatorTitle =
                 tr('solAdjustStr1'),
                 ' ',
                 tr('solAdjustStr2')),
-
+            DIV({ className: 'reset-btn' }, tr('resetValue')),
+            toggle(() => true, () => void 0)('solPhotovoltaic', 'solThermal'),
         );
 
 const action =
