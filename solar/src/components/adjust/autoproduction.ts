@@ -37,15 +37,21 @@ const setLevel =
     };
 
 const isActive =
-    (n: number) => {
+    (exact: boolean) => (n: number) => {
         let score = 0x1;
         if (getEnergySobriety()) { score = score << 1; }
         if (getChargeShift()) { score = score << 1; }
         if (getPVHeater()) { score = score << 1; }
         if (getBattery()) { score = score << 1; }
 
-        return n === score;
+        if (exact) {
+            return n === score;
+        }
+        return n < score;
     };
+
+const isUnderActive = isActive(false);
+const isExactlyActive = isActive(true);
 
 const pictoCollection =
     () =>
@@ -63,10 +69,13 @@ const ranks = {
     [D]: 'fourth',
 };
 
+const underActiveClass = (n: number) => isUnderActive(n) ? 'under-active' : '';
+const exactActiveClass = (n: number) => isExactlyActive(n) ? 'active' : '';
+
 const selectItem =
     (rank: number) =>
         DIV({
-            className: 'select-item' + ' ' + ranks[rank] + (isActive(rank) ? ' active' : ''),
+            className: `select-item ${ranks[rank]} ${underActiveClass(rank)} ${exactActiveClass(rank)}`,
             onClick: () => setLevel(rank),
         });
 

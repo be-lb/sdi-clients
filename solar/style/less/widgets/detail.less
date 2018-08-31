@@ -378,7 +378,8 @@
 }
 
 .consumption-select .select-item {
-    background-image: url(../../asset/svg/electricityW.svg);
+    background-image: url(../../asset/svg/electricity.svg);
+    &.active {background-image: url(../../asset/svg/electricityW.svg);}
 
     &.first {background-size: 4vw / 5 * 1 ;}
     &.second{background-size: 4vw / 5 * 1.5 ;}
@@ -388,7 +389,9 @@
 }
 
 .autoproduction-select .select-item {
-    background-image: url(../../asset/svg/solarenergyW.svg);
+    background-image: url(../../asset/svg/solarenergy.svg);
+    &.active,
+    &.under-active {background-image: url(../../asset/svg/solarenergyW.svg);}
 
     &.first {background-size: 4vw / 5 * 1.75 ;}
     &.second{background-size: 4vw / 5 * 2.5 ;}
