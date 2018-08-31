@@ -97,6 +97,7 @@ export const main =
             'data/alias': [],
             'data/user': null,
 
+            'solar/system': 'photovoltaic',
             'solar/address': null,
             'solar/inputs': { ...inputsFactory([]), nYears: 25, VATrate: 0.06 },
             'solar/outputs': null,

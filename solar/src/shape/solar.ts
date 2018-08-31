@@ -26,6 +26,10 @@ export type TypologyEnum =
     | 'collective'
     | 'industrial'
     ;
+
+
+export type System = 'photovoltaic' | 'thermal';
+
 // State Augmentation
 
 interface GenericContainer<T> {
@@ -34,6 +38,7 @@ interface GenericContainer<T> {
 
 declare module 'sdi/shape' {
     export interface IShape {
+        'solar/system': System;
         'solar/address': IUgWsAddress | null;
         'solar/inputs': inputs;
         'solar/outputs': outputs | null;

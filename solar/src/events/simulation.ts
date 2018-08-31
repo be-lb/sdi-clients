@@ -27,6 +27,7 @@ import { getFeatureProp } from 'sdi/source';
 import { Obstacle } from '../components/adjust';
 import { getCapakey } from '../queries/app';
 import { totalArea } from '../queries/simulation';
+import { System } from '../shape/solar';
 
 const logger = debug('sdi:solar/events');
 
@@ -61,6 +62,8 @@ export const setInputF =
             [k]: v,
         }));
 
+export const setSystem =
+    (s: System) => dispatch('solar/system', () => s);
 
 export const updateRoofs =
     (capakey: string) => fromNullable(query('solar/data/roofs')[capakey])

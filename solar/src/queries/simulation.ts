@@ -138,6 +138,7 @@ export const getOutput =
             return out[k];
         });
 
+export const getSystem = queryK('solar/system');
 
 
 export const annualConsumption =

@@ -21,8 +21,12 @@ import {
     calcLoan,
     calcObstacle,
 } from '../adjust';
+import { getSystem } from '../../queries/simulation';
+import { setSystem } from '../../events/simulation';
 
-
+const toggleSystem = toggle(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 const calculatorTitle =
     () =>
@@ -32,7 +36,7 @@ const calculatorTitle =
                 ' ',
                 tr('solAdjustStr2')),
             DIV({ className: 'reset-btn' }, tr('resetValue')),
-            toggle(() => true, () => void 0)('solPhotovoltaic', 'solThermal'),
+            toggleSystem('solPhotovoltaic', 'solThermal'),
         );
 
 const action =
