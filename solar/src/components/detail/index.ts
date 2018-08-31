@@ -20,9 +20,15 @@ import {
     calcInstallation,
     calcLoan,
     calcObstacle,
+    calcConsumptionThermal,
+    calcInstallationThermal,
+    calcFinanceThermal,
+    calcLoanThermal,
 } from '../adjust';
+
 import { getSystem } from '../../queries/simulation';
 import { setSystem } from '../../events/simulation';
+
 
 const toggleSystem = toggle(
     () => getSystem() === 'photovoltaic',
@@ -39,6 +45,37 @@ const calculatorTitle =
             toggleSystem('solPhotovoltaic', 'solThermal'),
         );
 
+const photovoltaicWidgets =
+    () =>
+        DIV({ className: 'calculator' },
+            calculatorTitle(),
+            calcArea(),
+            calcObstacle(),
+            calcConsumption(),
+            calcInstallation(),
+            calcAutoproduction(),
+            calcFinance(),
+            calcLoan());
+
+const thermalWidgets =
+    () =>
+        DIV({ className: 'calculator' },
+            calculatorTitle(),
+            calcConsumptionThermal(),
+            calcInstallationThermal(),
+            calcFinanceThermal(),
+            calcLoanThermal());
+
+
+const adjustWidgets =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return photovoltaicWidgets();
+            case 'thermal': return thermalWidgets();
+        }
+    };
+
+
 const action =
     () =>
         DIV({ className: 'actions' },
@@ -50,22 +87,13 @@ const content =
     () =>
         DIV({ className: 'content' },
             context(),
-            DIV({ className: 'calculator' },
-                calculatorTitle(),
-                calcArea(),
-                calcObstacle(),
-                calcConsumption(),
-                calcInstallation(),
-                calcAutoproduction(),
-                calcFinance(),
-                calcLoan()),
+            adjustWidgets(),
             action());
 
 
 const sidebar =
     () =>
         DIV({ className: 'sidebar' },
-            // summary(),
             summaryDetailed());
 
 
