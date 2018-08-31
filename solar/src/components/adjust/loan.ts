@@ -1,5 +1,5 @@
 
-import { DIV, NODISPLAY } from 'sdi/components/elements';
+import { DIV, SPAN, NODISPLAY } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { toggle, vertInputItem } from '../item-factory';
@@ -14,8 +14,8 @@ const withLoan =
     () =>
         DIV({ className: 'inputs' },
             // vertInputItem('amountBorrowed'),
-            vertInputItem('durationYear', 'loanPeriod'),
-            vertInputItem('loanRate', 'loanRate'),
+            vertInputItem('loanDuration', 'loanPeriod', SPAN({ className: 'unit' }, tr('unitYear'))),
+            vertInputItem('loanRate', 'loanRate', SPAN({ className: 'unit' }, tr('unitPercent'))),
         );
 
 export const calcLoan =

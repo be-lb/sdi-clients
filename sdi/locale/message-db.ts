@@ -178,6 +178,7 @@ export type MessageKey =
     | 'links'
     | 'loadingData'
     | 'loan'
+    | 'loanDuration'
     | 'loanNo'
     | 'loanRate'
     | 'loanYes'
@@ -2087,6 +2088,12 @@ export const messages: MessageDB = {
         en: 'Loan',
     },
 
+    loanDuration: {
+        fr: 'Durée du prêt',
+        nl: 'Looptijd',
+        en: 'Loan duration',
+    },
+
     loanYes: {
         fr: 'Avec emprunt',
         nl: 'Met een lening',
@@ -2098,7 +2105,7 @@ export const messages: MessageDB = {
         en: 'Without a loan',
     },
     loanRate: {
-        fr: 'Taux de prêt',
+        fr: 'Taux du prêt',
         nl: 'Leningstarief',
         en: 'Loan rate',
     },
