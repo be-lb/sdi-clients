@@ -83,25 +83,25 @@ const action =
             actionChange(),
             actionPrint());
 
-const content =
-    () =>
-        DIV({ className: 'content' },
-            context(),
-            adjustWidgets(),
-            action());
-
-
 const sidebar =
     () =>
         DIV({ className: 'sidebar' },
             summaryDetailed());
 
 
+const content =
+    () =>
+        DIV({ className: 'content' },
+            context(),
+            adjustWidgets(),
+            sidebar(),
+            action());
+
+
 const render =
     () =>
         DIV({ className: 'solar-main-and-right-sidebar' },
             content(),
-            sidebar(),
         );
 
 export default render;

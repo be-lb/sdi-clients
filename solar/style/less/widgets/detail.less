@@ -1,36 +1,46 @@
 .detail {
-
-    .solar-main-and-right-sidebar {
-        margin: 0 @margin;
-        height: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
     .content {
-        width: @contextW;
         padding-top: 0 !important; //override
         border: 0px !important; //override
-
-        .context {
-            padding-top: 2 * @margin;
-            border-top: 1px solid #000 !important;
-        }
     }
-    .sidebar {
-        position: fixed;
-        right: @margin;
-        top: @headerH;
-        width: @sidebarW;
-        background-color: #fff;
-        height: 100%;
+}
 
-        .summary {
-            padding-bottom: @margin;
-            border-bottom: 1px solid #000;
-            margin-bottom: @margin;
+
+@media (orientation: landscape) {
+    .detail {
+
+        .solar-main-and-right-sidebar {
+            margin: 0 @margin;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .content {
+            width: @contextW;
+
+            .context {
+                padding-top: 2 * @margin;
+                border-top: 1px solid #000 !important;
+            }
+        }
+        .sidebar {
+            position: fixed;
+            right: @margin;
+            top: @headerH;
+            width: @sidebarW;
+            background-color: #fff;
+            height: 100%;
+
+            .summary {
+                padding-bottom: @margin;
+                border-bottom: 1px solid #000;
+                margin-bottom: @margin;
+            }
         }
     }
 }
+
+
 
 
 .calculator {
@@ -43,59 +53,98 @@
     }
 }
 
-.adjust-item {
-    font-size: @medium-font;
-    border-top: 1px solid #000;
-    padding-bottom: @margin * 2;
-    &-header {
-        font-size: @big-font;
-        margin: @margin * 2 0;
-        display: flex;
-        align-items: center;
-
-        .adjust-item-title {
-            flex-shrink: 0;
-            margin-right: @margin;
-        }
-    }
-
-    &-widget {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    &-note {
-        font-size: @small-font;
-        margin-top: @margin * 2;
-    }
-
-}
 
 // HEADER
 
 .adjust-item.calculator-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 0;
 
+    > div {margin-bottom: @margin;}
+
     .calculator-title {
-        width: @illuW;
-        text-align: center;
         font-size: @big-font * 0.8;
         font-weight: 700;
         color: @green;
-        margin: @margin 0;
+        margin-top: @margin;
     }
 
     .input-box {
-        height: 4vw;
+        height: 2rem;
         align-items: center;
         input {
             margin: 0 !important;
         }
     }
 }
+
+@media (orientation: landscape) {
+    .adjust-item.calculator-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .calculator-title {
+            width: @illuW;
+            text-align: center;
+        }
+
+        .input-box {
+            height: 4vw;
+        }
+    }
+}
+
+// WIDGETS
+
+.adjust-item {
+    font-size: @medium-font;
+    border-top: 1px solid #000;
+    padding-bottom: @margin * 2;
+
+    &-header {
+        font-size: @big-font;
+        margin: @margin 0;
+
+        .adjust-item-title {
+            max-width: 100%;
+            flex-shrink: 0;
+        }
+    }
+
+    &-widget {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: @margin * 2;
+    }
+
+    &-note {
+        font-size: @small-font;
+        margin-top: @margin * 2;
+    }
+}
+
+
+@media (orientation: landscape) {
+    .adjust-item {
+
+        &-header {
+            margin: @margin * 2 0;
+            display: flex;
+            align-items: center;
+
+            .adjust-item-title {
+                margin-right: @margin;
+            }
+        }
+
+        &-widget {
+            flex-wrap: nowrap;
+            margin-top: 0;
+        }
+    }
+}
+
 
 
 //  ICONS
@@ -143,29 +192,25 @@
 }
 
 .area-select {
-    height: calc(~"4vw");
-    width : 95%; // to do better
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
 
     .select-item {
         .rounded-border;
         background-color: white;
         cursor: default;
-        width: 4vw;
-        height: 4vw;
-        line-height: 4vw;
-        border-radius: 4vw;
-        background-position: center;
-        background-repeat: no-repeat;
-        text-align: center;
-        vertical-align: middle;
+        width: 4ch;
+        height: 4ch;
+        border-radius: 4ch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: @margin / 2;
 
         &:hover,
         &.active {
-            margin: 0;
             background-color: @green;
-            font-weight: bold;
+            color: #fff;
         }
     }
 
@@ -176,12 +221,6 @@
 
 // ADJUST OBSTACLES
 
-.obstacle {
-    .adjust-item-widget {
-        width: 89%;
-        margin: auto;
-    }
-}
 
 .obstacle-item {
     flex: 1;
@@ -190,15 +229,18 @@
     text-align: center;
     align-items: center;
     justify-content: flex-start;
-    max-width: calc(~"5vw + 2px");
-    height: 12vw;
+    margin: 0 @margin / 2;
+    margin-bottom: @margin * 2;
+
+    &:last-child {margin-bottom: 0;}
+
 
     .obstacle-icon{
         .rounded-border;
         position: relative;
-        width: 5vw;
-        height: 5vw;
-        border-radius: 3vw;
+        width: 6ch;
+        height: 6ch;
+        border-radius: 6ch;
         background-color: @yellow;
         margin-bottom: @margin / 2;
 
@@ -207,8 +249,8 @@
             &::after {
                 .absolute(0,0,auto, auto);
                 content: ' ';
-                width: 1.5vw;
-                height: 1.5vw;
+                width: 1.5ch;
+                height: 1.5ch;
                 background-image: url("../../asset/svg/check.svg");
                 background-position: center;
                 background-repeat: no-repeat;
@@ -313,6 +355,21 @@
 
 
 
+@media (orientation: landscape) {
+    .obstacle {
+        .adjust-item-widget {
+            width: 89%;
+            margin: auto;
+        }
+    }
+
+    .obstacle-item {
+        // max-width: calc(~"5ch + 2px");
+        // height: 12ch;
+        margin-bottom: 0;
+    }
+}
+
 
 
 // ADJUST CONSUMPTION & AUTOPRODUCTION
@@ -343,17 +400,18 @@
 .consumption-select,
 .autoproduction-select {
     .rounded-border;
-    height: 4vw;
-    width : 50%; // to do better
+    height: 4ch;
+    width : 100%;
+    margin-bottom: @margin;
     background-color: @yellow;
-    border-radius: 4vw;
+    border-radius: 4ch;
     display: flex;
     justify-content: space-between;
 
     .select-item {
-        width: 4vw;
-        height: calc(~"4vw - 2px");
-        border-radius: 4vw;
+        width: 4ch;
+        height: calc(~"4ch - 2px");
+        border-radius: 4ch;
         background-position: center;
         background-repeat: no-repeat;
         border: 2px solid transparent;
@@ -370,6 +428,14 @@
     }
 }
 
+@media (orientation: landscape) {
+    .consumption-select,
+    .autoproduction-select {
+        width : 50%; // to do better
+        margin-bottom: 0;
+    }
+}
+
 .consumption {
     .rank-note {
         display: none;
@@ -381,11 +447,11 @@
     background-image: url(../../asset/svg/electricity.svg);
     &.active {background-image: url(../../asset/svg/electricityW.svg);}
 
-    &.first {background-size: 4vw / 5 * 1 ;}
-    &.second{background-size: 4vw / 5 * 1.5 ;}
-    &.third {background-size: 4vw / 5 * 2 ;}
-    &.fourth{background-size: 4vw / 5 * 2.75;}
-    &.fifth {background-size: 4vw / 5 * 3.75 ;}
+    &.first {background-size: 4ch / 5 * 1 ;}
+    &.second{background-size: 4ch / 5 * 1.5 ;}
+    &.third {background-size: 4ch / 5 * 2 ;}
+    &.fourth{background-size: 4ch / 5 * 2.75;}
+    &.fifth {background-size: 4ch / 5 * 3.75 ;}
 }
 
 .thermal .consumption-select .select-item {
@@ -398,10 +464,10 @@
     &.active,
     &.under-active {background-image: url(../../asset/svg/solarenergyW.svg);}
 
-    &.first {background-size: 4vw / 5 * 1.75 ;}
-    &.second{background-size: 4vw / 5 * 2.5 ;}
-    &.third {background-size: 4vw / 5 * 3.25 ;}
-    &.fourth{background-size: 4vw / 5 * 4;}
+    &.first {background-size: 4ch / 5 * 1.75 ;}
+    &.second{background-size: 4ch / 5 * 2.5 ;}
+    &.third {background-size: 4ch / 5 * 3.25 ;}
+    &.fourth{background-size: 4ch / 5 * 4;}
 }
 
 
@@ -473,7 +539,7 @@
             position: absolute;
             background-position: calc(~"100% - @{margin}");
 
-            &.first     {width: 4vw;}
+            &.first     {width: 4ch;}
             &.second    {width: 33%;}
             &.third     {width: 66%;}
             &.fourth    {width: 100%;}
