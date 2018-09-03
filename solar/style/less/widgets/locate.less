@@ -46,9 +46,7 @@
 .locate-geocode {
     width: 65%;
     padding-bottom: @margin;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
     .pitch-bold {
         color: @green;
         font-weight: 700;
@@ -84,11 +82,11 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: @margin;
+    margin-top: @margin;
+    margin-bottom: @margin * 2;
 
     input {
         width: 100%;
-        font-size: @big-font;
         font-weight: 100;
         background-color: @extra-light-grey;
     }
@@ -96,7 +94,7 @@
     .btn-analyse {
         background-color: @green;
         color: #fff;
-        font-size: @big-font;
+        font-size: @gui-font-size;
         padding: .4em;
         margin-left: @margin;
         display: flex;
