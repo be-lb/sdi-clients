@@ -1,0 +1,48 @@
+
+.consumption {
+    .adjust-item-header {
+        display: flex;
+        flex-wrap: nowrap;;
+        .rank-icon {
+            width: 3em;
+            height: 1em;
+            background-position: center left;
+            background-repeat: no-repeat;
+            background-size: contain;
+            display: none; //hidden by default
+
+            &.active {display: block;}
+
+            &.first     {background-image: url(../../../asset/svg/conso1.svg);}
+            &.second    {background-image: url(../../../asset/svg/conso2.svg);}
+            &.third     {background-image: url(../../../asset/svg/conso3.svg);}
+            &.fourth    {background-image: url(../../../asset/svg/conso4.svg);}
+            &.fifth     {background-image: url(../../../asset/svg/conso5.svg);}
+        }
+    }
+}
+
+
+
+.consumption {
+    .rank-note {
+        display: none;
+        &.active {display: block;}
+    }
+}
+
+.consumption-select .select-item {
+    background-image: url(../../../asset/svg/electricity.svg);
+    &.active {background-image: url(../../../asset/svg/electricityW.svg);}
+
+    &.first {background-size: 4ch / 5 * 1 ;}
+    &.second{background-size: 4ch / 5 * 1.5 ;}
+    &.third {background-size: 4ch / 5 * 2 ;}
+    &.fourth{background-size: 4ch / 5 * 2.75;}
+    &.fifth {background-size: 4ch / 5 * 3.75 ;}
+}
+
+.thermal .consumption-select .select-item {
+    background-image: url(../../../asset/svg/waterheating.svg);
+    &.active {background-image: url(../../../asset/svg/waterheatingW.svg);}
+}

@@ -1,0 +1,47 @@
+
+// ADJUST AREA
+
+.area {
+
+    .adjust-item-widget {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        > div {margin-right: @margin;}
+
+        .switch-wrapper {
+            width: 100%;
+            display: flex;
+
+            .switch-title {margin-right: 1em}
+        }
+    }
+}
+
+.area-select {
+    display: flex;
+    flex-wrap: wrap;
+
+    .select-item {
+        .rounded-border;
+        background-color: white;
+        cursor: default;
+        width: 4ch;
+        height: 4ch;
+        border-radius: 4ch;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: @margin / 2;
+
+        &:hover,
+        &.active {
+            background-color: @green;
+            color: #fff;
+        }
+    }
+
+    .adjust-item-widget {
+        align-items: center;
+    }
+}

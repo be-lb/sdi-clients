@@ -1,0 +1,27 @@
+
+
+// ADJUST FINANCE
+
+.finance {
+    .cost,
+    .gain {
+        display: flex;
+    }
+    .cost {
+        margin-bottom: @margin * 2;
+    }
+
+    .vat-installation {
+        text-align: center;
+        .wrapper-multi-checkbox {
+            border: 1px solid transparent; //to get same height as input
+            padding: .4em;
+            margin-bottom: @margin / 2;
+            .wrapper-checkbox {
+                margin: 0;
+                margin-right: 1em;
+                &:last-child{margin-right: 0;}
+            }
+        }
+    }
+}

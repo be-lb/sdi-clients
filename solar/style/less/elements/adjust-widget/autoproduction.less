@@ -1,0 +1,66 @@
+// ADJUST AUTOPRODUCTION
+
+.autoproduction-select .select-item {
+    background-image: url(../../../asset/svg/solarenergy.svg);
+    &.active,
+    &.under-active {background-image: url(../../../asset/svg/solarenergyW.svg);}
+
+    &.first {background-size: 4ch / 5 * 1.75 ;}
+    &.second{background-size: 4ch / 5 * 2.5 ;}
+    &.third {background-size: 4ch / 5 * 3.25 ;}
+    &.fourth{background-size: 4ch / 5 * 4;}
+}
+
+
+
+
+
+.autoproduction {
+    .adjust-item-title {
+        display: flex;
+    }
+    .picto-collection {
+        height: 1em;
+        width: auto;
+        display: flex;
+
+        > div {
+            width: 1em;
+            height: 1em;
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: contain;
+            display: none;
+
+            &.active {display: block;}
+
+            &.reduce        {background-image: url("../../../asset/svg/reduce.svg");}
+            &.day           {background-image: url("../../../asset/svg/day.svg");}
+            &.waterheating  {background-image: url("../../../asset/svg/waterheating.svg");}
+            &.battery       {background-image: url("../../../asset/svg/battery.svg");}
+        }
+    }
+    .adjust-item-note div {
+        display: none;
+        &.active {display: block;}
+    }
+
+    .autoproduction-select {
+        position: relative;
+
+        .select-item {
+            position: absolute;
+            background-position: calc(~"100% - @{margin}");
+
+            &.first     {width: 4ch;}
+            &.second    {width: 33%;}
+            &.third     {width: 66%;}
+            &.fourth    {width: 100%;}
+
+            &.first     {z-index: 4;}
+            &.second    {z-index: 3;}
+            &.third     {z-index: 2;}
+            &.fourth    {z-index: 1;}
+        }
+    }
+}

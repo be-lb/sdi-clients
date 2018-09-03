@@ -1,0 +1,151 @@
+
+// ADJUST OBSTACLES
+
+
+.obstacle-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0 @margin / 2;
+    margin-bottom: @margin * 2;
+
+    &:last-child {margin-bottom: 0;}
+
+
+    .obstacle-icon{
+        .rounded-border;
+        position: relative;
+        width: 6ch;
+        height: 6ch;
+        border-radius: 6ch;
+        background-color: @yellow;
+        margin-bottom: @margin / 2;
+
+        &.active {
+            background-color: @green;
+            &::after {
+                .absolute(0,0,auto, auto);
+                content: ' ';
+                width: 1.5ch;
+                height: 1.5ch;
+                background-image: url("../../../asset/svg/check.svg");
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+    .obstacle-label {
+        font-size: @small-font;
+    }
+
+    .obstacle-input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        font-size: @small-font;
+        margin-top: auto; //put the element at the bottom of the flex column
+
+        &.single {justify-content: space-around;}
+
+        .obstacle-input-value {
+            font-size: @medium-font;
+            width: 2em;
+        }
+
+        .obstacle-input-minus,
+        .obstacle-input-plus {
+            .awsomefont;
+            width: 1.5em;
+            height: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            &:hover {
+                color: @green;
+            }
+        }
+        .obstacle-input-minus:before {
+            content: @fa-var-minus;
+        }
+        .obstacle-input-plus:before {
+            content: @fa-var-plus;
+        }
+
+    }
+}
+
+.obstacle-icon {
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &.icon-velux {
+        background-image: url("../../../asset/svg/velux.svg");
+        &.active {background-image: url("../../../asset/svg/veluxW.svg");}
+    }
+    &.icon-dormer {
+        background-image: url("../../../asset/svg/dormer.svg");
+        &.active {background-image: url("../../../asset/svg/dormerW.svg");}
+    }
+    &.icon-window {
+        background-image: url("../../../asset/svg/flatwindow.svg");
+        &.active {background-image: url("../../../asset/svg/flatwindowW.svg");}
+    }
+    &.icon-panel {
+        background-image: url("../../../asset/svg/solarpanel.svg");
+        &.active {background-image: url("../../../asset/svg/solarpanelW.svg");}
+    }
+    &.icon-cheminey-air {
+        background-image: url("../../../asset/svg/cheminey-air.svg");
+        &.active, &:hover {background-image: url("../../../asset/svg/cheminey-airW.svg");}
+    }
+    &.icon-cheminey-smoke {
+        background-image: url("../../../asset/svg/cheminey-smoke.svg");
+        &.active {background-image: url("../../../asset/svg/cheminey-smokeW.svg");}
+    }
+    &.icon-terrace {
+        background-image: url("../../../asset/svg/terrace.svg");
+        &.active {background-image: url("../../../asset/svg/terraceW.svg");}
+    }
+    &.icon-lift {
+        background-image: url("../../../asset/svg/lift.svg");
+        &.active {background-image: url("../../../asset/svg/liftW.svg");}
+    }
+}
+
+.obstacle-graphic {
+    display: flex;
+
+    &-item {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .obstacle-icon {
+        width: 2em;
+        height: 1.2em;
+        margin-right: -0.7em;
+        margin-top: -.1em;
+    }
+}
+
+
+
+@media (orientation: landscape) {
+    .obstacle {
+        .adjust-item-widget {
+            width: 89%;
+            margin: auto;
+        }
+    }
+
+    .obstacle-item {
+        // max-width: calc(~"5ch + 2px");
+        // height: 12ch;
+        margin-bottom: 0;
+    }
+}
