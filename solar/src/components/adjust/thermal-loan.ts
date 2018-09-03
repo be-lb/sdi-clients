@@ -23,9 +23,10 @@ export const calcLoanThermal =
         DIV({ className: 'adjust-item loan' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '4. ' + tr('loan')),
-                toggleLoan('loanYes', 'loanNo')),
-            hasLoan() ? withLoan() : NODISPLAY());
+                    '4. ' + tr('loan'))),
+            DIV({ className: 'adjust-item-widget' },
+                toggleLoan('loanYes', 'loanNo'),
+                hasLoan() ? withLoan() : NODISPLAY()));
 
 
 

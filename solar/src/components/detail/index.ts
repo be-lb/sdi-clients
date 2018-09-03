@@ -41,7 +41,6 @@ const calculatorTitle =
                 tr('solAdjustStr1'),
                 ' ',
                 tr('solAdjustStr2')),
-            DIV({ className: 'reset-btn' }, tr('resetValue')),
             toggleSystem('solPhotovoltaic', 'solThermal'),
         );
 

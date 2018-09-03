@@ -58,7 +58,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width : 8em;
+    max-width : 8em;
     text-align: center;
 
     .input-and-unit {
@@ -82,6 +82,9 @@ input[type="number"] {
     appearance: textfield;
 }
 
+
+
+// TOGGLE
 
 .toggle {
     .rounded-border;
@@ -127,11 +130,20 @@ input[type="number"] {
 }
 
 
-
+// CHECKBOXES
 .wrapper-multi-checkbox {
-    display: flex;
     .multi-checkbox-label {
-        margin-right: 0.5em;
+        margin-bottom: @margin ;
+    }
+}
+
+@media (orientation: landscape) {
+    .wrapper-multi-checkbox {
+        display: flex;
+        .multi-checkbox-label {
+            margin-bottom: 0 ;
+            margin-right: 0.5em;
+        }
     }
 }
 

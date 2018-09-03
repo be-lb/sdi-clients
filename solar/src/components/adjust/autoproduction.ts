@@ -105,7 +105,8 @@ export const calcAutoproduction =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 pictoCollection()),
-            selectWidget(),
+            DIV({ className: 'adjust-item-widget' },
+                selectWidget()),
             notes(),
         );
 

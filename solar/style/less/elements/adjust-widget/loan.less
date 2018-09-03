@@ -2,11 +2,27 @@
 // LOAN
 
 .loan {
+    .adjust-item-widget {display: block;}
 
-    .toggle {margin-top: 4px;}
+    .toggle {
+        display: inline-flex;
+        margin-bottom: @margin;}
 
     .inputs {
+        margin-top: @margin;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
+        width: 100%;
+    }
+}
+
+
+@media (orientation: landscape) {
+
+    .loan {
+        .inputs {
+            justify-content: flex-start;
+            > div {margin-right: @margin * 2;}
+        }
     }
 }
