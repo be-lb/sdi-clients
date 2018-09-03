@@ -1,26 +1,28 @@
+// ILLUSTRATIONS GENERALITIES
+// we start with common style, (mobile, portrait, landscape all type of screens)
+// we then deploy specific style per specific case
 
 .context {
     padding-top: @margin;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .wrapper-illu {
-    // width: calc(~"(100% - 2 * @{margin}) / 3");
     width: 100%;
 
     .illu {
         position: relative;
-        width: @illuW;
-        height: @illuW;
+        width: @illuW-mob;
+        height: @illuW-mob;
         margin-bottom: @margin * 2;
 
         .circle-wrapper {
             .rounded-border;
             position: relative;
-            border-radius: @illuW;
-            width: @illuW;
-            height: @illuW;
+            border-radius: @illuW-mob;
+            width: @illuW-mob;
+            height: @illuW-mob;
             overflow: hidden;
 
             > div {
@@ -51,17 +53,23 @@
     }
 }
 
-.wrapper-loader {
-    width: calc(~"(100% - 2 * @{margin}) / 3");
 
-    .loading-label {
-        margin-top: 100px;
-        font-size: 140%;
-        text-align: center;
+
+@media (orientation: landscape) {
+    .context {
+        flex-direction: row;
+        justify-content: space-between;
     }
 
-    &.even {
-        text-decoration-line: underline;
+    .wrapper-illu .illu {
+        width: @illuW;
+        height: @illuW;
+
+        .circle-wrapper {
+            border-radius: @illuW;
+            width: @illuW;
+            height: @illuW;
+        }
     }
 }
 
@@ -79,7 +87,7 @@
 
 
 
-
+// PINS ON TOP OF MAP ILLUSTRATIONS
 
 .map-pin.top {
     height: calc(~"50% + .75rem");
@@ -140,6 +148,7 @@
 
 
 
+// BARCHART
 
 .barchart {
     font-size: @small-font;

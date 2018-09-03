@@ -1,7 +1,6 @@
 
+
 .action-title {
-    width: @illuW;
-    text-align: center;
     font-size: @big-font * 0.8;
     font-weight: 700;
     color: @green;
@@ -10,34 +9,31 @@
 
 .actions {
     margin-top: @margin;
-    display: flex;
-    // justify-content: space-around;
 
     > div {
-        width: 20vw; //TO DO BETTER
-        width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-right: @margin;
-        h1 {}
-        .action-info {
-            font-size: @small-font;
-            margin-top: @margin / 2;
-        }
+        margin-bottom: @margin * 4;
+
         &::before {
             .awsomefont;
             .rounded-border;
-            content: ".";
-            width: 5vw;
-            height: 5vw;
-            border-radius: 5vw;
+            content: " ";
+            width: 20vw;
+            height: 20vw;
+            border-radius: 20vw;
             display: flex;
             align-items: center;
             justify-content: space-around;
-            font-size: 2.5vw;
+            font-size: 10vw;
             margin-bottom: @margin;
+        }
+
+        .action-info {
+            font-size: @medium-font;
+            margin-top: @margin / 2;
         }
 
         &.action-settings::before {
@@ -62,13 +58,49 @@
         }
 
         .action-info .pdf {
-            width: 4vw;
-            height: 4vw;
+            width: 20vw;
+            height: 20vw;
             margin: @margin auto;
             background-image: url("../../asset/svg/pdf.svg");
             background-position: center;
             background-repeat: no-repeat;
             background-size: contain;
+        }
+    }
+}
+
+
+@media (orientation: landscape) {
+    .action-title {
+        width: @illuW;
+        text-align: center;
+    }
+
+    .actions {
+        display: flex;
+
+        > div {
+            width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
+            margin: 0;
+            margin-right: @margin;
+
+
+            &::before {
+                width: 5vw;
+                height: 5vw;
+                border-radius: 5vw;
+                font-size: 2.5vw;
+            }
+
+            .action-info {
+                font-size: @small-font;
+            }
+
+            .action-info .pdf {
+                width: 4vw;
+                height: 4vw;
+            }
+
         }
     }
 }
