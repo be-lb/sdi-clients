@@ -1,24 +1,27 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
 import { annualConsumption } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { inputItem } from '../item-factory';
 
 
 
-// Petit consommateur(studio / appartement avec éclairage, réfrigérateur etc.) : 600 kWh / an
-// Petite famille(avec machine à laver / lave - vaisselle) : 1 200 kWh / an
-// Consommateur médian: 2 036 kWh / an
-// Ménage moyen: 3 500 kWh / an
-// Gros consomateur: 7 500 kWh / an
+// Petit consommateur : 60 l/jour
+// Moyen : 90 l/j
+// Consommateur médian: 120 l/j
+// Ménage moyen: 150 l/j
+// Grand ménage: 180 l/j
+// Gros consomateur: 210 l/j
 
 const ranks = {
-    first: 600,
-    second: 1200,
-    third: 2036,
-    fourth: 3500,
-    fifth: 7500,
+    first: 60,
+    second: 90,
+    third: 120,
+    fourth: 150,
+    fifth: 180,
+    sixth: 210,
 };
 
 type Rank = typeof ranks;
@@ -32,6 +35,7 @@ const notes: { [k in rank]: MessageKey } = {
     third: 'solNoteConsRank3',
     fourth: 'solNoteConsRank4',
     fifth: 'solNoteConsRank5',
+    sixth: 'solNoteConsRank5',
 };
 
 const setConsumption = setInputF('annualConsumptionKWh');
@@ -45,12 +49,13 @@ const icon =
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
-            '1. ' + tr('consumption') + 'TO DO'),
+            '1. ' + tr('solHotWaterConsumption')),
         icon('first'),
         icon('second'),
         icon('third'),
         icon('fourth'),
         icon('fifth'),
+        icon('sixth'),
     );
 
 const isActive =
@@ -78,6 +83,7 @@ const selectWidget =
             selectItem('third'),
             selectItem('fourth'),
             selectItem('fifth'),
+            selectItem('sixth'),
         );
 
 
@@ -97,6 +103,7 @@ const adjustNote =
         rankedNote('third'),
         rankedNote('fourth'),
         rankedNote('fifth'),
+        rankedNote('sixth'),
     );
 
 
@@ -107,6 +114,7 @@ export const calcConsumptionThermal =
             titleAndPicto(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
+                inputItem('solDailyConsumption', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitLiterDay'))),
             ),
             adjustNote(),
         );

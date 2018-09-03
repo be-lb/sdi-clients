@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withYear, withTCO2 } from 'sdi/util';
+import { withEuro, withTCO2 } from 'sdi/util';
 
 
 import { streetName, streetNumber, locality } from '../../queries/simulation';
@@ -30,11 +30,7 @@ const infosThermal =
             H2({}, tr('solThermal')),
             vk(withEuro(0), 'buyingPrice'),
             vk(withEuro(0), 'bonus'),
-            vk(withEuro(0), 'solPriceProdBonus'),
-            vk(withEuro(0), 'solPriceProdNoBonus'),
             vk(withEuro(0), 'gainEnergyInvoice'),
-            vk(withEuro(0), 'gainTotal25Y'),
-            vk(withYear(0), 'returnTime'),
             vk(withTCO2(0 / 1000), 'gainEnvironment', 'gain-env'),
         );
 

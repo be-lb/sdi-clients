@@ -315,8 +315,14 @@ export type MessageKey =
     | 'solChangeStr2'
     | 'solContactStr1'
     | 'solContactStr2'
+    | 'solDailyConsumption'
+    | 'solElectricBoiler'
+    | 'solGaz'
     | 'solGeneralMap'
+    | 'solHeatProdSys'
     | 'solHowMuchOf'
+    | 'solHotWaterConsumption'
+    | 'solMazout'
     | 'solNoteConsRank1'
     | 'solNoteConsRank2'
     | 'solNoteConsRank3'
@@ -324,10 +330,9 @@ export type MessageKey =
     | 'solNoteConsRank5'
     | 'solOrOf'
     | 'solOrSelectBuildingOnMap'
+    | 'solPellet'
     | 'solPhotovoltaic'
     | 'solPossibleToProduce'
-    | 'solPriceProdBonus'
-    | 'solPriceProdNoBonus'
     | 'solPrintStr1'
     | 'solPrintStr2'
     | 'solResearch'
@@ -375,10 +380,12 @@ export type MessageKey =
     | 'topics'
     | 'translate'
     | 'unitEuro'
+    | 'unitEuroKWh'
     | 'unitEuroY'
     | 'unitKWc'
     | 'unitKWh'
     | 'unitKWhY'
+    | 'unitLiterDay'
     | 'unitM2'
     | 'unitPercent'
     | 'unitTCO2'
@@ -2642,6 +2649,11 @@ export const messages: MessageDB = {
         nl: '€/jaar',
         en: '€/year',
     },
+    unitEuroKWh: {
+        fr: '€/kWh',
+        nl: '€/kWu',
+        en: '€/kWh',
+    },
     unitKWc: {
         fr: 'KWc',
         nl: 'KWc',
@@ -2684,6 +2696,11 @@ export const messages: MessageDB = {
         fr: 'kWh/an',
         nl: 'kWu/jaar',
         en: 'kWh/year',
+    },
+    unitLiterDay: {
+        fr: 'l/jour',
+        nl: 'l/dag',
+        en: 'l/day',
     },
 
     solNoteConsRank1: {
@@ -2746,18 +2763,46 @@ export const messages: MessageDB = {
         en: 'Bonus',
     },
 
-    solPriceProdBonus: {
-        fr: 'Prix de production avec prime',
-        nl: 'Productieprijs met toeslag',
-        en: 'Production price with bonus',
+    solHotWaterConsumption: {
+        fr: 'Consommation d\'eau chaude sanitaire',
+        nl: 'Verbruik van sanitair warm water',
+        en: 'Consumption of domestic hot water',
     },
 
-    solPriceProdNoBonus: {
-        fr: 'Prix de production sans prime',
-        nl: 'Productieprijs zonder toeslag',
-        en: 'Production price without bonus',
+    solGaz: {
+        fr: 'Gaz',
+        nl: 'Gas',
+        en: 'Gas',
     },
 
+    solMazout: {
+        fr: 'Mazout',
+        nl: 'Stookolie',
+        en: 'Fuel oil',
+    },
 
+    solElectricBoiler: {
+        fr: 'Boiler électrique',
+        nl: 'Elektrische boiler',
+        en: 'Electric boiler',
+    },
+
+    solHeatProdSys: {
+        fr: 'Type de système de production d\'eau chaude',
+        nl: 'Type warmwatersysteem',
+        en: 'Type of hot water system',
+    },
+
+    solPellet: {
+        fr: 'Chaudière à pellets',
+        nl: 'Pellet ketel',
+        en: 'Pellet boiler',
+    },
+
+    solDailyConsumption: {
+        fr: 'Consommation journalière',
+        nl: 'Dagelijks verbruik',
+        en: 'Daily consumption',
+    },
 
 };

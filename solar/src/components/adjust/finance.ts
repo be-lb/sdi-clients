@@ -33,7 +33,7 @@ const gains =
         DIV({ className: 'gain' },
             DIV({ className: 'adjust-picto gain' }),
             vertInputItem('sellingPrice', 'elecSellingPrice',
-                SPAN({ className: 'unit' }, tr('unitEuro'))),
+                SPAN({ className: 'unit' }, tr('unitEuroKWh'))),
             vertInputItem('sellingGreenCertifPrice', 'CVPrice',
                 SPAN({ className: 'unit' }, tr('unitEuro'))));
 

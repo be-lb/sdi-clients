@@ -10,11 +10,12 @@ const renderSelect =
     () => {
         const checkBox = inputSelect(pvTechnology, setInputF('pvTechnology'));
         return DIV({ className: 'wrapper-multi-checkbox' },
-            DIV({ className: 'multi-checkbox-label' }, tr('technoType') + ' : '),
+            DIV({ className: 'multi-checkbox-label' }, tr('solHeatProdSys') + ' : '),
             DIV({},
-                checkBox('polycristal', 'poly'),
-                checkBox('monocristal', 'mono'),
-                checkBox('monocristalHR', 'mono_high')));
+                checkBox('solElectricBoiler', 'poly'),
+                checkBox('solMazout', 'mono'),
+                checkBox('solPellet', 'mono'),
+                checkBox('solGaz', 'mono_high')));
     };
 
 export const calcInstallationThermal =
@@ -22,10 +23,8 @@ export const calcInstallationThermal =
         DIV({ className: 'adjust-item installation' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '2. ' + tr('installation') + 'TO DO'),
-                DIV({ className: 'adjust-picto panel' })),
+                    '2. ' + tr('installation'))),
             DIV({ className: 'adjust-item-widget' },
-                // DIV({ className: 'adjust-picto-wrapper' },
                 renderSelect()));
 
 
