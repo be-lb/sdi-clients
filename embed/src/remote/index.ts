@@ -9,11 +9,11 @@ import {
     Inspire,
     InspireIO,
     FeatureCollection,
-    FeatureCollectionIO,
     ITimeserieIO,
     ITimeserie,
     IMapBaseLayer,
     IMapBaseLayerIO,
+    fetchWithoutValidationIO,
 } from 'sdi/source';
 
 
@@ -36,7 +36,7 @@ export const fetchDatasetMetadata =
 
 export const fetchLayer =
     (url: string): Promise<FeatureCollection> =>
-        fetchIO(FeatureCollectionIO, url);
+        fetchWithoutValidationIO(url);
 
 export const fetchTimeserie =
     (url: string): Promise<ITimeserie> =>
