@@ -1,120 +1,67 @@
+// we start with common style, (mobile, portrait, landscape all type of screens)
+// we then deploy specific style per specific case
+
+
 .locate-box {
-    border-top: 1px solid #000;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 0 @margin;
-    font-size: @big-font;
-
-    .wrapper-top {
-        height: 40%;
-        position: relative;
+        font-size: @medium-font;
     }
-    .map-wrapper {
-        height: 60%;
-        position: relative;
-    }
-}
-
-.map-wrapper .control-box {
-    .zoom {
-        display: flex;
-        flex-direction: column;
-        margin-top: 5px;
-    }
-    .fullscreen {
-        margin-bottom: 0px !important;
-    }
-}
 
 
-
-.wrapper-top {
-    display: flex;
-    padding-top: @margin * 2;
-}
-
-.locate-pitch {
-    width: 35%;
-    padding-right: 2*@margin;
-
+.locate-pitch  {
+    font-size: 1.55rem;
     .pitch-bold {
         font-weight: 700;
     }
 }
 
+
 .locate-geocode {
-    width: 65%;
-    padding-bottom: @margin;
+    margin-top: @margin * 2;
 
     .pitch-bold {
         color: @green;
         font-weight: 700;
     }
 
-    .toggle {
-        margin: @margin 0;
-        .value {display: flex; flex-wrap: nowrap;}
-        .first-value:after,
-        .second-value:before {
-            content: ' ';
-            width: 1em;
-            height: 1em;
-            display: block;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-            margin: 0 @margin/2;
-        }
-        .first-value:after {
-            background-image: url("../../asset/svg/electricity.svg");
+    .input-wrapper {
+        margin-top: @margin / 2;
+        margin-bottom: @margin * 2;
+
+        input {
+            box-sizing: border-box;
+            font-weight: 100;
+            background-color: @extra-light-grey;
+            width: 100%;
+            margin-bottom: @margin-mob;
         }
 
-        .second-value:before {
-            background-image: url("../../asset/svg/waterheating.svg");
-        }
+        .btn-analyse {
+            width: 100%;
+            background-color: @green;
+            color: #fff;
+            font-size: @gui-font-size;
+            padding: .4em;
+            display: flex;
+            justify-content: center;
 
-        .toggle-icon {margin: 0;}
-    }
-}
-
-.locate-geocode .input-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin-top: @margin;
-    margin-bottom: @margin * 2;
-
-    input {
-        width: 100%;
-        font-weight: 100;
-        background-color: @extra-light-grey;
-    }
-
-    .btn-analyse {
-        background-color: @green;
-        color: #fff;
-        font-size: @gui-font-size;
-        padding: .4em;
-        margin-left: @margin;
-        display: flex;
-
-        .sun:before {
-            .awsomefont;
-            content: @fa-var-sun-o;
-            margin-right: @margin/2;
+            .sun:before {
+                .awsomefont;
+                content: @fa-var-sun-o;
+                margin-right: @margin/2;
+            }
         }
     }
 }
 
 .locate {
     .geocoder-wrapper {
-        height: 2.4em;
-        overflow-y: auto;
+        margin: @margin 0;
     }
     .adress-result {
         font-size: 75%;
         cursor: default;
+        margin-bottom: @margin / 3;
+        &:last-child {margin: 0;}
         span:before {
             .awsomefont;
             content: @fa-var-circle-o;
@@ -122,6 +69,80 @@
         }
         span:hover:before {
             content: @fa-var-dot-circle-o;
+        }
+    }
+}
+
+
+.locate-box {
+    .map-wrapper {
+        margin-top: @margin / 2;
+
+        .control-box {
+            .zoom {
+                display: flex;
+                flex-direction: column;
+                margin-top: 5px;
+            }
+            .fullscreen {
+                margin-bottom: 0px !important;
+            }
+        }
+    }
+}
+
+
+
+@media (orientation: landscape) {
+
+    .locate-box {
+        border-top: 1px solid #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 @margin;
+        font-size: @big-font;
+
+        .wrapper-top {
+            height: 40%;
+            position: relative;
+            display: flex;
+            padding-top: @margin * 2;
+        }
+        .map-wrapper {
+            margin-top: 0;
+            height: 60%;
+            position: relative;
+        }
+    }
+
+    .locate-pitch {
+        width: 35%;
+        padding-right: 2*@margin;
+        font-size: @big-font;
+    }
+
+    .locate-geocode {
+        width: 65%;
+        padding-bottom: @margin;
+        margin-top: 0;
+
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+            input {
+                width: 100%;
+                margin-bottom: 0;
+            }
+
+            .btn-analyse {
+                width: auto;
+                margin-left: @margin;
+                justify-content: flex-start;
+                font-size: 1em;
+            }
         }
     }
 }
