@@ -64,7 +64,7 @@ export const summaryDetailedPhotovoltaic =
             sumInstallation(),
             sumEnergy(),
             sumFinance(),
-            DIV({ className: 'reset-btn' }, tr('resetValue')),
+            DIV({ className: 'btn-reset' }, tr('resetToOptimum')),
         );
 
 

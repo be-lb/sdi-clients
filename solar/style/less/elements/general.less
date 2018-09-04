@@ -186,8 +186,24 @@ input[type="number"] {
     }
 }
 
+// BTN RESET override
+
+.btn-reset {
+    color: #000;
+    font-size: @gui-font-size;
+    margin: @margin 0;
+    &:before {
+        padding: 0;
+        padding-right: 5px;
+        font-size: @gui-font-size;
+    }
+    &:hover:before {color: @green;}
+}
 
 
+
+
+// OTHER
 
 .content {
     border-top: 1px solid #000;

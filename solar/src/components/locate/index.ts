@@ -80,9 +80,9 @@ const renderGeocoderResults =
 
 const renderClearResults =
     () => DIV({
-        className: 'geocoder-clear',
+        className: 'btn-reset geocoder-clear',
         onClick: clearGeocoderResponse,
-    }, tr('clear'));
+    }, tr('solSearchAnotherAdress'));
 
 const renderGeocoderResultsWrapper =
     (...n: React.ReactNode[]) =>
