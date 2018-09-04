@@ -317,6 +317,7 @@ export type MessageKey =
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solDailyConsumption'
+    | 'solDedicatedArea'
     | 'solElectricBoiler'
     | 'solGaz'
     | 'solGeneralMap'
@@ -2817,6 +2818,12 @@ export const messages: MessageDB = {
         fr: 'Chercher une nouvelle adresse',
         nl: 'Nieuw adres zoeken',
         en: 'Search for a new address',
+    },
+
+    solDedicatedArea: {
+        fr: 'Surface dédiée à l\'installation',
+        nl: 'Ruimte gewijd aan de installatie',
+        en: 'Area dedicated to the installation',
     },
 
 };
