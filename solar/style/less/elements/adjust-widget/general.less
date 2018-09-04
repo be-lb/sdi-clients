@@ -79,18 +79,18 @@
 .consumption-select,
 .autoproduction-select {
     .rounded-border;
-    height: 4ch;
+    border-radius: @roundedW;
+    height: @roundedW;
     width : 100%;
     margin-bottom: @margin;
     background-color: @yellow;
-    border-radius: 4ch;
     display: flex;
     justify-content: space-between;
 
     .select-item {
-        width: 4ch;
-        height: calc(~"4ch - 2px");
-        border-radius: 4ch;
+        width: @roundedW;
+        height: calc(~"@{roundedW} - 2px");
+        border-radius: @roundedW;
         background-position: center;
         background-repeat: no-repeat;
         border: 2px solid transparent;

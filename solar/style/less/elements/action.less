@@ -21,13 +21,13 @@
             .awsomefont;
             .rounded-border;
             content: " ";
-            width: 20vw;
-            height: 20vw;
-            border-radius: 20vw;
+            width: @roundedW;
+            height: @roundedW;
+            border-radius: @roundedW;
             display: flex;
             align-items: center;
             justify-content: space-around;
-            font-size: 10vw;
+            font-size: @roundedW / 2;
             margin-bottom: @margin;
             background-color: @green;
             color: #fff;
@@ -44,8 +44,8 @@
         &.action-print::before {content: @fa-var-thumb-tack;}
 
         .action-info .pdf {
-            width: 20vw;
-            height: 20vw;
+            width: @roundedW;
+            height: @roundedW;
             margin: @margin auto;
             background-image: url("../../asset/svg/pdf.svg");
             background-position: center;
@@ -72,10 +72,10 @@
 
 
             &::before {
-                width: 5vw;
-                height: 5vw;
-                border-radius: 5vw;
-                font-size: 2.5vw;
+                width: @roundedW;
+                height: @roundedW;
+                border-radius: @roundedW;
+                font-size: @roundedW / 2;
             }
 
             .action-info {
@@ -83,8 +83,8 @@
             }
 
             .action-info .pdf {
-                width: 4vw;
-                height: 4vw;
+                width: @roundedW;
+                height: @roundedW;
             }
 
         }
