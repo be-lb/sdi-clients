@@ -29,6 +29,8 @@
             justify-content: space-around;
             font-size: 10vw;
             margin-bottom: @margin;
+            background-color: @green;
+            color: #fff;
         }
 
         .action-info {
@@ -36,26 +38,10 @@
             margin-top: @margin / 2;
         }
 
-        &.action-settings::before {
-            content: @fa-var-pencil;
-            color: #fff;
-            background-color: @green;
-        }
-        &.action-contact::before {
-            content: @fa-var-wrench;
-            color: #fff;
-            background-color: @blue;
-        }
-        &.action-change::before {
-            content: @fa-var-lightbulb-o;
-            color: #000;
-            background-color: @yellow;
-        }
-        &.action-print::before {
-            content: @fa-var-thumb-tack;
-            color: #fff;
-            background-color: @green;
-        }
+        &.action-settings::before {content: @fa-var-pencil;}
+        &.action-contact::before {content: @fa-var-wrench;}
+        &.action-change::before {content: @fa-var-lightbulb-o;}
+        &.action-print::before {content: @fa-var-thumb-tack;}
 
         .action-info .pdf {
             width: 20vw;
