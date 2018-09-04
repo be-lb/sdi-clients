@@ -8,7 +8,7 @@ import tr from 'sdi/locale';
 import map from '../map';
 import { geocoderResponse, geocoderInput } from '../../queries/map';
 import { IUgWsAddress, IUgWsResult, queryGeocoder } from 'sdi/ports/geocoder';
-import { updateGeocoderTerm, updateGeocoderResponse, clearGeocoderResponse } from '../../events/map';
+import { updateGeocoderTerm, updateGeocoderResponse } from '../../events/map';
 import { fetchKey } from '../../remote/index';
 import { navigatePreview } from '../../events/route';
 import { setAddress } from '../../events/simulation';
@@ -78,22 +78,25 @@ const renderGeocoderResults =
         });
     };
 
-const renderClearResults =
-    () => DIV({
-        className: 'btn-reset geocoder-clear',
-        onClick: clearGeocoderResponse,
-    }, tr('solSearchAnotherAdress'));
+// const renderClearResults =
+//     () => DIV({
+//         className: 'btn-reset geocoder-clear',
+//         onClick: clearGeocoderResponse,
+//     }, tr('solSearchAnotherAdress'));
 
-const renderGeocoderResultsWrapper =
-    (...n: React.ReactNode[]) =>
-        DIV({ className: 'geocoder-wrapper' }, renderClearResults(), ...n);
+// const renderGeocoderResultsWrapper =
+//     (...n: React.ReactNode[]) =>
+//         DIV({ className: 'geocoder-wrapper' }, renderClearResults(), ...n);
 
 const renderGeocoder =
     () =>
         geocoderResponse()
             .fold(
                 renderGeocoderInputWrapper(renderGeocoderInput(), renderGeocoderButton()),
-                ({ result }) => renderGeocoderResultsWrapper(renderGeocoderResults(result)));
+                ({ result }) => renderGeocoderInputWrapper(
+                    renderGeocoderInput(),
+                    renderGeocoderButton(),
+                    renderGeocoderResults(result)));
 
 const wrapperTop =
     () =>

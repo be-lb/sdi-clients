@@ -21,10 +21,9 @@ import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction } from 'sdi/map';
 
-import { inputsFactory } from 'solar-sim';
-
 import App from './app';
 import { defaulObstacles } from './components/adjust';
+import { defaultInputs } from './events/simulation';
 
 const logger = debug('sdi:index');
 
@@ -99,7 +98,7 @@ export const main =
 
             'solar/system': 'photovoltaic',
             'solar/address': null,
-            'solar/inputs': { ...inputsFactory([]), nYears: 25, VATrate: 0.06 },
+            'solar/inputs': defaultInputs(),
             'solar/outputs': null,
             'solar/obstacle': defaulObstacles(),
             'solar/optimalArea': null,

@@ -3,9 +3,8 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2 } from 'sdi/util';
 
-
 import { getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
-
+import { clearInputs } from '../../events/simulation';
 
 
 const vk =
@@ -64,7 +63,10 @@ export const summaryDetailedPhotovoltaic =
             sumInstallation(),
             sumEnergy(),
             sumFinance(),
-            DIV({ className: 'btn-reset' }, tr('resetToOptimum')),
+            DIV({
+                className: 'btn-reset',
+                onClick: () => clearInputs(),
+            }, tr('resetToOptimum')),
         );
 
 
