@@ -14,6 +14,7 @@ const setChargeShift = setInputF('chargeShift');
 const setPVHeater = setInputF('pvHeater');
 const setBattery = setInputF('battery');
 
+const NOPE = 0;
 const A = 0x2;
 const B = A << 1;
 const C = B << 1;
@@ -63,6 +64,7 @@ const pictoCollection =
         );
 
 const ranks = {
+    [NOPE]: 'zero',
     [A]: 'first',
     [B]: 'second',
     [C]: 'third',
@@ -82,6 +84,7 @@ const selectItem =
 const selectWidget =
     () =>
         DIV({ className: 'autoproduction-select' },
+            selectItem(NOPE),
             selectItem(A),
             selectItem(B),
             selectItem(C),
