@@ -43,7 +43,7 @@ export const calcFinance =
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '6. ' + tr('finance'))),
-            DIV({ className: 'adjust-item-widget'}, 
+            DIV({ className: 'adjust-item-widget' },
                 expenses(),
                 gains()));
 

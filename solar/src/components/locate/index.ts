@@ -84,19 +84,20 @@ const renderGeocoderResults =
 //         onClick: clearGeocoderResponse,
 //     }, tr('solSearchAnotherAdress'));
 
-// const renderGeocoderResultsWrapper =
-//     (...n: React.ReactNode[]) =>
-//         DIV({ className: 'geocoder-wrapper' }, renderClearResults(), ...n);
+const renderGeocoderResultsWrapper =
+    (...n: React.ReactNode[]) =>
+        DIV({ className: 'geocoder-wrapper' }, ...n);
 
 const renderGeocoder =
-    () =>
+    ():React.ReactNode[] =>
         geocoderResponse()
             .fold(
-                renderGeocoderInputWrapper(renderGeocoderInput(), renderGeocoderButton()),
-                ({ result }) => renderGeocoderInputWrapper(
-                    renderGeocoderInput(),
-                    renderGeocoderButton(),
-                    renderGeocoderResults(result)));
+                [renderGeocoderInputWrapper(renderGeocoderInput(), renderGeocoderButton())],
+                ({ result }) => [
+                    renderGeocoderInputWrapper(
+                        renderGeocoderInput(), renderGeocoderButton()),
+                    renderGeocoderResultsWrapper(renderGeocoderResults(result)),
+                ]);
 
 const wrapperTop =
     () =>
@@ -113,7 +114,7 @@ const wrapperTop =
                     SPAN({}, tr('solCalculateStrPart1')),
                     SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
                     SPAN({}, tr('solCalculateStrPart2'))),
-                renderGeocoder(),
+                ...renderGeocoder(),
                 DIV({}, tr('solOrSelectBuildingOnMap'))));
 
 
