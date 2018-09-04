@@ -14,7 +14,7 @@ const setChargeShift = setInputF('chargeShift');
 const setPVHeater = setInputF('pvHeater');
 const setBattery = setInputF('battery');
 
-const NOPE = 0;
+const NOPE = 0x1;
 const A = 0x2;
 const B = A << 1;
 const C = B << 1;
@@ -54,14 +54,6 @@ const isActive =
 const isUnderActive = isActive(false);
 const isExactlyActive = isActive(true);
 
-const pictoCollection =
-    () =>
-        DIV({ className: 'picto-collection' },
-            DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }),
-            DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }),
-            DIV({ className: 'waterheating' + (getPVHeater() ? ' active' : '') }),
-            DIV({ className: 'battery' + (getBattery() ? ' active' : '') }),
-        );
 
 const ranks = {
     [NOPE]: 'zero',
@@ -97,7 +89,7 @@ const notes =
         DIV({ className: 'adjust-item-note' },
             DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }, tr('reduceConsumption')),
             DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }, tr('dayConsumption')),
-            DIV({ className: 'day' + (getPVHeater() ? ' active' : '') }, tr('hotWaterDuringDay')),
+            DIV({ className: 'waterheating' + (getPVHeater() ? ' active' : '') }, tr('hotWaterDuringDay')),
             DIV({ className: 'battery' + (getBattery() ? ' active' : '') }, tr('installBatteries')),
         );
 
@@ -107,7 +99,7 @@ export const calcAutoproduction =
         DIV({ className: 'adjust-item autoproduction' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
-                pictoCollection()),
+                DIV({ className: 'adjust-picto solar-energy' })),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget()),
             notes(),
