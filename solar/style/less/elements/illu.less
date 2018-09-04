@@ -2,8 +2,13 @@
 // we start with common style, (mobile, portrait, landscape all type of screens)
 // we then deploy specific style per specific case
 
+
 .context {
     padding-top: @margin;
+}
+
+.mobile-adress {
+    margin-bottom: @margin * 2;
 }
 
 .wrapper-illu {
@@ -57,6 +62,10 @@
 
 
 @media (orientation: landscape) {
+    .mobile-adress {
+        display: none;
+    }
+
     .context-illus-wrapper,
     .context-infos-wrapper {
         display: flex;

@@ -1,19 +1,27 @@
 import bbox from '@turf/bbox';
 
-import { DIV, IMG, NODISPLAY } from 'sdi/components/elements';
+import { DIV, IMG, NODISPLAY, H1, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
 import { FeatureCollection } from 'sdi/source';
 
 import map from '../map';
-import { getOrthoURL, streetNumber, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
+import { getOrthoURL, streetName, streetNumber, locality, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
 import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
 import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
 
+
+const mobileAdress =
+    () =>
+        DIV({ className: 'mobile-adress' },
+            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),
+            H1({ className: 'locality' },
+                SPAN({}, tr('in')),
+                SPAN({}, ` ${locality()}`)));
 
 const barChart =
     () => {
@@ -195,6 +203,7 @@ const contextIllus =
 export const context =
     () =>
         DIV({ className: 'context' },
+            mobileAdress(),
             contextIllus(),
             contextInfos());
 
