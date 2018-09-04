@@ -31,13 +31,16 @@
             img {width: 100%;}
         }
     }
+}
 
-    .illu-text {
-        font-size: @small-font;
-        text-align: center;
-    }
 
-    .illu-text.back-to-map {
+.context-infos-wrapper > div {
+    width: 100%;
+    font-size: @small-font;
+    text-align: center;
+    margin-bottom: @margin;
+
+    &.back-to-map {
         cursor: default;
         &::before {
             .awsomefont;
@@ -74,6 +77,7 @@
 
     .context-infos-wrapper > div {
         width: @illuW;
+        margin: 0;
     }
 }
 
