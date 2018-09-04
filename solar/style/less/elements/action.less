@@ -21,14 +21,16 @@
             .awsomefont;
             .rounded-border;
             content: " ";
-            width: 20vw;
-            height: 20vw;
-            border-radius: 20vw;
+            width: @roundedW;
+            height: @roundedW;
+            border-radius: @roundedW;
             display: flex;
             align-items: center;
             justify-content: space-around;
-            font-size: 10vw;
+            font-size: @roundedW / 2;
             margin-bottom: @margin;
+            background-color: @green;
+            color: #fff;
         }
 
         .action-info {
@@ -36,30 +38,14 @@
             margin-top: @margin / 2;
         }
 
-        &.action-settings::before {
-            content: @fa-var-pencil;
-            color: #fff;
-            background-color: @green;
-        }
-        &.action-contact::before {
-            content: @fa-var-wrench;
-            color: #fff;
-            background-color: @blue;
-        }
-        &.action-change::before {
-            content: @fa-var-lightbulb-o;
-            color: #000;
-            background-color: @yellow;
-        }
-        &.action-print::before {
-            content: @fa-var-thumb-tack;
-            color: #fff;
-            background-color: @green;
-        }
+        &.action-settings::before {content: @fa-var-pencil;}
+        &.action-contact::before {content: @fa-var-wrench;}
+        &.action-change::before {content: @fa-var-lightbulb-o;}
+        &.action-print::before {content: @fa-var-thumb-tack;}
 
         .action-info .pdf {
-            width: 20vw;
-            height: 20vw;
+            width: @roundedW;
+            height: @roundedW;
             margin: @margin auto;
             background-image: url("../../asset/svg/pdf.svg");
             background-position: center;
@@ -86,10 +72,10 @@
 
 
             &::before {
-                width: 5vw;
-                height: 5vw;
-                border-radius: 5vw;
-                font-size: 2.5vw;
+                width: @roundedW;
+                height: @roundedW;
+                border-radius: @roundedW;
+                font-size: @roundedW / 2;
             }
 
             .action-info {
@@ -97,8 +83,8 @@
             }
 
             .action-info .pdf {
-                width: 4vw;
-                height: 4vw;
+                width: @roundedW;
+                height: @roundedW;
             }
 
         }

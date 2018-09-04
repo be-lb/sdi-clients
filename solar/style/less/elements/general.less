@@ -1,15 +1,13 @@
 @big-font: @gui-font-size * 1.75;
 @medium-font: @gui-font-size * 1.25;
 @small-font: @gui-font-size * 0.9;
-// @big-font: 2.5vw;
-// @medium-font:1.75vw;
-// @small-font: 1.2vw;
 
 @contextW : 70vw;
 @sidebarW : calc(~"100vw - @{contextW} - @{margin} * 3");
 @illuW : calc(~"(@{contextW} - 2 * @{margin}) / 3");
 @illuW-mob : calc(~"100vw - 4 * @{margin-mob}");
 
+@roundedW : 4.5rem;
 
 // .wrapper-illu .illu {background: pink;} //debug
 // .context {background: orange;} //debug
@@ -43,6 +41,7 @@ h1 {
 
     input {
         width: 4em;
+        font-family: inherit;
         // margin-bottom: -0.5em;
         // margin-top: 0.7em;
     }
@@ -71,6 +70,7 @@ h1 {
 
     input {
         width: 4em;
+        font-family: inherit;
         margin-bottom: @margin / 2;
     }
 }
@@ -92,15 +92,15 @@ input[type="number"] {
     display: flex;
     align-items: center;
     cursor: default;
-    height: 2em;
-    border-radius: 2em;
+    height: @roundedW / 2;
+    border-radius: @roundedW / 2;
     background-color: @extra-light-grey;
 
     .value {
         border: 2px solid #000;
         background-color: #fff;
-        height: calc(~"2em - 2px");
-        border-radius: 2em;
+        height: calc(~"@{roundedW} / 2 - 2px");
+        border-radius: @roundedW;
         display: flex;
         align-items: center;
         padding: 0 @margin;
@@ -116,18 +116,18 @@ input[type="number"] {
         background-color: transparent;
     }
 }
-
-@media (orientation: landscape) {
-    .toggle {
-        height: 2vw;
-        border-radius: 2vw;
-
-        .value {
-            height: calc(~"2vw - 2px");
-            border-radius: 2vw;
-        }
-    }
-}
+//
+// @media (orientation: landscape) {
+//     .toggle {
+//         height: 2vw;
+//         border-radius: 2vw;
+//
+//         .value {
+//             height: calc(~"2vw - 2px");
+//             border-radius: 2vw;
+//         }
+//     }
+// }
 
 
 // CHECKBOXES
@@ -189,15 +189,23 @@ input[type="number"] {
 // BTN RESET override
 
 .btn-reset {
-    color: #000;
+    height: @roundedW / 2;
+    border-radius: @roundedW;
+    border: 1px solid #333;
+    background-color: @green;
+    padding: 0 @margin / 2;
+    display: flex;
+    align-items: center;
     font-size: @gui-font-size;
     margin: @margin 0;
     &:before {
         padding: 0;
         padding-right: 5px;
         font-size: @gui-font-size;
+        color: #fff;
     }
-    &:hover:before {color: @green;}
+    &:hover:before {color: #fff;}
+    &:hover {color: #fff;}
 }
 
 

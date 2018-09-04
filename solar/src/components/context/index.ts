@@ -50,6 +50,21 @@ const barChart =
                 DIV({ className: 'bar-label' }, tr('unusable'))));
     };
 
+const backToMap =
+    () =>
+        DIV({ className: 'illu-text back-to-map', onClick: () => navigateLocate() },
+            DIV({}, tr('solBackTo')),
+            DIV({}, tr('solGeneralMap')));
+
+const roofArea =
+    () =>
+        DIV({ className: 'illu-text roof-area' },
+            DIV({}, tr('roofTotalArea')),
+            DIV({}, withM2(totalArea())));
+
+
+
+
 
 const wrapperOrtho =
     () =>
@@ -60,35 +75,25 @@ const wrapperOrtho =
                 DIV({ className: `map-pin top numnum-${streetNumber().length}` },
                     DIV({ className: 'pin-head' }, `${streetNumber()}`),
                     DIV({ className: 'pin-body' }),
-                    DIV({ className: 'pin-end' }))),
-            DIV({
-                className: 'illu-text back-to-map',
-                onClick: () => navigateLocate(),
-            },
-                DIV({}, tr('solBackTo')),
-                DIV({}, tr('solGeneralMap')),
-
-            ));
+                    DIV({ className: 'pin-end' }))));
 
 const wrapperPlan =
     () =>
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu plan' },
                 DIV({ className: 'circle-wrapper' },
-                    map())),
-            DIV({ className: 'illu-text roof-area' },
-                DIV({}, tr('roofTotalArea')),
-                DIV({}, withM2(totalArea()))));
-
-
+                    map())));
 
 export const wrapper3D =
     (src: string) =>
         DIV({ className: 'wrapper-illu' },
             DIV({ className: 'illu volume' },
                 DIV({ className: 'circle-wrapper' },
-                    IMG({ src }))),
-            barChart());
+                    IMG({ src }))));
+
+
+
+
 
 const ALTITUDE_0 = 0;
 const ALTITUDE_100 = 100;
@@ -169,13 +174,29 @@ const render3D =
                 scope => wrapper3D(scope.src));
 
 
+const contextInfos =
+    () =>
+        DIV({ className: 'context-infos-wrapper' },
+            backToMap(),
+            roofArea(),
+            barChart(),
+        );
+
+
+const contextIllus =
+    () =>
+        DIV({ className: 'context-illus-wrapper' },
+            wrapperOrtho(),
+            wrapperPlan(),
+            render3D(),
+        );
+
 
 export const context =
     () =>
         DIV({ className: 'context' },
-            wrapperOrtho(),
-            wrapperPlan(),
-            render3D());
+            contextIllus(),
+            contextInfos());
 
 
 
