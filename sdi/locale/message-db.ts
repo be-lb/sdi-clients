@@ -2680,9 +2680,9 @@ export const messages: MessageDB = {
         },
     },
     unitM2: {
-        fr: 'm2',
-        nl: 'm2',
-        en: 'm2',
+        fr: 'm²',
+        nl: 'm²',
+        en: 'm²',
     },
     unitPercent: {
         fr: '%',
