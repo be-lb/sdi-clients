@@ -30,7 +30,7 @@ import { AppLayout } from '../app';
 import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofIdentifiers } from '../remote';
 import { updateRoofs } from './simulation';
 import { Coordinate, Extent } from 'openlayers';
-import { updateGeocoderResponse } from './map';
+import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
 import { navigatePreview } from './route';
 
 const logger = debug('sdi:events/app');
@@ -201,6 +201,7 @@ export const loadCoordinate =
 
 export const loadCapakey =
     (capakey: string) => {
+        clearRoofLayer();
         dispatch('app/capakey', () => capakey);
         dispatch('solar/loading', () => []);
         dispatch('solar/loaded', () => []);
@@ -212,6 +213,7 @@ export const loadCapakey =
         Promise.all(loaders)
             .then(() => updateRoofs(capakey))
             .then(() => centerMap(capakey))
+            .then(() => addRoofLayer(capakey))
             .then(() => {
                 checkAddress(capakey);
             });

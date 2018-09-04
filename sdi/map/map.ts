@@ -185,8 +185,16 @@ const getLayerData =
 
 export const removeLayer =
     (lid: string) => {
-        const l = mainLayerGroup.getLayers().get(lid);
-        mainLayerGroup.getLayers().remove(l);
+        logger(`===== removeLayer ${lid} ====`);
+        const layersArray = mainLayerGroup.getLayers().getArray();
+        const toRemove = layersArray.find(l => l.get('id') === lid);
+        if (toRemove !== undefined) {
+            mainLayerGroup.getLayers().remove(toRemove);
+
+        }
+        else {
+            logger(`layer(${lid}) not in collection`);
+        }
     };
 
 export const removeLayerAll =

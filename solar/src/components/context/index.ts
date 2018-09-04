@@ -7,12 +7,24 @@ import { scopeOption } from 'sdi/lib';
 import { FeatureCollection } from 'sdi/source';
 
 import map from '../map';
-import { getOrthoURL, streetName, streetNumber, locality, totalArea, areaExcellent, areaMedium, areaLow, getBuildings, getRoofs } from '../../queries/simulation';
+import {
+    areaExcellent,
+    areaLow,
+    areaMedium,
+    getBuildings,
+    getOrthoURL,
+    getRoofs,
+    locality,
+    streetName,
+    streetNumber,
+    totalArea,
+} from '../../queries/simulation';
 import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
 import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
+import { clearRoofLayer } from '../../events/map';
 
 
 const mobileAdress =
@@ -60,7 +72,12 @@ const barChart =
 
 const backToMap =
     () =>
-        DIV({ className: 'illu-text back-to-map', onClick: () => navigateLocate() },
+        DIV({
+            className: 'illu-text back-to-map', onClick: () => {
+                clearRoofLayer();
+                navigateLocate();
+            },
+        },
             DIV({}, tr('solBackTo')),
             DIV({}, tr('solGeneralMap')));
 
