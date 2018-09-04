@@ -18,7 +18,7 @@ import * as debug from 'debug';
 
 
 import { fromNullable } from 'fp-ts/lib/Option';
-import { inputs, solarSim, roof } from 'solar-sim';
+import { inputs, solarSim, roof, inputsFactory } from 'solar-sim';
 
 import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query, observe } from 'sdi/shape';
@@ -47,6 +47,10 @@ export type SetNumKeyOfInputs =
     | 'loanPeriod'
     ;
 
+
+export const defaultInputs =
+    (): inputs => ({ ...inputsFactory([]), nYears: 25, VATrate: 0.06 });
+
 export const setAddress =
     (a: IUgWsAddress) => dispatch('solar/address', () => a);
 
@@ -70,7 +74,7 @@ export const updateRoofs =
         .map(fc => dispatchInputs((ins) => {
             const ns = {
                 ...ins,
-                roofs: fc.features.map<roof>(f => {
+                roofs: fc.features.map<roof>((f) => {
                     const area = getFeatureProp(f, 'area', 0.000001);
                     return {
                         area,
@@ -81,6 +85,10 @@ export const updateRoofs =
             };
             return ns;
         }));
+
+export const clearInputs =
+    () => dispatchInputs(ins => ({ ...defaultInputs(), roofs: ins.roofs }));
+
 
 const simulate =
     () => {
