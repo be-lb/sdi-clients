@@ -2660,9 +2660,9 @@ export const messages: MessageDB = {
         en: '€/kWh',
     },
     unitKWc: {
-        fr: 'KWc',
-        nl: 'KWc',
-        en: 'KWc',
+        fr: 'kWc',
+        nl: 'kWc',
+        en: 'kWc',
     },
     unitTCO2: {
         fr: 'TCO2',
