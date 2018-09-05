@@ -91,4 +91,28 @@
             text-align: right;
         }
     }
+
+    // BTN RESET override
+
+    .btn-reset {
+        height: @roundedW / 2;
+        border-radius: @roundedW;
+        border: 1px solid #333;
+        background-color: @green;
+        padding: 0 @margin / 2;
+        display: inline-flex;
+        align-items: center;
+        font-size: @gui-font-size;
+        margin: @margin 0;
+        color: #000;
+        &:before {
+            padding: 0;
+            padding-right: 5px;
+            font-size: @gui-font-size;
+            color: #fff;
+        }
+        &:hover:before {color: #fff;}
+        &:hover {color: #fff;}
+    }
+
 }

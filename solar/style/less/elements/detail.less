@@ -68,13 +68,36 @@
         margin-top: @margin;
     }
 
-    .input-box {
-        height: 2rem;
-        align-items: center;
-        input {
-            margin: 0 !important;
+    .toggle {
+        .first-value:before {
+            content: ' ';
+            width: 1.5em;
+            height: 1.5em;
+            margin-right: @margin / 2;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url("../../asset/svg/electricity.svg");
+        }
+        .second-value:after {
+            content: ' ';
+            width: 1.5em;
+            height: 1.5em;
+            margin-left: @margin / 2;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-image: url("../../asset/svg/waterheating.svg");
         }
     }
+
+    // .input-box {
+    //     height: 2rem;
+    //     align-items: center;
+    //     input {
+    //         margin: 0 !important;
+    //     }
+    // }
 }
 
 @media @big {
