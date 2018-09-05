@@ -16,13 +16,15 @@ import {
     calcArea,
     calcAutoproduction,
     calcConsumption,
-    calcFinance,
+    calcFinanceGain,
+    calcFinanceCost,
     calcInstallation,
     calcLoan,
     calcObstacle,
     calcConsumptionThermal,
     calcInstallationThermal,
-    calcFinanceThermal,
+    calcFinanceThermalGain,
+    calcFinanceThermalCost,
     calcLoanThermal,
 } from '../adjust';
 
@@ -53,7 +55,8 @@ const photovoltaicWidgets =
             calcConsumption(),
             calcInstallation(),
             calcAutoproduction(),
-            calcFinance(),
+            calcFinanceGain(),
+            calcFinanceCost(),
             calcLoan());
 
 const thermalWidgets =
@@ -62,7 +65,8 @@ const thermalWidgets =
             calculatorTitle(),
             calcConsumptionThermal(),
             calcInstallationThermal(),
-            calcFinanceThermal(),
+            calcFinanceThermalGain(),
+            calcFinanceThermalCost(),
             calcLoanThermal());
 
 
