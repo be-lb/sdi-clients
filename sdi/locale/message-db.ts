@@ -319,6 +319,8 @@ export type MessageKey =
     | 'solDailyConsumption'
     | 'solDedicatedArea'
     | 'solElectricBoiler'
+    | 'solFinanceCost'
+    | 'solFinanceGain'
     | 'solGaz'
     | 'solGeneralMap'
     | 'solHeatProdSys'
@@ -2824,6 +2826,18 @@ export const messages: MessageDB = {
         fr: 'Surface dédiée à l\'installation',
         nl: 'Ruimte gewijd aan de installatie',
         en: 'Area dedicated to the installation',
+    },
+
+    solFinanceCost: {
+        fr: 'Coût financier',
+        nl: 'Rentekosten',
+        en: 'Financial cost',
+    },
+
+    solFinanceGain: {
+        fr: 'Gain financier',
+        nl: 'Financieel gewin',
+        en: 'Financial gain',
     },
 
 };

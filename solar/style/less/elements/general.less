@@ -9,6 +9,10 @@
 
 @roundedW : 4.5rem;
 
+// solar media queries
+
+@big: ~"screen and (min-width: 600px)";
+
 // .wrapper-illu .illu {background: pink;} //debug
 // .context {background: orange;} //debug
 // .sidebar {background: yellow;} //debug
@@ -117,7 +121,7 @@ input[type="number"] {
     }
 }
 //
-// @media (orientation: landscape) {
+// @media @big {
 //     .toggle {
 //         height: 2vw;
 //         border-radius: 2vw;
@@ -137,7 +141,7 @@ input[type="number"] {
     }
 }
 
-@media (orientation: landscape) {
+@media @big {
     .wrapper-multi-checkbox {
         display: flex;
         .multi-checkbox-label {
