@@ -34,7 +34,7 @@ export const calcFinanceCost =
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '7. ' + tr('solFinanceCost')),
-                DIV({ className: 'adjust-picto spend' })),
+                DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses()));
 
