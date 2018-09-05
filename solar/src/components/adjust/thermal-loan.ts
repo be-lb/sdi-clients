@@ -9,13 +9,19 @@ import { setInputF } from '../../events/simulation';
 
 const hasLoan = getInputF('loan');
 const toggleLoan = toggle(hasLoan, setInputF('loan'));
+const getLoanPeriod = getInputF('loanPeriod');
+
 
 const withLoan =
     () =>
         DIV({ className: 'inputs' },
             // vertInputItem('amountBorrowed'),
-            vertInputItem('loanDuration', 'loanPeriod', SPAN({ className: 'unit' }, tr('unitYear'))),
-            vertInputItem('loanRate', 'loanRate', SPAN({ className: 'unit' }, tr('unitPercent'))),
+            vertInputItem(
+                'loanDuration', 'loanPeriod',
+                SPAN({ className: 'unit' }, tr('unitYear', { value: getLoanPeriod() }))),
+            vertInputItem(
+                'loanRate', 'loanRate',
+                SPAN({ className: 'unit' }, tr('unitPercent'))),
         );
 
 export const calcLoanThermal =
