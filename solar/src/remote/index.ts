@@ -20,7 +20,7 @@ import {
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO, RoofIdentifiersIO } from './io';
+import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO } from './io';
 
 
 
@@ -31,10 +31,10 @@ export const fetchKey =
         return fetchIO(CapakeyIO, url);
     };
 
-export const fetchRoofIdentifiers =
+export const fetchRoofs =
     (capakey: string) => {
         const url = getApiUrl(`geodata/solar/roofs/${capakey}/`);
-        return fetchIO(RoofIdentifiersIO, url);
+        return fetchIO(FeatureCollectionIO, url);
     };
 
 export const fetchRoof =

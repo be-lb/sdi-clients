@@ -187,8 +187,8 @@ export function perspective(
         (c) => {
             c.save();
             c.strokeStyle = '#444';
-            c.fillStyle = 'rgba(252,251,247,0.6)';
-            // c.fillStyle = 'rgb(242, 242, 228)';
+            // c.fillStyle = 'rgba(252,251,247,0.6)';
+            c.fillStyle = 'rgb(242, 242, 228)';
             c.lineWidth = 0.9;
             return () => c.restore();
         };

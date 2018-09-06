@@ -78,7 +78,7 @@ export const updateRoofs =
                     const area = getFeatureProp(f, 'area', 0.000001);
                     return {
                         area,
-                        productivity: (getFeatureProp(f, 'productivity', 0) / 1000) / area,
+                        productivity: (getFeatureProp(f, 'irradiance', 0) / 1000),
                         tilt: getFeatureProp(f, 'tilt', 35),
                     };
                 }),

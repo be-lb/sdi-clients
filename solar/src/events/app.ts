@@ -27,7 +27,7 @@ import { defaultInteraction } from 'sdi/map';
 import { FeatureCollection, Feature } from 'sdi/source';
 
 import { AppLayout } from '../app';
-import { fetchRoof, fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofIdentifiers } from '../remote';
+import { fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofs } from '../remote';
 import { updateRoofs } from './simulation';
 import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
@@ -84,9 +84,10 @@ const createCollection =
         features: fs,
     });
 
+type roofFetcher = (c: string) => Promise<Feature>;
 
 const loadRoof =
-    (capakey: string, r: (a: FeatureCollection) => void, s: () => void) => {
+    (fetchRoof: roofFetcher, capakey: string, r: (a: FeatureCollection) => void, s: () => void) => {
         const rids = query('solar/loading');
         if (rids.length > 0) {
             const rid = rids[0];
@@ -105,7 +106,7 @@ const loadRoof =
                         return ns;
                     });
                 })
-                .then(() => loadRoof(capakey, r, s))
+                .then(() => loadRoof(fetchRoof, capakey, r, s))
                 .catch(s);
         }
         else {
@@ -118,10 +119,21 @@ const loadRoofs =
         fromNullable(query('solar/data/roofs')[capakey])
             .foldL(
                 () => {
-                    return fetchRoofIdentifiers(capakey)
-                        .then(({ roofs }) => {
-                            dispatch('solar/loading', () => roofs);
-                            return (new Promise((solve, ject) => loadRoof(capakey, solve, ject)));
+                    return fetchRoofs(capakey)
+                        .then((roofs) => {
+                            dispatch('solar/loading', () => roofs.features.map(f => f.id.toString()));
+                            const fr = (c: string) => (new Promise<Feature>((rs, rj) => {
+                                setTimeout(() => {
+                                    const f = roofs.features.find(f => f.id === c);
+                                    if (f !== undefined) {
+                                        rs(f);
+                                    }
+                                    else {
+                                        rj();
+                                    }
+                                }, 1200 / roofs.features.length);
+                            }));
+                            return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
                         });
                 },
                 fc => Promise.resolve(fc),

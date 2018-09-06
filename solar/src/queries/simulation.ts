@@ -79,7 +79,7 @@ export const totalArea =
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
     );
 
-const areaProductivity =
+const areaIrradiance =
     (low: number, high: number) =>
         () => getRoofFeatures()
             .fold(
@@ -88,10 +88,10 @@ const areaProductivity =
                     const ta = Math.max(0.01, totalArea()); // ugly but...
                     const catArea = features
                         .filter((f) => {
-                            const p = getFeatureProp(f, 'productivity', 0);
-                            const a = getFeatureProp(f, 'area', 0.001);
-                            const irm2 = p / a;
-                            return (irm2 >= low) && (irm2 < high);
+                            const p = getFeatureProp(f, 'irradiance', 0);
+                            // const a = getFeatureProp(f, 'area', 0.001);
+                            // const irm2 = p / a;
+                            return (p >= low) && (p < high);
                         })
                         .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
 
@@ -100,9 +100,9 @@ const areaProductivity =
         );
 
 
-export const areaExcellent = areaProductivity(PROD_THESH_HIGH, Number.MAX_VALUE);
-export const areaMedium = areaProductivity(PROD_THESH_MEDIUM, PROD_THESH_HIGH);
-export const areaLow = areaProductivity(Number.MIN_VALUE, PROD_THESH_MEDIUM);
+export const areaExcellent = areaIrradiance(PROD_THESH_HIGH, Number.MAX_VALUE);
+export const areaMedium = areaIrradiance(PROD_THESH_MEDIUM, PROD_THESH_HIGH);
+export const areaLow = areaIrradiance(Number.MIN_VALUE, PROD_THESH_MEDIUM);
 
 
 const queryInputs = queryK('solar/inputs');

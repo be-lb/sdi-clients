@@ -19,9 +19,9 @@ export const BaseLayerCollectionIO = iots.dictionary(iots.string, IMapBaseLayerI
 export type BaseLayerCollection = iots.TypeOf<typeof BaseLayerCollectionIO>;
 
 
-export const RoofIdentifiersIO = i({
-    roofs: a(iots.number),
-});
+// export const RoofIdentifiersIO = i({
+//     roofs: a(iots.number),
+// });
 
-export type RoofIdentifiers = iots.TypeOf<typeof RoofIdentifiersIO>;
+// export type RoofIdentifiers = iots.TypeOf<typeof RoofIdentifiersIO>;
 
