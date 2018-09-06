@@ -4,7 +4,7 @@ import { DIV, IMG, NODISPLAY, H1, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
-import { FeatureCollection } from 'sdi/source';
+import { FeatureCollection, Feature } from 'sdi/source';
 
 import map from '../map';
 import {
@@ -123,14 +123,27 @@ export const wrapper3D =
 const ALTITUDE_0 = 0;
 const ALTITUDE_100 = 100;
 
+
+const isExactFeature =
+    ({ properties }: Feature): boolean => {
+        if (properties !== null) {
+            return ('is_exact' in properties) && properties['is_exact'];
+        }
+        return false;
+    };
+
 const getCamera =
     (fc: FeatureCollection): Option<Camera> => {
+        const fcExact: FeatureCollection = {
+            type: 'FeatureCollection',
+            features: fc.features.filter(isExactFeature),
+        };
         type n3 = [number, number, number];
-        const [minx, miny, maxx, maxy] = bbox(fc);
+        const [minx, miny, maxx, maxy] = bbox(fcExact);
         const cx = minx + ((maxx - minx) / 2);
         const cy = miny + ((maxy - miny) / 2);
         const maxxer = (acc: number, p: n3) => Math.max(acc, p[2]);
-        const maxz = fc.features.reduce((acc, f) => {
+        const maxz = fcExact.features.reduce((acc, f) => {
             const geom = f.geometry;
             const gt = geom.type;
             const r: Reducer = {
@@ -147,7 +160,7 @@ const getCamera =
         }, ALTITUDE_0);
 
         const minzzer = (acc: number, p: n3) => Math.min(acc, p[2]);
-        const minz = fc.features.reduce((acc, f) => {
+        const minz = fcExact.features.reduce((acc, f) => {
             const geom = f.geometry;
             const gt = geom.type;
             const r: Reducer = {
@@ -164,7 +177,7 @@ const getCamera =
         }, ALTITUDE_100);
 
         if (maxz !== undefined && minz !== undefined) {
-            const dist = (Math.max((maxx - minx), (maxy - miny)) * 0.7);
+            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1);
             const pos = vec3.fromValues(
                 cx,
                 cy - dist,

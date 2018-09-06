@@ -190,7 +190,6 @@ export const removeLayer =
         const toRemove = layersArray.find(l => l.get('id') === lid);
         if (toRemove !== undefined) {
             mainLayerGroup.getLayers().remove(toRemove);
-
         }
         else {
             logger(`layer(${lid}) not in collection`);

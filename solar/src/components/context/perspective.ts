@@ -180,16 +180,16 @@ export function perspective(
     };
     const roofFinalizer: Finalizer = (c) => {
         c.fill();
-        // c.stroke(); 
+        c.stroke();
     };
 
     const buildingPrepper: Prepper =
         (c) => {
             c.save();
-            c.strokeStyle = '#666';
-            // c.fillStyle = 'rgba(252,251,247,0.6)';
-            c.fillStyle = 'rgb(252,251,247)';
-            c.lineWidth = 0.2;
+            c.strokeStyle = '#444';
+            c.fillStyle = 'rgba(252,251,247,0.6)';
+            // c.fillStyle = 'rgb(242, 242, 228)';
+            c.lineWidth = 0.9;
             return () => c.restore();
         };
 
@@ -197,7 +197,7 @@ export function perspective(
         (c, f) => {
             c.save();
             c.strokeStyle = '#666';
-            c.lineWidth = 0.4;
+            c.lineWidth = 1;
             const p = getProp(f, 'productivity', 0) / getProp(f, 'area', 0.0001);
             if (p >= PROD_THESH_HIGH) {
                 c.fillStyle = '#8db63c';

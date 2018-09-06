@@ -153,11 +153,37 @@ export const getObstacle =
     (o: Obstacle) => query('solar/obstacle')[o];
 
 
+export const PANEL_AREA = 1.6;
+
 export const getOptimalArea =
     () => fromNullable(query('solar/optimalArea')).foldL(
         () => getOutput('maxArea'),
         n => n,
     );
+
+export const getOptimalPanelUnits =
+    () => Math.floor(getOptimalArea() / PANEL_AREA);
+
+export const getPanelUnits =
+    () => Math.floor(getOutput('maxArea') / PANEL_AREA);
+
+export const getMinPanelUnits =
+    () => {
+        switch (getInputF('pvTechnology')()) {
+            case 'poly': return 6;
+            case 'mono': return 4;
+            case 'mono_high': return 5;
+        }
+    };
+
+export const getMaxPanelUnits =
+    () => {
+        switch (getInputF('pvTechnology')()) {
+            case 'poly': return 57;
+            case 'mono': return 42;
+            case 'mono_high': return 32;
+        }
+    };
 
 export const getOrthoURL =
     () =>
