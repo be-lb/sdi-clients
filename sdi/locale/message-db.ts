@@ -2598,8 +2598,8 @@ export const messages: MessageDB = {
     },
 
     solAdjustStr1: {
-        fr: 'Ajuster',
-        nl: 'De berekening',
+        fr: 'J\'ajuste',
+        nl: 'Mijn berekening',
         en: 'Adjust',
     },
 
@@ -2610,38 +2610,38 @@ export const messages: MessageDB = {
     },
 
     solContactStr1: {
-        fr: 'Contacter',
-        nl: 'Contacteer',
+        fr: 'Je trouve',
+        nl: 'Mijn installateur',
         en: 'Contact',
     },
 
     solContactStr2: {
         fr: 'un installateur',
-        nl: 'een installateur',
+        nl: 'vinden',
         en: 'an installer',
     },
 
     solChangeStr1: {
-        fr: 'Mieux',
-        nl: 'Beter',
+        fr: 'Je profite',
+        nl: 'Ik genieten',
         en: 'Making',
     },
 
     solChangeStr2: {
-        fr: 'utiliser',
-        nl: 'benutten',
+        fr: 'de mes panneaux',
+        nl: 'van mijn panelen',
         en: 'better use',
     },
 
     solPrintStr1: {
-        fr: 'Voir et',
-        nl: 'Bekijken en',
+        fr: 'Je télécharge',
+        nl: 'Mijn rappor',
         en: 'View and',
     },
 
     solPrintStr2: {
-        fr: 'télécharger',
-        nl: 'downloaden',
+        fr: 'mon rapport',
+        nl: 'bekijken',
         en: 'download',
     },
 

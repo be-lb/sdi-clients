@@ -42,7 +42,6 @@ const sumPotentialValues =
             vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
             vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice', 'gain-elec'),
             vk(withTCO2(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
-            // DIV({ className: 'note' }, tr('estim10Y')),
         );
 
 
