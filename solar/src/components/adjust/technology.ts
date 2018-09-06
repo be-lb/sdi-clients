@@ -17,13 +17,13 @@ const renderSelect =
                 checkBox('monocristalHR', 'mono_high')));
     };
 
-export const calcInstallation =
+export const calcTechnology =
     () =>
         DIV({ className: 'adjust-item installation' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '4. ' + tr('installation')),
-                DIV({ className: 'adjust-picto panel' })),
+                    '2. ' + tr('technology')),
+                DIV({ className: 'adjust-picto picto-panel' })),
             DIV({ className: 'adjust-item-widget' },
                 // DIV({ className: 'adjust-picto-wrapper' },
                 renderSelect()));

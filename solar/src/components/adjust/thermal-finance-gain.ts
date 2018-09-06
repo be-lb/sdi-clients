@@ -18,7 +18,7 @@ export const calcFinanceThermalGain =
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '3. ' + tr('solFinanceGain')),
-                DIV({ className: 'adjust-picto gain' })),
+                DIV({ className: 'adjust-picto picto-gain' })),
             DIV({ className: 'adjust-item-widget' },
                 gains()));
 

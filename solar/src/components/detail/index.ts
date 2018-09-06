@@ -1,7 +1,6 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { toggle } from '../item-factory';
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
 
@@ -16,25 +15,18 @@ import {
     calcArea,
     calcAutoproduction,
     calcConsumption,
-    calcFinanceGain,
     calcFinanceCost,
-    calcInstallation,
+    calcTechnology,
     calcLoan,
     calcObstacle,
     calcConsumptionThermal,
-    calcInstallationThermal,
-    calcFinanceThermalGain,
+    calcTechnologyThermal,
     calcFinanceThermalCost,
     calcLoanThermal,
 } from '../adjust';
 
 import { getSystem } from '../../queries/simulation';
-import { setSystem } from '../../events/simulation';
 
-
-const toggleSystem = toggle(
-    () => getSystem() === 'photovoltaic',
-    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 const calculatorTitle =
     () =>
@@ -43,19 +35,17 @@ const calculatorTitle =
                 tr('solAdjustStr1'),
                 ' ',
                 tr('solAdjustStr2')),
-            toggleSystem('solPhotovoltaic', 'solThermal'),
         );
 
 const photovoltaicWidgets =
     () =>
         DIV({ className: 'calculator' },
             calculatorTitle(),
-            calcArea(),
             calcObstacle(),
+            calcTechnology(),
+            calcArea(),
             calcConsumption(),
-            calcInstallation(),
             calcAutoproduction(),
-            calcFinanceGain(),
             calcFinanceCost(),
             calcLoan());
 
@@ -63,9 +53,8 @@ const thermalWidgets =
     () =>
         DIV({ className: 'calculator' },
             calculatorTitle(),
+            calcTechnologyThermal(),
             calcConsumptionThermal(),
-            calcInstallationThermal(),
-            calcFinanceThermalGain(),
             calcFinanceThermalCost(),
             calcLoanThermal());
 

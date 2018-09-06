@@ -24,7 +24,7 @@ import tr from 'sdi/locale';
 import { getFeatureProp } from 'sdi/source';
 
 import { getCapakey } from './app';
-import { Obstacle } from '../components/adjust/index';
+import { Obstacle } from '../components/adjust';
 import { identity } from 'fp-ts/lib/function';
 import { outputs, inputs } from 'solar-sim';
 

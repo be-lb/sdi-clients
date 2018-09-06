@@ -5,13 +5,15 @@
 @contextW : 70vw;
 @sidebarW : calc(~"100vw - @{contextW} - @{margin} * 3");
 @illuW : calc(~"(@{contextW} - 2 * @{margin}) / 3");
-@illuW-mob : calc(~"100vw - 4 * @{margin-mob}");
+@illuW-medium : calc(~"100vw / 3 - 2 * @{margin}");
+@illuW-mob : calc(~"85vw - 4 * @{margin-mob}");
 
-@roundedW : 4.5rem;
+@roundedW : 4rem;
 
 // solar media queries
 
-@big: ~"screen and (min-width: 600px)";
+@big: ~"screen and (min-width: 1023px)";
+@medium: ~"screen and (min-width: 600px)";
 
 // .wrapper-illu .illu {background: pink;} //debug
 // .context {background: orange;} //debug
@@ -37,6 +39,8 @@ h1 {
     font-weight: 100; // override GEODATA default value
 }
 
+
+// INPUTS
 
 .input-box {
     display: flex;
@@ -75,7 +79,10 @@ h1 {
     input {
         width: 4em;
         font-family: inherit;
-        margin-bottom: @margin / 2;
+    }
+
+    .input-label {
+        margin-top: @margin / 2;
     }
 }
 
@@ -93,12 +100,15 @@ input[type="number"] {
 .toggle {
     .rounded-border;
     font-size: @small-font;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     cursor: default;
     height: @roundedW / 2;
     border-radius: @roundedW / 2;
     background-color: @extra-light-grey;
+    max-width: 100%;
+    flex-wrap: nowrap;
+
 
     .value {
         border: 2px solid #000;
@@ -120,18 +130,6 @@ input[type="number"] {
         background-color: transparent;
     }
 }
-//
-// @media @big {
-//     .toggle {
-//         height: 2vw;
-//         border-radius: 2vw;
-//
-//         .value {
-//             height: calc(~"2vw - 2px");
-//             border-radius: 2vw;
-//         }
-//     }
-// }
 
 
 // CHECKBOXES

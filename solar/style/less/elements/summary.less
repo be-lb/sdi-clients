@@ -12,20 +12,12 @@
 
 
 .summary {
-    .switch-thermal {
-        .absolute(-@margin * 2, auto, auto, 0);
-        font-size: 0.8rem;
-    }
-    .potential-rank {
-        margin-top: @margin;
-        .this-building {
-            font-size: @small-font;
-        }
-        .potential-rank-value {
-            font-size: @big-font;
-            font-weight: 700;
-            color: @green;
-        }
+    .toggle {margin: @margin 0;}
+
+    .potential-label {
+        font-size: @big-font;
+        font-weight: 700;
+        color: @green;
     }
 
     .potential-values {
@@ -74,6 +66,8 @@
 
 .summary-detailled {
 
+    h1 {margin-bottom: @margin;}
+
     h2{
         font-size: @medium-font;
         font-weight: 700;
@@ -87,7 +81,7 @@
         .value {
             font-weight: 500;
             margin-right: 1ch;
-            width: 12ch;
+            width: 13ch;
             text-align: right;
         }
     }

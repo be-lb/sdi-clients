@@ -12,9 +12,6 @@
     margin: 0 @margin / 2;
     margin-bottom: @margin * 2;
 
-    &:last-child {margin-bottom: 0;}
-
-
     .obstacle-icon{
         .rounded-border;
         position: relative;
@@ -45,9 +42,11 @@
     .obstacle-input {
         display: flex;
         align-items: center;
+        justify-content: center;
         width: 100%;
         font-size: @small-font;
         margin-top: auto; //put the element at the bottom of the flex column
+        padding-top: @margin / 2;
 
         &.single {justify-content: space-around;}
 
@@ -135,15 +134,8 @@
 
 
 
-@media @big {
-    .obstacle {
-        .adjust-item-widget {
-            width: 89%;
-            margin: auto;
-        }
-    }
-
+@media @medium {
     .obstacle-item {
-        margin-bottom: 0;
+        margin-bottom: 0 !important;
     }
 }

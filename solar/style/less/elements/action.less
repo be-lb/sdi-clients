@@ -1,4 +1,10 @@
+//ACTIONS
 
+.actions {
+    border-top: 1px solid #000;
+    justify-content: space-around;
+    padding-top: 2 * @margin;
+}
 
 .action-title {
     font-size: @big-font * 0.8;
@@ -11,11 +17,12 @@
     margin-top: @margin;
 
     > div {
+        flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: @margin * 4;
+        margin-bottom: @margin * 2;
 
         &::before {
             .awsomefont;
@@ -33,25 +40,31 @@
             color: #fff;
         }
 
-        .action-info {
-            font-size: @medium-font;
-            margin-top: @margin / 2;
-        }
+        // .action-info {
+        //     font-size: @medium-font;
+        //     margin-top: @margin / 2;
+        // }
 
         &.action-settings::before {content: @fa-var-pencil;}
         &.action-contact::before {content: @fa-var-wrench;}
         &.action-change::before {content: @fa-var-lightbulb-o;}
         &.action-print::before {content: @fa-var-thumb-tack;}
 
-        .action-info .pdf {
-            width: @roundedW;
-            height: @roundedW;
-            margin: @margin auto;
-            background-image: url("../../asset/svg/pdf.svg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: contain;
-        }
+        // .action-info .pdf {
+        //     width: @roundedW;
+        //     height: @roundedW;
+        //     margin: @margin auto;
+        //     background-image: url("../../asset/svg/pdf.svg");
+        //     background-position: center;
+        //     background-repeat: no-repeat;
+        //     background-size: contain;
+        // }
+    }
+}
+
+@media @medium {
+    .actions {
+        display: flex;
     }
 }
 
@@ -63,7 +76,6 @@
     }
 
     .actions {
-        display: flex;
 
         > div {
             width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
@@ -78,14 +90,14 @@
                 font-size: @roundedW / 2;
             }
 
-            .action-info {
-                font-size: @small-font;
-            }
-
-            .action-info .pdf {
-                width: @roundedW;
-                height: @roundedW;
-            }
+            // .action-info {
+            //     font-size: @small-font;
+            // }
+            //
+            // .action-info .pdf {
+            //     width: @roundedW;
+            //     height: @roundedW;
+            // }
 
         }
     }

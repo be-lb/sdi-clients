@@ -18,12 +18,12 @@ const renderSelect =
                 checkBox('solGaz', 'mono_high')));
     };
 
-export const calcInstallationThermal =
+export const calcTechnologyThermal =
     () =>
         DIV({ className: 'adjust-item installation' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '2. ' + tr('installation'))),
+                    '2. ' + tr('technology'))),
             DIV({ className: 'adjust-item-widget' },
                 renderSelect()));
 

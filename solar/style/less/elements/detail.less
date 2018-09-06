@@ -5,8 +5,7 @@
     }
 }
 
-
-@media @big {
+@media @medium {
     .detail {
 
         .solar-main-and-right-sidebar {
@@ -15,13 +14,20 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
+
+        .context {
+            padding-top: 2 * @margin;
+            border-top: 1px solid #000 !important;
+        }
+    }
+}
+
+
+@media @big {
+    .detail {
+
         .content {
             width: @contextW;
-
-            .context {
-                padding-top: 2 * @margin;
-                border-top: 1px solid #000 !important;
-            }
         }
         .sidebar {
             position: fixed;
@@ -90,17 +96,9 @@
             background-image: url("../../asset/svg/waterheating.svg");
         }
     }
-
-    // .input-box {
-    //     height: 2rem;
-    //     align-items: center;
-    //     input {
-    //         margin: 0 !important;
-    //     }
-    // }
 }
 
-@media @big {
+@media @medium {
     .adjust-item.calculator-header {
         display: flex;
         align-items: center;
@@ -108,24 +106,14 @@
 
         > div {margin: @margin 0;}
 
+    }
+}
+@media @big {
+    .adjust-item.calculator-header {
+
         .calculator-title {
             width: @illuW;
             text-align: center;
         }
-
-        .input-box {
-            height: 4vw;
-        }
     }
-}
-
-
-
-//ACTIONS
-
-.actions {
-    border-top: 1px solid #000;
-    justify-content: space-around;
-    padding-top: 2 * @margin;
-    padding-bottom: 4*@margin;
 }

@@ -1,10 +1,17 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withTCO2 } from 'sdi/util';
+import { withEuro, withTCO2Y } from 'sdi/util';
+
+import { toggle } from '../item-factory';
+
+import { getSystem, streetName, streetNumber, locality } from '../../queries/simulation';
+import { setSystem } from '../../events/simulation';
 
 
-import { streetName, streetNumber, locality } from '../../queries/simulation';
+const toggleSystem = toggle(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 
 
@@ -31,7 +38,7 @@ const infosThermal =
             vk(withEuro(0), 'buyingPrice'),
             vk(withEuro(0), 'bonus'),
             vk(withEuro(0), 'gainEnergyInvoice'),
-            vk(withTCO2(0 / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withTCO2Y(0 / 1000), 'gainEnvironment', 'gain-env'),
         );
 
 
@@ -41,8 +48,9 @@ export const summaryDetailedThermal =
     () =>
         DIV({ className: 'summary-detailled' },
             sumAdress(),
+            toggleSystem('solPhotovoltaic', 'solThermal'),
             infosThermal(),
-            DIV({ className: 'btn-reset' }, tr('resetToOptimum')),
+            DIV({ className: 'btn-reset' }, tr('resetValue')),
         );
 
 

@@ -76,6 +76,7 @@ export type MessageKey =
     | 'connectionSDI'
     | 'consumption'
     | 'contactInstallator'
+    | 'consumptionElectricity'
     | 'copy'
     | 'createAlias'
     | 'cursorLocalisation'
@@ -131,6 +132,7 @@ export type MessageKey =
     | 'gainEnergyInvoice'
     | 'gainEnvironment'
     | 'gainGreenCertif'
+    | 'gainTotal'
     | 'gainTotal25Y'
     | 'geocode'
     | 'geometryType'
@@ -259,7 +261,6 @@ export type MessageKey =
     | 'replaceFR'
     | 'replaceNL'
     | 'resetLegend'
-    | 'resetToOptimum'
     | 'resetValue'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -321,6 +322,7 @@ export type MessageKey =
     | 'solElectricBoiler'
     | 'solFinanceCost'
     | 'solFinanceGain'
+    | 'solFinanceVAT'
     | 'solGaz'
     | 'solGeneralMap'
     | 'solHeatProdSys'
@@ -332,6 +334,12 @@ export type MessageKey =
     | 'solNoteConsRank3'
     | 'solNoteConsRank4'
     | 'solNoteConsRank5'
+    | 'solNoteConsWaterRank1'
+    | 'solNoteConsWaterRank2'
+    | 'solNoteConsWaterRank3'
+    | 'solNoteConsWaterRank4'
+    | 'solNoteConsWaterRank5'
+    | 'solNoteConsWaterRank6'
     | 'solOrOf'
     | 'solOrSelectBuildingOnMap'
     | 'solPellet'
@@ -346,7 +354,6 @@ export type MessageKey =
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solThermal'
-    | 'solThisBuildingGotA'
     | 'space'
     | 'start'
     | 'startDate'
@@ -364,6 +371,7 @@ export type MessageKey =
     | 'switchLang'
     | 'switchMarker'
     | 'tab'
+    | 'technology'
     | 'technoType'
     | 'templateEditorExplanation'
     | 'temporalReference'
@@ -1973,8 +1981,8 @@ export const messages: MessageDB = {
     },
 
     analyse: {
-        fr: 'Analyser',
         nl: 'Examineren',
+        fr: 'Analyser',
         en: 'Analyse',
     },
 
@@ -2006,12 +2014,6 @@ export const messages: MessageDB = {
         fr: 'à',
         nl: 'in',
         en: 'in',
-    },
-
-    solThisBuildingGotA: {
-        fr: 'Ce bâtiment a un :',
-        nl: 'Dit gebouw heeft een :',
-        en: 'This building got a :',
     },
 
     buyingPrice: {
@@ -2075,9 +2077,9 @@ export const messages: MessageDB = {
     },
 
     installationObstacle: {
-        fr: 'Obstacles à l\'installation',
-        nl: 'Hindernissen voor de installatie',
-        en: 'Obstacles to installation',
+        fr: 'Contraintes en toiture',
+        nl: 'Beperkingen in de dakbedekking',
+        en: 'Roofing constraints',
     },
 
     consumption: {
@@ -2178,6 +2180,12 @@ export const messages: MessageDB = {
         fr: 'Gains totaux sur 25 ans',
         nl: 'Totale winst over 25 jaar',
         en: 'Total earnings over 25 years',
+    },
+
+    gainTotal: {
+        fr: 'Gains totaux',
+        nl: 'Totale winst',
+        en: 'Total earnings',
     },
 
     returnTime: {
@@ -2596,8 +2604,8 @@ export const messages: MessageDB = {
     },
 
     solAdjustStr1: {
-        fr: 'Ajuster',
-        nl: 'De berekening',
+        fr: 'J\'ajuste',
+        nl: 'Mijn berekening',
         en: 'Adjust',
     },
 
@@ -2608,38 +2616,38 @@ export const messages: MessageDB = {
     },
 
     solContactStr1: {
-        fr: 'Contacter',
-        nl: 'Contacteer',
+        fr: 'Je trouve',
+        nl: 'Mijn installateur',
         en: 'Contact',
     },
 
     solContactStr2: {
         fr: 'un installateur',
-        nl: 'een installateur',
+        nl: 'vinden',
         en: 'an installer',
     },
 
     solChangeStr1: {
-        fr: 'Mieux',
-        nl: 'Beter',
+        fr: 'Je profite',
+        nl: 'Ik genieten',
         en: 'Making',
     },
 
     solChangeStr2: {
-        fr: 'utiliser',
-        nl: 'benutten',
+        fr: 'de mes panneaux',
+        nl: 'van mijn panelen',
         en: 'better use',
     },
 
     solPrintStr1: {
-        fr: 'Voir et',
-        nl: 'Bekijken en',
+        fr: 'Je télécharge',
+        nl: 'Mijn rappor',
         en: 'View and',
     },
 
     solPrintStr2: {
-        fr: 'télécharger',
-        nl: 'downloaden',
+        fr: 'mon rapport',
+        nl: 'bekijken',
         en: 'download',
     },
 
@@ -2660,9 +2668,9 @@ export const messages: MessageDB = {
         en: '€/kWh',
     },
     unitKWc: {
-        fr: 'KWc',
-        nl: 'KWc',
-        en: 'KWc',
+        fr: 'kWc',
+        nl: 'kWc',
+        en: 'kWc',
     },
     unitTCO2: {
         fr: 'TCO2',
@@ -2737,6 +2745,42 @@ export const messages: MessageDB = {
         nl: 'Grootverbruiker',
         en: ' Large consumer',
     },
+    
+    solNoteConsWaterRank1: {
+        fr: 'Elle s\'apparente à une personne seule ou un ménage très économe (douches rapides plutôt que bains)',
+        nl: 'Het is vergelijkbaar met één persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
+        en: 'It is similar to a single person or a very economical household (quick showers rather than baths)',
+    },
+
+    solNoteConsWaterRank2: {
+        fr: 'Elle s\'apparente à un petit ménage économe (douches rapides plutôt que bains)',
+        nl: 'Het is als een klein, zuinig huishouden (snelle douches in plaats van baden)',
+        en: 'It is like a small, economical household (quick showers instead of baths)',
+    },
+
+    solNoteConsWaterRank3: {
+        fr: 'Elle s\'apparente à une famille petite ou une moyenne et économe (douches rapides plutôt que bains)',
+        nl: 'Het is vergelijkbaar met een kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
+        en: 'It is similar to a small or medium and economical family (quick showers rather than baths)',
+    },
+
+    solNoteConsWaterRank4: {
+        fr: 'Elle s\'apparente à une famille moyenne ou une grande et économe (douches rapides plutôt que bains)',
+        nl: 'Het is vergelijkbaar met een gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
+        en: 'It is similar to an average family or a large and economical family (quick showers rather than baths)',
+    },
+
+    solNoteConsWaterRank5: {
+        fr: 'Elle s\'apparente à une grande famille',
+        nl: 'Ze is als een grote familie.',
+        en: 'It is similar to a big family.',
+    },
+
+    solNoteConsWaterRank6: {
+        fr: 'Elle s\'apparente à une très grande famille',
+        nl: 'Ze is als een heel grote familie.',
+        en: 'It is similar to a very big family.',
+    },
 
     resetValue: {
         fr: 'Réinitialiser',
@@ -2810,12 +2854,6 @@ export const messages: MessageDB = {
         en: 'Daily consumption',
     },
 
-    resetToOptimum: {
-        fr: 'Réinititaliser à l\'optimal',
-        nl: 'Terugstellen naar optimaal',
-        en: 'Reset to optimal',
-    },
-
     solSearchAnotherAdress: {
         fr: 'Chercher une nouvelle adresse',
         nl: 'Nieuw adres zoeken',
@@ -2838,6 +2876,24 @@ export const messages: MessageDB = {
         fr: 'Gain financier',
         nl: 'Financieel gewin',
         en: 'Financial gain',
+    },
+
+    technology: {
+        fr: 'Technologie',
+        nl: 'Technologie',
+        en: 'Technology',
+    },
+
+    consumptionElectricity: {
+        fr: 'Consommation d\'éléctricité',
+        nl: 'elektriciteitsverbruik',
+        en: 'Electricity consumption',
+    },
+
+    solFinanceVAT: {
+        fr: 'Taux de TVA',
+        nl: 'BTW tarieven',
+        en: 'VAT rates',
     },
 
 };

@@ -14,9 +14,6 @@ const expenses =
         DIV({ className: 'cost' },
             // vertInputItem('installationPrice', 'installationPrice',
             //     SPAN({ className: 'unit' }, tr('unitEuro'))),
-            DIV({ className: 'input-box-vertical' },
-                DIV({ className: 'input-and-unit' }, SPAN({}, withEuro(getOutput('installationCost')))),
-                DIV({ className: 'input-label' }, tr('installationPrice'))),
             DIV({ className: 'vat-installation' },
                 DIV({ className: 'wrapper-multi-checkbox' },
                     vatSelect('VAT21', 0.21),
@@ -24,6 +21,9 @@ const expenses =
                     vatSelect('VAT0', 0)),
                 // vatSelect('VATinstallation', getNumInputF('VATrate')()),
                 DIV({ className: 'multi-checkbox-label' }, tr('VATinstallation'))),
+            DIV({ className: 'input-box-vertical' },
+                DIV({ className: 'input-and-unit' }, SPAN({}, withEuro(getOutput('installationCost')))),
+                DIV({ className: 'input-label' }, tr('installationPrice'))),
             // vertInputItem('annualMaintenance')
         );
 
@@ -33,8 +33,8 @@ export const calcFinanceCost =
     () =>
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-header' },
-                DIV({ className: 'adjust-item-title' }, '7. ' + tr('solFinanceCost')),
-                DIV({ className: 'adjust-picto spend' })),
+                DIV({ className: 'adjust-item-title' }, '6. ' + tr('solFinanceVAT')),
+                DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses()));
 

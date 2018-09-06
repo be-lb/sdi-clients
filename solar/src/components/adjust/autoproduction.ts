@@ -99,7 +99,7 @@ export const calcAutoproduction =
         DIV({ className: 'adjust-item autoproduction' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
-                DIV({ className: 'adjust-picto solar-energy' })),
+                DIV({ className: 'adjust-picto picto-solar-energy' })),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget()),
             notes(),
