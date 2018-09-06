@@ -48,7 +48,7 @@ const sumFinance =
             vk(withEuro(getOutput('installationCost')), 'buyingPrice'),
             vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif'),
             vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice'),
-            vk(withEuro(getOutput('totalGain25Y')), 'gainTotal25Y'),
+            vk(withEuro(getOutput('totalGain25Y')), 'gainTotal'),
             vk(withYear(getOutput('returnTime')), 'returnTime'));
 
 

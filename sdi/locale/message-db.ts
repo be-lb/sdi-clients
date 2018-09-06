@@ -132,6 +132,7 @@ export type MessageKey =
     | 'gainEnergyInvoice'
     | 'gainEnvironment'
     | 'gainGreenCertif'
+    | 'gainTotal'
     | 'gainTotal25Y'
     | 'geocode'
     | 'geometryType'
@@ -2180,6 +2181,12 @@ export const messages: MessageDB = {
         fr: 'Gains totaux sur 25 ans',
         nl: 'Totale winst over 25 jaar',
         en: 'Total earnings over 25 years',
+    },
+
+    gainTotal: {
+        fr: 'Gains totaux',
+        nl: 'Totale winst',
+        en: 'Total earnings',
     },
 
     returnTime: {
