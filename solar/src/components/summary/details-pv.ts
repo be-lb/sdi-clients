@@ -3,8 +3,14 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
-import { getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
-import { clearInputs } from '../../events/simulation';
+import { toggle } from '../item-factory';
+import { getSystem, getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
+import { clearInputs, setSystem } from '../../events/simulation';
+
+
+const toggleSystem = toggle(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 
 const vk =
@@ -60,6 +66,7 @@ export const summaryDetailedPhotovoltaic =
     () =>
         DIV({ className: 'summary-detailled' },
             sumAdress(),
+            toggleSystem('solPhotovoltaic', 'solThermal'),
             sumInstallation(),
             sumEnergy(),
             sumFinance(),

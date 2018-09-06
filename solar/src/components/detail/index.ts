@@ -1,7 +1,6 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { toggle } from '../item-factory';
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
 
@@ -27,12 +26,7 @@ import {
 } from '../adjust';
 
 import { getSystem } from '../../queries/simulation';
-import { setSystem } from '../../events/simulation';
 
-
-const toggleSystem = toggle(
-    () => getSystem() === 'photovoltaic',
-    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 const calculatorTitle =
     () =>
@@ -41,7 +35,6 @@ const calculatorTitle =
                 tr('solAdjustStr1'),
                 ' ',
                 tr('solAdjustStr2')),
-            toggleSystem('solPhotovoltaic', 'solThermal'),
         );
 
 const photovoltaicWidgets =
