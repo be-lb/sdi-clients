@@ -30,12 +30,12 @@ type rank = keyof Rank;
 
 
 const notes: { [k in rank]: MessageKey } = {
-    first: 'solNoteConsRank1',
-    second: 'solNoteConsRank2',
-    third: 'solNoteConsRank3',
-    fourth: 'solNoteConsRank4',
-    fifth: 'solNoteConsRank5',
-    sixth: 'solNoteConsRank5',
+    first:  'solNoteConsWaterRank1',
+    second: 'solNoteConsWaterRank2',
+    third:  'solNoteConsWaterRank3',
+    fourth: 'solNoteConsWaterRank4',
+    fifth:  'solNoteConsWaterRank5',
+    sixth:  'solNoteConsWaterRank6',
 };
 
 const setConsumption = setInputF('annualConsumptionKWh');
