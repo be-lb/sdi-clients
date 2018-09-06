@@ -3,8 +3,15 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withTCO2 } from 'sdi/util';
 
+import { toggle } from '../item-factory';
 
-import { getOutput, streetName, streetNumber, locality, potential } from '../../queries/simulation';
+import { getSystem, getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
+import { setSystem } from '../../events/simulation';
+
+
+const toggleSystem = toggle(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 
 
@@ -23,11 +30,9 @@ const sumAdress =
                 SPAN({}, tr('in')),
                 SPAN({}, ` ${locality()}`)));
 
-const sumPotentialRank =
+const sumPotentialLabel =
     () =>
-        DIV({ className: 'potential-rank' },
-            DIV({ className: 'this-building' }, tr('solThisBuildingGotA')),
-            DIV({ className: 'potential-rank-value' }, potential()));
+        DIV({ className: 'potential-label' }, tr('solSolarPotential'));
 
 
 const sumPotentialValues =
@@ -45,7 +50,8 @@ export const summary =
     () =>
         DIV({ className: 'summary' },
             sumAdress(),
-            sumPotentialRank(),
+            toggleSystem('solPhotovoltaic', 'solThermal'),
+            sumPotentialLabel(),
             sumPotentialValues(),
         );
 

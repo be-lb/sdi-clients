@@ -348,7 +348,6 @@ export type MessageKey =
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solThermal'
-    | 'solThisBuildingGotA'
     | 'space'
     | 'start'
     | 'startDate'
@@ -2009,12 +2008,6 @@ export const messages: MessageDB = {
         fr: 'à',
         nl: 'in',
         en: 'in',
-    },
-
-    solThisBuildingGotA: {
-        fr: 'Ce bâtiment a un :',
-        nl: 'Dit gebouw heeft een :',
-        en: 'This building got a :',
     },
 
     buyingPrice: {
