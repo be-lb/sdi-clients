@@ -2102,7 +2102,7 @@ export const messages: MessageDB = {
 
     loan: {
         fr: 'Emprunt',
-        nl: 'Leenwoord',
+        nl: 'Lening',
         en: 'Loan',
     },
 
@@ -2808,14 +2808,14 @@ export const messages: MessageDB = {
 
     bonus: {
         fr: 'Prime',
-        nl: 'Bonus',
+        nl: 'Premie',
         en: 'Bonus',
     },
 
     solHotWaterConsumption: {
-        fr: 'Consommation d\'eau chaude sanitaire',
-        nl: 'Verbruik van sanitair warm water',
-        en: 'Consumption of domestic hot water',
+        fr: 'Consommation d\'eau chaude',
+        nl: 'Warmwaterverbruik',
+        en: 'Hot water consumption',
     },
 
     solGaz: {
@@ -2837,9 +2837,9 @@ export const messages: MessageDB = {
     },
 
     solHeatProdSys: {
-        fr: 'Type de système de production d\'eau chaude',
-        nl: 'Type warmwatersysteem',
-        en: 'Type of hot water system',
+        fr: 'système actuel de production d\'eau chaude',
+        nl: 'Actuele warmwaterproductie',
+        en: 'Current hot water production system',
     },
 
     solPellet: {
@@ -2892,8 +2892,8 @@ export const messages: MessageDB = {
 
     solFinanceVAT: {
         fr: 'Taux de TVA',
-        nl: 'BTW tarieven',
+        nl: 'BTW tarief',
         en: 'VAT rates',
     },
-
+    
 };

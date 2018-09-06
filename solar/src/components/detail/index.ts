@@ -21,6 +21,7 @@ import {
     calcObstacle,
     calcConsumptionThermal,
     calcTechnologyThermal,
+    calcFinanceThermalGain,
     calcFinanceThermalCost,
     calcLoanThermal,
 } from '../adjust';
@@ -55,6 +56,7 @@ const thermalWidgets =
             calculatorTitle(),
             calcTechnologyThermal(),
             calcConsumptionThermal(),
+            calcFinanceThermalGain(),
             calcFinanceThermalCost(),
             calcLoanThermal());
 
