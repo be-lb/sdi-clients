@@ -6,7 +6,7 @@ const bonus =
         DIV({ className: 'gain' },
             DIV({ className: 'wrapper-multi-checkbox' },
                 DIV({ className: 'wrapper-checkbox' },
-                    DIV({ className: 'checkbox' }),
+                    DIV({ className: 'checkbox active' }),
                     DIV({ className: 'checkbox-label' }, '2 500 €')),
                 DIV({ className: 'wrapper-checkbox' },
                     DIV({ className: 'checkbox' }),
@@ -16,6 +16,8 @@ const bonus =
                     DIV({ className: 'checkbox-label' }, '3 500 €')),
             ),
         );
+
+// default is 2500 €
 
 
 export const calcFinanceThermalGain =
