@@ -3,45 +3,46 @@
 
 .area {
 
-    .adjust-item-widget {
-        flex-wrap: wrap;
-        justify-content: flex-start;
+    .area-select {
+        position: relative;
 
-        > div {margin-right: @margin;}
+        .select-item {
+            position: absolute;
+            background-size: @roundedW / 5 * 3;
+            background-image: url("../../../asset/svg/solarpanel.svg");
+            background-position: calc(~"100% - @{margin}");
+            &:first-child { background-position: center;}
 
-        .switch-wrapper {
-            width: 100%;
-            display: flex;
+            &.selected {
+                border: 2px solid #fff !important;
+                background-color: @green;
+            }
 
-            .switch-title {margin-right: 1em}
+            &.over {
+                // background: #fff;
+            }
+
+
+            &:nth-child(1) {width: @roundedW;}
+            &:nth-child(2) {width: calc(~"100% / 8 + @{roundedW} / 8 * 7") ;}
+            &:nth-child(3) {width: calc(~"100% / 8 * 2 + @{roundedW} / 8 * 6") ;}
+            &:nth-child(4) {width: calc(~"100% / 8 * 3 + @{roundedW} / 8 * 5") ;}
+            &:nth-child(5) {width: calc(~"100% / 8 * 4 + @{roundedW} / 8 * 4") ;}
+            &:nth-child(6) {width: calc(~"100% / 8 * 5 + @{roundedW} / 8 * 3") ;}
+            &:nth-child(7) {width: calc(~"100% / 8 * 6 + @{roundedW} / 8 * 2") ;}
+            &:nth-child(8) {width: calc(~"100% / 8 * 7 + @{roundedW} / 8 ") ;}
+            &:nth-child(9) {width: 100% ;}
+
+            &:nth-child(1) {z-index: 9;}
+            &:nth-child(2) {z-index: 8;}
+            &:nth-child(3) {z-index: 7;}
+            &:nth-child(4) {z-index: 6;}
+            &:nth-child(5) {z-index: 5;}
+            &:nth-child(6) {z-index: 4;}
+            &:nth-child(7) {z-index: 3;}
+            &:nth-child(8) {z-index: 2;}
+            &:nth-child(9) {z-index: 1;}
+
         }
-    }
-}
-
-.area-select {
-    display: flex;
-    flex-wrap: wrap;
-
-    .select-item {
-        .rounded-border;
-        background-color: white;
-        cursor: default;
-        width: @roundedW;
-        height: @roundedW;
-        border-radius: @roundedW;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: @margin / 2;
-
-        &:hover,
-        &.active {
-            background-color: @green;
-            color: #fff;
-        }
-    }
-
-    .adjust-item-widget {
-        align-items: center;
     }
 }
