@@ -30,12 +30,12 @@ type rank = keyof Rank;
 
 
 const notes: { [k in rank]: MessageKey } = {
-    first:  'solNoteConsWaterRank1',
+    first: 'solNoteConsWaterRank1',
     second: 'solNoteConsWaterRank2',
-    third:  'solNoteConsWaterRank3',
+    third: 'solNoteConsWaterRank3',
     fourth: 'solNoteConsWaterRank4',
-    fifth:  'solNoteConsWaterRank5',
-    sixth:  'solNoteConsWaterRank6',
+    fifth: 'solNoteConsWaterRank5',
+    sixth: 'solNoteConsWaterRank6',
 };
 
 const setConsumption = setInputF('annualConsumptionKWh');
@@ -49,7 +49,7 @@ const icon =
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
-            '1. ' + tr('solHotWaterConsumption')),
+            '2. ' + tr('solHotWaterConsumption')),
         icon('first'),
         icon('second'),
         icon('third'),

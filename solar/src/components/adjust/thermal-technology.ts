@@ -23,7 +23,7 @@ export const calcTechnologyThermal =
         DIV({ className: 'adjust-item installation' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '2. ' + tr('technology'))),
+                    '1. ' + tr('technology'))),
             DIV({ className: 'adjust-item-widget' },
                 renderSelect()));
 
