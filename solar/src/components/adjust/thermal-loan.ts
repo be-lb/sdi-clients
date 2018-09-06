@@ -2,7 +2,7 @@
 import { DIV, SPAN, NODISPLAY } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
-import { toggle, vertInputItem } from '../item-factory/index';
+import { toggle, vertInputItem } from '../item-factory';
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 

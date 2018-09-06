@@ -46,13 +46,13 @@ const icon =
 
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
-            DIV({ className: 'adjust-item-title' },
-                '3. ' + tr('consumption')),
-            icon('first'),
-            icon('second'),
-            icon('third'),
-            icon('fourth'),
-            icon('fifth'),
+        DIV({ className: 'adjust-item-title' },
+            '4. ' + tr('consumptionElectricity')),
+        icon('first'),
+        icon('second'),
+        icon('third'),
+        icon('fourth'),
+        icon('fifth'),
     );
 
 const isActive =

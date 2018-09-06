@@ -76,6 +76,7 @@ export type MessageKey =
     | 'connectionSDI'
     | 'consumption'
     | 'contactInstallator'
+    | 'consumptionElectricity'
     | 'copy'
     | 'createAlias'
     | 'cursorLocalisation'
@@ -321,6 +322,7 @@ export type MessageKey =
     | 'solElectricBoiler'
     | 'solFinanceCost'
     | 'solFinanceGain'
+    | 'solFinanceVAT'
     | 'solGaz'
     | 'solGeneralMap'
     | 'solHeatProdSys'
@@ -364,6 +366,7 @@ export type MessageKey =
     | 'switchLang'
     | 'switchMarker'
     | 'tab'
+    | 'technology'
     | 'technoType'
     | 'templateEditorExplanation'
     | 'temporalReference'
@@ -1973,8 +1976,8 @@ export const messages: MessageDB = {
     },
 
     analyse: {
-        fr: 'Analyser',
         nl: 'Examineren',
+        fr: 'Analyser',
         en: 'Analyse',
     },
 
@@ -2075,9 +2078,9 @@ export const messages: MessageDB = {
     },
 
     installationObstacle: {
-        fr: 'Obstacles à l\'installation',
-        nl: 'Hindernissen voor de installatie',
-        en: 'Obstacles to installation',
+        fr: 'Contraintes en toiture',
+        nl: 'Beperkingen in de dakbedekking',
+        en: 'Roofing constraints',
     },
 
     consumption: {
@@ -2838,6 +2841,24 @@ export const messages: MessageDB = {
         fr: 'Gain financier',
         nl: 'Financieel gewin',
         en: 'Financial gain',
+    },
+
+    technology: {
+        fr: 'Technologie',
+        nl: 'Technologie',
+        en: 'Technology',
+    },
+
+    consumptionElectricity: {
+        fr: 'Consommation d\'éléctricité',
+        nl: 'elektriciteitsverbruik',
+        en: 'Electricity consumption',
+    },
+
+    solFinanceVAT: {
+        fr: 'Taux de TVA',
+        nl: 'BTW tarieven',
+        en: 'VAT rates',
     },
 
 };

@@ -28,7 +28,7 @@ export const calcFinanceThermalCost =
     () =>
         DIV({ className: 'adjust-item finance' },
             DIV({ className: 'adjust-item-header' },
-                DIV({ className: 'adjust-item-title' }, '4. ' + tr('solFinanceCost')),
+                DIV({ className: 'adjust-item-title' }, '4. ' + tr('solFinanceVAT')),
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses()));
