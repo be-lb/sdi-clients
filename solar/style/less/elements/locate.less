@@ -120,10 +120,9 @@
         display: inline-block;
         margin-top: @margin;
         padding: @roundedW / 5;
-        background-color: @yellow;
+        background-color: @green;
         border-radius: @roundedW;
         border: 2px solid transparent;
-        color: #000;
         cursor: default;
         box-sizing: border-box;
         &:hover {
@@ -189,6 +188,10 @@
                 margin-left: @margin;
                 justify-content: flex-start;
                 font-size: 1em;
+                border: 2px solid transparent;
+                &:hover {
+                    border: 2px solid #fff;
+                }
             }
         }
     }
