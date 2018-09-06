@@ -260,7 +260,6 @@ export type MessageKey =
     | 'replaceFR'
     | 'replaceNL'
     | 'resetLegend'
-    | 'resetToOptimum'
     | 'resetValue'
     | 'responsibleAndContact'
     | 'responsibleOrganisation'
@@ -2811,12 +2810,6 @@ export const messages: MessageDB = {
         fr: 'Consommation journalière',
         nl: 'Dagelijks verbruik',
         en: 'Daily consumption',
-    },
-
-    resetToOptimum: {
-        fr: 'Réinititaliser à l\'optimal',
-        nl: 'Terugstellen naar optimaal',
-        en: 'Reset to optimal',
     },
 
     solSearchAnotherAdress: {

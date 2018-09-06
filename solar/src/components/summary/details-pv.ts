@@ -66,7 +66,7 @@ export const summaryDetailedPhotovoltaic =
             DIV({
                 className: 'btn-reset',
                 onClick: () => clearInputs(),
-            }, tr('resetToOptimum')),
+            }, tr('resetValue')),
         );
 
 

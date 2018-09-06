@@ -42,7 +42,7 @@ export const summaryDetailedThermal =
         DIV({ className: 'summary-detailled' },
             sumAdress(),
             infosThermal(),
-            DIV({ className: 'btn-reset' }, tr('resetToOptimum')),
+            DIV({ className: 'btn-reset' }, tr('resetValue')),
         );
 
 
