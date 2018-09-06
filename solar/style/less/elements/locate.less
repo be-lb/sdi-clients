@@ -117,15 +117,19 @@
     text-align: center;
 
     .map-button {
+        display: inline-block;
+        margin-top: @margin;
         padding: @roundedW / 5;
         background-color: @yellow;
         border-radius: @roundedW;
-        border: 1px solid #333;
+        border: 2px solid transparent;
         color: #000;
         cursor: default;
+        box-sizing: border-box;
         &:hover {
             background-color: @green;
             color: #fff;
+            border: 2px solid #fff;
         }
     }
 }

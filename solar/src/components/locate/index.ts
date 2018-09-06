@@ -130,8 +130,8 @@ const pitchWrapper =
 const pitchMap =
     () =>
         DIV({ className: 'locate-pitch-map' },
-            SPAN({}, tr('solOrSelectBuilding')),
-            SPAN({ className: 'map-button' }, tr('solOnMap')),
+            DIV({}, tr('solOrSelectBuilding')),
+            DIV({ className: 'map-button' }, tr('solOnMap')),
         );
 
 
