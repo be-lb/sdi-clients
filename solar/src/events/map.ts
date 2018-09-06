@@ -104,7 +104,7 @@ const layerTemplate =
                 },
             ],
             kind: 'polygon-continuous',
-            propName: 'productivity',
+            propName: 'irradiance',
         },
     });
 
