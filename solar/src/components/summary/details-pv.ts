@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2 } from 'sdi/util';
+import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import { getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
 import { clearInputs } from '../../events/simulation';
@@ -38,7 +38,7 @@ const sumEnergy =
             vk(withKWhY(getOutput('annualProduction')), 'yearProduction'),
             vk(withKWhY(getOutput('annualConsumption')), 'yearConsumption'),
             vk(withPercent(getOutput('autonomy') * 100), 'solarAutonomy'),
-            vk(withTCO2(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withTCO2Y(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
         );
 
 const sumFinance =

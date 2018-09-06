@@ -12,4 +12,3 @@ export * from './thermal-technology';
 export * from './thermal-finance-gain';
 export * from './thermal-finance-cost';
 export * from './thermal-loan';
- 
