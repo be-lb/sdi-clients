@@ -89,7 +89,7 @@ const renderGeocoderResultsWrapper =
         DIV({ className: 'geocoder-wrapper' }, ...n);
 
 const renderGeocoder =
-    ():React.ReactNode[] =>
+    (): React.ReactNode[] =>
         geocoderResponse()
             .fold(
                 [renderGeocoderInputWrapper(renderGeocoderInput(), renderGeocoderButton())],
@@ -99,30 +99,69 @@ const renderGeocoder =
                     renderGeocoderResultsWrapper(renderGeocoderResults(result)),
                 ]);
 
+
+const pitch =
+    () =>
+        DIV({ className: 'locate-pitch' },
+            DIV({}, tr('solLocatePitchStr1')),
+            DIV({ className: 'pitch-bold' }, tr('solLocatePitchStr2')),
+            DIV({},
+                SPAN({}, tr('solLocatePitchStr3a')),
+                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr3b'))),
+            DIV({}, tr('solLocatePitchStr4')),
+            DIV({}, tr('solLocatePitchStr5')),
+            DIV({}, tr('solLocatePitchStr6')),
+            DIV({}, tr('solLocatePitchStr7')),
+        );
+
+
+const illu =
+    () =>
+        DIV({ className: 'locate-illu' });
+
+const pitchWrapper =
+    () =>
+        DIV({ className: 'locate-pitch-wrapper' },
+            pitch(),
+            illu(),
+        );
+
+
+const pitchMap =
+    () =>
+        DIV({ className: 'locate-pitch-map' },
+            DIV({}, tr('solOrSelectBuilding')),
+            DIV({ className: 'map-button' }, tr('solOnMap')),
+        );
+
+
+
+const searchWrapper =
+    () =>
+        DIV({ className: 'locate-geocode' },
+            DIV({},
+                SPAN({}, tr('solCalculateStrPart1')),
+                SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
+                SPAN({}, tr('solCalculateStrPart2'))),
+            ...renderGeocoder(),
+        );
+
+
+
 const wrapperTop =
     () =>
         DIV({ className: 'wrapper-top' },
-            DIV({ className: 'locate-pitch' },
-                SPAN({}, tr('solHowMuchOf')),
-                SPAN({ className: 'pitch-bold' }, tr('electricity')),
-                DIV({}, tr('solOrOf'), SPAN({ className: 'pitch-bold' }, tr('heat'))),
-                DIV({}, tr('solPossibleToProduce')),
-                DIV({}, tr('solByRoof')),
-                DIV({}, tr('solAtBxl'))),
-            DIV({ className: 'locate-geocode' },
-                DIV({},
-                    SPAN({}, tr('solCalculateStrPart1')),
-                    SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
-                    SPAN({}, tr('solCalculateStrPart2'))),
-                ...renderGeocoder(),
-                DIV({}, tr('solOrSelectBuildingOnMap'))));
+            pitchWrapper(),
+            searchWrapper(),
+            pitchMap(),
+        );
 
 
 const render =
     () =>
         DIV({ className: 'locate-box' },
-            wrapperTop(),
-            map());
+            map(),
+            wrapperTop());
 
 export default render;
 

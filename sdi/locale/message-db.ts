@@ -308,9 +308,7 @@ export type MessageKey =
     | 'solarAutonomy'
     | 'solarPV'
     | 'solarThermal'
-    | 'solAtBxl'
     | 'solBackTo'
-    | 'solByRoof'
     | 'solCalculateStrPart1'
     | 'solCalculateStrPart2'
     | 'solChangeStr1'
@@ -326,8 +324,15 @@ export type MessageKey =
     | 'solGaz'
     | 'solGeneralMap'
     | 'solHeatProdSys'
-    | 'solHowMuchOf'
     | 'solHotWaterConsumption'
+    | 'solLocatePitchStr1'
+    | 'solLocatePitchStr2'
+    | 'solLocatePitchStr3a'
+    | 'solLocatePitchStr3b'
+    | 'solLocatePitchStr4'
+    | 'solLocatePitchStr5'
+    | 'solLocatePitchStr6'
+    | 'solLocatePitchStr7'
     | 'solMazout'
     | 'solNoteConsRank1'
     | 'solNoteConsRank2'
@@ -340,11 +345,10 @@ export type MessageKey =
     | 'solNoteConsWaterRank4'
     | 'solNoteConsWaterRank5'
     | 'solNoteConsWaterRank6'
-    | 'solOrOf'
-    | 'solOrSelectBuildingOnMap'
+    | 'solOnMap'
+    | 'solOrSelectBuilding'
     | 'solPellet'
     | 'solPhotovoltaic'
-    | 'solPossibleToProduce'
     | 'solPrintStr1'
     | 'solPrintStr2'
     | 'solResearch'
@@ -2410,10 +2414,10 @@ export const messages: MessageDB = {
         en: 'No',
     },
 
-    solHowMuchOf: {
-        fr: 'Combien d\'',
-        nl: 'hoeveel ',
-        en: 'How much ',
+    heat: {
+        fr: 'chaleur ',
+        nl: 'warmte ',
+        en: 'heat ',
     },
 
     electricity: {
@@ -2422,32 +2426,51 @@ export const messages: MessageDB = {
         en: 'electricity ',
     },
 
-    solOrOf: {
-        fr: 'ou de ',
+    solLocatePitchStr1: {
+        fr: 'Combien',
+        nl: 'hoeveel',
+        en: 'How much',
+    },
+
+    solLocatePitchStr2: {
+        fr: 'd\'électricité',
+        nl: 'elektriciteit',
+        en: 'electricity',
+    },
+
+    solLocatePitchStr3a: {
+        fr: 'ou ',
         nl: 'of ',
         en: 'or ',
     },
 
-    heat: {
-        fr: 'chaleur ',
+    solLocatePitchStr3b: {
+        fr: 'de chaleur ',
         nl: 'warmte ',
         en: 'heat ',
     },
 
-    solPossibleToProduce: {
-        fr: 'est-il possible de produire',
-        nl: 'kan er worden opgewekt',
-        en: 'can be generated',
+
+    solLocatePitchStr4: {
+        fr: 'est-il possible de',
+        nl: 'kan er worden',
+        en: 'can be',
     },
 
 
-    solByRoof: {
-        fr: 'sur le toit d\'un bâtiment',
-        nl: 'op het dak van een gebouw',
-        en: 'on the roof of a building',
+    solLocatePitchStr5: {
+        fr: 'produire sur',
+        nl: 'opgewekt op het',
+        en: 'generated on',
     },
 
-    solAtBxl: {
+    solLocatePitchStr6: {
+        fr: 'le toit d\'un bâtiment',
+        nl: 'dak van een gebouw',
+        en: 'the roof of a building',
+    },
+
+    solLocatePitchStr7: {
         fr: 'à Bruxelles ?',
         nl: 'in Brussel ?',
         en: 'in Brussels ?',
@@ -2483,10 +2506,16 @@ export const messages: MessageDB = {
         en: 'of a building',
     },
 
-    solOrSelectBuildingOnMap: {
-        fr: 'Ou sélectionnez le bâtiment sur la carte',
-        nl: 'Of selecteer het gebouw op de kaart',
-        en: 'Or select the building on the map',
+    solOrSelectBuilding: {
+        fr: 'Ou sélectionnez le bâtiment ',
+        nl: 'Of selecteer het gebouw ',
+        en: 'Or select the building ',
+    },
+
+    solOnMap: {
+        fr: 'sur la carte',
+        nl: 'op de kaart',
+        en: 'on the map',
     },
 
     solSolarGeocode: {
@@ -2745,7 +2774,7 @@ export const messages: MessageDB = {
         nl: 'Grootverbruiker',
         en: ' Large consumer',
     },
-    
+
     solNoteConsWaterRank1: {
         fr: 'Elle s\'apparente à une personne seule ou un ménage très économe (douches rapides plutôt que bains)',
         nl: 'Het is vergelijkbaar met één persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',

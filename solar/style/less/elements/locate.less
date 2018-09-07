@@ -2,26 +2,64 @@
 // we then deploy specific style per specific case
 
 
+.main.locate {
+    position: relative; //will overide SDI default style, must be done better
+    height: calc(~"100vh - 95px");
+    top: 0;
+    margin-bottom: 5px; //to push footer a bit away
+}
+
 .locate-box {
-        font-size: @medium-font;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: @medium-font;
+
+    .map-wrapper {
+        position: absolute;
+        height: 100%;
+        width: 100%;
     }
 
+    .wrapper-top {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        color: #fff;
+        padding: @margin * 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background: rgba(0,0,0,0.1);
 
-.locate-pitch  {
-    font-size: 1.55rem;
-    .pitch-bold {
-        font-weight: 700;
+        > div {
+            display: flex;
+            justify-content: center;
+
+            &.locate-geocode {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     }
 }
 
 
-.locate-geocode {
-    margin-top: @margin * 2;
+.locate-pitch  {
+    font-size: 1.55rem;
+    text-align: center;
+}
 
-    .pitch-bold {
-        color: @green;
-        font-weight: 700;
-    }
+.locate-box .pitch-bold {
+    font-weight: 700;
+    color: @yellow;
+}
+
+
+// wrapper adress search
+.locate-geocode {
+    // margin-top: @margin * 2;
 
     .input-wrapper {
         margin-top: @margin / 2;
@@ -51,9 +89,9 @@
             }
         }
     }
-}
 
-.locate {
+
+    // adress results
     .geocoder-wrapper {
         margin: @margin 0;
     }
@@ -73,11 +111,31 @@
     }
 }
 
+// Map acces button
+.locate-pitch-map {
+    display: block !important;
+    text-align: center;
 
+    .map-button {
+        display: inline-block;
+        margin-top: @margin;
+        padding: @roundedW / 5;
+        background-color: @green;
+        border-radius: @roundedW;
+        border: 2px solid transparent;
+        cursor: default;
+        box-sizing: border-box;
+        &:hover {
+            background-color: @green;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+    }
+}
+
+// Map specific style
 .locate-box {
     .map-wrapper {
-        margin-top: @margin / 2;
-
         .control-box {
             .zoom {
                 display: flex;
@@ -93,41 +151,29 @@
 
 
 
-@media @big {
+@media @medium {
+
+    .main.locate {
+        position: absolute;
+        height: auto;
+        top: @headerH;
+        bottom: @margin;
+    }
 
     .locate-box {
-        border-top: 1px solid #000;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin: 0 @margin;
         font-size: @big-font;
-
-        .wrapper-top {
-            height: 40%;
-            position: relative;
-            display: flex;
-            padding-top: @margin * 2;
-        }
-        .map-wrapper {
-            margin-top: 0;
-            height: 60%;
-            position: relative;
-        }
+        margin: 0 @margin;
     }
 
     .locate-pitch {
-        width: 35%;
         padding-right: 2*@margin;
         font-size: @big-font;
     }
 
     .locate-geocode {
-        width: 65%;
-        padding-bottom: @margin;
-        margin-top: 0;
 
         .input-wrapper {
+            width: 65%;
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -142,6 +188,10 @@
                 margin-left: @margin;
                 justify-content: flex-start;
                 font-size: 1em;
+                border: 2px solid transparent;
+                &:hover {
+                    border: 2px solid #fff;
+                }
             }
         }
     }
