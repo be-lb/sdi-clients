@@ -28,7 +28,7 @@ import locate from './components/locate';
 import loader from './components/loader';
 import preview from './components/preview';
 import detail from './components/detail';
-import { loadLocateMap } from './events/map';
+import { loadMaps } from './events/map';
 import { loadAllBaseLayers } from './events/app';
 
 const logger = debug('sdi:app');
@@ -66,7 +66,7 @@ const renderMain =
 const effects =
     () => {
         loadAllBaseLayers(getApiUrl(`wmsconfig/`));
-        loadLocateMap();
+        loadMaps();
         navigate();
     };
 

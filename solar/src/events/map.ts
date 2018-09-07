@@ -109,14 +109,14 @@ const layerTemplate =
     });
 
 const mapTemplate =
-    (): IMapInfo => ({
-        id: solarLocateId,
-        url: '/dev/null/solar-locate',
+    (baseLayer: string): IMapInfo => ({
+        baseLayer,
+        id: `${solarLocateId}-${baseLayer}`,
+        url: `/dev/null/solar-locate/`,
         lastModified: 1523599299611,
         status: 'published',
         title: { fr: 'SOLAR', nl: 'SOLAR', en: 'SOLAR' },
         description: { fr: 'SOLAR', nl: 'SOLAR', en: 'SOLAR' },
-        baseLayer: 'urbis.irisnet.be/urbis_gray',
         categories: [],
         attachments: [],
         layers: [layerTemplate()],
@@ -150,9 +150,20 @@ export const clearRoofLayer =
         removeLayer(solarLocateId);
     };
 
-export const loadLocateMap =
-    () => {
-        dispatch('app/current-map', () => solarLocateId);
-        dispatch('data/maps',
-            state => state.concat([mapTemplate()]));
-    };
+const BASEMAPS = {
+    gray: 'urbis.irisnet.be/urbis_gray',
+    ortho: 'urbis.irisnet.be/ortho_2016',
+};
+
+export const loadMaps =
+    () => dispatch('data/maps',
+        state => state.concat([
+            mapTemplate(BASEMAPS.gray),
+            mapTemplate(BASEMAPS.ortho),
+        ]));
+
+export const selectMapGray =
+    () => dispatch('app/current-map', () => `${solarLocateId}-${BASEMAPS.gray}`);
+
+export const selectMapOPrtho =
+    () => dispatch('app/current-map', () => `${solarLocateId}-${BASEMAPS.ortho}`);

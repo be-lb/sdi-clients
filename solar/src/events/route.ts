@@ -3,6 +3,7 @@ import * as debug from 'debug';
 import { query, queryK, dispatchK } from 'sdi/shape';
 
 import { setLayout, loadCapakey } from './app';
+import { selectMapGray, selectMapOPrtho } from './map';
 
 const logger = debug('sdi:solar/route');
 
@@ -45,18 +46,22 @@ export const navigate =
                     switch (screen) {
                         case 'preview':
                             setLayout('Preview');
+                            selectMapGray();
                             break;
                         case 'detail':
                             setLayout('Detail');
+                            selectMapGray();
                             break;
                         default:
                             setLayout('Locate:Geocoder');
+                            selectMapOPrtho();
                     }
                 })
                 .catch(err => logger(err));
         }
         else {
             setLayout('Locate:Geocoder');
+            selectMapOPrtho();
         }
     };
 
