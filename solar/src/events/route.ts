@@ -46,11 +46,11 @@ export const navigate =
                     setLayout('Detail');
                     break;
                 default:
-                    setLayout('Locate');
+                    setLayout('Locate:Geocoder');
             }
         }
         else {
-            setLayout('Locate');
+            setLayout('Locate:Geocoder');
         }
     };
 

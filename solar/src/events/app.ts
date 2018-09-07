@@ -39,7 +39,7 @@ const logger = debug('sdi:events/app');
 export const setLayout =
     (l: AppLayout) => {
         dispatch('app/layout', state => state.concat([l]));
-        if ('Locate' === l) {
+        if ('Locate:Map' === l) {
             dispatch('port/map/interaction', () => ({ label: 'singleclick', state: null }));
         }
         else {

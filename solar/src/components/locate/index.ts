@@ -12,6 +12,7 @@ import { updateGeocoderTerm, updateGeocoderResponse } from '../../events/map';
 import { fetchKey } from '../../remote/index';
 import { navigatePreview } from '../../events/route';
 import { setAddress } from '../../events/simulation';
+import { setLayout } from '../../events/app';
 
 const logger = debug('sdi:solar');
 
@@ -131,9 +132,20 @@ const pitchMap =
     () =>
         DIV({ className: 'locate-pitch-map' },
             DIV({}, tr('solOrSelectBuilding')),
-            DIV({ className: 'map-button' }, tr('solOnMap')),
+            DIV({
+                className: 'map-button',
+                onClick: () => setLayout('Locate:Map'),
+            }, tr('solOnMap')),
         );
 
+const retourSearch =
+    () =>
+        DIV({ className: 'locate-retour-search' },
+            DIV({
+                className: 'map-button',
+                onClick: () => setLayout('Locate:Geocoder'),
+            }, '***TODO***'),
+        );
 
 
 const searchWrapper =
@@ -158,10 +170,14 @@ const wrapperTop =
 
 
 const render =
-    () =>
-        DIV({ className: 'locate-box' },
-            map(),
-            wrapperTop());
+    (withWrapper: boolean) => {
+        if (withWrapper) {
+            return DIV({ className: 'locate-box' },
+                map(),
+                wrapperTop());
+        }
+        return DIV({ className: 'locate-box' }, map(), retourSearch());
+    };
 
 export default render;
 

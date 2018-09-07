@@ -32,7 +32,7 @@ import { loadAllBaseLayers } from './events/app';
 
 const logger = debug('sdi:app');
 
-export type AppLayout = 'Locate' | 'Preview' | 'Detail';
+export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Preview' | 'Detail';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
@@ -42,7 +42,8 @@ const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[])
         footer())
 );
 
-const renderLocate = () => wrappedMain('locate', locate());
+const renderLocateGeocoder = () => wrappedMain('locate-geocoder', locate(true));
+const renderLocateMap = () => wrappedMain('locate-map', locate(false));
 const renderPreview = () => wrappedMain('preview', preview());
 const renderDetail = () => wrappedMain('detail', detail());
 
@@ -51,7 +52,8 @@ const renderMain =
     () => {
         const layout = getLayout();
         switch (layout) {
-            case 'Locate': return renderLocate();
+            case 'Locate:Geocoder': return renderLocateGeocoder();
+            case 'Locate:Map': return renderLocateMap();
             case 'Preview': return renderPreview();
             case 'Detail': return renderDetail();
         }
