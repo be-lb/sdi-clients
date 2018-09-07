@@ -5,7 +5,7 @@ import { withEuro, withTCO2 } from 'sdi/util';
 
 import { toggle } from '../item-factory';
 
-import { getSystem, getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
+import { getSystem, getOutputPv, streetName, streetNumber, locality } from '../../queries/simulation';
 import { setSystem } from '../../events/simulation';
 
 
@@ -38,10 +38,10 @@ const sumPotentialLabel =
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            vk(withEuro(getOutput('installationCost', 0)), 'buyingPrice', 'buying-price'),
-            vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
-            vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice', 'gain-elec'),
-            vk(withTCO2(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withEuro(getOutputPv('installationCost', 0)), 'buyingPrice', 'buying-price'),
+            vk(withEuro(getOutputPv('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
+            vk(withEuro(getOutputPv('selfConsumptionAmountYearN')), 'gainElecInvoice', 'gain-elec'),
+            vk(withTCO2(getOutputPv('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
         );
 
 

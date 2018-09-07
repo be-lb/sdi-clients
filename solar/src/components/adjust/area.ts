@@ -4,14 +4,14 @@ import tr from 'sdi/locale';
 import {
     getMaxPanelUnits,
     getMinPanelUnits,
-    getOutput,
+    getOutputPv,
     getPanelUnits,
     PANEL_AREA,
     getOptimalPanelUnits,
 } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
-const getArea = () => getOutput('maxArea');// getNumInputF('pvArea');
+const getArea = () => getOutputPv('maxArea');// getNumInputF('pvArea');
 const setArea = (n: number) => setInputF('pvArea')(n * PANEL_AREA);
 
 type rank = number;

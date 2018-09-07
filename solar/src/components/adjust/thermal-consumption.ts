@@ -38,7 +38,7 @@ const notes: { [k in rank]: MessageKey } = {
     sixth: 'solNoteConsWaterRank6',
 };
 
-const setConsumption = setInputF('annualConsumptionKWh');
+const setConsumption = setInputF('thermicLiterByDay');
 
 // we build the icons next to the title
 const icon =
@@ -114,7 +114,10 @@ export const calcConsumptionThermal =
             titleAndPicto(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                inputItem('solDailyConsumption', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitLiterDay'))),
+                inputItem(
+                    'solDailyConsumption',
+                    'thermicLiterByDay',
+                    SPAN({ className: 'unit' }, tr('unitLiterDay'))),
             ),
             adjustNote(),
         );

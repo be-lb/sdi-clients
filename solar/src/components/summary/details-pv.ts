@@ -4,7 +4,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import { toggle } from '../item-factory';
-import { getSystem, getOutput, streetName, streetNumber, locality } from '../../queries/simulation';
+import { getSystem, getOutputPv, streetName, streetNumber, locality } from '../../queries/simulation';
 import { clearInputs, setSystem } from '../../events/simulation';
 
 
@@ -33,29 +33,29 @@ const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
-            vk(withM2(getOutput('maxArea')), 'surface'),
-            vk(withKWc(getOutput('power'), 1), 'power'),
-            vk(withPercent(getOutput('obstacleRate') * 100), 'obstacleEstimation'));
+            vk(withM2(getOutputPv('maxArea')), 'surface'),
+            vk(withKWc(getOutputPv('power'), 1), 'power'),
+            vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'));
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk(withKWhY(getOutput('annualProduction')), 'yearProduction'),
-            vk(withKWhY(getOutput('annualConsumption')), 'yearConsumption'),
-            vk(withPercent(getOutput('autonomy') * 100), 'solarAutonomy'),
-            vk(withTCO2Y(getOutput('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withKWhY(getOutputPv('annualProduction')), 'yearProduction'),
+            vk(withKWhY(getOutputPv('annualConsumption')), 'yearConsumption'),
+            vk(withPercent(getOutputPv('autonomy') * 100), 'solarAutonomy'),
+            vk(withTCO2Y(getOutputPv('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
         );
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(withEuro(getOutput('installationCost')), 'buyingPrice'),
-            vk(withEuro(getOutput('CVAmountYearN')), 'gainGreenCertif'),
-            vk(withEuro(getOutput('selfConsumptionAmountYearN')), 'gainElecInvoice'),
-            vk(withEuro(getOutput('totalGain25Y')), 'gainTotal'),
-            vk(withYear(getOutput('returnTime')), 'returnTime'));
+            vk(withEuro(getOutputPv('installationCost')), 'buyingPrice'),
+            vk(withEuro(getOutputPv('CVAmountYearN')), 'gainGreenCertif'),
+            vk(withEuro(getOutputPv('selfConsumptionAmountYearN')), 'gainElecInvoice'),
+            vk(withEuro(getOutputPv('totalGain25Y')), 'gainTotal'),
+            vk(withYear(getOutputPv('returnTime')), 'returnTime'));
 
 
 

@@ -26,7 +26,7 @@ import { getFeatureProp } from 'sdi/source';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust';
 import { identity } from 'fp-ts/lib/function';
-import { outputs, inputs } from 'solar-sim';
+import { outputs, inputs, thermicOutputs } from 'solar-sim';
 
 
 const logger = debug('sdi:simulation');
@@ -118,6 +118,7 @@ export type GetNumKeyOfInputs =
     | 'annualMaintenanceCost'
     | 'loanPeriod'
     | 'loanRate'
+    | 'thermicLiterByDay'
     ;
 
 export const getInputF =
@@ -129,14 +130,16 @@ export const getNumInputF =
 
 // export const selfConsumptionAmountYearN = () => withEuro(1000)
 
-type OutputKey = keyof outputs;
+type PvOutputKey = keyof outputs;
+type ThermalOutputKey = keyof thermicOutputs;
 
-export const getOutput =
-    <K extends OutputKey>(k: K, dflt = 0): number =>
-        fromNullable(query('solar/outputs')).fold(dflt, (out) => {
-            // Object.keys(out).forEach((ok: OutputKey) => logger(`${ok}: ${out[ok]}`));
-            return out[k];
-        });
+export const getOutputPv =
+    <K extends PvOutputKey>(k: K, dflt = 0): number =>
+        fromNullable(query('solar/outputs/pv')).fold(dflt, out => out[k]);
+
+export const getOutputThermal =
+    <K extends ThermalOutputKey>(k: K, dflt = 0): number =>
+        fromNullable(query('solar/outputs/thermal')).fold(dflt, out => out[k]);
 
 export const getSystem = queryK('solar/system');
 
@@ -148,6 +151,9 @@ export const annualConsumption =
 export const pvTechnology =
     () => queryInputs()['pvTechnology'];
 
+export const thermicTechnology =
+    () => queryInputs()['thermicHotWaterProducer'];
+
 
 export const getObstacle =
     (o: Obstacle) => query('solar/obstacle')[o];
@@ -157,7 +163,7 @@ export const PANEL_AREA = 1.6;
 
 export const getOptimalArea =
     () => fromNullable(query('solar/optimalArea')).foldL(
-        () => getOutput('maxArea'),
+        () => getOutputPv('maxArea'),
         n => n,
     );
 
@@ -165,7 +171,7 @@ export const getOptimalPanelUnits =
     () => Math.floor(getOptimalArea() / PANEL_AREA);
 
 export const getPanelUnits =
-    () => Math.floor(getOutput('maxArea') / PANEL_AREA);
+    () => Math.floor(getOutputPv('maxArea') / PANEL_AREA);
 
 export const getMinPanelUnits =
     () => {

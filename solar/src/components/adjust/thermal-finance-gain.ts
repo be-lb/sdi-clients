@@ -1,24 +1,35 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { withEuro } from 'sdi/util';
+
+import { getInputF } from '../../queries/simulation';
+import { setInputF } from '../../events/simulation';
+
+
+const getThermicGrant = getInputF('thermicGrant');
+const setThermicGrant = setInputF('thermicGrant');
+const grants = [2500, 3000, 3500];
+
+const klass =
+    (n: number) => getThermicGrant() === n ? 'checkbox active' : 'checkbox';
+
+
+const item =
+    (n: number) =>
+        DIV({
+            key: `thermal-grant-${n}`,
+            className: 'wrapper-checkbox',
+            onClick: () => setThermicGrant(n),
+        },
+            DIV({ className: klass(n) }),
+            DIV({ className: 'checkbox-label' }, withEuro(n)));
 
 const bonus =
     () =>
         DIV({ className: 'gain' },
             DIV({ className: 'wrapper-multi-checkbox' },
-                DIV({ className: 'wrapper-checkbox' },
-                    DIV({ className: 'checkbox active' }),
-                    DIV({ className: 'checkbox-label' }, '2 500 €')),
-                DIV({ className: 'wrapper-checkbox' },
-                    DIV({ className: 'checkbox' }),
-                    DIV({ className: 'checkbox-label' }, '3 000 €')),
-                DIV({ className: 'wrapper-checkbox' },
-                    DIV({ className: 'checkbox' }),
-                    DIV({ className: 'checkbox-label' }, '3 500 €')),
-            ),
+                grants.map(item)),
         );
-
-// default is 2500 €
-
 
 export const calcFinanceThermalGain =
     () =>
