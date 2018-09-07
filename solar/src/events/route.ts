@@ -1,9 +1,10 @@
-
+import * as debug from 'debug';
 
 import { query, queryK, dispatchK } from 'sdi/shape';
 
 import { setLayout, loadCapakey } from './app';
 
+const logger = debug('sdi:solar/route');
 
 const hasHistory = ((typeof window !== 'undefined') && window.history && window.history.pushState);
 
@@ -37,17 +38,22 @@ export const navigate =
         if (r.length > 1) {
             const screen = r[0];
             const capakey = r[1];
-            loadCapakey(capakey);
-            switch (screen) {
-                case 'preview':
-                    setLayout('Preview');
-                    break;
-                case 'detail':
-                    setLayout('Detail');
-                    break;
-                default:
-                    setLayout('Locate:Geocoder');
-            }
+            setLayout('Loader');
+            loadCapakey(capakey)
+                .then(() => {
+                    logger(`navigate(${screen}, ${capakey})`);
+                    switch (screen) {
+                        case 'preview':
+                            setLayout('Preview');
+                            break;
+                        case 'detail':
+                            setLayout('Detail');
+                            break;
+                        default:
+                            setLayout('Locate:Geocoder');
+                    }
+                })
+                .catch(err => logger(err));
         }
         else {
             setLayout('Locate:Geocoder');
@@ -111,3 +117,6 @@ export const navigateDetail =
         };
     }
 })();
+
+
+logger('loaded');

@@ -28,6 +28,7 @@ import { Obstacle } from '../components/adjust';
 import { getCapakey } from '../queries/app';
 import { totalArea } from '../queries/simulation';
 import { System } from '../shape/solar';
+import { Camera } from '../components/context/mat';
 
 const logger = debug('sdi:solar/events');
 
@@ -139,6 +140,6 @@ export const clearPerspective =
     () => dispatch('solar/perspective', () => null);
 
 export const setPerspective =
-    (p: string) => dispatch('solar/perspective', () => p);
+    (p: Camera) => dispatch('solar/perspective', () => p);
 
 logger('loaded');
