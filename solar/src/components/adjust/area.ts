@@ -78,7 +78,7 @@ const selectWidget =
 const title =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
-            `1. ${tr('solDedicatedArea')}`));
+            `3. ${tr('solDedicatedArea')}`));
 
 
 

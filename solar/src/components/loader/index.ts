@@ -10,14 +10,13 @@ const render =
     () => {
         const l = getLoading();
         if (l.loading) {
-            return DIV({ className: 'main-loader' },
-                DIV({ className: 'loader-part' },
-                    H1({},
-                        SPAN({}, `${streetName()} ${streetNumber()} `),
-                        SPAN({}, tr('in')),
-                        SPAN({}, ` ${locality()}`)),
-                    context(),
-                    DIV({ className: 'loading-msg' }, `${tr('loadingData')} ${l.loaded}/${l.total}`)));
+            return DIV({ className: 'loader-part' },
+                H1({},
+                    SPAN({}, `${streetName()} ${streetNumber()} `),
+                    SPAN({}, tr('in')),
+                    SPAN({}, ` ${locality()}`)),
+                context(),
+                DIV({ className: 'loading-msg' }, `${tr('loadingData')} ${l.loaded}/${l.total}`));
         }
         return DIV();
     };

@@ -1,19 +1,27 @@
-.main-loader {
-    .absolute(0,@margin,0,@margin);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
+.main.loader {
+    position: relative; //will overide SDI default style, must be done better
+    height: calc(~"100vh - 92px");
+    top: 0;
+    margin-bottom: 7px; //to push footer a bit away
+    overflow-y: auto;
+
 
     H1 {
         text-align: center;
     }
 
     .context {
-        width: @contextW;
-        margin: auto;
-        padding: @margin*2 0;
+        // width: @contextW;
+        // margin: auto;
+        padding-top: @margin;
+
+        .mobile-adress,
+        .wrapper-illu:nth-child(1),
+        .wrapper-illu:nth-child(2),
+        .back-to-map,
+        .roof-area {
+            display: none;
+        }
     }
 
     .loading-msg {
@@ -21,20 +29,58 @@
         font-size: @big-font;
         font-weight: 700;
         color: @green;
+
+        position: absolute;
+        top: 0;
+        height: calc(~"@{illuW-mob} + @{margin} * 2 + 2em");
+        padding: 0 @margin * 3;
+        display: flex;
+        align-items: center;
     }
 }
 
 
-.wrapper-loader {
-    width: calc(~"(100% - 2 * @{margin}) / 3");
 
-    .loading-label {
-        margin-top: 100px;
-        font-size: 140%;
-        text-align: center;
-    }
+@media @medium {
+    .main.loader {
+        .absolute(@headerH,@margin,10px,@margin);
+        height: initial;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
 
-    &.even {
-        text-decoration-line: underline;
+        .loader-part {
+            height: auto;
+        }
+
+        .context {
+            // width: @contextW;
+            margin: auto;
+            padding: @margin*2 0;
+
+            .wrapper-illu:nth-child(1),
+            .wrapper-illu:nth-child(2),
+            .back-to-map,
+            .roof-area {
+                display: block;
+            }
+
+            .context-illus-wrapper div:nth-child(2),
+            .context-infos-wrapper div:nth-child(2) {
+                margin: 0 @margin;
+            }
+        }
+
+        .loading-msg {
+            position: relative;
+            top: initial;
+            height: auto;
+            width: auto;
+            display: block;
+        }
+
     }
 }
