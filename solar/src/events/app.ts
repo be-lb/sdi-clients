@@ -118,24 +118,22 @@ const loadRoofs =
     (capakey: string) =>
         fromNullable(query('solar/data/roofs')[capakey])
             .foldL(
-                () => {
-                    return fetchRoofs(capakey)
-                        .then((roofs) => {
-                            dispatch('solar/loading', () => roofs.features.map(f => f.id.toString()));
-                            const fr = (c: string) => (new Promise<Feature>((rs, rj) => {
-                                setTimeout(() => {
-                                    const f = roofs.features.find(f => f.id === c);
-                                    if (f !== undefined) {
-                                        rs(f);
-                                    }
-                                    else {
-                                        rj();
-                                    }
-                                }, 1200 / roofs.features.length);
-                            }));
-                            return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
-                        });
-                },
+                () => fetchRoofs(capakey)
+                    .then((roofs) => {
+                        dispatch('solar/loading', () => roofs.features.map(f => f.id.toString()));
+                        const fr = (c: string) => (new Promise<Feature>((rs, rj) => {
+                            setTimeout(() => {
+                                const f = roofs.features.find(f => f.id === c);
+                                if (f !== undefined) {
+                                    rs(f);
+                                }
+                                else {
+                                    rj();
+                                }
+                            }, 1200 / roofs.features.length);
+                        }));
+                        return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
+                    }),
                 fc => Promise.resolve(fc),
         );
 
@@ -168,7 +166,7 @@ const checkAddress =
         logger('checkAddress');
         const a = query('solar/address');
         if (a) {
-            return Promise.resolve();
+            return Promise.resolve({});
         }
         const gs = query('solar/data/geoms');
         if (!(ck in gs)) {
@@ -185,7 +183,7 @@ const checkAddress =
                     if (!response.error) {
                         logger(`Got address ${response.result.address}`);
                         dispatch('solar/address', () => response.result.address);
-                        resolve();
+                        resolve({});
                     }
                     else {
                         reject();
@@ -219,17 +217,20 @@ export const loadCapakey =
         dispatch('solar/loading', () => []);
         dispatch('solar/loaded', () => []);
         const loaders = [
+            // loadGeometry(capakey),
             loadRoofs(capakey),
-            loadGeometry(capakey),
             loadBuildings(capakey),
         ];
-        Promise.all(loaders)
-            .then(() => updateRoofs(capakey))
-            .then(() => centerMap(capakey))
-            .then(() => addRoofLayer(capakey))
+
+        return loadGeometry(capakey)
+            .then(() => checkAddress(capakey))
             .then(() => {
-                checkAddress(capakey);
+                return Promise.all(loaders)
+                    .then(() => updateRoofs(capakey))
+                    .then(() => centerMap(capakey))
+                    .then(() => addRoofLayer(capakey));
             });
+
 
     };
 

@@ -7,7 +7,6 @@ import { FeatureCollection, Feature, Properties } from 'sdi/source';
 import { Option, none, some } from 'fp-ts/lib/Option';
 import { PROD_THESH_HIGH, PROD_THESH_MEDIUM } from '../../queries/simulation';
 import { Camera, getTranformFunction, Transform } from './mat';
-import { setPerspective } from '../../events/simulation';
 
 
 const logger = debug('sdi:solar/perspective');
@@ -232,7 +231,6 @@ export function perspective(
             };
         renderFrame(context);
         const pers = canvas.toDataURL();
-        setTimeout(() => setPerspective(pers), 0);
         return some(pers);
     }
     return none;

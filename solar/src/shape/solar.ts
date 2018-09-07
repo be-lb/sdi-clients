@@ -17,6 +17,7 @@ import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { inputs, outputs } from 'solar-sim';
 import { FeatureCollection } from 'sdi/source';
 import { Obstacles } from '../components/adjust';
+import { Camera } from '../components/context/mat';
 
 export type TypologyEnum =
     | 'closed'
@@ -46,7 +47,7 @@ declare module 'sdi/shape' {
         'solar/optimalArea': number | null;
         'solar/loading': string[];
         'solar/loaded': string[];
-        'solar/perspective': string | null;
+        'solar/perspective': Camera | null;
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;

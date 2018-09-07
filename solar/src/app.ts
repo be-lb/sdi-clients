@@ -25,6 +25,7 @@ import { loop, getApiUrl } from 'sdi/app';
 import { getLayout } from './queries/app';
 import { navigate } from './events/route';
 import locate from './components/locate';
+import loader from './components/loader';
 import preview from './components/preview';
 import detail from './components/detail';
 import { loadLocateMap } from './events/map';
@@ -32,7 +33,7 @@ import { loadAllBaseLayers } from './events/app';
 
 const logger = debug('sdi:app');
 
-export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Preview' | 'Detail';
+export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Loader' | 'Preview' | 'Detail';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
@@ -44,6 +45,7 @@ const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[])
 
 const renderLocateGeocoder = () => wrappedMain('locate-geocoder', locate(true));
 const renderLocateMap = () => wrappedMain('locate-map', locate(false));
+const renderLoader = () => wrappedMain('loader', loader());
 const renderPreview = () => wrappedMain('preview', preview());
 const renderDetail = () => wrappedMain('detail', detail());
 
@@ -54,6 +56,7 @@ const renderMain =
         switch (layout) {
             case 'Locate:Geocoder': return renderLocateGeocoder();
             case 'Locate:Map': return renderLocateMap();
+            case 'Loader': return renderLoader();
             case 'Preview': return renderPreview();
             case 'Detail': return renderDetail();
         }

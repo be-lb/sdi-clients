@@ -26,6 +26,7 @@ import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
 import { clearRoofLayer } from '../../events/map';
+import { setPerspective } from '../../events/simulation';
 
 
 const mobileAdress =
@@ -134,66 +135,72 @@ const isExactFeature =
     };
 
 const getCamera =
-    (fc: FeatureCollection): Option<Camera> => {
-        const fcExact: FeatureCollection = {
-            type: 'FeatureCollection',
-            features: fc.features.filter(isExactFeature),
-        };
-        type n3 = [number, number, number];
-        const [minx, miny, maxx, maxy] = bbox(fcExact);
-        const cx = minx + ((maxx - minx) / 2);
-        const cy = miny + ((maxy - miny) / 2);
-        const maxxer = (acc: number, p: n3) => Math.max(acc, p[2]);
-        const maxz = fcExact.features.reduce((acc, f) => {
-            const geom = f.geometry;
-            const gt = geom.type;
-            const r: Reducer = {
-                f: maxxer,
-                init: acc,
-            };
-            if ('MultiPolygon' === gt) {
-                return Math.max(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
-            }
-            else if ('Polygon' === gt) {
-                return Math.max(acc, reducePolygon(r, geom.coordinates as n3[][]));
-            }
-            return acc;
-        }, ALTITUDE_0);
+    (fc: FeatureCollection): Option<Camera> =>
+        getPerpective()
+            .foldL(() => {
+                const fcExact: FeatureCollection = {
+                    type: 'FeatureCollection',
+                    features: fc.features.filter(isExactFeature),
+                };
+                type n3 = [number, number, number];
+                const [minx, miny, maxx, maxy] = bbox(fcExact);
+                const cx = minx + ((maxx - minx) / 2);
+                const cy = miny + ((maxy - miny) / 2);
+                const maxxer = (acc: number, p: n3) => Math.max(acc, p[2]);
+                const maxz = fcExact.features.reduce((acc, f) => {
+                    const geom = f.geometry;
+                    const gt = geom.type;
+                    const r: Reducer = {
+                        f: maxxer,
+                        init: acc,
+                    };
+                    if ('MultiPolygon' === gt) {
+                        return Math.max(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
+                    }
+                    else if ('Polygon' === gt) {
+                        return Math.max(acc, reducePolygon(r, geom.coordinates as n3[][]));
+                    }
+                    return acc;
+                }, ALTITUDE_0);
 
-        const minzzer = (acc: number, p: n3) => Math.min(acc, p[2]);
-        const minz = fcExact.features.reduce((acc, f) => {
-            const geom = f.geometry;
-            const gt = geom.type;
-            const r: Reducer = {
-                f: minzzer,
-                init: acc,
-            };
-            if ('MultiPolygon' === gt) {
-                return Math.min(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
-            }
-            else if ('Polygon' === gt) {
-                return Math.min(acc, reducePolygon(r, geom.coordinates as n3[][]));
-            }
-            return acc;
-        }, ALTITUDE_100);
+                const minzzer = (acc: number, p: n3) => Math.min(acc, p[2]);
+                const minz = fcExact.features.reduce((acc, f) => {
+                    const geom = f.geometry;
+                    const gt = geom.type;
+                    const r: Reducer = {
+                        f: minzzer,
+                        init: acc,
+                    };
+                    if ('MultiPolygon' === gt) {
+                        return Math.min(acc, reduceMultiPolygon(r, geom.coordinates as n3[][][]));
+                    }
+                    else if ('Polygon' === gt) {
+                        return Math.min(acc, reducePolygon(r, geom.coordinates as n3[][]));
+                    }
+                    return acc;
+                }, ALTITUDE_100);
 
-        if (maxz !== undefined && minz !== undefined) {
-            const dist = (Math.max((maxx - minx), (maxy - miny)) * 1);
-            const pos = vec3.fromValues(
-                cx,
-                cy - dist,
-                maxz + dist);
-            const target = vec3.fromValues(cx, cy,
-                maxz - (dist / 2));
-            const viewport = vec2.fromValues(1024, 1024);
-            return some({
-                pos,
-                target,
-                viewport,
-            });
-        }
-        return none;
-    };
+                if (maxz !== undefined && minz !== undefined) {
+                    const dist = (Math.max((maxx - minx), (maxy - miny)) * 1);
+                    const pos = vec3.fromValues(
+                        cx,
+                        cy - dist,
+                        maxz + dist);
+                    const target = vec3.fromValues(cx, cy,
+                        maxz - (dist / 2));
+                    const viewport = vec2.fromValues(1024, 1024);
+                    const cam = {
+                        pos,
+                        target,
+                        viewport,
+                    };
+                    setTimeout(() => setPerspective(cam), 0);
+                    return some(cam);
+                }
+                return none;
+            },
+                c => some(c),
+        );
 
 
 const emptyRoofs = some<FeatureCollection>({
@@ -203,18 +210,15 @@ const emptyRoofs = some<FeatureCollection>({
 
 const render3D =
     () =>
-        getPerpective()
-            .foldL(() =>
-                scopeOption()
-                    .let('buildings', getBuildings())
-                    .let('roofs', getRoofs().fold(emptyRoofs, roofs => some(roofs)))
-                    .let('camera', ({ buildings }) => getCamera(buildings))
-                    .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
-                    .foldL<React.ReactNode>(
-                        () => wrapper3D(''),
-                        scope => wrapper3D(scope.src)),
-                src => wrapper3D(src),
-        );
+        scopeOption()
+            .let('buildings', getBuildings())
+            .let('roofs', getRoofs().fold(emptyRoofs, roofs => some(roofs)))
+            .let('camera', ({ buildings }) => getCamera(buildings))
+            .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
+            .foldL<React.ReactNode>(
+                () => wrapper3D(''),
+                scope => wrapper3D(scope.src));
+
 
 
 const contextInfos =
