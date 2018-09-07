@@ -18,8 +18,21 @@
                 background-color: @green;
             }
 
-            &.over {
-                // background: #fff;
+            &.over{
+                background-color: @yellow;
+                &:hover {background-color: @green;}
+                &:last-child {
+                    border: 1px solid #333 !important;
+                }
+            }
+
+            &.unreachable {
+                background-image: none;
+                background-color: #fff;
+                &:hover {
+                    border: 0px;
+                    background-color: transparent;
+                }
             }
 
 
@@ -42,6 +55,9 @@
             &:nth-child(7) {z-index: 3;}
             &:nth-child(8) {z-index: 2;}
             &:nth-child(9) {z-index: 1;}
+
+
+
 
         }
     }
