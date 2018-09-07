@@ -7,6 +7,7 @@ import {
     getOutput,
     getPanelUnits,
     PANEL_AREA,
+    getOptimalPanelUnits,
 } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
@@ -25,25 +26,23 @@ const areas = () => {
 
 
 
-// const inRange = (n: number) => {
-//     const min = getArea() - 5;
-//     const max = getArea() + 5;
-//     return n > min && n <= max;
-// };
+const selectedPanelUnits =
+    (n: number) =>
+        areas().map(a => [a, Math.abs(n - a)]).reduce((acc, v) => v[1] < acc[1] ? v : acc)[0];
 
 
 type Status = 'under' | 'selected' | 'over' | 'unreachable';
 
 const getStatus =
     (n: number): Status => {
-        const pu = getPanelUnits();
+        const pu = selectedPanelUnits(getPanelUnits());
         if (n < pu) {
             return 'under';
         }
         else if (n === pu) {
             return 'selected';
         }
-        else if (n > getMaxPanelUnits()) {
+        else if (n > getOptimalPanelUnits()) {
             return 'unreachable';
         }
         return 'over';
