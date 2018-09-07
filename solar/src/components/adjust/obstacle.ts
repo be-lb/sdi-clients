@@ -13,7 +13,7 @@ export interface Obstacles {
     chimneySmoke: number;
     terraceInUse: number;
     lift: number;
-    existingSolarPannel: number;
+    // existingSolarPannel: number;
 }
 
 
@@ -28,7 +28,7 @@ export const defaulObstacles =
         chimneySmoke: 0,
         terraceInUse: 0,
         lift: 0,
-        existingSolarPannel: 0,
+        // existingSolarPannel: 0,
     });
 
 const labels: { [k in Obstacle]: MessageKey } = {
@@ -39,7 +39,7 @@ const labels: { [k in Obstacle]: MessageKey } = {
     chimneySmoke: 'chimneySmoke',
     terraceInUse: 'terraceInUse',
     lift: 'lift',
-    existingSolarPannel: 'existingSolarPannel',
+    // existingSolarPannel: 'existingSolarPannel',
 };
 
 const icons: { [k in Obstacle]: string } = {
@@ -50,7 +50,7 @@ const icons: { [k in Obstacle]: string } = {
     chimneySmoke: 'icon-cheminey-smoke',
     terraceInUse: 'icon-terrace',
     lift: 'icon-lift',
-    existingSolarPannel: 'icon-panel',
+    // existingSolarPannel: 'icon-panel',
 };
 
 const obstacleItem =
@@ -89,7 +89,7 @@ const renderObstacle =
 
 export const renderGraphics =
     () => {
-        const cats: Obstacle[] = ['velux', 'dormerWindow', 'flatRoofWindow', 'chimneySmoke', 'terraceInUse', 'lift', 'existingSolarPannel'];
+        const cats: Obstacle[] = ['velux', 'dormerWindow', 'flatRoofWindow', 'chimneySmoke', 'terraceInUse', 'lift'];
 
         const elems = cats.map((cat) => {
             const n = getObstacle(cat);
@@ -118,7 +118,8 @@ export const calcObstacle =
                 renderObstacle('chimneySmoke'),
                 renderObstacle('terraceInUse'),
                 renderObstacle('lift'),
-                renderObstacle('existingSolarPannel')),
+                // renderObstacle('existingSolarPannel'),
+            ),
         );
 
 
