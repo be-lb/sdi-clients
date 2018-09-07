@@ -2,11 +2,12 @@
 // we then deploy specific style per specific case
 
 
-.main.locate {
+.main.locate-geocoder,
+.main.locate-map {
     position: relative; //will overide SDI default style, must be done better
-    height: calc(~"100vh - 95px");
+    height: calc(~"100vh - 92px");
     top: 0;
-    margin-bottom: 5px; //to push footer a bit away
+    margin-bottom: 7px; //to push footer a bit away
 }
 
 .locate-box {
@@ -20,6 +21,7 @@
         position: absolute;
         height: 100%;
         width: 100%;
+        margin-bottom: 0; //override SDI
     }
 
     .wrapper-top {
@@ -28,18 +30,18 @@
         width: 100%;
         color: #fff;
         padding: @margin * 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
         background: rgba(0,0,0,0.3);
+        overflow-y: auto;
 
         > div {
             display: flex;
             justify-content: center;
+            padding-bottom: 2*@margin;
 
             &.locate-geocode {
                 flex-direction: column;
                 align-items: center;
+                text-align: center;
             }
         }
     }
@@ -59,7 +61,6 @@
 
 // wrapper adress search
 .locate-geocode {
-    // margin-top: @margin * 2;
 
     .input-wrapper {
         margin-top: @margin / 2;
@@ -77,7 +78,7 @@
             width: 100%;
             background-color: @green;
             color: #fff;
-            font-size: @gui-font-size;
+            font-size: 1em;
             padding: .4em;
             display: flex;
             justify-content: center;
@@ -94,6 +95,7 @@
     // adress results
     .geocoder-wrapper {
         margin: @margin 0;
+        text-align: left;
     }
     .adress-result {
         font-size: 75%;
@@ -130,6 +132,7 @@
 
 // Map acces button
 .locate-goto-map {
+    font-size: @medium-font;
     display: block !important;
     text-align: center;
 
@@ -139,8 +142,9 @@
     }
 }
 
-// Go to map button
+// Go to search button
 .locate-goto-search {
+    font-size: @medium-font;
     position: absolute;
     bottom: @margin;
     left: @margin;
@@ -172,11 +176,19 @@
 
 @media @medium {
 
-    .main.locate {
+    .main.locate-geocoder,
+    .main.locate-map {
         position: absolute;
         height: auto;
         top: @headerH;
         bottom: @margin;
+
+        .wrapper-top {
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: space-around;
+            // overflow: hidden;
+        }
     }
 
     .locate-box {
