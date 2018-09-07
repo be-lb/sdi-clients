@@ -346,6 +346,8 @@ export type MessageKey =
     | 'solNoteConsWaterRank5'
     | 'solNoteConsWaterRank6'
     | 'solOnMap'
+    | 'solOptimumInstallation'
+    | 'solOptimumInstallationTheoric'
     | 'solOrSelectBuilding'
     | 'solPellet'
     | 'solPhotovoltaic'
@@ -353,6 +355,7 @@ export type MessageKey =
     | 'solPrintStr2'
     | 'solResearch'
     | 'solSearchAnotherAdress'
+    | 'solSelectedPannels'
     | 'solSolarGeocode'
     | 'solSolarPotential'
     | 'solSolarPotentialExcellent'
@@ -2923,6 +2926,24 @@ export const messages: MessageDB = {
         fr: 'Taux de TVA',
         nl: 'BTW tarief',
         en: 'VAT rates',
+    },
+
+    solSelectedPannels: {
+        fr: 'panneaux photovoltaïques envisagés',
+        nl: 'fotovoltaïsche panelen',
+        en: 'photovoltaic panels',
+    },
+
+    solOptimumInstallation: {
+        fr: 'Installation optimale pour ce bâtiment selon la configuration actuelle',
+        nl: 'Optimale installatie voor dit gebouw volgens de huidige configuratie',
+        en: 'Optimal installation for this building according to the current configuration',
+    },
+
+    solOptimumInstallationTheoric: {
+        fr: 'Puissance maximale théorique conseillée pour une installation, non accessible dans le cas présent',
+        nl: 'Theoretisch maximaal vermogen aanbevolen voor een installatie, in dit geval niet toegankelijk',
+        en: 'Theoretical maximum power recommended for an installation, not accessible in this case',
     },
     
 };

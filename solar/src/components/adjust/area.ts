@@ -103,12 +103,12 @@ const title =
 
 const legend =
     () => {
-        const elements = [DIV({ className: 'item-note selected' }, 'SELECTED')];
+        const elements = [DIV({ className: 'item-note selected' }, `${getPanelUnits()} ${tr('solSelectedPannels')}`)];
         if (hasOver()) {
-            elements.push(DIV({ className: 'item-note over' }, 'OVER'));
+            elements.push(DIV({ className: 'item-note over' }, tr('solOptimumInstallation')));
         }
         if (hasUnreachable()) {
-            elements.push(DIV({ className: 'item-note unreachable' }, 'unreachable'));
+            elements.push(DIV({ className: 'item-note unreachable' }, tr('solOptimumInstallationTheoric')));
         }
         return DIV({ className: 'adjust-item-note' }, ...elements);
     };
@@ -119,7 +119,6 @@ export const calcArea =
             title(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                `${getPanelUnits()}`,
             ),
             legend(),
         );
