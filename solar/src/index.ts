@@ -104,6 +104,7 @@ export const main =
             'solar/optimalArea': null,
             'solar/loading': [],
             'solar/loaded': [],
+            'solar/perspective': null,
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},

@@ -243,4 +243,7 @@ export const getLoading =
     };
 
 
+export const getPerpective =
+    () => fromNullable(query('solar/perspective'));
+
 logger('loaded');

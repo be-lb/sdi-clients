@@ -7,6 +7,7 @@ import { FeatureCollection, Feature, Properties } from 'sdi/source';
 import { Option, none, some } from 'fp-ts/lib/Option';
 import { PROD_THESH_HIGH, PROD_THESH_MEDIUM } from '../../queries/simulation';
 import { Camera, getTranformFunction, Transform } from './mat';
+import { setPerspective } from '../../events/simulation';
 
 
 const logger = debug('sdi:solar/perspective');
@@ -145,8 +146,6 @@ function drawLineRingCoord(ctx: CanvasRenderingContext2D, finalizer: Finalizer, 
 //     return p.map(lr => drawLineRingCoord(ctx, finalizer, lr));
 // }
 
-
-
 export function perspective(
     cam: Camera,
     buildings: FeatureCollection,
@@ -232,10 +231,21 @@ export function perspective(
                 roofPainter(transform, cam.pos);
             };
         renderFrame(context);
-        return some(canvas.toDataURL());
+        const pers = canvas.toDataURL();
+        setTimeout(() => setPerspective(pers), 0);
+        return some(pers);
     }
     return none;
 }
+
+
+// export function perspective(
+//     cam: Camera,
+//     buildings: FeatureCollection,
+//     roofs: FeatureCollection,
+// ): Option<string> {
+//     return getPerpective().foldL(() => drawPerspective(cam, buildings, roofs), p => some(p));
+// }
 
 
 logger('loaded');

@@ -1,6 +1,6 @@
 import bbox from '@turf/bbox';
 
-import { DIV, IMG, NODISPLAY, H1, SPAN } from 'sdi/components/elements';
+import { DIV, IMG, H1, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
@@ -18,6 +18,7 @@ import {
     streetName,
     streetNumber,
     totalArea,
+    getPerpective,
 } from '../../queries/simulation';
 import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
@@ -202,14 +203,18 @@ const emptyRoofs = some<FeatureCollection>({
 
 const render3D =
     () =>
-        scopeOption()
-            .let('buildings', getBuildings())
-            .let('roofs', getRoofs().fold(emptyRoofs, roofs => some(roofs)))
-            .let('camera', ({ buildings }) => getCamera(buildings))
-            .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
-            .foldL<React.ReactNode>(
-                () => NODISPLAY(),
-                scope => wrapper3D(scope.src));
+        getPerpective()
+            .foldL(() =>
+                scopeOption()
+                    .let('buildings', getBuildings())
+                    .let('roofs', getRoofs().fold(emptyRoofs, roofs => some(roofs)))
+                    .let('camera', ({ buildings }) => getCamera(buildings))
+                    .let('src', ({ camera, roofs, buildings }) => perspective(camera, buildings, roofs))
+                    .foldL<React.ReactNode>(
+                        () => wrapper3D(''),
+                        scope => wrapper3D(scope.src)),
+                src => wrapper3D(src),
+        );
 
 
 const contextInfos =

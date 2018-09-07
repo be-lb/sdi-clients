@@ -28,7 +28,7 @@ import { FeatureCollection, Feature } from 'sdi/source';
 
 import { AppLayout } from '../app';
 import { fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofs } from '../remote';
-import { updateRoofs } from './simulation';
+import { updateRoofs, clearPerspective } from './simulation';
 import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
 import { navigatePreview } from './route';
@@ -214,6 +214,7 @@ export const loadCoordinate =
 export const loadCapakey =
     (capakey: string) => {
         clearRoofLayer();
+        clearPerspective();
         dispatch('app/capakey', () => capakey);
         dispatch('solar/loading', () => []);
         dispatch('solar/loaded', () => []);
