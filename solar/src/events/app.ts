@@ -222,7 +222,8 @@ export const loadCapakey =
             loadBuildings(capakey),
         ];
 
-        return loadGeometry(capakey)
+        //return loadGeometry(capakey)
+        loadGeometry(capakey)
             .then(() => checkAddress(capakey))
             .then(() => {
                 return Promise.all(loaders)
@@ -230,7 +231,7 @@ export const loadCapakey =
                     .then(() => centerMap(capakey))
                     .then(() => addRoofLayer(capakey));
             });
-
+return Promise.reject()
 
     };
 

@@ -9,15 +9,14 @@ import { getLoading, streetName, streetNumber, locality } from '../../queries/si
 const render =
     () => {
         const l = getLoading();
-        if (l.loading) {
-            return DIV({ className: 'main-loader' },
-                DIV({ className: 'loader-part' },
+        if (true/*l.loading*/) {
+            return DIV({ className: 'loader-part' },
                     H1({},
                         SPAN({}, `${streetName()} ${streetNumber()} `),
                         SPAN({}, tr('in')),
                         SPAN({}, ` ${locality()}`)),
                     context(),
-                    DIV({ className: 'loading-msg' }, `${tr('loadingData')} ${l.loaded}/${l.total}`)));
+                    DIV({ className: 'loading-msg' }, `${tr('loadingData')} ${l.loaded}/${l.total}`));
         }
         return DIV();
     };
