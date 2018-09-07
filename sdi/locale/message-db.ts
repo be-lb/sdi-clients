@@ -2890,9 +2890,9 @@ export const messages: MessageDB = {
     },
 
     solDedicatedArea: {
-        fr: 'Surface dédiée à l\'installation',
-        nl: 'Ruimte gewijd aan de installatie',
-        en: 'Area dedicated to the installation',
+        fr: 'Nombre de panneaux photovoltaïques envisagé',
+        nl: 'Aantal fotovoltaïsche panelen in aanmerking genomen',
+        en: 'Number of photovoltaic panels considered',
     },
 
     solFinanceCost: {
