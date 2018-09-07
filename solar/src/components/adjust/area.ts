@@ -32,6 +32,8 @@ const comparePanelNumber =
 
 type Status = 'under' | 'selected' | 'over' | 'last-over' | 'unreachable';
 
+
+
 const getStatus =
     (n: number): Status => {
         const pu = getPanelUnits();
@@ -50,9 +52,19 @@ const getStatus =
             return 'last-over';
         }
         return 'over';
-
-
     };
+
+const hasOver =
+    () => {
+        return areas().filter(a => getStatus(a) === 'over' || getStatus(a) === 'last-over').length > 0;
+    };
+
+const hasUnreachable =
+    () => {
+        return areas().filter(a => getStatus(a) === 'unreachable').length > 0;
+    };
+
+
 
 const selectItem =
     (rank: rank) => {
@@ -89,7 +101,17 @@ const title =
         DIV({ className: 'adjust-item-title' },
             `3. ${tr('solDedicatedArea')}`));
 
-
+const legend =
+    () => {
+        const elements = [DIV({ className: 'item-note selected' }, 'SELECTED')];
+        if (hasOver()) {
+            elements.push(DIV({ className: 'item-note over' }, 'OVER'));
+        }
+        if (hasUnreachable()) {
+            elements.push(DIV({ className: 'item-note unreachable' }, 'unreachable'));
+        }
+        return DIV({ className: 'adjust-item-note' }, ...elements);
+    };
 
 export const calcArea =
     () =>
@@ -99,4 +121,5 @@ export const calcArea =
                 selectWidget(),
                 `${getPanelUnits()}`,
             ),
+            legend(),
         );
