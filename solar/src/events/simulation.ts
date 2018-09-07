@@ -24,7 +24,7 @@ import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query, observe } from 'sdi/shape';
 import { getFeatureProp } from 'sdi/source';
 
-import { Obstacle } from '../components/adjust';
+import { Obstacle, defaulObstacles } from '../components/adjust/obstacle';
 import { getCapakey } from '../queries/app';
 import { totalArea } from '../queries/simulation';
 import { System } from '../shape/solar';
@@ -88,7 +88,10 @@ export const updateRoofs =
         }));
 
 export const clearInputs =
-    () => dispatchInputs(ins => ({ ...defaultInputs(), roofs: ins.roofs }));
+    () => {
+        dispatchInputs(ins => ({ ...defaultInputs(), roofs: ins.roofs }));
+        dispatch('solar/obstacle', () => defaulObstacles());
+    };
 
 
 const simulate =
@@ -115,13 +118,13 @@ const simulate =
 
 type ObsValue = { [k in Obstacle]: number };
 const obstacleValues: ObsValue = {
-    velux: 0.75,
-    dormerWindow: 1.5,
-    flatRoofWindow: 0.75,
-    chimneySmoke: 1,
-    terraceInUse: 15,
-    lift: 3,
-    existingSolarPannel: 1.2,
+    velux: 1.404,
+    dormerWindow: 5.402,
+    flatRoofWindow: 4.253,
+    chimneySmoke: 0.9712,
+    terraceInUse: 27.04,
+    lift: 10.62,
+    existingSolarPannel: 42.07,
 };
 
 export const setObstacle =
