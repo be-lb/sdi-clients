@@ -31,7 +31,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        background: rgba(0,0,0,0.1);
+        background: rgba(0,0,0,0.3);
 
         > div {
             display: flex;
@@ -111,25 +111,44 @@
     }
 }
 
+// buttons
+
+
+.map-button {
+    color: #fff;
+    padding: @roundedW / 5;
+    background-color: @green;
+    border-radius: @roundedW;
+    border: 2px solid @green;
+    cursor: default;
+    &:hover {
+        background-color: @green;
+        border: 2px solid #fff;
+    }
+}
+
+
 // Map acces button
-.locate-pitch-map {
+.locate-goto-map {
     display: block !important;
     text-align: center;
 
     .map-button {
         display: inline-block;
         margin-top: @margin;
-        padding: @roundedW / 5;
-        background-color: @green;
-        border-radius: @roundedW;
-        border: 2px solid transparent;
-        cursor: default;
-        box-sizing: border-box;
-        &:hover {
-            background-color: @green;
-            color: #fff;
-            border: 2px solid #fff;
-        }
+    }
+}
+
+// Go to map button
+.locate-goto-search {
+    position: absolute;
+    bottom: @margin;
+    left: @margin;
+    .map-button:before {
+        .awsomefont;
+        content: @fa-var-chevron-left;
+        padding-right: @roundedW / 5;
+
     }
 }
 
