@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { IUgWsAddress } from 'sdi/ports/geocoder';
-import { inputs, outputs } from 'solar-sim';
+import { inputs, outputs, thermicOutputs } from 'solar-sim';
 import { FeatureCollection } from 'sdi/source';
 import { Obstacles } from '../components/adjust';
 import { Camera } from '../components/context/mat';
@@ -42,7 +42,8 @@ declare module 'sdi/shape' {
         'solar/system': System;
         'solar/address': IUgWsAddress | null;
         'solar/inputs': inputs;
-        'solar/outputs': outputs | null;
+        'solar/outputs/pv': outputs | null;
+        'solar/outputs/thermal': thermicOutputs | null;
         'solar/obstacle': Obstacles;
         'solar/optimalArea': number | null;
         'solar/loading': string[];

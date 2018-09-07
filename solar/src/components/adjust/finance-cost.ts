@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 import { withEuro } from 'sdi/util';
 
 import { inputSelect } from '../item-factory';
-import { getNumInputF, getOutput } from '../../queries/simulation';
+import { getNumInputF, getOutputPv } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
@@ -22,7 +22,7 @@ const expenses =
                 // vatSelect('VATinstallation', getNumInputF('VATrate')()),
                 DIV({ className: 'multi-checkbox-label' }, tr('VATinstallation'))),
             DIV({ className: 'input-box-vertical' },
-                DIV({ className: 'input-and-unit' }, SPAN({}, withEuro(getOutput('installationCost')))),
+                DIV({ className: 'input-and-unit' }, SPAN({}, withEuro(getOutputPv('installationCost')))),
                 DIV({ className: 'input-label' }, tr('installationPrice'))),
             // vertInputItem('annualMaintenance')
         );

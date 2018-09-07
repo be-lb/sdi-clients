@@ -2,20 +2,20 @@ import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { inputSelect } from '../item-factory';
-import { pvTechnology } from '../../queries/simulation';
+import { thermicTechnology } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
 const renderSelect =
     () => {
-        const checkBox = inputSelect(pvTechnology, setInputF('pvTechnology'));
+        const checkBox = inputSelect(thermicTechnology, setInputF('thermicHotWaterProducer'));
         return DIV({ className: 'wrapper-multi-checkbox' },
             DIV({ className: 'multi-checkbox-label' }, tr('solHeatProdSys') + ' : '),
             DIV({},
-                checkBox('solElectricBoiler', 'poly'),
-                checkBox('solMazout', 'mono'),
-                checkBox('solPellet', 'mono'),
-                checkBox('solGaz', 'mono_high')));
+                checkBox('solElectricBoiler', 'electric'),
+                checkBox('solMazout', 'fuel'),
+                // checkBox('solPellet', 'mono'),
+                checkBox('solGaz', 'gas')));
     };
 
 export const calcTechnologyThermal =

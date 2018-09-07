@@ -1,11 +1,11 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withTCO2Y } from 'sdi/util';
+import { withEuro } from 'sdi/util';
 
 import { toggle } from '../item-factory';
 
-import { getSystem, streetName, streetNumber, locality } from '../../queries/simulation';
+import { getSystem, streetName, streetNumber, locality, getOutputThermal } from '../../queries/simulation';
 import { setSystem } from '../../events/simulation';
 
 
@@ -35,10 +35,10 @@ const infosThermal =
     () =>
         DIV({ className: 'infos-thermal-wrapper' },
             H2({}, tr('solThermal')),
-            vk(withEuro(0), 'buyingPrice'),
-            vk(withEuro(0), 'bonus'),
-            vk(withEuro(0), 'gainEnergyInvoice'),
-            vk(withTCO2Y(0 / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withEuro(getOutputThermal('installationCost')), 'buyingPrice'),
+            vk(withEuro(getOutputThermal('grant')), 'bonus'),
+            vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice'),
+            // vk(withTCO2Y(getOutputThermal('')), 'gainEnvironment', 'gain-env'),
         );
 
 

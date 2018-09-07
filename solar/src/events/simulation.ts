@@ -26,14 +26,16 @@ import { getFeatureProp } from 'sdi/source';
 
 import { Obstacle, defaulObstacles } from '../components/adjust/obstacle';
 import { getCapakey } from '../queries/app';
-import { totalArea } from '../queries/simulation';
+import { totalArea, getSystem } from '../queries/simulation';
 import { System } from '../shape/solar';
 import { Camera } from '../components/context/mat';
+import { thermicSolarSim } from 'solar-sim/lib/run';
 
 const logger = debug('sdi:solar/events');
 
 const dispatchInputs = dispatchK('solar/inputs');
-const dispatchOutputs = dispatchK('solar/outputs');
+const dispatchPvOutputs = dispatchK('solar/outputs/pv');
+const dispatchThermalOutputs = dispatchK('solar/outputs/thermal');
 
 export type SetNumKeyOfInputs =
     | 'nYears'
@@ -57,6 +59,10 @@ export const setAddress =
 
 
 observe('solar/inputs', () => {
+    getCapakey().map(simulate);
+});
+
+observe('solar/system', () => {
     getCapakey().map(simulate);
 });
 
@@ -97,21 +103,33 @@ export const clearInputs =
 const simulate =
     () => {
         const inputs = query('solar/inputs');
-        dispatchOutputs(() => {
-            try {
-                return solarSim(inputs);
+        if (getSystem() === 'photovoltaic') {
+            dispatchPvOutputs(() => {
+                try {
+                    return solarSim(inputs);
+                }
+                catch (_err) {
+                    return null;
+                }
+            });
+            if (inputs.pvArea >= 0) {
+                // here we want to still have optimal area for the whole thing
+                const oa = solarSim({ ...inputs, pvArea: -9999 }).maxArea;
+                dispatch('solar/optimalArea', () => oa);
             }
-            catch (_err) {
-                return null;
+            else {
+                dispatch('solar/optimalArea', () => null);
             }
-        });
-        if (inputs.pvArea >= 0) {
-            // here we want to still have optimal area for the whole thing
-            const oa = solarSim({ ...inputs, pvArea: -9999 }).maxArea;
-            dispatch('solar/optimalArea', () => oa);
         }
         else {
-            dispatch('solar/optimalArea', () => null);
+            dispatchThermalOutputs(() => {
+                try {
+                    return thermicSolarSim(inputs);
+                }
+                catch (_err) {
+                    return null;
+                }
+            });
         }
     };
 
