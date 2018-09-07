@@ -23,6 +23,7 @@
         align-items: center;
         text-align: center;
         margin-bottom: @margin * 2;
+        cursor: default;
 
         &::before {
             .awsomefont;
@@ -38,6 +39,11 @@
             margin-bottom: @margin;
             background-color: @green;
             color: #fff;
+        }
+
+        &:hover:before {
+            background-color: @yellow;
+            color: #000;
         }
 
         // .action-info {
