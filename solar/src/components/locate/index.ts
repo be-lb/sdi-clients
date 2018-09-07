@@ -50,11 +50,8 @@ const renderGeocoderInput =
     });
 
 const renderGeocoderButton =
-    () => DIV({ className: 'btn-analyse' },
-        SPAN({
-            className: 'sun',
-            onClick: searchAddress,
-        }),
+    () => DIV({ className: 'btn-analyse', onClick: searchAddress },
+        SPAN({ className: 'sun' }),
         tr('solResearch'));
 
 const renderGeocoderInputWrapper =
@@ -128,9 +125,9 @@ const pitchWrapper =
         );
 
 
-const pitchMap =
+const goToMap =
     () =>
-        DIV({ className: 'locate-pitch-map' },
+        DIV({ className: 'locate-goto-map' },
             DIV({}, tr('solOrSelectBuilding')),
             DIV({
                 className: 'map-button',
@@ -138,13 +135,13 @@ const pitchMap =
             }, tr('solOnMap')),
         );
 
-const retourSearch =
+const goToSearch =
     () =>
-        DIV({ className: 'locate-retour-search' },
+        DIV({ className: 'locate-goto-search' },
             DIV({
                 className: 'map-button',
                 onClick: () => setLayout('Locate:Geocoder'),
-            }, '***TODO***'),
+            }, tr('geocode')),
         );
 
 
@@ -165,7 +162,7 @@ const wrapperTop =
         DIV({ className: 'wrapper-top' },
             pitchWrapper(),
             searchWrapper(),
-            pitchMap(),
+            goToMap(),
         );
 
 
@@ -176,7 +173,7 @@ const render =
                 map(),
                 wrapperTop());
         }
-        return DIV({ className: 'locate-box' }, map(), retourSearch());
+        return DIV({ className: 'locate-box' }, map(), goToSearch());
     };
 
 export default render;
