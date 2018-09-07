@@ -1,5 +1,5 @@
 import { DIV } from 'sdi/components/elements';
-import { inputNumber } from 'sdi/components/input';
+import { inputNumber, Getter, Setter } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
@@ -28,30 +28,40 @@ export const inputSelect =
         };
 
 
+const inputK =
+    (k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
+        const get = getNumInputF(k);
+        const set = setInputF(k);
+        return inputNumber(get, set);
+    };
+
+const label =
+    (labelKey: MessageKey) => DIV({ className: 'input-label' }, tr(labelKey));
+
+export const vertInputItemFn =
+    (
+        labelKey: MessageKey,
+        get: Getter<number>,
+        set: Setter<number>,
+        ...ns: React.ReactNode[]) =>
+        DIV({ className: 'input-box-vertical' },
+            DIV({ className: 'input-and-unit' },
+                inputNumber(get, set), ...ns),
+            label(labelKey));
 
 export const vertInputItem =
-    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
-        const get = getNumInputF(k);
-        const set = setInputF(k);
-        const input = inputNumber(get, set);
-        const label = DIV({ className: 'input-label' }, tr(labelKey));
-
-        return DIV({ className: 'input-box-vertical' },
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) =>
+        DIV({ className: 'input-box-vertical' },
             DIV({ className: 'input-and-unit' },
-                input, ...ns),
-            label);
-    };
+                inputK(k), ...ns),
+            label(labelKey));
+
 
 export const inputItem =
-    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) => {
-        const get = getNumInputF(k);
-        const set = setInputF(k);
-        const input = inputNumber(get, set);
-        const label = DIV({ className: 'input-label' }, tr(labelKey));
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) =>
+        DIV({ className: 'input-box' },
+            label(labelKey), inputK(k), ...ns);
 
-        return DIV({ className: 'input-box' },
-            label, input, ...ns);
-    };
 
 
 const activeClass = (a: boolean) => a ? '' /* 'active' hits a greeny CSS rule */ : 'inactive';

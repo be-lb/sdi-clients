@@ -177,8 +177,8 @@ export const getMinPanelUnits =
     () => {
         switch (getInputF('pvTechnology')()) {
             case 'poly': return 6;
-            case 'mono': return 4;
-            case 'mono_high': return 5;
+            case 'mono': return 5;
+            case 'mono_high': return 4;
         }
     };
 
