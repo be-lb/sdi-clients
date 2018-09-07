@@ -14,38 +14,43 @@ import { setInputF } from '../../events/simulation';
 const getArea = () => getOutputPv('maxArea');// getNumInputF('pvArea');
 const setArea = (n: number) => setInputF('pvArea')(n * PANEL_AREA);
 
+const getStep =
+    () => (getMaxPanelUnits() - getMinPanelUnits()) / 12;
+
 type rank = number;
 const areas = () => {
-    // const ret: number[] = [];
-    const min = getMinPanelUnits();
-    const max = getMaxPanelUnits();
-    const step = (max - min) / 9;
-
-    return (new Array(9)).fill(0).map((_, i) => min + Math.floor(step * i));
+    const step = getStep();
+    return (new Array(12)).fill(0).map((_, i) => getMinPanelUnits() + Math.floor(step * i));
 };
 
 
-
-const selectedPanelUnits =
-    (n: number) =>
-        areas().map(a => [a, Math.abs(n - a)]).reduce((acc, v) => v[1] < acc[1] ? v : acc)[0];
+const comparePanelNumber =
+    (n1: number, n2: number) => Math.abs(n1 - n2) < getStep();
 
 
-type Status = 'under' | 'selected' | 'over' | 'unreachable';
+
+
+type Status = 'under' | 'selected' | 'over' | 'last-over' | 'unreachable';
 
 const getStatus =
     (n: number): Status => {
-        const pu = selectedPanelUnits(getPanelUnits());
+        const pu = getPanelUnits();
+        const ars = areas();
         if (n < pu) {
             return 'under';
         }
-        else if (n === pu) {
+        else if (comparePanelNumber(n, pu)) {
             return 'selected';
         }
         else if (n > getOptimalPanelUnits()) {
             return 'unreachable';
         }
+        else if (comparePanelNumber(n, getOptimalPanelUnits())
+            || comparePanelNumber(n, ars[ars.length - 1])) {
+            return 'last-over';
+        }
         return 'over';
+
 
     };
 
@@ -61,6 +66,10 @@ const selectItem =
             });
             case 'over': return DIV({
                 className: `select-item  over`,
+                onClick: () => setArea(rank),
+            });
+            case 'last-over': return DIV({
+                className: `select-item  last over`,
                 onClick: () => setArea(rank),
             });
             case 'unreachable': return DIV({
