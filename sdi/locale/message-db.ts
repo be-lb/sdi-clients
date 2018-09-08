@@ -2510,9 +2510,9 @@ export const messages: MessageDB = {
     },
 
     solOrSelectBuilding: {
-        fr: 'Ou sélectionnez le bâtiment ',
-        nl: 'Of selecteer het gebouw ',
-        en: 'Or select the building ',
+        fr: 'Ou sélectionnez un bâtiment ',
+        nl: 'Of selecteer een gebouw ',
+        en: 'Or select a building ',
     },
 
     solOnMap: {
