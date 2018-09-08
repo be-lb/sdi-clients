@@ -41,7 +41,7 @@ const sumPotentialValues =
             vk(withEuro(getOutputPv('installationCost', 0)), 'buyingPrice', 'buying-price'),
             vk(withEuro(getOutputPv('CVAmountYearN')), 'gainGreenCertif', 'green-cert'),
             vk(withEuro(getOutputPv('selfConsumptionAmountYearN')), 'gainElecInvoice', 'gain-elec'),
-            vk(withTCO2(getOutputPv('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withTCO2(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
         );
 
 

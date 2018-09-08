@@ -44,7 +44,7 @@ const sumEnergy =
             vk(withKWhY(getOutputPv('annualProduction')), 'yearProduction'),
             vk(withKWhY(getOutputPv('annualConsumption')), 'yearConsumption'),
             vk(withPercent(getOutputPv('autonomy') * 100), 'solarAutonomy'),
-            vk(withTCO2Y(getOutputPv('savedCO2emissions') / 1000), 'gainEnvironment', 'gain-env'),
+            vk(withTCO2Y(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
         );
 
 const sumFinance =
