@@ -161,7 +161,7 @@ const loadRoofs =
                         return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
                     }),
                 fc => Promise.resolve(fc),
-        );
+            );
 
 
 const loadGeometry =
@@ -173,7 +173,7 @@ const loadGeometry =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-        );
+            );
 
 const loadBuildings =
     (capakey: string) =>
@@ -184,7 +184,7 @@ const loadBuildings =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-        );
+            );
 
 
 const checkAddress =
@@ -251,10 +251,10 @@ export const loadCapakey =
 
         return loadGeometry(capakey)
             .then(() => checkAddress(capakey))
+            .then(() => centerMap(capakey))
             .then(() => {
                 return Promise.all(loaders)
                     .then(() => updateRoofs(capakey))
-                    .then(() => centerMap(capakey))
                     .then(() => addRoofLayer(capakey));
             });
 
