@@ -30,7 +30,8 @@ export const calcLoan =
         DIV({ className: 'adjust-item loan' },
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
-                    '7. ' + tr('loan'))),
+                    '7. ' + tr('loan')),
+                DIV({ className: 'adjust-picto picto-loan' })),
             DIV({ className: 'adjust-item-widget' },
                 toggleLoan('loanYes', 'loanNo'),
                 hasLoan() ? withLoan() : NODISPLAY()));

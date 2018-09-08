@@ -68,4 +68,33 @@
 
         }
     }
+
+    .item-note {
+        display: flex;
+        align-items: center;
+        margin-bottom: @margin / 2;
+
+        &:before {
+            content: ' ';
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 1em;
+            margin-right: 1ch;
+            border: 1px solid #333;
+            display: inline-block;
+        }
+        &.selected:before {
+            background-color: @green;
+        }
+
+        &.over:before {
+            background-color: @yellow;
+        }
+
+        &.unreachable:before {
+            background-color: @extra-light-grey;
+        }
+
+    }
+
 }

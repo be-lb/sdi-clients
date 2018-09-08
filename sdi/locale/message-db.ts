@@ -361,6 +361,9 @@ export type MessageKey =
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solThermal'
+    | 'solVAT0'
+    | 'solVAT21'
+    | 'solVAT6'
     | 'space'
     | 'start'
     | 'startDate'
@@ -2286,9 +2289,9 @@ export const messages: MessageDB = {
     },
 
     installationPrice: {
-        fr: 'Installation',
-        nl: 'Installatie',
-        en: 'Installation',
+        fr: 'Coût de l\'installation',
+        nl: 'installatiekosten',
+        en: 'Installation cost',
     },
 
     VATinstallation: {
@@ -2313,6 +2316,24 @@ export const messages: MessageDB = {
         fr: '0%',
         nl: '0%',
         en: '0%',
+    },
+
+    solVAT21: {
+        fr: '21% - Bâtiment < 10 ans',
+        nl: '21% - Gebouw < 10 jaar',
+        en: '21% - Building < 10 years',
+    },
+
+    solVAT6: {
+        fr: '6% - Bâtiment > 10 ans',
+        nl: '6% - Gebouw > 10 jaar',
+        en: '6% - Building > 10 years',
+    },
+
+    solVAT0: {
+        fr: '0% - Non residentiel',
+        nl: '0% - Niet-residentieel',
+        en: '0% - Non residential',
     },
 
     sellingGreenCertifPrice: {

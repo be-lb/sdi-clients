@@ -99,7 +99,8 @@ const selectWidget =
 const title =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
-            `3. ${tr('solDedicatedArea')}`));
+            `3. ${tr('solDedicatedArea')}`),
+        DIV({ className: 'adjust-picto picto-panel' }));
 
 const legend =
     () => {
