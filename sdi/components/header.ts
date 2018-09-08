@@ -33,15 +33,23 @@ const rootButton =
         }, SPAN({ className: 'label' }, tr('dashboard'))));
 
 
+const makeTitle =
+    (title: MessageKey, onClick?: () => void) => {
+        if (onClick) {
+            return DIV({ className: 'app-title interactive', onClick }, tr(title));
+        }
+        return DIV({ className: 'app-title' }, tr(title));
+    };
+
 const header =
-    (title: MessageKey) =>
+    (title: MessageKey, onClick?: () => void) =>
         (action: () => React.ReactNode) => {
             const render =
                 () => (
                     DIV({ className: 'header' },
                         DIV({ className: 'be-logo' },
                             DIV({ className: 'be-name' })),
-                        DIV({ className: 'app-title' }, tr(title)),
+                        makeTitle(title, onClick),
                         DIV({ className: 'app-listwrapper' }, action()),
                         DIV({ className: 'header-toolbar' },
                             rootButton(),

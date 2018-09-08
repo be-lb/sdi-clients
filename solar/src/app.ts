@@ -23,7 +23,7 @@ import { loop, getApiUrl } from 'sdi/app';
 
 
 import { getLayout } from './queries/app';
-import { navigate } from './events/route';
+import { navigate, navigateLocate } from './events/route';
 import locate from './components/locate';
 import loader from './components/loader';
 import preview from './components/preview';
@@ -38,7 +38,7 @@ export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Loader' | 'Preview' 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header('solar')(() => DIV())(),
+        header('solar', navigateLocate)(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
