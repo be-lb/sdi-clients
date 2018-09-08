@@ -143,13 +143,13 @@ const simulate =
 
 type ObsValue = { [k in Obstacle]: number };
 const obstacleValues: ObsValue = {
-    velux: 1.404,
-    dormerWindow: 5.402,
-    flatRoofWindow: 4.253,
-    chimneySmoke: 0.9712,
-    terraceInUse: 27.04,
-    lift: 10.62,
-    existingSolarPannel: 42.07,
+    chimneySmoke: 0.7666,
+    velux: 1.205,
+    dormerWindow: 4.267,
+    flatRoofWindow: 1.801,
+    terraceInUse: 14.58,
+    lift: 9.032,
+    existingSolarPannel: 12.18,
 };
 
 export const setObstacle =
