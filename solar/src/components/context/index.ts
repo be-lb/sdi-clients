@@ -37,39 +37,35 @@ const mobileAdress =
                 SPAN({}, tr('in')),
                 SPAN({}, ` ${locality()}`)));
 
+const makeBar =
+    (v: number, colorClass: string, label: string) =>
+        DIV({ className: 'bar' },
+            DIV({ className: 'bar-color-wrapper' },
+                DIV({
+                    className: `bar-color ${colorClass}`,
+                    style: { width: `${v}%` },
+                })),
+            DIV({ className: 'bar-value' }, withPercent(v)),
+            DIV({ className: 'bar-label' }, label));
+
+
 const barChart =
     () => {
         const a = areaExcellent();
         const b = areaMedium();
         const c = areaLow();
-        return DIV({ className: 'barchart' },
 
-            DIV({ className: 'bar' },
-                DIV({ className: 'bar-color-wrapper' },
-                    DIV({
-                        className: 'bar-color great',
-                        style: { width: `${a}%` },
-                    })),
-                DIV({ className: 'bar-value' }, withPercent(a)),
-                DIV({ className: 'bar-label' }, tr('orientationGreat'))),
-
-            DIV({ className: 'bar' },
-                DIV({ className: 'bar-color-wrapper' },
-                    DIV({
-                        className: 'bar-color good',
-                        style: { width: `${b}%` },
-                    })),
-                DIV({ className: 'bar-value' }, withPercent(b)),
-                DIV({ className: 'bar-label' }, tr('orientationGood'))),
-
-            DIV({ className: 'bar' },
-                DIV({ className: 'bar-color-wrapper' },
-                    DIV({
-                        className: 'bar-color unusable',
-                        style: { width: `${c}%` },
-                    })),
-                DIV({ className: 'bar-value' }, withPercent(c)),
-                DIV({ className: 'bar-label' }, tr('unusable'))));
+        const bars = [];
+        if (a > 0) {
+            bars.push(makeBar(a, 'great', tr('orientationGreat')));
+        }
+        if (b > 0) {
+            bars.push(makeBar(b, 'good', tr('orientationGood')));
+        }
+        if (c > 0) {
+            bars.push(makeBar(c, 'unusable', tr('unusable')));
+        }
+        return DIV({ className: 'barchart' }, ...bars);
     };
 
 const backToMap =
