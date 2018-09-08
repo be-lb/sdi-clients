@@ -156,7 +156,7 @@ const loadRoofs =
                                 else {
                                     rj();
                                 }
-                            }, 1200 / roofs.features.length);
+                            }, 2600 / roofs.features.length);
                         }));
                         return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
                     }),
