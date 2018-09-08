@@ -5,7 +5,7 @@ import { vec3, vec2 } from 'gl-matrix';
 
 import { FeatureCollection, Feature, Properties } from 'sdi/source';
 import { Option, none, some } from 'fp-ts/lib/Option';
-import { PROD_THESH_HIGH, PROD_THESH_MEDIUM } from '../../queries/simulation';
+import { Tag } from '../../queries/simulation';
 import { Camera, getTranformFunction, Transform } from './mat';
 
 
@@ -196,16 +196,14 @@ export function perspective(
             c.save();
             c.strokeStyle = '#666';
             c.lineWidth = 1;
-            // const p = getProp(f, 'productivity', 0) / getProp(f, 'area', 0.0001);
-            const p = getProp(f, 'irradiance', 0);
-            if (p >= PROD_THESH_HIGH) {
-                c.fillStyle = '#8db63c';
-            }
-            else if (p > PROD_THESH_MEDIUM && p < PROD_THESH_HIGH) {
-                c.fillStyle = '#ebe316';
-            }
-            else {
-                c.fillStyle = '#006f90';
+
+            switch (getProp(f, 'tag', 'great' as Tag)) {
+                case 'great': c.fillStyle = '#8db63c';
+                    break;
+                case 'good': c.fillStyle = '#ebe316';
+                    break;
+                case 'unusable': c.fillStyle = '#006f90';
+                    break;
             }
 
             return () => c.restore();

@@ -24,7 +24,7 @@ import { queryReverseGeocoder } from 'sdi/ports/geocoder';
 import { getLang } from 'sdi/app';
 import { defaultInteraction } from 'sdi/map';
 
-import { FeatureCollection, Feature } from 'sdi/source';
+import { FeatureCollection, Feature, getFeatureProp, Properties } from 'sdi/source';
 
 import { AppLayout } from '../app';
 import { fetchGeom, fetchBuilding, fetchBaseLayerAll, fetchKey, fetchRoofs } from '../remote';
@@ -32,6 +32,7 @@ import { updateRoofs, clearPerspective, clearInputs } from './simulation';
 import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
 import { navigatePreview } from './route';
+import { PROD_THESH_MEDIUM, PROD_THESH_HIGH } from '../queries/simulation';
 
 const logger = debug('sdi:events/app');
 
@@ -86,6 +87,28 @@ const createCollection =
 
 type roofFetcher = (c: string) => Promise<Feature>;
 
+
+const tagFeature =
+    (f: Feature): Properties => {
+        const area = getFeatureProp(f, 'area', 0.000001);
+        const productivity = getFeatureProp(f, 'productivity', 0);
+        const tilt = getFeatureProp(f, 'tilt', 35);
+        const tag = 'great';
+        if (tilt < 5) {
+            return { tag };
+        }
+        else if (area < 5) {
+            return { tag: 'unusable' };
+        }
+        else if (productivity < PROD_THESH_MEDIUM) {
+            return { tag: 'unusable' };
+        }
+        else if (productivity >= PROD_THESH_MEDIUM && productivity < PROD_THESH_HIGH) {
+            return { tag: 'good' };
+        }
+        return { tag };
+    };
+
 const loadRoof =
     (fetchRoof: roofFetcher, capakey: string, r: (a: FeatureCollection) => void, s: () => void) => {
         const rids = query('solar/loading');
@@ -97,6 +120,9 @@ const loadRoof =
                     dispatch('solar/loaded', ids => [...ids, rid]);
                     dispatch('solar/data/roofs', (state) => {
                         const ns = { ...state };
+                        const props = feature.properties || {};
+                        const tag = tagFeature(feature);
+                        feature.properties = { ...props, ...tag };
                         if (capakey in ns) {
                             ns[capakey].features = state[capakey].features.concat([feature]);
                         }

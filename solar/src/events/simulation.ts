@@ -82,10 +82,10 @@ export const updateRoofs =
             const ns = {
                 ...ins,
                 roofs: fc.features.map<roof>((f) => {
-                    const area = getFeatureProp(f, 'area', 0.000001);
                     return {
-                        area,
-                        productivity: (getFeatureProp(f, 'irradiance', 0) / 1000),
+                        area: getFeatureProp(f, 'area', 0.000001),
+                        irradiance: (getFeatureProp(f, 'irradiance', 0) / 1000),
+                        productivity: getFeatureProp(f, 'productivity', 0),
                         tilt: getFeatureProp(f, 'tilt', 35),
                     };
                 }),

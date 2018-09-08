@@ -47,9 +47,15 @@ export const potential = () => tr('solSolarPotentialExcellent');
 const roofs = queryK('solar/data/roofs');
 const buildings = queryK('solar/data/buildings');
 
-export const PROD_THESH_HIGH = 1200 * 1000;
-export const PROD_THESH_MEDIUM = 800 * 1000;
+export const PROD_THESH_HIGH = 1200;
+export const PROD_THESH_MEDIUM = 800;
+export const tags = {
+    great: [PROD_THESH_HIGH, Number.MAX_VALUE],
+    good: [PROD_THESH_MEDIUM, PROD_THESH_HIGH],
+    unusable: [0, PROD_THESH_MEDIUM],
+};
 
+export type Tag = keyof typeof tags;
 
 export const getRoofs =
     () => getCapakey().chain((ck) => {
@@ -79,20 +85,35 @@ export const totalArea =
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
     );
 
-const areaIrradiance =
-    (low: number, high: number) =>
+// const areaIrradiance =
+//     (low: number, high: number) =>
+//         () => getRoofFeatures()
+//             .fold(
+//                 0,
+//                 (features) => {
+//                     const ta = Math.max(0.01, totalArea()); // ugly but...
+//                     const catArea = features
+//                         .filter((f) => {
+//                             const p = getFeatureProp(f, 'irradiance', 0) / 1000;
+//                             // const a = getFeatureProp(f, 'area', 0.001);
+//                             // const irm2 = p / a;
+//                             return (p >= low) && (p < high);
+//                         })
+//                         .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
+
+//                     return catArea * 100 / ta;
+//                 },
+//         );
+
+const areaProductivity =
+    (tag: Tag) =>
         () => getRoofFeatures()
             .fold(
                 0,
                 (features) => {
                     const ta = Math.max(0.01, totalArea()); // ugly but...
                     const catArea = features
-                        .filter((f) => {
-                            const p = getFeatureProp(f, 'irradiance', 0);
-                            // const a = getFeatureProp(f, 'area', 0.001);
-                            // const irm2 = p / a;
-                            return (p >= low) && (p < high);
-                        })
+                        .filter(f => getFeatureProp(f, 'tag', 'great') === tag)
                         .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
 
                     return catArea * 100 / ta;
@@ -100,9 +121,10 @@ const areaIrradiance =
         );
 
 
-export const areaExcellent = areaIrradiance(PROD_THESH_HIGH, Number.MAX_VALUE);
-export const areaMedium = areaIrradiance(PROD_THESH_MEDIUM, PROD_THESH_HIGH);
-export const areaLow = areaIrradiance(Number.MIN_VALUE, PROD_THESH_MEDIUM);
+
+export const areaExcellent = areaProductivity('great');
+export const areaMedium = areaProductivity('good');
+export const areaLow = areaProductivity('unusable');
 
 
 const queryInputs = queryK('solar/inputs');

@@ -22,9 +22,9 @@ import { SyntheticLayerInfo } from 'sdi/app';
 import { dispatchK, dispatch, query } from 'sdi/shape';
 import { viewEventsFactory, scaleEventsFactory, removeLayer, addLayer, FetchData } from 'sdi/map';
 import { IUgWsResponse } from 'sdi/ports/geocoder';
-import { IMapInfo, ILayerInfo, Inspire } from 'sdi/source';
+import { IMapInfo, ILayerInfo, Inspire, PolygonDiscreteGroup } from 'sdi/source';
 
-import { PROD_THESH_MEDIUM, PROD_THESH_HIGH } from '../queries/simulation';
+import { Tag } from '../queries/simulation';
 
 
 
@@ -62,6 +62,18 @@ const metadataTemplate =
         published: false,
     });
 
+
+const groupTemplate =
+    (tag: Tag, fillColor: string): PolygonDiscreteGroup => ({
+        strokeColor: '#666',
+        patternAngle: 0,
+        strokeWidth: 1,
+        label: { nl: '', fr: '', en: '' },
+        fillColor,
+        values: [tag],
+        pattern: false,
+    });
+
 const layerTemplate =
     (): ILayerInfo => ({
         id: solarLocateId,
@@ -71,40 +83,13 @@ const layerTemplate =
         visible: true,
         featureViewOptions: { type: 'default' },
         style: {
-            intervals: [
-                {
-                    patternAngle: 0,
-                    strokeColor: '#666',
-                    strokeWidth: 1,
-                    high: PROD_THESH_MEDIUM,
-                    fillColor: '#006f90',
-                    label: { nl: '', fr: '', en: '' },
-                    low: 0,
-                    pattern: false,
-                },
-                {
-                    patternAngle: 0,
-                    strokeColor: '#666',
-                    strokeWidth: 1,
-                    high: PROD_THESH_HIGH,
-                    fillColor: '#ebe316',
-                    label: { nl: '', fr: '', en: '' },
-                    low: PROD_THESH_MEDIUM,
-                    pattern: false,
-                },
-                {
-                    patternAngle: 0,
-                    strokeColor: '#666',
-                    strokeWidth: 1,
-                    high: 100000000000000,
-                    fillColor: '#8db63c',
-                    label: { nl: '', fr: '', en: '' },
-                    low: PROD_THESH_HIGH,
-                    pattern: false,
-                },
+            groups: [
+                groupTemplate('great', '#8db63c'),
+                groupTemplate('good', '#ebe316'),
+                groupTemplate('unusable', '#006f90'),
             ],
-            kind: 'polygon-continuous',
-            propName: 'irradiance',
+            propName: 'tag',
+            kind: 'polygon-discrete',
         },
     });
 
