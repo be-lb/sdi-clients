@@ -1,34 +1,20 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
+import { withKWc } from 'sdi/util';
 
 import {
-    getMaxPanelUnits,
-    getMinPanelUnits,
     getOutputPv,
     getPanelUnits,
-    PANEL_AREA,
-    getOptimalPanelUnits,
+    getMaxPower,
 } from '../../queries/simulation';
-import { setInputF } from '../../events/simulation';
+import { setPower } from '../../events/simulation';
 
-const getArea = () => getOutputPv('maxArea');// getNumInputF('pvArea');
-const setArea = (n: number) => setInputF('pvArea')(n * PANEL_AREA);
-
-const getStep =
-    () => (getMaxPanelUnits() - getMinPanelUnits()) / 12;
 
 type rank = number;
-const areas = () => {
-    const step = getStep();
-    return (new Array(12)).fill(0).map((_, i) => getMinPanelUnits() + Math.floor(step * i));
-};
 
+const getPower = () => Math.round(getOutputPv('power'));
 
-const comparePanelNumber =
-    (n1: number, n2: number) => Math.abs(n1 - n2) < getStep();
-
-
-
+const powers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 type Status = 'under' | 'selected' | 'over' | 'last-over' | 'unreachable';
 
@@ -36,19 +22,18 @@ type Status = 'under' | 'selected' | 'over' | 'last-over' | 'unreachable';
 
 const getStatus =
     (n: number): Status => {
-        const pu = getPanelUnits();
-        const ars = areas();
-        if (n < pu) {
+        const p = getPower();
+        const maxPower = Math.round(getMaxPower());
+        if (n < p) {
             return 'under';
         }
-        else if (comparePanelNumber(n, pu)) {
+        else if (n === p) {
             return 'selected';
         }
-        else if (n > getOptimalPanelUnits()) {
+        else if (n > maxPower) {
             return 'unreachable';
         }
-        else if (comparePanelNumber(n, getOptimalPanelUnits())
-            || comparePanelNumber(n, ars[ars.length - 1])) {
+        else if (n === maxPower || n === 12) {
             return 'last-over';
         }
         return 'over';
@@ -56,44 +41,44 @@ const getStatus =
 
 const hasOver =
     () => {
-        return areas().filter(a => getStatus(a) === 'over' || getStatus(a) === 'last-over').length > 0;
+        return powers.filter(a => getStatus(a) === 'over' || getStatus(a) === 'last-over').length > 0;
     };
 
 const hasUnreachable =
     () => {
-        return areas().filter(a => getStatus(a) === 'unreachable').length > 0;
+        return powers.filter(a => getStatus(a) === 'unreachable').length > 0;
     };
 
+const selectItemClickable =
+    (rank: rank, className: string) =>
+        DIV({
+            title: withKWc(rank, 1),
+            className: `select-item  ${className}`,
+            onClick: () => setPower(rank),
+        });
 
+const selectItemNotClickable =
+    (rank: rank, className: string) =>
+        DIV({
+            title: withKWc(rank, 1),
+            className: `select-item  ${className}`,
+        });
 
 const selectItem =
     (rank: rank) => {
         switch (getStatus(rank)) {
-            case 'under': return DIV({
-                className: `select-item  under`,
-                onClick: () => setArea(rank),
-            });
-            case 'selected': return DIV({
-                className: `select-item  selected`,
-            });
-            case 'over': return DIV({
-                className: `select-item  over`,
-                onClick: () => setArea(rank),
-            });
-            case 'last-over': return DIV({
-                className: `select-item  last over`,
-                onClick: () => setArea(rank),
-            });
-            case 'unreachable': return DIV({
-                className: `select-item  unreachable`,
-            });
+            case 'under': return selectItemClickable(rank, 'under');
+            case 'selected': return selectItemNotClickable(rank, 'selected');
+            case 'over': return selectItemClickable(rank, 'over');
+            case 'last-over': return selectItemClickable(rank, 'last over');
+            case 'unreachable': return selectItemNotClickable(rank, 'unreachable');
         }
     };
 
 const selectWidget =
     () =>
         DIV({ className: 'area-select' },
-            ...(areas().map(selectItem)),
+            ...(powers.map(selectItem)),
         );
 
 const title =
@@ -104,19 +89,28 @@ const title =
 
 const legend =
     () => {
-        const elements = [DIV({ className: 'item-note selected' }, `${getPanelUnits()} ${tr('solSelectedPannels')}`)];
+        const elements = [
+            DIV({ className: 'item-note selected' },
+                `${getPanelUnits()} ${tr('solSelectedPannels')}`),
+        ];
+
         if (hasOver()) {
-            elements.push(DIV({ className: 'item-note over' }, tr('solOptimumInstallation')));
+            elements.push(
+                DIV({ className: 'item-note over' },
+                    tr('solOptimumInstallation')));
         }
         if (hasUnreachable()) {
-            elements.push(DIV({ className: 'item-note unreachable' }, tr('solOptimumInstallationTheoric')));
+            elements.push(
+                DIV({ className: 'item-note unreachable' },
+                    tr('solOptimumInstallationTheoric')));
         }
+
         return DIV({ className: 'adjust-item-note' }, ...elements);
     };
 
 export const calcArea =
     () =>
-        DIV({ className: `adjust-item area current-${getArea()}` },
+        DIV({ className: `adjust-item area` },
             title(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),

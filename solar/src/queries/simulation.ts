@@ -26,7 +26,7 @@ import { getFeatureProp } from 'sdi/source';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust';
 import { identity } from 'fp-ts/lib/function';
-import { outputs, inputs, thermicOutputs, PVTechnologyEnum } from 'solar-sim';
+import { outputs, inputs, thermicOutputs, PVTechnologyEnum, PV_YIELD } from 'solar-sim';
 
 
 const logger = debug('sdi:simulation');
@@ -161,9 +161,9 @@ export const getObstacle =
 
 export const PANEL_AREA = 1.6;
 export const PANEL_PROD: { [k in PVTechnologyEnum]: number } = {
-    poly: 230,
-    mono: 280,
-    mono_high: 330,
+    poly: PV_YIELD['poly'] * 1000 * PANEL_AREA,
+    mono: PV_YIELD['mono'] * 1000 * PANEL_AREA,
+    mono_high: PV_YIELD['mono_high'] * 1000 * PANEL_AREA,
 };
 
 export const getOptimalArea =
@@ -172,29 +172,14 @@ export const getOptimalArea =
         n => n,
     );
 
-export const getOptimalPanelUnits =
-    () => Math.floor(getOptimalArea() / PANEL_AREA);
+export const getMaxPower =
+    () => getOptimalArea() * PV_YIELD[pvTechnology()];
+
 
 export const getPanelUnits =
     () => Math.floor(getOutputPv('maxArea') / PANEL_AREA);
 
-export const getMinPanelUnits =
-    () => {
-        switch (getInputF('pvTechnology')()) {
-            case 'poly': return Math.round(1000 / PANEL_PROD.poly);
-            case 'mono': return Math.round(1000 / PANEL_PROD.mono);
-            case 'mono_high': return Math.round(1000 / PANEL_PROD.mono_high);
-        }
-    };
 
-export const getMaxPanelUnits =
-    () => {
-        switch (getInputF('pvTechnology')()) {
-            case 'poly': return Math.round(12000 / PANEL_PROD.poly);
-            case 'mono': return Math.round(12000 / PANEL_PROD.mono);
-            case 'mono_high': return Math.round(12000 / PANEL_PROD.mono_high);
-        }
-    };
 
 export const getOrthoURL =
     () =>

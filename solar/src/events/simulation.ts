@@ -18,7 +18,7 @@ import * as debug from 'debug';
 
 
 import { fromNullable } from 'fp-ts/lib/Option';
-import { inputs, solarSim, roof, inputsFactory } from 'solar-sim';
+import { inputs, solarSim, roof, inputsFactory, PV_YIELD } from 'solar-sim';
 
 import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query, observe } from 'sdi/shape';
@@ -26,7 +26,7 @@ import { getFeatureProp } from 'sdi/source';
 
 import { Obstacle, defaulObstacles } from '../components/adjust/obstacle';
 import { getCapakey } from '../queries/app';
-import { totalArea, getSystem } from '../queries/simulation';
+import { totalArea, getSystem, pvTechnology } from '../queries/simulation';
 import { System } from '../shape/solar';
 import { Camera } from '../components/context/mat';
 import { thermicSolarSim } from 'solar-sim/lib/run';
@@ -99,6 +99,13 @@ export const clearInputs =
         dispatch('solar/obstacle', () => defaulObstacles());
     };
 
+
+export const setPower =
+    (n: number) => {
+        const tech = pvTechnology();
+        const delivered = PV_YIELD[tech];
+        setInputF('pvArea')(n / delivered);
+    };
 
 const simulate =
     () => {
