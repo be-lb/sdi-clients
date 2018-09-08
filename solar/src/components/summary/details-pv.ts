@@ -20,7 +20,7 @@ const vk =
             SPAN({ className: 'key' }, tr(key)));
 
 
-const sumAdress =
+export const sumAdress =
     () =>
         DIV({ className: 'adress' },
             H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),

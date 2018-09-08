@@ -334,6 +334,7 @@ export type MessageKey =
     | 'solLocatePitchStr6'
     | 'solLocatePitchStr7'
     | 'solMazout'
+    | 'solNoSol'
     | 'solNoteConsRank1'
     | 'solNoteConsRank2'
     | 'solNoteConsRank3'
@@ -2966,5 +2967,11 @@ export const messages: MessageDB = {
         nl: 'Theoretisch maximaal vermogen aanbevolen voor een installatie, in dit geval niet toegankelijk',
         en: 'Theoretical maximum power recommended for an installation, not accessible in this case',
     },
-    
+
+    solNoSol: {
+        fr: 'Nous sommes désolés mais nous n\'avons trouvé aucune configuration rentable pour l\'installation de panneaux solaire pour cette toiture',
+        nl: 'Het spijt ons maar we hebben geen kosteneffectieve set-up gevonden voor het installeren van zonnepanelen voor dit dak',
+        en: 'We are sorry but we did not find any cost-effective setup for installing solar panels for this roof',
+    },
+
 };
