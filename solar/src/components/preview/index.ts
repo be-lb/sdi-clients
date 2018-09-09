@@ -24,7 +24,7 @@ const summary =
             case 'photovoltaic': return summaryPv();
             case 'thermal': return summaryThermal();
         }
-    }
+    };
 
 const renderPreview =
     () =>
