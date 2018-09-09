@@ -60,6 +60,15 @@
     }
 }
 
+//maks to prevent scroll and zoom from Open Layer illu
+.illu.plan:after {
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
 @media @medium {
 
     .wrapper-illu {width: initial;}
