@@ -13,7 +13,7 @@ const technologies: thermicHotWaterProducerEnum[] = ['electric', 'fuel', 'gas'];
 
 const icon =
     (t: thermicHotWaterProducerEnum) =>
-        DIV({ className: `rank-icon  active ${t}` });
+        DIV({ className: `adjust-picto picto-water-${t}` });
 
 const condTech =
     fromPredicate((t: thermicHotWaterProducerEnum) => t === thermicTechnology());

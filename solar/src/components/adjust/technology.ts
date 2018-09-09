@@ -13,7 +13,7 @@ const technologies: PVTechnologyEnum[] = ['poly', 'mono', 'mono_high'];
 
 const icon =
     (t: PVTechnologyEnum) =>
-        DIV({ className: `rank-icon  active ${t}` });
+        DIV({ className: `adjust-picto picto-panel-${t}` });
 
 const condTech =
     fromPredicate((t: PVTechnologyEnum) => t === pvTechnology());
