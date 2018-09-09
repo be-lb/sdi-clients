@@ -34,13 +34,14 @@ const renderNoPreview =
         DIV({ className: 'main-splitted-height' },
             DIV({ className: 'upper-part' },
                 context(),
-                sumAdress(),
-                DIV({ className: 'sol-no-sol' }, tr('solNoSol')),
-            ),
-            DIV({ className: 'lower-part' },
-                DIV({ className: 'action-title' }, tr('solAndNow')),
-                action(),
-            ));
+                DIV({ className: 'sol-no-sol' },
+                    sumAdress(),
+                    DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol')),
+                )),
+            // DIV({ className: 'lower-part' },
+            //     DIV({ className: 'action-title' }, tr('solAndNow')),
+            //     action()),
+        );
 
 
 const render =
