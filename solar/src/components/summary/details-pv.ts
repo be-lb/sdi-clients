@@ -35,7 +35,9 @@ const sumInstallation =
             H2({}, tr('installation')),
             vk(withM2(getOutputPv('maxArea')), 'surface'),
             vk(withKWc(getOutputPv('power'), 1), 'power'),
-            vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'));
+            vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
+            vk(withYear(25), 'solInstallationLifeTime'),
+        );
 
 const sumEnergy =
     () =>
