@@ -3,8 +3,9 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { actionSettings, actionContact, actionChange, actionPrint } from '../action';
-import { summary } from '../summary/summary-pv';
-import { getMaxPower } from '../../queries/simulation';
+import { summary as summaryPv } from '../summary/summary-pv';
+import { summary as summaryThermal } from '../summary/summary-thermal';
+import { getMaxPower, getSystem } from '../../queries/simulation';
 import { sumAdress } from '../summary/details-pv';
 
 
@@ -16,6 +17,14 @@ const action =
             actionChange(),
             actionPrint());
 
+
+const summary =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return summaryPv();
+            case 'thermal': return summaryThermal();
+        }
+    }
 
 const renderPreview =
     () =>
