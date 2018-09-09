@@ -2,7 +2,7 @@ import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
-import { annualConsumption } from '../../queries/simulation';
+import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 import { inputItem } from '../item-factory';
 
@@ -39,6 +39,7 @@ const notes: { [k in rank]: MessageKey } = {
 };
 
 const setConsumption = setInputF('thermicLiterByDay');
+const getConsumption = getInputF('thermicLiterByDay');
 
 // we build the icons next to the title
 const icon =
@@ -60,8 +61,8 @@ const titleAndPicto =
 
 const isActive =
     (rank: rank) =>
-        (annualConsumption() < ranks[rank] + 10)
-        && (annualConsumption() > ranks[rank] - 10);
+        (getConsumption() < ranks[rank] + 10)
+        && (getConsumption() > ranks[rank] - 10);
 
 // Consumption rank selector widget
 const selectItem =
