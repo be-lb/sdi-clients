@@ -279,7 +279,11 @@ export const getLoading =
     };
 
 
-export const getPerpective =
-    () => fromNullable(query('solar/perspective'));
+export const getPerpectiveCamera =
+    () => fromNullable(query('solar/perspective/camera'));
+
+
+export const getPerpectiveSrc =
+    () => fromNullable(query('solar/perspective/src'));
 
 logger('loaded');

@@ -5,8 +5,15 @@ import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear
 
 import { toggle } from '../item-factory';
 
-import { getSystem, streetName, streetNumber, locality, getOutputThermal, getInputF } from '../../queries/simulation';
-import { setSystem } from '../../events/simulation';
+import {
+    getSystem,
+    streetName,
+    streetNumber,
+    locality,
+    getOutputThermal,
+    getInputF,
+} from '../../queries/simulation';
+import { setSystem, clearInputs } from '../../events/simulation';
 
 
 const toggleSystem = toggle(
@@ -81,7 +88,10 @@ export const summaryDetailedThermal =
             sumAdress(),
             toggleSystem('solPhotovoltaic', 'solThermal'),
             infosThermal(),
-            DIV({ className: 'btn-reset' }, tr('resetValue')),
+            DIV({
+                className: 'btn-reset',
+                onClick: () => clearInputs(),
+            }, tr('resetValue')),
         );
 
 

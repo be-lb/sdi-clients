@@ -165,10 +165,20 @@ export const setObstacle =
         dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
     };
 
-export const clearPerspective =
-    () => dispatch('solar/perspective', () => null);
 
-export const setPerspective =
-    (p: Camera) => dispatch('solar/perspective', () => p);
+export const clearPerspective =
+    () => {
+        dispatch('solar/perspective/camera', () => null);
+        dispatch('solar/perspective/src', () => null);
+    };
+
+
+export const setPerspectiveCamera =
+    (p: Camera) => dispatch('solar/perspective/camera', () => p);
+
+
+export const setPerspectiveSrc =
+    (p: string) => dispatch('solar/perspective/src', () => p);
+
 
 logger('loaded');

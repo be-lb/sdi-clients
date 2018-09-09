@@ -18,7 +18,7 @@ import {
     streetName,
     streetNumber,
     totalArea,
-    getPerpective,
+    getPerpectiveCamera,
 } from '../../queries/simulation';
 import { perspective, reduceMultiPolygon, Reducer, reducePolygon } from './perspective';
 import { Camera } from './mat';
@@ -26,7 +26,7 @@ import { vec3, vec2 } from 'gl-matrix';
 import { Option, some, none } from 'fp-ts/lib/Option';
 import { navigateLocate } from '../../events/route';
 import { clearRoofLayer } from '../../events/map';
-import { setPerspective } from '../../events/simulation';
+import { setPerspectiveCamera } from '../../events/simulation';
 
 
 const mobileAdress =
@@ -132,7 +132,7 @@ const isExactFeature =
 
 const getCamera =
     (fc: FeatureCollection): Option<Camera> =>
-        getPerpective()
+        getPerpectiveCamera()
             .foldL(() => {
                 const fcExact: FeatureCollection = {
                     type: 'FeatureCollection',
@@ -190,13 +190,13 @@ const getCamera =
                         target,
                         viewport,
                     };
-                    setTimeout(() => setPerspective(cam), 0);
+                    setTimeout(() => setPerspectiveCamera(cam), 0);
                     return some(cam);
                 }
                 return none;
             },
                 c => some(c),
-        );
+            );
 
 
 const emptyRoofs = some<FeatureCollection>({

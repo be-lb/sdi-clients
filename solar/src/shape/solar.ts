@@ -48,7 +48,8 @@ declare module 'sdi/shape' {
         'solar/optimalArea': number | null;
         'solar/loading': string[];
         'solar/loaded': string[];
-        'solar/perspective': Camera | null;
+        'solar/perspective/camera': Camera | null;
+        'solar/perspective/src': string | null;
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;
