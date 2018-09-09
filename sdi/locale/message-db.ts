@@ -2040,20 +2040,20 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif: {
-        fr: 'Gain Certificats Verts',
-        nl: 'Groenestroomcertificaten behalen',
-        en: 'Gain Green Certificates',
+        fr: 'Gain Certificats Verts (10 ans)',
+        nl: 'aanwinst groenestroomcertificaten (10 jaar)',
+        en: 'Gain Green Certificates (10 years)',
     },
 
     gainElecInvoice: {
-        fr: 'Gain facture d\'électricité',
-        nl: 'Besparing op elektriciteitsrekeningen',
-        en: 'Electricity bill savings',
+        fr: 'Gain facture d\'électricité (10 ans)',
+        nl: 'Besparing op uw electiricteitsfactuur (10 jaar)',
+        en: 'Electricity bill savings (10 years)',
     },
 
     gainEnvironment: {
         fr: 'Gain environnemental',
-        nl: 'Milieubaten',
+        nl: 'Winst voor het milieu',
         en: 'Environmental gain',
     },
 
