@@ -180,5 +180,7 @@ export const setPerspectiveCamera =
 export const setPerspectiveSrc =
     (p: string) => dispatch('solar/perspective/src', () => p);
 
+observe('solar/data/roofs',
+    () => dispatch('solar/perspective/src', () => null));
 
 logger('loaded');
