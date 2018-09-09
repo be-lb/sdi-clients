@@ -11,7 +11,6 @@ import {
     streetNumber,
     locality,
     getOutputThermal,
-    getInputF,
 } from '../../queries/simulation';
 import { setSystem, clearInputs } from '../../events/simulation';
 
@@ -53,8 +52,8 @@ const sumEnergy =
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
             vk(withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'),
-            vk(withKWhY(getInputF('thermicLiterByDay')() * 365), 'solSolarConsumptionYear'),
-            vk(withPercent(0), 'solSolarRateArea'),
+            vk(withKWhY(getOutputThermal('annualConsumption')), 'solSolarConsumptionYear'),
+            vk(withPercent(getOutputThermal('autonomyRate') * 100), 'solSolarRateArea'),
             vk(withTCO2Y(getOutputThermal('savedCO2emissions'), 1), 'gainEnvironment'),
         );
 
