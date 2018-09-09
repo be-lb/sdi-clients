@@ -38,6 +38,7 @@ const sumInstallation =
             vk(2, 'solPanels'),
             vk(withM2(4.5, 1), 'surface'),
             vk(withLiter(300), 'solWaterStorage'),
+            vk(withYear(25), 'solInstallationLifeTime'),
         );
 
 const sumEnergy =

@@ -325,6 +325,7 @@ export type MessageKey =
     | 'solGeneralMap'
     | 'solHeatProdSys'
     | 'solHotWaterConsumption'
+    | 'solInstallationLifeTime'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
     | 'solLocatePitchStr3a'
@@ -3013,6 +3014,12 @@ export const messages: MessageDB = {
         fr: 'Taux de couverture solaire',
         nl: 'Dekkingsgraad',
         en: 'Solar rate area',
+    },
+
+    solInstallationLifeTime: {
+        fr: 'Durée de vie de l\'installation',
+        nl: 'levensduur van de installatie',
+        en: 'Installation lifetime',
     },
 
 };
