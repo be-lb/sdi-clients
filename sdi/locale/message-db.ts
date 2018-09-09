@@ -129,9 +129,13 @@ export type MessageKey =
     | 'fontSize'
     | 'fullscreen'
     | 'gainElecInvoice'
+    | 'gainElecInvoice25Y'
     | 'gainEnergyInvoice'
+    | 'gainEnergyInvoice25Y'
     | 'gainEnvironment'
+    | 'gainEnvironment25Y'
     | 'gainGreenCertif'
+    | 'gainGreenCertif25Y'
     | 'gainTotal'
     | 'gainTotal25Y'
     | 'geocode'
@@ -347,6 +351,7 @@ export type MessageKey =
     | 'solNoteConsWaterRank4'
     | 'solNoteConsWaterRank5'
     | 'solNoteConsWaterRank6'
+    | 'solOn10Years'
     | 'solOnMap'
     | 'solOptimumInstallation'
     | 'solOptimumInstallationTheoric'
@@ -412,6 +417,8 @@ export type MessageKey =
     | 'unitEuro'
     | 'unitEuroKWh'
     | 'unitEuroY'
+    | 'unitEuroY10'
+    | 'unitEuroY25'
     | 'unitKWc'
     | 'unitKWh'
     | 'unitKWhY'
@@ -421,6 +428,8 @@ export type MessageKey =
     | 'unitPercent'
     | 'unitTCO2'
     | 'unitTCO2Y'
+    | 'unitTCO2Y25'
+    | 'unitTCO2Y10'
     | 'unitYear'
     | 'unpublish'
     | 'unusable'
@@ -2041,21 +2050,38 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif: {
-        fr: 'Gain Certificats Verts (10 ans)',
-        nl: 'aanwinst groenestroomcertificaten (10 jaar)',
-        en: 'Gain Green Certificates (10 years)',
+        fr: 'Gain Certificats Verts',
+        nl: 'aanwinst groenestroomcertificaten',
+        en: 'Gain Green Certificates',
+    },
+
+    gainGreenCertif25Y: {
+        fr: 'Gain Certificats Verts sur 25 ans',
+        nl: 'aanwinst groenestroomcertificaten over 25 jaar',
+        en: 'Gain Green Certificates over 25 years',
     },
 
     gainElecInvoice: {
-        fr: 'Gain facture d\'électricité (10 ans)',
-        nl: 'Besparing op uw electiricteitsfactuur (10 jaar)',
-        en: 'Electricity bill savings (10 years)',
+        fr: 'Gain facture d\'électricité',
+        nl: 'Besparing op uw electiricteitsfactuur',
+        en: 'Electricity bill savings',
+    },
+
+    gainElecInvoice25Y: {
+        fr: 'Gain facture d\'électricité sur 25 ans',
+        nl: 'Besparing op uw electiricteitsfactuur over 25 jaar',
+        en: 'Electricity bill savings 25 years',
     },
 
     gainEnvironment: {
         fr: 'Gain environnemental',
         nl: 'Winst voor het milieu',
         en: 'Environmental gain',
+    },
+    gainEnvironment25Y: {
+        fr: 'Gain environnemental sur 25 ans',
+        nl: 'Winst voor het milieu over 25 jaar',
+        en: 'Environmental gain over 25 years',
     },
 
     orientationGreat: {
@@ -2723,6 +2749,16 @@ export const messages: MessageDB = {
         nl: '€/jaar',
         en: '€/year',
     },
+    unitEuroY10: {
+        fr: '€ / 10 ans',
+        nl: '€ / 10 jaar',
+        en: '€ / 10 years',
+    },
+    unitEuroY25: {
+        fr: '€ / 25 ans',
+        nl: '€ / 25 jaar',
+        en: '€ / 25 years',
+    },
     unitEuroKWh: {
         fr: '€/kWh',
         nl: '€/kWu',
@@ -2742,6 +2778,16 @@ export const messages: MessageDB = {
         fr: 'TCO2/an',
         nl: 'TCO2/jaar',
         en: 'TCO2/year',
+    },
+    unitTCO2Y10: {
+        fr: 'TCO2 / 10 ans',
+        nl: 'TCO2 / 10 jaar',
+        en: 'TCO2 / 10 years',
+    },
+    unitTCO2Y25: {
+        fr: 'TCO2 / 25 ans',
+        nl: 'TCO2 / 25 jaar',
+        en: 'TCO2 / 25 years',
     },
     unitYear: {
         fr: '{value, plural, =0 {an} =1 {an} other {ans}}',
@@ -2867,6 +2913,12 @@ export const messages: MessageDB = {
     },
 
     gainEnergyInvoice: {
+        fr: 'Gain facture énergétique',
+        nl: 'Besparing op uw energiefactuur',
+        en: 'Gain on energy bill',
+    },
+
+    gainEnergyInvoice25Y: {
         fr: 'Gain facture énergétique sur 25 ans',
         nl: 'Besparing op uw energiefactuur op 25 jaar',
         en: 'Gain on energy bill over 25 years',
@@ -2927,8 +2979,8 @@ export const messages: MessageDB = {
     },
 
     solDedicatedArea: {
-        fr: 'Nombre de panneaux photovoltaïques envisagé',
-        nl: 'Aantal fotovoltaïsche panelen in aanmerking genomen',
+        fr: 'Nombre de panneaux photovoltaïques envisagés',
+        nl: 'Gewenste aantal zonnepanelen',
         en: 'Number of photovoltaic panels considered',
     },
 
@@ -3020,6 +3072,12 @@ export const messages: MessageDB = {
         fr: 'Durée de vie de l\'installation',
         nl: 'levensduur van de installatie',
         en: 'Installation lifetime',
+    },
+
+    solOn10Years: {
+        fr: 'sur 10 ans',
+        nl: 'over 10 jaar',
+        en: 'over 10 years',
     },
 
 };

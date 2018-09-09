@@ -54,8 +54,8 @@ const sumFinance =
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
             vk(withEuro(getOutputPv('installationCost')), 'buyingPrice'),
-            vk(withEuro(getOutputPv('CVAmountYearN')), 'gainGreenCertif'),
-            vk(withEuro(getOutputPv('selfConsumptionAmountYearN')), 'gainElecInvoice'),
+            vk(withEuro(getOutputPv('CVAmountYearN')), 'gainGreenCertif25Y'),
+            vk(withEuro(getOutputPv('selfConsumptionAmountYearN')), 'gainElecInvoice25Y'),
             vk(withEuro(getOutputPv('totalGain25Y')), 'gainTotal25Y'),
             vk(withYear(getOutputPv('returnTime')), 'returnTime'));
 

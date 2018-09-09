@@ -179,9 +179,13 @@ const withUnit =
 
 export const withEuro = withUnit('unitEuro');
 export const withEuroY = withUnit('unitEuroY');
+export const withEuroY10 = withUnit('unitEuroY10');
+export const withEuroY25 = withUnit('unitEuroY25');
 export const withKWc = withUnit('unitKWc');
-export const withTCO2Y = withUnit('unitTCO2Y');
 export const withTCO2 = withUnit('unitTCO2');
+export const withTCO2Y = withUnit('unitTCO2Y');
+export const withTCO2Y10 = withUnit('unitTCO2Y10');
+export const withTCO2Y25 = withUnit('unitTCO2Y25');
 export const withYear = withUnit('unitYear');
 export const withM2 = withUnit('unitM2');
 export const withPercent = withUnit('unitPercent');
