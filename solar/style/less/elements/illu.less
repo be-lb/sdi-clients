@@ -36,6 +36,16 @@
 
             img {width: 100%;}
         }
+
+        // quick fix because of Safari
+        .ol-viewport {
+            position: absolute !important;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: @illuW-mob;
+        }
     }
 }
 
