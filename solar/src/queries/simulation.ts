@@ -26,7 +26,8 @@ import { getFeatureProp } from 'sdi/source';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust';
 import { identity } from 'fp-ts/lib/function';
-import { outputs, inputs, thermicOutputs, PVTechnologyEnum, PV_YIELD } from 'solar-sim';
+import { outputs, inputs, thermicOutputs, PVTechnologyEnum, PV_YIELD, thermicHotWaterProducerEnum } from 'solar-sim';
+import { MessageKey } from 'sdi/locale/message-db';
 
 
 const logger = debug('sdi:simulation');
@@ -53,6 +54,19 @@ export const tags = {
     great: [PROD_THESH_HIGH, Number.MAX_VALUE],
     good: [PROD_THESH_MEDIUM, PROD_THESH_HIGH],
     unusable: [0, PROD_THESH_MEDIUM],
+};
+
+
+export const pvTechnologyLabels: { [k in PVTechnologyEnum]: MessageKey } = {
+    poly: 'polycristal',
+    mono: 'monocristal',
+    mono_high: 'monocristalHR',
+};
+
+export const thermalTechnologyLabels: { [k in thermicHotWaterProducerEnum]: MessageKey } = {
+    electric: 'solElectricBoiler',
+    fuel: 'solMazout',
+    gas: 'solGaz',
 };
 
 export type Tag = keyof typeof tags;
@@ -83,7 +97,7 @@ export const totalArea =
         .fold(
             0,
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
-    );
+        );
 
 // const areaIrradiance =
 //     (low: number, high: number) =>
@@ -118,7 +132,7 @@ const areaProductivity =
 
                     return catArea * 100 / ta;
                 },
-        );
+            );
 
 
 
@@ -173,8 +187,12 @@ export const annualConsumption =
 export const pvTechnology =
     () => queryInputs()['pvTechnology'];
 
+export const pvTechnologyLabel =
+    () => pvTechnologyLabels[queryInputs()['pvTechnology']];
+
 export const thermicTechnology =
     () => queryInputs()['thermicHotWaterProducer'];
+
 
 
 export const getObstacle =

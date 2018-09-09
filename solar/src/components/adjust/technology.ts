@@ -3,17 +3,12 @@ import { fromPredicate } from 'fp-ts/lib/Option';
 
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { MessageKey } from 'sdi/locale/message-db';
 
 import { inputSelect } from '../item-factory';
-import { pvTechnology } from '../../queries/simulation';
+import { pvTechnology, pvTechnologyLabels } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
-const technologyLabels: { [k in PVTechnologyEnum]: MessageKey } = {
-    poly: 'polycristal',
-    mono: 'monocristal',
-    mono_high: 'monocristalHR',
-};
+
 const technologies: PVTechnologyEnum[] = ['poly', 'mono', 'mono_high'];
 
 const icon =
@@ -38,7 +33,7 @@ const renderSelect =
         const checkBox = inputSelect(pvTechnology, setInputF('pvTechnology'));
         return DIV({ className: 'wrapper-multi-checkbox' },
             DIV({ className: 'multi-checkbox-label' }, tr('technoType') + ' : '),
-            DIV({}, ...technologies.map(t => checkBox(technologyLabels[t], t))));
+            DIV({}, ...technologies.map(t => checkBox(pvTechnologyLabels[t], t))));
     };
 
 export const calcTechnology =
