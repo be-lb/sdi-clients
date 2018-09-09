@@ -5,7 +5,7 @@ import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear
 
 import { toggle } from '../item-factory';
 
-import { getSystem, streetName, streetNumber, locality, getOutputThermal } from '../../queries/simulation';
+import { getSystem, streetName, streetNumber, locality, getOutputThermal, getInputF } from '../../queries/simulation';
 import { setSystem } from '../../events/simulation';
 
 
@@ -36,7 +36,7 @@ const sumInstallation =
         DIV({ className: 'sum-installation-wrapper' },
             H2({}, tr('installation')),
             vk(2, 'solPanels'),
-            vk(withM2(4.5), 'surface'),
+            vk(withM2(4.5, 1), 'surface'),
             vk(withLiter(300), 'solWaterStorage'),
         );
 
@@ -44,10 +44,10 @@ const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk(withKWhY(0), 'solSolarProdYear'),
-            vk(withKWhY(0), 'solSolarConsumptionYear'),
+            vk(withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'),
+            vk(withKWhY(getInputF('thermicLiterByDay')() * 365), 'solSolarConsumptionYear'),
             vk(withPercent(0), 'solSolarRateArea'),
-            vk(withTCO2Y(0), 'gainEnvironment'),
+            vk(withTCO2Y(getOutputThermal('savedCO2emissions'), 1), 'gainEnvironment'),
         );
 
 const sumFinance =
@@ -57,7 +57,7 @@ const sumFinance =
             vk(withEuro(getOutputThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getOutputThermal('grant')), 'bonus'),
             vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice'),
-            vk(withYear(0), 'returnTime'),
+            vk(withYear(getOutputThermal('returnTime')), 'returnTime'),
         );
 
 
