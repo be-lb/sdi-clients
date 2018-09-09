@@ -1,6 +1,8 @@
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { getInputF } from '../../queries/simulation';
+import { withPercent } from 'sdi/util';
+
+import { getInputF, getOutputPv } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
@@ -84,6 +86,14 @@ const selectWidget =
         );
 
 
+const info =
+    () =>
+        DIV({ className: 'autoproduction-select-value' },
+            tr('solarAutonomy'),
+            ' ',
+            withPercent(getOutputPv('autonomy') * 100),
+        );
+
 const notes =
     () =>
         DIV({ className: 'adjust-item-note' },
@@ -101,7 +111,9 @@ export const calcAutoproduction =
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 DIV({ className: 'adjust-picto picto-solar-energy' })),
             DIV({ className: 'adjust-item-widget' },
-                selectWidget()),
+                selectWidget(),
+                info()),
+
             notes(),
         );
 
