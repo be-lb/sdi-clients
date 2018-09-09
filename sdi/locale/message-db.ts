@@ -2866,9 +2866,9 @@ export const messages: MessageDB = {
     },
 
     gainEnergyInvoice: {
-        fr: 'Gain facture énergétique',
-        nl: 'Energierekening winnen',
-        en: 'Gain energy bill',
+        fr: 'Gain facture énergétique sur 25 ans',
+        nl: 'Besparing op uw energiefactuur op 25 jaar',
+        en: 'Gain on energy bill over 25 years',
     },
 
     bonus: {
@@ -2987,31 +2987,31 @@ export const messages: MessageDB = {
 
     solWaterStorage: {
         fr: 'Ballon de stockage',
-        nl: '',
+        nl: 'Boiler',
         en: 'Storage device',
     },
 
     solPanels: {
         fr: 'Panneaux',
-        nl: '',
+        nl: 'zonnecollectoren',
         en: 'Panels',
     },
 
     solSolarProdYear: {
-        fr: 'Production solaire annuelle',
-        nl: '',
+        fr: 'Production solaire',
+        nl: 'Zonnewarmte productie',
         en: 'Yearly solar production',
     },
 
     solSolarConsumptionYear: {
-        fr: 'Consommation d\'énergie annuelle - eau chaude',
-        nl: '',
-        en: 'Yearly energy consumption - hot water',
+        fr: 'Consommation d\'énergie annuelle',
+        nl: 'jaarlijks energieverbruik',
+        en: 'Yearly energy consumption',
     },
 
     solSolarRateArea: {
         fr: 'Taux de couverture solaire',
-        nl: '',
+        nl: 'Dekkingsgraad',
         en: 'Solar rate area',
     },
 
