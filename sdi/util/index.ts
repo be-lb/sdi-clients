@@ -187,3 +187,5 @@ export const withM2 = withUnit('unitM2');
 export const withPercent = withUnit('unitPercent');
 export const withKWh = withUnit('unitKWh');
 export const withKWhY = withUnit('unitKWhY');
+export const withLiter = withUnit('unitLiter');
+export const withLiterDay = withUnit('unitLiterDay');

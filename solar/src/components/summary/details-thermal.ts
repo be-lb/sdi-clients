@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro } from 'sdi/util';
+import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
 
 import { toggle } from '../item-factory';
 
@@ -31,14 +31,44 @@ const sumAdress =
                 SPAN({}, ` ${locality()}`)));
 
 
-const infosThermal =
+const sumInstallation =
     () =>
-        DIV({ className: 'infos-thermal-wrapper' },
-            H2({}, tr('solThermal')),
+        DIV({ className: 'sum-installation-wrapper' },
+            H2({}, tr('installation')),
+            vk(2, 'solPanels'),
+            vk(withM2(4.5), 'surface'),
+            vk(withLiter(300), 'solWaterStorage'),
+        );
+
+const sumEnergy =
+    () =>
+        DIV({ className: 'sum-energy-wrapper' },
+            H2({}, tr('energy')),
+            vk(withKWhY(0), 'solSolarProdYear'),
+            vk(withKWhY(0), 'solSolarConsumptionYear'),
+            vk(withPercent(0), 'solSolarRateArea'),
+            vk(withTCO2Y(0), 'gainEnvironment'),
+        );
+
+const sumFinance =
+    () =>
+        DIV({ className: 'sum-finance-wrapper' },
+            H2({}, tr('finance')),
             vk(withEuro(getOutputThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getOutputThermal('grant')), 'bonus'),
             vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice'),
-            // vk(withTCO2Y(getOutputThermal('')), 'gainEnvironment', 'gain-env'),
+            vk(withYear(0), 'returnTime'),
+        );
+
+
+
+
+const infosThermal =
+    () =>
+        DIV({ className: 'infos-thermal-wrapper' },
+            sumInstallation(),
+            sumEnergy(),
+            sumFinance(),
         );
 
 

@@ -350,6 +350,7 @@ export type MessageKey =
     | 'solOptimumInstallation'
     | 'solOptimumInstallationTheoric'
     | 'solOrSelectBuilding'
+    | 'solPanels'
     | 'solPellet'
     | 'solPhotovoltaic'
     | 'solPrintStr1'
@@ -357,14 +358,18 @@ export type MessageKey =
     | 'solResearch'
     | 'solSearchAnotherAdress'
     | 'solSelectedPannels'
+    | 'solSolarConsumptionYear'
     | 'solSolarGeocode'
     | 'solSolarPotential'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
+    | 'solSolarProdYear'
+    | 'solSolarRateArea'
     | 'solThermal'
     | 'solVAT0'
     | 'solVAT21'
     | 'solVAT6'
+    | 'solWaterStorage'
     | 'space'
     | 'start'
     | 'startDate'
@@ -409,6 +414,7 @@ export type MessageKey =
     | 'unitKWc'
     | 'unitKWh'
     | 'unitKWhY'
+    | 'unitLiter'
     | 'unitLiterDay'
     | 'unitM2'
     | 'unitPercent'
@@ -2769,6 +2775,11 @@ export const messages: MessageDB = {
         nl: 'l/dag',
         en: 'l/day',
     },
+    unitLiter: {
+        fr: 'l',
+        nl: 'l',
+        en: 'l',
+    },
 
     solNoteConsRank1: {
         fr: 'Petit consommateur (studio/appartement avec éclairage, réfrigérateur etc.)',
@@ -2972,6 +2983,36 @@ export const messages: MessageDB = {
         fr: 'Nous sommes désolés mais nous n\'avons trouvé aucune configuration rentable pour l\'installation de panneaux solaire pour cette toiture',
         nl: 'Het spijt ons maar we hebben geen kosteneffectieve set-up gevonden voor het installeren van zonnepanelen voor dit dak',
         en: 'We are sorry but we did not find any cost-effective setup for installing solar panels for this roof',
+    },
+
+    solWaterStorage: {
+        fr: 'Ballon de stockage',
+        nl: '',
+        en: 'Storage device',
+    },
+
+    solPanels: {
+        fr: 'Panneaux',
+        nl: '',
+        en: 'Panels',
+    },
+
+    solSolarProdYear: {
+        fr: 'Production solaire annuelle',
+        nl: '',
+        en: 'Yearly solar production',
+    },
+
+    solSolarConsumptionYear: {
+        fr: 'Consommation d\'énergie annuelle - eau chaude',
+        nl: '',
+        en: 'Yearly energy consumption - hot water',
+    },
+
+    solSolarRateArea: {
+        fr: 'Taux de couverture solaire',
+        nl: '',
+        en: 'Solar rate area',
     },
 
 };
