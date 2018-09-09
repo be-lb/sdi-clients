@@ -4,7 +4,15 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import { toggle } from '../item-factory';
-import { getSystem, getOutputPv, streetName, streetNumber, locality } from '../../queries/simulation';
+import {
+    getOutputPv,
+    getPanelUnits,
+    getSystem,
+    locality,
+    pvTechnologyLabel,
+    streetName,
+    streetNumber,
+} from '../../queries/simulation';
 import { clearInputs, setSystem } from '../../events/simulation';
 
 
@@ -18,6 +26,12 @@ const vk =
         DIV({ className: `vk ${vkClass}` },
             SPAN({ className: 'value' }, `${v}`),
             SPAN({ className: 'key' }, tr(key)));
+
+const vks =
+    <T>(v: T, key: string, vkClass = '') =>
+        DIV({ className: `vk ${vkClass}` },
+            SPAN({ className: 'value' }, `${v}`),
+            SPAN({ className: 'key' }, key));
 
 
 export const sumAdress =
@@ -35,6 +49,7 @@ const sumInstallation =
             H2({}, tr('installation')),
             vk(withM2(getOutputPv('maxArea')), 'surface'),
             vk(withKWc(getOutputPv('power'), 1), 'power'),
+            vks(getPanelUnits(), `${tr('solPanels')} (${tr(pvTechnologyLabel())})`),
             vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
             vk(withYear(25), 'solInstallationLifeTime'),
         );

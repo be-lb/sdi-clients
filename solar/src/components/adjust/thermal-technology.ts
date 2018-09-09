@@ -5,15 +5,10 @@ import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { inputSelect } from '../item-factory';
-import { thermicTechnology } from '../../queries/simulation';
+import { thermicTechnology, thermalTechnologyLabels } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
-import { MessageKey } from 'sdi/locale/message-db';
 
-const technologyLabels: { [k in thermicHotWaterProducerEnum]: MessageKey } = {
-    electric: 'solElectricBoiler',
-    fuel: 'solMazout',
-    gas: 'solGaz',
-};
+
 const technologies: thermicHotWaterProducerEnum[] = ['electric', 'fuel', 'gas'];
 
 const icon =
@@ -38,7 +33,7 @@ const renderSelect =
         const checkBox = inputSelect(thermicTechnology, setInputF('thermicHotWaterProducer'));
         return DIV({ className: 'wrapper-multi-checkbox' },
             DIV({ className: 'multi-checkbox-label' }, tr('solHeatProdSys') + ' : '),
-            DIV({}, ...technologies.map(t => checkBox(technologyLabels[t], t))));
+            DIV({}, ...technologies.map(t => checkBox(thermalTechnologyLabels[t], t))));
     };
 
 export const calcTechnologyThermal =
