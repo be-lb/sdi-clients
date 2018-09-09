@@ -32,7 +32,10 @@ const sumAdress =
 
 const sumPotentialLabel =
     () =>
-        DIV({ className: 'potential-label' }, tr('solSolarPotential'));
+        DIV({ className: 'potential-label' },
+            DIV({}, tr('solSolarPotential')),
+            DIV({}, tr('solOn10Years')),
+        );
 
 
 const sumPotentialValues =
