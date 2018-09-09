@@ -87,6 +87,7 @@ export const updateRoofs =
                         irradiance: (getFeatureProp(f, 'irradiance', 0) / 1000),
                         productivity: getFeatureProp(f, 'productivity', 0),
                         tilt: getFeatureProp(f, 'tilt', 35),
+                        azimuth: getFeatureProp(f, 'azimuth', 180),
                     };
                 }),
             };
