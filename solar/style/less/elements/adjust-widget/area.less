@@ -10,9 +10,12 @@
         .select-item {
             position: absolute;
             background-size: @roundedW / 5 * 3;
-            background-image: url("../../../asset/svg/solarpanel.svg");
             background-position: calc(~"100% - @{margin}");
             &:first-child { background-position: center;}
+
+            &:first-child {
+                background-image: url("../../../asset/svg/solarpanel.svg");
+            }
 
             &.selected {
                 border: 2px solid #fff !important;
@@ -20,10 +23,11 @@
             }
 
             &.over{
-                background-image: url("../../../asset/svg/sun.svg");
                 background-color: transparent;
+                // background-image: none; // no icons for each on mobile
 
                 &.last {
+                    background-image: url("../../../asset/svg/sun.svg");
                     background-color: @yellow;
                     border: 2px solid #fff !important;
                 }
@@ -97,5 +101,17 @@
         }
 
     }
+}
 
+
+@media @medium {
+
+    .area {
+
+        .select-item {            background-image: url("../../../asset/svg/solarpanel.svg");
+}
+        .select-item.over {
+            background-image: url("../../../asset/svg/sun.svg");
+        }
+    }
 }
