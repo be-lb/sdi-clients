@@ -2275,9 +2275,9 @@ export const messages: MessageDB = {
     },
 
     technoType: {
-        fr: 'Type de technologie',
-        nl: 'Type technologie',
-        en: 'Technologie type',
+        fr: 'Type de technologie photovoltaïque',
+        nl: 'Type fotovoltaïsche technologie',
+        en: 'Photovoltaic technologie type',
     },
 
     monocristal: {
@@ -2979,9 +2979,9 @@ export const messages: MessageDB = {
     },
 
     solDedicatedArea: {
-        fr: 'Nombre de panneaux photovoltaïques envisagés',
+        fr: 'Nombre de panneaux solaires envisagés',
         nl: 'Gewenste aantal zonnepanelen',
-        en: 'Number of photovoltaic panels considered',
+        en: 'Number of solar panels considered',
     },
 
     solFinanceCost: {
