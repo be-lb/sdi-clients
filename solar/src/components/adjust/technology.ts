@@ -24,7 +24,7 @@ const titleAndPicto =
         technologies.map(condTech).forEach(i => i.map(t => icons.push(icon(t))));
         return DIV({ className: 'adjust-item-header' },
             DIV({ className: 'adjust-item-title' },
-                '2. ' + tr('technology')), ...icons);
+                '2. ' + tr('technoType')), ...icons);
     };
 
 
@@ -32,7 +32,6 @@ const renderSelect =
     () => {
         const checkBox = inputSelect(pvTechnology, setInputF('pvTechnology'));
         return DIV({ className: 'wrapper-multi-checkbox' },
-            DIV({ className: 'multi-checkbox-label' }, tr('technoType') + ' : '),
             DIV({}, ...technologies.map(t => checkBox(pvTechnologyLabels[t], t))));
     };
 

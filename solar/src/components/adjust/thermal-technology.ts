@@ -24,7 +24,7 @@ const titleAndPicto =
         technologies.map(condTech).forEach(i => i.map(t => icons.push(icon(t))));
         return DIV({ className: 'adjust-item-header' },
             DIV({ className: 'adjust-item-title' },
-                '1. ' + tr('technology')), ...icons);
+                '1. ' + tr('solHeatProdSys')), ...icons);
     };
 
 
@@ -32,7 +32,6 @@ const renderSelect =
     () => {
         const checkBox = inputSelect(thermicTechnology, setInputF('thermicHotWaterProducer'));
         return DIV({ className: 'wrapper-multi-checkbox' },
-            DIV({ className: 'multi-checkbox-label' }, tr('solHeatProdSys') + ' : '),
             DIV({}, ...technologies.map(t => checkBox(thermalTechnologyLabels[t], t))));
     };
 

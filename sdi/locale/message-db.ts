@@ -2955,7 +2955,7 @@ export const messages: MessageDB = {
     },
 
     solHeatProdSys: {
-        fr: 'système actuel de production d\'eau chaude',
+        fr: 'Système actuel de production d\'eau chaude',
         nl: 'Actuele warmwaterproductie',
         en: 'Current hot water production system',
     },
