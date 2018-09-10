@@ -157,40 +157,30 @@ input[type="number"] {
     cursor: default;
     margin: 0;
     margin-right: 1em;
-    
-    &:last-child{margin-right: 0;}
+    margin-bottom: @margin / 2;
+    &:last-child{margin: 0;}
 
     .checkbox {
-        .awsomefont;
         position: relative;
-        font-size: 1em;
+        flex-shrink: 0;
         width : 1em;
         height: 1em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         margin-right: 0.3em;
+        border: 1px solid #000;
+        border-radius: 10px;
 
-        &:before {
-            .absolute(0,0,0,0);
-            content: @fa-var-circle-thin;
-            width : 1em;
-            height: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        &::before {content: ' ';} // overide SDI checkbox
     }
 
-    &:hover .checkbox:after,
-    .checkbox.active:after {
+    &:hover .checkbox:before,
+    .checkbox.active:before {
         .absolute(0,0,0,0);
-        content: @fa-var-circle;
-        color: @green;
-        font-size: 0.5em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        content: ' ';
+        flex-shrink: 0;
+        background-color: @green;
+        border-radius: 10px;
+        border: 3px solid #fff;
+        margin: 0;
     }
 }
 

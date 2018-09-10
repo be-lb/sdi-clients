@@ -12,19 +12,20 @@ const vatSelect = inputSelect(getNumInputF('VATrate'), setInputF('VATrate'));
 const expenses =
     () =>
         DIV({ className: 'cost' },
-            // vertInputItem('installationPrice', 'installationPrice',
-            //     SPAN({ className: 'unit' }, tr('unitEuro'))),
             DIV({ className: 'vat-installation' },
                 DIV({ className: 'wrapper-multi-checkbox' },
                     vatSelect('solVAT21', 0.21),
                     vatSelect('solVAT6', 0.06),
-                    vatSelect('solVAT0', 0)),
-                // vatSelect('VATinstallation', getNumInputF('VATrate')()),
-            ),
-            DIV({ className: 'input-box-vertical' },
-                DIV({ className: 'input-and-unit' }, SPAN({}, withEuro(getOutputPv('installationCost')))),
-                DIV({ className: 'input-label' }, tr('installationPrice'))),
-            // vertInputItem('annualMaintenance')
+                    vatSelect('solVAT0', 0))),
+        );
+
+
+const costValue =
+    () =>
+        DIV({ className: 'cost-value' },
+            SPAN({}, tr('installationPrice')),
+            SPAN({}, ' : '),
+            SPAN({}, withEuro(getOutputPv('installationCost'))),
         );
 
 
@@ -36,7 +37,8 @@ export const calcFinanceCost =
                 DIV({ className: 'adjust-item-title' }, '6. ' + tr('solFinanceVAT')),
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
-                expenses()));
+                expenses(),
+                costValue()));
 
 
 
