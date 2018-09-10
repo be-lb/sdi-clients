@@ -87,6 +87,7 @@ export const updateRoofs =
                         irradiance: (getFeatureProp(f, 'irradiance', 0) / 1000),
                         productivity: getFeatureProp(f, 'productivity', 0),
                         tilt: getFeatureProp(f, 'tilt', 35),
+                        azimuth: getFeatureProp(f, 'azimuth', 180),
                     };
                 }),
             };
@@ -164,10 +165,22 @@ export const setObstacle =
         dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
     };
 
-export const clearPerspective =
-    () => dispatch('solar/perspective', () => null);
 
-export const setPerspective =
-    (p: Camera) => dispatch('solar/perspective', () => p);
+export const clearPerspective =
+    () => {
+        dispatch('solar/perspective/camera', () => null);
+        dispatch('solar/perspective/src', () => null);
+    };
+
+
+export const setPerspectiveCamera =
+    (p: Camera) => dispatch('solar/perspective/camera', () => p);
+
+
+export const setPerspectiveSrc =
+    (p: string) => dispatch('solar/perspective/src', () => p);
+
+observe('solar/data/roofs',
+    () => dispatch('solar/perspective/src', () => null));
 
 logger('loaded');

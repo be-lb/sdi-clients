@@ -5,8 +5,14 @@ import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear
 
 import { toggle } from '../item-factory';
 
-import { getSystem, streetName, streetNumber, locality, getOutputThermal, getInputF } from '../../queries/simulation';
-import { setSystem } from '../../events/simulation';
+import {
+    getSystem,
+    streetName,
+    streetNumber,
+    locality,
+    getOutputThermal,
+} from '../../queries/simulation';
+import { setSystem, clearInputs } from '../../events/simulation';
 
 
 const toggleSystem = toggle(
@@ -46,8 +52,8 @@ const sumEnergy =
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
             vk(withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'),
-            vk(withKWhY(getInputF('thermicLiterByDay')() * 365), 'solSolarConsumptionYear'),
-            vk(withPercent(0), 'solSolarRateArea'),
+            vk(withKWhY(getOutputThermal('annualConsumption')), 'solSolarConsumptionYear'),
+            vk(withPercent(getOutputThermal('autonomyRate') * 100), 'solSolarRateArea'),
             vk(withTCO2Y(getOutputThermal('savedCO2emissions'), 1), 'gainEnvironment'),
         );
 
@@ -81,7 +87,10 @@ export const summaryDetailedThermal =
             sumAdress(),
             toggleSystem('solPhotovoltaic', 'solThermal'),
             infosThermal(),
-            DIV({ className: 'btn-reset' }, tr('resetValue')),
+            DIV({
+                className: 'btn-reset',
+                onClick: () => clearInputs(),
+            }, tr('resetValue')),
         );
 
 

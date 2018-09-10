@@ -5,8 +5,9 @@ import { vec3, vec2 } from 'gl-matrix';
 
 import { FeatureCollection, Feature, Properties } from 'sdi/source';
 import { Option, none, some } from 'fp-ts/lib/Option';
-import { Tag } from '../../queries/simulation';
+import { Tag, getPerpectiveSrc } from '../../queries/simulation';
 import { Camera, getTranformFunction, Transform } from './mat';
+import { setPerspectiveSrc } from '../../events/simulation';
 
 
 const logger = debug('sdi:solar/perspective');
@@ -145,7 +146,7 @@ function drawLineRingCoord(ctx: CanvasRenderingContext2D, finalizer: Finalizer, 
 //     return p.map(lr => drawLineRingCoord(ctx, finalizer, lr));
 // }
 
-export function perspective(
+function drawPerspective(
     cam: Camera,
     buildings: FeatureCollection,
     roofs: FeatureCollection,
@@ -229,19 +230,20 @@ export function perspective(
             };
         renderFrame(context);
         const pers = canvas.toDataURL();
+        setPerspectiveSrc(pers);
         return some(pers);
     }
     return none;
 }
 
 
-// export function perspective(
-//     cam: Camera,
-//     buildings: FeatureCollection,
-//     roofs: FeatureCollection,
-// ): Option<string> {
-//     return getPerpective().foldL(() => drawPerspective(cam, buildings, roofs), p => some(p));
-// }
+export function perspective(
+    cam: Camera,
+    buildings: FeatureCollection,
+    roofs: FeatureCollection,
+): Option<string> {
+    return getPerpectiveSrc().foldL(() => drawPerspective(cam, buildings, roofs), p => some(p));
+}
 
 
 logger('loaded');

@@ -48,7 +48,7 @@ export const potential = () => tr('solSolarPotentialExcellent');
 const roofs = queryK('solar/data/roofs');
 const buildings = queryK('solar/data/buildings');
 
-export const PROD_THESH_HIGH = 1200;
+export const PROD_THESH_HIGH = 1100;
 export const PROD_THESH_MEDIUM = 800;
 export const tags = {
     great: [PROD_THESH_HIGH, Number.MAX_VALUE],
@@ -279,7 +279,11 @@ export const getLoading =
     };
 
 
-export const getPerpective =
-    () => fromNullable(query('solar/perspective'));
+export const getPerpectiveCamera =
+    () => fromNullable(query('solar/perspective/camera'));
+
+
+export const getPerpectiveSrc =
+    () => fromNullable(query('solar/perspective/src'));
 
 logger('loaded');
