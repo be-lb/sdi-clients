@@ -79,9 +79,6 @@
 }
 
 .obstacle-icon {
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
 
     &.icon-velux {
         background-image: url("../../../asset/svg/velux.svg");
@@ -118,17 +115,18 @@
 }
 
 .obstacle-graphic {
-    display: flex;
+    display: inline;
 
     &-item {
-        display: flex;
-        flex-wrap: wrap;
+        display: inline;
     }
+}
+
+.adjust-item-widget {
     .obstacle-icon {
-        width: 2em;
-        height: 1.2em;
-        margin-right: -0.7em;
-        margin-top: -.1em;
+        background-position: center;
+        background-size: 60%;
+        background-repeat: no-repeat;
     }
 }
 

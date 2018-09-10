@@ -95,7 +95,7 @@ export const renderGraphics =
             const n = getObstacle(cat);
             if (n > 0) {
                 return DIV({ className: 'obstacle-graphic-item' },
-                    ...(Array(n).fill(DIV({ className: `obstacle-icon ${icons[cat]}` }))));
+                    ...(Array(n).fill(DIV({ className: `adjust-picto obstacle-icon ${icons[cat]}` }))));
             }
             return NODISPLAY();
         });
