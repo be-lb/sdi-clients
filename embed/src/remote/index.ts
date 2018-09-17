@@ -14,6 +14,8 @@ import {
     IMapBaseLayer,
     IMapBaseLayerIO,
     fetchWithoutValidationIO,
+    IAliasCollection,
+    IAliasCollectionIO,
 } from 'sdi/source';
 
 
@@ -33,6 +35,9 @@ export const fetchBaseLayer =
 export const fetchDatasetMetadata =
     (url: string): Promise<Inspire> =>
         fetchIO(InspireIO, url);
+
+export const fetchAlias =
+    (url: string): Promise<IAliasCollection> => fetchIO(IAliasCollectionIO, url);
 
 export const fetchLayer =
     (url: string): Promise<FeatureCollection> =>

@@ -4,7 +4,7 @@ import * as debug from 'debug';
 import { DIV } from 'sdi/components/elements';
 import { loop, getApiUrl } from 'sdi/app';
 
-import { initMap, loadBaseLayer } from './events/app';
+import { initMap, loadBaseLayer, loadAlias } from './events/app';
 
 import map from './components/map';
 import legend from './components/legend';
@@ -46,6 +46,7 @@ const effects =
     () => {
         baseLayers.forEach(id =>
             loadBaseLayer(id, getApiUrl(`wmsconfig/${id}`)));
+        loadAlias(getApiUrl('alias'));
         initMap();
     };
 

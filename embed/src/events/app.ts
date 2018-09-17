@@ -7,7 +7,7 @@ import { getApiUrl } from 'sdi/app';
 import { IMapInfo, getMessageRecord, Inspire, ILayerInfo } from 'sdi/source';
 import { removeLayerAll, addLayer } from 'sdi/map';
 
-import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer, fetchBaseLayer } from '../remote';
+import { fetchUser, fetchMap, fetchDatasetMetadata, fetchLayer, fetchBaseLayer, fetchAlias } from '../remote';
 import { viewEvents } from './map';
 import { AppLayout } from '../shape';
 
@@ -114,6 +114,14 @@ const loadMetadata =
                 });
         });
     };
+
+export const loadAlias =
+    (url: string) =>
+        fetchAlias(url)
+            .then((alias) => {
+                dispatch('data/alias', () => alias);
+            });
+
 
 const loadMap =
     (mid: string) =>
