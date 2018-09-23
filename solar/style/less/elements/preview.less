@@ -1,3 +1,50 @@
+
+.lower-part {
+
+    .action-header{
+        padding: @margin / 2 0;
+    }
+
+    .action-title {
+        font-size: @big-font * 0.8;
+        font-weight: 700;
+        color: @green;
+    }
+
+    .settings-link-wrapper {
+        position: relative;
+        width: @sidebarW;
+        height: @medium-font * 2;
+        background: @yellow;
+        border: 1px solid #333;
+        border-radius: 2em;
+
+        .settings-link {
+                .absolute(0,0,0,0);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 2em;
+                border: 2px solid @yellow;;
+                font-size: @medium-font;
+                color: #000;
+                text-align: center;
+                cursor: default;
+            }
+
+        &:hover  { 
+            background-color: @green;
+            
+            .settings-link {
+                border: 2px solid #fff;
+                background-color: @green;
+            }
+
+            
+        }
+    }
+}
+
 @media @big {
 
     .main-splitted-height {
@@ -6,20 +53,31 @@
         .upper-part {
             display: flex;
 
-            .context, .summary {
-                border-top: 1px solid #000;
-                border-bottom: 1px solid #000;
-            }
-
             .context {
                 width: @contextW;
                 flex-shrink: 0;
                 margin-right: @margin;
                 padding: @margin*2 0;
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
             }
             .summary {
-                padding: @margin 0;
+                padding-top: @margin;
                 width: @sidebarW;
+                border-top: 1px solid #000;
+            }
+        }
+
+        .lower-part {
+            .action-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .action-title {
+                    width: @illuW;
+                    text-align: center;
+                }
             }
         }
     }

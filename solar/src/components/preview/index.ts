@@ -2,17 +2,17 @@ import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
-import { actionSettings, actionContact, actionChange, actionPrint } from '../action';
+import { actionContact, actionChange, actionPrint } from '../action';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
 import { sumAdress } from '../summary/details-pv';
-
+import { navigateDetail } from '../../events/route';
+import { getCapakey } from '../../queries/app';
 
 const action =
     () =>
         DIV({ className: 'actions' },
-            actionSettings(),
             actionContact(),
             actionChange(),
             actionPrint());
@@ -26,6 +26,18 @@ const summary =
         }
     };
 
+const goToSettings =
+    () => DIV({
+        className: 'settings-link-wrapper',
+        onClick: () => getCapakey().map(navigateDetail),
+    },
+        DIV({ className: 'settings-link' },
+            tr('solAdjustStr1'),
+            ' ',
+            tr('solAdjustStr2')),
+    );
+
+
 const renderPreview =
     () =>
         DIV({ className: 'main-splitted-height' },
@@ -33,7 +45,10 @@ const renderPreview =
                 context(),
                 summary()),
             DIV({ className: 'lower-part' },
-                DIV({ className: 'action-title' }, tr('solAndNow')),
+                DIV({ className: 'action-header' },
+                    DIV({ className: 'action-title' }, tr('solAndNow')),
+                    goToSettings(),
+                ),
                 action(),
             ));
 

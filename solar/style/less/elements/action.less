@@ -6,15 +6,7 @@
     padding-top: 2 * @margin;
 }
 
-.action-title {
-    font-size: @big-font * 0.8;
-    font-weight: 700;
-    color: @green;
-    margin-top: @margin;
-}
-
 .actions {
-    margin-top: @margin;
 
     > div {
         flex: 1;
@@ -51,7 +43,6 @@
         //     margin-top: @margin / 2;
         // }
 
-        &.action-settings::before {content: @fa-var-pencil;}
         &.action-contact::before {content: @fa-var-wrench;}
         &.action-change::before {content: @fa-var-lightbulb-o;}
         &.action-print::before {content: @fa-var-thumb-tack;}
@@ -95,16 +86,6 @@
                 border-radius: @roundedW;
                 font-size: @roundedW / 2;
             }
-
-            // .action-info {
-            //     font-size: @small-font;
-            // }
-            //
-            // .action-info .pdf {
-            //     width: @roundedW;
-            //     height: @roundedW;
-            // }
-
         }
     }
 }
