@@ -106,7 +106,7 @@ input[type="number"] {
     cursor: default;
     height: @toggleH;
     border-radius: @toggleH;
-    background-color: @blue;
+    background-color: @grey;
     width: 100%;
     flex-wrap: nowrap;
 
@@ -121,7 +121,6 @@ input[type="number"] {
         align-items: center;
         text-align: center;
         justify-content: center;
-        // padding: 0 @margin;
 
         &:first-child {
             margin-right: @margin;
@@ -129,14 +128,12 @@ input[type="number"] {
     }
 
     .value.inactive {
-        color: @extra-light-grey;
         border: 2px solid transparent;
         background-color: transparent;
 
         &:hover {
-            color: #000;
-            border: 2px solid @blue;
-            background:@yellow;
+            border: 2px solid @grey;
+            background-color: @light-grey;
         }
     }
 }
