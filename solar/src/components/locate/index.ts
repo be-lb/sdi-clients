@@ -1,7 +1,7 @@
 
 import * as debug from 'debug';
 
-import { DIV, SPAN, INPUT } from 'sdi/components/elements';
+import { DIV, SPAN, INPUT, H1 } from 'sdi/components/elements';
 import { isENTER } from 'sdi/components/keycodes';
 import tr from 'sdi/locale';
 
@@ -84,7 +84,9 @@ const renderGeocoderResults =
 
 const renderGeocoderResultsWrapper =
     (...n: React.ReactNode[]) =>
-        DIV({ className: 'geocoder-wrapper' }, ...n);
+        DIV({ className: 'geocoder-wrapper' },
+            H1({}, tr('searchResult')),
+            ...n);
 
 const renderGeocoder =
     (): React.ReactNode[] =>

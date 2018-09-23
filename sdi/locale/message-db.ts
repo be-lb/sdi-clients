@@ -276,6 +276,7 @@ export type MessageKey =
     | 'saving'
     | 'search'
     | 'searchAtlas'
+    | 'searchResult'
     | 'selectLayer'
     | 'sellingGreenCertifPrice'
     | 'sellingPrice'
@@ -3078,6 +3079,12 @@ export const messages: MessageDB = {
         fr: 'sur 10 ans',
         nl: 'over 10 jaar',
         en: 'over 10 years',
+    },
+
+    searchResult: {
+        fr: 'Résultat de recherche',
+        nl: 'Zoekresultaat',
+        en: 'Search results',
     },
 
 };
