@@ -50,7 +50,7 @@ const sumInstallation =
             vk(withM2(getOutputPv('maxArea')), 'surface'),
             vk(withKWc(getOutputPv('power'), 1), 'power'),
             vks(getPanelUnits(), `${tr('solPanels')} (${tr(pvTechnologyLabel())})`),
-            vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
+            // vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
             vk(withYear(25), 'solInstallationLifeTime'),
         );
 
