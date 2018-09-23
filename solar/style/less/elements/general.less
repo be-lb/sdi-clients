@@ -9,6 +9,7 @@
 @illuW-mob : calc(~"85vw - 4 * @{margin-mob}");
 
 @roundedW : 4rem;
+@toggleH : 3rem;
 
 // solar media queries
 
@@ -103,20 +104,24 @@ input[type="number"] {
     display: inline-flex;
     align-items: center;
     cursor: default;
-    height: @roundedW / 2;
-    border-radius: @roundedW / 2;
-    background-color: @extra-light-grey;
-    max-width: 100%;
+    height: @toggleH;
+    border-radius: @toggleH;
+    // background-color: @extra-light-grey;
+    background-color: @blue;
+    width: 100%;
     flex-wrap: nowrap;
 
 
     .value {
-        border: 2px solid #000;
-        background-color: #fff;
-        height: calc(~"@{roundedW} / 2 - 2px");
-        border-radius: @roundedW;
+        width: calc(~"50% - @{margin} / 2");
+        height: calc(~"@{toggleH} - 2px");
+        background-color: @yellow;
+        border: 2px solid #fff;
+        border-radius: @toggleH;
         display: flex;
         align-items: center;
+        text-align: center;
+        justify-content: center;
         padding: 0 @margin;
 
         &:first-child {
@@ -125,9 +130,15 @@ input[type="number"] {
     }
 
     .value.inactive {
-        color: @grey;
+        color: @extra-light-grey;
         border: 2px solid transparent;
         background-color: transparent;
+
+        &:hover {
+            color: @grey;
+            border: 2px solid @blue;
+            background:@yellow;
+        }
     }
 }
 

@@ -85,7 +85,7 @@ export const summaryDetailedThermal =
     () =>
         DIV({ className: 'summary-detailled' },
             sumAdress(),
-            toggleSystem('solPhotovoltaic', 'solThermal'),
+            toggleSystem('solSolarPanels', 'solSolarWaterHeater'),
             infosThermal(),
             DIV({
                 className: 'btn-reset',

@@ -367,11 +367,13 @@ export type MessageKey =
     | 'solSelectedPannels'
     | 'solSolarConsumptionYear'
     | 'solSolarGeocode'
+    | 'solSolarPanels'
     | 'solSolarPotential'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solSolarProdYear'
     | 'solSolarRateArea'
+    | 'solSolarWaterHeater'
     | 'solThermal'
     | 'solVAT0'
     | 'solVAT21'
@@ -3085,6 +3087,18 @@ export const messages: MessageDB = {
         fr: 'Résultat de recherche',
         nl: 'Zoekresultaat',
         en: 'Search results',
+    },
+
+    solSolarWaterHeater: {
+        fr: 'Chauffe-eau solaire',
+        nl: 'Zonneboiler',
+        en: 'Solar water heater',
+    },
+
+    solSolarPanels: {
+        fr: 'Panneaux solaires',
+        nl: 'Zonnepanelen',
+        en: 'Solar panels',
     },
 
 };
