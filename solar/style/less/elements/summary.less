@@ -12,41 +12,6 @@
 
 
 .summary {
-    .toggle {
-        margin: @margin 0;
-
-        .value {
-            &:first-child {
-                justify-content: start;
-                padding-right: @margin / 3;
-            }
-            &:last-child {
-                justify-content: end;
-                padding-left: @margin / 3;
-            }
-        }
-    
-        .value:first-child:before,
-        .value:last-child:after {
-            content: ' ';
-            width : calc(~"@{toggleH} - 6px");
-            height : calc(~"@{toggleH} - 6px");
-            // background: @green;
-            flex-shrink: 0;
-            border-radius: @toggleH;
-            background-position: center;
-            background-size: 66%;
-            background-repeat: no-repeat;
-        }
-
-        .value:first-child:before {
-            background-image: url("../../asset/svg/electricity.svg");  
-        }
-        .value:last-child:after {
-            background-image: url("../../asset/svg/waterheating.svg");
-        }
-
-    }
 
     .potential-label {
         font-size: @big-font;

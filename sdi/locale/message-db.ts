@@ -316,6 +316,8 @@ export type MessageKey =
     | 'solBackTo'
     | 'solCalculateStrPart1'
     | 'solCalculateStrPart2'
+    | 'solCalculInfoStrPart1'
+    | 'solCalculInfoStrPart2'
     | 'solChangeStr1'
     | 'solChangeStr2'
     | 'solContactStr1'
@@ -3099,6 +3101,19 @@ export const messages: MessageDB = {
         fr: 'Panneaux solaires',
         nl: 'Zonnepanelen',
         en: 'Solar panels',
+    },
+
+
+    solCalculInfoStrPart1: {
+        fr: 'Je m\'informe',
+        nl: 'Ik vraag',
+        en: 'Informations',
+    },
+
+    solCalculInfoStrPart2: {
+        fr: 'sur ces résultats',
+        nl: 'naar de resultaten',
+        en: 'about this result',
     },
 
 };

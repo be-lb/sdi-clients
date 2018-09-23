@@ -8,6 +8,7 @@ import { summaryDetailed } from '../summary';
 import {
     actionContact,
     actionChange,
+    actionInfo,
     actionPrint,
 } from '../action';
 
@@ -75,6 +76,7 @@ const action =
         DIV({ className: 'actions' },
             actionContact(),
             actionChange(),
+            actionInfo(),
             actionPrint());
 
 const sidebar =

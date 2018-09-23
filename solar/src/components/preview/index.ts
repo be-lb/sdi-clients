@@ -2,7 +2,7 @@ import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
-import { actionContact, actionChange, actionPrint } from '../action';
+import { actionContact, actionChange, actionPrint, actionInfo } from '../action';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
@@ -15,6 +15,7 @@ const action =
         DIV({ className: 'actions' },
             actionContact(),
             actionChange(),
+            actionInfo(),
             actionPrint());
 
 

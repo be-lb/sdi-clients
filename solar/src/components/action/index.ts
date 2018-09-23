@@ -15,7 +15,7 @@ export const actionContact =
             //     DIV({}, tr('solActContactStr2')),
             //     DIV({}, tr('solActContactStr3')),
             //     DIV({}, tr('solActContactStr4'))),
-            );
+        );
 
 export const actionChange =
     () =>
@@ -27,7 +27,15 @@ export const actionChange =
             //     DIV({}, tr('solActChangeStr2')),
             //     DIV({}, tr('solActChangeStr3')),
             //     DIV({}, tr('solActChangeStr4'))),
-            );
+        );
+
+
+export const actionInfo =
+    () =>
+        DIV({ className: 'action-info' },
+            H1({}, tr('solCalculInfoStrPart1')),
+            H1({}, tr('solCalculInfoStrPart2')),
+        );
 
 export const actionPrint =
     () =>
@@ -38,7 +46,7 @@ export const actionPrint =
             //     DIV({}, tr('solActPrintStr1')),
             //     DIV({}, tr('solActPrintStr2')),
             //     DIV({ className: 'pdf' })),
-            );
+        );
 
 
 

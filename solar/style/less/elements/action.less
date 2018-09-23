@@ -29,12 +29,14 @@
             justify-content: space-around;
             font-size: @roundedW / 2;
             margin-bottom: @margin;
-            background-color: @green;
-            color: #fff;
+            // background-color: @green;
+            // color: #fff;
+            background-color: @extra-light-grey;
+            color: #000;
         }
 
         &:hover:before {
-            background-color: @yellow;
+            background-color: @green;
             color: #000;
         }
 
@@ -45,7 +47,9 @@
 
         &.action-contact::before {content: @fa-var-wrench;}
         &.action-change::before {content: @fa-var-lightbulb-o;}
-        &.action-print::before {content: @fa-var-thumb-tack;}
+        &.action-info::before {content: @fa-var-info;}
+        // &.action-print::before {content: @fa-var-thumb-tack;}
+        &.action-print::before {content: @fa-var-file-text-o;}
 
         // .action-info .pdf {
         //     width: @roundedW;
