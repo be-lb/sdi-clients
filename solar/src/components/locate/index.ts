@@ -62,7 +62,8 @@ const renderGeocoderResults =
         return results.map(({ point, address }, key) => {
             // const coords: [number, number] = [result.point.x, result.point.y];
             return DIV({ className: 'adress-result', key },
-                SPAN({
+                DIV({ className: 'select-icon' }),
+                DIV({
                     onClick: () => {
                         setAddress(address);
                         updateGeocoderResponse(null);

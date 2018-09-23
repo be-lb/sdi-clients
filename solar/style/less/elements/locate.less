@@ -61,11 +61,12 @@
 
 // wrapper adress search
 .locate-geocode {
+    padding-bottom: 0 !important;
 
     .input-wrapper {
         width: 100%;
         margin-top: @margin / 2;
-        margin-bottom: @margin * 2;
+        // margin-bottom: @margin * 2;
 
         input {
             border: 2px solid @extra-light-grey;
@@ -110,10 +111,11 @@
 
     // adress results
     .geocoder-wrapper {
+        width: calc(~"100vw - @{margin-mob} * 4");
         background: #fff;
         color: #000;
-        padding: @margin;
-        border-radius: 1rem;
+        margin-top: @margin * 2;
+        padding: @margin @margin/2;
         margin-bottom: @margin;
         text-align: left;
 
@@ -124,17 +126,30 @@
         }
     }
     .adress-result {
-        font-size: 75%;
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
         cursor: default;
-        margin-bottom: @margin / 3;
+        margin-bottom: @margin / 2;
         &:last-child {margin: 0;}
-        span:before {
-            .awsomefont;
-            content: @fa-var-circle-o;
-            margin-right: 0.5em;
+        
+        .select-icon {
+            position: relative;
+            flex-shrink: 0;
+            width : 1em;
+            height: 1em;
+            margin-right: 1ch;
+            border: 1px solid #000;
+            border-radius: 10px;
         }
-        span:hover:before {
-            content: @fa-var-dot-circle-o;
+        &:hover .select-icon:before {
+             .absolute(0,0,0,0);
+            content: ' ';
+            flex-shrink: 0;
+            background-color: @green;
+            border-radius: 10px;
+            border: 3px solid #fff;
+            margin: 0;
         }
     }
 }
@@ -158,6 +173,9 @@
 
 // Map acces button
 .locate-goto-map {
+    height: calc(~"100vh - 80px");
+    padding-top: @margin * 2;
+
     font-size: @medium-font;
     display: block !important;
     text-align: center;
@@ -212,8 +230,10 @@
         .wrapper-top {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            overflow: hidden;
+            // justify-content: space-around;
+            overflow: auto;
+
+            > div {flex-shrink: 0;}
         }
     }
 
@@ -255,6 +275,14 @@
                     border: 2px solid @extra-light-grey;
                 }
             }
+        }
+
+        .geocoder-wrapper {
+            width: auto;
+            max-width: 65%;
+            border-radius: 1rem;
+            padding: @margin;
+            border-radius: 1rem;
         }
     }
 }
