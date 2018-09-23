@@ -3090,9 +3090,9 @@ export const messages: MessageDB = {
     },
 
     solSolarWaterHeater: {
-        fr: 'Chauffe-eau solaire',
+        fr: 'Chauffe-eau',
         nl: 'Zonneboiler',
-        en: 'Solar water heater',
+        en: 'Water heater',
     },
 
     solSolarPanels: {
