@@ -48,7 +48,7 @@ const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
             '4. ' + tr('consumptionYElectricity')),
-        DIV({ className: 'adjust-picto picto-home-conso' })),;
+        DIV({ className: 'adjust-picto picto-home-conso' })), ;
 
         // icon('first'),
         // icon('second'),

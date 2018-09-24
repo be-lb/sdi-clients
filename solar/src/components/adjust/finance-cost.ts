@@ -38,7 +38,8 @@ export const calcFinanceCost =
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses(),
-                costValue()));
+                // costValue(),
+                ));
 
 
 

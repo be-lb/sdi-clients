@@ -2141,9 +2141,9 @@ export const messages: MessageDB = {
     },
 
     solAutoproduction: {
-        fr: 'Autonomie solaire',
-        nl: 'Zonne autonomie',
-        en: 'Solar autonomy',
+        fr: 'Gestes d\'économie énergetique',
+        nl: 'Energiebesparende acties',
+        en: 'Energy saving actions',
     },
 
     finance: {
@@ -3003,9 +3003,9 @@ export const messages: MessageDB = {
     },
 
     solDedicatedArea: {
-        fr: 'Nombre de panneaux solaires envisagés',
-        nl: 'Gewenste aantal zonnepanelen',
-        en: 'Number of solar panels considered',
+        fr: 'Ajustement de la dimension de l\'installation',
+        nl: 'Aanpassen van de grootte van de installatie ',
+        en: 'Adjusting the size of the installation ',
     },
 
     solFinanceCost: {
@@ -3027,9 +3027,9 @@ export const messages: MessageDB = {
     },
 
     consumptionYElectricity: {
-        fr: 'Consommation d\'éléctricité',
-        nl: 'elektriciteitsverbruik',
-        en: 'Electricity consumption',
+        fr: 'Consommation annuelle d\'éléctricité',
+        nl: 'Jaarlijks elektriciteitsverbruik',
+        en: 'Annual electricity consumption',
     },
 
     solFinanceVAT: {
