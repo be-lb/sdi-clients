@@ -17,50 +17,39 @@
         margin-bottom: @margin * 2;
         cursor: default;
 
-        &::before {
-            .awsomefont;
+        .action-picto {
             .rounded-border;
-            content: " ";
+            position: relative;
             width: @roundedW;
             height: @roundedW;
             border-radius: @roundedW;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            font-size: @roundedW / 2;
             margin-bottom: @margin;
-            // background-color: @green;
-            // color: #fff;
             background-color: @extra-light-grey;
             color: #000;
-        }
 
-        &:hover:before {
-            background-color: @green;
-            color: #000;
-        }
-
-        // .action-info {
-        //     font-size: @medium-font;
-        //     margin-top: @margin / 2;
-        // }
-
-        &.action-contact::before {content: @fa-var-wrench;}
-        &.action-change::before {content: @fa-var-lightbulb-o;}
-        &.action-info::before {content: @fa-var-info;}
-        // &.action-print::before {content: @fa-var-thumb-tack;}
-        &.action-print::before {content: @fa-var-file-text-o;}
-
-        // .action-info .pdf {
-        //     width: @roundedW;
-        //     height: @roundedW;
-        //     margin: @margin auto;
-        //     background-image: url("../../asset/svg/pdf.svg");
-        //     background-position: center;
-        //     background-repeat: no-repeat;
-        //     background-size: contain;
-        // }
+            &:after {
+                .absolute(0,0,0,0);
+                .awsomefont;
+                content: ' ';
+                border-radius: @roundedW;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                font-size: @roundedW / 2;
+            }
+            
+            &:hover:after {
+                border: 2px solid #fff;
+                background-color: @green;
+            }
+        }        
     }
+    
+    .action-contact .action-picto:after {content: @fa-var-wrench;}
+    .action-change .action-picto:after {content: @fa-var-lightbulb-o;}
+    .action-info .action-picto:after {content: @fa-var-info;}
+    .action-print .action-picto:after {content: @fa-var-file-text-o;}
+    
 }
 
 @media @medium {
