@@ -7,15 +7,6 @@
     &.second{background-image: url("../../../asset/svg/day.svg");}
     &.third {background-image: url("../../../asset/svg/waterheating.svg");}
     &.fourth{background-image: url("../../../asset/svg/battery.svg");}
-
-    // &.active,
-    // &.under-active {
-    //     &.first {background-image: url("../../../asset/svg/reduceW.svg");}
-    //     &.second{background-image: url("../../../asset/svg/dayW.svg");}
-    //     &.third {background-image: url("../../../asset/svg/waterheatingW.svg");}
-    //     &.fourth{background-image: url("../../../asset/svg/batteryW.svg");}
-    //
-    // }
 }
 
 
@@ -49,7 +40,8 @@
     }
 
     .adjust-item-note div {
-        display: none;
+        // display: none;
+        display: flex;
         align-items: center;
 
         &:before {
@@ -67,6 +59,17 @@
         &.waterheating:before  {background-image: url("../../../asset/svg/waterheating.svg");}
         &.battery:before       {background-image: url("../../../asset/svg/battery.svg");}
 
-        &.active {display: flex;}
+        // &.active {display: flex;}
+
+        &.active:after {
+            content: ' ';
+            width: 2ch;
+            height: 2ch;
+            margin-left: 0.5ch;
+            margin-top: -0.5ch;
+            background-image: url("../../../asset/svg/check.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     }
 }
