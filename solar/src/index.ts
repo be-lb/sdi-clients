@@ -20,6 +20,7 @@ import * as debug from 'debug';
 import { source } from 'sdi/source';
 import { IShape, configure } from 'sdi/shape';
 import { defaultInteraction } from 'sdi/map';
+import { initValues } from 'sdi/components/animated-value';
 
 import App from './app';
 import { defaulObstacles } from './components/adjust';
@@ -107,6 +108,7 @@ export const main =
             'solar/loaded': [],
             'solar/perspective/camera': null,
             'solar/perspective/src': null,
+            'solar/component/values': initValues(),
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},
