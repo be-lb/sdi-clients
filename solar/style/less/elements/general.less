@@ -114,8 +114,8 @@ input[type="number"] {
     .value {
         width: calc(~"50% - @{margin} / 2");
         height: calc(~"@{toggleH} - 2px");
-        background-color: @yellow;
-        border: 2px solid #fff;
+        background-color: @extra-light-grey;
+        border: 2px solid #000;
         border-radius: @toggleH;
         display: flex;
         align-items: center;
@@ -149,7 +149,7 @@ input[type="number"] {
                 padding-right: @margin / 3;
             }
             &:last-child {
-                justify-content: end;
+                justify-content: flex-end;
                 padding-left: @margin / 3;
             }
         }
