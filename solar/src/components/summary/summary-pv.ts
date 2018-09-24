@@ -52,9 +52,9 @@ export const summary =
     () =>
         DIV({ className: 'summary' },
             sumAdress(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater'),
             sumPotentialLabel(),
             sumPotentialValues(),
+            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater'),
         );
 
 

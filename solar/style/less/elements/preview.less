@@ -2,7 +2,7 @@
 .lower-part {
 
     .action-header{
-        padding: @margin / 2 0;
+        padding: @margin 0;
     }
 
     .action-title {
@@ -15,8 +15,8 @@
         position: relative;
         width: @sidebarW;
         height: @medium-font * 2;
-        background: @yellow;
-        border: 1px solid #333;
+        background: @extra-light-grey;
+        border: 2px solid #333;
         border-radius: 2em;
 
         .settings-link {
@@ -25,7 +25,7 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 2em;
-                border: 2px solid @yellow;;
+                border: 2px solid @extra-light-grey;;
                 font-size: @medium-font;
                 color: #000;
                 text-align: center;
@@ -62,9 +62,10 @@
                 border-bottom: 1px solid #000;
             }
             .summary {
-                padding-top: @margin;
+                padding: @margin 0;
                 width: @sidebarW;
                 border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
             }
         }
 
