@@ -18,10 +18,11 @@ import * as debug from 'debug';
 import { fromNullable, none, some } from 'fp-ts/lib/Option';
 import bbox from '@turf/bbox';
 
-import { query, queryK } from 'sdi/shape';
+import { query, queryK, dispatchK } from 'sdi/shape';
 import tr from 'sdi/locale';
 // import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
 import { getFeatureProp } from 'sdi/source';
+import { value, getValue, setValue } from 'sdi/components/animated-value';
 
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust';
@@ -97,7 +98,7 @@ export const totalArea =
         .fold(
             0,
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
-        );
+    );
 
 // const areaIrradiance =
 //     (low: number, high: number) =>
@@ -132,7 +133,7 @@ const areaProductivity =
 
                     return catArea * 100 / ta;
                 },
-            );
+        );
 
 
 
@@ -172,6 +173,17 @@ type ThermalOutputKey = keyof thermicOutputs;
 export const getOutputPv =
     <K extends PvOutputKey>(k: K, dflt = 0): number =>
         fromNullable(query('solar/outputs/pv')).fold(dflt, out => out[k]);
+
+const getAnimValues = queryK('solar/component/values');
+const setAnimValues = dispatchK('solar/component/values');
+
+export const getAnimatedValuePv =
+    <K extends PvOutputKey>(k: K) =>
+        value({
+            getCurrent: getValue(getAnimValues, k),
+            setCurrent: setValue(setAnimValues, k),
+            target: () => getOutputPv(k),
+        });
 
 export const getOutputThermal =
     <K extends ThermalOutputKey>(k: K, dflt = 0): number =>
