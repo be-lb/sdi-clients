@@ -131,7 +131,7 @@ export type MessageKey =
     | 'gainElecInvoice'
     | 'gainElecInvoice25Y'
     | 'gainEnergyInvoice'
-    | 'gainEnergyInvoice25Y'
+    | 'gainEnergyInvoice10Y'
     | 'gainEnvironment'
     | 'gainEnvironment25Y'
     | 'gainGreenCertif'
@@ -2923,10 +2923,10 @@ export const messages: MessageDB = {
         en: 'Gain on energy bill',
     },
 
-    gainEnergyInvoice25Y: {
-        fr: 'Gain facture énergétique sur 25 ans',
-        nl: 'Besparing op uw energiefactuur op 25 jaar',
-        en: 'Gain on energy bill over 25 years',
+    gainEnergyInvoice10Y: {
+        fr: 'Gain facture énergétique sur 10 ans',
+        nl: 'Besparing op uw energiefactuur op 10 jaar',
+        en: 'Gain on energy bill over 10 years',
     },
 
     bonus: {

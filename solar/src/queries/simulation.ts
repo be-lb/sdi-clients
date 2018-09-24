@@ -189,6 +189,14 @@ export const getOutputThermal =
     <K extends ThermalOutputKey>(k: K, dflt = 0): number =>
         fromNullable(query('solar/outputs/thermal')).fold(dflt, out => out[k]);
 
+export const getAnimatedValueThermal =
+    <K extends ThermalOutputKey>(k: K) =>
+        value({
+            getCurrent: getValue(getAnimValues, k),
+            setCurrent: setValue(setAnimValues, k),
+            target: () => getOutputThermal(k),
+        });
+
 export const getSystem = queryK('solar/system');
 
 

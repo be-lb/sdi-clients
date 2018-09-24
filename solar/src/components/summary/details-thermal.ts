@@ -10,7 +10,7 @@ import {
     streetName,
     streetNumber,
     locality,
-    getOutputThermal,
+    getAnimatedValueThermal,
 } from '../../queries/simulation';
 import { setSystem, clearInputs } from '../../events/simulation';
 
@@ -51,20 +51,20 @@ const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('energy')),
-            vk(withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'),
-            vk(withKWhY(getOutputThermal('annualConsumption')), 'solSolarConsumptionYear'),
-            vk(withPercent(getOutputThermal('autonomyRate') * 100), 'solSolarRateArea'),
-            vk(withTCO2Y(getOutputThermal('savedCO2emissions'), 1), 'gainEnvironment'),
+            vk(withKWhY(getAnimatedValueThermal('annualProduction')), 'solSolarProdYear'),
+            vk(withKWhY(getAnimatedValueThermal('annualConsumption')), 'solSolarConsumptionYear'),
+            vk(withPercent(getAnimatedValueThermal('autonomyRate') * 100), 'solSolarRateArea'),
+            vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions'), 1), 'gainEnvironment'),
         );
 
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(withEuro(getOutputThermal('installationCost')), 'buyingPrice'),
-            vk(withEuro(getOutputThermal('grant')), 'bonus'),
-            vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice25Y'),
-            vk(withYear(getOutputThermal('returnTime')), 'returnTime'),
+            vk(withEuro(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
+            vk(withEuro(getAnimatedValueThermal('grant')), 'bonus'),
+            vk(withEuro(getAnimatedValueThermal('gain')), 'gainEnergyInvoice10Y'),
+            vk(withYear(getAnimatedValueThermal('returnTime')), 'returnTime'),
         );
 
 
