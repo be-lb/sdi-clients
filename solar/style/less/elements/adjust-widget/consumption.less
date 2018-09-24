@@ -2,7 +2,7 @@
 .consumption {
     .adjust-item-header {
         display: flex;
-        flex-wrap: nowrap;;
+        flex-wrap: nowrap;
         .rank-icon {
             width: 3em;
             height: 1em;
@@ -28,7 +28,27 @@
 .consumption {
     .rank-note {
         display: none;
-        &.active {display: block;}
+        &.active {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        &:before {
+            content: ' ';
+            width: 4.5rem;
+            height: 1.5rem;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
+
+        }
+
+        &.first:before     {background-image: url(../../../asset/svg/conso1.svg);}
+        &.second:before    {background-image: url(../../../asset/svg/conso2.svg);}
+        &.third:before     {background-image: url(../../../asset/svg/conso3.svg);}
+        &.fourth:before    {background-image: url(../../../asset/svg/conso4.svg);}
+        &.fifth:before     {background-image: url(../../../asset/svg/conso5.svg);}
+        &.sixth:before     {background-image: url(../../../asset/svg/conso6.svg);}
     }
 }
 

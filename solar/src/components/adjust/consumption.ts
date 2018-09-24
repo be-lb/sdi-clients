@@ -39,21 +39,23 @@ const notes: { [k in rank]: MessageKey } = {
 const setConsumption = setInputF('annualConsumptionKWh');
 
 // we build the icons next to the title
-const icon =
-    (rank: rank) =>
-        DIV({ className: `rank-icon  ${rank}  ${isActive(rank) ? 'active' : ''}` });
+// const icon =
+//     (rank: rank) =>
+//         DIV({ className: `rank-icon  ${rank}  ${isActive(rank) ? 'active' : ''}` });
 
 
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
             '4. ' + tr('consumptionYElectricity')),
-        icon('first'),
-        icon('second'),
-        icon('third'),
-        icon('fourth'),
-        icon('fifth'),
-    );
+        DIV({ className: 'adjust-picto picto-home-conso' })),;
+
+        // icon('first'),
+        // icon('second'),
+        // icon('third'),
+        // icon('fourth'),
+        // icon('fifth'),
+    )
 
 const isActive =
     (rank: rank) =>
