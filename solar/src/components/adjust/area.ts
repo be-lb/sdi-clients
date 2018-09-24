@@ -16,7 +16,7 @@ const getPower = () => Math.round(getOutputPv('power'));
 
 const powers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-type Status = 'under' | 'selected' | 'over' | 'last-over' | 'unreachable';
+type Status = 'under' | 'selected' | 'selected-max' | 'over' | 'last-over' | 'unreachable';
 
 
 
@@ -28,6 +28,9 @@ const getStatus =
             return 'under';
         }
         else if (n === p) {
+            if (n === maxPower || n === 12) {
+                return 'selected-max';
+            }
             return 'selected';
         }
         else if (n > maxPower) {
@@ -69,6 +72,7 @@ const selectItem =
         switch (getStatus(rank)) {
             case 'under': return selectItemClickable(rank, 'under');
             case 'selected': return selectItemNotClickable(rank, 'selected');
+            case 'selected-max': return selectItemNotClickable(rank, 'selected selected-max');
             case 'over': return selectItemClickable(rank, 'over');
             case 'last-over': return selectItemClickable(rank, 'last over');
             case 'unreachable': return selectItemNotClickable(rank, 'unreachable');

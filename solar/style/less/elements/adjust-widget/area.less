@@ -5,7 +5,9 @@
 
     .area-select {
         position: relative;
-        background-color: @extra-light-grey;
+        // background-color: @extra-light-grey;
+        background-color: @light-grey;
+        border-color: @light-grey;
 
         .select-item {
             position: absolute;
@@ -22,9 +24,16 @@
                 background-color: @green;
             }
 
+            &.selected-max:after,
+            &.last:after {
+                content: ' ';
+                .absolute(-3px,-3px,-3px,-3px);
+                border: 1px solid #333;
+                border-radius: @roundedW;
+            }
+
             &.over{
                 background-color: transparent;
-                // background-image: none; // no icons for each on mobile
 
                 &.last {
                     background-image: url("../../../asset/svg/sun.svg");
@@ -97,21 +106,22 @@
         }
 
         &.unreachable:before {
-            background-color: @extra-light-grey;
+            border: 0;
+            background-color: @light-grey;
         }
 
     }
 }
 
 
-@media @medium {
+// @media @medium {
 
-    .area {
+//     .area {
 
-        .select-item {            background-image: url("../../../asset/svg/solarpanel.svg");
-}
-        .select-item.over {
-            background-image: url("../../../asset/svg/sun.svg");
-        }
-    }
-}
+//         .select-item {            background-image: url("../../../asset/svg/solarpanel.svg");
+// }
+//         .select-item.over {
+//             background-image: url("../../../asset/svg/sun.svg");
+//         }
+//     }
+// }
