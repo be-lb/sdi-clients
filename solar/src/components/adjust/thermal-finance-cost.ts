@@ -1,6 +1,6 @@
 import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { withEuro } from 'sdi/util';
+import { withEuroInclVAT } from 'sdi/util';
 
 import { inputSelect } from '../item-factory';
 import { getNumInputF, getOutputThermal } from '../../queries/simulation';
@@ -25,7 +25,7 @@ const costValue =
         DIV({ className: 'cost-value' },
             SPAN({}, tr('installationPrice')),
             SPAN({}, ' : '),
-            SPAN({}, withEuro(getOutputThermal('installationCost'))),
+            SPAN({}, withEuroInclVAT(getOutputThermal('installationCost'))),
         );
 
 

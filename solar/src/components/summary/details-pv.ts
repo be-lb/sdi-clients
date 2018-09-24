@@ -1,7 +1,7 @@
 import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
+import { withPercent, withEuro, withEuroInclVAT, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import { toggle } from '../item-factory';
 import {
@@ -52,7 +52,7 @@ const sumInstallation =
             vk(withKWc(getAnimatedValuePv('power'), 1), 'power'),
             vks(getPanelUnits(), `${tr('solPanels')} (${tr(pvTechnologyLabel())})`),
             // vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
-            vk(withYear(25), 'solInstallationLifeTime'),
+            // vk(withYear(25), 'solInstallationLifeTime'),
         );
 
 const sumEnergy =
@@ -69,7 +69,7 @@ const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(withEuro(getAnimatedValuePv('installationCost')), 'buyingPrice'),
+            vk(withEuroInclVAT(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),
             vk(withEuro(getAnimatedValuePv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'),
             vk(withEuro(getAnimatedValuePv('totalGain25Y')), 'gainTotal25Y'),

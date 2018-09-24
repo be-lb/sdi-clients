@@ -178,6 +178,8 @@ const withUnit =
         (value: number, tf = 0) => `${formatNumber(parseFloat(value.toFixed(tf)))} ${tr(k, { value })}`;
 
 export const withEuro = withUnit('unitEuro');
+export const withEuroExclVAT = withUnit('unitEuroExclVAT');
+export const withEuroInclVAT = withUnit('unitEuroInclVAT');
 export const withEuroY = withUnit('unitEuroY');
 export const withEuroY10 = withUnit('unitEuroY10');
 export const withEuroY25 = withUnit('unitEuroY25');

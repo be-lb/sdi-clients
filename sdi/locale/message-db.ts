@@ -420,6 +420,8 @@ export type MessageKey =
     | 'topics'
     | 'translate'
     | 'unitEuro'
+    | 'unitEuroExclVAT'
+    | 'unitEuroInclVAT'
     | 'unitEuroKWh'
     | 'unitEuroY'
     | 'unitEuroY10'
@@ -2748,6 +2750,16 @@ export const messages: MessageDB = {
         fr: '€',
         nl: '€',
         en: '€',
+    },
+    unitEuroExclVAT: {
+        fr: '€HTVA',
+        nl: '€ Excl.BTW',
+        en: '€ Excl.VAT',
+    },
+    unitEuroInclVAT: {
+        fr: '€TVAC',
+        nl: '€ Incl.BTW',
+        en: '€ Incl.VAT',
     },
     unitEuroY: {
         fr: '€/an',
