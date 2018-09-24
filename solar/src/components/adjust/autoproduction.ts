@@ -77,7 +77,7 @@ const selectItem =
 
 const selectWidget =
     () =>
-        DIV({ className: 'autoproduction-select' },
+        DIV({ className: 'adjust-item-widget autoproduction-select' },
             selectItem(NOPE),
             selectItem(A),
             selectItem(B),
@@ -110,10 +110,8 @@ export const calcAutoproduction =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 DIV({ className: 'adjust-picto picto-solar-energy' })),
-            DIV({ className: 'adjust-item-widget' },
-                selectWidget(),
-                info()),
-
+            selectWidget(),
+            info(),
             notes(),
         );
 

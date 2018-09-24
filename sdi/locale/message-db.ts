@@ -76,7 +76,7 @@ export type MessageKey =
     | 'connectionSDI'
     | 'consumption'
     | 'contactInstallator'
-    | 'consumptionElectricity'
+    | 'consumptionYElectricity'
     | 'copy'
     | 'createAlias'
     | 'cursorLocalisation'
@@ -103,6 +103,7 @@ export type MessageKey =
     | 'endDate'
     | 'energy'
     | 'estim10Y'
+    | 'estimatedConsumptionKWh'
     | 'existingSolarPannel'
     | 'export'
     | 'extentBegin'
@@ -2317,6 +2318,12 @@ export const messages: MessageDB = {
         en: 'Annual consumption',
     },
 
+    estimatedConsumptionKWh: {
+        fr: 'Consommation estimée',
+        nl: 'Geschat verbruik',
+        en: 'Estimated consumption',
+    },
+
     annualMaintenance: {
         fr: 'Entretiens et monitoring annuel',
         nl: 'Jaarlijkse onderhouds en monitoring',
@@ -3019,7 +3026,7 @@ export const messages: MessageDB = {
         en: 'Technology',
     },
 
-    consumptionElectricity: {
+    consumptionYElectricity: {
         fr: 'Consommation d\'éléctricité',
         nl: 'elektriciteitsverbruik',
         en: 'Electricity consumption',

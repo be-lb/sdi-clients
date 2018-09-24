@@ -81,7 +81,7 @@ const selectItem =
 
 const selectWidget =
     () =>
-        DIV({ className: 'area-select' },
+        DIV({ className: 'adjust-item-widget area-select' },
             ...(powers.map(selectItem)),
         );
 
@@ -116,8 +116,6 @@ export const calcArea =
     () =>
         DIV({ className: `adjust-item area` },
             title(),
-            DIV({ className: 'adjust-item-widget' },
-                selectWidget(),
-            ),
+            selectWidget(),
             legend(),
         );

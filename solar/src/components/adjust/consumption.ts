@@ -47,7 +47,7 @@ const icon =
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
-            '4. ' + tr('consumptionElectricity')),
+            '4. ' + tr('consumptionYElectricity')),
         icon('first'),
         icon('second'),
         icon('third'),
@@ -74,7 +74,7 @@ const selectItem =
 
 const selectWidget =
     () =>
-        DIV({ className: 'consumption-select' },
+        DIV({ className: 'adjust-item-widget consumption-select' },
             selectItem('first'),
             selectItem('second'),
             selectItem('third'),
@@ -107,10 +107,8 @@ export const calcConsumption =
     () =>
         DIV({ className: 'adjust-item consumption' },
             titleAndPicto(),
-            DIV({ className: 'adjust-item-widget' },
-                selectWidget(),
-                inputItem('annualConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh'))),
-            ),
+            selectWidget(),
+            inputItem('estimatedConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh'))),
             adjustNote(),
         );
 
