@@ -50,15 +50,35 @@
 }
 
 
-.context-infos-wrapper > div {
-    width: 100%;
-    font-size: @small-font;
-    text-align: center;
-    margin-bottom: @margin;
-
-    .solar-inner-btn {
-    font-size: @small-font;
+.context-infos-wrapper {
+    
+    > div {
+        width: 100%;
+        font-size: @small-font;
+        text-align: center;
+        margin-bottom: @margin;
     }
+
+    .solar-btn {
+        width: calc(~"@{illuW} / 1.5");
+        margin: @margin calc(~"@{illuW} / 6");
+        border-color: @light-grey;
+        background: @extra-light-grey;
+
+        > div {
+            border-color: @extra-light-grey;
+            font-size: @small-font;
+        }
+
+        &:hover {
+            border-color: @grey;
+             > div {
+                border-color: @extra-light-grey;
+                background: @extra-light-grey;
+            }
+        }
+    }
+    
 }
 
 //maks to prevent scroll and zoom from Open Layer illu
