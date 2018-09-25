@@ -99,23 +99,24 @@ input[type="number"] {
 // TOGGLE
 
 .toggle {
-    .rounded-border;
+    // .rounded-border;
     font-size: @small-font;
     display: inline-flex;
     align-items: center;
     cursor: default;
     height: @toggleH;
     border-radius: @toggleH;
-    background-color: @grey;
+    background-color: @light-grey;
     width: 100%;
     flex-wrap: nowrap;
 
 
     .value {
         width: calc(~"50% - @{margin} / 2");
-        height: calc(~"@{toggleH} - 2px");
+        // height: calc(~"@{toggleH} - 2px");
+        height: @toggleH;
         background-color: @extra-light-grey;
-        // border: 2px solid #000;
+        border: 1px solid #333;
         border-radius: @toggleH;
         display: flex;
         align-items: center;
@@ -132,8 +133,8 @@ input[type="number"] {
         background-color: transparent;
 
         &:hover {
-            border: 2px solid @grey;
-            background-color: @light-grey;
+            border: 2px solid @light-grey;
+            background-color: @light-grey + 25%;
         }
     }
 }

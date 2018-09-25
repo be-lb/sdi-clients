@@ -20,13 +20,13 @@ const expenses =
         );
 
 
-const costValue =
-    () =>
-        DIV({ className: 'cost-value' },
-            SPAN({}, tr('installationPrice')),
-            SPAN({}, ' : '),
-            SPAN({}, withEuroInclVAT(getOutputPv('installationCost'))),
-        );
+// const costValue =
+//     () =>
+//         DIV({ className: 'cost-value' },
+//             SPAN({}, tr('installationPrice')),
+//             SPAN({}, ' : '),
+//             SPAN({}, withEuroInclVAT(getOutputPv('installationCost'))),
+//         );
 
 
 
