@@ -52,6 +52,19 @@
                     border: 0px !important;
                     background-color: transparent;
                 }
+
+                &:nth-child(12):before {
+                    content: '12 kWc';
+                    color: #f8f8f8;
+                    font-weight: 500;
+                    text-align: right;
+                    padding-right: @margin;
+                    position: absolute;
+                    right: 0;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                }
             }
 
             &:nth-child(1)  {width: @roundedW;}
