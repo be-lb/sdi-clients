@@ -372,6 +372,9 @@ export type MessageKey =
     | 'solSolarGeocode'
     | 'solSolarPanels'
     | 'solSolarPotential'
+    | 'solSolarPotentialStr1'
+    | 'solSolarPotentialStr2'
+    | 'solSolarPotentialStr3'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solSolarProdYear'
@@ -2555,9 +2558,25 @@ export const messages: MessageDB = {
     },
 
     solSolarPotential: {
-        fr: 'potentiel solaire ',
-        nl: 'zonnepotentieel ',
+        fr: 'potentiel solaire',
+        nl: 'zonnepotentieel',
         en: 'solar potential',
+    },
+
+    solSolarPotentialStr1: {
+        fr: 'Gains ',
+        nl: 'Winst ',
+        en: 'Earnings ',
+    },
+    solSolarPotentialStr2: {
+        fr: 'pour une dépense',
+        nl: 'voor een last',
+        en: 'for an expense',
+    },
+    solSolarPotentialStr3: {
+        fr: 'de ',
+        nl: 'van ',
+        en: 'of ',
     },
 
     solSolarPotentialExcellent: {

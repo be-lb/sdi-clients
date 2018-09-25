@@ -1,4 +1,4 @@
-import { DIV, SPAN, H1 } from 'sdi/components/elements';
+import { DIV, SPAN, H1, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withTCO2 } from 'sdi/util';
@@ -33,15 +33,23 @@ const sumAdress =
 const sumPotentialLabel =
     () =>
         DIV({ className: 'potential-label' },
-            DIV({}, tr('solSolarPotential')),
-            DIV({}, tr('solOn10Years')),
+            DIV({},
+                tr('solSolarPotentialStr1'),
+                SPAN({ className: 'highlight-value' }, tr('solOn10Years')),
+                BR({}),
+                tr('solSolarPotentialStr2'),
+                BR({}),
+                tr('solSolarPotentialStr3'),
+                SPAN({ className: 'highlight-value' }, withEuro(getOutputPv('installationCost', 0))),
+            ),
+            // DIV({}, tr('solOn10Years')),
         );
 
 
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            vk(withEuro(getOutputPv('installationCost', 0)), 'buyingPrice', 'buying-price'),
+            // vk(withEuro(getOutputPv('installationCost', 0)), 'buyingPrice', 'buying-price'),
             vk(withEuro(getOutputPv('CVAmountYear10')), 'gainGreenCertif', 'green-cert'),
             vk(withEuro(getOutputPv('selfConsumptionAmountYear10')), 'gainElecInvoice', 'gain-elec'),
             vk(withTCO2(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
