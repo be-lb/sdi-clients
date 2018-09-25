@@ -2096,21 +2096,21 @@ export const messages: MessageDB = {
     },
 
     orientationGreat: {
-        fr: 'Excellente orientation',
-        nl: 'Uitstekende oriëntatie',
-        en: 'Excellente orientation',
+        fr: 'Excellent potentiel',
+        nl: 'Uitstekend potentieel',
+        en: 'Great potential',
     },
 
     orientationGood: {
-        fr: 'Bonne orientation',
-        nl: 'Goede oriëntatie',
-        en: 'Good orientation',
+        fr: 'Bonne potentiel',
+        nl: 'Goede potentieel',
+        en: 'Good potential',
     },
 
     unusable: {
-        fr: 'Non utilisable',
-        nl: 'Niet bruikbaar',
-        en: 'Not usable',
+        fr: 'Faible potentiel',
+        nl: 'Laag potentieel',
+        en: 'Low uspotentialable',
     },
 
     personalize: {
