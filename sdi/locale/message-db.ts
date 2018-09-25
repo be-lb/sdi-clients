@@ -3070,9 +3070,9 @@ export const messages: MessageDB = {
     },
 
     solOptimumInstallationTheoric: {
-        fr: 'Puissance maximale théorique conseillée pour une installation, non accessible dans le cas présent',
-        nl: 'Theoretisch maximaal vermogen aanbevolen voor een installatie, in dit geval niet toegankelijk',
-        en: 'Theoretical maximum power recommended for an installation, not accessible in this case',
+        fr: 'Puissance maximale théorique conseillée pour une installation non-industrielle (12kWc). Non accessible dans le cas présent.',
+        nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWc). Niet toegankelijk in dit geval.',
+        en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc). Not accessible in this case.',
     },
 
     solNoSol: {

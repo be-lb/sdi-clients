@@ -15,7 +15,8 @@
             background-position: calc(~"100% - @{margin}");
             &:first-child { background-position: center;}
 
-            &:first-child {
+            &:last-child,
+            &.selected {
                 background-image: url("../../../asset/svg/solarpanel.svg");
             }
 
