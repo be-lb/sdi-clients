@@ -314,7 +314,7 @@ export type MessageKey =
     | 'solarAutonomy'
     | 'solarPV'
     | 'solarThermal'
-    | 'solBackTo'
+    | 'solBackToMap'
     | 'solCalculateStrPart1'
     | 'solCalculateStrPart2'
     | 'solCalculInfoStrPart1'
@@ -330,7 +330,6 @@ export type MessageKey =
     | 'solFinanceGain'
     | 'solFinanceVAT'
     | 'solGaz'
-    | 'solGeneralMap'
     | 'solHeatProdSys'
     | 'solHotWaterConsumption'
     | 'solInstallationLifeTime'
@@ -2621,16 +2620,10 @@ export const messages: MessageDB = {
         en: 'Search',
     },
 
-    solBackTo: {
-        fr: 'Revenir à la',
-        nl: 'terug naar de',
-        en: 'back to the',
-    },
-
-    solGeneralMap: {
-        fr: 'carte générale',
-        nl: 'algemene kaart',
-        en: 'general map',
+    solBackToMap: {
+        fr: 'Revenir à la carte',
+        nl: 'terug naar de kaart',
+        en: 'back to map',
     },
 
     solAndNow: {

@@ -71,19 +71,19 @@ const barChart =
 const backToMap =
     () =>
         DIV({
-            className: 'illu-text back-to-map', onClick: () => {
+            className: 'illu-text solar-btn', onClick: () => {
                 clearRoofLayer();
                 navigateLocate();
             },
         },
-            DIV({}, tr('solBackTo')),
-            DIV({}, tr('solGeneralMap')));
+            DIV({ className: 'solar-inner-btn' }, tr('solBackToMap')),
+        );
 
 const roofArea =
     () =>
         DIV({ className: 'illu-text roof-area' },
             DIV({}, tr('roofTotalArea')),
-            DIV({}, withM2(totalArea())));
+            DIV({ className: 'roof-area-value' }, withM2(totalArea())));
 
 
 
@@ -196,7 +196,7 @@ const getCamera =
                 return none;
             },
                 c => some(c),
-            );
+        );
 
 
 const emptyRoofs = some<FeatureCollection>({
