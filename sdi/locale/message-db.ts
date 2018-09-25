@@ -2102,7 +2102,7 @@ export const messages: MessageDB = {
     },
 
     orientationGood: {
-        fr: 'Bonne potentiel',
+        fr: 'Bon potentiel',
         nl: 'Goede potentieel',
         en: 'Good potential',
     },
