@@ -3,6 +3,11 @@
         padding-top: 0 !important; //override
         border: 0px !important; //override
     }
+
+    .actions {
+        border-top: 1px solid #000;
+        padding: @margin * 2 0;
+    }
 }
 
 @media @medium {
@@ -73,29 +78,6 @@
         color: @green;
         margin-top: @margin;
     }
-
-    // .toggle {
-    //     .first-value:before {
-    //         content: ' ';
-    //         width: 1.5em;
-    //         height: 1.5em;
-    //         margin-right: @margin / 2;
-    //         background-position: center;
-    //         background-size: contain;
-    //         background-repeat: no-repeat;
-    //         background-image: url("../../asset/svg/electricity.svg");
-    //     }
-    //     .second-value:after {
-    //         content: ' ';
-    //         width: 1.5em;
-    //         height: 1.5em;
-    //         margin-left: @margin / 2;
-    //         background-position: center;
-    //         background-size: contain;
-    //         background-repeat: no-repeat;
-    //         background-image: url("../../asset/svg/waterheating.svg");
-    //     }
-    // }
 }
 
 @media @medium {
@@ -106,8 +88,12 @@
 
         > div {margin: @margin 0;}
 
+        .toggle {
+            max-width: @illuW;
+        }
     }
 }
+
 @media @big {
     .adjust-item.calculator-header {
 

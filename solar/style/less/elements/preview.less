@@ -9,7 +9,7 @@
 .lower-part {
 
     .action-header{
-        padding: @margin 0;
+        padding: 0;
     }
 
     .action-title {
@@ -19,39 +19,6 @@
         padding: @margin 0;
         border-top: 1px solid #000;
         border-bottom: 1px solid #000;
-    }
-
-    .settings-link-wrapper {
-        position: relative;
-        width: 100%;
-        height: @medium-font * 2;
-        background: @extra-light-grey;
-        border: 2px solid #333;
-        border-radius: 2em;
-
-        margin: @margin * 2 0;
-
-        .settings-link {
-                .absolute(0,0,0,0);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 2em;
-                border: 2px solid @extra-light-grey;;
-                font-size: @medium-font;
-                color: #000;
-                text-align: center;
-                cursor: default;
-            }
-
-        &:hover  { 
-            background-color: @green;
-            
-            .settings-link {
-                border: 2px solid #fff;
-                background-color: @green;
-            }  
-        }
     }
 }
 
@@ -96,11 +63,6 @@
                     padding: 0;
                     border: 0;
                 }
-
-                 .settings-link-wrapper {
-                    width: @sidebarW;
-                    margin: 0;
-                 }
             }
         }
     }

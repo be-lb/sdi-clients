@@ -1,7 +1,5 @@
 //ACTIONS
 
-
-
 .actions {
 
     > div {
@@ -11,43 +9,44 @@
         align-items: center;
         text-align: center;
         margin-bottom: @margin * 2;
-        cursor: default;
+        cursor: default;      
+    }
+}
 
-        .action-picto {
-            .rounded-border;
-            border-width: 2px;
-            position: relative;
-            width: @roundedW;
-            height: @roundedW;
-            border-radius: @roundedW;
-            margin-bottom: @margin;
-            background-color: @extra-light-grey;
-            color: #000;
+.action-picto {
+    .rounded-border;
+    border-width: 2px;
+    position: relative;
+    width: @roundedW;
+    height: @roundedW;
+    border-radius: @roundedW;
+    margin-bottom: @margin;
+    background-color: @extra-light-grey;
+    color: #000;
 
-            &:after {
-                .absolute(0,0,0,0);
-                .awsomefont;
-                content: ' ';
-                border-radius: @roundedW;
-                display: flex;
-                align-items: center;
-                justify-content: space-around;
-                font-size: @roundedW / 2;
-            }
-            
-            &:hover:after {
-                border: 2px solid #fff;
-                background-color: @green;
-            }
-        }        
+    &:after {
+        .absolute(0,0,0,0);
+        .awsomefont;
+        content: ' ';
+        border-radius: @roundedW;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: @roundedW / 2;
     }
     
-    .action-contact .action-picto:after {content: @fa-var-wrench;}
-    .action-change .action-picto:after {content: @fa-var-lightbulb-o;}
-    .action-info .action-picto:after {content: @fa-var-info;}
-    .action-print .action-picto:after {content: @fa-var-file-text-o;}
-    
-}
+    &:hover:after {
+        border: 2px solid #fff;
+        background-color: @green;
+    }
+}  
+
+.action-contact .action-picto:after {content: @fa-var-wrench;}
+.action-change .action-picto:after {content: @fa-var-lightbulb-o;}
+.action-info .action-picto:after {content: @fa-var-info;}
+.action-print .action-picto:after {content: @fa-var-file-text-o;}
+
+
 
 @media @medium {
     .actions {

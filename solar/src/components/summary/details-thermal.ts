@@ -76,7 +76,14 @@ const infosThermal =
             sumFinance(),
         );
 
-
+const reset =
+    () => DIV({
+        className: 'solar-btn',
+        onClick: () => clearInputs(),
+    },
+        DIV({ className: 'solar-inner-btn' },
+            tr('resetValue'),
+        ));
 
 
 export const summaryDetailedThermal =
@@ -84,10 +91,7 @@ export const summaryDetailedThermal =
         DIV({ className: 'summary-detailled' },
             sumAdress(),
             infosThermal(),
-            DIV({
-                className: 'btn-reset',
-                onClick: () => clearInputs(),
-            }, tr('resetValue')),
+            reset(),
             actionPrint(),
         );
 

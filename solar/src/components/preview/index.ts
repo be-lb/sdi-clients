@@ -29,10 +29,10 @@ const summary =
 
 const goToSettings =
     () => DIV({
-        className: 'settings-link-wrapper',
+        className: 'solar-btn',
         onClick: () => getCapakey().map(navigateDetail),
     },
-        DIV({ className: 'settings-link' },
+        DIV({ className: 'solar-inner-btn' },
             tr('solAdjustStr1'),
             ' ',
             tr('solAdjustStr2')),

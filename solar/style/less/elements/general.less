@@ -108,8 +108,11 @@ input[type="number"] {
     border-radius: @toggleH;
     background-color: @light-grey;
     width: 100%;
-    max-width:@sidebarW;
     flex-wrap: nowrap;
+
+    @media @medium {
+            max-width:@sidebarW;
+    }
 
 
     .value {
@@ -246,5 +249,45 @@ input[type="number"] {
 
     & *{
         .word-wrap;
+    }
+}
+
+
+
+.solar-btn {
+    position: relative;
+    width: 100%;
+    height: @medium-font * 2;
+    background: @extra-light-grey;
+    border: 2px solid #333;
+    border-radius: 2em;
+    margin: @margin * 2 0;
+
+    @media @big {
+        width: @sidebarW;
+        margin: @margin 0;         
+    }
+
+
+    .solar-inner-btn {
+            .absolute(0,0,0,0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2em;
+            border: 2px solid @extra-light-grey;;
+            font-size: @medium-font;
+            color: #000;
+            text-align: center;
+            cursor: default;
+        }
+
+    &:hover  { 
+        background-color: @green;
+        
+        .solar-inner-btn {
+            border: 2px solid #fff;
+            background-color: @green;
+        }  
     }
 }
