@@ -9,7 +9,6 @@ import {
     actionContact,
     actionChange,
     actionInfo,
-    actionPrint,
 } from '../action';
 
 import {
@@ -28,6 +27,14 @@ import {
 } from '../adjust';
 
 import { getSystem } from '../../queries/simulation';
+import { setSystem } from '../../events/simulation';
+
+import { toggle } from '../item-factory';
+
+const toggleSystem = toggle(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
+
 
 
 const calculatorTitle =
@@ -37,6 +44,7 @@ const calculatorTitle =
                 tr('solAdjustStr1'),
                 ' ',
                 tr('solAdjustStr2')),
+            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater'),
         );
 
 const photovoltaicWidgets =
@@ -77,7 +85,7 @@ const action =
             actionContact(),
             actionChange(),
             actionInfo(),
-            actionPrint());
+            );
 
 const sidebar =
     () =>

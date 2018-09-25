@@ -3,21 +3,19 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withEuroInclVAT, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
 
-import { toggle } from '../item-factory';
 
 import {
-    getSystem,
     streetName,
     streetNumber,
     locality,
     getAnimatedValueThermal,
 } from '../../queries/simulation';
-import { setSystem, clearInputs } from '../../events/simulation';
 
+import { clearInputs } from '../../events/simulation';
 
-const toggleSystem = toggle(
-    () => getSystem() === 'photovoltaic',
-    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
+import {
+    actionPrint,
+} from '../action';
 
 
 
@@ -86,11 +84,11 @@ export const summaryDetailedThermal =
         DIV({ className: 'summary-detailled' },
             sumAdress(),
             infosThermal(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater'),
             DIV({
                 className: 'btn-reset',
                 onClick: () => clearInputs(),
             }, tr('resetValue')),
+            actionPrint(),
         );
 
 

@@ -20,13 +20,13 @@ const expenses =
         );
 
 
-// const costValue =
-//     () =>
-//         DIV({ className: 'cost-value' },
-//             SPAN({}, tr('installationPrice')),
-//             SPAN({}, ' : '),
-//             SPAN({}, withEuroInclVAT(getOutputPv('installationCost'))),
-//         );
+const mobCostValue =
+    () =>
+        DIV({ className: 'mobile-info cost-value' },
+            SPAN({}, tr('installationPrice')),
+            SPAN({}, ' : '),
+            SPAN({}, withEuroInclVAT(getOutputPv('installationCost'))),
+        );
 
 
 
@@ -38,7 +38,7 @@ export const calcFinanceCost =
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses(),
-                // costValue(),
+                mobCostValue(),
                 ));
 
 

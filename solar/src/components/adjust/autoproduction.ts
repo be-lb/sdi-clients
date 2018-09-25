@@ -86,9 +86,9 @@ const selectWidget =
         );
 
 
-const info =
+const mobInfo =
     () =>
-        DIV({ className: 'autoproduction-select-value' },
+        DIV({ className: 'mobile-info autoproduction-select-value' },
             tr('solarAutonomy'),
             ' ',
             withPercent(getOutputPv('autonomy') * 100),
@@ -111,7 +111,7 @@ export const calcAutoproduction =
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 DIV({ className: 'adjust-picto picto-solar-energy' })),
             selectWidget(),
-            // info(),
+            mobInfo(),
             notes(),
         );
 
