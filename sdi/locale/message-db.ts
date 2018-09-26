@@ -310,7 +310,7 @@ export type MessageKey =
     | 'solAdjustStr2'
     | 'solAndNow'
     | 'solAutoproduction'
-    | 'solar'
+    | 'solarAppName'
     | 'solarAutonomy'
     | 'solarPV'
     | 'solarThermal'
@@ -2011,10 +2011,10 @@ export const messages: MessageDB = {
         en: 'Start GPS location',
     },
 
-    solar: {
-        fr: 'Solar',
-        nl: 'Solar',
-        en: 'Solar',
+    solarAppName: {
+        fr: 'Carte solaire',
+        nl: 'Zonnekaart',
+        en: 'Solar map',
     },
 
     analyse: {

@@ -52,8 +52,8 @@
             "route": "solar",
             "root": "solar/dist",
             "name": {
-                "fr": "Solar",
-                "nl": "Solar"
+                "fr": "Carte solaire",
+                "nl": "Zonnekaart"
             }
         },
         {

@@ -38,7 +38,7 @@ export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Loader' | 'Preview' 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
     DIV({},
-        header('solar', navigateLocate)(() => DIV())(),
+        header('solarAppName', navigateLocate)(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
 );
