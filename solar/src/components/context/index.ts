@@ -71,7 +71,7 @@ const barChart =
 const backToMap =
     () =>
         DIV({
-            className: 'illu-text solar-btn', onClick: () => {
+            className: 'illu-text solar-btn btn-level-2', onClick: () => {
                 clearRoofLayer();
                 navigateLocate();
             },

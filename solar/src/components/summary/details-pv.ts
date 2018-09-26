@@ -76,7 +76,7 @@ const sumFinance =
 
 const reset =
     () => DIV({
-        className: 'solar-btn',
+        className: 'solar-btn btn-level-2',
         onClick: () => clearInputs(),
     },
         DIV({ className: 'solar-inner-btn' },
@@ -93,8 +93,8 @@ export const summaryDetailedPhotovoltaic =
             sumInstallation(),
             sumEnergy(),
             sumFinance(),
-            reset(),
             actionPrint(),
+            reset(),
         );
 
 

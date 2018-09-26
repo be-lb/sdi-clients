@@ -290,4 +290,22 @@ input[type="number"] {
             background-color: @green;
         }  
     }
+
+    &.btn-level-2 {
+        border-color: @light-grey;
+        background: @extra-light-grey;
+
+        > div {
+            border-color: @extra-light-grey;
+            font-size: @small-font;
+        }
+
+        &:hover {
+            border-color: @grey;
+             > div {
+                border-color: @extra-light-grey;
+                background: @extra-light-grey;
+            }
+        }
+    }
 }
