@@ -10,11 +10,6 @@ export const actionContact =
         DIV({ className: 'action-contact' },
             DIV({ className: 'action-picto' }),
             H1({}, tr('solContactStr1'), BR({}), tr('solContactStr2')),
-            // DIV({ className: 'action-info' }, ##IMPORTANT : keep those commented lines until end of dev, in case BE changes his mind on wording
-            //     DIV({}, tr('solActContactStr1')),
-            //     DIV({}, tr('solActContactStr2')),
-            //     DIV({}, tr('solActContactStr3')),
-            //     DIV({}, tr('solActContactStr4'))),
         );
 
 export const actionChange =
@@ -22,11 +17,6 @@ export const actionChange =
         DIV({ className: 'action-change' },
             DIV({ className: 'action-picto' }),
             H1({}, tr('solChangeStr1'), BR({}), tr('solChangeStr2')),
-            // DIV({ className: 'action-info' },
-            //     DIV({}, tr('solActChangeStr1')),
-            //     DIV({}, tr('solActChangeStr2')),
-            //     DIV({}, tr('solActChangeStr3')),
-            //     DIV({}, tr('solActChangeStr4'))),
         );
 
 
@@ -42,10 +32,6 @@ export const actionPrint =
         DIV({ className: 'action-print' },
             DIV({ className: 'action-picto' }),
             H1({}, tr('solPrintStr1'), BR({}), tr('solPrintStr2')),
-            // DIV({ className: 'action-info' },
-            //     DIV({}, tr('solActPrintStr1')),
-            //     DIV({}, tr('solActPrintStr2')),
-            //     DIV({ className: 'pdf' })),
         );
 
 

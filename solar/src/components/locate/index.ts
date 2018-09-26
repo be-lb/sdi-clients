@@ -111,8 +111,6 @@ const pitch =
                 SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr3b'))),
             DIV({}, tr('solLocatePitchStr4')),
             DIV({}, tr('solLocatePitchStr5')),
-            DIV({}, tr('solLocatePitchStr6')),
-            DIV({}, tr('solLocatePitchStr7')),
         );
 
 
