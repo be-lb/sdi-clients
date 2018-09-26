@@ -64,7 +64,8 @@ const obstacleItem =
             DIV({
                 className: 'obstacle-input-plus',
                 onClick: () => setObstacle(on, 1),
-            })));
+            })),
+    );
 
 const obstacleItemActive =
     (on: Obstacle, n: number) => DIV({ className: 'obstacle-item' },
