@@ -372,6 +372,7 @@ export type MessageKey =
     | 'solPhotovoltaic'
     | 'solPrintStr1'
     | 'solPrintStr2'
+    | 'solPrintStr3'
     | 'solProductionPanels'
     | 'solResearch'
     | 'solSearchAnotherAdress'
@@ -2774,6 +2775,12 @@ export const messages: MessageDB = {
         fr: 'mon rapport',
         nl: 'bekijken',
         en: 'download',
+    },
+
+    solPrintStr3: {
+        fr: 'Télécharger le rapport',
+        nl: 'Download het rapport',
+        en: 'Download the report',
     },
 
 
