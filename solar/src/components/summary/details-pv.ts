@@ -12,7 +12,7 @@ import {
     totalArea,
     getAnimatedValuePv,
     usableRoofArea,
-    getInputF,
+    getObstacleArea,
 } from '../../queries/simulation';
 
 import { clearInputs } from '../../events/simulation';
@@ -49,28 +49,29 @@ const sumRooftop =
     () =>
         DIV({ className: 'sum-rooftop-wrapper' },
             H2({}, tr('solMyRooftop')),
-            vk(withM2(totalArea()), 'surface'),
+            vk(withM2(totalArea()), 'solTotalSurface'),
+            vk(withM2(getObstacleArea()), 'obstacleEstimation'),
             vk(withM2(usableRoofArea()), 'solUsableRoofArea'),
-            vk(withM2(getInputF('obstacleRate')() * totalArea()), 'obstacleEstimation'),
-        );
-const sumInstallation =
-    () =>
-        DIV({ className: 'sum-installation-wrapper' },
-            H2({}, tr('solMyInstallation')),
-            vk(withM2(getAnimatedValuePv('maxArea')), 'surface'),
-            vk(withKWc(getAnimatedValuePv('power'), 1), 'power'),
-            vks(getPanelUnits(), `${tr('solPanels')} (${tr(pvTechnologyLabel())})`),
-            // vk(withYear(25), 'solInstallationLifeTime'),
         );
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
             H2({}, tr('solMyEnergy')),
-            vk(withKWhY(getAnimatedValuePv('annualProduction')), 'yearProduction'),
-            vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'yearConsumption'),
+            vk(withKWhY(getAnimatedValuePv('annualProduction')), 'solProductionPanels'),
+            vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'solHomeConsumption'),
             vk(withPercent(getAnimatedValuePv('autonomy') * 100), 'solarAutonomy'),
             vk(withTCO2Y(getAnimatedValuePv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
+        );
+
+const sumInstallation =
+    () =>
+        DIV({ className: 'sum-installation-wrapper' },
+            H2({}, tr('solMyInstallation')),
+            vks(getPanelUnits(), `${tr('solNumberOfPanels')} (${tr(pvTechnologyLabel())})`),
+            vk(withM2(getAnimatedValuePv('maxArea')), 'solInstallationSurface'),
+            vk(withKWc(getAnimatedValuePv('power'), 1), 'solTotalPower'),
+            vk(withYear(25), 'solInstallationLifeTime'),
         );
 
 const sumFinance =
@@ -80,7 +81,7 @@ const sumFinance =
             vk(withEuroInclVAT(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),
             vk(withEuro(getAnimatedValuePv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'),
-            vk(withEuro(getAnimatedValuePv('totalGain25Y')), 'gainTotal25Y'),
+            vk(withEuro(getAnimatedValuePv('totalGain25Y') - getAnimatedValuePv('installationCost')), 'gainTotal25Y'),
             vk(withYear(getAnimatedValuePv('returnTime')), 'returnTime'));
 
 
@@ -101,8 +102,8 @@ export const summaryDetailedPhotovoltaic =
         DIV({ className: 'summary-detailled' },
             sumAdress(),
             sumRooftop(),
-            sumInstallation(),
             sumEnergy(),
+            sumInstallation(),
             sumFinance(),
             actionPrint(),
             reset(),

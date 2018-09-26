@@ -123,7 +123,12 @@ export const areaMedium = areaProductivity('good');
 export const areaLow = areaProductivity('unusable');
 
 export const usableRoofArea =
-    () => totalArea() * (areaExcellent() + areaMedium()) / 100;
+    () => {
+        const usable = (totalArea() * (areaExcellent() + areaMedium()) / 100);
+        const obsRate = queryInputs()['obstacleRate'];
+        const obstacle = usable * obsRate;
+        return usable - obstacle;
+    };
 
 
 const queryInputs = queryK('solar/inputs');
@@ -201,6 +206,9 @@ export const thermicTechnology =
 
 export const getObstacle =
     (o: Obstacle) => query('solar/obstacle')[o];
+
+export const getObstacleArea =
+    () => queryInputs()['obstacleRate'] * totalArea();
 
 
 export const PANEL_AREA = 1.6;

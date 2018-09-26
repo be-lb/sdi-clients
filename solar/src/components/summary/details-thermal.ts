@@ -8,6 +8,9 @@ import {
     streetName,
     streetNumber,
     locality,
+    totalArea,
+    usableRoofArea,
+    getObstacleArea,
     getAnimatedValueThermal,
 } from '../../queries/simulation';
 
@@ -35,15 +38,15 @@ const sumAdress =
                 SPAN({}, ` ${locality()}`)));
 
 
-const sumInstallation =
+const sumRooftop =
     () =>
-        DIV({ className: 'sum-installation-wrapper' },
-            H2({}, tr('installation')),
-            vk(2, 'solPanels'),
-            vk(withM2(4.5, 1), 'surface'),
-            vk(withLiter(300), 'solWaterStorage'),
-            // vk(withYear(25), 'solInstallationLifeTime'),
+        DIV({ className: 'sum-rooftop-wrapper' },
+            H2({}, tr('solMyRooftop')),
+            vk(withM2(totalArea()), 'solTotalSurface'),
+            vk(withM2(getObstacleArea()), 'obstacleEstimation'),
+            vk(withM2(usableRoofArea()), 'solUsableRoofArea'),
         );
+
 
 const sumEnergy =
     () =>
@@ -55,13 +58,24 @@ const sumEnergy =
             vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions'), 1), 'gainEnvironment'),
         );
 
+const sumInstallation =
+    () =>
+        DIV({ className: 'sum-installation-wrapper' },
+            H2({}, tr('installation')),
+            vk(2, 'solNumberOfPanels'),
+            vk(withM2(4.5, 1), 'surface'),
+            vk(withLiter(300), 'solWaterStorage'),
+            // vk(withYear(25), 'solInstallationLifeTime'),
+        );
+
+
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
             vk(withEuroInclVAT(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValueThermal('grant')), 'bonus'),
-            vk(withEuro(getAnimatedValueThermal('gain')), 'gainEnergyInvoice10Y'),
+            vk(withEuro(getAnimatedValueThermal('gain')), 'gainInvoice25Y'),
             vk(withYear(getAnimatedValueThermal('returnTime')), 'returnTime'),
         );
 
@@ -71,8 +85,9 @@ const sumFinance =
 const infosThermal =
     () =>
         DIV({ className: 'infos-thermal-wrapper' },
-            sumInstallation(),
+            sumRooftop(),
             sumEnergy(),
+            sumInstallation(),
             sumFinance(),
         );
 

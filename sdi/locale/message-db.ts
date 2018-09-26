@@ -139,6 +139,7 @@ export type MessageKey =
     | 'gainGreenCertif25Y'
     | 'gainTotal'
     | 'gainTotal25Y'
+    | 'gainInvoice25Y'
     | 'geocode'
     | 'geometryType'
     | 'go'
@@ -331,8 +332,10 @@ export type MessageKey =
     | 'solFinanceVAT'
     | 'solGaz'
     | 'solHeatProdSys'
+    | 'solHomeConsumption'
     | 'solHotWaterConsumption'
     | 'solInstallationLifeTime'
+    | 'solInstallationSurface'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
     | 'solLocatePitchStr3a'
@@ -358,6 +361,7 @@ export type MessageKey =
     | 'solMyInstallation'
     | 'solMyEnergy'
     | 'solMyFinance'
+    | 'solNumberOfPanels'
     | 'solOn10Years'
     | 'solOnMap'
     | 'solOptimumInstallation'
@@ -368,6 +372,7 @@ export type MessageKey =
     | 'solPhotovoltaic'
     | 'solPrintStr1'
     | 'solPrintStr2'
+    | 'solProductionPanels'
     | 'solResearch'
     | 'solSearchAnotherAdress'
     | 'solSelectedPannels'
@@ -384,6 +389,8 @@ export type MessageKey =
     | 'solSolarRateArea'
     | 'solSolarWaterHeater'
     | 'solThermal'
+    | 'solTotalPower'
+    | 'solTotalSurface'
     | 'solUsableRoofArea'
     | 'solVAT0'
     | 'solVAT21'
@@ -2071,9 +2078,9 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert sur 25 ans',
-        nl: 'aanwinst groenestroomcertificat over 25 jaar',
-        en: 'Gain Green Certificate over 25 years',
+        fr: 'Gain Certificat Vert max. 10 ans',
+        nl: 'aanwinst groenestroomcertificat max. 10 jaar',
+        en: 'Gain Green Certificate max. 10 years',
     },
 
     gainElecInvoice: {
@@ -2089,12 +2096,12 @@ export const messages: MessageDB = {
     },
 
     gainEnvironment: {
-        fr: 'Gain environnemental',
+        fr: 'Gain pour l\'environnement',
         nl: 'Winst voor het milieu',
         en: 'Environmental gain',
     },
     gainEnvironment25Y: {
-        fr: 'Gain environnemental sur 25 ans',
+        fr: 'Gain pour l\' environnement sur 25 ans',
         nl: 'Winst voor het milieu over 25 jaar',
         en: 'Environmental gain over 25 years',
     },
@@ -2206,9 +2213,9 @@ export const messages: MessageDB = {
     },
 
     obstacleEstimation: {
-        fr: 'Pourcentage estimé d\'obstacles',
-        nl: 'Geschat percentage belemmeringen',
-        en: 'Estimated percentage of obstacles',
+        fr: 'Obstacles estimés',
+        nl: 'Geschatte obstakels',
+        en: 'Estimated obstacles',
     },
 
     energy: {
@@ -2230,15 +2237,15 @@ export const messages: MessageDB = {
     },
 
     solarAutonomy: {
-        fr: 'Autonomie solaire',
-        nl: 'Zonne autonomie',
-        en: 'Solar autonomy',
+        fr: 'Auto consommation',
+        nl: 'Autoverbruik',
+        en: '',
     },
 
     gainTotal25Y: {
-        fr: 'Gains totaux sur 25 ans',
-        nl: 'Totale winst over 25 jaar',
-        en: 'Total earnings over 25 years',
+        fr: 'Gains nets sur 25 ans',
+        nl: 'Nettowinst over 25 jaar',
+        en: '',
     },
 
     gainTotal: {
@@ -2452,14 +2459,14 @@ export const messages: MessageDB = {
     },
 
     chimneySmoke: {
-        fr: 'Cheminée de combustion',
-        nl: 'Verbrandingsschoorsteen',
-        en: 'Combustion chimney',
+        fr: 'Cheminée',
+        nl: 'Schoorsteen',
+        en: 'Chimney',
     },
 
     terraceInUse: {
-        fr: 'Terrasse en cours d\'utilisation',
-        nl: 'Terras in gebruik',
+        fr: 'Terrasse utilisée',
+        nl: 'Terras gebruik',
         en: 'Terrace in use',
     },
 
@@ -3020,9 +3027,9 @@ export const messages: MessageDB = {
     },
 
     solDedicatedArea: {
-        fr: 'Ajustement de la dimension de l\'installation',
-        nl: 'Aanpassen van de grootte van de installatie ',
-        en: 'Adjusting the size of the installation ',
+        fr: 'Nombre de panneaux souhaités',
+        nl: 'Aantal benodigde panelen',
+        en: '',
     },
 
     solFinanceCost: {
@@ -3104,9 +3111,9 @@ export const messages: MessageDB = {
     },
 
     solSolarRateArea: {
-        fr: 'Taux de couverture solaire',
-        nl: 'Dekkingsgraad',
-        en: 'Solar rate area',
+        fr: 'Pourcentage d\'eau chaude sanitaire produite',
+        nl: 'Percentage geproduceerd huishoudelijk warm water',
+        en: '',
     },
 
     solInstallationLifeTime: {
@@ -3158,6 +3165,12 @@ export const messages: MessageDB = {
         en: '',
     },
 
+    solTotalSurface: {
+        fr: 'Surface totale',
+        nl: 'oppervlakte totaal',
+        en: '',
+    },
+
     solMyInstallation: {
         fr: 'Mon installation',
         nl: 'Mijn installatie',
@@ -3180,5 +3193,41 @@ export const messages: MessageDB = {
         fr: 'Surface utilisable',
         nl: 'Bruikbaar gebied',
         en: 'Usable area',
+    },
+
+    solProductionPanels: {
+        fr: 'Production des panneaux',
+        nl: 'Productie van de panelen',
+        en: '',
+    },
+
+    solHomeConsumption: {
+        fr: 'Consommation du ménage',
+        nl: 'Huishoudelijke consumptie',
+        en: '',
+    },
+
+    solNumberOfPanels: {
+        fr: 'Nombre de panneaux',
+        nl: 'Aantal panelen',
+        en: '',
+    },
+
+    solInstallationSurface: {
+        fr: 'Superficie installée',
+        nl: 'Geïnstalleerd gebied',
+        en: '',
+    },
+
+    solTotalPower: {
+        fr: 'Puissance totale installée',
+        nl: 'Totaal geïnstalleerd vermogen',
+        en: '',
+    },
+
+    gainInvoice25Y: {
+        fr: 'Gain sur ma facture en 25 ans',
+        nl: 'Winst op mijn factuur in 25 jaar',
+        en: '',
     },
 };
