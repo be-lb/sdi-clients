@@ -1,19 +1,18 @@
-import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
+import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withPercent, withEuro, withEuroInclVAT, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import {
     getPanelUnits,
-    locality,
     pvTechnologyLabel,
-    streetName,
-    streetNumber,
     totalArea,
     getAnimatedValuePv,
     usableRoofArea,
     getObstacleArea,
 } from '../../queries/simulation';
+
+import { buildingAdress } from '../item-factory';
 
 import { clearInputs } from '../../events/simulation';
 
@@ -30,16 +29,6 @@ const vks =
         DIV({ className: `vk ${vkClass}` },
             SPAN({ className: 'value' }, `${v}`),
             SPAN({ className: 'key' }, key));
-
-
-export const sumAdress =
-    () =>
-        DIV({ className: 'adress' },
-            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),
-            H1({ className: 'locality' },
-                SPAN({}, tr('in')),
-                SPAN({}, ` ${locality()}`)));
-
 
 const sumRooftop =
     () =>
@@ -113,7 +102,7 @@ const footer =
 export const summaryDetailedPhotovoltaic =
     () =>
         DIV({ className: 'summary-detailled' },
-            sumAdress(),
+            buildingAdress(),
             sumRooftop(),
             sumEnergy(),
             sumInstallation(),

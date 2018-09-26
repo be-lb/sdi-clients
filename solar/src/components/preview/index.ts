@@ -6,9 +6,10 @@ import { actionContact, actionChange, actionPrint, actionInfo } from '../action'
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
-import { sumAdress } from '../summary/details-pv';
 import { navigateDetail } from '../../events/route';
 import { getCapakey } from '../../queries/app';
+import { buildingAdress } from '../item-factory';
+
 
 const action =
     () =>
@@ -60,12 +61,9 @@ const renderNoPreview =
             DIV({ className: 'upper-part' },
                 context(),
                 DIV({ className: 'sol-no-sol' },
-                    sumAdress(),
+                    buildingAdress(),
                     DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol')),
                 )),
-            // DIV({ className: 'lower-part' },
-            //     DIV({ className: 'action-title' }, tr('solAndNow')),
-            //     action()),
         );
 
 

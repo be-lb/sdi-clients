@@ -1,19 +1,15 @@
-import { DIV, SPAN, H1, H2 } from 'sdi/components/elements';
+import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withEuroInclVAT, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
 
-
+import { buildingAdress } from '../item-factory';
 import {
-    streetName,
-    streetNumber,
-    locality,
     totalArea,
     usableRoofArea,
     getObstacleArea,
     getAnimatedValueThermal,
 } from '../../queries/simulation';
-
 import { clearInputs } from '../../events/simulation';
 
 
@@ -22,15 +18,6 @@ const vk =
         DIV({ className: `vk ${vkClass}` },
             SPAN({ className: 'value' }, `${v}`),
             SPAN({ className: 'key' }, tr(key)));
-
-
-const sumAdress =
-    () =>
-        DIV({ className: 'adress' },
-            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),
-            H1({ className: 'locality' },
-                SPAN({}, tr('in')),
-                SPAN({}, ` ${locality()}`)));
 
 
 const sumRooftop =
@@ -114,7 +101,7 @@ const footer =
 export const summaryDetailedThermal =
     () =>
         DIV({ className: 'summary-detailled' },
-            sumAdress(),
+            buildingAdress(),
             infosThermal(),
             footer(),
         );

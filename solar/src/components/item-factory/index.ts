@@ -1,9 +1,16 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, H1 } from 'sdi/components/elements';
 import { inputNumber, Getter, Setter } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
-import { getNumInputF, GetNumKeyOfInputs } from '../../queries/simulation';
+import {
+    getNumInputF,
+    GetNumKeyOfInputs,
+    streetName,
+    streetNumber,
+    locality,
+} from '../../queries/simulation';
+
 import { setInputF, SetNumKeyOfInputs } from '../../events/simulation';
 
 // export const checkBox =
@@ -77,3 +84,9 @@ export const toggle =
                 DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)));
 
 
+
+export const buildingAdress =
+    () =>
+        DIV({ className: 'adress' },
+            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}, ${tr('in')} ${locality()}`),
+        );
