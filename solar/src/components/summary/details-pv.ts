@@ -17,10 +17,6 @@ import {
 
 import { clearInputs } from '../../events/simulation';
 
-import {
-    actionPrint,
-} from '../action';
-
 
 
 const vk =
@@ -87,13 +83,30 @@ const sumFinance =
 
 const reset =
     () => DIV({
-        className: 'solar-btn btn-level-2',
+        className: 'solar-btn btn-level-2 reset',
         onClick: () => clearInputs(),
     },
         DIV({ className: 'solar-inner-btn' },
             tr('resetValue'),
         ));
 
+
+const printBtn =
+    () => DIV({
+        className: 'solar-btn print',
+    },
+        DIV({ className: 'solar-inner-btn' },
+            tr('solPrintStr3'),
+        ));
+
+
+
+const footer =
+    () =>
+        DIV({ className: 'detail-footer' },
+            printBtn(),
+            reset(),
+        );
 
 
 
@@ -105,8 +118,7 @@ export const summaryDetailedPhotovoltaic =
             sumEnergy(),
             sumInstallation(),
             sumFinance(),
-            actionPrint(),
-            reset(),
+            footer(),
         );
 
 

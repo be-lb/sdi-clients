@@ -83,7 +83,7 @@
     }
     .vk {
         font-size: @small-font;
-        line-height: 115%;
+        line-height: 125%;
         display: flex;
         .value {
             font-weight: 500;
@@ -94,17 +94,33 @@
         }
     }
 
-    .toggle {margin: @margin 0;}
+    // .toggle {margin: @margin 0;}
 
-    .action-print {
+    .detail-footer {
         display: flex;
         align-items: center;
-        margin-top: @margin * 2;
+        justify-content: space-between;
 
-        .action-picto {
-            margin-right: @margin;}
+        .print {
+            width: 60%;
+            .solar-inner-btn {
+                font-size: @small-font !important;
+            }
+        }
+
+        .reset {
+            width: 30%;;
+        }
+
+        .action-print {
+            display: flex;
+            align-items: center;
+            margin-top: @margin * 2;
+    
+            .action-picto {
+                margin-right: @margin;}
+        }
     }
-
 }
 
 // NO SUN MESSAGE
