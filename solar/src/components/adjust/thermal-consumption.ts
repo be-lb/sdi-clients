@@ -29,13 +29,13 @@ type Rank = typeof ranks;
 type rank = keyof Rank;
 
 
-const notes: { [k in rank]: MessageKey } = {
-    first: 'solNoteConsWaterRank1',
-    second: 'solNoteConsWaterRank2',
-    third: 'solNoteConsWaterRank3',
-    fourth: 'solNoteConsWaterRank4',
-    fifth: 'solNoteConsWaterRank5',
-    sixth: 'solNoteConsWaterRank6',
+const legends: { [k in rank]: MessageKey } = {
+    first: 'solLegendConsWaterRank1',
+    second: 'solLegendConsWaterRank2',
+    third: 'solLegendConsWaterRank3',
+    fourth: 'solLegendConsWaterRank4',
+    fifth: 'solLegendConsWaterRank5',
+    sixth: 'solLegendConsWaterRank6',
 };
 
 const setConsumption = setInputF('thermicLiterByDay');
@@ -88,23 +88,23 @@ const selectWidget =
         );
 
 
-// Note text per selected rank
-const rankedNote =
+// Legend text per selected rank
+const rankedLegend =
     (rank: rank) =>
         DIV({
-            className: `rank-note ${rank} ${isActive(rank) ? 'active' : ''}`,
-        }, tr(notes[rank]));
+            className: `rank-legend ${rank} ${isActive(rank) ? 'active' : ''}`,
+        }, tr(legends[rank]));
 
 
 
-const adjustNote =
-    () => DIV({ className: 'adjust-item-note' },
-        rankedNote('first'),
-        rankedNote('second'),
-        rankedNote('third'),
-        rankedNote('fourth'),
-        rankedNote('fifth'),
-        rankedNote('sixth'),
+const adjustLegend =
+    () => DIV({ className: 'adjust-item-legend' },
+        rankedLegend('first'),
+        rankedLegend('second'),
+        rankedLegend('third'),
+        rankedLegend('fourth'),
+        rankedLegend('fifth'),
+        rankedLegend('sixth'),
     );
 
 
@@ -120,7 +120,7 @@ export const calcConsumptionThermal =
                     'thermicLiterByDay',
                     SPAN({ className: 'unit' }, tr('unitLiterDay'))),
             ),
-            adjustNote(),
+            adjustLegend(),
         );
 
 

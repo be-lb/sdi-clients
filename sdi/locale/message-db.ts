@@ -343,17 +343,17 @@ export type MessageKey =
     | 'solLocatePitchStr7'
     | 'solMazout'
     | 'solNoSol'
-    | 'solNoteConsRank1'
-    | 'solNoteConsRank2'
-    | 'solNoteConsRank3'
-    | 'solNoteConsRank4'
-    | 'solNoteConsRank5'
-    | 'solNoteConsWaterRank1'
-    | 'solNoteConsWaterRank2'
-    | 'solNoteConsWaterRank3'
-    | 'solNoteConsWaterRank4'
-    | 'solNoteConsWaterRank5'
-    | 'solNoteConsWaterRank6'
+    | 'solLegendConsRank1'
+    | 'solLegendConsRank2'
+    | 'solLegendConsRank3'
+    | 'solLegendConsRank4'
+    | 'solLegendConsRank5'
+    | 'solLegendConsWaterRank1'
+    | 'solLegendConsWaterRank2'
+    | 'solLegendConsWaterRank3'
+    | 'solLegendConsWaterRank4'
+    | 'solLegendConsWaterRank5'
+    | 'solLegendConsWaterRank6'
     | 'solOn10Years'
     | 'solOnMap'
     | 'solOptimumInstallation'
@@ -2864,67 +2864,67 @@ export const messages: MessageDB = {
         en: 'l',
     },
 
-    solNoteConsRank1: {
+    solLegendConsRank1: {
         fr: 'Petit consommateur (studio/appartement avec éclairage, réfrigérateur etc.)',
         nl: 'Kleinverbruiker (studio/appartement met verlichting, koelkast enz.)',
         en: 'Small consumer (studio/apartment with lighting, refrigerator etc.)',
     },
 
-    solNoteConsRank2: {
+    solLegendConsRank2: {
         fr: 'Petite famille (avec machine à laver/lave-vaisselle)',
         nl: 'Klein gezin (met wasmachine/vaatwasser)',
         en: 'Small family (with washing machine/dishwasher)',
     },
 
-    solNoteConsRank3: {
+    solLegendConsRank3: {
         fr: 'Consommateur médian',
         nl: 'Mediaan verbruiker',
         en: 'Median consumer',
     },
 
-    solNoteConsRank4: {
+    solLegendConsRank4: {
         fr: 'Ménage moyen',
         nl: 'Gemiddeld huishouden',
         en: 'Average household',
     },
 
-    solNoteConsRank5: {
+    solLegendConsRank5: {
         fr: 'Gros consommateur',
         nl: 'Grootverbruiker',
         en: ' Large consumer',
     },
 
-    solNoteConsWaterRank1: {
+    solLegendConsWaterRank1: {
         fr: 'Elle s\'apparente à une personne seule ou un ménage très économe (douches rapides plutôt que bains)',
         nl: 'Het is vergelijkbaar met één persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
         en: 'It is similar to a single person or a very economical household (quick showers rather than baths)',
     },
 
-    solNoteConsWaterRank2: {
+    solLegendConsWaterRank2: {
         fr: 'Elle s\'apparente à un petit ménage économe (douches rapides plutôt que bains)',
         nl: 'Het is als een klein, zuinig huishouden (snelle douches in plaats van baden)',
         en: 'It is like a small, economical household (quick showers instead of baths)',
     },
 
-    solNoteConsWaterRank3: {
+    solLegendConsWaterRank3: {
         fr: 'Elle s\'apparente à une famille petite ou une moyenne et économe (douches rapides plutôt que bains)',
         nl: 'Het is vergelijkbaar met een kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
         en: 'It is similar to a small or medium and economical family (quick showers rather than baths)',
     },
 
-    solNoteConsWaterRank4: {
+    solLegendConsWaterRank4: {
         fr: 'Elle s\'apparente à une famille moyenne ou une grande et économe (douches rapides plutôt que bains)',
         nl: 'Het is vergelijkbaar met een gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
         en: 'It is similar to an average family or a large and economical family (quick showers rather than baths)',
     },
 
-    solNoteConsWaterRank5: {
+    solLegendConsWaterRank5: {
         fr: 'Elle s\'apparente à une grande famille',
         nl: 'Ze is als een grote familie.',
         en: 'It is similar to a big family.',
     },
 
-    solNoteConsWaterRank6: {
+    solLegendConsWaterRank6: {
         fr: 'Elle s\'apparente à une très grande famille',
         nl: 'Ze is als een heel grote familie.',
         en: 'It is similar to a very big family.',
@@ -3039,7 +3039,7 @@ export const messages: MessageDB = {
     },
 
     consumptionYElectricity: {
-        fr: 'Consommation annuelle d\'éléctricité',
+        fr: 'Consommation annuelle d\'électricité',
         nl: 'Jaarlijks elektriciteitsverbruik',
         en: 'Annual electricity consumption',
     },
@@ -3063,9 +3063,9 @@ export const messages: MessageDB = {
     },
 
     solOptimumInstallationTheoric: {
-        fr: 'Puissance maximale théorique conseillée pour une installation non-industrielle (12kWc - Non accessible dans le cas présent).',
-        nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWc - Niet toegankelijk in dit geval).',
-        en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc - Not accessible in this case).',
+        fr: 'Puissance maximale théorique conseillée pour une installation non-industrielle (12kWc - non accessible dans le cas présent).',
+        nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWc - niet toegankelijk in dit geval).',
+        en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc - not accessible in this case).',
     },
 
     solNoSol: {

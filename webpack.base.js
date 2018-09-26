@@ -131,6 +131,10 @@ function configure(ROOT, publicPath) {
             new ExtractTextPlugin("[name].css"),
         ],
         devtool: 'source-map',
+
+        watchOptions: {
+            ignored: /node_modules/
+        },
     };
 
     return config;

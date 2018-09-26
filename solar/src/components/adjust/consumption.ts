@@ -28,12 +28,12 @@ type Rank = typeof ranks;
 type rank = keyof Rank;
 
 
-const notes: { [k in rank]: MessageKey } = {
-    first: 'solNoteConsRank1',
-    second: 'solNoteConsRank2',
-    third: 'solNoteConsRank3',
-    fourth: 'solNoteConsRank4',
-    fifth: 'solNoteConsRank5',
+const legends: { [k in rank]: MessageKey } = {
+    first: 'solLegendConsRank1',
+    second: 'solLegendConsRank2',
+    third: 'solLegendConsRank3',
+    fourth: 'solLegendConsRank4',
+    fifth: 'solLegendConsRank5',
 };
 
 const setConsumption = setInputF('annualConsumptionKWh');
@@ -85,22 +85,22 @@ const selectWidget =
         );
 
 
-// Note text per selected rank
-const rankedNote =
+// Legend text per selected rank
+const rankedLegend =
     (rank: rank) =>
         DIV({
-            className: `rank-note ${rank} ${isActive(rank) ? 'active' : ''}`,
-        }, tr(notes[rank]));
+            className: `rank-legend ${rank} ${isActive(rank) ? 'active' : ''}`,
+        }, tr(legends[rank]));
 
 
 
-const adjustNote =
-    () => DIV({ className: 'adjust-item-note' },
-        rankedNote('first'),
-        rankedNote('second'),
-        rankedNote('third'),
-        rankedNote('fourth'),
-        rankedNote('fifth'),
+const adjustLegend =
+    () => DIV({ className: 'adjust-item-legend' },
+        rankedLegend('first'),
+        rankedLegend('second'),
+        rankedLegend('third'),
+        rankedLegend('fourth'),
+        rankedLegend('fifth'),
     );
 
 
@@ -111,7 +111,7 @@ export const calcConsumption =
             titleAndPicto(),
             selectWidget(),
             inputItem('estimatedConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh'))),
-            adjustNote(),
+            adjustLegend(),
         );
 
 

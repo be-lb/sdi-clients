@@ -94,9 +94,9 @@ const mobInfo =
             withPercent(getOutputPv('autonomy') * 100),
         );
 
-const notes =
+const legend =
     () =>
-        DIV({ className: 'adjust-item-note' },
+        DIV({ className: 'adjust-item-legend' },
             DIV({ className: 'reduce' + (getEnergySobriety() ? ' active' : '') }, tr('reduceConsumption')),
             DIV({ className: 'day' + (getChargeShift() ? ' active' : '') }, tr('dayConsumption')),
             DIV({ className: 'waterheating' + (getPVHeater() ? ' active' : '') }, tr('hotWaterDuringDay')),
@@ -112,7 +112,7 @@ export const calcAutoproduction =
                 DIV({ className: 'adjust-picto picto-solar-energy' })),
             selectWidget(),
             mobInfo(),
-            notes(),
+            legend(),
         );
 
 

@@ -1,9 +1,9 @@
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { withEuroInclVAT } from 'sdi/util';
+// import { withEuroInclVAT } from 'sdi/util';
 
 import { inputSelect } from '../item-factory';
-import { getNumInputF, getOutputThermal } from '../../queries/simulation';
+import { getNumInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
@@ -20,13 +20,13 @@ const expenses =
         );
 
 
-const costValue =
-    () =>
-        DIV({ className: 'cost-value' },
-            SPAN({}, tr('installationPrice')),
-            SPAN({}, ' : '),
-            SPAN({}, withEuroInclVAT(getOutputThermal('installationCost'))),
-        );
+// const costValue =
+//     () =>
+//         DIV({ className: 'cost-value' },
+//             SPAN({}, tr('installationPrice')),
+//             SPAN({}, ' : '),
+//             SPAN({}, withEuroInclVAT(getOutputThermal('installationCost'))),
+//         );
 
 
 export const calcFinanceThermalCost =
@@ -37,7 +37,8 @@ export const calcFinanceThermalCost =
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses(),
-                costValue()));
+                // costValue(),
+            ));
 
 
 

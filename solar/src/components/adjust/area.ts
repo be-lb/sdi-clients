@@ -94,22 +94,22 @@ const title =
 const legend =
     () => {
         const elements = [
-            DIV({ className: 'item-note selected' },
+            DIV({ className: 'item-legend selected' },
                 `${getPanelUnits()} ${tr('solSelectedPannels')}`),
         ];
 
         if (hasOver()) {
             elements.push(
-                DIV({ className: 'item-note over' },
+                DIV({ className: 'item-legend over' },
                     tr('solOptimumInstallation')));
         }
         if (hasUnreachable()) {
             elements.push(
-                DIV({ className: 'item-note unreachable' },
+                DIV({ className: 'item-legend unreachable' },
                     tr('solOptimumInstallationTheoric')));
         }
 
-        return DIV({ className: 'adjust-item-note' }, ...elements);
+        return DIV({ className: 'adjust-item-legend' }, ...elements);
     };
 
 export const calcArea =
