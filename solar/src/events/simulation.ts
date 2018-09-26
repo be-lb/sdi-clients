@@ -23,6 +23,7 @@ import { inputs, solarSim, roof, inputsFactory, PV_YIELD } from 'solar-sim';
 import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query, observe } from 'sdi/shape';
 import { getFeatureProp } from 'sdi/source';
+import { getApiUrl } from 'sdi/app';
 
 import { Obstacle, defaulObstacles } from '../components/adjust/obstacle';
 import { getCapakey } from '../queries/app';
@@ -30,6 +31,7 @@ import { totalArea, getSystem, pvTechnology } from '../queries/simulation';
 import { System } from '../shape/solar';
 import { Camera } from '../components/context/mat';
 import { thermicSolarSim } from 'solar-sim/lib/run';
+import { fetchConstants } from '../remote/index';
 
 const logger = debug('sdi:solar/events');
 
@@ -51,6 +53,12 @@ export type SetNumKeyOfInputs =
     ;
 
 
+export const loadConstants =
+    () =>
+        fetchConstants(getApiUrl('geodata/solar/constants'))
+            .then(cs => dispatch('solar/constants', () => cs));
+
+
 export const defaultInputs =
     (): inputs => ({ ...inputsFactory([]), nYears: 25, VATrate: 0.06 });
 
@@ -65,6 +73,8 @@ observe('solar/inputs', () => {
 observe('solar/system', () => {
     getCapakey().map(simulate);
 });
+
+observe('solar/constants', () => simulate());
 
 export const setInputF =
     <K extends keyof inputs, T extends inputs[K]>(k: K) =>
@@ -110,6 +120,9 @@ export const setPower =
 
 const simulate =
     () => {
+        if (query('solar/constants') === null) {
+            return;
+        }
         const inputs = query('solar/inputs');
         if (getSystem() === 'photovoltaic') {
             dispatchPvOutputs(() => {

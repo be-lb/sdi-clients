@@ -99,6 +99,7 @@ export const main =
 
             'solar/system': 'photovoltaic',
             'solar/address': null,
+            'solar/constants': null,
             'solar/inputs': defaultInputs(),
             'solar/outputs/pv': null,
             'solar/outputs/thermal': null,
