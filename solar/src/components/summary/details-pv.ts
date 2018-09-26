@@ -9,6 +9,7 @@ import {
     pvTechnologyLabel,
     streetName,
     streetNumber,
+    totalArea,
     getAnimatedValuePv,
 } from '../../queries/simulation';
 
@@ -42,21 +43,29 @@ export const sumAdress =
                 SPAN({}, ` ${locality()}`)));
 
 
+const sumRooftop =
+    () =>
+        DIV({ className: 'sum-rooftop-wrapper' },
+            H2({}, tr('solMyRooftop')),
+            vk(withM2(totalArea()), 'surface'),
+            vk(withM2(getAnimatedValuePv('maxArea')), 'surface'),
+            vk(withKWc(getAnimatedValuePv('power'), 1), 'power'),
+            vk(withPercent(getAnimatedValuePv('obstacleRate') * 100), 'obstacleEstimation'),
+        );
 const sumInstallation =
     () =>
         DIV({ className: 'sum-installation-wrapper' },
-            H2({}, tr('installation')),
+            H2({}, tr('solMyInstallation')),
             vk(withM2(getAnimatedValuePv('maxArea')), 'surface'),
             vk(withKWc(getAnimatedValuePv('power'), 1), 'power'),
             vks(getPanelUnits(), `${tr('solPanels')} (${tr(pvTechnologyLabel())})`),
-            // vk(withPercent(getOutputPv('obstacleRate') * 100), 'obstacleEstimation'),
             // vk(withYear(25), 'solInstallationLifeTime'),
         );
 
 const sumEnergy =
     () =>
         DIV({ className: 'sum-energy-wrapper' },
-            H2({}, tr('energy')),
+            H2({}, tr('solMyEnergy')),
             vk(withKWhY(getAnimatedValuePv('annualProduction')), 'yearProduction'),
             vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'yearConsumption'),
             vk(withPercent(getAnimatedValuePv('autonomy') * 100), 'solarAutonomy'),
@@ -66,7 +75,7 @@ const sumEnergy =
 const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
-            H2({}, tr('finance')),
+            H2({}, tr('solMyFinance')),
             vk(withEuroInclVAT(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),
             vk(withEuro(getAnimatedValuePv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'),
@@ -90,6 +99,7 @@ export const summaryDetailedPhotovoltaic =
     () =>
         DIV({ className: 'summary-detailled' },
             sumAdress(),
+            sumRooftop(),
             sumInstallation(),
             sumEnergy(),
             sumFinance(),
