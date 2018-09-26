@@ -384,6 +384,7 @@ export type MessageKey =
     | 'solSolarRateArea'
     | 'solSolarWaterHeater'
     | 'solThermal'
+    | 'solUsableRoofArea'
     | 'solVAT0'
     | 'solVAT21'
     | 'solVAT6'
@@ -3175,4 +3176,9 @@ export const messages: MessageDB = {
         en: '',
     },
 
+    solUsableRoofArea: {
+        fr: 'Surface utilisable',
+        nl: 'Bruikbaar gebied',
+        en: 'Usable area',
+    },
 };

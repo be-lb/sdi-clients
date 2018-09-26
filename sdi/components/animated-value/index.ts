@@ -78,7 +78,7 @@ export const value =
         const c = av.getCurrent();
         const t = av.target();
         const diff = t - c;
-        if (Math.abs(diff) > 0.1) {
+        if (Math.abs(diff) > 0.01) {
             setTimeout(() => {
                 const step = diff / 2;
                 av.setCurrent(c + step);

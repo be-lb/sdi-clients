@@ -11,6 +11,8 @@ import {
     streetNumber,
     totalArea,
     getAnimatedValuePv,
+    usableRoofArea,
+    getInputF,
 } from '../../queries/simulation';
 
 import { clearInputs } from '../../events/simulation';
@@ -48,9 +50,8 @@ const sumRooftop =
         DIV({ className: 'sum-rooftop-wrapper' },
             H2({}, tr('solMyRooftop')),
             vk(withM2(totalArea()), 'surface'),
-            vk(withM2(getAnimatedValuePv('maxArea')), 'surface'),
-            vk(withKWc(getAnimatedValuePv('power'), 1), 'power'),
-            vk(withPercent(getAnimatedValuePv('obstacleRate') * 100), 'obstacleEstimation'),
+            vk(withM2(usableRoofArea()), 'solUsableRoofArea'),
+            vk(withM2(getInputF('obstacleRate')() * totalArea()), 'obstacleEstimation'),
         );
 const sumInstallation =
     () =>

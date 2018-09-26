@@ -100,25 +100,6 @@ export const totalArea =
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
     );
 
-// const areaIrradiance =
-//     (low: number, high: number) =>
-//         () => getRoofFeatures()
-//             .fold(
-//                 0,
-//                 (features) => {
-//                     const ta = Math.max(0.01, totalArea()); // ugly but...
-//                     const catArea = features
-//                         .filter((f) => {
-//                             const p = getFeatureProp(f, 'irradiance', 0) / 1000;
-//                             // const a = getFeatureProp(f, 'area', 0.001);
-//                             // const irm2 = p / a;
-//                             return (p >= low) && (p < high);
-//                         })
-//                         .reduce((acc, f) => acc + getFeatureProp(f, 'area', 0), 0);
-
-//                     return catArea * 100 / ta;
-//                 },
-//         );
 
 const areaProductivity =
     (tag: Tag) =>
@@ -140,6 +121,9 @@ const areaProductivity =
 export const areaExcellent = areaProductivity('great');
 export const areaMedium = areaProductivity('good');
 export const areaLow = areaProductivity('unusable');
+
+export const usableRoofArea =
+    () => totalArea() * (areaExcellent() + areaMedium()) / 100;
 
 
 const queryInputs = queryK('solar/inputs');
