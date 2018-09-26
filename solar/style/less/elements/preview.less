@@ -10,15 +10,17 @@
 
     .action-header{
         padding: 0;
-    }
-
-    .action-title {
-        font-size: @big-font * 0.8;
-        font-weight: 700;
-        color: @green;
-        padding: @margin 0;
-        border-top: 1px solid #000;
         border-bottom: 1px solid #000;
+        margin-bottom: @margin * 2;
+        
+        .action-title {
+            font-size: @big-font * 0.8;
+            font-weight: 700;
+            color: @green;
+            padding-top: @margin;
+            margin-top: @margin;
+            border-top: 1px solid #000;
+        }
     }
 }
 
@@ -56,11 +58,15 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                border: 0;
+                padding-bottom: 0;
+                margin-bottom: 0;
 
                 .action-title {
                     width: @illuW;
                     text-align: center;
                     padding: 0;
+                    margin: 0;
                     border: 0;
                 }
             }

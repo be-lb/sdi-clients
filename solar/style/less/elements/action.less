@@ -2,6 +2,9 @@
 
 .actions {
 
+    display: flex;
+    flex-direction: column-reverse;
+
     > div {
         flex: 1;
         display: flex;
@@ -9,7 +12,11 @@
         align-items: center;
         text-align: center;
         margin-bottom: @margin * 2;
-        cursor: default;      
+        cursor: default;  
+        
+        h1 {
+            font-size: @medium-font;
+        }
     }
 }
 
@@ -48,6 +55,11 @@
 @media @medium {
     .actions {
         display: flex;
+        flex-direction: row;
+
+        > div h1 {
+            font-size: @big-font;
+        }
     }
 }
 

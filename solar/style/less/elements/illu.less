@@ -60,8 +60,8 @@
     }
 
     .solar-btn {
-        width: calc(~"@{illuW} / 1.5");
-        margin: @margin calc(~"@{illuW} / 6");
+        width: 100%;
+        margin: 15px 0;
     }
     
 }
@@ -98,10 +98,18 @@
         }
     }
 
-    .context-infos-wrapper > div {
-        width: @illuW-medium;
-        margin-bottom: 0;
-        margin-top: @margin;
+    .context-infos-wrapper {
+    
+        > div {
+            width: @illuW-medium;
+            margin-bottom: 0;
+            margin-top: @margin;
+        }
+
+        .solar-btn {
+            width: calc(~"@{illuW} / 1.5");
+            margin: @margin calc(~"@{illuW} / 6");
+        }
     }
 }
 
