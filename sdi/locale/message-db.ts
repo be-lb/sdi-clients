@@ -354,6 +354,10 @@ export type MessageKey =
     | 'solLegendConsWaterRank4'
     | 'solLegendConsWaterRank5'
     | 'solLegendConsWaterRank6'
+    | 'solMyRooftop'
+    | 'solMyInstallation'
+    | 'solMyEnergy'
+    | 'solMyFinance'
     | 'solOn10Years'
     | 'solOnMap'
     | 'solOptimumInstallation'
@@ -2012,9 +2016,9 @@ export const messages: MessageDB = {
     },
 
     solarAppName: {
-        fr: 'Carte solaire',
-        nl: 'Zonnekaart',
-        en: 'Solar map',
+        fr: 'Carte solaire Bruxelloise',
+        nl: 'Brussel zonnekaart',
+        en: 'Brussels solar map',
     },
 
     analyse: {
@@ -2060,15 +2064,15 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif: {
-        fr: 'Gain Certificats Verts',
-        nl: 'aanwinst groenestroomcertificaten',
-        en: 'Gain Green Certificates',
+        fr: 'Gain Certificat Vert',
+        nl: 'aanwinst groenestroomcertificat',
+        en: 'Gain Green Certificate',
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificats Verts sur 25 ans',
-        nl: 'aanwinst groenestroomcertificaten over 25 jaar',
-        en: 'Gain Green Certificates over 25 years',
+        fr: 'Gain Certificat Vert sur 25 ans',
+        nl: 'aanwinst groenestroomcertificat over 25 jaar',
+        en: 'Gain Green Certificate over 25 years',
     },
 
     gainElecInvoice: {
@@ -2501,8 +2505,8 @@ export const messages: MessageDB = {
     },
 
     solLocatePitchStr1: {
-        fr: 'Combien',
-        nl: 'hoeveel',
+        fr: 'Quelle quantité',
+        nl: 'Hoeveel',
         en: 'How much',
     },
 
@@ -2526,28 +2530,28 @@ export const messages: MessageDB = {
 
 
     solLocatePitchStr4: {
-        fr: 'est-il possible de',
-        nl: 'kan er worden',
-        en: 'can be',
+        fr: 'ma toiture',
+        nl: 'kan mijn dak',
+        en: 'can my roof',
     },
 
 
     solLocatePitchStr5: {
-        fr: 'produire sur',
-        nl: 'opgewekt op het',
-        en: 'generated on',
+        fr: 'peut-elle produire ?',
+        nl: 'produceren ?',
+        en: 'produce ?',
     },
 
     solLocatePitchStr6: {
-        fr: 'le toit d\'un bâtiment',
-        nl: 'dak van een gebouw',
-        en: 'the roof of a building',
+        fr: '',
+        nl: '',
+        en: '',
     },
 
     solLocatePitchStr7: {
-        fr: 'à Bruxelles ?',
-        nl: 'in Brussel ?',
-        en: 'in Brussels ?',
+        fr: '',
+        nl: '',
+        en: '',
     },
 
     solCalculateStrPart1: {
@@ -2591,15 +2595,15 @@ export const messages: MessageDB = {
     },
 
     solCalculateStrPart2: {
-        fr: 'd\'un bâtiment',
-        nl: 'van een gebouw berekenen',
-        en: 'of a building',
+        fr: 'de ma toiture',
+        nl: 'van mijn dak',
+        en: 'of my roof',
     },
 
     solOrSelectBuilding: {
-        fr: 'Ou sélectionnez un bâtiment ',
-        nl: 'Of selecteer een gebouw ',
-        en: 'Or select a building ',
+        fr: 'Je sélectionne mon bâtiment',
+        nl: 'Ik kies mijn gebouw',
+        en: 'Select a building ',
     },
 
     solOnMap: {
@@ -2717,15 +2721,15 @@ export const messages: MessageDB = {
     },
 
     solAdjustStr1: {
-        fr: 'J\'ajuste',
-        nl: 'Mijn berekening',
-        en: 'Adjust',
+        fr: 'Je personnalise',
+        nl: 'Ik personaliseer',
+        en: '',
     },
 
     solAdjustStr2: {
-        fr: 'le calcul',
-        nl: 'aanpassen',
-        en: 'the calculation',
+        fr: 'mes résultats',
+        nl: 'mijn resultaten',
+        en: '',
     },
 
     solContactStr1: {
@@ -2741,15 +2745,15 @@ export const messages: MessageDB = {
     },
 
     solChangeStr1: {
-        fr: 'Je profite',
-        nl: 'Ik genieten',
-        en: 'Making',
+        fr: 'Tout savoir',
+        nl: 'Alles over ',
+        en: '',
     },
 
     solChangeStr2: {
-        fr: 'de mes panneaux',
-        nl: 'van mijn panelen',
-        en: 'better use',
+        fr: 'sur l\'énergie verte',
+        nl: 'groene energie',
+        en: '',
     },
 
     solPrintStr1: {
@@ -3144,7 +3148,31 @@ export const messages: MessageDB = {
     solCalculInfoStrPart2: {
         fr: 'sur ces résultats',
         nl: 'naar de resultaten',
-        en: 'about this result',
+        en: '',
+    },
+
+    solMyRooftop: {
+        fr: 'Ma toiture',
+        nl: 'Mijn dak',
+        en: '',
+    },
+
+    solMyInstallation: {
+        fr: 'Mon installation',
+        nl: 'Mijn installatie',
+        en: '',
+    },
+
+    solMyEnergy: {
+        fr: 'Mon énergie',
+        nl: 'Mijn energie',
+        en: '',
+    },
+
+    solMyFinance: {
+        fr: 'Mes finances',
+        nl: 'Mijn financiën',
+        en: '',
     },
 
 };
