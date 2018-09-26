@@ -1,6 +1,6 @@
 import bbox from '@turf/bbox';
 
-import { DIV, IMG, H1, SPAN } from 'sdi/components/elements';
+import { DIV, IMG, H1 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withM2, withPercent } from 'sdi/util';
 import { scopeOption } from 'sdi/lib';
@@ -32,10 +32,8 @@ import { setPerspectiveCamera } from '../../events/simulation';
 const mobileAdress =
     () =>
         DIV({ className: 'mobile-adress' },
-            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}`),
-            H1({ className: 'locality' },
-                SPAN({}, tr('in')),
-                SPAN({}, ` ${locality()}`)));
+            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()} ,${tr('in')} ${locality()}`),
+        );
 
 const makeBar =
     (v: number, colorClass: string, label: string) =>
