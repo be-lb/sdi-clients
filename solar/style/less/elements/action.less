@@ -14,37 +14,34 @@
 }
 
 .action-picto {
-    .rounded-border;
-    border-width: 2px;
     position: relative;
     width: @roundedW;
     height: @roundedW;
-    border-radius: @roundedW;
     margin-bottom: @margin;
-    background-color: @extra-light-grey;
     color: #000;
 
     &:after {
         .absolute(0,0,0,0);
-        .awsomefont;
         content: ' ';
-        border-radius: @roundedW;
         display: flex;
         align-items: center;
         justify-content: space-around;
         font-size: @roundedW / 2;
-    }
-    
-    &:hover:after {
-        border: 2px solid #fff;
-        background-color: @green;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 }  
 
-.action-contact .action-picto:after {content: @fa-var-wrench;}
-.action-change .action-picto:after {content: @fa-var-lightbulb-o;}
-.action-info .action-picto:after {content: @fa-var-info;}
-.action-print .action-picto:after {content: @fa-var-file-text-o;}
+.action-contact .action-picto:after {background-image: url(../../asset/svg/installateur.svg);}
+.action-change .action-picto:after  {background-image: url(../../asset/svg/info-nrj.svg);}
+.action-info .action-picto:after    {background-image: url(../../asset/svg/info-methodo.svg);}
+.action-print .action-picto:after   {background-image: url(../../asset/svg/pdf.svg);}
+
+.action-contact .action-picto:hover:after {background-image: url(../../asset/svg/installateurG.svg);}
+.action-change .action-picto:hover:after  {background-image: url(../../asset/svg/info-nrjG.svg);}
+.action-info .action-picto:hover:after    {background-image: url(../../asset/svg/info-methodoG.svg);}
+.action-print .action-picto:hover:after   {background-image: url(../../asset/svg/pdfG.svg);}
 
 
 
