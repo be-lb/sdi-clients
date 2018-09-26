@@ -15,6 +15,8 @@
  */
 
 
+import { constantsIO } from 'solar-sim';
+
 import {
     fetchIO, IMapInfo, IMapInfoIO, FeatureCollection, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO, InspireIO, Inspire, FeatureIO, FeatureCollectionIO,
 } from 'sdi/source';
@@ -75,3 +77,6 @@ export const fetchDatasetMetadata =
 
 export const fetchBaseLayerAll =
     (url: string): Promise<BaseLayerCollection> => fetchIO(BaseLayerCollectionIO, url);
+
+export const fetchConstants =
+    (url: string) => fetchIO(constantsIO, url);

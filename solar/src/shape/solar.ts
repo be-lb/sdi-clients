@@ -17,7 +17,7 @@ import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { FeatureCollection } from 'sdi/source';
 import { ValueShape } from 'sdi/components/animated-value';
 
-import { inputs, outputs, thermicOutputs } from 'solar-sim';
+import { inputs, outputs, thermicOutputs, Constants } from 'solar-sim';
 
 import { Obstacles } from '../components/adjust';
 import { Camera } from '../components/context/mat';
@@ -44,6 +44,7 @@ declare module 'sdi/shape' {
     export interface IShape {
         'solar/system': System;
         'solar/address': IUgWsAddress | null;
+        'solar/constants': Constants | null;
         'solar/inputs': inputs;
         'solar/outputs/pv': outputs | null;
         'solar/outputs/thermal': thermicOutputs | null;
