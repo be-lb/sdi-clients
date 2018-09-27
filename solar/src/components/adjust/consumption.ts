@@ -8,13 +8,6 @@ import { annualConsumption } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
-
-// Petit consommateur(studio / appartement avec éclairage, réfrigérateur etc.) : 600 kWh / an
-// Petite famille(avec machine à laver / lave - vaisselle) : 1 200 kWh / an
-// Consommateur médian: 2 036 kWh / an
-// Ménage moyen: 3 500 kWh / an
-// Gros consomateur: 7 500 kWh / an
-
 const ranks = {
     first: 600,
     second: 1200,
@@ -38,24 +31,12 @@ const legends: { [k in rank]: MessageKey } = {
 
 const setConsumption = setInputF('annualConsumptionKWh');
 
-// we build the icons next to the title
-// const icon =
-//     (rank: rank) =>
-//         DIV({ className: `rank-icon  ${rank}  ${isActive(rank) ? 'active' : ''}` });
-
 
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
             '4. ' + tr('consumptionYElectricity')),
         DIV({ className: 'adjust-picto picto-home-conso' }));
-
-// icon('first'),
-// icon('second'),
-// icon('third'),
-// icon('fourth'),
-// icon('fifth'),
-// )
 
 const isActive =
     (rank: rank) =>
@@ -110,7 +91,7 @@ export const calcConsumption =
         DIV({ className: 'adjust-item consumption' },
             titleAndPicto(),
             selectWidget(),
-            inputItem('estimatedConsumptionKWh', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWh'))),
+            inputItem('solConsumptionEstimated', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWhY'))),
             adjustLegend(),
         );
 

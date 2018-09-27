@@ -41,23 +41,11 @@ const legends: { [k in rank]: MessageKey } = {
 const setConsumption = setInputF('thermicLiterByDay');
 const getConsumption = getInputF('thermicLiterByDay');
 
-// we build the icons next to the title
-const icon =
-    (rank: rank) =>
-        DIV({ className: `rank-icon  ${rank}  ${isActive(rank) ? 'active' : ''}` });
-
-
 const titleAndPicto =
     () => DIV({ className: 'adjust-item-header' },
         DIV({ className: 'adjust-item-title' },
             '2. ' + tr('solHotWaterConsumption')),
-        icon('first'),
-        icon('second'),
-        icon('third'),
-        icon('fourth'),
-        icon('fifth'),
-        icon('sixth'),
-    );
+        DIV({ className: 'adjust-picto picto-home-conso-water' }));
 
 const isActive =
     (rank: rank) =>
@@ -107,6 +95,11 @@ const adjustLegend =
         rankedLegend('sixth'),
     );
 
+const input = 
+    () => inputItem(
+        'solConsumptionEstimated',
+        'thermicLiterByDay',
+        SPAN({ className: 'unit' }, tr('unitLiterDay')));
 
 
 export const calcConsumptionThermal =
@@ -115,11 +108,8 @@ export const calcConsumptionThermal =
             titleAndPicto(),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
-                inputItem(
-                    'solDailyConsumption',
-                    'thermicLiterByDay',
-                    SPAN({ className: 'unit' }, tr('unitLiterDay'))),
             ),
+            input(),
             adjustLegend(),
         );
 

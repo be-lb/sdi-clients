@@ -67,7 +67,7 @@ export const vertInputItem =
 export const inputItem =
     (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) =>
         DIV({ className: 'input-box' },
-            label(labelKey), inputK(k), ...ns);
+            inputK(k), ...ns, label(labelKey));
 
 
 

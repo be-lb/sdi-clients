@@ -103,7 +103,6 @@ export type MessageKey =
     | 'endDate'
     | 'energy'
     | 'estim10Y'
-    | 'estimatedConsumptionKWh'
     | 'existingSolarPannel'
     | 'export'
     | 'extentBegin'
@@ -324,6 +323,7 @@ export type MessageKey =
     | 'solChangeStr2'
     | 'solContactStr1'
     | 'solContactStr2'
+    | 'solConsumptionEstimated'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
     | 'solElectricBoiler'
@@ -2333,10 +2333,10 @@ export const messages: MessageDB = {
         en: 'Annual consumption',
     },
 
-    estimatedConsumptionKWh: {
-        fr: 'Consommation estimée',
-        nl: 'Geschat verbruik',
-        en: 'Estimated consumption',
+    solConsumptionEstimated: {
+        fr: 'estimés',
+        nl: 'geschat',
+        en: 'estimated',
     },
 
     annualMaintenance: {
