@@ -1,9 +1,8 @@
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { withEuroInclVAT } from 'sdi/util';
 
 import { inputSelect } from '../item-factory';
-import { getNumInputF, getOutputPv } from '../../queries/simulation';
+import { getNumInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 
 
@@ -20,16 +19,6 @@ const expenses =
         );
 
 
-const mobCostValue =
-    () =>
-        DIV({ className: 'mobile-info cost-value' },
-            SPAN({}, tr('installationPrice')),
-            SPAN({}, ' : '),
-            SPAN({}, withEuroInclVAT(getOutputPv('installationCost'))),
-        );
-
-
-
 export const calcFinanceCost =
     () =>
         DIV({ className: 'adjust-item finance' },
@@ -38,8 +27,7 @@ export const calcFinanceCost =
                 DIV({ className: 'adjust-picto picto-spend' })),
             DIV({ className: 'adjust-item-widget' },
                 expenses(),
-                mobCostValue(),
-                ));
+            ));
 
 
 
