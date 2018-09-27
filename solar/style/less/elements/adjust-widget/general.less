@@ -1,11 +1,11 @@
 .adjust-item {
     font-size: @medium-font;
     border-top: 1px solid #000;
-    padding-bottom: @margin * 2;
+    // padding-bottom: @margin * 2;
 
     &-header {
         font-size: @big-font;
-        margin: @margin 0;
+        margin-top: @margin;
         display: flex;
         flex-direction: column-reverse;
 
@@ -27,6 +27,10 @@
 
     &-widget {
         margin: @margin * 2 0;
+    }
+
+    &-legend {
+        margin-bottom: @margin * 2;
     }
 
     &-note {
