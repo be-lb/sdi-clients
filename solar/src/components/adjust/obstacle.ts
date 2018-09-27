@@ -55,17 +55,24 @@ const icons: { [k in Obstacle]: string } = {
 
 const obstacleItem =
     (on: Obstacle) => DIV({ className: 'obstacle-item' },
-        DIV({ className: `obstacle-icon ${icons[on]}` }),
+        DIV({
+            className: `obstacle-icon ${icons[on]}`,
+            onClick: () => setObstacle(on, 1),
+        }),
         DIV({ className: 'obstacle-label' }, tr(labels[on])),
         DIV({ className: 'obstacle-input single' },
             DIV({
                 className: 'obstacle-input-plus',
                 onClick: () => setObstacle(on, 1),
-            })));
+            })),
+    );
 
 const obstacleItemActive =
     (on: Obstacle, n: number) => DIV({ className: 'obstacle-item' },
-        DIV({ className: `obstacle-icon ${icons[on]} active` }),
+        DIV({
+            className: `obstacle-icon ${icons[on]} active`,
+            onClick: () => setObstacle(on, n + 1),
+        }),
         DIV({ className: 'obstacle-label' }, tr(labels[on])),
         DIV({ className: 'obstacle-input' },
             DIV({

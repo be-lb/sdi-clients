@@ -6,6 +6,8 @@
     &-header {
         font-size: @big-font;
         margin: @margin 0;
+        display: flex;
+        flex-direction: column-reverse;
 
         .adjust-item-title {
             margin-right: @margin;
@@ -15,7 +17,11 @@
 
         .adjust-picto {
             display: inline-block;
-            margin: 0 !important;
+            margin-bottom: @margin;
+
+            @media @medium {
+                margin: 0 !important;
+            }
         }
     }
 
@@ -30,18 +36,14 @@
 }
 
 
-// @media @medium {
-//     .adjust-item {
+@media @medium {
+    .adjust-item {
 
-//         &-header {
-//             margin: @margin * 2 0;
-//         }
-
-//         &-widget {
-//             margin-top: 0;
-//         }
-//     }
-// }
+        &-header {
+            display: inline-block;
+        }
+    }
+}
 
 @media @big {
     .adjust-item-widget {
@@ -57,12 +59,17 @@
 }
 
 .adjust-picto {
-    width: 2em;
+    width: 100%;
     height: 1em;
     margin-right: @margin / 2;
-    background-position: bottom left;
+    background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
+
+    @media @medium {
+        width: 2em;
+        background-position: bottom left;
+    }
 
     &.picto-home-conso      {background-image: url("../../../asset/svg/home-conso.svg");}
     &.picto-reduce          {background-image: url("../../../asset/svg/reduce.svg");}
@@ -127,5 +134,20 @@
 
     .mobile-info {
         display: none;
+    }
+}
+
+@media @medium {
+    .adjust-item {
+        &.installation .adjust-item-widget ,
+        &.area .adjust-item-legend,
+        &.consumption .input-box,
+        &.consumption .adjust-item-legend,
+        &.autoproduction .adjust-item-legend,
+        &.finance .adjust-item-widget,
+        &.loan .adjust-item-widget
+        {
+            margin-left: 3ch;
+        }
     }
 }

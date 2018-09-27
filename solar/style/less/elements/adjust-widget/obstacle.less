@@ -7,6 +7,29 @@
 
 .obstacle-wrapper {
     display: flex;
+    flex-wrap: wrap;
+}
+
+
+.adjust-picto.obstacle-icon {
+    width: 1em !important; 
+}
+
+
+.obstacle-item .obstacle-icon {
+    border: 2px solid @yellow;
+    &:before {
+        content: ' ';
+        .absolute(-3px,-3px,-3px,-3px);
+        .rounded-border;
+        border-radius: @roundedW;
+    }
+
+    &.active,
+    &:hover  {
+        border: 2px solid #fff;
+        background-color: @green;
+    }
 }
 
 .obstacle-item {
@@ -20,7 +43,6 @@
     margin-bottom: @margin * 2;
 
     .obstacle-icon{
-        .rounded-border;
         position: relative;
         width: @roundedW;
         height: @roundedW;
@@ -29,7 +51,6 @@
         margin-bottom: @margin / 2;
 
         &.active {
-            background-color: @green;
             &::after {
                 .absolute(0,0,auto, auto);
                 content: ' ';
@@ -123,6 +144,11 @@
 
 .obstacle-graphic {
     display: inline;
+    text-align: center;
+
+    @media @medium {
+        text-align: left;
+    }
 
     &-item {
         display: inline;

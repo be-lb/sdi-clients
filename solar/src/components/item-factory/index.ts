@@ -88,5 +88,9 @@ export const toggle =
 export const buildingAdress =
     () =>
         DIV({ className: 'adress' },
+<<<<<<< HEAD
             H1({ className: 'street-name' }, `${streetName()} ${streetNumber()}, ${tr('in')} ${locality()}`),
+=======
+            H1({ className: 'street-name' }, `${streetName()} ${streetNumber()} ${tr('in')} ${locality()}`),
+>>>>>>> pacbranch
         );
