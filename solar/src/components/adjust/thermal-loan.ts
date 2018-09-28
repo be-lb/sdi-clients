@@ -5,6 +5,7 @@ import tr from 'sdi/locale';
 import { toggle, vertInputItem } from '../item-factory';
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const hasLoan = getInputF('loan');
@@ -30,6 +31,7 @@ export const calcLoanThermal =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' },
                     '5. ' + tr('loan'))),
+            note('thermal_loan'),
             DIV({ className: 'adjust-item-widget' },
                 toggleLoan('loanYes', 'loanNo'),
                 hasLoan() ? withLoan() : NODISPLAY()));

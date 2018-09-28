@@ -4,6 +4,7 @@ import { withEuro } from 'sdi/util';
 
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const getThermicGrant = getInputF('thermicGrant');
@@ -37,6 +38,7 @@ export const calcFinanceThermalGain =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '3. ' + tr('bonus')),
                 DIV({ className: 'adjust-picto picto-gain' })),
+            note('thermal_grant'),
             DIV({ className: 'adjust-item-widget' },
                 bonus()));
 

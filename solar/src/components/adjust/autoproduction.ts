@@ -3,6 +3,7 @@ import tr from 'sdi/locale';
 
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const getEnergySobriety = getInputF('energySobriety');
@@ -100,6 +101,7 @@ export const calcAutoproduction =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '5. ' + tr('solAutoproduction')),
                 DIV({ className: 'adjust-picto picto-solar-energy' })),
+            note('pv_autonomy'),
             selectWidget(),
             legend(),
         );

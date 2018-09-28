@@ -7,6 +7,7 @@ import tr from 'sdi/locale';
 import { inputSelect } from '../item-factory';
 import { pvTechnology, pvTechnologyLabels } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const technologies: PVTechnologyEnum[] = ['poly', 'mono', 'mono_high'];
@@ -39,6 +40,7 @@ export const calcTechnology =
     () =>
         DIV({ className: 'adjust-item installation' },
             titleAndPicto(),
+            note('pv_tech'),
             DIV({ className: 'adjust-item-widget' },
                 // DIV({ className: 'adjust-picto-wrapper' },
                 renderSelect()));

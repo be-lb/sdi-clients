@@ -3,6 +3,7 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { getObstacle } from '../../queries/simulation';
 import { setObstacle } from '../../events/simulation';
+import { note } from './note';
 
 
 export interface Obstacles {
@@ -117,6 +118,7 @@ export const calcObstacle =
                 DIV({ className: 'adjust-item-title' },
                     '1. ' + tr('installationObstacle')),
                 renderGraphics()),
+            note('pv_obstacles'),
             DIV({ className: 'adjust-item-widget' },
                 DIV({ className: 'obstacle-wrapper' },
                     renderObstacle('velux'),

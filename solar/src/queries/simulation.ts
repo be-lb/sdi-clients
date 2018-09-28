@@ -19,7 +19,7 @@ import { fromNullable, none, some } from 'fp-ts/lib/Option';
 import bbox from '@turf/bbox';
 
 import { query, queryK, dispatchK } from 'sdi/shape';
-import tr from 'sdi/locale';
+import tr, { fromRecord } from 'sdi/locale';
 // import { withEuro, withTCO2Y, withM2, withPercent, withKWhY, withYear, withKWc } from 'sdi/util';
 import { getFeatureProp } from 'sdi/source';
 import { value, getValue, setValue } from 'sdi/components/animated-value';
@@ -57,6 +57,32 @@ export const tags = {
     unusable: [0, PROD_THESH_MEDIUM],
 };
 
+const Notes = {
+    pv_obstacles: 'pvobstacle',
+    pv_tech: 'pvtech',
+    pv_num: 'pvnum',
+    pv_consumption: 'pvcons',
+    pv_autonomy: 'pvauto',
+    pv_vat: 'pvvat',
+    pv_loan: 'pvloan',
+    thermal_sys: 'thsys',
+    thermal_consumption: 'thcons',
+    thermal_grant: 'thgrant',
+    thermal_vat: 'thvat',
+    thermal_loan: 'thloan',
+};
+export type Note = typeof Notes;
+export type NoteKey = keyof Note;
+
+export const getNote =
+    (key: NoteKey) => {
+        const kname = Notes[key];
+        const widgets = query('solar/widgets');
+        if (kname in widgets) {
+            return fromRecord(widgets[kname]);
+        }
+        return '';
+    };
 
 export const pvTechnologyLabels: { [k in PVTechnologyEnum]: MessageKey } = {
     poly: 'polycristal',
@@ -225,7 +251,7 @@ export const getOptimalArea =
     );
 
 export const getConstants =
-    () => fromNullable(query('solar/constants'))
+    () => fromNullable(query('solar/constants'));
 
 export const getMaxPower =
     () => getConstants().fold(

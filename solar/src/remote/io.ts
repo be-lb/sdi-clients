@@ -20,5 +20,6 @@ export const BaseLayerCollectionIO = iots.dictionary(iots.string, IMapBaseLayerI
 export type BaseLayerCollection = iots.TypeOf<typeof BaseLayerCollectionIO>;
 
 
-export const WidgetDescriptionIO = iots.dictionary(iots.string, MessageRecordIO, 'WidgetDescriptionIO')
+export const WidgetDescriptionIO = iots.dictionary(iots.string, MessageRecordIO, 'WidgetDescriptionIO');
+export type WidgetDescription = iots.TypeOf<typeof WidgetDescriptionIO>;
 

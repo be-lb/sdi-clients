@@ -4,6 +4,7 @@ import tr from 'sdi/locale';
 import { inputSelect } from '../item-factory';
 import { getNumInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const vatSelect = inputSelect(getNumInputF('VATrate'), setInputF('VATrate'));
@@ -25,6 +26,7 @@ export const calcFinanceCost =
             DIV({ className: 'adjust-item-header' },
                 DIV({ className: 'adjust-item-title' }, '6. ' + tr('solFinanceVAT')),
                 DIV({ className: 'adjust-picto picto-spend' })),
+            note('pv_vat'),
             DIV({ className: 'adjust-item-widget' },
                 expenses(),
             ));

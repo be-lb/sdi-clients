@@ -5,6 +5,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 import { inputItem } from '../item-factory';
+import { note } from './note';
 
 
 
@@ -95,7 +96,7 @@ const adjustLegend =
         rankedLegend('sixth'),
     );
 
-const input = 
+const input =
     () => inputItem(
         'solConsumptionEstimated',
         'thermicLiterByDay',
@@ -106,6 +107,7 @@ export const calcConsumptionThermal =
     () =>
         DIV({ className: 'adjust-item consumption thermal' },
             titleAndPicto(),
+            note('thermal_consumption'),
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
             ),

@@ -30,7 +30,7 @@ import preview from './components/preview';
 import detail from './components/detail';
 import { loadMaps } from './events/map';
 import { loadAllBaseLayers } from './events/app';
-import { loadConstants } from './events/simulation';
+import { loadConstants, loadWidgets } from './events/simulation';
 
 const logger = debug('sdi:app');
 
@@ -68,6 +68,7 @@ const effects =
     () => {
         loadAllBaseLayers(getApiUrl(`wmsconfig/`));
         loadConstants();
+        loadWidgets();
         loadMaps();
         navigate();
     };

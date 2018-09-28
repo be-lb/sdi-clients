@@ -21,6 +21,7 @@ import { inputs, outputs, thermicOutputs, Constants } from 'solar-sim';
 
 import { Obstacles } from '../components/adjust';
 import { Camera } from '../components/context/mat';
+import { WidgetDescription } from '../remote/io';
 
 export type TypologyEnum =
     | 'closed'
@@ -55,6 +56,7 @@ declare module 'sdi/shape' {
         'solar/perspective/camera': Camera | null;
         'solar/perspective/src': string | null;
         'solar/component/values': ValueShape;
+        'solar/widgets': WidgetDescription;
 
         'solar/data/roofs': GenericContainer<FeatureCollection>;
         'solar/data/geoms': GenericContainer<FeatureCollection>;

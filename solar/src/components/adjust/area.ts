@@ -8,7 +8,7 @@ import {
     getMaxPower,
 } from '../../queries/simulation';
 import { setPower } from '../../events/simulation';
-
+import { note } from './note';
 
 type rank = number;
 
@@ -112,10 +112,12 @@ const legend =
         return DIV({ className: 'adjust-item-legend' }, ...elements);
     };
 
+
 export const calcArea =
     () =>
         DIV({ className: `adjust-item area` },
             title(),
+            note('pv_num'),
             selectWidget(),
             legend(),
         );

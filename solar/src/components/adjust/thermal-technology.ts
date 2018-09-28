@@ -7,6 +7,7 @@ import tr from 'sdi/locale';
 import { inputSelect } from '../item-factory';
 import { thermicTechnology, thermalTechnologyLabels } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const technologies: thermicHotWaterProducerEnum[] = ['electric', 'fuel', 'gas'];
@@ -39,6 +40,7 @@ export const calcTechnologyThermal =
     () =>
         DIV({ className: 'adjust-item installation' },
             titleAndPicto(),
+            note('thermal_sys'),
             DIV({ className: 'adjust-item-widget' },
                 renderSelect()));
 

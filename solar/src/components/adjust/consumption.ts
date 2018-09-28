@@ -6,6 +6,7 @@ import { MessageKey } from 'sdi/locale/message-db';
 import { inputItem } from '../item-factory';
 import { annualConsumption } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
+import { note } from './note';
 
 
 const ranks = {
@@ -90,6 +91,7 @@ export const calcConsumption =
     () =>
         DIV({ className: 'adjust-item consumption' },
             titleAndPicto(),
+            note('pv_consumption'),
             selectWidget(),
             inputItem('solConsumptionEstimated', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWhY'))),
             adjustLegend(),

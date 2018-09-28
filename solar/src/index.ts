@@ -113,6 +113,7 @@ export const main =
             'solar/data/roofs': {},
             'solar/data/geoms': {},
             'solar/data/buildings': {},
+            'solar/widgets': {},
         };
 
         try {

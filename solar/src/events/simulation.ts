@@ -31,7 +31,7 @@ import { totalArea, getSystem, pvTechnology } from '../queries/simulation';
 import { System } from '../shape/solar';
 import { Camera } from '../components/context/mat';
 import { thermicSolarSim } from 'solar-sim/lib/run';
-import { fetchConstants } from '../remote/index';
+import { fetchConstants, fetchNotes } from '../remote/index';
 
 const logger = debug('sdi:solar/events');
 
@@ -55,8 +55,13 @@ export type SetNumKeyOfInputs =
 
 export const loadConstants =
     () =>
-        fetchConstants(getApiUrl('geodata/solar/constants'))
+        fetchConstants(getApiUrl('geodata/solar/constants/'))
             .then(cs => dispatch('solar/constants', () => cs));
+
+export const loadWidgets =
+    () =>
+        fetchNotes(getApiUrl('geodata/solar/widgets/'))
+            .then(notes => dispatch('solar/widgets', () => notes));
 
 
 export const defaultInputs =
