@@ -27,7 +27,7 @@ import { value, getValue, setValue } from 'sdi/components/animated-value';
 import { getCapakey } from './app';
 import { Obstacle } from '../components/adjust';
 import { identity } from 'fp-ts/lib/function';
-import { outputs, inputs, thermicOutputs, PVTechnologyEnum, PV_YIELD, thermicHotWaterProducerEnum } from 'solar-sim';
+import { outputs, inputs, thermicOutputs, PVTechnologyEnum, thermicHotWaterProducerEnum } from 'solar-sim';
 import { MessageKey } from 'sdi/locale/message-db';
 
 
@@ -98,7 +98,7 @@ export const totalArea =
         .fold(
             0,
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
-    );
+        );
 
 
 const areaProductivity =
@@ -114,7 +114,7 @@ const areaProductivity =
 
                     return catArea * 100 / ta;
                 },
-        );
+            );
 
 
 
@@ -212,11 +212,11 @@ export const getObstacleArea =
 
 
 export const PANEL_AREA = 1.6;
-export const PANEL_PROD: { [k in PVTechnologyEnum]: number } = {
-    poly: PV_YIELD['poly'] * 1000 * PANEL_AREA,
-    mono: PV_YIELD['mono'] * 1000 * PANEL_AREA,
-    mono_high: PV_YIELD['mono_high'] * 1000 * PANEL_AREA,
-};
+// export const PANEL_PROD: { [k in PVTechnologyEnum]: number } = {
+//     poly: PV_YIELD['poly'] * 1000 * PANEL_AREA,
+//     mono: PV_YIELD['mono'] * 1000 * PANEL_AREA,
+//     mono_high: PV_YIELD['mono_high'] * 1000 * PANEL_AREA,
+// };
 
 export const getOptimalArea =
     () => fromNullable(query('solar/optimalArea')).foldL(
@@ -224,8 +224,13 @@ export const getOptimalArea =
         n => n,
     );
 
+export const getConstants =
+    () => fromNullable(query('solar/constants'))
+
 export const getMaxPower =
-    () => getOptimalArea() * PV_YIELD[pvTechnology()];
+    () => getConstants().fold(
+        0,
+        constants => getOptimalArea() * constants.pv_yield[pvTechnology()]);
 
 
 export const getPanelUnits =

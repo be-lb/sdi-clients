@@ -1,6 +1,7 @@
 // tslint:disable:variable-name
 import * as iots from 'io-ts';
 import { IMapBaseLayerIO } from 'sdi/source';
+import { MessageRecordIO } from 'sdi/source/io/io';
 
 export const i = iots.interface;
 export const u = iots.union;
@@ -19,9 +20,5 @@ export const BaseLayerCollectionIO = iots.dictionary(iots.string, IMapBaseLayerI
 export type BaseLayerCollection = iots.TypeOf<typeof BaseLayerCollectionIO>;
 
 
-// export const RoofIdentifiersIO = i({
-//     roofs: a(iots.number),
-// });
-
-// export type RoofIdentifiers = iots.TypeOf<typeof RoofIdentifiersIO>;
+export const WidgetDescriptionIO = iots.dictionary(iots.string, MessageRecordIO, 'WidgetDescriptionIO')
 

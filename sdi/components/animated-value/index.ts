@@ -47,38 +47,19 @@ export const setValue =
         (v: number) =>
             sv(vs => ({ ...vs, [k]: v }));
 
-// export type ValueCollection = { [k: string]: number };
-
-// export const targetBatch =
-//     <K extends keyof IShape>(shapeKey: K) => {
-//         type T = IShape[K];
-//         type TargetBatchKey = keyof T;
-
-//         const getter = (k: TargetBatchKey) => {
-//             const batch = query(shapeKey);
-//             if (batch instanceof ValueCollection) {
-
-//             }
-//             if (batch) {
-//                 return batch[k];
-//             }
-//         };
-//     };
 
 export const initValues = (): ValueShape => ({});
-
-
-
 export type AnimatedValue = CurrentValue & TargetValue;
-export type AnimatedValueRender = (n: number) => React.ReactNode;
+// export type AnimatedValueRender = (n: number) => React.ReactNode;
 
 
 export const value =
-    (av: AnimatedValue) => {
+    (av: AnimatedValue, threshold = 0.1) => {
         const c = av.getCurrent();
         const t = av.target();
         const diff = t - c;
-        if (Math.abs(diff) > 0.01) {
+        const absDiff = Math.abs(diff);
+        if (absDiff > threshold) {
             setTimeout(() => {
                 const step = diff / 2;
                 av.setCurrent(c + step);

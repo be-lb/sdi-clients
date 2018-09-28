@@ -18,7 +18,7 @@ import * as debug from 'debug';
 
 
 import { fromNullable } from 'fp-ts/lib/Option';
-import { inputs, solarSim, roof, inputsFactory, PV_YIELD } from 'solar-sim';
+import { inputs, solarSim, roof, inputsFactory } from 'solar-sim';
 
 import { IUgWsAddress } from 'sdi/ports/geocoder';
 import { dispatch, dispatchK, query, observe } from 'sdi/shape';
@@ -113,21 +113,26 @@ export const clearInputs =
 
 export const setPower =
     (n: number) => {
+        const constants = query('solar/constants');
+        if (constants === null) {
+            return;
+        }
         const tech = pvTechnology();
-        const delivered = PV_YIELD[tech];
+        const delivered = constants.pv_yield[tech];
         setInputF('pvArea')(n / delivered);
     };
 
 const simulate =
     () => {
-        if (query('solar/constants') === null) {
+        const constants = query('solar/constants');
+        if (constants === null) {
             return;
         }
         const inputs = query('solar/inputs');
         if (getSystem() === 'photovoltaic') {
             dispatchPvOutputs(() => {
                 try {
-                    return solarSim(inputs);
+                    return solarSim(inputs, constants);
                 }
                 catch (_err) {
                     return null;
@@ -135,7 +140,7 @@ const simulate =
             });
             if (inputs.pvArea >= 0) {
                 // here we want to still have optimal area for the whole thing
-                const oa = solarSim({ ...inputs, pvArea: -9999 }).maxArea;
+                const oa = solarSim({ ...inputs, pvArea: -9999 }, constants).maxArea;
                 dispatch('solar/optimalArea', () => oa);
             }
             else {
@@ -145,7 +150,7 @@ const simulate =
         else {
             dispatchThermalOutputs(() => {
                 try {
-                    return thermicSolarSim(inputs);
+                    return thermicSolarSim(inputs, constants);
                 }
                 catch (_err) {
                     return null;

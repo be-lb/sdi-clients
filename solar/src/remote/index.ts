@@ -22,7 +22,7 @@ import {
 } from 'sdi/source';
 import { getApiUrl } from 'sdi/app';
 
-import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO } from './io';
+import { CapakeyIO, BaseLayerCollection, BaseLayerCollectionIO, WidgetDescriptionIO } from './io';
 
 
 
@@ -80,3 +80,6 @@ export const fetchBaseLayerAll =
 
 export const fetchConstants =
     (url: string) => fetchIO(constantsIO, url);
+
+export const fetchNotes =
+    (url: string) => fetchIO(WidgetDescriptionIO, url);
