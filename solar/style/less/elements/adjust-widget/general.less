@@ -36,6 +36,7 @@
     &-note {
         font-size: @small-font;
         margin-top: @margin * 2;
+        line-height: 134%;
     }
 }
 
@@ -150,9 +151,13 @@
         &.consumption .adjust-item-legend,
         &.autoproduction .adjust-item-legend,
         &.finance .adjust-item-widget,
-        &.loan .adjust-item-widget
+        &.loan .adjust-item-widget,
+        &-note
         {
             margin-left: 3ch;
         }
+    }
+    .adjust-item-note {
+        max-width: 75%;
     }
 }
