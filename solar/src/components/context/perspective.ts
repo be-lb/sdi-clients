@@ -79,8 +79,8 @@ function sortedPlanes(ps: FeaturePlaneCollection, c: vec3) {
     return clonePlaneCollection(ps).sort((a, b) => {
         // const da = vec3.dist(c, vec3Mean(a))
         // const db = vec3.dist(c, vec3Mean(b))
-        const da = a.plane.reduce((acc, v) => Math.max(vec3.dist(c, v), acc), Number.MIN_VALUE);
-        const db = b.plane.reduce((acc, v) => Math.max(vec3.dist(c, v), acc), Number.MIN_VALUE);
+        const da = a.plane.reduce((acc, v) => Math.max(vec3.sqrDist(c, v), acc), Number.MIN_VALUE);
+        const db = b.plane.reduce((acc, v) => Math.max(vec3.sqrDist(c, v), acc), Number.MIN_VALUE);
         if (da < db) {
             return 1;
         } if (da > db) {
@@ -229,7 +229,7 @@ function drawPerspective(
                 roofPainter(transform, cam.pos);
             };
         renderFrame(context);
-        const pers = canvas.toDataURL();
+        const pers = canvas.toDataURL('image/bmp', false);
         setPerspectiveSrc(pers);
         return some(pers);
     }
