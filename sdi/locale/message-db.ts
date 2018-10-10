@@ -338,12 +338,12 @@ export type MessageKey =
     | 'solInstallationSurface'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
-    | 'solLocatePitchStr3a'
-    | 'solLocatePitchStr3b'
+    | 'solLocatePitchStr3'
     | 'solLocatePitchStr4'
     | 'solLocatePitchStr5'
     | 'solLocatePitchStr6'
     | 'solLocatePitchStr7'
+    | 'solLocatePitchStr8'
     | 'solMazout'
     | 'solNoSol'
     | 'solLegendConsRank1'
@@ -452,6 +452,7 @@ export type MessageKey =
     | 'unitLiterDay'
     | 'unitM2'
     | 'unitPercent'
+    | 'unitTonsCO2'
     | 'unitTCO2'
     | 'unitTCO2Y'
     | 'unitTCO2Y25'
@@ -2028,8 +2029,8 @@ export const messages: MessageDB = {
     },
 
     solarAppName: {
-        fr: 'Carte solaire Bruxelloise',
-        nl: 'Brussel zonnekaart',
+        fr: 'Carte solaire de la Région Bruxelles Capitale',
+        nl: 'Zonnekaart van het Brussels Hoofdstedelijk Gewest',
         en: 'Brussels solar map',
     },
 
@@ -2082,9 +2083,9 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert max. 10 ans',
-        nl: 'aanwinst groenestroomcertificat max. 10 jaar',
-        en: 'Gain Green Certificate max. 10 years',
+        fr: 'Gain Certificat Vert (max. 10 ans)',
+        nl: 'aanwinst groenestroomcertificat (max. 10 jaar)',
+        en: 'Gain Green Certificate (max. 10 years)',
     },
 
     gainElecInvoice: {
@@ -2123,9 +2124,9 @@ export const messages: MessageDB = {
     },
 
     unusable: {
-        fr: 'Faible potentiel',
-        nl: 'Laag potentieel',
-        en: 'Low uspotentialable',
+        fr: 'Faible potentiel (exclu du calcul)',
+        nl: 'Laag potentieel (uitgesloten van de berekening)',
+        en: 'Low potential (excluded from the calculation)',
     },
 
     personalize: {
@@ -2159,9 +2160,9 @@ export const messages: MessageDB = {
     },
 
     solAutoproduction: {
-        fr: 'Gestes d\'économie énergetique',
-        nl: 'Energiebesparende acties',
-        en: 'Energy saving actions',
+        fr: 'Gestes d\'auto consommation',
+        nl: 'Zelf-verbruiksmaatregelen',
+        en: '',
     },
 
     finance: {
@@ -2517,57 +2518,56 @@ export const messages: MessageDB = {
     },
 
     solLocatePitchStr1: {
-        fr: 'Quelle quantité',
-        nl: 'Hoeveel',
-        en: 'How much',
+        fr: 'Des',
+        nl: '',
+        en: '',
     },
 
     solLocatePitchStr2: {
-        fr: 'd\'électricité',
-        nl: 'elektriciteit',
-        en: 'electricity',
+        fr: 'panneaux solaires',
+        nl: '',
+        en: '',
     },
 
-    solLocatePitchStr3a: {
-        fr: 'ou ',
-        nl: 'of ',
-        en: 'or ',
+    solLocatePitchStr3: {
+        fr: 'sur ma toiture ?',
+        nl: '',
+        en: '',
     },
-
-    solLocatePitchStr3b: {
-        fr: 'de chaleur ',
-        nl: 'warmte ',
-        en: 'heat ',
-    },
-
 
     solLocatePitchStr4: {
-        fr: 'ma toiture',
-        nl: 'kan mijn dak',
-        en: 'can my roof',
+        fr: 'Une solution avantageuse ',
+        nl: '',
+        en: '',
     },
-
 
     solLocatePitchStr5: {
-        fr: 'peut-elle produire ?',
-        nl: 'produceren ?',
-        en: 'produce ?',
+        fr: 'pour produire de l\'',
+        nl: '',
+        en: '',
     },
 
+
     solLocatePitchStr6: {
-        fr: '',
+        fr: 'électricité',
         nl: '',
         en: '',
     },
 
     solLocatePitchStr7: {
-        fr: '',
+        fr: 'ou de la ',
+        nl: '',
+        en: '',
+    },
+
+    solLocatePitchStr8: {
+        fr: 'chaleur',
         nl: '',
         en: '',
     },
 
     solCalculateStrPart1: {
-        fr: 'Calculez le ',
+        fr: 'Calculer le ',
         nl: 'Het ',
         en: 'calculate the',
     },
@@ -2832,6 +2832,14 @@ export const messages: MessageDB = {
         nl: 'kWc',
         en: 'kWc',
     },
+    unitTonsCO2: {
+        fr: '{value, plural, =0 {tonne CO2} =1 {tonne CO2} other {tonnes CO2}}',
+        nl: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {tonnen CO2}}',
+        en: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {tons CO2}}',
+        parameters: {
+            value: 1,
+        },
+    },
     unitTCO2: {
         fr: 'TCO2',
         nl: 'TCO2',
@@ -3084,9 +3092,9 @@ export const messages: MessageDB = {
     },
 
     solOptimumInstallation: {
-        fr: 'Installation optimale pour ce bâtiment selon la configuration actuelle',
-        nl: 'Optimale installatie voor dit gebouw volgens de huidige configuratie',
-        en: 'Optimal installation for this building according to the current configuration',
+        fr: 'Puissance maximum de l\'installation selon la technologie choisie',
+        nl: 'Maximaal vermogen van de installatie volgens de gekozen technologie',
+        en: 'Maximum power of the installation according to the chosen technology',
     },
 
     solOptimumInstallationTheoric: {
@@ -3150,9 +3158,9 @@ export const messages: MessageDB = {
     },
 
     solSolarWaterHeater: {
-        fr: 'Chauffe-eau',
+        fr: 'Solaire thermique',
         nl: 'Zonneboiler',
-        en: 'Water heater',
+        en: '',
     },
 
     solSolarPanels: {
@@ -3247,14 +3255,14 @@ export const messages: MessageDB = {
     },
 
     solTogglePV: {
-        fr: 'Les panneaux photovoltaïque produisent de l’électricité',
-        nl: 'Fotovoltaïsche panelen produceren elektriciteit',
+        fr: 'Les panneaux solaires photovoltaïques produisent de l’électricité.',
+        nl: 'Fotovoltaïsche panelen produceren elektriciteit.',
         en: '',
     },
 
     solToggleThermal: {
-        fr: 'Le chauffe-eau solaire produit de l’eau chaude sanitaire via des panneaux thermiques',
-        nl: 'De zonneboiler produceert sanitair warm water via thermische panelen',
+        fr: 'Le chauffe-eau solaire produit de l’eau chaude sanitaire via des panneaux thermiques.',
+        nl: 'De zonneboiler produceert sanitair warm water via thermische panelen.',
         en: '',
     },
 };

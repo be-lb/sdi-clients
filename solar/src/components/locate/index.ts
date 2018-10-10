@@ -104,13 +104,16 @@ const renderGeocoder =
 const pitch =
     () =>
         DIV({ className: 'locate-pitch' },
-            DIV({}, tr('solLocatePitchStr1')),
+            DIV({}, tr('solLocatePitchStr1'), ' '),
             DIV({ className: 'pitch-bold' }, tr('solLocatePitchStr2')),
+            DIV({}, ' ', tr('solLocatePitchStr3')),
             DIV({},
-                SPAN({}, tr('solLocatePitchStr3a')),
-                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr3b'))),
-            DIV({}, tr('solLocatePitchStr4')),
-            DIV({}, tr('solLocatePitchStr5')),
+                DIV({}, tr('solLocatePitchStr4')),
+                SPAN({}, tr('solLocatePitchStr5')),
+                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr6'))),
+            DIV({},
+                SPAN({}, tr('solLocatePitchStr7')),
+                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr8'))),
         );
 
 
@@ -152,7 +155,7 @@ const searchWrapper =
             DIV({},
                 SPAN({}, tr('solCalculateStrPart1')),
                 SPAN({ className: 'pitch-bold' }, tr('solSolarPotential')),
-                SPAN({}, tr('solCalculateStrPart2'))),
+                SPAN({}, ' ', tr('solCalculateStrPart2'))),
             ...renderGeocoder(),
         );
 

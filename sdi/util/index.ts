@@ -184,6 +184,7 @@ export const withEuroY = withUnit('unitEuroY');
 export const withEuroY10 = withUnit('unitEuroY10');
 export const withEuroY25 = withUnit('unitEuroY25');
 export const withKWc = withUnit('unitKWc');
+export const withTonsCO2 = withUnit('unitTonsCO2');
 export const withTCO2 = withUnit('unitTCO2');
 export const withTCO2Y = withUnit('unitTCO2Y');
 export const withTCO2Y10 = withUnit('unitTCO2Y10');

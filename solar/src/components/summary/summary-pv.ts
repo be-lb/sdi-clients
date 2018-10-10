@@ -1,7 +1,7 @@
 import { DIV, SPAN, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withTCO2 } from 'sdi/util';
+import { withEuro, withTonsCO2 } from 'sdi/util';
 
 import { toggleWithInfo, buildingAdress } from '../item-factory';
 
@@ -48,7 +48,7 @@ const sumPotentialValues =
         DIV({ className: 'potential-values' },
             vk(withEuro(getOutputPv('CVAmountYear10')), 'gainGreenCertif', 'green-cert'),
             vk(withEuro(getOutputPv('selfConsumptionAmountYear10')), 'gainElecInvoice', 'gain-elec'),
-            vk(withTCO2(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
+            vk(withTonsCO2(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
             vk(withEuro(getOutputPv('installationCost', 0)), 'buyingPrice', 'buying-price'),
         );
 
