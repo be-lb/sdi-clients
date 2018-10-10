@@ -17,10 +17,10 @@
         margin: @margin 0;
         font-size: @big-font;
         font-weight: 700;
-        color: @green;
 
         .highlight-value {
-            color: #000;
+            color: @green;
+            text-transform: lowercase;
         }
     }
 
@@ -50,6 +50,7 @@
             &.buying-price:before {background-image: url(../../asset/svg/paper-money.svg);}
             &.green-cert:before {background-image: url(../../asset/svg/paper-green.svg);}
             &.gain-elec:before {background-image: url(../../asset/svg/paper-elec.svg);}
+            &.gain-thermal:before {background-image: url(../../asset/svg/paper-water.svg);}
             &.gain-env:before {background-image: url(../../asset/svg/paper-env.svg);}
 
             .key {

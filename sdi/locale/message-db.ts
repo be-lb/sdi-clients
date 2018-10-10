@@ -384,11 +384,14 @@ export type MessageKey =
     | 'solSolarPotentialStr1'
     | 'solSolarPotentialStr2'
     | 'solSolarPotentialStr3'
+    | 'solSolarPotentialStr4'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solSolarProdYear'
     | 'solSolarRateArea'
     | 'solSolarWaterHeater'
+    | 'solTogglePV'
+    | 'solToggleThermal'
     | 'solThermal'
     | 'solTotalPower'
     | 'solTotalSurface'
@@ -2576,19 +2579,24 @@ export const messages: MessageDB = {
     },
 
     solSolarPotentialStr1: {
-        fr: 'Gains ',
-        nl: 'Winst ',
-        en: 'Earnings ',
+        fr: 'Installation possible de ',
+        nl: 'Mogelijke installatie van ',
+        en: '',
     },
     solSolarPotentialStr2: {
-        fr: 'pour une dépense',
-        nl: 'voor een last',
-        en: 'for an expense',
+        fr: 'avec un ',
+        nl: 'met een ',
+        en: '',
     },
     solSolarPotentialStr3: {
+        fr: 'gain net ',
+        nl: 'nettowinst ',
+        en: '',
+    },
+    solSolarPotentialStr4: {
         fr: 'de ',
         nl: 'van ',
-        en: 'of ',
+        en: '',
     },
 
     solSolarPotentialExcellent: {
@@ -3235,6 +3243,18 @@ export const messages: MessageDB = {
     gainInvoice25Y: {
         fr: 'Gain sur ma facture en 25 ans',
         nl: 'Winst op mijn factuur in 25 jaar',
+        en: '',
+    },
+
+    solTogglePV: {
+        fr: 'Les panneaux photovoltaïque produisent de l’électricité',
+        nl: 'Fotovoltaïsche panelen produceren elektriciteit',
+        en: '',
+    },
+
+    solToggleThermal: {
+        fr: 'Le chauffe-eau solaire produit de l’eau chaude sanitaire via des panneaux thermiques',
+        nl: 'De zonneboiler produceert sanitair warm water via thermische panelen',
         en: '',
     },
 };

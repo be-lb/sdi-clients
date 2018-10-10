@@ -81,7 +81,25 @@ export const toggle =
                 onClick: () => set(!get()),
             },
                 DIV({ className: `value first-value ${activeClass(get())}` }, tr(value1) + ' '),
-                DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)));
+                DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)),
+            );
+
+export const toggleWithInfo =
+    (get: () => boolean, set: (a: boolean) => void) =>
+        (value1: MessageKey, value2: MessageKey, info1: MessageKey, info2: MessageKey) =>
+            DIV({ className: 'toggle-wrapper' },
+                DIV({
+                    className: 'toggle',
+                    onClick: () => set(!get()),
+                },
+                    DIV({ className: `value first-value ${activeClass(get())}` }, tr(value1) + ' '),
+                    DIV({ className: `value second-value ${activeClass(!get())}` }, ' ' + tr(value2)),
+                ),
+                DIV({ className: 'toggle-infos' },
+                    DIV({ className: `info first-value ${activeClass(get())}` }, tr(info1)),
+                    DIV({ className: `info first-value ${activeClass(!get())}` }, tr(info2)),
+                ),
+            );
 
 
 
