@@ -3,21 +3,12 @@ import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withTonsCO2 } from 'sdi/util';
 
-import { toggleWithInfo, buildingAdress } from '../item-factory';
+import { buildingAdress } from '../item-factory';
 
 import {
-    getSystem,
     getOutputPv,
     getPanelUnits,
 } from '../../queries/simulation';
-
-
-import { setSystem } from '../../events/simulation';
-
-
-const toggleSystem = toggleWithInfo(
-    () => getSystem() === 'photovoltaic',
-    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 
 
@@ -59,7 +50,6 @@ export const summary =
             buildingAdress(),
             sumPotentialLabel(),
             sumPotentialValues(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
         );
 
 
