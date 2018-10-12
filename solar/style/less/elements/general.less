@@ -145,10 +145,11 @@ input[type="number"] {
 
 .toggle-infos {
     font-size: @small-font;
+    text-align: center;
     .inactive {display: none;}
 }
 
-.summary,
+.preview,
 .detail {
     .toggle {
         margin: @margin 0;
@@ -251,7 +252,8 @@ input[type="number"] {
 
 .sidebar  {
     border-top: 1px solid #000;
-    padding-top: @margin;
+    padding: @margin;
+    background-color: @extra-light-grey;
 
     & *{
         .word-wrap;
@@ -315,3 +317,18 @@ input[type="number"] {
         }
     }
 }
+
+// .solar-btn {
+//     &.print,
+//     &.adjust,
+//     &.contact {
+//         border: 0px;
+
+//         .solar-inner-btn:before {
+//             content: ' ';
+//             width: 1em;
+//             height: 1em;
+//             background-color: @yellow;
+//         }
+//     }
+// }

@@ -129,3 +129,74 @@
 .sol-no-sol-msg {
     margin-top: @margin * 2;
 }
+
+
+
+.action-step {
+    font-size:@big-font;
+    display: flex;
+    align-items: center;
+    margin-bottom: @margin;
+
+    .step-number {
+        .rounded-border;
+        font-weight: 700;
+        position: relative;
+        width: @roundedW;
+        height: @roundedW;
+        border-radius: @roundedW;
+        background-color: @extra-light-grey;
+        background-color: @yellow;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: @margin;
+
+        &:hover {background: transparent;}
+
+        &:after {
+                .absolute(0,0,0,0);
+                z-index: -1;
+                content: ' ';
+                border-radius: @roundedW;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                font-size: @roundedW / 2;
+            }
+            
+            &:hover:after {
+                border: 2px solid #fff;
+                background-color: @green;
+            }        
+        }
+    .step-label {
+        margin-left: @margin / 2;
+    }
+}
+
+.sidebar {
+    .sidebar-action-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        .action-change, 
+        .action-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            .action-picto {
+                width: 2em;
+                height: 2.5em;
+                // margin-right: @margin / 2;
+                margin-bottom: @margin / 2;
+            }
+            h1 {font-size: @medium-font;}
+        }
+        .action-change {margin-top: @margin;}
+    }
+}

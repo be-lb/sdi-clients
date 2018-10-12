@@ -1,4 +1,4 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
@@ -14,14 +14,32 @@ import { setSystem } from '../../events/simulation';
 
 import { renderPDF } from '../summary/print';
 
-const printBtn =
+
+const actionStepAdjust =
     () => DIV({
-        className: 'solar-btn print',
+        className: 'action-step',
+        onClick: () => getCapakey().map(navigateDetail),
+    },
+        DIV({ className: 'step-number' }, '1'),
+        DIV({ className: 'step-label' },
+            tr('solAdjustStr1'),
+            BR({}),
+            tr('solAdjustStr2')));
+
+const actionStepPrint =
+    () => DIV({
+        className: 'action-step',
         onClick: () => renderPDF(),
     },
-        DIV({ className: 'solar-inner-btn' },
-            tr('solPrintStr3'),
-        ));
+        DIV({ className: 'step-number' }, '2'),
+        DIV({ className: 'step-label' }, tr('solPrintStr1'), BR({}), tr('solPrintStr2')));
+
+const actionStepContact =
+    () => DIV({ className: 'action-step' },
+        DIV({ className: 'step-number' }, '3'),
+        DIV({ className: 'step-label' },
+            tr('solContactStr1'), BR({}), tr('solContactStr2')));
+
 
 
 const toggleSystem = toggleWithInfo(
@@ -31,8 +49,10 @@ const toggleSystem = toggleWithInfo(
 const action =
     () =>
         DIV({ className: 'actions' },
-            actionChange(),
-            actionInfo());
+            actionStepAdjust(),
+            actionStepPrint(),
+            actionStepContact(),
+        );
 
 
 const summary =
@@ -44,31 +64,15 @@ const summary =
     };
 
 
-const goToSettings =
-    () => DIV({
-        className: 'solar-btn',
-        onClick: () => getCapakey().map(navigateDetail),
-    },
-        DIV({ className: 'solar-inner-btn' },
-            tr('solAdjustStr1'),
-            ' ',
-            tr('solAdjustStr2')),
-    );
-
-const actionContact =
-    () =>
-        DIV({ className: 'solar-btn' },
-            DIV({ className: 'solar-inner-btn' },
-                tr('solContactStr1'), ' ', tr('solContactStr2')),
-        );
-
 const sidebar =
     () =>
         DIV({ className: 'sidebar' },
             summary(),
-            goToSettings(),
-            printBtn(),
-            actionContact());
+            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
+            DIV({ className: 'sidebar-action-wrapper' },
+                actionChange(),
+                actionInfo(),
+            ));
 
 const sidebarNoPreview =
     () =>
@@ -86,7 +90,6 @@ const content =
     () =>
         DIV({ className: 'content' },
             context(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
             sidebar(),
             action());
 
@@ -94,7 +97,6 @@ const contentNoPreview =
     () =>
         DIV({ className: 'content' },
             context(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
             sidebarNoPreview(),
             action());
 

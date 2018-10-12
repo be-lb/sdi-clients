@@ -2744,8 +2744,8 @@ export const messages: MessageDB = {
     },
 
     solAdjustStr2: {
-        fr: 'mes résultats',
-        nl: 'mijn resultaten',
+        fr: 'mon installation',
+        nl: 'mijn installatie',
         en: '',
     },
 
