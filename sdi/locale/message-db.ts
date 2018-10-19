@@ -2930,39 +2930,39 @@ export const messages: MessageDB = {
     },
 
     solLegendConsWaterRank1: {
-        fr: 'Elle s\'apparente à une personne seule ou un ménage très économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met één persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'It is similar to a single person or a very economical household (quick showers rather than baths)',
+        fr: 'Personne seule ou un ménage très économe (douches rapides plutôt que bains)',
+        nl: 'Persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
+        en: 'Single person or a very economical household (quick showers rather than baths)',
     },
 
     solLegendConsWaterRank2: {
-        fr: 'Elle s\'apparente à un petit ménage économe (douches rapides plutôt que bains)',
-        nl: 'Het is als een klein, zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'It is like a small, economical household (quick showers instead of baths)',
+        fr: 'Petit ménage économe (douches rapides plutôt que bains)',
+        nl: 'Klein, zuinig huishouden (snelle douches in plaats van baden)',
+        en: 'Small, economical household (quick showers instead of baths)',
     },
 
     solLegendConsWaterRank3: {
-        fr: 'Elle s\'apparente à une famille petite ou une moyenne et économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met een kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
-        en: 'It is similar to a small or medium and economical family (quick showers rather than baths)',
+        fr: 'Famille petite, ou une moyenne et économe (douches rapides plutôt que bains)',
+        nl: 'Kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
+        en: 'Small or medium and economical family (quick showers rather than baths)',
     },
 
     solLegendConsWaterRank4: {
-        fr: 'Elle s\'apparente à une famille moyenne ou une grande et économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met een gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
-        en: 'It is similar to an average family or a large and economical family (quick showers rather than baths)',
+        fr: 'Famille moyenne, ou une grande et économe (douches rapides plutôt que bains)',
+        nl: 'Gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
+        en: 'Average family or a large and economical family (quick showers rather than baths)',
     },
 
     solLegendConsWaterRank5: {
-        fr: 'Elle s\'apparente à une grande famille',
-        nl: 'Ze is als een grote familie.',
-        en: 'It is similar to a big family.',
+        fr: 'Grande famille',
+        nl: 'Grote familie.',
+        en: 'Big family.',
     },
 
     solLegendConsWaterRank6: {
-        fr: 'Elle s\'apparente à une très grande famille',
-        nl: 'Ze is als een heel grote familie.',
-        en: 'It is similar to a very big family.',
+        fr: 'Très grande famille',
+        nl: 'Heel grote familie.',
+        en: 'Very big family.',
     },
 
     resetValue: {
