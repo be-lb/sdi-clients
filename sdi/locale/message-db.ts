@@ -3171,15 +3171,15 @@ export const messages: MessageDB = {
 
 
     solCalculInfoStrPart1: {
-        fr: 'Je m\'informe',
-        nl: 'Ik vraag',
-        en: 'Informations',
+        fr: 'Questions',
+        nl: 'Veelgestelde',
+        en: 'Frequently asked',
     },
 
     solCalculInfoStrPart2: {
-        fr: 'sur ces résultats',
-        nl: 'naar de resultaten',
-        en: '',
+        fr: 'fréquentes',
+        nl: 'vragen',
+        en: 'questions',
     },
 
     solMyRooftop: {
