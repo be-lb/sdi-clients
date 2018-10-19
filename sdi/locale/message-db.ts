@@ -2308,19 +2308,19 @@ export const messages: MessageDB = {
     },
 
     monocristal: {
-        fr: 'Monocristalin',
+        fr: 'Monocristallin',
         nl: 'Monokristallijn',
         en: 'Monocrystalin',
     },
 
     polycristal: {
-        fr: 'Polycristalin',
+        fr: 'Polycristallin',
         nl: 'Polykristallijn',
         en: 'Polycrystalin',
     },
 
     monocristalHR: {
-        fr: 'Monocristalin haut rendement',
+        fr: 'Monocristallin haut rendement',
         nl: 'Hoog rendement van monokristaline',
         en: 'High efficiency monocrystalin',
     },
