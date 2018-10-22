@@ -32,7 +32,7 @@ import { updateRoofs, clearPerspective, clearInputs } from './simulation';
 import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
 import { navigatePreview } from './route';
-import { PROD_THESH_MEDIUM, PROD_THESH_HIGH } from '../queries/simulation';
+import { prodThresholdMedium, prodThresholdHigh } from '../queries/simulation';
 import { getCapakey } from '../queries/app';
 
 const logger = debug('sdi:events/app');
@@ -108,10 +108,10 @@ const tagFeature =
         else if (area < 5) {
             return { tag: 'unusable' };
         }
-        else if (productivity < PROD_THESH_MEDIUM) {
+        else if (productivity < prodThresholdMedium()) {
             return { tag: 'unusable' };
         }
-        else if (productivity >= PROD_THESH_MEDIUM && productivity < PROD_THESH_HIGH) {
+        else if (productivity >= prodThresholdMedium() && productivity < prodThresholdHigh()) {
             return { tag: 'good' };
         }
         return { tag };
