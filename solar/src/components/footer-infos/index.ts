@@ -5,10 +5,12 @@ import tr from 'sdi/locale';
 export const disclaimerLink =
     () =>
         DIV({ className: 'disclaimer-link' },
+            tr('solDisclaimerLink'),
+            ' ',
             A({
                 href: '',
                 target: '_blank',
-            }, tr('solDisclaimerLink')),
+            }, tr('moreInfos')),
         );
 
 

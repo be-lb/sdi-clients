@@ -223,6 +223,7 @@ export type MessageKey =
     | 'monocristal'
     | 'monocristalHR'
     | 'monthlyPayment'
+    | 'moreInfos'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -3292,6 +3293,12 @@ export const messages: MessageDB = {
         fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
         nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
         en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+    },
+
+    moreInfos: {
+        fr: 'En savoir plus',
+        nl: 'Meer informatie',
+        en: 'More informations',
     },
 
 

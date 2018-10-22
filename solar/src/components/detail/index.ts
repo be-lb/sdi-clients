@@ -3,6 +3,8 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
+import { disclaimerLink, homegradeContactLink, beContactLink } from '../footer-infos';
+
 
 
 import {
@@ -87,6 +89,15 @@ const action =
             actionInfo(),
             );
 
+const footerInfos =
+    () =>
+        DIV({ className: 'footer-infos' },
+            homegradeContactLink(),
+            beContactLink(),
+            disclaimerLink());
+
+
+
 const sidebar =
     () =>
         DIV({ className: 'sidebar' },
@@ -99,7 +110,8 @@ const content =
             context(),
             adjustWidgets(),
             sidebar(),
-            action());
+            action(),
+            footerInfos());
 
 
 const render =

@@ -109,27 +109,15 @@ const contentNoPreview =
             footerInfos());
 
 
-const renderPreview =
-    () =>
-        DIV({ className: 'solar-main-and-right-sidebar' },
-            content(),
-        );
 
-
-const renderNoPreview =
-    () =>
-        DIV({ className: 'solar-main-and-right-sidebar' },
-            contentNoPreview(),
-        );
-
-
+            
 const render =
-    () => {
-        if (getMaxPower() >= 1) {
-            return renderPreview();
-        }
-        return renderNoPreview();
-    };
+    () => DIV({ className: 'solar-main-and-right-sidebar' },
+        getMaxPower() >= 1 ?
+            content() :
+            contentNoPreview(),
+    );
+
 
 
 export default render;
