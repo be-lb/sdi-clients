@@ -321,11 +321,15 @@ export type MessageKey =
     | 'solCalculInfoStrPart2'
     | 'solChangeStr1'
     | 'solChangeStr2'
+    | 'solContactHomegrade'
+    | 'solContactBE'
+    | 'solContactBELabel'
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
+    | 'solDisclaimerLink'
     | 'solElectricBoiler'
     | 'solFinanceCost'
     | 'solFinanceGain'
@@ -3265,4 +3269,30 @@ export const messages: MessageDB = {
         nl: 'De zonneboiler produceert sanitair warm water via thermische panelen.',
         en: '',
     },
+
+    solDisclaimerLink: {
+        fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Brusselse milieu.',
+        en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
+    },
+
+    solContactHomegrade: {
+        fr: 'Contactez gratuitement nos conseillers',
+        nl: 'Neem gratis contact op met onze adviseurs',
+        en: 'Contact our advisors for free',
+    },
+
+    solContactBELabel: {
+        fr: 'Contacter Bruxelles Environnement',
+        nl: 'Contacteer Leefmilieu Brussel',
+        en: 'Contact Bruxelles Environnement',
+    },
+
+    solContactBE: {
+        fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+        nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
+        en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+    },
+
+
 };
