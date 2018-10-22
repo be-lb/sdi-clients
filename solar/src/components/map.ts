@@ -23,7 +23,7 @@ import { DIV } from 'sdi/components/elements';
 import { IMapOptions, create } from 'sdi/map';
 import { getCurrentBaseLayer, getView, getInteraction } from '../queries/map';
 import { scalelineEvents, viewEvents } from '../events/map';
-import { loadCoordinate } from '../events/app';
+import { loadCoordinate, reCenterMap } from '../events/app';
 import { getMapInfo } from '../queries/app';
 
 const logger = debug('sdi:comp:map');
@@ -57,8 +57,8 @@ const attachMap = (element: Element | null) => {
         clickable({ setPosition: pickPlace }, getInteraction);
     }
     if (element) {
-        logger('mapSetTarget');
         mapSetTarget(element);
+        reCenterMap();
     }
 };
 

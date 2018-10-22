@@ -33,6 +33,7 @@ import { Coordinate, Extent } from 'openlayers';
 import { updateGeocoderResponse, addRoofLayer, clearRoofLayer } from './map';
 import { navigatePreview } from './route';
 import { PROD_THESH_MEDIUM, PROD_THESH_HIGH } from '../queries/simulation';
+import { getCapakey } from '../queries/app';
 
 const logger = debug('sdi:events/app');
 
@@ -65,6 +66,9 @@ const centerMap =
                 miny + sideMax,
             ];
 
+            logger(`bbox: ${[minx, miny, maxx, maxy]}`);
+            logger(`extent: ${abbox}`);
+
             dispatch('port/map/view', state => ({
                 ...state,
                 dirty: 'geo/extent',
@@ -72,6 +76,10 @@ const centerMap =
             }));
         }
     };
+
+
+export const reCenterMap =
+    () => getCapakey().map(centerMap);
 
 const createCollection =
     (fs: Feature[]): FeatureCollection => ({
@@ -161,7 +169,7 @@ const loadRoofs =
                         return (new Promise((solve, ject) => loadRoof(fr, capakey, solve, ject)));
                     }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 
 const loadGeometry =
@@ -173,7 +181,7 @@ const loadGeometry =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 const loadBuildings =
     (capakey: string) =>
@@ -184,7 +192,7 @@ const loadBuildings =
                     return fc;
                 }),
                 fc => Promise.resolve(fc),
-            );
+        );
 
 
 const checkAddress =
