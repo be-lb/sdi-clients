@@ -49,13 +49,11 @@ export const potential = () => tr('solSolarPotentialExcellent');
 const roofs = queryK('solar/data/roofs');
 const buildings = queryK('solar/data/buildings');
 
-export const PROD_THESH_HIGH = 1100;
-export const PROD_THESH_MEDIUM = 800;
-export const tags = {
-    great: [PROD_THESH_HIGH, Number.MAX_VALUE],
-    good: [PROD_THESH_MEDIUM, PROD_THESH_HIGH],
-    unusable: [0, PROD_THESH_MEDIUM],
-};
+export const getConstants =
+    () => fromNullable(query('solar/constants'));
+
+export const prodThresholdHigh = () => getConstants().fold(0, cs => cs.medium_solar_productivity);
+export const prodThresholdMedium = () => getConstants().fold(0, cs => cs.low_productivity_limit);
 
 const Notes = {
     pv_obstacles: 'pvobstacle',
@@ -96,7 +94,8 @@ export const thermalTechnologyLabels: { [k in thermicHotWaterProducerEnum]: Mess
     gas: 'solGaz',
 };
 
-export type Tag = keyof typeof tags;
+
+export type Tag = 'great' | 'good' | 'unusable';
 
 export const getRoofs =
     () => getCapakey().chain((ck) => {
@@ -124,7 +123,7 @@ export const totalArea =
         .fold(
             0,
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
-        );
+    );
 
 
 const areaProductivity =
@@ -140,7 +139,7 @@ const areaProductivity =
 
                     return catArea * 100 / ta;
                 },
-            );
+        );
 
 
 
@@ -250,8 +249,7 @@ export const getOptimalArea =
         n => n,
     );
 
-export const getConstants =
-    () => fromNullable(query('solar/constants'));
+
 
 export const getMaxPower =
     () => getConstants().fold(
