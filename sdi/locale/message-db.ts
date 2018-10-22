@@ -321,11 +321,13 @@ export type MessageKey =
     | 'solCalculInfoStrPart2'
     | 'solChangeStr1'
     | 'solChangeStr2'
+    | 'solContactHomegrade'
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
+    | 'solDisclaimerLink'
     | 'solElectricBoiler'
     | 'solFinanceCost'
     | 'solFinanceGain'
@@ -3265,4 +3267,18 @@ export const messages: MessageDB = {
         nl: 'De zonneboiler produceert sanitair warm water via thermische panelen.',
         en: '',
     },
+
+    solDisclaimerLink: {
+        fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Brusselse milieu.',
+        en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
+    },
+
+    solContactHomegrade: {
+        fr: 'Contactez gratuitement nos conseillers',
+        nl: 'Neem gratis contact op met onze adviseurs',
+        en: 'Contact our advisors for free',
+    },
+
+
 };
