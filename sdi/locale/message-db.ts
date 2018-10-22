@@ -322,6 +322,8 @@ export type MessageKey =
     | 'solChangeStr1'
     | 'solChangeStr2'
     | 'solContactHomegrade'
+    | 'solContactBE'
+    | 'solContactBELabel'
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
@@ -3278,6 +3280,18 @@ export const messages: MessageDB = {
         fr: 'Contactez gratuitement nos conseillers',
         nl: 'Neem gratis contact op met onze adviseurs',
         en: 'Contact our advisors for free',
+    },
+
+    solContactBELabel: {
+        fr: 'Contacter Bruxelles Environnement',
+        nl: 'Contacteer Leefmilieu Brussel',
+        en: 'Contact Bruxelles Environnement',
+    },
+
+    solContactBE: {
+        fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+        nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
+        en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
     },
 
 
