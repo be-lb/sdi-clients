@@ -3278,7 +3278,7 @@ export const messages: MessageDB = {
     },
 
     solContactHomegrade: {
-        fr: 'Contactez gratuitement nos conseillers',
+        fr: 'Contacter gratuitement nos conseillers',
         nl: 'Neem gratis contact op met onze adviseurs',
         en: 'Contact our advisors for free',
     },
@@ -3300,6 +3300,5 @@ export const messages: MessageDB = {
         nl: 'Meer informatie',
         en: 'More informations',
     },
-
 
 };
