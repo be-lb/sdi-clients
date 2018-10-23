@@ -2082,9 +2082,9 @@ export const messages: MessageDB = {
     },
 
     buyingPrice: {
-        fr: 'Prix d\'achat',
-        nl: 'Aankoopprijs',
-        en: 'buying price',
+        fr: 'Prix d\'achat TVAC',
+        nl: 'Aankoopprijs Incl.BTW',
+        en: 'buying price Incl. VAT',
     },
 
     gainGreenCertif: {
@@ -3334,7 +3334,8 @@ export const messages: MessageDB = {
     solLinkFacilitateur: {
         fr: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable?view_pro=1',
         nl: 'https://leefmilieu.brussels/themas/gebouwen/het-beheer-van-mijn-gebouw/om-u-te-helpen/facilitator-duurzame-gebouwen?view_pro=1',
-        en: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable?view_pro=1',    },
+        en: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable?view_pro=1',
+    },
 
     solLinkInfoGreenEnergy: {
         fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',

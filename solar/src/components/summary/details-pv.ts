@@ -1,7 +1,7 @@
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withEuro, withEuroInclVAT, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
+import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import {
     getPanelUnits,
@@ -61,7 +61,7 @@ const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('solMyFinance')),
-            vk(withEuroInclVAT(getAnimatedValuePv('installationCost')), 'buyingPrice'),
+            vk(withEuro(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),
             vk(withEuro(getAnimatedValuePv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'),
             vk(withEuro(getAnimatedValuePv('totalGain25Y') - getAnimatedValuePv('installationCost')), 'gainTotal25Y'),

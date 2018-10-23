@@ -18,7 +18,7 @@ import { renderPDF } from '../summary/print';
 
 const actionStepAdjust =
     () => DIV({
-        className: 'action-step',
+        className: 'action action-step',
         onClick: () => getCapakey().map(navigateDetail),
     },
         DIV({ className: 'step-number' }, '1'),
@@ -29,14 +29,14 @@ const actionStepAdjust =
 
 const actionStepPrint =
     () => DIV({
-        className: 'action-step',
+        className: 'action action-step',
         onClick: () => renderPDF(),
     },
         DIV({ className: 'step-number' }, '2'),
         DIV({ className: 'step-label' }, tr('solPrintStr1'), BR({}), tr('solPrintStr2')));
 
 const actionStepContact =
-    () => DIV({ className: 'action-step' },
+    () => DIV({ className: 'action action-step' },
         DIV({ className: 'step-number' }, '3'),
         DIV({ className: 'step-label' },
             tr('solContactStr1'), BR({}), tr('solContactStr2')));

@@ -1,7 +1,7 @@
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withEuroInclVAT, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
+import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
 
 import { buildingAdress } from '../item-factory';
 import {
@@ -55,7 +55,7 @@ const sumFinance =
     () =>
         DIV({ className: 'sum-finance-wrapper' },
             H2({}, tr('finance')),
-            vk(withEuroInclVAT(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
+            vk(withEuro(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValueThermal('grant')), 'bonus'),
             vk(withEuro(getAnimatedValueThermal('gain')), 'gainInvoice25Y'),
             vk(withYear(getAnimatedValueThermal('returnTime')), 'returnTime'),
