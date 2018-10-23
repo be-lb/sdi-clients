@@ -8,6 +8,7 @@ import tr from 'sdi/locale';
 export const actionContact =
     () =>
         A({
+            className: 'action-link',
             href: tr('solLinkInstallateur'),
             target: '_blank',
         },
@@ -19,6 +20,7 @@ export const actionContact =
 export const actionChange =
     () =>
         A({
+            className: 'action-link',
             href: tr('solLinkInfoGreenEnergy'),
             target: '_blank',
         },
@@ -30,10 +32,14 @@ export const actionChange =
 
 export const actionInfo =
     () =>
-        DIV({ className: 'action action-info' },
-            DIV({ className: 'action-picto' }),
-            H1({}, tr('solCalculInfoStrPart1'), BR({}), tr('solCalculInfoStrPart2')),
-        );
+        A({
+            className: 'action-link',
+        },
+            DIV({ className: 'action action-info' },
+                DIV({ className: 'action-picto' }),
+                H1({}, tr('solCalculInfoStrPart1'), BR({}), tr('solCalculInfoStrPart2')),
+            ));
+
 
 export const actionPrint =
     () =>
