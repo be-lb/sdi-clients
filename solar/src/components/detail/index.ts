@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
-import { disclaimerLink, homegradeContactLink, beContactLink } from '../footer-infos';
+import { disclaimer, beContact, contactLinks } from '../footer-infos';
 
 
 
@@ -87,14 +87,15 @@ const action =
             actionContact(),
             actionChange(),
             actionInfo(),
-            );
+        );
 
-const footerInfos =
+const contentFooter =
     () =>
         DIV({ className: 'footer-infos' },
-            homegradeContactLink(),
-            beContactLink(),
-            disclaimerLink());
+            contactLinks(),
+            disclaimer(),
+            beContact(),
+        );
 
 
 
@@ -111,7 +112,7 @@ const content =
             adjustWidgets(),
             sidebar(),
             action(),
-            footerInfos());
+            contentFooter());
 
 
 const render =

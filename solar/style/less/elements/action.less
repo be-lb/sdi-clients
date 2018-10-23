@@ -7,7 +7,12 @@
     display: flex;
     flex-direction: column-reverse;
 
-    > div {
+    a {
+        text-decoration: none;
+        &:hover {color: #000;}
+    }
+
+    .action {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -15,10 +20,6 @@
         text-align: center;
         margin-bottom: @margin * 2;
         cursor: default;  
-        
-        h1 {
-            font-size: @medium-font;
-        }
     }
 }
 
@@ -47,10 +48,10 @@
 .action-info .action-picto:after    {background-image: url(../../asset/svg/info-methodo.svg);}
 .action-print .action-picto:after   {background-image: url(../../asset/svg/pdf.svg);}
 
-.action-contact .action-picto:hover:after {background-image: url(../../asset/svg/installateurG.svg);}
-.action-change .action-picto:hover:after  {background-image: url(../../asset/svg/info-nrj2G.svg);}
-.action-info .action-picto:hover:after    {background-image: url(../../asset/svg/info-methodoG.svg);}
-.action-print .action-picto:hover:after   {background-image: url(../../asset/svg/pdfG.svg);}
+.action-contact:hover .action-picto:after {background-image: url(../../asset/svg/installateurG.svg);}
+.action-change:hover .action-picto:after  {background-image: url(../../asset/svg/info-nrj2G.svg);}
+.action-info:hover .action-picto:after    {background-image: url(../../asset/svg/info-methodoG.svg);}
+.action-print:hover .action-picto:after   {background-image: url(../../asset/svg/pdfG.svg);}
 
 
 

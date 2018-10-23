@@ -322,16 +322,19 @@ export type MessageKey =
     | 'solCalculInfoStrPart2'
     | 'solChangeStr1'
     | 'solChangeStr2'
+    | 'solContactFacilitateur'
     | 'solContactHomegrade'
-    | 'solContactBE'
     | 'solContactBELabel'
+    | 'solContactLinkLabel'
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
     | 'solDisclaimerLink'
+    | 'solDisclaimerLimit'
     | 'solElectricBoiler'
+    | 'solFacilitateurLabel'
     | 'solFinanceCost'
     | 'solFinanceGain'
     | 'solFinanceVAT'
@@ -341,6 +344,9 @@ export type MessageKey =
     | 'solHotWaterConsumption'
     | 'solInstallationLifeTime'
     | 'solInstallationSurface'
+    | 'solLinkContactBE'
+    | 'solLinkInfoGreenEnergy'
+    | 'solLinkFacilitateur'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
     | 'solLocatePitchStr3'
@@ -3278,9 +3284,15 @@ export const messages: MessageDB = {
     },
 
     solContactHomegrade: {
-        fr: 'Contacter gratuitement nos conseillers',
-        nl: 'Neem gratis contact op met onze adviseurs',
-        en: 'Contact our advisors for free',
+        fr: 'pour les particuliers',
+        nl: 'voor particulieren',
+        en: 'for individuals',
+    },
+
+    solContactFacilitateur: {
+        fr: 'pour les professionnels et projets d\'installation supérieurs à 12kWc',
+        nl: 'voor professionals en installatieprojecten boven 12kWp',
+        en: 'for professionals and installation projects above 12kWp',
     },
 
     solContactBELabel: {
@@ -3289,7 +3301,7 @@ export const messages: MessageDB = {
         en: 'Contact Bruxelles Environnement',
     },
 
-    solContactBE: {
+    solLinkContactBE: {
         fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
         nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
         en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
@@ -3299,6 +3311,35 @@ export const messages: MessageDB = {
         fr: 'En savoir plus',
         nl: 'Meer informatie',
         en: 'More informations',
+    },
+
+    solContactLinkLabel: {
+        fr: 'Contacts et informations gratuites :',
+        nl: 'Gratis informatie en contacten :',
+        en: 'Free information and contacts :',
+    },
+
+    solFacilitateurLabel: {
+        fr: 'Facilitateur Bâtiment Durable',
+        nl: 'Facilitator Duurzame Gebouwen',
+        en: 'Facilitateur Bâtiment Durable',
+    },
+
+    solDisclaimerLimit: {
+        fr: 'Limite de responsabilité :',
+        nl: 'Beperking van aansprakelijkheid :',
+        en: 'Limitation of Liability :',
+    },
+
+    solLinkFacilitateur: {
+        fr: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable?view_pro=1',
+        nl: 'https://leefmilieu.brussels/themas/gebouwen/het-beheer-van-mijn-gebouw/om-u-te-helpen/facilitator-duurzame-gebouwen?view_pro=1',
+        en: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable?view_pro=1',    },
+
+    solLinkInfoGreenEnergy: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
+        nl: 'https://leefmilieu.brussels/themas/energie/wat-groene-energie',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
     },
 
 };

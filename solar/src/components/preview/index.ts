@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { actionChange, actionInfo } from '../action';
-import { disclaimerLink, homegradeContactLink, beContactLink } from '../footer-infos';
+import { disclaimer, beContact, contactLinks } from '../footer-infos';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
@@ -83,12 +83,13 @@ const sidebarNoPreview =
                 DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol'))),
         );
 
-const footerInfos =
+const contentFooter =
     () =>
         DIV({ className: 'footer-infos' },
-            homegradeContactLink(),
-            beContactLink(),
-            disclaimerLink());
+            contactLinks(),
+            disclaimer(),
+            beContact(),
+        );
 
 
 
@@ -99,18 +100,18 @@ const content =
             context(),
             sidebar(),
             action(),
-            footerInfos());
+            contentFooter());
 
 const contentNoPreview =
     () =>
         DIV({ className: 'content' },
             context(),
             sidebarNoPreview(),
-            footerInfos());
+            contentFooter());
 
 
 
-            
+
 const render =
     () => DIV({ className: 'solar-main-and-right-sidebar' },
         getMaxPower() >= 1 ?

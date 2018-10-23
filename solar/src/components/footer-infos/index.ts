@@ -2,21 +2,25 @@ import { DIV, A } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 
-export const disclaimerLink =
+export const disclaimer =
     () =>
-        DIV({ className: 'disclaimer-link' },
-            tr('solDisclaimerLink'),
-            ' ',
-            A({
-                href: '',
-                target: '_blank',
-            }, tr('moreInfos')),
-        );
+        DIV({ className: 'disclaimer' },
+            DIV({ className: 'footer-link-title' },
+                tr('solDisclaimerLimit'),
+            ),
+            DIV({},
+                tr('solDisclaimerLink'),
+                ' ',
+                A({
+                    href: '',
+                    target: '_blank',
+                }, tr('moreInfos')),
+            ));
 
 
-export const homegradeContactLink =
+export const homegradeContact =
     () =>
-        DIV({ className: 'beContact-link' },
+        DIV({ className: 'contact-link' },
             tr('solContactHomegrade'),
             ' : ',
             A({
@@ -25,12 +29,31 @@ export const homegradeContactLink =
             }, 'www.homegrade.brussels'),
         );
 
+export const facilitateurContact =
+    () =>
+        DIV({ className: 'contact-link' },
+            tr('solContactFacilitateur'),
+            ' : ',
+            A({
+                href: tr('solLinkFacilitateur'),
+                target: '_blank',
+            }, tr('solFacilitateurLabel')),
+        );
 
-export const beContactLink =
+
+export const beContact =
     () =>
         DIV({ className: 'beContact-link' },
             A({
-                href: tr('solContactBE'),
+                href: tr('solLinkContactBE'),
                 target: '_blank',
             }, tr('solContactBELabel')),
+        );
+
+export const contactLinks =
+    () =>
+        DIV({ className: 'contact-links' },
+            DIV({ className: 'footer-link-title' }, tr('solContactLinkLabel')),
+            homegradeContact(),
+            facilitateurContact(),
         );
