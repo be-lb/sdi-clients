@@ -346,6 +346,7 @@ export type MessageKey =
     | 'solInstallationSurface'
     | 'solLinkContactBE'
     | 'solLinkInfoGreenEnergy'
+    | 'solLinkInstallateur'
     | 'solLinkFacilitateur'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
@@ -3341,6 +3342,12 @@ export const messages: MessageDB = {
         fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
         nl: 'https://leefmilieu.brussels/themas/energie/wat-groene-energie',
         en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
+    },
+
+    solLinkInstallateur: {
+        fr: 'https://rescert.be/fr/lists',
+        nl: 'https://rescert.be/nl/lists',
+        en: 'https://rescert.be/fr/lists',
     },
 
 };

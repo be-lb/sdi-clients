@@ -7,10 +7,14 @@ import tr from 'sdi/locale';
 
 export const actionContact =
     () =>
-        DIV({ className: 'action action-contact' },
-            DIV({ className: 'action-picto' }),
-            H1({}, tr('solContactStr1'), BR({}), tr('solContactStr2')),
-        );
+        A({
+            href: tr('solLinkInstallateur'),
+            target: '_blank',
+        },
+            DIV({ className: 'action action-contact' },
+                DIV({ className: 'action-picto' }),
+                H1({}, tr('solContactStr1'), BR({}), tr('solContactStr2')),
+            ));
 
 export const actionChange =
     () =>

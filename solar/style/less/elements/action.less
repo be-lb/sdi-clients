@@ -12,6 +12,10 @@
         &:hover {color: #000;}
     }
 
+    h1 {
+        font-size: @medium-font;
+    }
+
     .action {
         flex: 1;
         display: flex;
@@ -61,7 +65,7 @@
         flex-direction: row;
         align-items: center;
 
-        > div h1 {
+        h1 {
             font-size: @big-font;
         }
     }
@@ -76,7 +80,7 @@
 
     .actions {
 
-        > div {
+        .action {
             width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
             margin: 0;
             margin-right: @margin;
