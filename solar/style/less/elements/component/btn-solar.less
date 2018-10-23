@@ -1,0 +1,73 @@
+
+// BTNs 
+
+.solar-btn {
+    position: relative;
+    width: 100%;
+    height: @medium-font * 2;
+    background: @extra-light-grey;
+    border: 2px solid #333;
+    border-radius: 2em;
+    margin: @margin * 2 0;
+
+    @media @big {
+        width: @sidebarW;
+        margin: @margin 0;         
+    }
+
+
+    .solar-inner-btn {
+            .absolute(0,0,0,0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2em;
+            border: 2px solid @extra-light-grey;;
+            font-size: @medium-font;
+            color: #000;
+            text-align: center;
+            cursor: default;
+        }
+
+    &:hover  { 
+        background-color: @green;
+        
+        .solar-inner-btn {
+            border: 2px solid #fff;
+            background-color: @green;
+        }  
+    }
+
+    &.btn-level-2 {
+        border-color: @light-grey;
+        background: @extra-light-grey;
+
+        > div {
+            border-color: @extra-light-grey;
+            font-size: @small-font;
+        }
+
+        &:hover {
+            border-color: @grey;
+             > div {
+                border-color: @extra-light-grey;
+                background: @extra-light-grey;
+            }
+        }
+    }
+}
+
+// .solar-btn {
+//     &.print,
+//     &.adjust,
+//     &.contact {
+//         border: 0px;
+
+//         .solar-inner-btn:before {
+//             content: ' ';
+//             width: 1em;
+//             height: 1em;
+//             background-color: @yellow;
+//         }
+//     }
+// }

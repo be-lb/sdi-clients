@@ -1,0 +1,53 @@
+
+// CHECKBOXES
+
+.wrapper-multi-checkbox {
+    // margin-bottom: @margin / 2;
+
+    .multi-checkbox-label {
+        margin-bottom: @margin ;
+        &:last-child {margin: 0;}
+    }
+}
+
+@media @big {
+    .wrapper-multi-checkbox {
+        display: flex;
+        .multi-checkbox-label {
+            margin-bottom: 0 ;
+            margin-right: 0.5em;
+        }
+    }
+}
+
+.wrapper-checkbox {
+    display: flex;
+    cursor: default;
+    margin: 0;
+    margin-right: 1em;
+    margin-bottom: @margin / 2;
+    &:last-child{margin: 0;}
+
+    .checkbox {
+        position: relative;
+        flex-shrink: 0;
+        width : 1em;
+        height: 1em;
+        margin-right: 0.3em;
+        border: 1px solid #000;
+        border-radius: 10px;
+
+        &::before {content: ' ';} // overide SDI checkbox
+    }
+
+    &:hover .checkbox:before,
+    .checkbox.active:before {
+        .absolute(0,0,0,0);
+        content: ' ';
+        flex-shrink: 0;
+        background-color: @green;
+        border-radius: 10px;
+        border: 3px solid #fff;
+        margin: 0;
+    }
+}

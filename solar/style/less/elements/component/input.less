@@ -1,0 +1,51 @@
+
+
+// INPUTS
+
+.input-box {
+    display: flex;
+    align-items: center;
+
+    input {
+        width: 4em;
+        font-family: inherit;
+    }
+
+    .input-label {
+        margin-left: 0.5em ;
+    }
+
+    .unit {padding-left: 0.5ch;}
+}
+
+.input-box-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width : 8em;
+    text-align: center;
+
+    .input-and-unit {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+
+        .unit {padding-left: 0.5ch;}
+    }
+
+    input {
+        width: 4em;
+        font-family: inherit;
+    }
+
+    .input-label {
+        margin-top: @margin / 2;
+    }
+}
+
+input[type="number"] {
+    text-align: right;
+    -moz-appearance: textfield; //remove spin buttons
+    -webkit-appearance: none;
+    appearance: textfield;
+}
