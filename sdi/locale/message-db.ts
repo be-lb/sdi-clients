@@ -3176,14 +3176,14 @@ export const messages: MessageDB = {
 
 
     solCalculInfoStrPart1: {
-        fr: 'Questions',
-        nl: 'Veelgestelde',
+        fr: 'FAQ',
+        nl: 'Zonnekaart',
         en: 'Frequently asked',
     },
 
     solCalculInfoStrPart2: {
-        fr: 'fréquentes',
-        nl: 'vragen',
+        fr: 'carte solaire',
+        nl: 'FAQ\'s',
         en: 'questions',
     },
 
