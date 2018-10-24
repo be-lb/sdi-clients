@@ -73,6 +73,7 @@
 
     .header {
         display: flex;
+        // flex-direction: column;
         flex-wrap: wrap;
         justify-content: space-between;
         margin-bottom: @margin-mob;
@@ -92,11 +93,13 @@
         }
 
         .app-title,
-        .app-listwrapper,
-        .header-toolbar {
+        .header-toolbar,
+        .app-listwrapper {
             position: relative;
             width : auto;
-            height: 20px;
+            max-width: 33%;
+            min-height: 20px;
+            height: auto;
             top: initial;
             right: initial;
             bottom: initial;
