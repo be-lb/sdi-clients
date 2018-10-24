@@ -31,4 +31,21 @@ export const disclaimer =
                 }, tr('moreInfos')),
             ));
 
+export const urbisReward =
+    () =>
+        DIV({ className: 'reward urbis' },
+            tr('solUrbisLabel'),
+            A({ href: tr('solUrbisLink') }, 'UrbIS'),
+        );
+
+export const createdBy =
+    () =>
+        DIV({ className: 'reward created-by' },
+            tr('solCreatorsLabel'),
+            A({ href: 'http://www.apere.org' }, 'APERe'),
+            ', ',
+            A({ href: 'https://champs-libres.coop' }, 'Champs Libres'),
+            ' & ',
+            A({ href: 'https://atelier-cartographique.be' }, 'Atelier Cartographique'),
+        );
 

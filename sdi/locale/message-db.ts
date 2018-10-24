@@ -327,6 +327,7 @@ export type MessageKey =
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
+    | 'solCreatorsLabel'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
     | 'solDisclaimerLink'
@@ -406,6 +407,8 @@ export type MessageKey =
     | 'solThermal'
     | 'solTotalPower'
     | 'solTotalSurface'
+    | 'solUrbisLabel'
+    | 'solUrbisLink'
     | 'solUsableRoofArea'
     | 'solVAT0'
     | 'solVAT21'
@@ -3291,9 +3294,9 @@ export const messages: MessageDB = {
     },
 
     solLinkContactBELabel: {
-        fr: 'contactez Bruxelles Environnement',
-        nl: 'contacteer Leefmilieu Brussel',
-        en: 'contact Bruxelles Environnement',
+        fr: 'contactez Bruxelles Environnement.',
+        nl: 'contacteer Leefmilieu Brussel.',
+        en: 'contact Bruxelles Environnement.',
     },
 
     solLinkContactBE: {
@@ -3303,9 +3306,9 @@ export const messages: MessageDB = {
     },
 
     moreInfos: {
-        fr: 'En savoir plus',
-        nl: 'Meer informatie',
-        en: 'More informations',
+        fr: 'En savoir plus.',
+        nl: 'Meer informatie.',
+        en: 'More informations.',
     },
 
     solContactLinkLabel: {
@@ -3344,5 +3347,24 @@ export const messages: MessageDB = {
         nl: ' geschatte producten',
         en: ' estimated produced',
     },
+
+    solUrbisLabel: {
+        fr: 'Orthophotographie, géocodeur et données 3D © ',
+        nl: 'Orthofotografie, geocoder en 3D-gegevens © ',
+        en: 'Orthophotography, geocoder and 3D data © ',
+    },
+
+    solUrbisLink: {
+        fr: 'https://cirb.brussels/fr/nos-solutions/urbis-solutions/urbis-data',
+        nl: 'https://cibg.brussels/nl/onze-oplossingen/urbis-solutions/urbis-data?set_language=nl',
+        en: 'https://bric.brussels/en/our-solutions/urbis-solutions/urbis-data?set_language=en',
+    },
+
+    solCreatorsLabel: {
+        fr: 'Conception et réalisation : ',
+        nl: 'Ontwerp en productie : ',
+        en: 'Design and production : ',
+    },
+
 
 };

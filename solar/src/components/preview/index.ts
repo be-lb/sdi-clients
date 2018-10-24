@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { actionChange, actionInfo } from '../action';
-import { disclaimer, contactLinks } from '../footer-infos';
+import { disclaimer, contactLinks, urbisReward, createdBy } from '../footer-infos';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
@@ -41,11 +41,11 @@ const actionStepContact =
     () => A({
         href: switchLinkPVTH(),
         target: '_blank',
-    }, 
+    },
         DIV({ className: 'action action-step' },
-        DIV({ className: 'step-number' }, '3'),
-        DIV({ className: 'step-label' },
-            tr('solContactStr1'), BR({}), tr('solContactStr2')),
+            DIV({ className: 'step-number' }, '3'),
+            DIV({ className: 'step-label' },
+                tr('solContactStr1'), BR({}), tr('solContactStr2')),
         ));
 
 const switchLinkPVTH =
@@ -104,6 +104,8 @@ const contentFooter =
         DIV({ className: 'footer-infos' },
             contactLinks(),
             disclaimer(),
+            urbisReward(),
+            createdBy(),
         );
 
 
