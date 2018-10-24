@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
-import { disclaimer, beContact, contactLinks } from '../footer-infos';
+import { disclaimer, contactLinks } from '../footer-infos';
 
 
 
@@ -94,7 +94,6 @@ const contentFooter =
         DIV({ className: 'footer-infos' },
             contactLinks(),
             disclaimer(),
-            beContact(),
         );
 
 

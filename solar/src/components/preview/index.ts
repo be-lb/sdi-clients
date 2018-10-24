@@ -3,7 +3,7 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { actionChange, actionInfo } from '../action';
-import { disclaimer, beContact, contactLinks } from '../footer-infos';
+import { disclaimer, contactLinks } from '../footer-infos';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
@@ -90,7 +90,6 @@ const contentFooter =
         DIV({ className: 'footer-infos' },
             contactLinks(),
             disclaimer(),
-            beContact(),
         );
 
 
