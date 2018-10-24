@@ -30,7 +30,7 @@ const vks =
 
 const sumRooftop =
     () =>
-        DIV({ className: 'sum-rooftop-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyRooftop')),
             vk(withM2(totalArea()), 'solTotalSurface'),
             vk(withM2(getObstacleArea()), 'obstacleEstimation'),
@@ -39,7 +39,7 @@ const sumRooftop =
 
 const sumEnergy =
     () =>
-        DIV({ className: 'sum-energy-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyEnergy')),
             vk(withKWhY(getAnimatedValuePv('annualProduction')), 'solProductionPanels'),
             vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'solHomeConsumption'),
@@ -49,7 +49,7 @@ const sumEnergy =
 
 const sumInstallation =
     () =>
-        DIV({ className: 'sum-installation-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyInstallation')),
             vks(getPanelUnits(), `${tr('solNumberOfPanels')} (${tr(pvTechnologyLabel())})`),
             vk(withM2(getAnimatedValuePv('maxArea')), 'solInstallationSurface'),
@@ -59,7 +59,7 @@ const sumInstallation =
 
 const sumFinance =
     () =>
-        DIV({ className: 'sum-finance-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyFinance')),
             vk(withEuro(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),

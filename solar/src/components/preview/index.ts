@@ -69,10 +69,12 @@ const sidebar =
     () =>
         DIV({ className: 'sidebar' },
             summary(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
-            DIV({ className: 'sidebar-action-wrapper' },
-                actionChange(),
-                actionInfo(),
+            DIV({ className: 'sidebar-tools' },
+                toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
+                DIV({ className: 'sidebar-action-wrapper' },
+                    actionChange(),
+                    actionInfo(),
+                ),
             ));
 
 const sidebarNoPreview =
