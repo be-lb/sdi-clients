@@ -1,0 +1,40 @@
+
+
+.context {
+    padding-top: @margin;
+}
+
+
+
+
+
+
+@media @medium {
+    .preview, .detail {
+        .context {
+            padding-top: 2 * @margin;
+            border-top: 1px solid #000 !important;
+        }
+    }
+}
+@media @sdi-small {
+    .preview, .detail {
+        .context {
+            border-top: 0px;
+        }
+    }
+}
+
+
+
+
+
+.mobile-adress {
+    margin-bottom: @margin * 2;
+}
+
+@media @big {
+    .mobile-adress {
+        display: none;
+    }
+}
