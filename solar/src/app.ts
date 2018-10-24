@@ -38,7 +38,7 @@ export type AppLayout = 'Locate:Geocoder' | 'Locate:Map' | 'Loader' | 'Preview' 
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'solar-inner' },
         header('solarAppName', navigateLocate)(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -76,7 +76,7 @@ const effects =
 
 
 
-const app = loop(renderMain, effects);
+const app = loop('solar-app',renderMain, effects);
 export default app;
 
 logger('loaded');

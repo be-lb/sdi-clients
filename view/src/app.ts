@@ -58,7 +58,7 @@ const renderHeader = header('atlas')(renderAppListingButton);
 
 const wrappedMain =
     (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-        DIV({},
+        DIV({ className: 'view-inner' },
             renderHeader(),
             DIV({ className: `main ${name}` }, ...elements),
             footer())
@@ -133,7 +133,7 @@ const effects =
         navigate();
     };
 
-const app = loop(renderMain, effects);
+const app = loop('view-app', renderMain, effects);
 export default app;
 
 logger('loaded');

@@ -67,7 +67,7 @@ const renderAppListingButton =
 const renderHeader = header('studio')(renderAppListingButton);
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'compose-inner'},
         renderHeader(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -150,7 +150,7 @@ const effects =
     };
 
 
-const app = loop(renderMain, effects);
+const app = loop('compose-app', renderMain, effects);
 export default app;
 
 logger('loaded');
