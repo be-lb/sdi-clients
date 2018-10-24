@@ -24,16 +24,38 @@
 
 
 
+// OVERRIDE GEODATA
 
-
-
-
-
-// REMOVE DASHBOARD LINK IN SOLAR
-
-.navigate.dashboard {
+.solar-app .navigate.dashboard {
     display: none;
 }
+
+
+.solar-inner {
+    .absolute(0,0,0,0);
+    display: flex;
+    flex-direction: column;
+    .main {
+        flex: 1;
+    }
+    .header {
+        .app-title, 
+        .header-toolbar, 
+        .app-listwrapper {
+            max-width: 66%;
+        }
+    }
+    
+    .footer {
+        // position: absolute;
+        height: @margin;
+        bottom: 0;
+    }
+}
+
+
+
+
 
 
 // STYLES
