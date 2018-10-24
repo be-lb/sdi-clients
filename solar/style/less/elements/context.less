@@ -2,26 +2,19 @@
 
 .context {
     padding-top: @margin;
+    border-top: 1px solid #000;
 }
-
-
-
-
 
 
 @media @medium {
-    .preview, .detail {
-        .context {
-            padding-top: 2 * @margin;
-            border-top: 1px solid #000 !important;
-        }
+    .context {
+        padding-top: 2 * @margin;
     }
 }
+
 @media @sdi-small {
-    .preview, .detail {
-        .context {
-            border-top: 0px;
-        }
+    .context {
+        border-top: 0px;
     }
 }
 
