@@ -1,21 +1,30 @@
 import { DIV, H1, A, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
+import { getSystem } from '../../queries/simulation';
 
 
+const switchPVTH =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return tr('solLinkInstallateurPV');
+            case 'thermal': return tr('solLinkInstallateurTH');
+        }
+    };
 
 
 export const actionContact =
     () =>
         A({
             className: 'action-link',
-            href: tr('solLinkInstallateur'),
+            href: switchPVTH(),
             target: '_blank',
         },
             DIV({ className: 'action action-contact' },
                 DIV({ className: 'action-picto' }),
                 H1({}, tr('solContactStr1'), BR({}), tr('solContactStr2')),
             ));
+
 
 export const actionChange =
     () =>

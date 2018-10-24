@@ -344,7 +344,8 @@ export type MessageKey =
     | 'solLinkContactBE'
     | 'solLinkContactBELabel'
     | 'solLinkInfoGreenEnergy'
-    | 'solLinkInstallateur'
+    | 'solLinkInstallateurPV'
+    | 'solLinkInstallateurTH'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
     | 'solLocatePitchStr3'
@@ -3326,11 +3327,17 @@ export const messages: MessageDB = {
         en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
     },
 
-    solLinkInstallateur: {
-        fr: 'https://rescert.be/fr/lists',
-        nl: 'https://rescert.be/nl/lists',
-        en: 'https://rescert.be/fr/lists',
+    solLinkInstallateurPV: {
+        fr: 'https://rescert.be/fr/list?res_category=2',
+        nl: 'https://rescert.be/nl/list?res_category=2',
+        en: 'https://rescert.be/fr/list?res_category=2',
     },
+    solLinkInstallateurTH: {
+        fr: 'https://rescert.be/fr/list?res_category=4',
+        nl: 'https://rescert.be/nl/list?res_category=4',
+        en: 'https://rescert.be/fr/list?res_category=4',
+    },
+
 
     solProduced: {
         fr: ' produits estimés',

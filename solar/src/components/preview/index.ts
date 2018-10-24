@@ -1,4 +1,4 @@
-import { DIV, BR } from 'sdi/components/elements';
+import { DIV, BR, A } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
@@ -14,6 +14,8 @@ import { setSystem } from '../../events/simulation';
 
 
 import { renderPDF } from '../summary/print';
+
+
 
 
 const actionStepAdjust =
@@ -36,11 +38,23 @@ const actionStepPrint =
         DIV({ className: 'step-label' }, tr('solPrintStr1'), BR({}), tr('solPrintStr2')));
 
 const actionStepContact =
-    () => DIV({ className: 'action action-step' },
+    () => A({
+        href: switchLinkPVTH(),
+        target: '_blank',
+    }, 
+        DIV({ className: 'action action-step' },
         DIV({ className: 'step-number' }, '3'),
         DIV({ className: 'step-label' },
-            tr('solContactStr1'), BR({}), tr('solContactStr2')));
+            tr('solContactStr1'), BR({}), tr('solContactStr2')),
+        ));
 
+const switchLinkPVTH =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return tr('solLinkInstallateurPV');
+            case 'thermal': return tr('solLinkInstallateurTH');
+        }
+    };
 
 
 const toggleSystem = toggleWithInfo(
