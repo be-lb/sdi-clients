@@ -1,6 +1,6 @@
 //POSITIONS
 
-@media @small {
+@media @sdi-small {
     .header,
     .main,
     .footer {
@@ -60,7 +60,7 @@
 
 // HEADER
 
-@media @small {
+@media @sdi-small {
     body[lang="fr"] .be-name {
         width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 418px;
@@ -124,7 +124,7 @@
 
 // MAP
 
-@media @small {
+@media @sdi-small {
     .main {
         .map-wrapper {
             margin-bottom: @margin-mob *2;
@@ -159,20 +159,20 @@
 
 // TABLE
 
-@media @small {
+@media @sdi-small {
     div.infinite-table {
         .table-toolbar {
             flex-direction: column;
             align-items: flex-start;
 
-            > div {margin-bottom: @small-margin;}
+            > div {margin-bottom: @sdi-small-margin;}
 
             .table-title {
                 max-width: calc(~"100% - 30px");
             }
 
             .btn-close {
-                .absolute(2*@small-margin, @small-margin, initial, initial);
+                .absolute(2*@sdi-small-margin, @sdi-small-margin, initial, initial);
             }
 
         }
