@@ -382,6 +382,7 @@ export type MessageKey =
     | 'solPrintStr1'
     | 'solPrintStr2'
     | 'solPrintStr3'
+    | 'solProduced'
     | 'solProductionPanels'
     | 'solResearch'
     | 'solSearchAnotherAdress'
@@ -2092,9 +2093,9 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert (max. 10 ans)',
-        nl: 'aanwinst groenestroomcertificat (max. 10 jaar)',
-        en: 'Gain Green Certificate (max. 10 years)',
+        fr: 'Gain Certificat Vert (10 ans)',
+        nl: 'aanwinst groenestroomcertificat (10 jaar)',
+        en: 'Gain Green Certificate (10 years)',
     },
 
     gainElecInvoice: {
@@ -2347,9 +2348,9 @@ export const messages: MessageDB = {
     },
 
     solConsumptionEstimated: {
-        fr: 'estimés',
-        nl: 'geschat',
-        en: 'estimated',
+        fr: 'consommés estimés',
+        nl: 'verbruikt geschat',
+        en: 'consumed estimated',
     },
 
     annualMaintenance: {
@@ -3329,6 +3330,12 @@ export const messages: MessageDB = {
         fr: 'https://rescert.be/fr/lists',
         nl: 'https://rescert.be/nl/lists',
         en: 'https://rescert.be/fr/lists',
+    },
+
+    solProduced: {
+        fr: ' produits estimés',
+        nl: ' geschatte producten',
+        en: ' estimated produced',
     },
 
 };
