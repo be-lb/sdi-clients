@@ -2092,25 +2092,25 @@ export const messages: MessageDB = {
 
     gainGreenCertif: {
         fr: 'Gain Certificat Vert',
-        nl: 'aanwinst groenestroomcertificat',
+        nl: 'Winst aan groenestroom-certificaten',
         en: 'Gain Green Certificate',
     },
 
     gainGreenCertif25Y: {
         fr: 'Gain Certificat Vert (10 ans)',
-        nl: 'aanwinst groenestroomcertificat (10 jaar)',
+        nl: 'Winst aan groenestroom-certificaten (10 jaar)',
         en: 'Gain Green Certificate (10 years)',
     },
 
     gainElecInvoice: {
         fr: 'Gain facture d\'électricité',
-        nl: 'Besparing op uw electiricteitsfactuur',
+        nl: 'Besparing op uw elekrticiteitsfactuur',
         en: 'Electricity bill savings',
     },
 
     gainElecInvoice25Y: {
         fr: 'Gain facture d\'électricité sur 25 ans',
-        nl: 'Besparing op uw electiricteitsfactuur over 25 jaar',
+        nl: 'Besparing op uw elekrticiteitsfactuur na 25 jaar',
         en: 'Electricity bill savings 25 years',
     },
 
@@ -2133,13 +2133,13 @@ export const messages: MessageDB = {
 
     orientationGood: {
         fr: 'Bon potentiel',
-        nl: 'Goede potentieel',
+        nl: 'Goed potentieel',
         en: 'Good potential',
     },
 
     unusable: {
         fr: 'Faible potentiel (exclu du calcul)',
-        nl: 'Laag potentieel (uitgesloten van de berekening)',
+        nl: 'Laag potentieel (niet opgenomen in de berekening)',
         en: 'Low potential (excluded from the calculation)',
     },
 
@@ -2163,7 +2163,7 @@ export const messages: MessageDB = {
 
     installationObstacle: {
         fr: 'Contraintes en toiture',
-        nl: 'Beperkingen in de dakbedekking',
+        nl: 'Obstakels op het dak',
         en: 'Roofing constraints',
     },
 
@@ -2175,8 +2175,8 @@ export const messages: MessageDB = {
 
     solAutoproduction: {
         fr: 'Gestes d\'auto consommation',
-        nl: 'Zelf-verbruiksmaatregelen',
         en: '',
+        nl: 'Autoconsumptie verhogen',
     },
 
     finance: {
@@ -2215,7 +2215,7 @@ export const messages: MessageDB = {
 
     installation: {
         fr: 'Installation',
-        nl: 'Inbouw',
+        nl: 'Installatie',
         en: 'Installation',
     },
 
@@ -2233,7 +2233,7 @@ export const messages: MessageDB = {
 
     obstacleEstimation: {
         fr: 'Obstacles estimés',
-        nl: 'Geschatte obstakels',
+        nl: 'Vermoedelijke obstakels',
         en: 'Estimated obstacles',
     },
 
@@ -2257,13 +2257,13 @@ export const messages: MessageDB = {
 
     solarAutonomy: {
         fr: 'Auto consommation',
-        nl: 'Autoverbruik',
+        nl: 'Autoconsumptie',
         en: '',
     },
 
     gainTotal25Y: {
         fr: 'Gains nets sur 25 ans',
-        nl: 'Nettowinst over 25 jaar',
+        nl: 'Nettowinst na 25 jaar',
         en: '',
     },
 
@@ -2280,21 +2280,21 @@ export const messages: MessageDB = {
     },
 
     reduceConsumption: {
-        fr: 'Je diminue ma consommation',
-        nl: 'Ik verminder mijn verbruik',
-        en: 'I reduce my consumption',
+        fr: 'Je diminue ma consommation.',
+        nl: 'Ik verminder mijn verbruik.',
+        en: 'I reduce my consumption.',
     },
 
     dayConsumption: {
-        fr: 'Je consomme en journée',
-        nl: 'Ik gebruik overdag',
-        en: 'I use during the day',
+        fr: 'Je consomme en journée.',
+        nl: 'Ik verbruik overdag.',
+        en: 'I use during the day.',
     },
 
     hotWaterDuringDay: {
-        fr: 'Eau chaude préparée en journée',
-        nl: 'Warm water overdag bereid',
-        en: 'Hot water prepared during the day',
+        fr: 'Eau chaude préparée en journée.',
+        nl: 'Ik laat mijn water overdag opwarmen.',
+        en: 'Hot water prepared during the day.',
     },
 
     boiler: {
@@ -2311,13 +2311,13 @@ export const messages: MessageDB = {
 
     installBatteries: {
         fr: 'J\'installe des batteries',
-        nl: 'Ik ben batterijen aan het plaatsen',
+        nl: 'Ik plaats batterijen',
         en: 'I install bateries',
     },
 
     technoType: {
         fr: 'Type de technologie photovoltaïque',
-        nl: 'Type fotovoltaïsche technologie',
+        nl: 'Type zonnepanelen technologie',
         en: 'Photovoltaic technologie type',
     },
 
@@ -2335,7 +2335,7 @@ export const messages: MessageDB = {
 
     monocristalHR: {
         fr: 'Monocristallin haut rendement',
-        nl: 'Hoog rendement van monokristaline',
+        nl: 'Monokristallijn met hoog rendement',
         en: 'High efficiency monocrystalin',
     },
 
@@ -2485,7 +2485,7 @@ export const messages: MessageDB = {
 
     terraceInUse: {
         fr: 'Terrasse utilisée',
-        nl: 'Terras gebruik',
+        nl: 'Terras',
         en: 'Terrace in use',
     },
 
@@ -2594,7 +2594,7 @@ export const messages: MessageDB = {
 
     solSolarPotentialStr1: {
         fr: 'Installation possible de ',
-        nl: 'Mogelijke installatie van ',
+        nl: 'Er is een installatie mogelijk van ',
         en: '',
     },
     solSolarPotentialStr2: {
@@ -2657,8 +2657,8 @@ export const messages: MessageDB = {
 
     solBackToMap: {
         fr: 'Revenir à la carte',
-        nl: 'terug naar de kaart',
-        en: 'back to map',
+        nl: 'Terug naar de kaart',
+        en: 'Back to map',
     },
 
     solAndNow: {
@@ -2789,7 +2789,7 @@ export const messages: MessageDB = {
 
     solPrintStr1: {
         fr: 'Je télécharge',
-        nl: 'Mijn rappor',
+        nl: 'Mijn rapport',
         en: 'View and',
     },
 
@@ -2838,7 +2838,7 @@ export const messages: MessageDB = {
     },
     unitEuroKWh: {
         fr: '€/kWh',
-        nl: '€/kWu',
+        nl: '€/kWh',
         en: '€/kWh',
     },
     unitKWc: {
@@ -2848,7 +2848,7 @@ export const messages: MessageDB = {
     },
     unitTonsCO2: {
         fr: '{value, plural, =0 {tonne CO2} =1 {tonne CO2} other {tonnes CO2}}',
-        nl: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {tonnen CO2}}',
+        nl: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {ton CO2}}',
         en: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {tons CO2}}',
         parameters: {
             value: 1,
@@ -2894,12 +2894,12 @@ export const messages: MessageDB = {
     },
     unitKWh: {
         fr: 'kWh',
-        nl: 'kWu',
+        nl: 'kWh',
         en: 'kWh',
     },
     unitKWhY: {
         fr: 'kWh/an',
-        nl: 'kWu/jaar',
+        nl: 'kWh/jaar',
         en: 'kWh/year',
     },
     unitLiterDay: {
@@ -2944,44 +2944,44 @@ export const messages: MessageDB = {
     },
 
     solLegendConsWaterRank1: {
-        fr: 'Personne seule ou un ménage très économe (douches rapides plutôt que bains)',
-        nl: 'Persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'Single person or a very economical household (quick showers rather than baths)',
+        fr: 'Personne seule ou un ménage très économe (douches rapides plutôt que bains).',
+        nl: 'Één persoon of een klein en heel zuinig huishouden (snelle douches in plaats van baden).',
+        en: 'Single person or a very economical household (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank2: {
-        fr: 'Petit ménage économe (douches rapides plutôt que bains)',
-        nl: 'Klein, zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'Small, economical household (quick showers instead of baths)',
+        fr: 'Petit ménage économe (douches rapides plutôt que bains).',
+        nl: 'Klein en zuinig huishouden  (snelle douches in plaats van baden).',
+        en: 'Small, economical household (quick showers instead of baths).',
     },
 
     solLegendConsWaterRank3: {
-        fr: 'Famille petite, ou une moyenne et économe (douches rapides plutôt que bains)',
-        nl: 'Kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
-        en: 'Small or medium and economical family (quick showers rather than baths)',
+        fr: 'Famille petite, ou une moyenne et économe (douches rapides plutôt que bains).',
+        nl: 'Middelgroot en zuinig huishouden  (snelle douches in plaats van baden).',
+        en: 'Small or medium and economical family (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank4: {
-        fr: 'Famille moyenne, ou une grande et économe (douches rapides plutôt que bains)',
-        nl: 'Gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
-        en: 'Average family or a large and economical family (quick showers rather than baths)',
+        fr: 'Famille moyenne, ou une grande et économe (douches rapides plutôt que bains).',
+        nl: 'Groot en zuinig huishouden (snelle douches in plaats van baden).',
+        en: 'Average family or a large and economical family (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank5: {
-        fr: 'Grande famille',
-        nl: 'Grote familie.',
+        fr: 'Grande famille.',
+        nl: 'Grote huishouden.',
         en: 'Big family.',
     },
 
     solLegendConsWaterRank6: {
-        fr: 'Très grande famille',
-        nl: 'Heel grote familie.',
+        fr: 'Très grande famille.',
+        nl: 'Heel groot huishouden.',
         en: 'Very big family.',
     },
 
     resetValue: {
         fr: 'Réinitialiser',
-        nl: 'Gereset',
+        nl: 'Reset',
         en: 'Reset values',
     },
 
@@ -3041,7 +3041,7 @@ export const messages: MessageDB = {
 
     solHeatProdSys: {
         fr: 'Système actuel de production d\'eau chaude',
-        nl: 'Actuele warmwaterproductie',
+        nl: 'Huidige warmwaterproductie',
         en: 'Current hot water production system',
     },
 
@@ -3065,7 +3065,7 @@ export const messages: MessageDB = {
 
     solDedicatedArea: {
         fr: 'Nombre de panneaux souhaités',
-        nl: 'Aantal benodigde panelen',
+        nl: 'Gewenste aantal panelen',
         en: '',
     },
 
@@ -3101,7 +3101,7 @@ export const messages: MessageDB = {
 
     solSelectedPannels: {
         fr: 'panneaux photovoltaïques envisagés',
-        nl: 'fotovoltaïsche panelen',
+        nl: 'zonnepanelen',
         en: 'photovoltaic panels',
     },
 
@@ -3125,43 +3125,43 @@ export const messages: MessageDB = {
 
     solWaterStorage: {
         fr: 'Ballon de stockage',
-        nl: 'Boiler',
+        nl: 'Inhoud boiler',
         en: 'Storage device',
     },
 
     solPanels: {
         fr: 'Panneaux',
-        nl: 'zonnecollectoren',
+        nl: 'Zonnepanelen',
         en: 'Panels',
     },
 
     solSolarProdYear: {
         fr: 'Production solaire',
-        nl: 'Zonnewarmte productie',
+        nl: 'Totale productie aan warmte van de panelen',
         en: 'Yearly solar production',
     },
 
     solSolarConsumptionYear: {
         fr: 'Consommation d\'énergie annuelle',
-        nl: 'jaarlijks energieverbruik',
+        nl: 'Huishoudelijk verbruik',
         en: 'Yearly energy consumption',
     },
 
     solSolarRateArea: {
         fr: 'Pourcentage d\'eau chaude sanitaire produite',
-        nl: 'Percentage geproduceerd huishoudelijk warm water',
+        nl: 'Het totaal percentage geproduceerd huishoudelijk warm water',
         en: '',
     },
 
     solInstallationLifeTime: {
         fr: 'Durée de vie de l\'installation',
-        nl: 'levensduur van de installatie',
+        nl: 'Levensduur van de installatie',
         en: 'Installation lifetime',
     },
 
     solOn10Years: {
         fr: 'sur 10 ans',
-        nl: 'over 10 jaar',
+        nl: 'op 10 jaar',
         en: 'over 10 years',
     },
 
@@ -3204,7 +3204,7 @@ export const messages: MessageDB = {
 
     solTotalSurface: {
         fr: 'Surface totale',
-        nl: 'oppervlakte totaal',
+        nl: 'Totale oppervlakte',
         en: '',
     },
 
@@ -3228,7 +3228,7 @@ export const messages: MessageDB = {
 
     solUsableRoofArea: {
         fr: 'Surface utilisable',
-        nl: 'Bruikbaar gebied',
+        nl: 'Bruikbare oppervlakte',
         en: 'Usable area',
     },
 
@@ -3240,7 +3240,7 @@ export const messages: MessageDB = {
 
     solHomeConsumption: {
         fr: 'Consommation du ménage',
-        nl: 'Huishoudelijke consumptie',
+        nl: 'Huishoudelijk verbruik',
         en: '',
     },
 
@@ -3252,7 +3252,7 @@ export const messages: MessageDB = {
 
     solInstallationSurface: {
         fr: 'Superficie installée',
-        nl: 'Geïnstalleerd gebied',
+        nl: 'Geïnstalleerde oppervlakte',
         en: '',
     },
 
@@ -3264,13 +3264,13 @@ export const messages: MessageDB = {
 
     gainInvoice25Y: {
         fr: 'Gain sur ma facture en 25 ans',
-        nl: 'Winst op mijn factuur in 25 jaar',
+        nl: 'Besparing op uw elektriciteitsfactuur na 25 jaar',
         en: '',
     },
 
     solTogglePV: {
         fr: 'Les panneaux solaires photovoltaïques produisent de l’électricité.',
-        nl: 'Fotovoltaïsche panelen produceren elektriciteit.',
+        nl: 'Zonnepanelen produceren elektriciteit. Ze worden ook fotovoltaïsche panelen genoemd.',
         en: '',
     },
 

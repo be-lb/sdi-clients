@@ -4,7 +4,7 @@ import tr from 'sdi/locale';
 import { getSystem } from '../../queries/simulation';
 
 
-const switchPVTH =
+const switchLinkPVTH =
     () => {
         switch (getSystem()) {
             case 'photovoltaic': return tr('solLinkInstallateurPV');
@@ -17,7 +17,7 @@ export const actionContact =
     () =>
         A({
             className: 'action-link',
-            href: switchPVTH(),
+            href: switchLinkPVTH(),
             target: '_blank',
         },
             DIV({ className: 'action action-contact' },
