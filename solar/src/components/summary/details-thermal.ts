@@ -1,7 +1,7 @@
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withEuroInclVAT, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
+import { withEuro, withLiter, withM2, withKWhY, withPercent, withTCO2Y, withYear } from 'sdi/util';
 
 import { buildingAdress } from '../item-factory';
 import {
@@ -22,7 +22,7 @@ const vk =
 
 const sumRooftop =
     () =>
-        DIV({ className: 'sum-rooftop-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyRooftop')),
             vk(withM2(totalArea()), 'solTotalSurface'),
             vk(withM2(getObstacleArea()), 'obstacleEstimation'),
@@ -32,18 +32,18 @@ const sumRooftop =
 
 const sumEnergy =
     () =>
-        DIV({ className: 'sum-energy-wrapper' },
-            H2({}, tr('energy')),
+        DIV({ className: 'sum-wrapper' },
+            H2({}, tr('solMyEnergy')),
             vk(withKWhY(getAnimatedValueThermal('annualProduction')), 'solSolarProdYear'),
             vk(withKWhY(getAnimatedValueThermal('annualConsumption')), 'solSolarConsumptionYear'),
             vk(withPercent(getAnimatedValueThermal('autonomyRate') * 100), 'solSolarRateArea'),
-            vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions'), 1), 'gainEnvironment'),
+            vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment'),
         );
 
 const sumInstallation =
     () =>
-        DIV({ className: 'sum-installation-wrapper' },
-            H2({}, tr('installation')),
+        DIV({ className: 'sum-wrapper' },
+            H2({}, tr('solMyInstallation')),
             vk(2, 'solNumberOfPanels'),
             vk(withM2(4.5, 1), 'surface'),
             vk(withLiter(300), 'solWaterStorage'),
@@ -53,9 +53,9 @@ const sumInstallation =
 
 const sumFinance =
     () =>
-        DIV({ className: 'sum-finance-wrapper' },
-            H2({}, tr('finance')),
-            vk(withEuroInclVAT(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
+        DIV({ className: 'sum-wrapper' },
+            H2({}, tr('solMyFinance')),
+            vk(withEuro(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValueThermal('grant')), 'bonus'),
             vk(withEuro(getAnimatedValueThermal('gain')), 'gainInvoice25Y'),
             vk(withYear(getAnimatedValueThermal('returnTime')), 'returnTime'),
@@ -105,7 +105,3 @@ export const summaryDetailedThermal =
             infosThermal(),
             footer(),
         );
-
-
-
-

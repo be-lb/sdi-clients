@@ -1,21 +1,14 @@
 import { DIV, SPAN, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withEuro, withTCO2Y } from 'sdi/util';
+import { withEuro, withTonsCO2 } from 'sdi/util/';
 
-import { toggle, buildingAdress } from '../item-factory';
+import { buildingAdress } from '../item-factory';
 
 import {
-    getSystem,
     getOutputThermal,
 } from '../../queries/simulation';
 
-import { setSystem } from '../../events/simulation';
-
-
-const toggleSystem = toggle(
-    () => getSystem() === 'photovoltaic',
-    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 
 
@@ -26,28 +19,30 @@ const vk =
             SPAN({ className: 'key' }, tr(key)));
 
 
+
+const gains =
+    () => SPAN({}, withEuro(getOutputThermal('grant') + getOutputThermal('gain')));
+
+
 const sumPotentialLabel =
     () =>
         DIV({ className: 'potential-label' },
             DIV({},
-                tr('solSolarPotentialStr1'),
-                SPAN({ className: 'highlight-value' }, tr('solOn10Years')),
+                SPAN({}, tr('solSolarPotentialStr1')),
+                SPAN({ className: 'highlight-value' }, '2', ' ', tr('solPanels')),
                 BR({}),
-                tr('solSolarPotentialStr2'),
-                BR({}),
-                tr('solSolarPotentialStr3'),
-                SPAN({ className: 'highlight-value' }, withEuro(getOutputThermal('installationCost', 0)))),
-            // DIV({}, tr('solOn10Years')),
+                SPAN({}, ' ', tr('solSolarPotentialStr2'), ' '),
+                SPAN({ className: 'highlight-value' }, tr('solSolarPotentialStr3'), tr('solSolarPotentialStr4'), gains(), ' ', tr('solOn10Years')),
+            ),
         );
-
 
 const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
-            // vk(withEuro(getOutputThermal('installationCost', 0)), 'buyingPrice', 'buying-price'),
             vk(withEuro(getOutputThermal('grant')), 'bonus', 'green-cert'),
             vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice', 'gain-thermal'),
-            vk(withTCO2Y(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
+            vk(withTonsCO2(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
+            vk(withEuro(getOutputThermal('installationCost', 0)), 'buyingPrice', 'buying-price'),
         );
 
 
@@ -57,7 +52,6 @@ export const summary =
             buildingAdress(),
             sumPotentialLabel(),
             sumPotentialValues(),
-            toggleSystem('solPhotovoltaic', 'solSolarWaterHeater'),
         );
 
 

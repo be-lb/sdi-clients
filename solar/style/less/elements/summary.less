@@ -9,7 +9,7 @@
     }
 }
 
-
+// SUMMARY PREVIEW
 
 .summary {
 
@@ -17,10 +17,10 @@
         margin: @margin 0;
         font-size: @big-font;
         font-weight: 700;
-        color: @green;
 
         .highlight-value {
-            color: #000;
+            color: @green;
+            text-transform: lowercase;
         }
     }
 
@@ -50,6 +50,7 @@
             &.buying-price:before {background-image: url(../../asset/svg/paper-money.svg);}
             &.green-cert:before {background-image: url(../../asset/svg/paper-green.svg);}
             &.gain-elec:before {background-image: url(../../asset/svg/paper-elec.svg);}
+            &.gain-thermal:before {background-image: url(../../asset/svg/paper-water.svg);}
             &.gain-env:before {background-image: url(../../asset/svg/paper-env.svg);}
 
             .key {
@@ -73,6 +74,11 @@
     }
 }
 
+
+
+// SUMMARY ADJUSTER
+
+
 .summary-detailled {
 
     h2{
@@ -93,8 +99,6 @@
             flex-shrink: 0;
         }
     }
-
-    // .toggle {margin: @margin 0;}
 
     .detail-footer {
         display: flex;
@@ -122,9 +126,56 @@
         }
     }
 }
+        
 
 // NO SUN MESSAGE
 
 .sol-no-sol-msg {
     margin-top: @margin * 2;
+}
+
+
+
+.action-step {
+    font-size:@big-font;
+    display: flex;
+    align-items: center;
+    margin-bottom: @margin;
+
+    .step-number {
+        .rounded-border;
+        font-weight: 700;
+        position: relative;
+        width: @roundedW;
+        height: @roundedW;
+        border-radius: @roundedW;
+        background-color: @extra-light-grey;
+        background-color: @yellow;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: @margin;
+
+        &:hover {background: transparent;}
+
+        &:after {
+                .absolute(0,0,0,0);
+                z-index: -1;
+                content: ' ';
+                border-radius: @roundedW;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                font-size: @roundedW / 2;
+            }
+            
+            &:hover:after {
+                border: 2px solid #fff;
+                background-color: @green;
+            }        
+        }
+    .step-label {
+        margin-left: @margin / 2;
+    }
 }

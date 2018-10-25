@@ -223,6 +223,7 @@ export type MessageKey =
     | 'monocristal'
     | 'monocristalHR'
     | 'monthlyPayment'
+    | 'moreInfos'
     | 'move-down'
     | 'move-up'
     | 'myApps'
@@ -321,11 +322,16 @@ export type MessageKey =
     | 'solCalculInfoStrPart2'
     | 'solChangeStr1'
     | 'solChangeStr2'
+    | 'solContactLabel'
+    | 'solContactLinkLabel'
     | 'solContactStr1'
     | 'solContactStr2'
     | 'solConsumptionEstimated'
+    | 'solCreatorsLabel'
     | 'solDailyConsumption'
     | 'solDedicatedArea'
+    | 'solDisclaimerLink'
+    | 'solDisclaimerLimit'
     | 'solElectricBoiler'
     | 'solFinanceCost'
     | 'solFinanceGain'
@@ -336,14 +342,19 @@ export type MessageKey =
     | 'solHotWaterConsumption'
     | 'solInstallationLifeTime'
     | 'solInstallationSurface'
+    | 'solLinkContactBE'
+    | 'solLinkContactBELabel'
+    | 'solLinkInfoGreenEnergy'
+    | 'solLinkInstallateurPV'
+    | 'solLinkInstallateurTH'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
-    | 'solLocatePitchStr3a'
-    | 'solLocatePitchStr3b'
+    | 'solLocatePitchStr3'
     | 'solLocatePitchStr4'
     | 'solLocatePitchStr5'
     | 'solLocatePitchStr6'
     | 'solLocatePitchStr7'
+    | 'solLocatePitchStr8'
     | 'solMazout'
     | 'solNoSol'
     | 'solLegendConsRank1'
@@ -373,6 +384,7 @@ export type MessageKey =
     | 'solPrintStr1'
     | 'solPrintStr2'
     | 'solPrintStr3'
+    | 'solProduced'
     | 'solProductionPanels'
     | 'solResearch'
     | 'solSearchAnotherAdress'
@@ -384,14 +396,19 @@ export type MessageKey =
     | 'solSolarPotentialStr1'
     | 'solSolarPotentialStr2'
     | 'solSolarPotentialStr3'
+    | 'solSolarPotentialStr4'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
     | 'solSolarProdYear'
     | 'solSolarRateArea'
     | 'solSolarWaterHeater'
+    | 'solTogglePV'
+    | 'solToggleThermal'
     | 'solThermal'
     | 'solTotalPower'
     | 'solTotalSurface'
+    | 'solUrbisLabel'
+    | 'solUrbisLink'
     | 'solUsableRoofArea'
     | 'solVAT0'
     | 'solVAT21'
@@ -449,6 +466,7 @@ export type MessageKey =
     | 'unitLiterDay'
     | 'unitM2'
     | 'unitPercent'
+    | 'unitTonsCO2'
     | 'unitTCO2'
     | 'unitTCO2Y'
     | 'unitTCO2Y25'
@@ -2025,8 +2043,8 @@ export const messages: MessageDB = {
     },
 
     solarAppName: {
-        fr: 'Carte solaire Bruxelloise',
-        nl: 'Brussel zonnekaart',
+        fr: 'Carte solaire de la Région Bruxelles Capitale',
+        nl: 'Zonnekaart van het Brussels Hoofdstedelijk Gewest',
         en: 'Brussels solar map',
     },
 
@@ -2067,32 +2085,32 @@ export const messages: MessageDB = {
     },
 
     buyingPrice: {
-        fr: 'Prix d\'achat',
-        nl: 'Aankoopprijs',
-        en: 'buying price',
+        fr: 'Prix d\'achat TVAC',
+        nl: 'Aankoopprijs Incl.BTW',
+        en: 'buying price Incl. VAT',
     },
 
     gainGreenCertif: {
         fr: 'Gain Certificat Vert',
-        nl: 'aanwinst groenestroomcertificat',
+        nl: 'Winst aan groenestroom-certificaten',
         en: 'Gain Green Certificate',
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert max. 10 ans',
-        nl: 'aanwinst groenestroomcertificat max. 10 jaar',
-        en: 'Gain Green Certificate max. 10 years',
+        fr: 'Gain Certificat Vert (10 ans)',
+        nl: 'Winst aan groenestroom-certificaten (10 jaar)',
+        en: 'Gain Green Certificate (10 years)',
     },
 
     gainElecInvoice: {
         fr: 'Gain facture d\'électricité',
-        nl: 'Besparing op uw electiricteitsfactuur',
+        nl: 'Besparing op uw elekrticiteitsfactuur',
         en: 'Electricity bill savings',
     },
 
     gainElecInvoice25Y: {
         fr: 'Gain facture d\'électricité sur 25 ans',
-        nl: 'Besparing op uw electiricteitsfactuur over 25 jaar',
+        nl: 'Besparing op uw elekrticiteitsfactuur na 25 jaar',
         en: 'Electricity bill savings 25 years',
     },
 
@@ -2115,14 +2133,14 @@ export const messages: MessageDB = {
 
     orientationGood: {
         fr: 'Bon potentiel',
-        nl: 'Goede potentieel',
+        nl: 'Goed potentieel',
         en: 'Good potential',
     },
 
     unusable: {
-        fr: 'Faible potentiel',
-        nl: 'Laag potentieel',
-        en: 'Low uspotentialable',
+        fr: 'Faible potentiel (exclu du calcul)',
+        nl: 'Laag potentieel (niet opgenomen in de berekening)',
+        en: 'Low potential (excluded from the calculation)',
     },
 
     personalize: {
@@ -2145,7 +2163,7 @@ export const messages: MessageDB = {
 
     installationObstacle: {
         fr: 'Contraintes en toiture',
-        nl: 'Beperkingen in de dakbedekking',
+        nl: 'Obstakels op het dak',
         en: 'Roofing constraints',
     },
 
@@ -2156,9 +2174,9 @@ export const messages: MessageDB = {
     },
 
     solAutoproduction: {
-        fr: 'Gestes d\'économie énergetique',
-        nl: 'Energiebesparende acties',
-        en: 'Energy saving actions',
+        fr: 'Gestes d\'auto consommation',
+        en: '',
+        nl: 'Autoconsumptie verhogen',
     },
 
     finance: {
@@ -2197,7 +2215,7 @@ export const messages: MessageDB = {
 
     installation: {
         fr: 'Installation',
-        nl: 'Inbouw',
+        nl: 'Installatie',
         en: 'Installation',
     },
 
@@ -2215,7 +2233,7 @@ export const messages: MessageDB = {
 
     obstacleEstimation: {
         fr: 'Obstacles estimés',
-        nl: 'Geschatte obstakels',
+        nl: 'Vermoedelijke obstakels',
         en: 'Estimated obstacles',
     },
 
@@ -2239,13 +2257,13 @@ export const messages: MessageDB = {
 
     solarAutonomy: {
         fr: 'Auto consommation',
-        nl: 'Autoverbruik',
+        nl: 'Autoconsumptie',
         en: '',
     },
 
     gainTotal25Y: {
         fr: 'Gains nets sur 25 ans',
-        nl: 'Nettowinst over 25 jaar',
+        nl: 'Nettowinst na 25 jaar',
         en: '',
     },
 
@@ -2262,21 +2280,21 @@ export const messages: MessageDB = {
     },
 
     reduceConsumption: {
-        fr: 'Je diminue ma consommation',
-        nl: 'Ik verminder mijn verbruik',
-        en: 'I reduce my consumption',
+        fr: 'Je diminue ma consommation.',
+        nl: 'Ik verminder mijn verbruik.',
+        en: 'I reduce my consumption.',
     },
 
     dayConsumption: {
-        fr: 'Je consomme en journée',
-        nl: 'Ik gebruik overdag',
-        en: 'I use during the day',
+        fr: 'Je consomme en journée.',
+        nl: 'Ik verbruik overdag.',
+        en: 'I use during the day.',
     },
 
     hotWaterDuringDay: {
-        fr: 'Eau chaude préparée en journée',
-        nl: 'Warm water overdag bereid',
-        en: 'Hot water prepared during the day',
+        fr: 'Eau chaude préparée en journée.',
+        nl: 'Ik laat mijn water overdag opwarmen.',
+        en: 'Hot water prepared during the day.',
     },
 
     boiler: {
@@ -2293,31 +2311,31 @@ export const messages: MessageDB = {
 
     installBatteries: {
         fr: 'J\'installe des batteries',
-        nl: 'Ik ben batterijen aan het plaatsen',
+        nl: 'Ik plaats batterijen',
         en: 'I install bateries',
     },
 
     technoType: {
         fr: 'Type de technologie photovoltaïque',
-        nl: 'Type fotovoltaïsche technologie',
+        nl: 'Type zonnepanelen technologie',
         en: 'Photovoltaic technologie type',
     },
 
     monocristal: {
-        fr: 'Monocristalin',
+        fr: 'Monocristallin',
         nl: 'Monokristallijn',
         en: 'Monocrystalin',
     },
 
     polycristal: {
-        fr: 'Polycristalin',
+        fr: 'Polycristallin',
         nl: 'Polykristallijn',
         en: 'Polycrystalin',
     },
 
     monocristalHR: {
-        fr: 'Monocristalin haut rendement',
-        nl: 'Hoog rendement van monokristaline',
+        fr: 'Monocristallin haut rendement',
+        nl: 'Monokristallijn met hoog rendement',
         en: 'High efficiency monocrystalin',
     },
 
@@ -2334,9 +2352,9 @@ export const messages: MessageDB = {
     },
 
     solConsumptionEstimated: {
-        fr: 'estimés',
-        nl: 'geschat',
-        en: 'estimated',
+        fr: 'consommés estimés',
+        nl: 'verbruikt geschat',
+        en: 'consumed estimated',
     },
 
     annualMaintenance: {
@@ -2467,7 +2485,7 @@ export const messages: MessageDB = {
 
     terraceInUse: {
         fr: 'Terrasse utilisée',
-        nl: 'Terras gebruik',
+        nl: 'Terras',
         en: 'Terrace in use',
     },
 
@@ -2514,57 +2532,56 @@ export const messages: MessageDB = {
     },
 
     solLocatePitchStr1: {
-        fr: 'Quelle quantité',
-        nl: 'Hoeveel',
-        en: 'How much',
+        fr: 'Des',
+        nl: '',
+        en: '',
     },
 
     solLocatePitchStr2: {
-        fr: 'd\'électricité',
-        nl: 'elektriciteit',
-        en: 'electricity',
+        fr: 'panneaux solaires',
+        nl: '',
+        en: '',
     },
 
-    solLocatePitchStr3a: {
-        fr: 'ou ',
-        nl: 'of ',
-        en: 'or ',
+    solLocatePitchStr3: {
+        fr: 'sur ma toiture ?',
+        nl: '',
+        en: '',
     },
-
-    solLocatePitchStr3b: {
-        fr: 'de chaleur ',
-        nl: 'warmte ',
-        en: 'heat ',
-    },
-
 
     solLocatePitchStr4: {
-        fr: 'ma toiture',
-        nl: 'kan mijn dak',
-        en: 'can my roof',
+        fr: 'Une solution avantageuse ',
+        nl: '',
+        en: '',
     },
-
 
     solLocatePitchStr5: {
-        fr: 'peut-elle produire ?',
-        nl: 'produceren ?',
-        en: 'produce ?',
+        fr: 'pour produire de l\'',
+        nl: '',
+        en: '',
     },
 
+
     solLocatePitchStr6: {
-        fr: '',
+        fr: 'électricité',
         nl: '',
         en: '',
     },
 
     solLocatePitchStr7: {
-        fr: '',
+        fr: 'ou de la ',
+        nl: '',
+        en: '',
+    },
+
+    solLocatePitchStr8: {
+        fr: 'chaleur',
         nl: '',
         en: '',
     },
 
     solCalculateStrPart1: {
-        fr: 'Calculez le ',
+        fr: 'Calculer le ',
         nl: 'Het ',
         en: 'calculate the',
     },
@@ -2576,19 +2593,24 @@ export const messages: MessageDB = {
     },
 
     solSolarPotentialStr1: {
-        fr: 'Gains ',
-        nl: 'Winst ',
-        en: 'Earnings ',
+        fr: 'Installation possible de ',
+        nl: 'Er is een installatie mogelijk van ',
+        en: '',
     },
     solSolarPotentialStr2: {
-        fr: 'pour une dépense',
-        nl: 'voor een last',
-        en: 'for an expense',
+        fr: 'avec un ',
+        nl: 'met een ',
+        en: '',
     },
     solSolarPotentialStr3: {
+        fr: 'gain net ',
+        nl: 'nettowinst ',
+        en: '',
+    },
+    solSolarPotentialStr4: {
         fr: 'de ',
         nl: 'van ',
-        en: 'of ',
+        en: '',
     },
 
     solSolarPotentialExcellent: {
@@ -2635,8 +2657,8 @@ export const messages: MessageDB = {
 
     solBackToMap: {
         fr: 'Revenir à la carte',
-        nl: 'terug naar de kaart',
-        en: 'back to map',
+        nl: 'Terug naar de kaart',
+        en: 'Back to map',
     },
 
     solAndNow: {
@@ -2736,8 +2758,8 @@ export const messages: MessageDB = {
     },
 
     solAdjustStr2: {
-        fr: 'mes résultats',
-        nl: 'mijn resultaten',
+        fr: 'mon installation',
+        nl: 'mijn installatie',
         en: '',
     },
 
@@ -2767,7 +2789,7 @@ export const messages: MessageDB = {
 
     solPrintStr1: {
         fr: 'Je télécharge',
-        nl: 'Mijn rappor',
+        nl: 'Mijn rapport',
         en: 'View and',
     },
 
@@ -2816,13 +2838,21 @@ export const messages: MessageDB = {
     },
     unitEuroKWh: {
         fr: '€/kWh',
-        nl: '€/kWu',
+        nl: '€/kWh',
         en: '€/kWh',
     },
     unitKWc: {
         fr: 'kWc',
         nl: 'kWc',
         en: 'kWc',
+    },
+    unitTonsCO2: {
+        fr: '{value, plural, =0 {tonne CO2} =1 {tonne CO2} other {tonnes CO2}}',
+        nl: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {ton CO2}}',
+        en: '{value, plural, =0 {ton CO2} =1 {ton CO2} other {tons CO2}}',
+        parameters: {
+            value: 1,
+        },
     },
     unitTCO2: {
         fr: 'TCO2',
@@ -2864,12 +2894,12 @@ export const messages: MessageDB = {
     },
     unitKWh: {
         fr: 'kWh',
-        nl: 'kWu',
+        nl: 'kWh',
         en: 'kWh',
     },
     unitKWhY: {
         fr: 'kWh/an',
-        nl: 'kWu/jaar',
+        nl: 'kWh/jaar',
         en: 'kWh/year',
     },
     unitLiterDay: {
@@ -2914,44 +2944,44 @@ export const messages: MessageDB = {
     },
 
     solLegendConsWaterRank1: {
-        fr: 'Elle s\'apparente à une personne seule ou un ménage très économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met één persoon of een zeer zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'It is similar to a single person or a very economical household (quick showers rather than baths)',
+        fr: 'Personne seule ou un ménage très économe (douches rapides plutôt que bains).',
+        nl: 'Één persoon of een klein en heel zuinig huishouden (snelle douches in plaats van baden).',
+        en: 'Single person or a very economical household (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank2: {
-        fr: 'Elle s\'apparente à un petit ménage économe (douches rapides plutôt que bains)',
-        nl: 'Het is als een klein, zuinig huishouden (snelle douches in plaats van baden)',
-        en: 'It is like a small, economical household (quick showers instead of baths)',
+        fr: 'Petit ménage économe (douches rapides plutôt que bains).',
+        nl: 'Klein en zuinig huishouden  (snelle douches in plaats van baden).',
+        en: 'Small, economical household (quick showers instead of baths).',
     },
 
     solLegendConsWaterRank3: {
-        fr: 'Elle s\'apparente à une famille petite ou une moyenne et économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met een kleine of middelgrote en economische familie (snelle douches in plaats van baden)',
-        en: 'It is similar to a small or medium and economical family (quick showers rather than baths)',
+        fr: 'Famille petite, ou une moyenne et économe (douches rapides plutôt que bains).',
+        nl: 'Middelgroot en zuinig huishouden  (snelle douches in plaats van baden).',
+        en: 'Small or medium and economical family (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank4: {
-        fr: 'Elle s\'apparente à une famille moyenne ou une grande et économe (douches rapides plutôt que bains)',
-        nl: 'Het is vergelijkbaar met een gemiddeld gezin of een grote en economische familie (snelle douches in plaats van baden)',
-        en: 'It is similar to an average family or a large and economical family (quick showers rather than baths)',
+        fr: 'Famille moyenne, ou une grande et économe (douches rapides plutôt que bains).',
+        nl: 'Groot en zuinig huishouden (snelle douches in plaats van baden).',
+        en: 'Average family or a large and economical family (quick showers rather than baths).',
     },
 
     solLegendConsWaterRank5: {
-        fr: 'Elle s\'apparente à une grande famille',
-        nl: 'Ze is als een grote familie.',
-        en: 'It is similar to a big family.',
+        fr: 'Grande famille.',
+        nl: 'Grote huishouden.',
+        en: 'Big family.',
     },
 
     solLegendConsWaterRank6: {
-        fr: 'Elle s\'apparente à une très grande famille',
-        nl: 'Ze is als een heel grote familie.',
-        en: 'It is similar to a very big family.',
+        fr: 'Très grande famille.',
+        nl: 'Heel groot huishouden.',
+        en: 'Very big family.',
     },
 
     resetValue: {
         fr: 'Réinitialiser',
-        nl: 'Gereset',
+        nl: 'Reset',
         en: 'Reset values',
     },
 
@@ -3011,7 +3041,7 @@ export const messages: MessageDB = {
 
     solHeatProdSys: {
         fr: 'Système actuel de production d\'eau chaude',
-        nl: 'Actuele warmwaterproductie',
+        nl: 'Huidige warmwaterproductie',
         en: 'Current hot water production system',
     },
 
@@ -3035,7 +3065,7 @@ export const messages: MessageDB = {
 
     solDedicatedArea: {
         fr: 'Nombre de panneaux souhaités',
-        nl: 'Aantal benodigde panelen',
+        nl: 'Gewenste aantal panelen',
         en: '',
     },
 
@@ -3071,14 +3101,14 @@ export const messages: MessageDB = {
 
     solSelectedPannels: {
         fr: 'panneaux photovoltaïques envisagés',
-        nl: 'fotovoltaïsche panelen',
+        nl: 'zonnepanelen',
         en: 'photovoltaic panels',
     },
 
     solOptimumInstallation: {
-        fr: 'Installation optimale pour ce bâtiment selon la configuration actuelle',
-        nl: 'Optimale installatie voor dit gebouw volgens de huidige configuratie',
-        en: 'Optimal installation for this building according to the current configuration',
+        fr: 'Puissance maximum de l\'installation selon la technologie choisie',
+        nl: 'Maximaal vermogen van de installatie volgens de gekozen technologie',
+        en: 'Maximum power of the installation according to the chosen technology',
     },
 
     solOptimumInstallationTheoric: {
@@ -3095,43 +3125,43 @@ export const messages: MessageDB = {
 
     solWaterStorage: {
         fr: 'Ballon de stockage',
-        nl: 'Boiler',
+        nl: 'Inhoud boiler',
         en: 'Storage device',
     },
 
     solPanels: {
         fr: 'Panneaux',
-        nl: 'zonnecollectoren',
+        nl: 'Zonnepanelen',
         en: 'Panels',
     },
 
     solSolarProdYear: {
         fr: 'Production solaire',
-        nl: 'Zonnewarmte productie',
+        nl: 'Totale productie aan warmte van de panelen',
         en: 'Yearly solar production',
     },
 
     solSolarConsumptionYear: {
         fr: 'Consommation d\'énergie annuelle',
-        nl: 'jaarlijks energieverbruik',
+        nl: 'Huishoudelijk verbruik',
         en: 'Yearly energy consumption',
     },
 
     solSolarRateArea: {
         fr: 'Pourcentage d\'eau chaude sanitaire produite',
-        nl: 'Percentage geproduceerd huishoudelijk warm water',
+        nl: 'Het totaal percentage geproduceerd huishoudelijk warm water',
         en: '',
     },
 
     solInstallationLifeTime: {
         fr: 'Durée de vie de l\'installation',
-        nl: 'levensduur van de installatie',
+        nl: 'Levensduur van de installatie',
         en: 'Installation lifetime',
     },
 
     solOn10Years: {
         fr: 'sur 10 ans',
-        nl: 'over 10 jaar',
+        nl: 'op 10 jaar',
         en: 'over 10 years',
     },
 
@@ -3142,9 +3172,9 @@ export const messages: MessageDB = {
     },
 
     solSolarWaterHeater: {
-        fr: 'Chauffe-eau',
+        fr: 'Solaire thermique',
         nl: 'Zonneboiler',
-        en: 'Water heater',
+        en: '',
     },
 
     solSolarPanels: {
@@ -3155,15 +3185,15 @@ export const messages: MessageDB = {
 
 
     solCalculInfoStrPart1: {
-        fr: 'Je m\'informe',
-        nl: 'Ik vraag',
-        en: 'Informations',
+        fr: 'FAQ',
+        nl: 'Zonnekaart',
+        en: 'Frequently asked',
     },
 
     solCalculInfoStrPart2: {
-        fr: 'sur ces résultats',
-        nl: 'naar de resultaten',
-        en: '',
+        fr: 'carte solaire',
+        nl: 'FAQ\'s',
+        en: 'questions',
     },
 
     solMyRooftop: {
@@ -3174,7 +3204,7 @@ export const messages: MessageDB = {
 
     solTotalSurface: {
         fr: 'Surface totale',
-        nl: 'oppervlakte totaal',
+        nl: 'Totale oppervlakte',
         en: '',
     },
 
@@ -3198,7 +3228,7 @@ export const messages: MessageDB = {
 
     solUsableRoofArea: {
         fr: 'Surface utilisable',
-        nl: 'Bruikbaar gebied',
+        nl: 'Bruikbare oppervlakte',
         en: 'Usable area',
     },
 
@@ -3210,7 +3240,7 @@ export const messages: MessageDB = {
 
     solHomeConsumption: {
         fr: 'Consommation du ménage',
-        nl: 'Huishoudelijke consumptie',
+        nl: 'Huishoudelijk verbruik',
         en: '',
     },
 
@@ -3222,7 +3252,7 @@ export const messages: MessageDB = {
 
     solInstallationSurface: {
         fr: 'Superficie installée',
-        nl: 'Geïnstalleerd gebied',
+        nl: 'Geïnstalleerde oppervlakte',
         en: '',
     },
 
@@ -3234,7 +3264,107 @@ export const messages: MessageDB = {
 
     gainInvoice25Y: {
         fr: 'Gain sur ma facture en 25 ans',
-        nl: 'Winst op mijn factuur in 25 jaar',
+        nl: 'Besparing op uw elektriciteitsfactuur na 25 jaar',
         en: '',
     },
+
+    solTogglePV: {
+        fr: 'Les panneaux solaires photovoltaïques produisent de l’électricité.',
+        nl: 'Zonnepanelen produceren elektriciteit. Ze worden ook fotovoltaïsche panelen genoemd.',
+        en: '',
+    },
+
+    solToggleThermal: {
+        fr: 'Le chauffe-eau solaire produit de l’eau chaude sanitaire via des panneaux thermiques.',
+        nl: 'De zonneboiler produceert sanitair warm water via thermische panelen.',
+        en: '',
+    },
+
+    solDisclaimerLink: {
+        fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Brusselse milieu.',
+        en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
+    },
+
+
+    solContactLabel: {
+        fr: 'Pour toute demande d\'information, et pour des projets d\'installation professionels ou supérieurs à 12kWc, ',
+        nl: 'voor professionals en installatieprojecten boven 12kWp',
+        en: 'for professionals and installation projects above 12kWp',
+    },
+
+    solLinkContactBELabel: {
+        fr: 'contactez Bruxelles Environnement.',
+        nl: 'contacteer Leefmilieu Brussel.',
+        en: 'contact Bruxelles Environnement.',
+    },
+
+    solLinkContactBE: {
+        fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+        nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
+        en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+    },
+
+    moreInfos: {
+        fr: 'En savoir plus.',
+        nl: 'Meer informatie.',
+        en: 'More informations.',
+    },
+
+    solContactLinkLabel: {
+        fr: 'Contacts et informations :',
+        nl: 'Informatie en contacten :',
+        en: 'Information and contacts :',
+    },
+
+    solDisclaimerLimit: {
+        fr: 'Limite de responsabilité :',
+        nl: 'Beperking van aansprakelijkheid :',
+        en: 'Limitation of Liability :',
+    },
+
+
+    solLinkInfoGreenEnergy: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
+        nl: 'https://leefmilieu.brussels/themas/energie/wat-groene-energie',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte',
+    },
+
+    solLinkInstallateurPV: {
+        fr: 'https://rescert.be/fr/list?res_category=2',
+        nl: 'https://rescert.be/nl/list?res_category=2',
+        en: 'https://rescert.be/fr/list?res_category=2',
+    },
+    solLinkInstallateurTH: {
+        fr: 'https://rescert.be/fr/list?res_category=4',
+        nl: 'https://rescert.be/nl/list?res_category=4',
+        en: 'https://rescert.be/fr/list?res_category=4',
+    },
+
+
+    solProduced: {
+        fr: ' produits estimés',
+        nl: ' geschatte producten',
+        en: ' estimated produced',
+    },
+
+    solUrbisLabel: {
+        fr: 'Orthophotographie, géocodeur et données 3D © ',
+        nl: 'Orthofotografie, geocoder en 3D-gegevens © ',
+        en: 'Orthophotography, geocoder and 3D data © ',
+    },
+
+    solUrbisLink: {
+        fr: 'https://cirb.brussels/fr/nos-solutions/urbis-solutions/urbis-data',
+        nl: 'https://cibg.brussels/nl/onze-oplossingen/urbis-solutions/urbis-data?set_language=nl',
+        en: 'https://bric.brussels/en/our-solutions/urbis-solutions/urbis-data?set_language=en',
+    },
+
+    solCreatorsLabel: {
+        fr: 'Conception et réalisation : ',
+        nl: 'Ontwerp en productie : ',
+        en: 'Design and production : ',
+    },
+
+
 };

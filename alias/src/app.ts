@@ -32,7 +32,7 @@ export type AppLayout = 'Alias';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'alias-inner'},
         header('alias')(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -59,7 +59,7 @@ const effects =
         loadAllAlias();
     }
 
-const app = loop(renderMain, effects);
+const app = loop('alias-app', renderMain, effects);
 export default app;
 
 logger('loaded');

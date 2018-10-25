@@ -2,13 +2,12 @@
 // we then deploy specific style per specific case
 
 
-.main.locate-geocoder,
-.main.locate-map {
-    position: relative; //will overide SDI default style, must be done better
-    height: calc(~"100vh - 92px");
-    top: 0;
-    margin-bottom: 7px; //to push footer a bit away
-}
+// .main.locate-geocoder,
+// .main.locate-map {
+//     position: relative; //will overide SDI default style, must be done better
+//     height: calc(~"100vh - 115px");
+//     // top: 0;
+// }
 
 .locate-box {
     position: relative;
@@ -232,10 +231,10 @@
 
     .main.locate-geocoder,
     .main.locate-map {
-        position: absolute;
-        height: auto;
-        top: @headerH;
-        bottom: @margin;
+        // position: absolute;
+        // height: auto;
+        // top: @headerH;
+        // bottom: @margin;
 
         .wrapper-top {
             display: flex;
@@ -248,7 +247,6 @@
 
     .locate-box {
         font-size: @big-font;
-        margin: 0 @margin;
     }
 
     .locate-pitch {
@@ -309,5 +307,18 @@
 
     .locate-goto-map {
     height: calc(~"100vh - @{headerH}");
+    }
+}
+
+
+@media @big {
+    .locate-box {
+        margin: 0 @margin;
+    }
+}
+
+@media screen and (min-width:900px) {
+        .locate-box {
+        margin: 0 @margin;
     }
 }

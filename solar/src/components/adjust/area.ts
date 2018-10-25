@@ -1,11 +1,11 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
-import { withKWc } from 'sdi/util';
+import { withKWc, withKWhY } from 'sdi/util';
 
 import {
-    getOutputPv,
     getPanelUnits,
     getMaxPower,
+    getOutputPv,
 } from '../../queries/simulation';
 import { setPower } from '../../events/simulation';
 import { note } from './note';
@@ -91,6 +91,12 @@ const title =
             `3. ${tr('solDedicatedArea')}`),
         DIV({ className: 'adjust-picto picto-panel' }));
 
+const production =
+    () => DIV({ className: 'item-legend legend-output' },
+        SPAN({ className: 'output-value' },
+            withKWhY(getOutputPv('annualProduction'))),
+        SPAN({}, tr('solProduced')));
+
 const legend =
     () => {
         const elements = [
@@ -109,7 +115,9 @@ const legend =
         //             tr('solOptimumInstallationTheoric')));
         // }
 
-        return DIV({ className: 'adjust-item-legend' }, ...elements);
+        return DIV({ className: 'adjust-item-legend' },
+            production(),
+            ...elements);
     };
 
 

@@ -1,0 +1,109 @@
+
+.sidebar {
+    .sidebar-action-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+
+        .action-change, 
+        .action-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            .action-picto {
+                width: 2em;
+                height: 2.5em;
+                // margin-right: @margin / 2;
+                margin-bottom: @margin / 2;
+            }
+            h1 {font-size: @medium-font;}
+        }
+        .action-change {margin-top: @margin;}
+    }
+}
+
+@media @medium {
+    .preview .sidebar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        flex-shrink: 0;
+        justify-content: space-between;
+
+        .summary,
+        .sidebar-tools {
+            width: calc(~"50% - @{margin}");
+        }
+
+        .summary {
+            display: block;
+            > div {
+                width: 100%;
+            }
+        }
+
+        .sidebar-tools {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+    }
+}
+
+@media screen and (min-width: 900px) {
+    .preview .sidebar {
+        align-items: start;
+
+        .summary {
+            width: calc(~"100% - @{illuW-medium} + @{margin}");
+        }
+
+        .sidebar-tools {
+            width: calc(~"100% - @{illuW-medium} - (@{margin} * 2)");
+        }
+
+        .summary {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+            justify-content: space-between;
+             > div {
+                width: @illuW-medium;
+            }
+        }
+        .sidebar-tools {
+            display: block;
+        }
+    }
+}
+
+
+@media @big {
+    .preview .sidebar,
+    .detail .sidebar {
+        position: fixed;
+        display: block;
+        right: @margin;
+        top: @headerH;
+        width: @sidebarW;
+        height: @sidebarH;
+        overflow-y: auto;
+
+        .toggle {
+            width: 100%;
+        }
+
+        .summary {
+            display: block;
+            width: 100%;
+            > div {width : 100%;}
+        }
+
+        .sidebar-tools {
+            width: 100%;
+        }
+    }
+}
+

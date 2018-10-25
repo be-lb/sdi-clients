@@ -60,7 +60,7 @@ const renderHeader = header('metadata')(renderAppListingButton);
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'metadata-inner' },
         renderHeader(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -91,7 +91,7 @@ const effects = () => {
     events.loadAllDatasetMetadata(() => events.setLayout('List'));
 };
 
-const app = loop(renderMain, effects);
+const app = loop('metadata-app', renderMain, effects);
 export default app;
 
 logger('loaded');

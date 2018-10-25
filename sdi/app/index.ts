@@ -44,13 +44,14 @@ const MIN_FRAME_RATE = 16;
 export type RenderMain = () => React.ReactElement<any>;
 
 export const loop =
-    (renderMain: RenderMain, effects?: () => void) =>
+    (name: string, renderMain: RenderMain, effects?: () => void) =>
         (store: IStoreInteractions<IShape>) => {
 
             let lastFrameRequest: number | null = null;
             let version: number = -1;
             let frameRate = MIN_FRAME_RATE;
             const root = document.createElement('div');
+            root.setAttribute('class', `root ${name}`);
             document.body.appendChild(root);
 
 

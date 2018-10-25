@@ -1,7 +1,7 @@
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
-import { withPercent, withEuro, withEuroInclVAT, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
+import { withPercent, withEuro, withM2, withKWc, withKWhY, withYear, withTCO2Y } from 'sdi/util';
 
 import {
     getPanelUnits,
@@ -30,7 +30,7 @@ const vks =
 
 const sumRooftop =
     () =>
-        DIV({ className: 'sum-rooftop-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyRooftop')),
             vk(withM2(totalArea()), 'solTotalSurface'),
             vk(withM2(getObstacleArea()), 'obstacleEstimation'),
@@ -39,7 +39,7 @@ const sumRooftop =
 
 const sumEnergy =
     () =>
-        DIV({ className: 'sum-energy-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyEnergy')),
             vk(withKWhY(getAnimatedValuePv('annualProduction')), 'solProductionPanels'),
             vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'solHomeConsumption'),
@@ -49,7 +49,7 @@ const sumEnergy =
 
 const sumInstallation =
     () =>
-        DIV({ className: 'sum-installation-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyInstallation')),
             vks(getPanelUnits(), `${tr('solNumberOfPanels')} (${tr(pvTechnologyLabel())})`),
             vk(withM2(getAnimatedValuePv('maxArea')), 'solInstallationSurface'),
@@ -59,9 +59,9 @@ const sumInstallation =
 
 const sumFinance =
     () =>
-        DIV({ className: 'sum-finance-wrapper' },
+        DIV({ className: 'sum-wrapper' },
             H2({}, tr('solMyFinance')),
-            vk(withEuroInclVAT(getAnimatedValuePv('installationCost')), 'buyingPrice'),
+            vk(withEuro(getAnimatedValuePv('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValuePv('CVAmountYear25')), 'gainGreenCertif25Y'),
             vk(withEuro(getAnimatedValuePv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'),
             vk(withEuro(getAnimatedValuePv('totalGain25Y') - getAnimatedValuePv('installationCost')), 'gainTotal25Y'),

@@ -1,17 +1,12 @@
-.detail {
+.preview, .detail {
     .content {
         padding-top: 0 !important; //override
         border: 0px !important; //override
     }
-
-    .actions {
-        border-top: 1px solid #000;
-        padding: @margin * 2 0;
-    }
 }
 
 @media @medium {
-    .detail {
+    .preview, .detail {
 
         .solar-main-and-right-sidebar {
             margin: 0 @margin;
@@ -19,34 +14,13 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
-
-        .context {
-            padding-top: 2 * @margin;
-            border-top: 1px solid #000 !important;
-        }
     }
 }
 
-
 @media @big {
-    .detail {
-
+    .preview, .detail {
         .content {
             width: @contextW;
-        }
-        .sidebar {
-            position: fixed;
-            right: @margin;
-            top: @headerH;
-            width: @sidebarW;
-            background-color: #fff;
-            height: 100%;
-
-            .summary {
-                padding-bottom: @margin;
-                border-bottom: 1px solid #000;
-                margin-bottom: @margin;
-            }
         }
     }
 }
@@ -57,11 +31,6 @@
 .calculator {
     margin-top: @margin;
     padding-top: @margin;
-
-    .context {
-        padding-bottom: @margin;
-        margin-bottom: @margin;
-    }
 }
 
 
@@ -87,19 +56,6 @@
         justify-content: space-between;
 
         > div {margin: @margin 0;}
-
-        .toggle {
-            max-width: @illuW;
-        }
     }
 }
 
-@media @big {
-    .adjust-item.calculator-header {
-
-        .calculator-title {
-            width: @illuW;
-            text-align: center;
-        }
-    }
-}

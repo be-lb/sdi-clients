@@ -3,6 +3,8 @@ import tr from 'sdi/locale';
 
 import { context } from '../context';
 import { summaryDetailed } from '../summary';
+import { disclaimer, contactLinks, createdBy, urbisReward } from '../footer-infos';
+
 
 
 import {
@@ -85,7 +87,18 @@ const action =
             actionContact(),
             actionChange(),
             actionInfo(),
-            );
+        );
+
+const contentFooter =
+    () =>
+        DIV({ className: 'footer-infos' },
+            contactLinks(),
+            disclaimer(),
+            urbisReward(),
+            createdBy(),
+        );
+
+
 
 const sidebar =
     () =>
@@ -99,7 +112,8 @@ const content =
             context(),
             adjustWidgets(),
             sidebar(),
-            action());
+            action(),
+            contentFooter());
 
 
 const render =

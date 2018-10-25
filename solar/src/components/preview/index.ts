@@ -1,23 +1,73 @@
-import { DIV } from 'sdi/components/elements';
+import { DIV, BR, A } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
 import { context } from '../context';
-import { actionContact, actionChange, actionPrint, actionInfo } from '../action';
+import { actionChange, actionInfo } from '../action';
+import { disclaimer, contactLinks, urbisReward, createdBy } from '../footer-infos';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
 import { getMaxPower, getSystem } from '../../queries/simulation';
 import { navigateDetail } from '../../events/route';
 import { getCapakey } from '../../queries/app';
-import { buildingAdress } from '../item-factory';
+import { buildingAdress, toggleWithInfo } from '../item-factory';
+import { setSystem } from '../../events/simulation';
 
+
+import { renderPDF } from '../summary/print';
+
+
+
+
+const actionStepAdjust =
+    () => DIV({
+        className: 'action action-step',
+        onClick: () => getCapakey().map(navigateDetail),
+    },
+        DIV({ className: 'step-number' }, '1'),
+        DIV({ className: 'step-label' },
+            tr('solAdjustStr1'),
+            BR({}),
+            tr('solAdjustStr2')));
+
+const actionStepPrint =
+    () => DIV({
+        className: 'action action-step',
+        onClick: () => renderPDF(),
+    },
+        DIV({ className: 'step-number' }, '2'),
+        DIV({ className: 'step-label' }, tr('solPrintStr1'), BR({}), tr('solPrintStr2')));
+
+const actionStepContact =
+    () => A({
+        href: switchLinkPVTH(),
+        target: '_blank',
+    },
+        DIV({ className: 'action action-step' },
+            DIV({ className: 'step-number' }, '3'),
+            DIV({ className: 'step-label' },
+                tr('solContactStr1'), BR({}), tr('solContactStr2')),
+        ));
+
+const switchLinkPVTH =
+    () => {
+        switch (getSystem()) {
+            case 'photovoltaic': return tr('solLinkInstallateurPV');
+            case 'thermal': return tr('solLinkInstallateurTH');
+        }
+    };
+
+
+const toggleSystem = toggleWithInfo(
+    () => getSystem() === 'photovoltaic',
+    v => v ? setSystem('photovoltaic') : setSystem('thermal'));
 
 const action =
     () =>
         DIV({ className: 'actions' },
-            actionContact(),
-            actionChange(),
-            actionInfo(),
-            actionPrint());
+            actionStepAdjust(),
+            actionStepPrint(),
+            actionStepContact(),
+        );
 
 
 const summary =
@@ -28,52 +78,64 @@ const summary =
         }
     };
 
-const goToSettings =
-    () => DIV({
-        className: 'solar-btn',
-        onClick: () => getCapakey().map(navigateDetail),
-    },
-        DIV({ className: 'solar-inner-btn' },
-            tr('solAdjustStr1'),
-            ' ',
-            tr('solAdjustStr2')),
-    );
 
-
-const renderPreview =
+const sidebar =
     () =>
-        DIV({ className: 'main-splitted-height' },
-            DIV({ className: 'upper-part' },
-                context(),
-                summary()),
-            DIV({ className: 'lower-part' },
-                DIV({ className: 'action-header' },
-                    DIV({ className: 'action-title' }, tr('solAndNow')),
-                    goToSettings(),
+        DIV({ className: 'sidebar' },
+            summary(),
+            DIV({ className: 'sidebar-tools' },
+                toggleSystem('solPhotovoltaic', 'solSolarWaterHeater', 'solTogglePV', 'solToggleThermal'),
+                DIV({ className: 'sidebar-action-wrapper' },
+                    actionChange(),
+                    actionInfo(),
                 ),
-                action(),
             ));
 
-
-const renderNoPreview =
+const sidebarNoPreview =
     () =>
-        DIV({ className: 'main-splitted-height' },
-            DIV({ className: 'upper-part' },
-                context(),
-                DIV({ className: 'sol-no-sol' },
-                    buildingAdress(),
-                    DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol')),
-                )),
+        DIV({ className: 'sidebar' },
+            DIV({ className: 'sol-no-sol' },
+                buildingAdress(),
+                DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol'))),
+        );
+
+const contentFooter =
+    () =>
+        DIV({ className: 'footer-infos' },
+            contactLinks(),
+            disclaimer(),
+            urbisReward(),
+            createdBy(),
         );
 
 
+
+
+const content =
+    () =>
+        DIV({ className: 'content' },
+            context(),
+            sidebar(),
+            action(),
+            contentFooter());
+
+const contentNoPreview =
+    () =>
+        DIV({ className: 'content' },
+            context(),
+            sidebarNoPreview(),
+            contentFooter());
+
+
+
+
 const render =
-    () => {
-        if (getMaxPower() >= 1) {
-            return renderPreview();
-        }
-        return renderNoPreview();
-    };
+    () => DIV({ className: 'solar-main-and-right-sidebar' },
+        getMaxPower() >= 1 ?
+            content() :
+            contentNoPreview(),
+    );
+
 
 
 export default render;
