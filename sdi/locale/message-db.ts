@@ -3288,9 +3288,9 @@ export const messages: MessageDB = {
 
 
     solContactLabel: {
-        fr: 'Pour toute demande d\'information, et pour des projets d\'installation professionels ou supérieurs à 12kWc, ',
-        nl: 'voor professionals en installatieprojecten boven 12kWp',
-        en: 'for professionals and installation projects above 12kWp',
+        fr: 'Pour toute demande d\'information, ',
+        nl: 'Voor alle informatie,',
+        en: 'For any information,',
     },
 
     solLinkContactBELabel: {
