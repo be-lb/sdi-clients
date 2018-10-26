@@ -334,6 +334,8 @@ export type MessageKey =
     | 'solDisclaimerLimit'
     | 'solElectricBoiler'
     | 'solFinanceCost'
+    | 'solFacilitatorLabel'
+    | 'solFacilitatorLink'
     | 'solFinanceGain'
     | 'solFinanceVAT'
     | 'solGaz'
@@ -342,6 +344,9 @@ export type MessageKey =
     | 'solHotWaterConsumption'
     | 'solInstallationLifeTime'
     | 'solInstallationSurface'
+    | 'solInstallMoreMsgSTR1'
+    | 'solInstallMoreMsgSTR2'
+    | 'solInstallMoreMsgSTR3'
     | 'solLinkContactBE'
     | 'solLinkContactBELabel'
     | 'solLinkInfoGreenEnergy'
@@ -3366,5 +3371,33 @@ export const messages: MessageDB = {
         en: 'Design and production : ',
     },
 
+    solFacilitatorLabel: {
+        fr: 'Facilitateur Bâtiment Durable',
+        nl: 'Facilitator Duurzame Gebouwen',
+        en: 'Facilitateur Bâtiment Durable',
+    },
 
+    solFacilitatorLink: {
+        fr: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable',
+        nl: 'https://leefmilieu.brussels/themas/gebouwen/het-beheer-van-mijn-gebouw/om-u-te-helpen/facilitator-duurzame-gebouwen',
+        en: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable',
+    },
+
+    solInstallMoreMsgSTR1: {
+        fr: 'Vous disposez d’une toiture avec une surface utilisable supérieure à 200 m², et il est très certainement avantageux d’installer plus. Pour plus d’information, consultez le ',
+        nl: 'U heeft een dak met een bruikbare oppervlakte van meer dan 200 m² en het is zeker voordelig om meer te installeren. Voor meer informatie, raadpleeg de ',
+        en: 'You have a roof with a usable area of more than 200 m², it is certainly advantageous to install more. For more information, consult the ',
+    },
+
+    solInstallMoreMsgSTR2: {
+        fr: ' ou adressez-vous a un ',
+        nl: ' of neem contact op met een  ',
+        en: ' or contact an ',
+    },
+
+    solInstallMoreMsgSTR3: {
+        fr: 'installateur.',
+        nl: 'installateur.',
+        en: 'installator.',
+    },
 };
