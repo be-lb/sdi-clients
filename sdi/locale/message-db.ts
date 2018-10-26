@@ -342,6 +342,7 @@ export type MessageKey =
     | 'solHeatProdSys'
     | 'solHomeConsumption'
     | 'solHotWaterConsumption'
+    | 'solIncompleteAdress'
     | 'solInstallationLifeTime'
     | 'solInstallationSurface'
     | 'solInstallMoreMsgSTR1'
@@ -3399,5 +3400,11 @@ export const messages: MessageDB = {
         fr: 'installateur.',
         nl: 'installateur.',
         en: 'installator.',
+    },
+
+    solIncompleteAdress: {
+        fr: 'Adresse incomplète.',
+        nl: 'Onvolledig adres.',
+        en: 'Incomplete address.',
     },
 };

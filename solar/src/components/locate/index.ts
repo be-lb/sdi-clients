@@ -61,6 +61,11 @@ const renderGeocoderResults =
     (results: IUgWsResult[]) => {
         return results.map(({ point, address }, key) => {
             // const coords: [number, number] = [result.point.x, result.point.y];
+            if ('' === address.number) {
+                return DIV({ className: 'adress-result', key },
+                    DIV({ className: 'select-icon' }),
+                    DIV({ className: 'no-address' }, addressToString(address), ' - ', tr('solIncompleteAdress')));
+            }
             return DIV({ className: 'adress-result', key },
                 DIV({ className: 'select-icon' }),
                 DIV({
