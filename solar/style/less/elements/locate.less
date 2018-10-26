@@ -17,16 +17,13 @@
     font-size: @medium-font;
 
     .map-wrapper {
-        position: absolute;
-        height: 100%;
-        width: 100%;
+        .absolute(0,0,0,0);
+        max-height: 100vh; // weird fix for IE11
         margin-bottom: 0; //override SDI
     }
 
     .wrapper-top {
-        position: absolute;
-        height: 100%;
-        width: 100%;
+        .absolute(0,0,0,0);
         color: #fff;
         padding: @margin;
         background: rgba(0,0,0,0.3);
