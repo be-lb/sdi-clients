@@ -328,6 +328,7 @@ export type MessageKey =
     | 'solContactLinkLabel'
     | 'solContactStr1'
     | 'solContactStr2'
+    | 'solConsumed'
     | 'solConsumptionEstimated'
     | 'solCreatorsLabel'
     | 'solDailyConsumption'
@@ -3429,6 +3430,12 @@ export const messages: MessageDB = {
         fr: ' produits estimés',
         nl: ' geschatte producten',
         en: ' estimated produced',
+    },
+
+    solConsumed: {
+        fr: ' consommés estimés',
+        nl: ' geschatte verbruik',
+        en: ' estimated consumed',
     },
 
     solUrbisLabel: {

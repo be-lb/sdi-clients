@@ -2,8 +2,11 @@
 import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
+import { withKWhY } from 'sdi/util';
 
-import { inputItem } from '../item-factory';
+
+
+// import { inputItem } from '../item-factory';
 import { annualConsumption } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 import { note } from './note';
@@ -67,12 +70,23 @@ const selectWidget =
         );
 
 
+const consumptionValue =
+    () => SPAN({ className: 'item-legend legend-output' },
+        SPAN({ className: 'output-value' },
+            withKWhY(annualConsumption())),
+        SPAN({}, tr('solConsumed')),
+    );
+
 // Legend text per selected rank
 const rankedLegend =
     (rank: rank) =>
         DIV({
             className: `rank-legend ${rank} ${isActive(rank) ? 'active' : ''}`,
-        }, tr(legends[rank]));
+        },
+            SPAN({},
+                `${tr(legends[rank])}, `,
+                consumptionValue()),
+        );
 
 
 
@@ -87,14 +101,17 @@ const adjustLegend =
 
 
 
+
+
+
 export const calcConsumption =
     () =>
         DIV({ className: 'adjust-item consumption' },
             titleAndPicto(),
             note('pv_consumption'),
             selectWidget(),
-            inputItem('solConsumptionEstimated', 'annualConsumptionKWh', SPAN({ className: 'unit' }, tr('unitKWhY'))),
             adjustLegend(),
+
         );
 
 
