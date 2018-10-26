@@ -316,6 +316,8 @@ export type MessageKey =
     | 'solarPV'
     | 'solarThermal'
     | 'solBackToMap'
+    | 'solBuyGreenEnergyLabel'
+    | 'solBuyGreenEnergyLink'
     | 'solCalculateStrPart1'
     | 'solCalculateStrPart2'
     | 'solCalculInfoStrPart1'
@@ -340,7 +342,11 @@ export type MessageKey =
     | 'solFinanceVAT'
     | 'solGaz'
     | 'solHeatProdSys'
+    | 'solHeatPumpLabel'
+    | 'solHeatPumpLink'
     | 'solHomeConsumption'
+    | 'solHomegradeLink'
+    | 'solHomegradeLabel'
     | 'solHotWaterConsumption'
     | 'solIncompleteAdress'
     | 'solInstallationLifeTime'
@@ -362,7 +368,13 @@ export type MessageKey =
     | 'solLocatePitchStr7'
     | 'solLocatePitchStr8'
     | 'solMazout'
-    | 'solNoSol'
+    | 'solNoSolSTR1'
+    | 'solNoSolSTR2'
+    | 'solNoSolSTR3'
+    | 'solNoSolSTR4'
+    | 'solNoSolSTR5'
+    | 'solNoSolSTR6'
+    | 'solNoSolSTR7'
     | 'solLegendConsRank1'
     | 'solLegendConsRank2'
     | 'solLegendConsRank3'
@@ -3123,11 +3135,76 @@ export const messages: MessageDB = {
         en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc - not accessible in this case).',
     },
 
-    solNoSol: {
-        fr: 'Nous sommes désolés mais nous n\'avons trouvé aucune configuration rentable pour l\'installation de panneaux solaire pour cette toiture',
-        nl: 'Het spijt ons maar we hebben geen kosteneffectieve set-up gevonden voor het installeren van zonnepanelen voor dit dak',
-        en: 'We are sorry but we did not find any cost-effective setup for installing solar panels for this roof',
+    solNoSolSTR1: {
+        fr: 'Nous n’avons pas trouvé de configuration rentable pour l\’installation de panneaux solaires.',
+        nl: 'We hebben geen rentabele configuratie gevonden voor het installeren van zonnepanelen.',
+        en: 'We have not found a cost-effective configuration for the installation of solar panels.',
     },
+
+    solNoSolSTR2: {
+        fr: 'Mais des alternatives existent si vous souhaitez améliorer la consommation d’énergie de votre bâtiment. ',
+        nl: 'Maar er zijn alternatieven als u het energieverbruik van uw gebouw wil verbeteren.',
+        en: 'But there are alternatives if you want to improve the energy consumption of your building.',
+    },
+
+    solNoSolSTR3: {
+        fr: 'Découvrez ces alternatives ',
+        nl: 'Ontdek deze alternatieven ',
+        en: 'Discover these alternatives ',
+    },
+
+
+    solNoSolSTR4: {
+        fr: ' toitures partagées…) sur le site de ',
+        nl: ' gedeelde daken…) op de website van ',
+        en: ' shared roofs…) on the',
+    },
+
+
+    solNoSolSTR5: {
+        fr: ' ou contactez gratuitement un de nos conseillers:',
+        nl: ' of neem gratis contact op met één van onze adviseurs:',
+        en: ' website or contact one of our consultants free of charge:',
+    },
+
+    solNoSolSTR6: {
+        fr: ' pour les particuliers ou le ',
+        nl: ' voor particulieren of de ',
+        en: ' for individuals or the ',
+    },
+
+    solNoSolSTR7: {
+        fr: 'pour les professionnels.',
+        nl: 'voor professionelen.',
+        en: 'for professionals.',
+    },
+
+
+
+    solHeatPumpLabel: {
+        fr: 'pompe à chaleur',
+        nl: 'warmtepomp',
+        en: 'heat pump',
+    },
+    solHeatPumpLink: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/produire-votre-propre-energie-verte/les-pompes',
+        nl: 'https://leefmilieu.brussels/themas/energie/groene-energie/produceer-uw-eigen-groene-energie/warmtepompen',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/produire-votre-propre-energie-verte/les-pompes',
+    },
+
+    solBuyGreenEnergyLabel: {
+        fr: 'achat d’énergie verte',
+        nl: 'aankoop van groene energie',
+        en: 'buying green energy',
+    },
+    solBuyGreenEnergyLink: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/acheter-de-lenergie-verte',
+        nl: 'https://leefmilieu.brussels/themas/energie/groene-energie/groene-energie-kopen',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/acheter-de-lenergie-verte',
+    },
+
+
+
 
     solWaterStorage: {
         fr: 'Ballon de stockage',
@@ -3294,15 +3371,15 @@ export const messages: MessageDB = {
 
 
     solContactLabel: {
-        fr: 'Pour toute demande d\'information, ',
-        nl: 'Voor alle informatie,',
-        en: 'For any information,',
+        fr: 'Pour toute demande d\'information, contactez ',
+        nl: 'Voor alle informatie, contacteer ',
+        en: 'For any information, contact',
     },
 
     solLinkContactBELabel: {
-        fr: 'contactez Bruxelles Environnement.',
-        nl: 'contacteer Leefmilieu Brussel.',
-        en: 'contact Bruxelles Environnement.',
+        fr: 'Bruxelles Environnement',
+        nl: 'Leefmilieu Brussel',
+        en: 'Bruxelles Environnement',
     },
 
     solLinkContactBE: {
@@ -3382,6 +3459,18 @@ export const messages: MessageDB = {
         fr: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable',
         nl: 'https://leefmilieu.brussels/themas/gebouwen/het-beheer-van-mijn-gebouw/om-u-te-helpen/facilitator-duurzame-gebouwen',
         en: 'https://environnement.brussels/thematiques/batiment/la-gestion-de-mon-batiment/pour-vous-aider/le-facilitateur-batiment-durable',
+    },
+
+    solHomegradeLabel: {
+        fr: 'Homegrade',
+        nl: 'Homegrade',
+        en: 'Homegrade',
+    },
+
+    solHomegradeLink: {
+        fr: 'https://homegrade.brussels/homegrade/contact/',
+        nl: 'https://homegrade.brussels/homegrade/contact/?lang=nl',
+        en: 'https://homegrade.brussels/homegrade/contact/',
     },
 
     solInstallMoreMsgSTR1: {
