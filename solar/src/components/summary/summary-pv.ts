@@ -26,9 +26,14 @@ const sumPotentialLabel =
         DIV({ className: 'potential-label' },
             DIV({},
                 SPAN({}, tr('solSolarPotentialStr1')),
-                SPAN({ className: 'highlight-value' }, getPanelUnits(), ' ', tr('solPanelsPV')),
-                SPAN({}, ' ', tr('solSolarPotentialStr2'), ' '),
-                SPAN({ className: 'highlight-value' }, tr('solSolarPotentialStr3'), tr('solSolarPotentialStr4'), gains(), ' ', tr('solOn10Years')),
+                SPAN({ className: 'highlight-value' },
+                    getPanelUnits(),
+                    ` ${tr('solPanelsPV')}`),
+                SPAN({}, ` ${tr('solSolarPotentialStr2')} `),
+                SPAN({ className: 'highlight-value' },
+                    `${tr('solSolarPotentialStr3')} ${tr('solSolarPotentialStr4')} `,
+                    gains(),
+                    ` ${tr('solOn10Years')}`),
             ),
         );
 
