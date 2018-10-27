@@ -398,6 +398,8 @@ export type MessageKey =
     | 'solOptimumInstallationTheoric'
     | 'solOrSelectBuilding'
     | 'solPanels'
+    | 'solPanelsPV'
+    | 'solPanelsTH'
     | 'solPellet'
     | 'solPhotovoltaic'
     | 'solPrintStr1'
@@ -2106,31 +2108,31 @@ export const messages: MessageDB = {
     buyingPrice: {
         fr: 'Prix d\'achat TVAC',
         nl: 'Aankoopprijs Incl.BTW',
-        en: 'buying price Incl. VAT',
+        en: 'buying price Incl. VAT',
     },
 
     gainGreenCertif: {
         fr: 'Gain Certificat Vert',
-        nl: 'Winst aan groenestroom-certificaten',
+        nl: 'Winst aan groenestroomcertificaten',
         en: 'Gain Green Certificate',
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert (10 ans)',
-        nl: 'Winst aan groenestroom-certificaten (10 jaar)',
-        en: 'Gain Green Certificate (10 years)',
+        fr: 'Gain Certificat Vert (10 ans)',
+        nl: 'Winst aan groenestroomcertificaten (10 jaar)',
+        en: 'Gain Green Certificate (10 years)',
     },
 
     gainElecInvoice: {
         fr: 'Gain facture d\'électricité',
-        nl: 'Besparing op uw elekrticiteitsfactuur',
+        nl: 'Besparing op uw elektriciteitsfactuur',
         en: 'Electricity bill savings',
     },
 
     gainElecInvoice25Y: {
-        fr: 'Gain facture d\'électricité sur 25 ans',
-        nl: 'Besparing op uw elekrticiteitsfactuur na 25 jaar',
-        en: 'Electricity bill savings 25 years',
+        fr: 'Gain facture d\'électricité sur 25 ans',
+        nl: 'Besparing op uw elektriciteitsfactuur na 25 jaar',
+        en: 'Electricity bill savings 25 years',
     },
 
     gainEnvironment: {
@@ -2139,9 +2141,9 @@ export const messages: MessageDB = {
         en: 'Environmental gain',
     },
     gainEnvironment25Y: {
-        fr: 'Gain pour l\' environnement sur 25 ans',
-        nl: 'Winst voor het milieu over 25 jaar',
-        en: 'Environmental gain over 25 years',
+        fr: 'Gain pour l\' environnement sur 25 ans',
+        nl: 'Winst voor het milieu over 25 jaar',
+        en: 'Environmental gain over 25 years',
     },
 
     orientationGreat: {
@@ -2372,7 +2374,7 @@ export const messages: MessageDB = {
 
     solConsumptionEstimated: {
         fr: 'consommés estimés',
-        nl: 'verbruikt geschat',
+        nl: 'geschat verbruikt',
         en: 'consumed estimated',
     },
 
@@ -2862,7 +2864,7 @@ export const messages: MessageDB = {
     },
     unitKWc: {
         fr: 'kWc',
-        nl: 'kWc',
+        nl: 'kWp',
         en: 'kWc',
     },
     unitTonsCO2: {
@@ -2988,7 +2990,7 @@ export const messages: MessageDB = {
 
     solLegendConsWaterRank5: {
         fr: 'Grande famille.',
-        nl: 'Grote huishouden.',
+        nl: 'Groot huishouden.',
         en: 'Big family.',
     },
 
@@ -3006,7 +3008,7 @@ export const messages: MessageDB = {
 
     solPhotovoltaic: {
         fr: 'Photovoltaïque',
-        nl: 'Fotovoltaïsch',
+        nl: 'Zonnepanelen',
         en: 'Photovoltaic',
     },
 
@@ -3132,7 +3134,7 @@ export const messages: MessageDB = {
 
     solOptimumInstallationTheoric: {
         fr: 'Puissance maximale théorique conseillée pour une installation non-industrielle (12kWc - non accessible dans le cas présent).',
-        nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWc - niet toegankelijk in dit geval).',
+        nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWp - niet toegankelijk in dit geval).',
         en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc - not accessible in this case).',
     },
 
@@ -3214,9 +3216,21 @@ export const messages: MessageDB = {
     },
 
     solPanels: {
-        fr: 'Panneaux',
-        nl: 'Zonnepanelen',
-        en: 'Panels',
+        fr: 'panneaux',
+        nl: 'panelen',
+        en: 'panels',
+    },
+
+    solPanelsPV: {
+        fr: 'panneaux photovoltaïques',
+        nl: 'zonnepanelen',
+        en: 'solar panels',
+    },
+
+    solPanelsTH: {
+        fr: 'panneaux thermiques',
+        nl: 'thermische panelen',
+        en: 'thermic panels',
     },
 
     solSolarProdYear: {
@@ -3366,7 +3380,7 @@ export const messages: MessageDB = {
 
     solDisclaimerLink: {
         fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
-        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Brusselse milieu.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Leefmilieu Brussel.',
         en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
     },
 
@@ -3391,13 +3405,13 @@ export const messages: MessageDB = {
 
     moreInfos: {
         fr: 'En savoir plus.',
-        nl: 'Meer informatie.',
+        nl: 'Meer info.',
         en: 'More informations.',
     },
 
     solContactLinkLabel: {
         fr: 'Contacts et informations :',
-        nl: 'Informatie en contacten :',
+        nl: 'Info en contacten :',
         en: 'Information and contacts :',
     },
 
@@ -3428,7 +3442,7 @@ export const messages: MessageDB = {
 
     solProduced: {
         fr: ' produits estimés',
-        nl: ' geschatte producten',
+        nl: ' geschatte productie',
         en: ' estimated produced',
     },
 
