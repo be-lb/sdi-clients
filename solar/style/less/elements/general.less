@@ -22,7 +22,9 @@
 // solar media queries
 
 @big: ~"screen and (min-width: 1025px)";
+@sdi900: ~"screen and (min-width: 900px)";
 @medium: ~"screen and (min-width: 600px)";
+
 
 
 
@@ -42,6 +44,7 @@
         flex: 1;
     }
     .header {
+        position: relative;
         .app-title, 
         .header-toolbar, 
         .app-listwrapper {
@@ -50,7 +53,7 @@
     }
     
     .footer {
-        // position: absolute;
+        position: relative;
         height: @margin;
         bottom: 0;
     }
