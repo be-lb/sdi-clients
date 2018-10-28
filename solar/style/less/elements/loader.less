@@ -1,10 +1,4 @@
 .main.loader {
-    position: relative; //will overide SDI default style, must be done better
-    height: calc(~"100vh - 92px");
-    top: 0;
-    // margin-bottom: 7px; //to push footer a bit away
-    overflow-y: auto;
-
 
     H1 {
         text-align: center;
@@ -50,7 +44,6 @@
 
 @media @medium {
     .main.loader {
-        // .absolute(@headerH,@margin,10px,@margin);
         flex: 1;
         width: calc(~"100vw - @{margin-mob} * 4");
         margin-left: @margin-mob * 2;
@@ -67,7 +60,6 @@
         }
 
         .context {
-            // width: @contextW;
             margin: auto;
             padding: @margin*2 0;
 
@@ -79,8 +71,7 @@
                 display: block;
             }
 
-            .context-illus-wrapper div:nth-child(2),
-            .context-infos-wrapper div:nth-child(2) {
+            .context-illus-wrapper div:nth-child(2) {
                 margin: 0 @margin;
             }
         }
