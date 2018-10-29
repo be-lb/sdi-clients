@@ -2,24 +2,15 @@
 // we then deploy specific style per specific case
 
 
-// .main.locate-geocoder,
-// .main.locate-map {
-//     position: relative; //will overide SDI default style, must be done better
-//     height: calc(~"100vh - 115px");
-//     // top: 0;
-// }
-
 .locate-box {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-size: @medium-font;
 
     .map-wrapper {
         .absolute(0,0,0,0);
-        max-height: 100vh; // weird fix for IE11
+        height: 100%; //override SDI
         margin-bottom: 0; //override SDI
+        max-height: 100vh; // weird fix for IE11
     }
 
     .wrapper-top {
