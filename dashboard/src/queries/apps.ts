@@ -18,7 +18,7 @@ import { query } from 'sdi/shape';
 
 
 
-const blackList = ['default', 'login'];
+const blackList = ['default', 'login', 'solar'];
 
 export const getApps =
     () =>
