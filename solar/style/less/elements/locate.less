@@ -17,16 +17,13 @@
     font-size: @medium-font;
 
     .map-wrapper {
-        position: absolute;
-        height: 100%;
-        width: 100%;
+        .absolute(0,0,0,0);
+        max-height: 100vh; // weird fix for IE11
         margin-bottom: 0; //override SDI
     }
 
     .wrapper-top {
-        position: absolute;
-        height: 100%;
-        width: 100%;
+        .absolute(0,0,0,0);
         color: #fff;
         padding: @margin;
         background: rgba(0,0,0,0.3);
@@ -236,6 +233,7 @@
         // top: @headerH;
         // bottom: @margin;
 
+
         .wrapper-top {
             display: flex;
             flex-direction: column;
@@ -301,6 +299,10 @@
 
             .adress-result {
                 font-size: 1.1rem;
+
+                .no-address {
+                    color: @light-grey;
+                }
             }
         }
     }
@@ -317,7 +319,7 @@
     }
 }
 
-@media screen and (min-width:900px) {
+@media @sdi900 {
         .locate-box {
         margin: 0 @margin;
     }

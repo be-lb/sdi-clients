@@ -1,4 +1,4 @@
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, NODISPLAY, A } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { withKWc, withKWhY } from 'sdi/util';
 
@@ -6,6 +6,7 @@ import {
     getPanelUnits,
     getMaxPower,
     getOutputPv,
+    usableRoofArea,
 } from '../../queries/simulation';
 import { setPower } from '../../events/simulation';
 import { note } from './note';
@@ -97,6 +98,24 @@ const production =
             withKWhY(getOutputPv('annualProduction'))),
         SPAN({}, tr('solProduced')));
 
+
+const installMoreSentence =
+    () => DIV({},
+        tr('solInstallMoreMsgSTR1'),
+        A({ href: tr('solFacilitatorLink') }, tr('solFacilitatorLabel')),
+        tr('solInstallMoreMsgSTR2'),
+        A({ href: tr('solLinkInstallateurPV') }, tr('solInstallMoreMsgSTR3')),
+    );
+
+const installMore =
+    () => {
+        if (usableRoofArea() > 200) {
+            return installMoreSentence();
+        }
+        return NODISPLAY();
+    };
+
+
 const legend =
     () => {
         const elements = [
@@ -109,6 +128,7 @@ const legend =
                 DIV({ className: 'item-legend over' },
                     tr('solOptimumInstallation')));
         }
+
         // if (hasUnreachable()) {
         //     elements.push(
         //         DIV({ className: 'item-legend unreachable' },
@@ -117,7 +137,8 @@ const legend =
 
         return DIV({ className: 'adjust-item-legend' },
             production(),
-            ...elements);
+            ...elements,
+            installMore());
     };
 
 

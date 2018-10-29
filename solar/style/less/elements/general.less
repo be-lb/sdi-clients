@@ -8,6 +8,9 @@
 @illuW : calc(~"(@{contextW} - 2 * @{margin}) / 3");
 @illuW-medium : calc(~"100vw / 3 - 2 * @{margin}");
 @illuW-mob : calc(~"85vw - 4 * @{margin-mob}");
+@illuInfosW : calc(~"((@{contextW} - 2 * @{margin}) / 3) - @{margin} * 2");
+@illuInfosW-medium : calc(~"((100vw - 2 * @{margin}) / 3) - @{margin} * 3");
+
 
 @roundedW : 4rem;
 @toggleH : 2rem;
@@ -19,7 +22,9 @@
 // solar media queries
 
 @big: ~"screen and (min-width: 1025px)";
+@sdi900: ~"screen and (min-width: 900px)";
 @medium: ~"screen and (min-width: 600px)";
+
 
 
 
@@ -39,6 +44,7 @@
         flex: 1;
     }
     .header {
+        position: relative;
         .app-title, 
         .header-toolbar, 
         .app-listwrapper {
@@ -47,7 +53,7 @@
     }
     
     .footer {
-        // position: absolute;
+        position: relative;
         height: @margin;
         bottom: 0;
     }
@@ -56,9 +62,14 @@
 
 
 
-
-
 // STYLES
+
+@media @medium {
+    body {
+        .absolute(0,0,0,0);
+        overflow-y: auto;
+    }
+}
 
 .locate,
 .preview,

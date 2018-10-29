@@ -20,8 +20,10 @@
             margin-top: @margin;
         }
         .solar-btn {
-            width: calc(~"@{illuW} / 1.5");
-            margin: @margin calc(~"@{illuW} / 6");
+            // width: calc(~"@{illuW} / 1.5");
+            width: @illuInfosW-medium;
+            // margin: @margin calc(~"@{illuW} / 6");
+            margin: @margin;
         }
     }
 }
@@ -29,6 +31,11 @@
 @media @big {
     .context-infos-wrapper > div {
         width: @illuW;
+
+        &.solar-btn {
+            width: @illuInfosW;
+            margin: @margin;
+        }
     }
 }
 

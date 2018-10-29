@@ -1,10 +1,10 @@
 import { DIV, SPAN } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
+import { withLiterDay } from 'sdi/util/index';
 
 import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
-import { inputItem } from '../item-factory';
 import { note } from './note';
 
 
@@ -76,14 +76,24 @@ const selectWidget =
             selectItem('sixth'),
         );
 
+const consumptionValue =
+    () => SPAN({ className: 'item-legend legend-output' },
+        SPAN({ className: 'output-value' },
+            withLiterDay(getInputF('thermicLiterByDay')())),
+        SPAN({}, tr('solConsumed')));
+
+
 
 // Legend text per selected rank
 const rankedLegend =
     (rank: rank) =>
         DIV({
             className: `rank-legend ${rank} ${isActive(rank) ? 'active' : ''}`,
-        }, tr(legends[rank]));
-
+        },
+            SPAN({},
+                `${tr(legends[rank])} `,
+                consumptionValue()),
+        );
 
 
 const adjustLegend =
@@ -96,11 +106,6 @@ const adjustLegend =
         rankedLegend('sixth'),
     );
 
-const input =
-    () => inputItem(
-        'solConsumptionEstimated',
-        'thermicLiterByDay',
-        SPAN({ className: 'unit' }, tr('unitLiterDay')));
 
 
 export const calcConsumptionThermal =
@@ -111,7 +116,6 @@ export const calcConsumptionThermal =
             DIV({ className: 'adjust-item-widget' },
                 selectWidget(),
             ),
-            input(),
             adjustLegend(),
         );
 

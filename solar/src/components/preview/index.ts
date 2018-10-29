@@ -91,12 +91,33 @@ const sidebar =
                 ),
             ));
 
-const sidebarNoPreview =
+
+
+
+
+const sidebarNoSol =
     () =>
         DIV({ className: 'sidebar' },
             DIV({ className: 'sol-no-sol' },
                 buildingAdress(),
-                DIV({ className: 'sol-no-sol-msg' }, tr('solNoSol'))),
+                DIV({ className: 'sol-no-sol-msg' },
+                    DIV({}, tr('solNoSolSTR1')),
+                    DIV({}, tr('solNoSolSTR2')),
+                    DIV({},
+                        ` ${tr('solNoSolSTR3')} (`,
+                        A({ href: tr('solHeatPumpLink') }, tr('solHeatPumpLabel')),
+                        `, `,
+                        A({ href: tr('solBuyGreenEnergyLink') }, tr('solBuyGreenEnergyLabel')),
+                        `, ${tr('solNoSolSTR4')} `,
+                        A({ href: tr('solLinkContactBE') }, tr('solLinkContactBELabel')),
+                        ` ${tr('solNoSolSTR5')} `,
+                        A({ href: tr('solHomegradeLink') }, tr('solHomegradeLabel')),
+                        ` ${tr('solNoSolSTR6')} `,
+                        A({ href: tr('solFacilitatorLink') }, tr('solFacilitatorLabel')),
+                        ` ${tr('solNoSolSTR7')}`,
+                    ),
+                ),
+            ),
         );
 
 const contentFooter =
@@ -123,7 +144,7 @@ const contentNoPreview =
     () =>
         DIV({ className: 'content' },
             context(),
-            sidebarNoPreview(),
+            sidebarNoSol(),
             contentFooter());
 
 
