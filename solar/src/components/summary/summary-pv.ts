@@ -19,7 +19,7 @@ const vk =
             SPAN({ className: 'key' }, tr(key)));
 
 const gains =
-    () => SPAN({}, withEuro(getOutputPv('selfConsumptionAmountYear10') + getOutputPv('CVAmountYear10')));
+    () => SPAN({}, withEuro(getOutputPv('totalGain10Y')));
 
 const sumPotentialLabel =
     () =>
