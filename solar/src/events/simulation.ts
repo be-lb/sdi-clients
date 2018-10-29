@@ -27,7 +27,7 @@ import { getApiUrl } from 'sdi/app';
 
 import { Obstacle, defaulObstacles } from '../components/adjust/obstacle';
 import { getCapakey } from '../queries/app';
-import { totalArea, getSystem, pvTechnology } from '../queries/simulation';
+import { totalArea, getSystem, pvTechnology, getConstants } from '../queries/simulation';
 import { System } from '../shape/solar';
 import { Camera } from '../components/context/mat';
 import { thermicSolarSim } from 'solar-sim/lib/run';
@@ -164,29 +164,18 @@ const simulate =
         }
     };
 
-
-type ObsValue = { [k in Obstacle]: number };
-const obstacleValues: ObsValue = {
-    chimneySmoke: 0.7666,
-    velux: 1.205,
-    dormerWindow: 4.267,
-    flatRoofWindow: 1.801,
-    terraceInUse: 14.58,
-    lift: 9.032,
-    existingSolarPannel: 12.18,
-};
-
 export const setObstacle =
-    (o: Obstacle, n: number) => {
-        let obsSurface = 0.0;
-        dispatch('solar/obstacle', (state) => {
-            const ns = { ...state, [o]: n };
-            Object.keys(ns).forEach((k: Obstacle) => obsSurface += obstacleValues[k] * ns[k]);
-            return ns;
+    (o: Obstacle, n: number) =>
+        getConstants().map((cs) => {
+            let obsSurface = 0.0;
+            dispatch('solar/obstacle', (state) => {
+                const ns = { ...state, [o]: n };
+                Object.keys(ns).forEach((k: Obstacle) => obsSurface += cs.obstacle[k] * ns[k]);
+                return ns;
+            });
+            const obstacleRate = obsSurface / totalArea();
+            dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
         });
-        const obstacleRate = obsSurface / totalArea();
-        dispatch('solar/inputs', state => ({ ...state, obstacleRate }));
-    };
 
 
 export const clearPerspective =
