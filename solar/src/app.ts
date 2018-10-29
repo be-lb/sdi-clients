@@ -31,6 +31,7 @@ import detail from './components/detail';
 import { loadMaps } from './events/map';
 import { loadAllBaseLayers } from './events/app';
 import { loadConstants, loadWidgets } from './events/simulation';
+import { loadPrintAsset } from './components/summary/print';
 
 const logger = debug('sdi:app');
 
@@ -71,12 +72,13 @@ const effects =
         loadWidgets();
         loadMaps();
         navigate();
+        loadPrintAsset();
     };
 
 
 
 
-const app = loop('solar-app',renderMain, effects);
+const app = loop('solar-app', renderMain, effects);
 export default app;
 
 logger('loaded');
