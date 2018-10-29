@@ -21,7 +21,7 @@ const vk =
 
 
 const gains =
-    () => SPAN({}, withEuro(getOutputThermal('grant') + getOutputThermal('gain')));
+    () => SPAN({}, withEuro(getOutputThermal('grant') + getOutputThermal('gain') / 2.5));
 
 
 const sumPotentialLabel =
@@ -33,7 +33,7 @@ const sumPotentialLabel =
                     `2 ${tr('solPanelsTH')}`),
                 SPAN({}, ` ${tr('solSolarPotentialStr2')} `),
                 SPAN({ className: 'highlight-value' },
-                    `${tr('solSolarPotentialStr3')} ${tr('solSolarPotentialStr4')} `,
+                    `${tr('solSolarPotentialStr3Thermal')} ${tr('solSolarPotentialStr4')} `,
                     gains(),
                     ` ${tr('solOn10Years')}`),
             ),
@@ -43,7 +43,7 @@ const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
             vk(withEuro(getOutputThermal('grant')), 'bonus', 'green-cert'),
-            vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice', 'gain-thermal'),
+            vk(withEuro(getOutputThermal('gain') / 2.5), 'gainEnergyInvoice', 'gain-thermal'),
             vk(withTonsCO2(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
             vk(withEuro(getOutputThermal('installationCost', 0)), 'buyingPrice', 'buying-price'),
         );

@@ -418,6 +418,7 @@ export type MessageKey =
     | 'solSolarPotentialStr1'
     | 'solSolarPotentialStr2'
     | 'solSolarPotentialStr3'
+    | 'solSolarPotentialStr3Thermal'
     | 'solSolarPotentialStr4'
     | 'solSolarPotentialExcellent'
     | 'solSolarPotentialGood'
@@ -2635,6 +2636,13 @@ export const messages: MessageDB = {
         nl: 'nettowinst ',
         en: '',
     },
+
+    solSolarPotentialStr3Thermal: {
+        fr: 'gain ',
+        nl: 'winst ',
+        en: '',
+    },
+
     solSolarPotentialStr4: {
         fr: 'de ',
         nl: 'van ',
