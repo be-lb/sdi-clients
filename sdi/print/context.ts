@@ -72,6 +72,17 @@ export const makeLargeImage =
     });
 
 
+export interface CommandSVG {
+    kind: 'SVG';
+    data: string;
+}
+
+export const makeSVG =
+    (data: string): CommandSVG => ({
+        kind: 'SVG',
+        data,
+    });
+
 export interface CommandText {
     kind: 'Text';
     data: string;
@@ -143,6 +154,7 @@ export const makeRect =
 
 export type Command =
     | CommandImage
+    | CommandSVG
     | CommandText
     | CommandLine
     | CommandPolygon
@@ -181,6 +193,17 @@ export type Box = Rect & {
     children: BoxChildren;
     name?: string;
 };
+
+export const boxContent =
+    (rect: Rect, ...children: BoxChildren): Box => ({
+        ...rect,
+        children,
+    });
+
+export const boxEmpty =
+    (): Box => ({ x: 0, y: 0, width: 0, height: 0, children: [] });
+
+
 
 const isBox = (a: BoxChild): a is Box => {
     return 'children' in a;
@@ -237,6 +260,11 @@ export const createContext =
         return page;
     };
 
+export const addFont =
+    (page: Page, fname: string, data: string) => {
+        (page as any).addFileToVFS(fname, data);
+    };
+
 const renderImage =
     (page: Page) =>
         (rect: Rect, command: CommandImage) => {
@@ -283,7 +311,7 @@ const renderText =
 
             page.setFont('helvetica', 'normal');
             page.setTextColor(iColor.red(), iColor.green(), iColor.blue());
-            logger(`Text ${x} ${adjustedY} ${lines}`)
+            logger(`Text ${x} ${adjustedY} ${lines}`);
             switch (textAlign) {
                 case 'left':
                     page.text(lines, x, adjustedY);
@@ -360,6 +388,15 @@ const renderRect =
                 ctx.restore();
             }
 
+            return rect;
+        };
+
+const renderSVG =
+    (page: Page) =>
+        (rect: Rect, command: CommandSVG) => {
+            const { x, y, width, height } = rect;
+            const { data } = command;
+            page.addSVG(data, x, y, width, height);
             return rect;
         };
 
@@ -497,6 +534,7 @@ export const paintBoxes =
         const line = renderLine(page);
         const polygon = renderPolygon(page);
         const rect = renderRect(page);
+        const svg = renderSVG(page);
 
 
 
@@ -522,6 +560,7 @@ export const paintBoxes =
                             case 'Line': line(box, child); break;
                             case 'Polygon': polygon(box, child); break;
                             case 'Rect': rect(box, child); break;
+                            case 'SVG': svg(box, child); break;
                         }
                     }
                 }

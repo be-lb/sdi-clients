@@ -127,7 +127,7 @@ const isExactFeature =
         return false;
     };
 
-const getCamera =
+export const getCamera =
     (fc: FeatureCollection): Option<Camera> =>
         getPerpectiveCamera()
             .foldL(() => {
@@ -196,7 +196,7 @@ const getCamera =
         );
 
 
-const emptyRoofs = some<FeatureCollection>({
+export const emptyRoofs = some<FeatureCollection>({
     type: 'FeatureCollection',
     features: [],
 });
