@@ -15,7 +15,7 @@
 */
 import { Getter, Setter } from '../../shape';
 
-const FRAME_RATE = 16 * 2 * 2 * 2;
+const FRAME_RATE = 16;
 
 export interface ValueShape {
     [k: string]: number;
