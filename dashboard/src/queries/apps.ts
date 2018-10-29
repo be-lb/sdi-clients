@@ -15,27 +15,12 @@
  */
 
 import { query } from 'sdi/shape';
-import { Branded, brand } from 'sdi/lib';
 
 
-const Black = Branded<string, 'white' | 'black'>((a) => {
-    switch (brand(a)) {
-        case 'black': return a.toString();
-        case 'white': return a.split('').map(_ => '.').join('');
-    }
-})('black');
 
-const blackList = [Black('default'), Black('login')];
-const ex = Black.map(b => b);
+const blackList = ['default', 'login'];
 
 export const getApps =
     () =>
         query('component/apps')
-            .filter(a => {
-                return blackList.map(b => ex(b)).indexOf(a.codename) === -1;
-                // // Black.op(a => ) blackList.indexOf(a.codename) === -1
-                // const op = Black.map(b => b === a.codename);
-                // const ex = Black.map(b => b);
-                // const r = blackList.findIndex(b => op(b)) < 0;
-                // return r;
-            });
+            .filter(a => blackList.indexOf(a.codename) === -1);
