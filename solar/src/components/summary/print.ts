@@ -102,8 +102,7 @@ export const loadPrintAsset =
                                 const ctx = cnvs.getContext('2d');
                                 if (ctx) {
                                     ctx.drawImage(node, 0, 0, node.naturalWidth, node.naturalHeight);
-                                    assets[k] = cnvs.toDataURL();
-
+                                    assets[k] = cnvs.toDataURL('image/png');
                                 }
                             });
                             node.src = assetUrl;

@@ -229,7 +229,7 @@ function drawPerspective(
                 roofPainter(transform, cam.pos);
             };
         renderFrame(context);
-        const pers = canvas.toDataURL('image/bmp', false);
+        const pers = canvas.toDataURL('image/png', false);
         setPerspectiveSrc(pers);
         return some(pers);
     }
