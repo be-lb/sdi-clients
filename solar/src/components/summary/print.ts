@@ -512,7 +512,7 @@ export const renderPDF =
                 'finance-3',
             ]);
 
-            renderGain(apply, getOutputPv('selfConsumptionAmountYear10') + getOutputPv('CVAmountYear10'))
+            renderGain(apply, getOutputPv('totalGain10Y'))
                 .map(b => boxes.push(b));
         }
         else { // thermal
