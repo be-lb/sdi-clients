@@ -1,3 +1,5 @@
+import * as debug from 'debug';
+
 import { DIV } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 
@@ -5,6 +7,7 @@ import { getInputF } from '../../queries/simulation';
 import { setInputF } from '../../events/simulation';
 import { note } from './note';
 
+const logger = debug('sdi:adjust/auto');
 
 const getEnergySobriety = getInputF('energySobriety');
 const getChargeShift = getInputF('chargeShift');
@@ -22,14 +25,6 @@ const B = A << 1;
 const C = B << 1;
 const D = C << 1;
 
-// const getLevel =
-//     () => {
-//         if (getBattery()) { return D; }
-//         if (getPVHeater()) { return C; }
-//         if (getChargeShift()) { return B; }
-//         if (getEnergySobriety()) { return A; }
-//         return 0;
-//     };
 
 const setLevel =
     (l: number) => {
@@ -107,4 +102,4 @@ export const calcAutoproduction =
         );
 
 
-
+logger('loaded');

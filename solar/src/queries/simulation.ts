@@ -237,11 +237,7 @@ export const getObstacleArea =
 
 
 export const PANEL_AREA = 1.6;
-// export const PANEL_PROD: { [k in PVTechnologyEnum]: number } = {
-//     poly: PV_YIELD['poly'] * 1000 * PANEL_AREA,
-//     mono: PV_YIELD['mono'] * 1000 * PANEL_AREA,
-//     mono_high: PV_YIELD['mono_high'] * 1000 * PANEL_AREA,
-// };
+
 
 export const getOptimalArea =
     () => fromNullable(query('solar/optimalArea')).foldL(
