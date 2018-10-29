@@ -20,6 +20,16 @@ import {
     makeRect,
     makeLine,
 } from 'sdi/print';
+import {
+    withKWhY,
+    withPercent,
+    withTCO2Y,
+    withM2,
+    withKWc,
+    withYear,
+    withEuro,
+    withLiter,
+} from 'sdi/util';
 
 import {
     areaExcellent,
@@ -37,29 +47,27 @@ import {
     getBuildings,
     getRoofs,
     getSystem,
+    getOutputThermal,
 } from '../../queries/simulation';
-import { withKWhY, withPercent, withTCO2Y, withM2, withKWc, withYear, withEuroInclVAT, withEuro } from 'sdi/util';
 import { some, fromNullable } from 'fp-ts/lib/Option';
 import { perspective } from '../context/perspective';
 import { getCamera, emptyRoofs } from '../context/index';
 import { getLabel } from './print-labels';
 import { getCapakey } from '../../queries/app';
-// import { maskData } from './print-mask';
 
 const margin = 10;
 const pwidth = 210;
-// const pheight = 294;
 
 const assets = {
     'print-image-logo': '',
     'print-image-mask': '',
-}
+};
 type Assets = typeof assets;
 
 const styleList =
-    (l: StyleSheetList): CSSStyleSheet[] => [].slice.call(l)
+    (l: StyleSheetList): CSSStyleSheet[] => [].slice.call(l);
 const ruleList =
-    (s: CSSStyleSheet): CSSStyleRule[] => [].slice.call(s.cssRules)
+    (s: CSSStyleSheet): CSSStyleRule[] => [].slice.call(s.cssRules);
 
 export const loadPrintAsset =
     () => {
@@ -68,45 +76,45 @@ export const loadPrintAsset =
             styleList(document.styleSheets)
                 .reduce<CSSStyleRule[]>((prev, styleSheet) => {
                     if (styleSheet.cssRules) {
-                        return prev.concat(ruleList(styleSheet))
+                        return prev.concat(ruleList(styleSheet));
                     }
                     else {
                         return prev;
                     }
                 }, []);
 
-        const keys = Object.keys(assets)
-        const r = /url\("(.*)"\)/
+        const keys = Object.keys(assets);
+        const r = /url\("(.*)"\)/;
         keys.forEach((k: keyof Assets) => {
-            const cssKey = `#${k}`
-            const rule = allCSS.find(r => r.selectorText === cssKey)
+            const cssKey = `#${k}`;
+            const rule = allCSS.find(r => r.selectorText === cssKey);
             if (rule) {
                 fromNullable(rule.style.backgroundImage)
                     .map((backgroundImage) => {
                         const assetUrlRe = r.exec(backgroundImage);
                         if (assetUrlRe) {
-                            const assetUrl = assetUrlRe[1]
-                            const node = document.createElement('img')
+                            const assetUrl = assetUrlRe[1];
+                            const node = document.createElement('img');
                             node.addEventListener('load', () => {
-                                const cnvs = document.createElement('canvas')
-                                cnvs.width = node.naturalWidth
-                                cnvs.height = node.naturalHeight
-                                const ctx = cnvs.getContext('2d')
+                                const cnvs = document.createElement('canvas');
+                                cnvs.width = node.naturalWidth;
+                                cnvs.height = node.naturalHeight;
+                                const ctx = cnvs.getContext('2d');
                                 if (ctx) {
-                                    ctx.drawImage(node, 0, 0, node.naturalWidth, node.naturalHeight)
-                                    assets[k] = cnvs.toDataURL()
+                                    ctx.drawImage(node, 0, 0, node.naturalWidth, node.naturalHeight);
+                                    assets[k] = cnvs.toDataURL();
 
                                 }
-                            })
-                            node.src = assetUrl
+                            });
+                            node.src = assetUrl;
                         }
-                    })
+                    });
             }
-        })
-    }
+        });
+    };
 
 
-const sectionTitleHeight = 8;
+const sectionTitleHeight = 6;
 const sectionValueHeight = 4;
 const baseSectionRect = { x: 110, y: 0, width: 124, height: sectionTitleHeight };
 
@@ -137,6 +145,10 @@ const template: Template = {
     }),
 
     'title-pv': makeSpec({
+        rect: { x: margin, y: 15, width: pwidth - (2 * margin), height: 24 },
+        fontSize: 18,
+    }),
+    'title-thermal': makeSpec({
         rect: { x: margin, y: 15, width: pwidth - (2 * margin), height: 24 },
         fontSize: 18,
     }),
@@ -218,11 +230,17 @@ const template: Template = {
         rect: { x: 13, y: 70, width: 84, height: 84 },
     }),
     legend: makeSpec({
-        rect: { x: 38, y: 160, width: 84, height: 26 },
+        rect: { x: margin + 6, y: 160, width: 84, height: 26 },
     }),
     'legend-item': makeSpec({
         rect: { x: 0, y: 0, width: 72, height: 6 },
         fontSize: 9,
+    }),
+
+    gain: makeSpec({
+        rect: { x: margin, y: 179, width: 200, height: 20 },
+        fontSize: 16,
+        color: '#8db63c',
     }),
 
     'section-roof': makeSpec({
@@ -242,7 +260,7 @@ const template: Template = {
         fontSize: 18,
     }),
     value: makeSpec({
-        rect: { x: 0, y: 0, width: 100, height: 20 },
+        rect: { x: 0, y: 0, width: 100, height: 5 },
         fontSize: 10,
     }),
 
@@ -286,7 +304,7 @@ const renderVK =
                     width: 27,
                     height: rect.height,
                     children: [
-                        makeText(vk[0], fontSize, color, 'right'),
+                        makeText(vk[0], fontSize, color, 'right', 'bottom'),
                     ],
                 },
                 {
@@ -295,7 +313,7 @@ const renderVK =
                     width: 100,
                     height: rect.height,
                     children: [
-                        makeText(tr(vk[1]), fontSize, color, 'left'),
+                        makeText(tr(vk[1]), fontSize - 2, color, 'left', 'bottom'),
                     ],
                 },
             ],
@@ -336,7 +354,7 @@ const renderLegendItem =
                     ],
                 },
             ],
-        }))
+        }));
 
 const renderLegend =
     (f: ApplyFn<Box>, items: LegendItem[]) =>
@@ -379,9 +397,9 @@ const renderLogo =
         f('logo', ({ rect }) => ({
             ...rect,
             children: [
-                boxContent(rect, makeImage(assets['print-image-logo']))
+                boxContent(rect, makeImage(assets['print-image-logo'])),
             ],
-        }))
+        }));
 
 const render3D =
     (f: ApplyFn<Box>) =>
@@ -403,7 +421,7 @@ const renderCreationDate =
             children: [
                 makeText(`${getLabel('date')} ${formatDate(new Date())}`, fontSize, color),
             ],
-        }))
+        }));
 
 const renderURL =
     (f: ApplyFn<Box>) =>
@@ -415,6 +433,14 @@ const renderURL =
             ],
         }));
 
+const renderGain =
+    (f: ApplyFn<Box>, value: number) =>
+        f('gain', ({ rect, fontSize, color }) => ({
+            ...rect,
+            children: [
+                makeText(`${getLabel('gain')} ${withEuro(value)}`, fontSize, color),
+            ],
+        }));
 
 
 export const renderPDF =
@@ -433,22 +459,22 @@ export const renderPDF =
             [withM2(usableRoofArea()), 'solUsableRoofArea'],
         ];
 
-        const energyData: VK[] = [
+        let energyData: VK[] = [
             [withKWhY(getOutputPv('annualProduction')), 'solProductionPanels'],
             [withKWhY(getOutputPv('annualConsumption')), 'solHomeConsumption'],
             [withPercent(getOutputPv('autonomy') * 100), 'solarAutonomy'],
             [withTCO2Y(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment'],
         ];
 
-        const installData: VK[] = [
+        let installData: VK[] = [
             [getPanelUnits().toString(), 'solNumberOfPanels'],
             [':.', pvTechnologyLabel()],
             [withM2(getOutputPv('maxArea')), 'solInstallationSurface'],
             [withKWc(getOutputPv('power'), 1), 'solTotalPower'],
             [withYear(25), 'solInstallationLifeTime'],
         ];
-        const financeData: VK[] = [
-            [withEuroInclVAT(getOutputPv('installationCost')), 'buyingPrice'],
+        let financeData: VK[] = [
+            [withEuro(getOutputPv('installationCost')), 'buyingPrice'],
             [withEuro(getOutputPv('CVAmountYear25')), 'gainGreenCertif25Y'],
             [withEuro(getOutputPv('selfConsumptionAmountYear25')), 'gainElecInvoice25Y'],
             [withEuro(getOutputPv('totalGain25Y') - getOutputPv('installationCost')), 'gainTotal25Y'],
@@ -461,13 +487,62 @@ export const renderPDF =
             [tr('unusable'), areaLow(), '#006f90'],
         ];
 
-        let labels = ['header', 'footer', 'contact-title', 'contact-intro', 'contact-0', 'contact-0.1', 'contact-0.2', 'contact-0.3', 'contact-1', 'contact-1.1', 'contact-1.2', 'finance-title', 'finance-0', 'finance-1', 'finance-2', 'finance-3'];
+        let labels = [
+            'header',
+            'footer',
+            'contact-title',
+            'contact-intro',
+            'contact-0',
+            'contact-0.1',
+            'contact-0.2',
+            'contact-0.3',
+            'contact-1',
+            'contact-1.1',
+            'contact-1.2',
+            'finance-title',
+            'finance-0',
+            'finance-1',
+        ];
 
         if (getSystem() === 'photovoltaic') {
-            labels = labels.concat(['title-pv', 'certif-title', 'certif-body']);
+            labels = labels.concat([
+                'title-pv',
+                'certif-title',
+                'certif-body',
+                'finance-2',
+                'finance-3',
+            ]);
+
+            renderGain(apply, getOutputPv('selfConsumptionAmountYear10') + getOutputPv('CVAmountYear10'))
+                .map(b => boxes.push(b));
         }
-        else {
+        else { // thermal
             labels = labels.concat(['title-thermal']);
+
+            energyData = [
+                [withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'],
+                [withKWhY(getOutputThermal('annualConsumption')), 'solSolarConsumptionYear'],
+                [withPercent(getOutputThermal('autonomyRate') * 100), 'solSolarRateArea'],
+                [withTCO2Y(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment'],
+            ];
+
+            installData = [
+                ['2', 'solNumberOfPanels'],
+                [withM2(4.5, 1), 'surface'],
+                [withLiter(300), 'solWaterStorage'],
+                ['', '__empty__'],
+            ];
+            financeData = [
+                [withEuro(getOutputThermal('installationCost')), 'buyingPrice'],
+                [withEuro(getOutputThermal('grant')), 'bonus'],
+                [withEuro(getOutputThermal('gain')), 'gainInvoice25Y'],
+                [withYear(getOutputThermal('returnTime')), 'returnTime'],
+                ['', '__empty__'],
+            ];
+
+
+            renderGain(apply, getOutputThermal('grant') + getOutputThermal('gain'))
+                .map(b => boxes.push(b));
         }
 
         const separators = [10, 35, 187, 274];

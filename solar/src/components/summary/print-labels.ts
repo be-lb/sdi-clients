@@ -9,7 +9,7 @@ const data = [
     ['date', 'Rapport émit le ', ''],
     ['url', 'URL du batiment : ', ''],
     ['base-url', 'https://www.cartesolaire.brussels/client/solar/detail/', ''],
-
+    ['gain', 'Gain net sur 10 ans :', ''],
     ['contact-title', 'Contacter gratuitement nos conseillers', ''],
     ['contact-intro', 'La carte solaire ne prétend pas être exacte à 100%. Contactez un installateur pour affiner ces résultats, ou demandez des informations complémentaires à nos conseillers.', ''],
     ['contact-0', 'Pour les particuliers :', ''],

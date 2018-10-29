@@ -23,6 +23,7 @@ import { MessageRecord } from '../source';
  * calls to locale.getMessage(k) has k type checked.
  */
 export type MessageKey =
+    | '__empty__'
     | 'add'
     | 'addInterval'
     | 'addLayer'
@@ -537,6 +538,12 @@ export type MessageDB = {
  * http://userguide.icu-project.org/formatparse/messages
  */
 export const messages: MessageDB = {
+    __empty__: {
+        fr: '',
+        nl: '',
+        en: '',
+    },
+
     all: {
         fr: 'Tout',
         nl: 'Alles',

@@ -11,6 +11,7 @@ import {
     getAnimatedValueThermal,
 } from '../../queries/simulation';
 import { clearInputs } from '../../events/simulation';
+import { renderPDF } from './print';
 
 
 const vk =
@@ -85,6 +86,7 @@ const reset =
 const printBtn =
     () => DIV({
         className: 'solar-btn print',
+        onClick: () => renderPDF(),
     },
         DIV({ className: 'solar-inner-btn' },
             tr('solPrintStr3'),
