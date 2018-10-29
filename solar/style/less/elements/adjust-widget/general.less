@@ -1,0 +1,171 @@
+.adjust-item {
+    font-size: @medium-font;
+    border-top: 1px solid #000;
+    // padding-bottom: @margin * 2;
+
+    &-header {
+        font-size: @big-font;
+        margin-top: @margin;
+        display: flex;
+        flex-direction: column-reverse;
+
+        .adjust-item-title {
+            margin-right: @margin;
+            max-width: 100%;
+            display: inline;
+        }
+
+        .adjust-picto {
+            display: inline-block;
+            margin-bottom: @margin;
+
+            @media @medium {
+                margin: 0 !important;
+            }
+        }
+    }
+
+    &-widget {
+        margin: @margin * 2 0;
+    }
+
+    &-legend {
+        margin-bottom: @margin * 2;
+    }
+
+    &-note {
+        font-size: @small-font;
+        margin-top: @margin * 2;
+        line-height: 134%;
+    }
+
+    .output-value {
+        font-weight: 400;
+    }
+}
+
+
+@media @medium {
+    .adjust-item {
+
+        &-header {
+            display: inline-block;
+        }
+    }
+}
+
+@media @big {
+    .adjust-item-widget {
+        flex-wrap: nowrap;
+    }
+    .adjust-item-legend {
+        width : 75%;
+        line-height: 125%;
+    }
+}
+
+
+//  ICONS
+
+.adjust-picto-wrapper {
+    margin-bottom: 15px;
+}
+
+.adjust-picto {
+    width: 100%;
+    height: 1em;
+    margin-right: @margin / 2;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    @media @medium {
+        width: 2em;
+        background-position: bottom left;
+    }
+
+    &.picto-home-conso      {background-image: url("../../../asset/svg/home-conso.svg");}
+    &.picto-home-conso-water{background-image: url("../../../asset/svg/home-conso-water.svg");}
+    &.picto-reduce          {background-image: url("../../../asset/svg/reduce.svg");}
+    &.picto-day             {background-image: url("../../../asset/svg/day.svg");}
+    &.picto-battery         {background-image: url("../../../asset/svg/battery.svg");}
+    &.picto-heat            {background-image: url("../../../asset/svg/waterheating.svg");}
+    &.picto-panel           {background-image: url("../../../asset/svg/solarpanel.svg");}
+    &.picto-panel-poly      {background-image: url("../../../asset/svg/solarpanel-poly.svg");}
+    &.picto-panel-mono      {background-image: url("../../../asset/svg/solarpanel-mono.svg");}
+    &.picto-panel-mono_high {background-image: url("../../../asset/svg/solarpanel-monoHR.svg");}
+    &.picto-gain            {background-image: url("../../../asset/svg/gain.svg");}
+    &.picto-spend           {background-image: url("../../../asset/svg/spend.svg");}
+    &.picto-loan            {background-image: url("../../../asset/svg/loan.svg");}
+    &.picto-solar-energy    {background-image: url("../../../asset/svg/solarenergy.svg");}
+    &.picto-water-gas       {background-image: url("../../../asset/svg/water-gas.svg");}
+    &.picto-water-electric  {background-image: url("../../../asset/svg/water-elec.svg");}
+    &.picto-water-fuel      {background-image: url("../../../asset/svg/water-oil.svg");}
+}
+
+
+// ADJUST CONSUMPTION & AUTOPRODUCTION
+
+.consumption-select,
+.autoproduction-select,
+.area-select {
+    .rounded-border;
+    border-radius: @roundedW;
+    height: @roundedW;
+    width : 100%;
+    background-color: @yellow;
+    display: flex;
+    justify-content: space-between;
+
+    .select-item {
+        width: @roundedW;
+        height: calc(~"@{roundedW} - 2px");
+        border-radius: @roundedW;
+        background-position: center;
+        background-repeat: no-repeat;
+        border: 2px solid transparent;
+
+        &:hover,
+        &.active {
+            border: 2px solid #fff !important;
+            background-color: @green;
+        }
+    }
+
+    .adjust-item-widget {
+        align-items: center;
+    }
+}
+
+
+@media @big {
+    .consumption-select,
+    .autoproduction-select,
+    .area-select {
+        width : 75%;
+        flex-shrink: 0; 
+    }
+
+    .mobile-info {
+        display: none;
+    }
+}
+
+@media @medium {
+    .adjust-item {
+        &.installation .adjust-item-widget ,
+        &.area .adjust-item-legend,
+        &.consumption .input-box,
+        &.consumption .adjust-item-legend,
+        &.autoproduction .adjust-item-legend,
+        &.finance .adjust-item-widget,
+        &.loan .adjust-item-widget,
+        &-note
+        {
+            margin-left: 3ch;
+        }
+    }
+    .adjust-item-note {
+        max-width: 75%;
+    }
+}

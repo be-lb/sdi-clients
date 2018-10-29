@@ -1,0 +1,97 @@
+.main.loader {
+
+    H1 {
+        text-align: center;
+    }
+
+    .context {
+        // width: @contextW;
+        // margin: auto;
+        padding-top: @margin;
+        border: 0px;
+
+        .mobile-adress,
+        .wrapper-illu:nth-child(1),
+        .wrapper-illu:nth-child(2),
+        .back-to-map,
+        .roof-area {
+            display: none;
+        }
+    }
+
+    .loading-msg {
+        text-align: center;
+        font-size: @big-font;
+        font-weight: 700;
+        color: @green;
+
+        position: absolute;
+        top: 0;
+        height: calc(~"@{illuW-mob} + @{margin} * 2 + 2em");
+        padding: 0 @margin * 3;
+        display: flex;
+        align-items: center;
+
+        text-shadow: #fff 0px 0px 2px, 
+                     #fff 0px 0px 2px, 
+                     #fff 0px 0px 2px,
+                     #fff 0px 0px 2px;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+
+
+@media @medium {
+    .main.loader {
+        flex: 1;
+        width: calc(~"100vw - @{margin-mob} * 4");
+        margin-left: @margin-mob * 2;
+        border-top: 0px;
+        border-bottom: 1px solid #000;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .loader-part {
+            height: auto;
+        }
+
+        .context {
+            margin: auto;
+            padding: @margin*2 0;
+
+
+            .wrapper-illu:nth-child(1),
+            .wrapper-illu:nth-child(2),
+            .back-to-map,
+            .roof-area {
+                display: block;
+            }
+
+            .context-illus-wrapper div:nth-child(2) {
+                margin: 0 @margin;
+            }
+        }
+
+        .loading-msg {
+            position: relative;
+            top: initial;
+            height: auto;
+            width: auto;
+            display: block;
+        }
+
+    }
+}
+
+@media @sdi900 {
+
+    .main.loader {
+        width: calc(~"100vw - @{margin} * 2");
+        margin-left: @margin;
+        border-top: 1px solid #000;
+    }
+}

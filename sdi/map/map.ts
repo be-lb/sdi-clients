@@ -35,11 +35,12 @@ import {
     PrintOptions,
     SelectOptions,
     TrackerOptions,
-} from './index';
+    SingleClickOptions,
+} from '.';
 import { StyleFn, lineStyle, pointStyle, polygonStyle } from './style';
 import { scaleLine, zoomControl, rotateControl, fullscreenControl, loadingMon } from './controls';
 import { select, highlight } from './actions';
-import { measure, track, extract, mark, print, position } from './tools';
+import { measure, track, extract, mark, print, position, singleclick } from './tools';
 import { credit } from './credit';
 // import { setTimeout } from 'timers';
 import { fromRecord } from '../locale';
@@ -184,8 +185,15 @@ const getLayerData =
 
 export const removeLayer =
     (lid: string) => {
-        const l = mainLayerGroup.getLayers().get(lid);
-        mainLayerGroup.getLayers().remove(l);
+        logger(`===== removeLayer ${lid} ====`);
+        const layersArray = mainLayerGroup.getLayers().getArray();
+        const toRemove = layersArray.find(l => l.get('id') === lid);
+        if (toRemove !== undefined) {
+            mainLayerGroup.getLayers().remove(toRemove);
+        }
+        else {
+            logger(`layer(${lid}) not in collection`);
+        }
     };
 
 export const removeLayerAll =
@@ -596,6 +604,15 @@ export const create =
                 updatables.push({ name: 'Position', fn: () => update(g()) });
             };
 
+        const clickable =
+            (o: SingleClickOptions, g: InteractionGetter) => {
+                const { init, update } = singleclick(o);
+                init(map);
+                updatables.push({ name: 'SingleClick', fn: () => update(g()) });
+            };
+
+
+
 
         return {
             setTarget,
@@ -608,6 +625,7 @@ export const create =
             highlightable,
             printable,
             positionable,
+            clickable,
         };
     };
 

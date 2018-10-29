@@ -35,7 +35,7 @@ export type AppLayout = 'Login' | 'Logout';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'login-inner' },
         header('login')(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -65,7 +65,7 @@ const effects =
 
 
 
-const app = loop(renderMain, effects);
+const app = loop('login-app', renderMain, effects);
 export default app;
 
 logger('loaded');

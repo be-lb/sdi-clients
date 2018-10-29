@@ -14,7 +14,7 @@ import {
     TrackerOptions,
     Interaction,
     fromInteraction,
-} from '../index';
+} from '..';
 
 
 const trackerStyles =

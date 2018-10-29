@@ -14,7 +14,7 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { PlotQuerySet, DispatchTimeserie, PlotDataLoader, PlotEventSet } from './index';
+import { PlotQuerySet, DispatchTimeserie, PlotDataLoader, PlotEventSet } from '.';
 
 
 

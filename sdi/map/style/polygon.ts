@@ -21,7 +21,7 @@ import {
 } from 'openlayers';
 
 import { PolygonStyleConfigSimple, PolygonStyleConfigContinuous, PolygonStyleConfigDiscrete, PolygonStyleConfig, PatternAngle } from '../../source';
-import { StyleFn } from './index';
+import { StyleFn } from '.';
 import { makePattern } from './pattern';
 
 

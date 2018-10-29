@@ -1,6 +1,8 @@
 import { IMapBaseLayer, Feature, Properties, FeatureCollection } from '../source';
-import { fromRecord } from '../locale';
+import tr, { fromRecord, formatNumber } from '../locale';
+import { MessageKey } from '../locale/message-db';
 import { Setoid } from 'fp-ts/lib/Setoid';
+
 
 export interface IMapBaseLayerTranslated {
     name: string;
@@ -169,3 +171,28 @@ export const filterNotNull =
         }
         return r;
     };
+
+
+const withUnit =
+    (k: MessageKey) =>
+        (value: number, tf = 0) => `${formatNumber(parseFloat(value.toFixed(tf)))} ${tr(k, { value })}`;
+
+export const withEuro = withUnit('unitEuro');
+export const withEuroExclVAT = withUnit('unitEuroExclVAT');
+export const withEuroInclVAT = withUnit('unitEuroInclVAT');
+export const withEuroY = withUnit('unitEuroY');
+export const withEuroY10 = withUnit('unitEuroY10');
+export const withEuroY25 = withUnit('unitEuroY25');
+export const withKWc = withUnit('unitKWc');
+export const withTonsCO2 = withUnit('unitTonsCO2');
+export const withTCO2 = withUnit('unitTCO2');
+export const withTCO2Y = withUnit('unitTCO2Y');
+export const withTCO2Y10 = withUnit('unitTCO2Y10');
+export const withTCO2Y25 = withUnit('unitTCO2Y25');
+export const withYear = withUnit('unitYear');
+export const withM2 = withUnit('unitM2');
+export const withPercent = withUnit('unitPercent');
+export const withKWh = withUnit('unitKWh');
+export const withKWhY = withUnit('unitKWhY');
+export const withLiter = withUnit('unitLiter');
+export const withLiterDay = withUnit('unitLiterDay');

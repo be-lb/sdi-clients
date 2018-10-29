@@ -11,7 +11,7 @@ import {
     PrintOptions,
     fromInteraction,
     Interaction,
-} from '../index';
+} from '..';
 import { scopeOption } from '../../lib/scope';
 
 const logger = debug('sdi:map/print');

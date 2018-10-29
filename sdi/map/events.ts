@@ -1,7 +1,7 @@
 import { Coordinate } from 'openlayers';
 
 import { Setter } from '../shape';
-import { TrackerCoordinate, IViewEvent, IMapViewData, IMapScale, Interaction, IGeoTracker, InteractionTrack, IGeoMeasure, InteractionMeasure, defaultInteraction, fromInteraction } from './index';
+import { TrackerCoordinate, IViewEvent, IMapViewData, IMapScale, Interaction, IGeoTracker, InteractionTrack, IGeoMeasure, InteractionMeasure, defaultInteraction, fromInteraction } from '.';
 
 // 'port/map/measure': IGeoMeasure;
 const measureEvent =

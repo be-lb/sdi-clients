@@ -1,0 +1,104 @@
+//ACTIONS
+
+.actions {
+    border-top: 1px solid #000;
+    padding: @margin * 2 0;
+    margin-top: @margin;
+    display: flex;
+    flex-direction: column;
+
+    a {
+        text-decoration: none;
+        &:hover {color: #000;}
+        &.action-link {
+            flex: 1;
+        }
+    }
+
+    h1 {
+        font-size: @medium-font;
+    }
+
+    .action {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: @margin * 2;
+        cursor: default;  
+    }
+}
+
+.action-picto {
+    position: relative;
+    width: @roundedW;
+    height: @roundedW;
+    margin-bottom: @margin;
+    color: #000;
+
+    &:after {
+        .absolute(0,0,0,0);
+        content: ' ';
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        font-size: @roundedW / 2;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}  
+
+.action-contact .action-picto:after {background-image: url(../../asset/svg/installateur.svg);}
+.action-change .action-picto:after  {background-image: url(../../asset/svg/info-nrj2.svg);}
+.action-info .action-picto:after    {background-image: url(../../asset/svg/info-methodo.svg);}
+.action-print .action-picto:after   {background-image: url(../../asset/svg/pdf.svg);}
+
+.action-contact:hover .action-picto:after {background-image: url(../../asset/svg/installateurG.svg);}
+.action-change:hover .action-picto:after  {background-image: url(../../asset/svg/info-nrj2G.svg);}
+.action-info:hover .action-picto:after    {background-image: url(../../asset/svg/info-methodoG.svg);}
+.action-print:hover .action-picto:after   {background-image: url(../../asset/svg/pdfG.svg);}
+
+
+
+@media @medium {
+    .actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        > * {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: @big-font;
+        }
+    }
+}
+
+
+@media @big {
+    .action-title {
+        width: @illuW;
+        text-align: center;
+    }
+
+    .actions {
+
+        .action {
+            width: calc(~"(@{contextW} - 2 * @{margin}) / 3 - @{margin} + 1px"); //we use an illu width based calc here
+            margin: 0;
+            margin-right: @margin;
+
+
+            &::before {
+                width: @roundedW;
+                height: @roundedW;
+                border-radius: @roundedW;
+                font-size: @roundedW / 2;
+            }
+        }
+    }
+}

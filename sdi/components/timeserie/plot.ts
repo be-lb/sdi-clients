@@ -38,7 +38,7 @@ import {
     tickAlignment,
     PlotQuerySet,
     PlotEventSet,
-} from './index';
+} from '.';
 
 const logger = debug('sdi:components/timeserie');
 
@@ -237,7 +237,7 @@ export const plotter =
 
                         const valueAt =
                             (y: number) => {
-                                const inv = graphsize.height - y ;
+                                const inv = graphsize.height - y;
                                 const r = inv * 100 / graphsize.height;
                                 return scale.min + (r * spread / 100);
                             };
@@ -245,7 +245,7 @@ export const plotter =
                         const pixelAt =
                             (y: number) => {
                                 const ny = y - scale.min;
-                                const inv = spread - ny ;
+                                const inv = spread - ny;
                                 const r = inv * 100 / spread;
                                 return r * graphsize.height / 100;
                             };

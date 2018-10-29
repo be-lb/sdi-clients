@@ -14,7 +14,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { MAX_DURATION, ButtonGetter, ButtonQuerySet } from './index';
+import { MAX_DURATION, ButtonGetter, ButtonQuerySet } from '.';
 
 
 export const buttonQueries =

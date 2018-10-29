@@ -30,7 +30,7 @@ import {
     Interaction,
     fromInteraction,
     SelectOptions,
-} from '../index';
+} from '..';
 
 
 

@@ -20,7 +20,7 @@ import { MessageKey } from '../../locale/message-db';
 import tr from '../../locale';
 import { buttonQueries } from './queries';
 import { buttonEvents } from './events';
-import { ButtonQuerySet, ButtonEventSet, ButtonType, ButtonGetter, ButtonSetter } from './index';
+import { ButtonQuerySet, ButtonEventSet, ButtonType, ButtonGetter, ButtonSetter } from '.';
 
 
 

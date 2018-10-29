@@ -31,7 +31,7 @@ export type AppLayout = 'Dashboard';
 
 
 const wrappedMain = (name: string, ...elements: React.DOMElement<{}, Element>[]) => (
-    DIV({},
+    DIV({ className: 'dashboard-inner' },
         header('dashboard')(() => DIV())(),
         DIV({ className: `main ${name}` }, ...elements),
         footer())
@@ -58,7 +58,7 @@ const effects =
 
 
 
-const app = loop(renderMain, effects);
+const app = loop('dashboard-app', renderMain, effects);
 export default app;
 
 logger('loaded');

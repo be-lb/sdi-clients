@@ -2,7 +2,7 @@
 import { Sphere, proj } from 'openlayers';
 
 import { Getter } from '../shape';
-import { Interaction, fromInteraction, IGeoMeasure } from './index';
+import { Interaction, fromInteraction, IGeoMeasure } from '.';
 import { formatNumber } from '../locale';
 
 

@@ -1,0 +1,165 @@
+// ILLUSTRATIONS GENERALITIES
+// we start with common style, (mobile, portrait, landscape all type of screens)
+// we then deploy specific style per specific case
+
+
+
+.wrapper-illu {
+    width: 100%;
+
+    .illu {
+        position: relative;
+        width: @illuW-mob;
+        height: @illuW-mob;
+        margin: auto;
+        margin-bottom: @margin * 2;
+
+        .circle-wrapper {
+            .rounded-border;
+            position: relative;
+            border-radius: @illuW-mob;
+            width: @illuW-mob;
+            height: @illuW-mob;
+            overflow: hidden;
+
+            > div {
+                width : 100%;
+                height: 100%;
+            }
+
+            img {width: 100%;}
+        }
+
+        // quick fix for Safari
+        .ol-viewport {
+            position: absolute !important;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            border-radius: @illuW-mob;
+        }
+    }
+}
+
+
+
+//maks to prevent scroll and zoom from Open Layer illu
+.illu.plan:after {
+    content: ' ';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+@media @medium {
+    .wrapper-illu {width: initial;}
+    .context-illus-wrapper,
+    .context-infos-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .wrapper-illu .illu {
+        margin: initial;
+        width: @illuW-medium;
+        height: @illuW-medium;
+
+        .circle-wrapper {
+            border-radius: @illuW-medium;
+            width: @illuW-medium;
+            height: @illuW-medium;
+        }
+    }
+}
+
+@media @big {
+    .wrapper-illu .illu {
+        width: @illuW;
+        height: @illuW;
+
+        .circle-wrapper {
+            border-radius: @illuW;
+            width: @illuW;
+            height: @illuW;
+        }
+    }
+}
+
+
+.illu.plan .map-wrapper {
+    .control-box {
+        display: none;
+    }
+}
+
+
+
+
+
+
+
+
+// PINS ON TOP OF MAP ILLUSTRATIONS
+
+.map-pin.top {
+    height: calc(~"50% + .75rem");
+    width: 100%;
+    position: absolute;
+    bottom: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pin-head {
+    background: #000;
+    font-size: 100%;
+    font-weight: 700;
+    color: #fff;
+    padding: .15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.numnum-1 .pin-head{
+    border-radius: 2ch;
+    width: 2ch;
+    height: 2ch;
+
+}
+.numnum-2 .pin-head{
+    border-radius: 3ch;
+    width: 3ch;
+    height: 3ch;
+}
+.numnum-3 .pin-head{
+    border-radius: 4ch;
+    width: 4ch;
+    height: 4ch;
+}
+.numnum-4 .pin-head{
+    border-radius: 5ch;
+    width: 5ch;
+    height: 5ch;
+}
+
+.pin-end {
+    width: 3px;
+    height: 3px;
+    background: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+.pin-body {
+    height: calc(~"100% - 1.3rem - 4px/2");
+    width : 1px;
+    background-color: #000;
+}
+
+
+
+

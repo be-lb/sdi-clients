@@ -224,3 +224,13 @@ export type LinkedCoordinateReferenceSystem = TypeOf<typeof LinkedCoordinateRefe
 
 export type Properties = TypeOf<typeof PropertiesIO>;
 
+export const getFeatureProp =
+    <T>(f: Feature, k: string, dflt: T): T => {
+        const props = f.properties;
+        if (props && k in props) {
+            if (typeof dflt === typeof props[k]) {
+                return props[k] as T;
+            }
+        }
+        return dflt;
+    };

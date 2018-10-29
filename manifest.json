@@ -49,6 +49,14 @@
             }
         },
         {
+            "route": "solar",
+            "root": "solar/dist",
+            "name": {
+                "fr": "Carte solaire",
+                "nl": "Zonnekaart"
+            }
+        },
+        {
             "route": "embed",
             "root": "embed/dist"
         }

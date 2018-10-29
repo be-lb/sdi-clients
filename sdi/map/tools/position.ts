@@ -7,7 +7,7 @@ import {
     PositionOptions,
     Interaction,
     fromInteraction,
-} from '../index';
+} from '..';
 
 
 export const position =

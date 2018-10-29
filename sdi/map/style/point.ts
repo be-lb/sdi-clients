@@ -16,7 +16,7 @@
 
 import { PointStyleConfigSimple, PointStyleConfigDiscrete, PointStyleConfig, PointStyleConfigContinuous, MessageRecord } from '../../source';
 import { style, Feature } from 'openlayers';
-import { StyleFn, labelFont, markerFont } from './index';
+import { StyleFn, labelFont, markerFont } from '.';
 import { fromRecord } from '../../locale';
 
 // const backgroundFill = new style.Fill({

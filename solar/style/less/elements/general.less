@@ -1,0 +1,132 @@
+@big-font: @gui-font-size * 1.75;
+@medium-font: @gui-font-size * 1.25;
+@small-font: @gui-font-size * 0.9;
+
+@contextW : 68vw;
+@sidebarW : calc(~"100vw - @{contextW} - @{margin} * 3");
+@sidebarH : calc(~"100vh - @{headerH} - @{margin}");
+@illuW : calc(~"(@{contextW} - 2 * @{margin}) / 3");
+@illuW-medium : calc(~"100vw / 3 - 2 * @{margin}");
+@illuW-mob : calc(~"85vw - 4 * @{margin-mob}");
+@illuInfosW : calc(~"((@{contextW} - 2 * @{margin}) / 3) - @{margin} * 2");
+@illuInfosW-medium : calc(~"((100vw - 2 * @{margin}) / 3) - @{margin} * 3");
+
+
+@roundedW : 4rem;
+@toggleH : 2rem;
+
+.rounded-border {
+    border: 1px solid #333;
+}
+
+// solar media queries
+
+@big: ~"screen and (min-width: 1025px)";
+@sdi900: ~"screen and (min-width: 900px)";
+@medium: ~"screen and (min-width: 600px)";
+
+
+
+
+
+// OVERRIDE GEODATA
+
+.solar-app .navigate.dashboard {
+    display: none;
+}
+
+
+.solar-inner {
+    .absolute(0,0,0,0);
+    display: flex;
+    flex-direction: column;
+    .main {
+        flex: 1;
+    }
+    .header {
+        position: relative;
+        .app-title, 
+        .header-toolbar, 
+        .app-listwrapper {
+            max-width: 66%;
+        }
+    }
+    
+    .footer {
+        position: relative;
+        height: @margin;
+        bottom: 0;
+    }
+}
+
+
+
+
+// STYLES
+
+@media @medium {
+    body {
+        .absolute(0,0,0,0);
+        overflow-y: auto;
+    }
+}
+
+.locate,
+.preview,
+.detail {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: @big-font;
+    font-weight: 100; // override GEODATA default value
+}
+
+
+
+
+
+
+// OTHER
+
+.content {
+    border-top: 1px solid #000;
+    padding-top: @margin;
+}
+
+.sidebar  {
+    border-top: 1px solid #000;
+    padding: @margin;
+    background-color: @extra-light-grey;
+
+    & *{
+        .word-wrap;
+    }
+}
+
+
+
+// FOOTER CONTENT SOLAR
+
+.content .footer-infos {
+    padding : @margin * 2 0; 
+    border-top: 1px solid #000;
+    font-size: @small-font;
+
+    div { 
+        margin-bottom: @margin / 2;
+    }
+
+    .footer-link-title {
+        font-weight: 500;
+    }
+
+    a:hover {color: @green;}
+
+    .reward {
+        font-size: @small-font;
+        &.urbis {
+            margin-top: @margin;
+        }
+    }
+}

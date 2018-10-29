@@ -7,8 +7,8 @@ import { INPUT } from './elements';
 
 const logger = debug('sdi:components/input');
 
-type Getter<T> = () => T;
-type Setter<T> = (a: T) => void;
+export type Getter<T> = () => T;
+export type Setter<T> = (a: T) => void;
 
 type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
 type AllAttributes = InputAttributes & React.Attributes;
@@ -82,7 +82,7 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
             () => ({
                 value: this.state.value,
                 type: 'number',
-                onChange: e => update(e.currentTarget.valueAsNumber), 
+                onChange: e => update(e.currentTarget.valueAsNumber),
                 ...props.attrs,
             });
     }

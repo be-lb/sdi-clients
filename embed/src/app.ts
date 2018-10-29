@@ -50,7 +50,7 @@ const effects =
         initMap();
     };
 
-const app = loop(render, effects);
+const app = loop('embed-app', render, effects);
 export default app;
 
 logger('loaded');

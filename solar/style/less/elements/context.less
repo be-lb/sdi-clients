@@ -1,0 +1,33 @@
+
+
+.context {
+    padding-top: @margin;
+    border-top: 1px solid #000;
+}
+
+
+@media @medium {
+    .context {
+        padding-top: 2 * @margin;
+    }
+}
+
+@media @sdi-small {
+    .context {
+        border-top: 0px;
+    }
+}
+
+
+
+
+
+.mobile-adress {
+    margin-bottom: @margin * 2;
+}
+
+@media @big {
+    .mobile-adress {
+        display: none;
+    }
+}

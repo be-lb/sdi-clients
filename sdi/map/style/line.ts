@@ -17,7 +17,7 @@
 
 import { LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfig, LineStyleConfigContinuous } from '../../source';
 import { style, Feature } from 'openlayers';
-import { StyleFn } from './index';
+import { StyleFn } from '.';
 
 const lineStyleSimple = (config: LineStyleConfigSimple) => {
 

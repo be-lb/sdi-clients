@@ -1,16 +1,16 @@
 //POSITIONS
 
-@media @portrait {
+@media @sdi-small {
     .header,
     .main,
     .footer {
         position: relative;
         width: calc(~"100vw - 4 * @{margin-mob}");
         height: auto;
-        top: initial;
-        right: initial;
-        bottom: initial;
-        left: initial;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
         margin: 0 2 * @margin-mob;
         padding: 0;
     }
@@ -20,10 +20,10 @@
         .map-legend,
         .feature-view.config {
             position: relative;
-            top: initial;
-            right: initial;
-            bottom: initial;
-            left: initial;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
             width: calc(~"100vw - 4 * @{margin-mob}");
             height: auto;
             margin: 0;
@@ -40,10 +40,10 @@
         position: relative;
         height: 200vw !important;
         max-height: calc(~"100vh - 4 * @{margin-mob}") !important; //we get map + table on fullscreen
-        top: initial;
-        right: initial;
-        bottom: initial;
-        left: initial;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
 
         .map-wrapper {
             height: auto;
@@ -60,7 +60,7 @@
 
 // HEADER
 
-@media @portrait {
+@media @sdi-small {
     body[lang="fr"] .be-name {
         width: calc(~"100vw - 4 * @{margin-mob}");
         max-width: 418px;
@@ -73,6 +73,7 @@
 
     .header {
         display: flex;
+        // flex-direction: column;
         flex-wrap: wrap;
         justify-content: space-between;
         margin-bottom: @margin-mob;
@@ -92,15 +93,17 @@
         }
 
         .app-title,
-        .app-listwrapper,
-        .header-toolbar {
+        .header-toolbar,
+        .app-listwrapper {
             position: relative;
             width : auto;
-            height: 20px;
-            top: initial;
-            right: initial;
-            bottom: initial;
-            left: initial;
+            max-width: 33%;
+            min-height: 20px;
+            height: auto;
+            top: 0px;
+            right: 0px;
+            bottom: 0px;
+            left: 0px;
         }
 
         .app-title {
@@ -124,7 +127,7 @@
 
 // MAP
 
-@media @portrait {
+@media @sdi-small {
     .main {
         .map-wrapper {
             margin-bottom: @margin-mob *2;
@@ -159,7 +162,7 @@
 
 // TABLE
 
-@media @portrait {
+@media @sdi-small {
     div.infinite-table {
         .table-toolbar {
             flex-direction: column;

@@ -1,0 +1,156 @@
+/*
+*  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+*
+*  This program is free software: you can redistribute it and/or modify
+*  it under the terms of the GNU General Public License as published by
+*  the Free Software Foundation, version 3 of the License.
+*
+*  This program is distributed in the hope that it will be useful,
+*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*  GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License
+*  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+import { MessageRecordLang } from '../source';
+
+
+const restServiceURL = 'https://geoservices.irisnet.be/localization/Rest/Localize/getaddresses?';
+const restServiceReverseURL = 'https://geoservices.irisnet.be/localization/Rest/Localize/getaddressfromxy?';
+
+export interface IUgWsAddress {
+    street: {
+        name: string;
+        postCode: string;
+        municipality: string;
+        id: string;
+    };
+    number: string;
+}
+
+export interface IUgWsPoint {
+    x: number;
+    y: number;
+}
+
+export interface IUgWsExtent {
+    xmin: number;
+    ymin: number;
+    xmax: number;
+    ymax: number;
+}
+
+export interface IUgWsQualificationText {
+    policeNumber: string;
+    postCode: string;
+    municipality: string;
+    streetName: string;
+}
+
+export interface IUgWsQualificationCode {
+    policeNumber: string;
+    postCode: string;
+    municipality: string;
+    streetName: string;
+}
+
+export interface IUgWsResult {
+    language: MessageRecordLang;
+    address: IUgWsAddress;
+    adNc: string;
+    score: number;
+    point: IUgWsPoint;
+    extent: IUgWsExtent;
+    qualificationText: IUgWsQualificationText;
+    qualificationCode: IUgWsQualificationCode;
+}
+
+export interface IUgWsResponse {
+    result: IUgWsResult[];
+    error: boolean;
+    status: string;
+    version: string;
+}
+export interface IUgWsResponseSingle {
+    result: IUgWsResult;
+    error: boolean;
+    status: string;
+    version: string;
+}
+
+// // { "language": "fr", "point": { "x": "149785", "y": "170561" }, "spatialReference": "31370" }
+
+// export interface IUgWsResponse {
+//     language: MessageRecordLang;
+//     point: IUgWsPoint;
+// }
+
+const queryString = (o: { [k: string]: any }) => {
+    return Object.keys(o).reduce((a, k) => {
+        return `${a}&${k}=${o[k].toString()}`;
+    }, '');
+};
+
+
+export const queryService = (address: string, language: MessageRecordLang): Promise<IUgWsResponse> => {
+    const qs = queryString({
+        spatialReference: '31370',
+        language,
+        address,
+    });
+
+    return (
+        fetch(`${restServiceURL}${qs}`)
+            .then(response => response.text())
+            .then((text) => {
+                try {
+                    return JSON.parse(text);
+                }
+                catch (e) {
+                    return {
+                        result: [],
+                        error: true,
+                        status: 'FailedToParse',
+                        version: '2.0',
+                    };
+                }
+            })
+            .then((data: IUgWsResponse) => data)
+    );
+};
+
+// aliasing
+export const queryGeocoder = queryService;
+
+export const queryReverseGeocoder =
+    (x: number, y: number, language: MessageRecordLang): Promise<IUgWsResponseSingle> => {
+        // works => json={"language":"fr","point":{"x":"149785","y":"170561"},"SRS_In":"31370"}
+        const qs = queryString({
+            json: JSON.stringify({
+                language,
+                SRS_In: '31370',
+                point: { x, y },
+            }),
+        });
+
+        return (
+            fetch(`${restServiceReverseURL}${qs}`)
+                .then(response => response.text())
+                .then((text) => {
+                    try {
+                        return JSON.parse(text);
+                    }
+                    catch (e) {
+                        return {
+                            result: [],
+                            error: true,
+                            status: 'FailedToParse',
+                            version: '2.0',
+                        };
+                    }
+                })
+                .then((data: IUgWsResponseSingle) => data)
+        );
+    };

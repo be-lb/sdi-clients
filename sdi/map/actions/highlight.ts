@@ -23,7 +23,7 @@ import {
 } from 'openlayers';
 
 import { fontSizeExtractRegexp, fontSizeReplaceRegexp } from '../style';
-import { FeaturePathGetter, FeaturePath } from '../index';
+import { FeaturePathGetter, FeaturePath } from '..';
 import { fromNullable, none } from 'fp-ts/lib/Option';
 import { scopeOption } from '../../lib/scope';
 

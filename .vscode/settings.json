@@ -1,0 +1,19 @@
+{
+    "tslint.autoFixOnSave": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/dist/**": true
+    },
+    "files.watcherExclude": {
+        "**/.git/**": true,
+        "**/lib/**": true,
+        "**/dist/**": true
+    },
+    "search.exclude": {
+        "**/.git/**": true,
+        "**/node_modules": true,
+        "**/dist/**": true,
+        "**/*.d.ts": true
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
+}

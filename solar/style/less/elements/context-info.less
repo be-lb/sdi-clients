@@ -1,0 +1,90 @@
+.context-infos-wrapper {
+    > div {
+        width: 100%;
+        font-size: @small-font;
+        text-align: center;
+        margin-bottom: @margin;
+    }
+    .solar-btn {
+        width: 100%;
+        margin: 15px 0;
+    }
+}
+
+
+@media @medium {
+    .context-infos-wrapper {
+        > div {
+            width: @illuW-medium;
+            margin-bottom: 0;
+            margin-top: @margin;
+        }
+        .solar-btn {
+            // width: calc(~"@{illuW} / 1.5");
+            width: @illuInfosW-medium;
+            // margin: @margin calc(~"@{illuW} / 6");
+            margin: @margin;
+        }
+    }
+}
+
+@media @big {
+    .context-infos-wrapper > div {
+        width: @illuW;
+
+        &.solar-btn {
+            width: @illuInfosW;
+            margin: @margin;
+        }
+    }
+}
+
+
+
+.roof-area-value {
+    font-weight: 500;
+}
+
+
+
+// BARCHART
+
+.barchart {
+    font-size: @small-font;
+    width: 100%;
+
+    .bar {
+        display: flex;
+        align-items: baseline;
+        margin-bottom: @margin / 4;
+    }
+
+    .bar-color-wrapper {
+        width: 29%;
+        text-align: right;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .bar-value {
+        flex-shrink: 0;
+        width: 5ch;
+        margin: 0 1ch;
+        text-align: right;
+        font-weight: 500;
+    }
+
+    .bar-label {
+        text-align: left;
+    }
+
+    .bar-color {
+        height: 10px;
+        &.great     {background-color: @green;}
+        &.good      {background-color: @yellow;}
+        &.unusable  {background-color: @blue;}
+    }
+
+}

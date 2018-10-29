@@ -1,0 +1,73 @@
+// ADJUST AUTOPRODUCTION
+
+.autoproduction-select .select-item {
+    background-size: @roundedW / 5 * 3;
+
+    &.first {background-image: url("../../../asset/svg/reduce.svg");}
+    &.second{background-image: url("../../../asset/svg/day.svg");}
+    &.third {background-image: url("../../../asset/svg/waterheating.svg");}
+    &.fourth{background-image: url("../../../asset/svg/battery.svg");}
+}
+
+
+.autoproduction {
+
+    .autoproduction-select {
+        position: relative;
+
+        .select-item {
+            position: absolute;
+            background-position: calc(~"100% - @{margin}");
+
+            &.zero      {width: @roundedW;}
+            &.first     {width: calc(~"25% + @{roundedW} / 4 * 3");}
+            &.second    {width: calc(~"50% + @{roundedW} / 2");}
+            &.third     {width: calc(~"75% + @{roundedW} / 4");}
+            &.fourth    {width: 100%;}
+
+            &.zero      {z-index: 5;}
+            &.first     {z-index: 4;}
+            &.second    {z-index: 3;}
+            &.third     {z-index: 2;}
+            &.fourth    {z-index: 1;}
+
+            &.zero.under-active {
+                background-color: @yellow;
+                border: 2px solid #fff;
+                &:hover {background-color: @green;}
+            }
+        }
+    }
+
+    .adjust-item-legend div {
+        // display: none;
+        display: flex;
+        align-items: center;
+
+        &:before {
+            content: ' ';
+            width: 1.5em;
+            height: 1.5em;
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: contain;
+            margin-right: 1ch;
+        }
+
+        &.reduce:before        {background-image: url("../../../asset/svg/reduce.svg");}
+        &.day:before           {background-image: url("../../../asset/svg/day.svg");}
+        &.waterheating:before  {background-image: url("../../../asset/svg/waterheating.svg");}
+        &.battery:before       {background-image: url("../../../asset/svg/battery.svg");}
+
+        &.active:after {
+            content: ' ';
+            width: 2ch;
+            height: 2ch;
+            margin-left: 0.5ch;
+            margin-top: -0.5ch;
+            background-image: url("../../../asset/svg/check.svg");
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}

@@ -23,8 +23,8 @@ import {
     TableDataRow,
     TableQuerySet,
     TableEventSet,
-} from './index';
-import { DIV, INPUT, SPAN } from './../elements';
+} from '.';
+import { DIV, INPUT, SPAN } from '../elements';
 import { rect } from '../../app';
 import tr from '../../locale';
 import buttonFactory, { ButtonComponent } from '../button';
@@ -264,7 +264,7 @@ export const baseTable =
             events.setViewHeight(r.height);
             events.setTableWindowSize(
                 Math.ceil(r.height / queries.rowHeight()));
-        })
+        });
 
         const render =
             (config: Config) => {
@@ -320,8 +320,8 @@ export const baseTable =
                             DIV({ className: 'loading' },
                                 SPAN({ className: 'loader-spinner' }),
                                 SPAN({ className: 'loading-label' },
-                                    tr('loadingData')))
-                        )
+                                    tr('loadingData'))),
+                        );
                     }
 
                     return (
