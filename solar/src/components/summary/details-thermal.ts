@@ -38,7 +38,7 @@ const sumEnergy =
             vk(withKWhY(getAnimatedValueThermal('annualProduction')), 'solSolarProdYear'),
             vk(withKWhY(getAnimatedValueThermal('annualConsumption')), 'solSolarConsumptionYear'),
             vk(withPercent(getAnimatedValueThermal('autonomyRate') * 100), 'solSolarRateArea'),
-            vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment'),
+            vk(withTCO2Y(getAnimatedValueThermal('savedCO2emissions') / 1000 / 10, 1), 'gainEnvironment'),
         );
 
 const sumInstallation =
