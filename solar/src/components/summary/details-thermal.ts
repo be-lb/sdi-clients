@@ -58,7 +58,7 @@ const sumFinance =
             H2({}, tr('solMyFinance')),
             vk(withEuro(getAnimatedValueThermal('installationCost')), 'buyingPrice'),
             vk(withEuro(getAnimatedValueThermal('grant')), 'bonus'),
-            vk(withEuro(getAnimatedValueThermal('gain')), 'gainEnergyInvoice10Y'),
+            vk(withEuro(getAnimatedValueThermal('thermalGain25')), 'gainEnergyInvoice25Y'),
             vk(withYear(getAnimatedValueThermal('returnTime')), 'returnTime'),
         );
 

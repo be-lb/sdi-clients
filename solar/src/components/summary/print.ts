@@ -534,13 +534,13 @@ export const renderPDF =
             financeData = [
                 [withEuro(getOutputThermal('installationCost')), 'buyingPrice'],
                 [withEuro(getOutputThermal('grant')), 'bonus'],
-                [withEuro(getOutputThermal('gain')), 'gainEnergyInvoice10Y'],
+                [withEuro(getOutputThermal('thermalGain25')), 'gainEnergyInvoice25Y'],
                 [withYear(getOutputThermal('returnTime')), 'returnTime'],
                 ['', '__empty__'],
             ];
 
 
-            renderGain(apply, getOutputThermal('grant') + getOutputThermal('gain') - getOutputThermal('installationCost'))
+            renderGain(apply, getOutputThermal('grant') + getOutputThermal('thermalGain10'))
                 .map(b => boxes.push(b));
         }
 
