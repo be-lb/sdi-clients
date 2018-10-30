@@ -432,12 +432,21 @@ const renderURL =
             ],
         }));
 
-const renderGain =
+const renderGainPV =
     (f: ApplyFn<Box>, value: number) =>
         f('gain', ({ rect, fontSize, color }) => ({
             ...rect,
             children: [
-                makeText(`${getLabel('gain')} ${withEuro(value)}`, fontSize, color),
+                makeText(`${getLabel('gainPV')} ${withEuro(value)}`, fontSize, color),
+            ],
+        }));
+
+const renderGainThermal =
+    (f: ApplyFn<Box>, value: number) =>
+        f('gain', ({ rect, fontSize, color }) => ({
+            ...rect,
+            children: [
+                makeText(`${getLabel('gainThermal')} ${withEuro(value)}`, fontSize, color),
             ],
         }));
 
@@ -512,7 +521,7 @@ export const renderPDF =
                 'finance-3',
             ]);
 
-            renderGain(apply, getOutputPv('totalGain10Y'))
+            renderGainPV(apply, getOutputPv('totalGain10Y'))
                 .map(b => boxes.push(b));
         }
         else { // thermal
@@ -540,7 +549,7 @@ export const renderPDF =
             ];
 
 
-            renderGain(apply, getOutputThermal('grant') + getOutputThermal('thermalGain10'))
+            renderGainThermal(apply, getOutputThermal('grant') + getOutputThermal('thermalGain10'))
                 .map(b => boxes.push(b));
         }
 
