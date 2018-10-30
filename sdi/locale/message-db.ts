@@ -2304,8 +2304,8 @@ export const messages: MessageDB = {
     },
 
     returnTime: {
-        fr: 'Temps de retour',
-        nl: 'Terugverdientijd',
+        fr: 'Temps de retour actualisé',
+        nl: 'Bijgewerkte terugverdientijd',
         en: 'Return time',
     },
 
