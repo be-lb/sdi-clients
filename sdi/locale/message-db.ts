@@ -2569,51 +2569,51 @@ export const messages: MessageDB = {
 
     solLocatePitchStr2: {
         fr: 'panneaux solaires',
-        nl: '',
-        en: '',
+        nl: 'Zonnepanelen',
+        en: 'Solar pannels',
     },
 
     solLocatePitchStr3: {
         fr: 'sur ma toiture ?',
-        nl: '',
-        en: '',
+        nl: 'op mijn dak ?',
+        en: 'on my roof ?',
     },
 
     solLocatePitchStr4: {
         fr: 'Une solution avantageuse ',
-        nl: '',
-        en: '',
+        nl: 'Een voordelige oplossing ',
+        en: 'An advantageous solution ',
     },
 
     solLocatePitchStr5: {
         fr: 'pour produire de l\'',
-        nl: '',
-        en: '',
+        nl: 'om te produceren ',
+        en: 'to produce',
     },
 
 
     solLocatePitchStr6: {
         fr: 'électricité',
-        nl: '',
-        en: '',
+        nl: 'elektriciteit',
+        en: 'electricity',
     },
 
     solLocatePitchStr7: {
         fr: 'ou de la ',
-        nl: '',
-        en: '',
+        nl: 'of ',
+        en: 'or ',
     },
 
     solLocatePitchStr8: {
         fr: 'chaleur',
-        nl: '',
-        en: '',
+        nl: 'warmte',
+        en: 'heat',
     },
 
     solCalculateStrPart1: {
         fr: 'Calculer le ',
-        nl: 'Het ',
-        en: 'calculate the',
+        nl: 'Bereken het ',
+        en: 'Calculate the',
     },
 
     solSolarPotential: {
