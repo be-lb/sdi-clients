@@ -3040,7 +3040,7 @@ export const messages: MessageDB = {
     },
 
     gainEnergyInvoice10Y: {
-        fr: 'Gain facture énergétique sur 10 ans',
+        fr: 'Gain sur ma facture énergétique en 10 ans',
         nl: 'Besparing op uw energiefactuur op 10 jaar',
         en: 'Gain on energy bill over 10 years',
     },
