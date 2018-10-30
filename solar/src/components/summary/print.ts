@@ -462,7 +462,7 @@ export const renderPDF =
             [withKWhY(getOutputPv('annualProduction')), 'solProductionPanels'],
             [withKWhY(getOutputPv('annualConsumption')), 'solHomeConsumption'],
             [withPercent(getOutputPv('autonomy') * 100), 'solarAutonomy'],
-            [withTCO2Y(getOutputPv('savedCO2emissions') / 1000, 1), 'gainEnvironment'],
+            [withTCO2Y(getOutputPv('savedCO2emissions') / 1000 / 10, 1), 'gainEnvironment'],
         ];
 
         let installData: VK[] = [
@@ -522,7 +522,7 @@ export const renderPDF =
                 [withKWhY(getOutputThermal('annualProduction')), 'solSolarProdYear'],
                 [withKWhY(getOutputThermal('annualConsumption')), 'solSolarConsumptionYear'],
                 [withPercent(getOutputThermal('autonomyRate') * 100), 'solSolarRateArea'],
-                [withTCO2Y(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment'],
+                [withTCO2Y(getOutputThermal('savedCO2emissions') / 1000 / 10, 1), 'gainEnvironment'],
             ];
 
             installData = [
