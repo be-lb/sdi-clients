@@ -43,7 +43,7 @@ const sumPotentialValues =
     () =>
         DIV({ className: 'potential-values' },
             vk(withEuro(getOutputThermal('grant')), 'bonus', 'green-cert'),
-            vk(withEuro(getOutputThermal('gain') / 2.5), 'gainEnergyInvoice', 'gain-thermal'),
+            vk(withEuro(getOutputThermal('gain')), 'gainEnergyInvoice', 'gain-thermal'),
             vk(withTonsCO2(getOutputThermal('savedCO2emissions') / 1000, 1), 'gainEnvironment', 'gain-env'),
             vk(withEuro(getOutputThermal('installationCost', 0)), 'buyingPrice', 'buying-price'),
         );

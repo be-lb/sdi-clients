@@ -540,7 +540,7 @@ export const renderPDF =
             ];
 
 
-            renderGain(apply, getOutputThermal('grant') + getOutputThermal('gain') / 2.5)
+            renderGain(apply, getOutputThermal('grant') + getOutputThermal('gain'))
                 .map(b => boxes.push(b));
         }
 
