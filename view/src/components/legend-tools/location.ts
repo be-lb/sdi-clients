@@ -69,11 +69,13 @@ const renderPointerPosition =
                 onClick: () => stopPointerPosition(state),
             }, tr('cursorLocalisation')),
             DIV({ className: 'lat-lon-label' },
+                DIV({}, tr('longitude')),
                 DIV({}, tr('latitude')),
-                DIV({}, tr('longitude'))),
+            ),
             DIV({ className: 'lat-lon-value' },
+                DIV({}, state[0].toFixed()),
                 DIV({}, state[1].toFixed()),
-                DIV({}, state[0].toFixed()))));
+            )));
 
 
 const getOrNull =
@@ -115,8 +117,8 @@ const longitudeInput =
 const renderInput =
     () =>
         wrap(DIV({ className: 'lat-lon-inputs' },
-            latitudeInput(),
             longitudeInput(),
+            latitudeInput(),
             DIV({
                 className: 'btn-search',
                 onClick: position,
