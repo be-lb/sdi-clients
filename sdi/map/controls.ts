@@ -30,16 +30,13 @@ interface ScaleLineOptions {
     setScaleLine: SetScaleLine;
 }
 
-let previousCount = -1;
-let previousWidth = -1;
-let previousSuffix = '';
 
 export const scaleLine =
     (options: ScaleLineOptions) => {
+        let previousCount = -1;
+        let previousWidth = -1;
+        let previousSuffix = '';
         const render = (mapEvent: MapEvent) => {
-            // if (!condition()) {
-            //     return;
-            // }
             const frameState = mapEvent.frameState;
             if (!frameState) {
                 return;
@@ -53,7 +50,7 @@ export const scaleLine =
             let pointResolution = viewState.resolution;
             const nominalCount = options.minWidth * pointResolution;
             let suffix = '';
-            //  else if (units == ol.control.ScaleLineUnits.METRIC) 
+
             if (nominalCount < 1) {
                 suffix = 'mm';
                 pointResolution *= 1000;
@@ -87,6 +84,7 @@ export const scaleLine =
             }
 
             if (count !== previousCount || width !== previousWidth || suffix !== previousSuffix) {
+                logger(`scaleline ${width}px | ${count}${suffix}`);
                 previousCount = count;
                 previousWidth = width;
                 previousSuffix = suffix;

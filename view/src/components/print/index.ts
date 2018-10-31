@@ -105,6 +105,7 @@ const renderPrintProgress =
                 setPrintResponse({
                     id: response.id,
                     data: '',
+                    extent: [0, 0, 0, 0],
                     status: 'done',
                     props: response.props,
                 });

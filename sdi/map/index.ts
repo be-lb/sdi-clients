@@ -259,12 +259,14 @@ export interface PrintResponse<T> {
     id: string | null;
     status: PrintResponseStatus;
     data: string;
+    extent: [number, number, number, number],
     props: T | null;
 }
 export const defaultPrintResponse =
     (): PrintResponse<null> => ({
         id: null,
         data: '',
+        extent: [0, 0, 0, 0],
         status: 'none',
         props: null,
     });

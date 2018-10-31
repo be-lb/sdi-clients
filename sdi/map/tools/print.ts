@@ -52,7 +52,6 @@ export const print =
                 .let('extent', fromNullable(originalExtent))
                 .map(({ map, size, extent }) => {
                     const target = map.getTargetElement() as HTMLElement;
-                    // const [width, height] = size;
                     target.style.width = null; // `${width}px`;
                     target.style.height = null;// `${height}px`;
                     map.setSize(size);
@@ -73,6 +72,7 @@ export const print =
                 const noneResponse: PrintResponse<T> = {
                     id: req.id,
                     data: '',
+                    extent: [0, 0, 0, 0],
                     status: 'none',
                     props: req.props,
                 };
@@ -93,8 +93,16 @@ export const print =
                         const target = map.getTargetElement() as HTMLElement;
                         const afterResize =
                             () => {
+                                // needed to send to scaleline
+                                const resizedExtent = map.getView().calculateExtent(map.getSize());
+
+                                map.once('postrender', (_event: any) => {
+                                    logger(`POSTRENDER ${map.getSize()}`)
+                                });
+
                                 map.once('postcompose', (event: any) => {
                                     const canvas: HTMLCanvasElement = event.context.canvas;
+                                    logger(`POSTCOMPOSE ${canvas.width} ${canvas.height}`)
                                     let loaded = 0;
                                     let loading = 0;
 
@@ -121,7 +129,7 @@ export const print =
                                         window.setTimeout(() => {
                                             const data = canvas.toDataURL('image/png');
                                             updateResponseWithReq(reqId,
-                                                { data, status: 'end' });
+                                                { data, extent: resizedExtent, status: 'end' });
                                             restoreMap();
                                         }, 100);
                                     };
