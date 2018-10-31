@@ -58,7 +58,15 @@ const logger = debug('sdi:events/app');
 export const toDataURL = (f: File) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+        reader.onload = () => {
+            const result = reader.result;
+            if (result) {
+                resolve(result);
+            }
+            else {
+                reject();
+            }
+        };
         reader.onerror = reject;
         reader.onabort = reject;
         reader.readAsDataURL(f);
