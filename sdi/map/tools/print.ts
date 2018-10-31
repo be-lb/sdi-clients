@@ -1,7 +1,7 @@
 
 import * as debug from 'debug';
 import {
-    Map, Collection, layer, Size, Extent, source
+    Map, Collection, layer, Size, Extent, source,
 } from 'openlayers';
 import { fromNullable } from 'fp-ts/lib/Option';
 

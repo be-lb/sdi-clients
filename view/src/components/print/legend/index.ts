@@ -19,10 +19,10 @@ import * as debug from 'debug';
 import { IMapInfo, ILayerInfo, LayerGroup } from 'sdi/source';
 import { fromRecord } from 'sdi/locale';
 import { scopeOption } from 'sdi/lib';
+import { Box, makeText, Layout } from 'sdi/print/context';
 
 
 import legendItem from './legend-item';
-import { Box, makeText, Layout } from '../context';
 import { Spec, TemplateName, applySpec } from '../template';
 
 const logger = debug('sdi:print/legend');

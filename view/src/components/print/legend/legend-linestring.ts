@@ -21,9 +21,9 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { getContext, IOLContext, lineStyle } from 'sdi/map/style';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, LineStyleConfig, LineStyleConfigSimple, LineStyleConfigDiscrete, LineStyleConfigContinuous } from 'sdi/source';
+import { Box } from 'sdi/print/context';
 
 import appQueries from '../../../queries/app';
-import { Box } from '../context';
 import { Spec } from '../template';
 import { atResolution, item, layout } from './common';
 

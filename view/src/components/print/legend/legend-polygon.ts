@@ -21,9 +21,9 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { getContext, IOLContext, polygonStyle } from 'sdi/map/style';
 import { fromRecord } from 'sdi/locale';
 import { ILayerInfo, getMessageRecord, PolygonStyleConfig, PolygonStyleConfigSimple, PolygonStyleConfigDiscrete, PolygonStyleConfigContinuous } from 'sdi/source';
+import { Box } from 'sdi/print/context';
 
 import appQueries from '../../../queries/app';
-import { Box } from '../context';
 import { Spec } from '../template';
 import { layout, item, atResolution } from './common';
 

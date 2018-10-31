@@ -16,11 +16,11 @@
 
 import * as debug from 'debug';
 import { ILayerInfo } from 'sdi/source';
+import { Box } from 'sdi/print/context';
 
 import legendPoint from './legend-point';
 import legendLinestring from './legend-linestring';
 import legendPolygon from './legend-polygon';
-import { Box } from '../context';
 import { Spec } from '../template';
 
 const logger = debug('sdi:legend-item');
