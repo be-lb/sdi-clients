@@ -26,7 +26,7 @@ export const disclaimer =
                 tr('solDisclaimerLink'),
                 ' ',
                 A({
-                    href: '',
+                    href: tr('solLinkDisclaimer'),
                     target: '_blank',
                 }, tr('moreInfos')),
             ));

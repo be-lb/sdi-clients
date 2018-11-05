@@ -43,6 +43,8 @@ export const actionInfo =
     () =>
         A({
             className: 'action-link',
+            href: tr('solLinkFAQ'),
+            target: '_blank',
         },
             DIV({ className: 'action action-info' },
                 DIV({ className: 'action-picto' }),

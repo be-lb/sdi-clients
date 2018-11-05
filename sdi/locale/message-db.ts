@@ -359,9 +359,11 @@ export type MessageKey =
     | 'solInstallMoreMsgSTR3'
     | 'solLinkContactBE'
     | 'solLinkContactBELabel'
+    | 'solLinkDisclaimer'
     | 'solLinkInfoGreenEnergy'
     | 'solLinkInstallateurPV'
     | 'solLinkInstallateurTH'
+    | 'solLinkFAQ'
     | 'solLocatePitchStr1'
     | 'solLocatePitchStr2'
     | 'solLocatePitchStr3'
@@ -3423,6 +3425,18 @@ export const messages: MessageDB = {
         fr: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
         nl: 'https://leefmilieu.brussels/leefmilieu-brussel/contacteer-ons',
         en: 'https://environnement.brussels/bruxelles-environnement/nous-contacter',
+    },
+
+    solLinkFAQ: {
+        fr: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
+        nl: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
+        en: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
+    },
+
+    solLinkDisclaimer: {
+        fr: 'https://environnement.brussels/content/disclaimer-carte-solaire',
+        nl: 'https://leefmilieu.brussels/content/disclaimer-zonnekaart',
+        en: 'https://environnement.brussels/content/disclaimer-carte-solaire',
     },
 
     moreInfos: {
