@@ -100,7 +100,7 @@ const production =
 
 
 const installMoreSentence =
-    () => DIV({},
+    () => DIV({ className: 'adjust-item-note install-more' },
         tr('solInstallMoreMsgSTR1'),
         A({ href: tr('solFacilitatorLink') }, tr('solFacilitatorLabel')),
         tr('solInstallMoreMsgSTR2'),
@@ -137,8 +137,7 @@ const legend =
 
         return DIV({ className: 'adjust-item-legend' },
             production(),
-            ...elements,
-            installMore());
+            ...elements);
     };
 
 
@@ -147,6 +146,7 @@ export const calcArea =
         DIV({ className: `adjust-item area` },
             title(),
             note('pv_num'),
+            installMore(),
             selectWidget(),
             legend(),
         );
