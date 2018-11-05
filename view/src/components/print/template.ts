@@ -1,7 +1,7 @@
 
 import { fromPredicate, Option } from 'fp-ts/lib/Option';
 
-import { Rect, Box, TextAlign } from '../print/context';
+import { Rect, Box, TextAlign } from 'sdi/print/context';
 
 type ResAnnotation = { resolution: number };
 
@@ -47,7 +47,7 @@ export type SpecName =
 
 
 
-export type Template = {[k in SpecName]?: TemplateSpec} & ResAnnotation;
+export type Template = { [k in SpecName]?: TemplateSpec } & ResAnnotation;
 
 export type TemplateName =
     | 'a4/portrait'
@@ -56,7 +56,7 @@ export type TemplateName =
     | 'a0/landscape'
     ;
 
-type TemplateCollection = {[k in TemplateName]: Template };
+type TemplateCollection = { [k in TemplateName]: Template };
 
 const templates: TemplateCollection = {
     'a4/portrait': {

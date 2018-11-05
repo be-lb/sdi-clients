@@ -30,6 +30,8 @@ import { fromNullable, none } from 'fp-ts/lib/Option';
 
 const logger = debug('sdi:events/app');
 
+
+
 const loadMap =
     (info: IMapInfo, delay?: number) => {
         const mapIsReady = queries.mapReady();
@@ -46,10 +48,12 @@ const loadMap =
                             state[md.id] = md;
                             return state;
                         });
-                        events.loadLayer(ruid, url);
-                        addLayer(
-                            () => queries.getLayerInfo(l.id),
-                            () => queries.getLayerData(ruid));
+                        if (l.visible) {
+                            events.loadLayerData(ruid, url);
+                            addLayer(
+                                () => queries.getLayerInfo(l.id),
+                                () => queries.getLayerData(ruid));
+                        }
                     })
                     .catch(err => logger(`Failed to load MD ${l.metadataId}: ${err}`));
             });
@@ -60,30 +64,26 @@ const loadMap =
         }
     };
 
-// observe('app/current-map', () => {
-//     const info = queries.getMapInfo();
-//     if (info) {
-//         loadMap(info);
-//     }
-// });
+observe('data/maps',
+    () => fromNullable(queries.getMapInfo()).map((mapInfo) => {
+        mapInfo.layers.forEach(({ id }) => {
+            const { info, metadata } = queries.getLayerInfo(id);
+            if (info && metadata && info.visible) {
+                queries.getLayerData(metadata.uniqueResourceIdentifier)
+                    .map((data) => {
+                        if (data.isNone()) {
+                            const url = getApiUrl(`layers/${metadata.uniqueResourceIdentifier}`);
+                            events.loadLayerData(metadata.uniqueResourceIdentifier, url);
+                            addLayer(
+                                () => queries.getLayerInfo(id),
+                                () => queries.getLayerData(metadata.uniqueResourceIdentifier));
+                        }
+                    });
+            }
+        });
+    }));
 
 
-// const reloadLayers =
-//     () => {
-//         const info = queries.getMapInfo();
-//         logger(`reload layers ${info}`);
-//         if (info) {
-//             removeLayerAll();
-//             info.layers.forEach(
-//                 l => fromNullable(queries.getDatasetMetadata(l.metadataId))
-//                     .map(md => addLayer(
-//                         () => queries.getLayerInfo(l.id),
-//                         () => queries.getLayerData(md.uniqueResourceIdentifier))));
-//         }
-//     };
-
-// observe('data/layers', reloadLayers);
-// observe('data/datasetMetadata', reloadLayers);
 
 const attachments = dispatchK('data/attachments');
 
@@ -140,7 +140,7 @@ const events = {
             });
     },
 
-    loadLayer(id: string, url: string) {
+    loadLayerData(id: string, url: string) {
         fetchLayer(url)
             .then((layer) => {
                 dispatch('data/layers', (state) => {

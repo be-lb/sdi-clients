@@ -20,18 +20,18 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { DIV, NODISPLAY } from 'sdi/components/elements';
 import { MessageRecord, IMapInfo } from 'sdi/source';
 import tr from 'sdi/locale';
+import { Orientation, Format } from 'sdi/print/context';
 
 
 import queries from '../../queries/app';
-import { getInteractionMode, getPrintResponse } from '../../queries/map';
+import { getInteractionMode, getPrintResponse, getPrintRequest } from '../../queries/map';
 import { setPrintResponse } from '../../events/map';
-import { Orientation, Format } from './context';
 import { TemplateName } from './template';
 import { renderPDF } from './generate';
 import { ReactNode } from 'react';
 
 
-const logger = debug('sdi:print');
+const logger = debug('sdi:view/print');
 
 export interface PrintProps {
     template: TemplateName;
@@ -93,6 +93,7 @@ const renderPrintProgress =
         if (iLabel !== 'print') {
             return DIV({}, 'ERROR: Not Printing');
         }
+        const request = getPrintRequest();
         const response = getPrintResponse();
         switch (response.status) {
             case 'error': return renderError();
@@ -100,10 +101,11 @@ const renderPrintProgress =
             case 'start': return renderItems(1);
             case 'end':
                 window.setTimeout(
-                    () => renderPDF(mapInfo, response), 0);
+                    () => renderPDF(mapInfo, request, response), 0);
                 setPrintResponse({
                     id: response.id,
                     data: '',
+                    extent: [0, 0, 0, 0],
                     status: 'done',
                     props: response.props,
                 });

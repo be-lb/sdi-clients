@@ -18,21 +18,31 @@ import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import { IMapInfo, makeRecord } from 'sdi/source';
-import { fromRecord } from 'sdi/locale';
-import { PrintResponse } from 'sdi/map';
+import { fromRecord, formatNumber } from 'sdi/locale';
+import { PrintResponse, PrintRequest } from 'sdi/map';
+import {
+    createContext,
+    Box,
+    makeImage,
+    makeText,
+    paintBoxes,
+    makeLine,
+    makeLayoutVertical,
+    Rect,
+    Coords,
+    makePolygon,
+} from 'sdi/print/context';
 
 import appEvents from '../../events/app';
 import { getPrintTitle } from '../../queries/app';
-import { getScaleLine } from '../../queries/map';
 import { stopPrint } from '../../events/map';
-import { createContext, Box, makeImage, makeText, paintBoxes, makeLine, makeLayoutVertical, Rect, Coords, makePolygon } from './context';
 import { applySpec, ApplyFn } from './template';
 import { renderLegend } from './legend';
 import { PrintProps } from './index';
 import { logoData } from './logo';
 import { AppLayout } from '../../shape/types';
 
-const logger = debug('sdi:print');
+const logger = debug('sdi:view/print');
 
 const renderTitle =
     (f: ApplyFn<Box>, title: string) =>
@@ -92,16 +102,50 @@ const renderMap =
             ],
         }));
 
-// https://github.com/ryanve/res/blob/master/res.js
-const getScreenRes =
-    () => window.devicePixelRatio * 96;
+const scaleLineCount = [
+    1,
+    2,
+    5,
+    10,
+    20,
+    50,
+    100,
+    200,
+    500,
+    1000,
+    2000,
+    5000,
+    10000,
+    20000,
+    50000,
+    100000,
+    200000,
+    500000,
+    1000000,
+    2000000,
+    5000000,
+    10000000,
+    20000000,
+    50000000,
+    100000000,
+];
+
 
 const renderScaleline =
-    (f: ApplyFn<Box>) =>
-        f('scaleline', ({ rect, strokeWidth, color, fontSize, resolution }) => {
-            const { width, count, unit } = getScaleLine();
+    (f: ApplyFn<Box>, response: PrintResponse<PrintProps>) =>
+        f('scaleline', ({ rect, strokeWidth, color, fontSize }) => {
+            const mapRectWidth = ((f as any) as ApplyFn<number>)('map', spec => spec.rect.width).fold(1, w => w);
+
+            const ext = response.extent;
+            logger(`scaleline extent ${ext}`)
+            const mw = ext[2] - ext[0];
+
+            const pointsize = mw / mapRectWidth;
+            const count = scaleLineCount.find(s => (s / pointsize) >= rect.width) || 0;
+            const sWidth = count / pointsize;
+            const unit = 'm';
             const y = rect.height * 0.66;
-            const sWidth = (width / (resolution / getScreenRes())); // * 0.3528;
+
             const offset = rect.width - sWidth;
             const scaleline: Coords[] = [
                 [offset, y - 1],
@@ -110,18 +154,17 @@ const renderScaleline =
                 [offset + sWidth, y - 1],
             ];
 
-            logger(`scaleline ${count}${unit} : ${width}px => ${sWidth}pt`);
-
             return {
                 ...rect,
                 children: [
-                    // makeRect(coordsFromRect(rect), 'white'),
                     makeLine(scaleline, strokeWidth, color),
                     {
-                        x: rect.x + offset, y: rect.y + (rect.height / 3),
-                        width: sWidth, height: rect.height / 2,
+                        x: rect.x + offset,
+                        y: rect.y + (rect.height / 3),
+                        width: sWidth,
+                        height: rect.height / 2,
                         children: [
-                            makeText(`${count} ${unit}`,
+                            makeText(`${formatNumber(count)} ${unit}`,
                                 fontSize, color, 'center'),
                         ],
                     },
@@ -160,7 +203,7 @@ const renderLogo =
         }));
 
 export const renderPDF =
-    (mapInfo: IMapInfo, response: PrintResponse<PrintProps>) =>
+    (mapInfo: IMapInfo, _request: PrintRequest<PrintProps>, response: PrintResponse<PrintProps>) =>
         fromNullable(response.props).map((props) => {
             const { template } = props;
             const apply = applySpec(template);
@@ -177,7 +220,7 @@ export const renderPDF =
             renderLegend(props.template, mapInfo)
                 .map(b => boxes.push(b));
 
-            renderScaleline(apply)
+            renderScaleline(apply, response)
                 .map(b => boxes.push(b));
 
             renderNorthArrow(apply)

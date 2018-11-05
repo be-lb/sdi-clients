@@ -1,6 +1,6 @@
 
 
-import { Box, makeImage, makeText, LayoutDirection } from '../context';
+import { Box, makeImage, makeText, LayoutDirection } from 'sdi/print/context';
 import { Spec } from '../template';
 
 
