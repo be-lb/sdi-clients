@@ -37,6 +37,13 @@
         font-size: @small-font;
         margin-top: @margin * 2;
         line-height: 134%;
+
+        a {
+            .link-underline(@green, 1px);
+            &:hover {
+                color: @green;
+            }
+        }
     }
 
     .output-value {

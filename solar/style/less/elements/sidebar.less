@@ -18,7 +18,7 @@
                 // margin-right: @margin / 2;
                 margin-bottom: @margin / 2;
             }
-            h1 {font-size: @medium-font;}
+            h1 {font-size: @medium-font;}    
         }
         .action-change {margin-top: @margin;}
     }
@@ -48,6 +48,14 @@
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
+        }
+
+        a.action-link {
+            text-decoration: none;
+            cursor: default;
+            &:hover {
+                color: #000;
+            }
         }
     }
 }

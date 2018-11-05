@@ -19,11 +19,22 @@
     border: 1px solid #333;
 }
 
+.link-underline (@color:@green, @thickness:2px) {
+    text-decoration: none;
+    background-image: linear-gradient(to right, @color, @color);
+    background-position: 0 1.2em;
+    background-repeat: repeat-x;
+    background-size: 8px @thickness;
+}
+
+
 // solar media queries
 
 @big: ~"screen and (min-width: 1025px)";
 @sdi900: ~"screen and (min-width: 900px)";
 @medium: ~"screen and (min-width: 600px)";
+
+
 
 
 
@@ -127,10 +138,18 @@ h1 {
         font-weight: 500;
     }
 
-    a:hover {color: @green;}
+    a {
+        .link-underline(@green, 1px);
+        &:hover {
+            color:@green;
+        }
+    }
 
     .reward {
         font-size: @small-font;
+        a { .link-underline(#000, 1px);
+            &:hover {.link-underline(@green, 1px);}
+        }
         &.urbis {
             margin-top: @margin;
         }

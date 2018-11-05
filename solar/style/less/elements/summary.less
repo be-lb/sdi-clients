@@ -137,7 +137,13 @@
 
     > div {
         margin-top: @margin;
-        a {font-weight: 400;}
+        a {
+            .link-underline(@green, 2px);
+            font-weight: 400;
+            &:hover {
+                color: @green;
+            }
+        }
     }
 }
 
