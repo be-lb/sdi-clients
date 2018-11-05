@@ -476,7 +476,7 @@ export const renderPDF =
 
         let installData: VK[] = [
             [getPanelUnits().toString(), 'solNumberOfPanels'],
-            [':.', pvTechnologyLabel()],
+            [tr('__empty__'), pvTechnologyLabel()],
             [withM2(getOutputPv('maxArea')), 'solInstallationSurface'],
             [withKWc(getOutputPv('power'), 1), 'solTotalPower'],
             [withYear(25), 'solInstallationLifeTime'],

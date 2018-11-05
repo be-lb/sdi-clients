@@ -137,7 +137,7 @@ export const clearRoofLayer =
 
 const BASEMAPS = {
     gray: 'urbis.irisnet.be/urbis_gray',
-    ortho: 'urbis.irisnet.be/ortho_2016',
+    ortho: 'urbis.irisnet.be/ortho2018_Toponymy',
 };
 
 export const loadMaps =
