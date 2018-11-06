@@ -125,7 +125,7 @@ const template: Template = {
         color: '#8db63c',
     }),
     footer: makeSpec({
-        rect: { x: margin, y: 278, width: 187, height: 24 },
+        rect: { x: margin, y: 278, width: 180, height: 24 },
         fontSize: 9,
     }),
     separator: makeSpec({
@@ -194,11 +194,11 @@ const template: Template = {
         fontSize: 14,
     }),
     'finance-0': makeSpec({
-        rect: { x: 116, y: 200, width: 72, height: 24 },
+        rect: { x: 116, y: 200, width: 92, height: 24 },
         fontSize: 9,
     }),
     'finance-1': makeSpec({
-        rect: { x: 116, y: 204, width: 72, height: 24 },
+        rect: { x: 116, y: 204, width: 92, height: 24 },
         fontSize: 9,
     }),
     'finance-2': makeSpec({
