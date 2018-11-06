@@ -428,6 +428,7 @@ export type MessageKey =
     | 'solSolarProdYear'
     | 'solSolarRateArea'
     | 'solSolarWaterHeater'
+    | 'solSummary10Y'
     | 'solTogglePV'
     | 'solToggleThermal'
     | 'solThermal'
@@ -3552,5 +3553,11 @@ export const messages: MessageDB = {
         fr: 'Adresse incomplète.',
         nl: 'Onvolledig adres.',
         en: 'Incomplete address.',
+    },
+
+    solSummary10Y: {
+        fr: 'Résumé sur 10 ans',
+        nl: '10-jaarlijks overzicht',
+        en: 'Summary on 10 years',
     },
 };

@@ -1,4 +1,4 @@
-import { DIV, SPAN } from 'sdi/components/elements';
+import { DIV, SPAN, BR } from 'sdi/components/elements';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 import { withEuro, withTonsCO2 } from 'sdi/util/';
@@ -20,8 +20,8 @@ const vk =
 
 
 
-const gains =
-    () => SPAN({}, withEuro(getOutputThermal('grant') + getOutputThermal('thermalGain10')));
+// const gains =
+//     () => SPAN({}, withEuro(getOutputThermal('grant') + getOutputThermal('thermalGain10')));
 
 
 const sumPotentialLabel =
@@ -30,12 +30,11 @@ const sumPotentialLabel =
             DIV({},
                 SPAN({}, tr('solSolarPotentialStr1')),
                 SPAN({ className: 'highlight-value' },
-                    `2 ${tr('solPanelsTH')}`),
-                SPAN({}, ` ${tr('solSolarPotentialStr2')} `),
-                SPAN({ className: 'highlight-value' },
-                    `${tr('solSolarPotentialStr3Thermal')} ${tr('solSolarPotentialStr4')} `,
-                    gains(),
-                    ` ${tr('solOn10Years')}`),
+                    `2 ${tr('solPanelsTH')}.`),
+                BR({}),
+                SPAN({}, `${tr('solSummary10Y')} : `),
+                BR({}),
+                BR({}),
             ),
         );
 

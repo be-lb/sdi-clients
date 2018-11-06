@@ -441,14 +441,14 @@ const renderGainPV =
             ],
         }));
 
-const renderGainThermal =
-    (f: ApplyFn<Box>, value: number) =>
-        f('gain', ({ rect, fontSize, color }) => ({
-            ...rect,
-            children: [
-                makeText(`${getLabel('gainThermal')} ${withEuro(value)}`, fontSize, color),
-            ],
-        }));
+// const renderGainThermal =
+//     (f: ApplyFn<Box>, value: number) =>
+//         f('gain', ({ rect, fontSize, color }) => ({
+//             ...rect,
+//             children: [
+//                 makeText(`${getLabel('gainThermal')} ${withEuro(value)}`, fontSize, color),
+//             ],
+//         }));
 
 
 export const renderPDF =
@@ -549,8 +549,8 @@ export const renderPDF =
             ];
 
 
-            renderGainThermal(apply, getOutputThermal('grant') + getOutputThermal('thermalGain10'))
-                .map(b => boxes.push(b));
+            // renderGainThermal(apply, getOutputThermal('grant') + getOutputThermal('thermalGain10'))
+            //     .map(b => boxes.push(b));
         }
 
         const separators = [10, 35, 187, 274];
