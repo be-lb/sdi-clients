@@ -3557,7 +3557,7 @@ export const messages: MessageDB = {
 
     solSummary10Y: {
         fr: 'Résumé sur 10 ans',
-        nl: '10-jaarlijks overzicht',
+        nl: 'Samenvatting over 10 jaar',
         en: 'Summary on 10 years',
     },
 };
