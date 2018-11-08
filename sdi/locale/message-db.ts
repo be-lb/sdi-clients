@@ -2079,7 +2079,7 @@ export const messages: MessageDB = {
     },
 
     solarAppName: {
-        fr: 'Carte solaire de la Région Bruxelles Capitale',
+        fr: 'Carte solaire de la Région de Bruxelles-Capitale',
         nl: 'Zonnekaart van het Brussels Hoofdstedelijk Gewest',
         en: 'Brussels solar map',
     },
