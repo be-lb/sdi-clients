@@ -2346,9 +2346,9 @@ export const messages: MessageDB = {
     },
 
     installBatteries: {
-        fr: 'J\'installe des batteries',
-        nl: 'Ik plaats batterijen',
-        en: 'I install bateries',
+        fr: 'J\'installe des batteries.',
+        nl: 'Ik plaats batterijen.',
+        en: 'I install bateries.',
     },
 
     technoType: {
@@ -2802,13 +2802,13 @@ export const messages: MessageDB = {
 
     solAdjustStr1: {
         fr: 'Je personnalise',
-        nl: 'Ik personaliseer',
+        nl: 'Mijn installatie',
         en: '',
     },
 
     solAdjustStr2: {
         fr: 'mon installation',
-        nl: 'mijn installatie',
+        nl: 'personaliseren',
         en: '',
     },
 
@@ -3500,13 +3500,13 @@ export const messages: MessageDB = {
 
     solProduced: {
         fr: ' produits estimés',
-        nl: ' geschatte productie',
+        nl: ' geschat productie',
         en: ' estimated produced',
     },
 
     solConsumed: {
         fr: ' consommés estimés',
-        nl: ' geschatte verbruik',
+        nl: ' geschat verbruik',
         en: ' estimated consumed',
     },
 
