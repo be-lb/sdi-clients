@@ -3426,7 +3426,7 @@ export const messages: MessageDB = {
 
     solDisclaimerLink: {
         fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
-        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Leefmilieu Brussel.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van Leefmilieu Brussel.',
         en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
     },
 
