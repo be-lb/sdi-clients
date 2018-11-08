@@ -414,6 +414,8 @@ export type MessageKey =
     | 'solResearch'
     | 'solSearchAnotherAdress'
     | 'solSelectedPannels'
+    | 'solSharedRoof'
+    | 'solSharedRoofLink'
     | 'solSolarConsumptionYear'
     | 'solSolarGeocode'
     | 'solSolarPanels'
@@ -3181,11 +3183,23 @@ export const messages: MessageDB = {
         en: 'Discover these alternatives ',
     },
 
+    solSharedRoof: {
+        fr: 'toitures partagées',
+        nl: 'gedeelde daken',
+        en: 'shared roofs',
+    },
+
+    solSharedRoofLink: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/partagez-votre-toit-bloc-appartements',
+        nl: 'https://leefmilieu.brussels/themas/energie/wat-groene-energie/deel-uw-dak-appartementsgebouwen',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/partagez-votre-toit-bloc-appartements',
+    },
+
 
     solNoSolSTR4: {
-        fr: ' toitures partagées…) sur le site de ',
-        nl: ' gedeelde daken…) op de website van ',
-        en: ' shared roofs…) on the',
+        fr: '…) sur le site de ',
+        nl: '…) op de website van ',
+        en: '…) on the',
     },
 
 
