@@ -372,6 +372,7 @@ export type MessageKey =
     | 'solLocatePitchStr6'
     | 'solLocatePitchStr7'
     | 'solLocatePitchStr8'
+    | 'solLocatePitchStr9'
     | 'solMazout'
     | 'solNoSolSTR1'
     | 'solNoSolSTR2'
@@ -2592,7 +2593,7 @@ export const messages: MessageDB = {
 
     solLocatePitchStr5: {
         fr: 'pour produire de l\'',
-        nl: 'om te produceren ',
+        nl: 'om ',
         en: 'to produce',
     },
 
@@ -2613,6 +2614,12 @@ export const messages: MessageDB = {
         fr: 'chaleur',
         nl: 'warmte',
         en: 'heat',
+    },
+
+    solLocatePitchStr9: {
+        fr: '',
+        nl: ' te produceren',
+        en: '',
     },
 
     solCalculateStrPart1: {
