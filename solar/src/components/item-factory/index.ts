@@ -1,5 +1,5 @@
 import { DIV, H1 } from 'sdi/components/elements';
-import { inputNumber, Getter, Setter } from 'sdi/components/input';
+import { inputNumber, Getter, Setter, AllAttributes } from 'sdi/components/input';
 import tr from 'sdi/locale';
 import { MessageKey } from 'sdi/locale/message-db';
 
@@ -36,10 +36,10 @@ export const inputSelect =
 
 
 const inputK =
-    (k: GetNumKeyOfInputs | SetNumKeyOfInputs) => {
+    (k: GetNumKeyOfInputs | SetNumKeyOfInputs, attrs: AllAttributes) => {
         const get = getNumInputF(k);
         const set = setInputF(k);
-        return inputNumber(get, set);
+        return inputNumber(get, set, attrs);
     };
 
 const label =
@@ -50,24 +50,25 @@ export const vertInputItemFn =
         labelKey: MessageKey,
         get: Getter<number>,
         set: Setter<number>,
+        attrs: AllAttributes,
         ...ns: React.ReactNode[]) =>
         DIV({ className: 'input-box-vertical' },
             DIV({ className: 'input-and-unit' },
-                inputNumber(get, set), ...ns),
+                inputNumber(get, set, attrs), ...ns),
             label(labelKey));
 
 export const vertInputItem =
-    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) =>
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, attrs: AllAttributes, ...ns: React.ReactNode[]) =>
         DIV({ className: 'input-box-vertical' },
             DIV({ className: 'input-and-unit' },
-                inputK(k), ...ns),
+                inputK(k, attrs), ...ns),
             label(labelKey));
 
 
 export const inputItem =
-    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, ...ns: React.ReactNode[]) =>
+    (labelKey: MessageKey, k: GetNumKeyOfInputs | SetNumKeyOfInputs, attrs: AllAttributes, ...ns: React.ReactNode[]) =>
         DIV({ className: 'input-box' },
-            inputK(k), ...ns, label(labelKey));
+            inputK(k, attrs), ...ns, label(labelKey));
 
 
 

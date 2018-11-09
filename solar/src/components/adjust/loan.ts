@@ -18,11 +18,13 @@ const withLoan =
             // vertInputItem('amountBorrowed'),
             vertInputItem(
                 'loanDuration', 'loanPeriod',
+                { min: 1, max: 99, step: 1 },
                 SPAN({ className: 'unit' }, tr('unitYear', { value: getLoanPeriod() }))),
             vertInputItemFn(
                 'loanRate',
                 () => getInputF('loanRate')() * 100,
                 r => setInputF('loanRate')(r / 100),
+                { min: 0.1, max: 99, step: 0.1 },
                 SPAN({ className: 'unit' }, tr('unitPercent'))),
         );
 
