@@ -142,6 +142,12 @@ const areaProductivity =
         );
 
 
+export const notComputed =
+    () =>
+        getRoofFeatures()
+            .fold(true, features =>
+                features.some(f =>
+                    getFeatureProp(f, 'irradiance', 0) === 0));
 
 export const areaExcellent = areaProductivity('great');
 export const areaMedium = areaProductivity('good');

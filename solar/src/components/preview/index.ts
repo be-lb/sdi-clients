@@ -6,7 +6,7 @@ import { actionChange, actionInfo } from '../action';
 import { disclaimer, contactLinks, urbisReward, createdBy } from '../footer-infos';
 import { summary as summaryPv } from '../summary/summary-pv';
 import { summary as summaryThermal } from '../summary/summary-thermal';
-import { getMaxPower, getSystem } from '../../queries/simulation';
+import {  getSystem, notComputed, getPanelUnits } from '../../queries/simulation';
 import { navigateDetail } from '../../events/route';
 import { getCapakey } from '../../queries/app';
 import { buildingAdress, toggleWithInfo } from '../item-factory';
@@ -98,9 +98,9 @@ const sidebar =
 const sidebarNoSol =
     () =>
         DIV({ className: 'sidebar' },
-            DIV({ className: 'sol-no-sol' },
+            DIV({ className: 'sol-no-preview' },
                 buildingAdress(),
-                DIV({ className: 'sol-no-sol-msg' },
+                DIV({ className: 'sol-no-preview-msg' },
                     DIV({}, tr('solNoSolSTR1')),
                     DIV({}, tr('solNoSolSTR2')),
                     DIV({},
@@ -116,11 +116,32 @@ const sidebarNoSol =
                         A({ href: tr('solHomegradeLink') }, tr('solHomegradeLabel')),
                         ` ${tr('solNoSolSTR6')} `,
                         A({ href: tr('solFacilitatorLink') }, tr('solFacilitatorLabel')),
-                        ` ${tr('solNoSolSTR7')}`,
+                        ` ${tr('solNoSolSTR7')}.`,
                     ),
                 ),
             ),
         );
+
+
+const sidebarNoCalc =
+    () =>
+        DIV({ className: 'sidebar' },
+            DIV({ className: 'sol-no-preview' },
+                buildingAdress(),
+                DIV({ className: 'sol-no-preview-msg' },
+                    DIV({}, tr('solNoCalcSTR1')),
+                    DIV({},
+                        ` ${tr('solNoCalcSTR2')} (`,
+                        A({ href: tr('solHomegradeLink') }, tr('solHomegradeLabel')),
+                        ` ${tr('solNoSolSTR6')} `,
+                        A({ href: tr('solFacilitatorLink') }, tr('solFacilitatorLabel')),
+                        ` ${tr('solNoSolSTR7')}.`,
+                    ),
+                ),
+            ),
+        );
+
+
 
 const contentFooter =
     () =>
@@ -142,22 +163,34 @@ const content =
             action(),
             contentFooter());
 
-const contentNoPreview =
+const contentNoSun =
     () =>
         DIV({ className: 'content' },
             context(),
             sidebarNoSol(),
             contentFooter());
 
+const contentNoCalc =
+    () =>
+        DIV({ className: 'content' },
+            context(),
+            sidebarNoCalc(),
+            contentFooter());
 
 
+const withContent = () => {
+    if (notComputed()) {
+        return contentNoCalc();
+    }
+    else if (getPanelUnits() < 1) {
+        return contentNoSun();
+    }
+    return content();
+};
 
 const render =
     () => DIV({ className: 'solar-main-and-right-sidebar' },
-        getMaxPower() >= 1 ?
-            content() :
-            contentNoPreview(),
-    );
+        withContent());
 
 
 
