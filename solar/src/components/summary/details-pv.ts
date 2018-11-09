@@ -43,7 +43,7 @@ const sumEnergy =
             H2({}, tr('solMyEnergy')),
             vk(withKWhY(getAnimatedValuePv('annualProduction')), 'solProductionPanels'),
             vk(withKWhY(getAnimatedValuePv('annualConsumption')), 'solHomeConsumption'),
-            vk(withPercent(getAnimatedValuePv('autonomy') * 100), 'solarAutonomy'),
+            vk(withPercent(getAnimatedValuePv('autonomy', 0.001) * 100), 'solarAutonomy'),
             vk(withTCO2Y(getAnimatedValuePv('savedCO2emissions') / 1000 / 10, 1), 'gainEnvironment', 'gain-env'),
         );
 

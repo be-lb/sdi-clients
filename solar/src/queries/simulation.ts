@@ -123,7 +123,7 @@ export const totalArea =
         .fold(
             0,
             fs => fs.reduce((acc, r) => acc + getFeatureProp(r, 'area', 0), 0),
-    );
+        );
 
 
 const areaProductivity =
@@ -139,7 +139,7 @@ const areaProductivity =
 
                     return catArea * 100 / ta;
                 },
-        );
+            );
 
 
 export const notComputed =
@@ -198,12 +198,12 @@ const getAnimValues = queryK('solar/component/values');
 const setAnimValues = dispatchK('solar/component/values');
 
 export const getAnimatedValuePv =
-    <K extends PvOutputKey>(k: K) =>
+    <K extends PvOutputKey>(k: K, threshold = 0.1) =>
         value({
             getCurrent: getValue(getAnimValues, k),
             setCurrent: setValue(setAnimValues, k),
             target: () => getOutputPv(k),
-        });
+        }, threshold);
 
 export const getOutputThermal =
     <K extends ThermalOutputKey>(k: K, dflt = 0): number =>
