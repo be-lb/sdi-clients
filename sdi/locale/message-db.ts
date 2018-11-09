@@ -374,6 +374,8 @@ export type MessageKey =
     | 'solLocatePitchStr8'
     | 'solLocatePitchStr9'
     | 'solMazout'
+    | 'solNoCalcSTR1'
+    | 'solNoCalcSTR2'
     | 'solNoSolSTR1'
     | 'solNoSolSTR2'
     | 'solNoSolSTR3'
@@ -2127,13 +2129,13 @@ export const messages: MessageDB = {
     },
 
     gainGreenCertif: {
-        fr: 'Gain Certificat Vert',
+        fr: 'Gains certificat vert',
         nl: 'Winst aan groenestroomcertificaten',
         en: 'Gain Green Certificate',
     },
 
     gainGreenCertif25Y: {
-        fr: 'Gain Certificat Vert (10 ans)',
+        fr: 'Gains certificat vert (10 ans)',
         nl: 'Winst aan groenestroomcertificaten (10 jaar)',
         en: 'Gain Green Certificate (10 years)',
     },
@@ -2454,8 +2456,8 @@ export const messages: MessageDB = {
     },
 
     sellingGreenCertifPrice: {
-        fr: 'Revente des Certificats Verts',
-        nl: 'Doorverkoop van Groenestroomcertificaten',
+        fr: 'Revente des certificats verts',
+        nl: 'Doorverkoop van groenestroomcertificaten',
         en: 'Resale of Green Certificates',
     },
 
@@ -3170,6 +3172,18 @@ export const messages: MessageDB = {
         fr: 'Puissance maximale théorique conseillée pour une installation non-industrielle (12kWc - non accessible dans le cas présent).',
         nl: 'Theoretisch maximaal vermogen aanbevolen voor een niet-industriële installatie (12kWp - niet toegankelijk in dit geval).',
         en: 'Theoretical maximum power recommended for a non-industrial installation (12kWc - not accessible in this case).',
+    },
+
+    solNoCalcSTR1: {
+        fr: 'Nous sommes désolés mais nous ne pouvons pas fournir de simulation fiable pour votre toiture. Un pourcentage minime (0,5%) des toitures bruxelloises ne peut être analysé pour des raisons techniques indépendantes de notre volonté.',
+        nl: 'Het spijt ons, maar we kunnen geen betrouwbare simulatie voor uw dak bieden. Buiten onze wil om kan een minimaal percentage (0,5%) van de Brusselse daken om technische redenen niet worden geanalyseerd.',
+        en: '',
+    },
+
+    solNoCalcSTR2: {
+        fr: 'Cependant, vous pouvez toujours faire appel aux conseillers énergies de la Région pour déterminer si l’installation de panneaux solaires est une piste intéressante pour votre habitation.  Contactez gratuitement un de nos conseillers:',
+        nl: 'In dat geval kan u echter altijd een beroep doen op de energieadviseurs van de Regio om te bepalen of de installatie van zonnepanelen een interessante mogelijkheid is voor uw woning. Neem gratis contact op met één van onze adviseurs:',
+        en: '',
     },
 
     solNoSolSTR1: {
