@@ -10,8 +10,8 @@ const logger = debug('sdi:components/input');
 export type Getter<T> = () => T;
 export type Setter<T> = (a: T) => void;
 
-type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
-type AllAttributes = InputAttributes & React.Attributes;
+export type InputAttributes = React.AllHTMLAttributes<HTMLInputElement>;
+export type AllAttributes = InputAttributes & React.Attributes;
 
 interface InputProps<T> {
     get: Getter<T>;
@@ -74,15 +74,25 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
 
         const update =
             (n: number) => {
-                this.setState(value(n));
-                props.set(n);
+                if (!isNaN(n)) {
+                    this.setState(value(n));
+                    props.set(n);
+                }
             };
 
         this.attrs =
             () => ({
                 value: this.state.value,
                 type: 'number',
-                onChange: e => update(e.currentTarget.valueAsNumber),
+                onChange: e => {
+                    // due to https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/669685/
+                    // we can'use valueAsNumber
+                    // update(e.currentTarget.valueAsNumber);
+                    const n = parseFloat(e.currentTarget.value);
+                    if (!isNaN(n)) {
+                        update(n);
+                    }
+                },
                 ...props.attrs,
             });
     }
