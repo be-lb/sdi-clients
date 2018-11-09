@@ -108,6 +108,8 @@ const sidebarNoSol =
                         A({ href: tr('solHeatPumpLink') }, tr('solHeatPumpLabel')),
                         `, `,
                         A({ href: tr('solBuyGreenEnergyLink') }, tr('solBuyGreenEnergyLabel')),
+                        `, `,
+                        A({ href: tr('solSharedRoofLink') }, tr('solSharedRoof')),
                         `, ${tr('solNoSolSTR4')} `,
                         A({ href: tr('solLinkContactBE') }, tr('solLinkContactBELabel')),
                         ` ${tr('solNoSolSTR5')} `,

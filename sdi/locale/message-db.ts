@@ -372,6 +372,7 @@ export type MessageKey =
     | 'solLocatePitchStr6'
     | 'solLocatePitchStr7'
     | 'solLocatePitchStr8'
+    | 'solLocatePitchStr9'
     | 'solMazout'
     | 'solNoSolSTR1'
     | 'solNoSolSTR2'
@@ -414,6 +415,8 @@ export type MessageKey =
     | 'solResearch'
     | 'solSearchAnotherAdress'
     | 'solSelectedPannels'
+    | 'solSharedRoof'
+    | 'solSharedRoofLink'
     | 'solSolarConsumptionYear'
     | 'solSolarGeocode'
     | 'solSolarPanels'
@@ -2076,7 +2079,7 @@ export const messages: MessageDB = {
     },
 
     solarAppName: {
-        fr: 'Carte solaire de la Région Bruxelles Capitale',
+        fr: 'Carte solaire de la Région de Bruxelles-Capitale',
         nl: 'Zonnekaart van het Brussels Hoofdstedelijk Gewest',
         en: 'Brussels solar map',
     },
@@ -2343,9 +2346,9 @@ export const messages: MessageDB = {
     },
 
     installBatteries: {
-        fr: 'J\'installe des batteries',
-        nl: 'Ik plaats batterijen',
-        en: 'I install bateries',
+        fr: 'J\'installe des batteries.',
+        nl: 'Ik plaats batterijen.',
+        en: 'I install bateries.',
     },
 
     technoType: {
@@ -2590,7 +2593,7 @@ export const messages: MessageDB = {
 
     solLocatePitchStr5: {
         fr: 'pour produire de l\'',
-        nl: 'om te produceren ',
+        nl: 'om ',
         en: 'to produce',
     },
 
@@ -2611,6 +2614,12 @@ export const messages: MessageDB = {
         fr: 'chaleur',
         nl: 'warmte',
         en: 'heat',
+    },
+
+    solLocatePitchStr9: {
+        fr: '',
+        nl: ' te produceren',
+        en: '',
     },
 
     solCalculateStrPart1: {
@@ -2793,13 +2802,13 @@ export const messages: MessageDB = {
 
     solAdjustStr1: {
         fr: 'Je personnalise',
-        nl: 'Ik personaliseer',
+        nl: 'Mijn installatie',
         en: '',
     },
 
     solAdjustStr2: {
         fr: 'mon installation',
-        nl: 'mijn installatie',
+        nl: 'personaliseren',
         en: '',
     },
 
@@ -3181,11 +3190,23 @@ export const messages: MessageDB = {
         en: 'Discover these alternatives ',
     },
 
+    solSharedRoof: {
+        fr: 'toitures partagées',
+        nl: 'gedeelde daken',
+        en: 'shared roofs',
+    },
+
+    solSharedRoofLink: {
+        fr: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/partagez-votre-toit-bloc-appartements',
+        nl: 'https://leefmilieu.brussels/themas/energie/wat-groene-energie/deel-uw-dak-appartementsgebouwen',
+        en: 'https://environnement.brussels/thematiques/energie/quest-ce-que-lenergie-verte/partagez-votre-toit-bloc-appartements',
+    },
+
 
     solNoSolSTR4: {
-        fr: ' toitures partagées…) sur le site de ',
-        nl: ' gedeelde daken…) op de website van ',
-        en: ' shared roofs…) on the',
+        fr: '…) sur le site de ',
+        nl: '…) op de website van ',
+        en: '…) on the',
     },
 
 
@@ -3405,7 +3426,7 @@ export const messages: MessageDB = {
 
     solDisclaimerLink: {
         fr: 'Ces données sont des estimations et n\'engagent pas la responsabilité de Bruxelles Environnement.',
-        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van het Leefmilieu Brussel.',
+        nl: 'Deze gegevens zijn schattingen en vallen niet onder de verantwoordelijkheid van Leefmilieu Brussel.',
         en: 'These data are estimates and do not engage the responsibility of Brussels Environment.',
     },
 
@@ -3479,13 +3500,13 @@ export const messages: MessageDB = {
 
     solProduced: {
         fr: ' produits estimés',
-        nl: ' geschatte productie',
+        nl: ' geschat productie',
         en: ' estimated produced',
     },
 
     solConsumed: {
         fr: ' consommés estimés',
-        nl: ' geschatte verbruik',
+        nl: ' geschat verbruik',
         en: ' estimated consumed',
     },
 

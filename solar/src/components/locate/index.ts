@@ -66,18 +66,22 @@ const renderGeocoderResults =
                     DIV({ className: 'select-icon' }),
                     DIV({ className: 'no-address' }, addressToString(address), ' - ', tr('solIncompleteAdress')));
             }
-            return DIV({ className: 'adress-result', key },
+            return DIV({ 
+                className: 'adress-result', 
+                key,
+                onClick: () => {
+                    setAddress(address);
+                    updateGeocoderResponse(null);
+                    fetchKey(point.x, point.y)
+                        .then(({ capakey }) => navigatePreview(capakey))
+                        .catch((err: string) => {
+                            logger(`Could not fetch a capakey: ${err}`);
+                        });
+                },
+                },
                 DIV({ className: 'select-icon' }),
                 DIV({
-                    onClick: () => {
-                        setAddress(address);
-                        updateGeocoderResponse(null);
-                        fetchKey(point.x, point.y)
-                            .then(({ capakey }) => navigatePreview(capakey))
-                            .catch((err: string) => {
-                                logger(`Could not fetch a capakey: ${err}`);
-                            });
-                    },
+                    
                 }, addressToString(address)));
         });
     };
@@ -118,7 +122,8 @@ const pitch =
                 SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr6'))),
             DIV({},
                 SPAN({}, tr('solLocatePitchStr7')),
-                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr8'))),
+                SPAN({ className: 'pitch-bold' }, tr('solLocatePitchStr8')),
+                SPAN({}, tr('solLocatePitchStr9'))),
         );
 
 
