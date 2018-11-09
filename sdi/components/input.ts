@@ -84,7 +84,7 @@ class InputNumber extends Component<InputProps<number>, InputValue<number>> {
             () => ({
                 value: this.state.value,
                 type: 'number',
-                onChange: e => {
+                onChange: (e) => {
                     // due to https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/669685/
                     // we can'use valueAsNumber
                     // update(e.currentTarget.valueAsNumber);
