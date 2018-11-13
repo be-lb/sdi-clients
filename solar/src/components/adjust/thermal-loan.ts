@@ -24,7 +24,11 @@ const withLoan =
             vertInputItemFn(
                 'loanRate',
                 () => getInputF('loanRate')() * 100,
-                r => setInputF('loanRate')(r / 100),
+                (r) => {
+                    if (r > 0) {
+                        setInputF('loanRate')(r / 100);
+                    }
+                },
                 { min: 0.1, max: 99, step: 0.1 },
                 SPAN({ className: 'unit' }, tr('unitPercent'))),
         );
