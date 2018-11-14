@@ -3465,7 +3465,7 @@ export const messages: MessageDB = {
 
     solLinkFAQ: {
         fr: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
-        nl: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
+        nl: 'https://leefmilieu.brussels/content/zonnekaart-brussel-faq',
         en: 'https://environnement.brussels/content/carte-solaire-de-la-region-bruxelloise-faq',
     },
 
