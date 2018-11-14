@@ -211,7 +211,7 @@ const template: Template = {
     }),
 
     'certif-title': makeSpec({
-        rect: { x: 110, y: 244, width: 72, height: 24 },
+        rect: { x: 110, y: 244, width: 92, height: 24 },
         fontSize: 14,
     }),
     'certif-body': makeSpec({
