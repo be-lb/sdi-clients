@@ -48,7 +48,7 @@ export interface IStoreInteractions<IShape> {
     observe<K extends KeyOfIShape<IShape>>(key: K, handler: (a: IShape[K]) => void, immediate?: boolean): void;
     get<K extends keyof IShape>(key: K): IShape[K];
     version(): number;
-    reset(n: number): void;
+    // reset(n: number): void;
 }
 
 const getLocaleStorage =
@@ -156,14 +156,20 @@ export const source =
         const start =
             (initialState: IShape, withLocalStorage = true): IStoreInteractions<IShape> => {
 
-                const store = [initialState];
+                let store = initialState;
+                let versionNumber = 0;
                 const observers: IObserver<IShape, KeyOfIShape<IShape>>[] = [];
 
                 // let logDev = (_handler: IReducer, _state: IShape): void => {
                 //     // noop
                 // };
 
-                const head = () => store[store.length - 1];
+                const pushState = (ns: IShape) => {
+                    store = ns;
+                    versionNumber += 1;
+                };
+
+                const head = () => store;// store[store.length - 1];
 
                 const get = <K extends keyof IShape>(key: K): IShape[K] => {
                     const state = head();
@@ -213,7 +219,7 @@ export const source =
                         const lens = getLens(key);
                         const newState = lens.modify(handler)(head());
                         toLocalStorage(newState);
-                        store.push(newState);
+                        pushState(newState);
                         processObservers(key);
 
                     };
@@ -226,7 +232,7 @@ export const source =
                                 const m = lens.modify(() => nk);
                                 const newState = m(head());
                                 toLocalStorage(newState);
-                                store.push(newState);
+                                pushState(newState);
                                 processObservers(key);
                             });
                     };
@@ -234,23 +240,23 @@ export const source =
 
                 if (withLocalStorage) {
                     const ns = importLocalStorage(initialState);
-                    store.push(ns);
+                    pushState(ns);
                 }
 
-                const version = () => store.length;
+                const version = () => versionNumber;
 
-                const reset =
-                    (n: number) => {
-                        const end = Math.max(1, store.length - n);
-                        store.splice(end);
-                    };
+                // const reset =
+                //     (n: number) => {
+                //         const end = Math.max(1, store.length - n);
+                //         store.splice(end);
+                //     };
 
                 return {
                     dispatch,
                     dispatchAsync,
                     get,
                     observe,
-                    reset,
+                    // reset,
                     version,
                 };
             };
