@@ -55,6 +55,7 @@ export const getConstants =
 export const prodThresholdHigh = () => getConstants().fold(0, cs => cs.medium_solar_productivity);
 export const prodThresholdMedium = () => getConstants().fold(0, cs => cs.low_productivity_limit);
 
+// tslint:disable-next-line:variable-name
 const Notes = {
     pv_obstacles: 'pvobstacle',
     pv_tech: 'pvtech',
@@ -164,18 +165,16 @@ export const usableRoofArea =
 
 const queryInputs = queryK('solar/inputs');
 export type GetNumKeyOfInputs =
-    | 'nYears'
-    | 'currentYear'
-    | 'elecSellingPrice'
-    | 'CVPrice'
-    | 'pvArea'
     | 'annualConsumptionKWh'
-    | 'installationPrice'
-    | 'VATrate'
     | 'annualMaintenanceCost'
+    | 'currentYear'
+    | 'installationPrice'
     | 'loanPeriod'
     | 'loanRate'
+    | 'nYears'
+    | 'pvArea'
     | 'thermicLiterByDay'
+    | 'VATrate'
     ;
 
 export const getInputF =

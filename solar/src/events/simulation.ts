@@ -40,16 +40,14 @@ const dispatchPvOutputs = dispatchK('solar/outputs/pv');
 const dispatchThermalOutputs = dispatchK('solar/outputs/thermal');
 
 export type SetNumKeyOfInputs =
-    | 'nYears'
-    | 'currentYear'
-    | 'elecSellingPrice'
-    | 'CVPrice'
-    | 'pvArea'
     | 'annualConsumptionKWh'
-    | 'installationPrice'
-    | 'VATrate'
     | 'annualMaintenanceCost'
+    | 'currentYear'
+    | 'installationPrice'
     | 'loanPeriod'
+    | 'nYears'
+    | 'pvArea'
+    | 'VATrate'
     ;
 
 
