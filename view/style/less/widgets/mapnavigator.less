@@ -9,7 +9,8 @@
 
     .input-wrapper {
         width: 65%;
-        margin: 6rem auto;
+        margin: 4rem auto;
+        margin-bottom: 5rem;
         font-size: 1.5rem;
         display: flex;
         align-items: center;
@@ -79,6 +80,7 @@
             .widgetActiveBackground;
             position: relative;
             width: calc(~"25% - @{margin}");
+            height: 400px;
             padding: @margin;
             padding-bottom: 0px;
             margin: @margin / 2 ;
@@ -87,8 +89,14 @@
 
             &:hover {background: #efefef;}
 
+            .map-tile-img {
+                height: 180px;
+                width: 100%;
+            }
             img {
-                max-width: 90%;
+                max-width: 100%;
+                height: auto;
+                max-height: 100%;
                 margin-bottom: @small-margin;
             }
 

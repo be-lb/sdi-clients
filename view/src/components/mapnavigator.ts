@@ -25,6 +25,8 @@ import { IMapInfo } from 'sdi/source';
 import { queryMaps } from '../events/mapnavigator';
 import { navigateMap } from '../events/route';
 import { getMaps } from '../queries/mapnavigator';
+import { fromPredicate } from 'fp-ts/lib/Either';
+import { compose } from 'fp-ts/lib/function';
 
 const logger = debug('sdi:mapnavigator');
 
@@ -52,6 +54,23 @@ const searchField = () => (
         searchButton()));
 
 
+const isGreaterThan100 = fromPredicate<string, string>(rec => rec.length >= 100, rec => rec);
+
+const trimDescription =
+    (record: string) =>
+        isGreaterThan100(record).fold(
+            rec => rec,
+            rec => `${rec.substr(0, 100)}...`,
+        );
+
+const description = compose((s: string) => P({}, s), trimDescription, fromRecord);
+
+
+const imgWrapper =
+    (map: IMapInfo) => DIV({ className: 'map-tile-img' },
+        IMG({ src: map.imageUrl }));
+
+
 const renderMap =
     (map: IMapInfo) => {
         const mid = map.id;
@@ -63,9 +82,9 @@ const renderMap =
                 DIV({
                     onClick: () => mid ? navigateMap(mid) : null,
                 },
-                    IMG({ src: map.imageUrl }),
+                    imgWrapper(map),
                     DIV({ className: 'map-title' }, fromRecord(map.title)),
-                    P({}, fromRecord(map.description).substr(0, 200) + '...'),
+                    description(map.description),
                     DIV({ className: 'read-more' }))));
     };
 
