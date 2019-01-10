@@ -957,9 +957,9 @@ export const messages: MessageDB = {
     },
 
     searchAtlas: {
-        fr: 'Chercher dans l\'Atlas de Bruxelles Environnement',
-        nl: 'Zoek in de Leefmilieu Brussel Atlas',
-        en: 'Search in the Bruxelles Environnement Atlas',
+        fr: 'Chercher dans l\'atlas',
+        nl: 'Zoek in de atlas',
+        en: 'Search in atlas',
     },
 
     start: {
