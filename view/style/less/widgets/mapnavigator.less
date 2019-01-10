@@ -6,14 +6,67 @@
     border: 1px solid @grey;
     padding: @margin;
 
-    h1 {
-        margin-bottom: @margin * 2;
-        width: 100%;
-    }
 
-    .input-wrapper input {
-        width: 66%;
-        font-size: 125%;
+    .input-wrapper {
+        width: 65%;
+        margin: 6rem auto;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        input {
+            width: 100%;
+            margin-bottom: 0;
+            border-radius: 0;
+            border-top-left-radius: 2rem;
+            border-bottom-left-radius: 2rem;
+            border: 2px solid @light-grey;
+            height: 2em;
+            box-sizing: border-box;
+            outline: none;
+            font-weight: 100;
+            background-color: @extra-light-grey;
+            padding-left: 1ch;
+        }
+
+        .search-icon {
+            width: auto;
+            border-radius: 0;
+            border-top-right-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            justify-content: flex-start;
+            font-size: 1em;
+            border: 2px solid @light-grey;
+            border-left: 0px;
+            height: 2em;
+            box-sizing: border-box;
+            background-color: #fff;
+            font-size: 1em;
+            padding: .4em;
+            display: flex;
+            align-items: center;
+
+            .magnifier {
+                // background-image: url("../../asset/svg/sunW.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                margin-right: @margin/2;
+                width: 1.5em;
+                height: 1.5em;
+                display: inline-block;
+
+                &:before {
+                    .awsomefont;
+                    content: @fa-var-search;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+            }
+        }
     }
 
     .maps-container {

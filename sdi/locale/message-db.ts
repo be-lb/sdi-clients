@@ -931,6 +931,13 @@ export const messages: MessageDB = {
         en: 'Maps',
     },
 
+
+    mapList: {
+        fr: 'Liste des cartes',
+        nl: 'kaartlijst',
+        en: 'Maps list',
+    },
+
     rowNumberColTitle: {
         fr: '#',
         nl: '#',
@@ -950,9 +957,9 @@ export const messages: MessageDB = {
     },
 
     searchAtlas: {
-        fr: 'Chercher dans l\'atlas',
-        nl: 'Zoek in de atlas',
-        en: 'Search in atlas',
+        fr: 'Chercher dans l\'Atlas de Bruxelles Environnement',
+        nl: 'Zoek in de Leefmilieu Brussel Atlas',
+        en: 'Search in the Bruxelles Environnement Atlas',
     },
 
     start: {
@@ -1741,12 +1748,6 @@ export const messages: MessageDB = {
         fr: 'Alias',
         nl: 'Alias',
         en: 'Alias',
-    },
-
-    mapList: {
-        fr: 'Liste des cartes',
-        nl: 'kaartlijst',
-        en: 'Maps list',
     },
 
     studio: {
