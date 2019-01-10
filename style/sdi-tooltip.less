@@ -1,0 +1,110 @@
+// from : https://elazizi.com/a-step-by-step-guide-to-making-pure-css-tooltips
+
+
+@tooltip-font-size : 12px;
+@tooltip-bg-color : rgba(0,0,0,0.7);
+
+
+// TOOLTIP
+
+[tooltip]{
+  position:relative;
+  display:inline-block;
+}
+
+[tooltip]:hover::after,
+[tooltip]:hover::before {
+   opacity:1
+}
+
+
+// ARROW
+
+[tooltip]::before {
+    content: "";
+    position: absolute;
+    top:-@tooltip-font-size / 2;
+    left:50%;
+    transform: translateX(-50%);
+    border-width: @tooltip-font-size/3 @tooltip-font-size/2 0 @tooltip-font-size/2;
+    border-style: solid;
+    border-color: @tooltip-bg-color transparent transparent transparent;
+    z-index: 99;
+    opacity:0;
+}
+
+// ARROW POSITIONNING
+
+[tooltipPosition='left']::before{
+  left:0%;
+  top:50%;
+  margin-left:-@tooltip-font-size;
+  transform:translatey(-50%) rotate(-90deg) 
+}
+
+[tooltipPosition='top']::before{
+  left:50%;
+}
+
+[tooltipPosition='bottom']::before{
+  top:100%;
+  margin-top:8px;
+  transform: translateX(-50%) translatey(-100%) rotate(-180deg)
+}
+
+[tooltipPosition='right']::before{
+  left:100%;
+  top:50%;
+  margin-left:1px;
+  transform:translatey(-50%) rotate(90deg)
+}
+
+
+// CONTENT
+
+[tooltip]::after {
+    content: attr(tooltip);
+    font-family: @gui-font;
+    font-size: @tooltip-font-size;
+    position: absolute;
+    left:50%;
+    top:-@tooltip-font-size/2;
+    transform: translateX(-50%) translateY(-100%);
+    background: @tooltip-bg-color;
+    text-align: center;
+    color: #fff;
+    min-width: 80px;
+    border-radius: 5px;
+    pointer-events: none;
+    padding: @tooltip-font-size / 3;
+    z-index:99;
+    opacity:0;
+}
+
+
+// CONTENT POSITIONNING
+
+[tooltipPosition='left']::after{
+  left:0%;
+  top:50%;
+  margin-left:-@tooltip-font-size/3*2;
+  transform: translateX(-100%) translateY(-50%);
+}
+
+[tooltipPosition='top']::after{
+  left:50%;
+}
+
+[tooltipPosition='buttom']::after{
+  top:100%;
+  margin-top:@tooltip-font-size/3*2;
+  transform: translateX(-50%) translateY(0%);
+}
+
+[tooltipPosition='right']::after{
+  left:100%;
+  top:50%;
+  margin-left:@tooltip-font-size/3*2;
+  transform: translateX(0%) translateY(-50%);
+}
+

@@ -31,7 +31,17 @@ import { AppLayout, LegendPage } from '../../shape/types';
 import { fromNullable } from 'fp-ts/lib/Option';
 import { ReactNode } from 'react';
 
+
 const logger = debug('sdi:legend');
+
+
+declare module 'react' {
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        tooltip?: string;
+        tooltipPosition?: string;
+    }
+}
+
 
 
 interface Group {
@@ -67,7 +77,7 @@ const groupItems =
             return acc.concat({
                 g: cg,
                 layers: [info],
-            })
+            });
 
         }, []);
 
@@ -95,7 +105,7 @@ const renderLegend =
 
 
 const dataItem =
-    (info: ILayerInfo) => 
+    (info: ILayerInfo) =>
         DIV({ className: 'layer-item' },
             DIV({ className: 'layer-actions' },
                 SPAN({
@@ -162,6 +172,8 @@ export const switcher = () => {
         return DIV({
             className: 'switcher infos',
             title: tr('mapTools'),
+            tooltip: tr('mapTools'),
+            tooltipPosition: 'left',
         }, switchItem('tools'));
     }
 
