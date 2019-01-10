@@ -185,6 +185,7 @@ const render =
         return (
             DIV({ className: `map-wrapper ${getInteractionMode()}` },
                 DIV({
+                    key: '__this_is_a_unique_map__',
                     className: 'map',
                     ref: attachMap(),
                 }),

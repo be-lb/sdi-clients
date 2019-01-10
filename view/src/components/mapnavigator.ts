@@ -20,7 +20,7 @@ import * as debug from 'debug';
 
 import { DIV, INPUT, IMG, P, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { IMapInfo } from 'sdi/source';
+import { IMapInfo, MessageRecord } from 'sdi/source';
 
 import { queryMaps } from '../events/mapnavigator';
 import { navigateMap } from '../events/route';
@@ -54,6 +54,10 @@ const searchField = () => (
         searchButton()));
 
 
+const mapTitle =
+    (map: IMapInfo) => DIV({ className: 'map-title' }, fromRecord(map.title));
+
+
 const isGreaterThan100 = fromPredicate<string, string>(rec => rec.length >= 100, rec => rec);
 
 const trimDescription =
@@ -63,8 +67,12 @@ const trimDescription =
             rec => `${rec.substr(0, 100)}...`,
         );
 
-const description = compose((s: string) => P({}, s), trimDescription, fromRecord);
+const description =
+    compose((s: string) => P({}, s), trimDescription, fromRecord);
 
+
+const readMore =
+    () => DIV({ className: 'read-more' });
 
 const imgWrapper =
     (map: IMapInfo) => DIV({ className: 'map-tile-img' },
@@ -83,9 +91,9 @@ const renderMap =
                     onClick: () => mid ? navigateMap(mid) : null,
                 },
                     imgWrapper(map),
-                    DIV({ className: 'map-title' }, fromRecord(map.title)),
+                    mapTitle(map),
                     description(map.description),
-                    DIV({ className: 'read-more' }))));
+                    readMore())));
     };
 
 const renderMaps =
