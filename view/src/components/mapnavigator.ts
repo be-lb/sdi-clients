@@ -20,7 +20,7 @@ import * as debug from 'debug';
 
 import { DIV, INPUT, IMG, P, SPAN } from 'sdi/components/elements';
 import tr, { fromRecord } from 'sdi/locale';
-import { IMapInfo, MessageRecord } from 'sdi/source';
+import { IMapInfo } from 'sdi/source';
 
 import { queryMaps } from '../events/mapnavigator';
 import { navigateMap } from '../events/route';

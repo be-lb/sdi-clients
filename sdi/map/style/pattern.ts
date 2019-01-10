@@ -53,6 +53,9 @@ const drawLine =
 
 const cache: { [k: string]: CanvasPattern | string } = {};
 
+
+type Context2DOrNull = CanvasRenderingContext2D | null;
+
 export const makePattern =
     (strokeWidth: number, angle: PatternAngle, color: string) => {
         const hash = `${strokeWidth}.${angle}.${color}`;
@@ -60,7 +63,7 @@ export const makePattern =
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d', {
                 antialias: true,
-            });
+            }) as Context2DOrNull;
             if (strokeWidth > 0 && context) {
                 const dpr = has.DEVICE_PIXEL_RATIO;
                 const ch = strokeWidth * 6 * dpr;
@@ -83,7 +86,14 @@ export const makePattern =
                 line([cw / 2, ch / 2], sw, ll, angle + angleCorrect);
                 line([cw, ch], sw, ll, angle + angleCorrect);
 
-                cache[hash] = context.createPattern(canvas, 'repeat');
+                const pat = context.createPattern(canvas, 'repeat');
+                if (pat) {
+                    cache[hash] = pat;
+                }
+                else {
+                    cache[hash] = 'black'; // FIXME
+
+                }
             }
             else {
                 cache[hash] = color;
