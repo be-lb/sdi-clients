@@ -20,7 +20,7 @@ import { ReactNode } from 'react';
 
 import { DIV, SPAN, H1, H2, NODISPLAY, IMG } from 'sdi/components/elements';
 import { getMessageRecord, LayerGroup, ILayerInfo, IMapInfo } from 'sdi/source';
-import tr, { fromRecord } from 'sdi/locale';
+import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { translateMapBaseLayer } from 'sdi/util';
 import { divTooltipLeft } from 'sdi/components/tooltip';
 
@@ -37,6 +37,7 @@ import print from '../legend-tools/print';
 import share from '../legend-tools/share';
 import location from '../legend-tools/location';
 import measure from '../legend-tools/measure';
+// import mapInfo from './../map-info';
 
 
 const logger = debug('sdi:legend');
@@ -153,10 +154,6 @@ const renderData =
         });
 
 
-const footer = () => {
-    return DIV({ className: 'legend-footer' });
-};
-
 
 const switchItem = (p: LegendPage, tk: MessageKey, currentPage: LegendPage) => {
     return divTooltipLeft(tr(tk), {
@@ -221,28 +218,46 @@ const wmsLegend =
 
 const wrapLegend =
     (...es: ReactNode[]) =>
-        DIV({ className: 'map-legend' }, ...es, footer());
+        DIV({ className: 'map-legend' }, ...es);
+
+
+
+const renderMapInfoHeader =
+    (mapInfo: IMapInfo, p: LegendPage) => DIV({
+        className: `legend-header legend-header-${p}`,
+    },
+        H1({}, fromRecord(mapInfo.title)),
+        DIV({ className: 'map-date' },
+            SPAN({ className: 'map-date-label' }, tr('lastModified')), ' ',
+            SPAN({ className: 'map-date-value' },
+                formatDate(new Date(mapInfo.lastModified)))),
+    );
+
+
+
 
 const renderMapInfo =
     (mapInfo: IMapInfo) =>
         wrapLegend(
-            DIV({ className: 'legend-header' },
-                H1({}, fromRecord(mapInfo.title))),
+            renderMapInfoHeader(mapInfo, 'info'),
             DIV({ className: 'legend-main' },
                 info()));
 
 const renderMapLegend =
     (mapInfo: IMapInfo) =>
         wrapLegend(
+            renderMapInfoHeader(mapInfo, 'legend'),
             DIV({ className: 'styles-wrapper' },
                 H2({}, tr('mapLegend')),
                 ...renderLegend(groupItems(mapInfo.layers)), wmsLegend()));
 
 const renderMapData =
     (mapInfo: IMapInfo) =>
-        wrapLegend(DIV({ className: 'datas-wrapper' },
-            H2({}, tr('mapDatas')),
-            ...renderData(groupItems(mapInfo.layers))));
+        wrapLegend(
+            renderMapInfoHeader(mapInfo, 'data'),
+            DIV({ className: 'datas-wrapper' },
+                H2({}, tr('mapDatas')),
+                ...renderData(groupItems(mapInfo.layers))));
 
 
 const legend =
@@ -254,11 +269,11 @@ const legend =
                 case 'info': return renderMapInfo(mapInfo);
                 case 'legend': return renderMapLegend(mapInfo);
                 case 'data': return renderMapData(mapInfo);
-                case 'base-map': return wrapLegend(webservices());
-                case 'print': return wrapLegend(print());
-                case 'share': return wrapLegend(share());
-                case 'measure': return wrapLegend(measure());
-                case 'locate': return wrapLegend(location());
+                case 'base-map': return wrapLegend(renderMapInfoHeader(mapInfo, 'base-map'), webservices());
+                case 'print': return wrapLegend(renderMapInfoHeader(mapInfo, 'print'), print());
+                case 'share': return wrapLegend(renderMapInfoHeader(mapInfo, 'share'), share());
+                case 'measure': return wrapLegend(renderMapInfoHeader(mapInfo, 'measure'), measure());
+                case 'locate': return wrapLegend(renderMapInfoHeader(mapInfo, 'locate'), location());
             }
         }
         return NODISPLAY();

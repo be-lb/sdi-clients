@@ -11,6 +11,31 @@
 
     .legend-header {
         margin-top: -2px;
+
+        * {.transitionSlow;}
+
+        .map-date {
+            display: flex;
+            font-style: italic;
+            margin: @margin 0;
+        }
+        &-legend,
+        &-data,
+        &-base-map,
+        &-print,
+        &-share,
+        &-measure,
+        &-locate {
+            H1 {
+                font-size: @gui-font-size;
+                letter-spacing: @gui-font-size * 0.01;
+            }
+            .map-date {
+                font-size: @gui-font-size * 0.8;
+                margin-top: @margin / 2;
+            }
+        }
+
     }
 
     .legend-main {

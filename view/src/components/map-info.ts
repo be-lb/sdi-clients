@@ -16,7 +16,7 @@
 
 import * as debug from 'debug';
 
-import tr, { fromRecord, formatDate } from 'sdi/locale';
+import tr, { fromRecord } from 'sdi/locale';
 import { IMapInfo, Attachment } from 'sdi/source';
 import { DIV, H2, P, A, IMG, NODISPLAY, SPAN } from 'sdi/components/elements';
 import { filterNotNull } from 'sdi/util';
@@ -66,7 +66,7 @@ const renderAttachments =
         if (ats.length > 0) {
             const ints = ats.filter(isInternal);
             const exts = ats.filter(isExternal);
-            if (ints.length == 0) {
+            if (ints.length === 0) {
                 return (
                     DIV({ className: 'map-attached-files' },
                         H2({}, tr('links')),
@@ -108,10 +108,10 @@ export default () => {
 
         return (
             DIV({ className: 'map-infos' },
-                DIV({ className: 'map-date' },
-                    DIV({ className: 'map-date-label' }, tr('lastModified')),
-                    DIV({ className: 'map-date-value' },
-                        formatDate(new Date(mapInfo.lastModified)))),
+                // DIV({ className: 'map-date' },
+                //     DIV({ className: 'map-date-label' }, tr('lastModified')),
+                //     DIV({ className: 'map-date-value' },
+                //         formatDate(new Date(mapInfo.lastModified)))),
                 mapImage,
                 mapDescription,
                 renderAttachments(mapInfo)));
