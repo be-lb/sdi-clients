@@ -15,10 +15,14 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable } from 'fp-ts/lib/Option';
+import { ReactNode } from 'react';
+
 import { DIV, SPAN, H1, H2, NODISPLAY, IMG } from 'sdi/components/elements';
 import { getMessageRecord, LayerGroup, ILayerInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 import { translateMapBaseLayer } from 'sdi/util';
+import { divTooltipLeft } from 'sdi/components/tooltip';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
@@ -28,19 +32,12 @@ import legendItem from './legend-item';
 import legendTools from './../legend-tools';
 import info from './../map-info';
 import { AppLayout, LegendPage } from '../../shape/types';
-import { fromNullable } from 'fp-ts/lib/Option';
-import { ReactNode } from 'react';
 
 
 const logger = debug('sdi:legend');
 
 
-declare module 'react' {
-    interface HTMLAttributes<T> extends DOMAttributes<T> {
-        tooltip?: string;
-        tooltipPosition?: string;
-    }
-}
+
 
 
 
@@ -169,11 +166,8 @@ const switchItem = (p: LegendPage) => {
 export const switcher = () => {
     const currentPage = queries.currentPage();
     if (currentPage === 'legend') {
-        return DIV({
+        return divTooltipLeft(tr('mapTools'), {
             className: 'switcher infos',
-            title: tr('mapTools'),
-            tooltip: tr('mapTools'),
-            tooltipPosition: 'left',
         }, switchItem('tools'));
     }
 

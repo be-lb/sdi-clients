@@ -89,7 +89,7 @@ interface HTMLTags {
     meter: HTMLElement;
     nav: HTMLElement;
     noscript: HTMLElement;
-    object: HTMLObjectElement;
+    // object: HTMLObjectElement;
     ol: HTMLOListElement;
     optgroup: HTMLOptGroupElement;
     option: HTMLOptionElement;
@@ -134,10 +134,18 @@ interface HTMLTags {
     wbr: HTMLElement;
 }
 
-const factory = <K extends keyof React.ReactHTML>(k: K) => {
-    return React.createFactory<HTMLTags[K]>(k);
+// type KeyOfHTML = keyof Exclude<React.ReactHTML, 'object'>;
+type KeyOfHTML = keyof HTMLTags;
+
+const factory = <K extends KeyOfHTML>(k: K) => {
+    type DetailedInterface = HTMLTags[K];
+    return React.createFactory<DetailedInterface>(k);
 };
 
+
+// const factory = (k: KeyOfHTML) => {
+//     return React.createFactory(k);
+// };
 
 /**
  * generated from 
@@ -531,7 +539,7 @@ export const MAP = factory('map');
 export const TRACK = factory('track');
 
 // The HTML Embedded Object Element (object) represents an external resource, which can be treated as an image, a nested browsing context, or a resource to be handled by a plugin.
-export const OBJECT = factory('object');
+// export const OBJECT = factory('object');
 
 // The HTML `figcaption` element represents a caption or a legend associated with a figure or an illustration described by the rest of the data of the `figure` element which is its immediate ancestor which means `figcaption` can be the first or last element inside a `figure` block. Also, the HTML Figcaption Element is optional; if not provided, then the parent figure element will have no caption.
 export const FIGCAPTION = factory('figcaption');
@@ -580,3 +588,5 @@ export const ABBR = factory('abbr');
 export const NODISPLAY =
     <Attrs = React.AllHTMLAttributes<HTMLDivElement> & React.Attributes>(attrs = {} as Attrs, ...children: React.ReactNode[]) =>
         DIV(Object.assign({}, attrs, { style: { display: 'none' } }), ...children);
+
+
