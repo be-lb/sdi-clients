@@ -1,20 +1,22 @@
-.switcher.infos {
+.switcher {
     .awsomefont;
     .absolute(0px, @panel-rightW, initial, initial);
     z-index: 2;
     width: 25px;
-    height: 25px !important;
+    height: auto !important;
     background-color: #fff;
     cursor         : default;
     border: 1px solid #fff;
     border-left-color: @grey;
     border-bottom-color: @grey;
 
-    .switch-tools,
-    .switch-legend {
-
-
-        &:before {
+    .switch-item {
+        width : 100%;
+        height: 1.5rem;
+        
+        .picto:before {
+            .awsomefont;
+            .transition;
             width: 25px;
             height: 20px;
             padding-bottom: 5px;
@@ -22,41 +24,26 @@
             align-items    : center;
             justify-content: center;
         }
+
+        &.active .picto:before,
+        .picto:hover:before{
+            color: @green;
+        }
     }
 
-    > div:hover:before {
-        color: @green;
-    }
-
-    .switch-legend:before {content: @fa-var-info;}
-    .switch-tools:before {content: @fa-var-wrench;}
+    .switch-info        .picto:before {content: @fa-var-info;}
+    .switch-legend      .picto:before {content: @fa-var-list-ul;}
+    .switch-data        .picto:before {content: @fa-var-table;}
+    .switch-base-map    .picto:before {content: @fa-var-map-o;}
+    .switch-print       .picto:before {content: @fa-var-print;}
+    .switch-share       .picto:before {content: @fa-var-share-alt;}
+    .switch-measure     .picto:before {content: @fa-var-arrows-h;}
+    .switch-locate      .picto:before {content: @fa-var-crosshairs;}
 }
 
-// .switcher.basemap {
-//     .absolute(25px, 0px, initial, initial);
-//     z-index: 2;
-//     width  : 25px;
-//     height : @switchH + 2px !important;
-//     border-left: 1px solid @grey;
-//     border-bottom: 1px solid @grey;
-//     border-right: 1px solid #fff;
-//     background-color: #fff;
-//
-//
-//     .switch-background-bn {
-//         background: url(~"../../imgs/background-switch-bn.jpg");}
-//     .switch-background-ortho {
-//         background: url(~"../../imgs/background-switch-ortho.jpg");}
-//
-//
-//     .switch-background-bn,
-//     .switch-background-ortho {
-//         .flex(center, center, initial);
-//         width: 19px;
-//         height : 30px !important;
-//         cursor: default;
-//         background-size: cover;
-//         margin-left: 4px;
-//         margin-top: 2px;
-//     }
-// }
+
+@media @sdi-small {
+    .switcher {
+        right: 0px;
+    }
+}

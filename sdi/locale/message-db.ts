@@ -3605,12 +3605,52 @@ export const messages: MessageDB = {
         en: 'Summary on 10 years',
     },
 
-    'tooltip:info': { fr: '', nl: '', en: '' },
-    'tooltip:legend': { fr: '', nl: '', en: '' },
-    'tooltip:data': { fr: '', nl: '', en: '' },
-    'tooltip:base-map': { fr: '', nl: '', en: '' },
-    'tooltip:print': { fr: '', nl: '', en: '' },
-    'tooltip:ishare': { fr: '', nl: '', en: '' },
-    'tooltip:measure': { fr: '', nl: '', en: '' },
-    'tooltip:locate': { fr: '', nl: '', en: '' },
+    'tooltip:info': {
+        fr: 'Informations sur la carte',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:legend': {
+        fr: 'Légende de la carte',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:data': {
+        fr: 'Les couches de données',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:base-map': {
+        fr: 'Fond de carte',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:print': {
+        fr: 'Exporter et imprimer la carte',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:ishare': {
+        fr: 'Partager la carte',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:measure': {
+        fr: 'Faire des mesures',
+        nl: '',
+        en: '',
+    },
+
+    'tooltip:locate': {
+        fr: 'Outils de géolocalisation',
+        nl: '',
+        en: '',
+    },
+
 };

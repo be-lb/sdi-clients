@@ -167,6 +167,7 @@ const switchItem = (p: LegendPage, tk: MessageKey, currentPage: LegendPage) => {
     }, DIV({ className: 'picto' }));
 };
 
+
 export const switcher = () => {
     const currentPage = queries.currentPage();
     return DIV({
@@ -181,7 +182,6 @@ export const switcher = () => {
         switchItem('measure', 'tooltip:measure', currentPage),
         switchItem('locate', 'tooltip:locate', currentPage),
     );
-
 };
 
 
