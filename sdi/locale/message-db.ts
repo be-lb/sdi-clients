@@ -482,6 +482,14 @@ export type MessageKey =
     | 'title'
     | 'toggle-off'
     | 'toggle-on'
+    | 'tooltip:info'
+    | 'tooltip:legend'
+    | 'tooltip:data'
+    | 'tooltip:base-map'
+    | 'tooltip:print'
+    | 'tooltip:ishare'
+    | 'tooltip:measure'
+    | 'tooltip:locate'
     | 'topics'
     | 'translate'
     | 'unitEuro'
@@ -3596,4 +3604,13 @@ export const messages: MessageDB = {
         nl: 'Samenvatting over 10 jaar',
         en: 'Summary on 10 years',
     },
+
+    'tooltip:info': { fr: '', nl: '', en: '' },
+    'tooltip:legend': { fr: '', nl: '', en: '' },
+    'tooltip:data': { fr: '', nl: '', en: '' },
+    'tooltip:base-map': { fr: '', nl: '', en: '' },
+    'tooltip:print': { fr: '', nl: '', en: '' },
+    'tooltip:ishare': { fr: '', nl: '', en: '' },
+    'tooltip:measure': { fr: '', nl: '', en: '' },
+    'tooltip:locate': { fr: '', nl: '', en: '' },
 };

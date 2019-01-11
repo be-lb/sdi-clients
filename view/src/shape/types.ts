@@ -42,7 +42,16 @@ export interface IToolWebServices extends IFoldable {
 }
 
 
-export type LegendPage = 'legend' | 'tools';
+export type LegendPage =
+    |'legend'
+    | 'info'
+    | 'data'
+    | 'base-map'
+    | 'print'
+    | 'share'
+    | 'measure'
+    | 'locate'
+    ;
 
 export interface ILegend {
     currentPage: LegendPage;

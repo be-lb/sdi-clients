@@ -19,7 +19,7 @@ import { fromNullable } from 'fp-ts/lib/Option';
 import { ReactNode } from 'react';
 
 import { DIV, SPAN, H1, H2, NODISPLAY, IMG } from 'sdi/components/elements';
-import { getMessageRecord, LayerGroup, ILayerInfo } from 'sdi/source';
+import { getMessageRecord, LayerGroup, ILayerInfo, IMapInfo } from 'sdi/source';
 import tr, { fromRecord } from 'sdi/locale';
 import { translateMapBaseLayer } from 'sdi/util';
 import { divTooltipLeft } from 'sdi/components/tooltip';
@@ -29,13 +29,17 @@ import events from '../../events/legend';
 import appEvents from '../../events/app';
 import appQueries from '../../queries/app';
 import legendItem from './legend-item';
-import legendTools from './../legend-tools';
 import info from './../map-info';
 import { AppLayout, LegendPage } from '../../shape/types';
+import { MessageKey } from 'sdi/locale/message-db';
+import webservices from '../legend-tools/webservices';
+import print from '../legend-tools/print';
+import share from '../legend-tools/share';
+import location from '../legend-tools/location';
+import measure from '../legend-tools/measure';
 
 
 const logger = debug('sdi:legend');
-
 
 
 
@@ -154,27 +158,29 @@ const footer = () => {
 };
 
 
-const switchItem = (p: LegendPage) => {
-    return DIV({
-        className: `switch-${p}`,
+const switchItem = (p: LegendPage, tk: MessageKey, currentPage: LegendPage) => {
+    return divTooltipLeft(tr(tk), {
+        className: `switch-item switch-${p} ${p === currentPage ? 'active' : ''}`,
         onClick: () => {
             events.setPage(p);
         },
-    });
+    }, DIV({ className: 'picto' }));
 };
 
 export const switcher = () => {
     const currentPage = queries.currentPage();
-    if (currentPage === 'legend') {
-        return divTooltipLeft(tr('mapTools'), {
-            className: 'switcher infos',
-        }, switchItem('tools'));
-    }
-
     return DIV({
-        className: 'switcher infos',
-        title: tr('mapLegend'),
-    }, switchItem('legend'));
+        className: 'switcher',
+    },
+        switchItem('info', 'tooltip:info', currentPage),
+        switchItem('legend', 'tooltip:legend', currentPage),
+        switchItem('data', 'tooltip:data', currentPage),
+        switchItem('base-map', 'tooltip:base-map', currentPage),
+        switchItem('print', 'tooltip:print', currentPage),
+        switchItem('share', 'tooltip:ishare', currentPage),
+        switchItem('measure', 'tooltip:measure', currentPage),
+        switchItem('locate', 'tooltip:locate', currentPage),
+    );
 
 };
 
@@ -211,41 +217,53 @@ const wmsLegend =
             }, tr('wmsLegendDisplay')));
     };
 
-const legend = () => {
-    const currentPage = queries.currentPage();
-    const mapInfo = appQueries.getMapInfo();
-    if (mapInfo) {
-        switch (currentPage) {
-            case 'legend':
-                return (
-                    DIV({ className: 'map-legend' },
-                        DIV({ className: 'legend-header' },
-                            H1({}, fromRecord(mapInfo.title))),
-                        DIV({ className: 'legend-main' },
-                            info(),
-                            DIV({ className: 'styles-wrapper' },
-                                H2({}, tr('mapLegend')),
-                                ...renderLegend(groupItems(mapInfo.layers)), wmsLegend()),
-                            DIV({ className: 'datas-wrapper' },
-                                H2({}, tr('mapDatas')),
-                                ...renderData(groupItems(mapInfo.layers)))),
-                        footer())
-                );
 
-            case 'tools':
-                return (
-                    DIV({ className: 'map-legend' },
-                        DIV({ className: 'legend-header' },
-                            H1({}, fromRecord(mapInfo.title))),
-                        DIV({ className: 'legend-main' },
-                            DIV({ className: 'tools-wrapper' },
-                                ...legendTools())),
-                        footer())
-                );
+
+const wrapLegend =
+    (...es: ReactNode[]) =>
+        DIV({ className: 'map-legend' }, ...es, footer());
+
+const renderMapInfo =
+    (mapInfo: IMapInfo) =>
+        wrapLegend(
+            DIV({ className: 'legend-header' },
+                H1({}, fromRecord(mapInfo.title))),
+            DIV({ className: 'legend-main' },
+                info()));
+
+const renderMapLegend =
+    (mapInfo: IMapInfo) =>
+        wrapLegend(
+            DIV({ className: 'styles-wrapper' },
+                H2({}, tr('mapLegend')),
+                ...renderLegend(groupItems(mapInfo.layers)), wmsLegend()));
+
+const renderMapData =
+    (mapInfo: IMapInfo) =>
+        wrapLegend(DIV({ className: 'datas-wrapper' },
+            H2({}, tr('mapDatas')),
+            ...renderData(groupItems(mapInfo.layers))));
+
+
+const legend =
+    () => {
+        const currentPage = queries.currentPage();
+        const mapInfo = appQueries.getMapInfo();
+        if (mapInfo) {
+            switch (currentPage) {
+                case 'info': return renderMapInfo(mapInfo);
+                case 'legend': return renderMapLegend(mapInfo);
+                case 'data': return renderMapData(mapInfo);
+                case 'base-map': return wrapLegend(webservices());
+                case 'print': return wrapLegend(print());
+                case 'share': return wrapLegend(share());
+                case 'measure': return wrapLegend(measure());
+                case 'locate': return wrapLegend(location());
+            }
         }
-    }
-    return NODISPLAY();
-};
+        return NODISPLAY();
+
+    };
 
 
 export default legend;
