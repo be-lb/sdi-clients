@@ -22,7 +22,7 @@ import { DIV, SPAN, H1, H2, NODISPLAY, IMG } from 'sdi/components/elements';
 import { getMessageRecord, LayerGroup, ILayerInfo, IMapInfo } from 'sdi/source';
 import tr, { fromRecord, formatDate } from 'sdi/locale';
 import { translateMapBaseLayer } from 'sdi/util';
-import { divTooltipLeft } from 'sdi/components/tooltip';
+import { divTooltipLeft, divTooltipTopRight } from 'sdi/components/tooltip';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
@@ -41,9 +41,6 @@ import measure from '../legend-tools/measure';
 
 
 const logger = debug('sdi:legend');
-
-
-
 
 
 interface Group {
@@ -110,21 +107,27 @@ const dataItem =
     (info: ILayerInfo) =>
         DIV({ className: 'layer-item' },
             DIV({ className: 'layer-actions' },
-                SPAN({
-                    className: info.visible ? 'visible' : 'hidden',
-                    title: tr('visible'),
-                    onClick: () => {
-                        appEvents.setLayerVisibility(info.id, !info.visible);
-                    },
-                }),
-                SPAN({
-                    className: 'table',
-                    title: tr('attributesTable'),
-                    onClick: () => {
-                        appEvents.setCurrentLayer(info.id);
-                        appEvents.setLayout(AppLayout.MapAndTable);
-                    },
-                })),
+                divTooltipTopRight(
+                    tr('visible'),
+                    {},
+                    SPAN({
+                        className: info.visible ? 'visible' : 'hidden',
+                        onClick: () => {
+                            appEvents.setLayerVisibility(info.id, !info.visible);
+                        },
+                    })),
+                divTooltipTopRight(
+                    tr('attributesTable'),
+                    {},
+                    SPAN({
+                        className: 'table',
+                        onClick: () => {
+                            appEvents.setCurrentLayer(info.id);
+                            appEvents.setLayout(AppLayout.MapAndTable);
+                        },
+                    })),
+            ),
+
             DIV({ className: 'layer-title' },
                 fromNullable(
                     appQueries.getDatasetMetadata(info.metadataId))

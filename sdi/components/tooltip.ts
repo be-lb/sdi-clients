@@ -25,7 +25,7 @@ declare module 'react' {
 }
 
 
-export type TooltipPosition = 'left' | 'right' | 'bottom' | 'top';
+export type TooltipPosition = 'left' | 'right' | 'bottom' | 'top' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
 export const tooltip =
     (pos: TooltipPosition) =>
@@ -42,21 +42,36 @@ export const tooltip =
 export const tooltipLeft = tooltip('left');
 export const tooltipRight = tooltip('right');
 export const tooltipTop = tooltip('top');
+export const tooltipTopRight = tooltip('top-right');
+export const tooltipTopLeft = tooltip('top-left');
 export const tooltipBottom = tooltip('bottom');
+export const tooltipBottomRight = tooltip('bottom-right');
+export const tooltipBottomLeft = tooltip('bottom-left');
 
 export const buttonTooltipLeft = tooltipLeft(BUTTON);
 export const buttonTooltipRight = tooltipRight(BUTTON);
 export const buttonTooltipTop = tooltipTop(BUTTON);
+export const buttonTooltipTopRight = tooltipTopRight(BUTTON);
+export const buttonTooltipTopLeft = tooltipTopLeft(BUTTON);
 export const buttonTooltipBottom = tooltipBottom(BUTTON);
+export const buttonTooltipBottomRight = tooltipBottomRight(BUTTON);
+export const buttonTooltipBottomLeft = tooltipBottomLeft(BUTTON);
 
 export const divTooltipLeft = tooltipLeft(DIV);
 export const divTooltipRight = tooltipRight(DIV);
 export const divTooltipTop = tooltipTop(DIV);
+export const divTooltipTopRight = tooltipTopRight(DIV);
+export const divTooltipTopLeft = tooltipTopLeft(DIV);
 export const divTooltipBottom = tooltipBottom(DIV);
-
+export const divTooltipBottomRight = tooltipBottomRight(DIV);
+export const divTooltipBottomLeft = tooltipBottomLeft(DIV);
 
 export const spanTooltipLeft = tooltipLeft(SPAN);
 export const spanTooltipRight = tooltipRight(SPAN);
 export const spanTooltipTop = tooltipTop(SPAN);
+export const spanTooltipTopRight = tooltipTopRight(SPAN);
+export const spanTooltipTopLeft = tooltipTopLeft(SPAN);
 export const spanTooltipBottom = tooltipBottom(SPAN);
+export const spanTooltipBottomRight = tooltipBottomRight(SPAN);
+export const spanTooltipBottomLeft = tooltipBottomLeft(SPAN);
 
