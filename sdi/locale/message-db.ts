@@ -200,7 +200,8 @@ export type MessageKey =
     | 'longitude'
     | 'lowValue'
     | 'map'
-    | 'mapDatas'
+    | 'mapData'
+    | 'mapDataHelp'
     | 'mapEmbed'
     | 'mapEmbedWithView'
     | 'mapInfoAddIllustration'
@@ -253,7 +254,9 @@ export type MessageKey =
     | 'power'
     | 'preview'
     | 'printDownloadingBaseMap'
+    | 'printFormatChoice'
     | 'printMap'
+    | 'printMapHelp'
     | 'printNotStarted'
     | 'printPreparingPDF'
     | 'propName'
@@ -916,9 +919,9 @@ export const messages: MessageDB = {
     },
 
     mapLegend: {
-        fr: 'Légende',
-        nl: 'Legende',
-        en: 'Legend',
+        fr: 'Légende de la carte',
+        nl: 'Kaartlegende',
+        en: 'Map legend',
     },
 
     mapTools: {
@@ -927,10 +930,16 @@ export const messages: MessageDB = {
         en: 'Tools',
     },
 
-    mapDatas: {
-        fr: 'Couches',
-        nl: 'Lagen',
-        en: 'Layers',
+    mapData: {
+        fr: 'Couches de données',
+        nl: 'Datalaagen',
+        en: 'Data layers',
+    },
+
+    mapDataHelp: {
+        fr: 'Vous pouvez ici visualiser les données brutes utilisées pour cette cartes, afficher ou non certaines couches, et utiliser la table attributaire pour explorer les données.',
+        nl: 'Hier kunt u de ruwe gegevens bekijken die voor deze kaart zijn gebruikt, al dan niet enkele lagen weergeven en de attribuutentabel gebruiken om de gegevens te verkennen.',
+        en: 'Here you can view the raw data used for this map, hide or display layers, and use the attribute table to explore the dataset.',
     },
 
     mapRefList: {
@@ -1181,7 +1190,7 @@ export const messages: MessageDB = {
     },
 
     wmsSwitch: {
-        fr: 'Fond de carte',
+        fr: 'Fond de plan',
         nl: 'Achtergrond',
         en: 'Background map',
     },
@@ -2004,10 +2013,22 @@ export const messages: MessageDB = {
         en: 'Text',
     },
 
+    printFormatChoice: {
+        fr: 'Choix du format et de l\'orientation',
+        nl: 'Keuze van formaat en oriëntatie',
+        en: 'Choice of format and orientation',
+    },
+
     printMap: {
         fr: 'Imprimer la carte',
         nl: 'Print de kaart',
         en: 'Print map',
+    },
+
+    printMapHelp: {
+        fr: 'Cet outil exporte la vue actuelle de la carte en un fichier .PDF prêt à imprimer. Modifiez éventuellement le titre de la carte et sélectionnez le format souhaité pour générer le fichier.',
+        nl: 'Deze tool exporteert de huidige kaartweergave naar een drukklaar PDF-bestand. Wijzig indien nodig de titel van de kaart en selecteer het gewenste formaat om het bestand te genereren.',
+        en: 'This tool exports the current map view into a print-ready PDF file. Adapt the map title if necessary, and select the desired format to generate the file.',
     },
 
     printDownloadingBaseMap: {

@@ -259,7 +259,8 @@ const renderMapData =
         wrapLegend(
             renderMapInfoHeader(mapInfo, 'data'),
             DIV({ className: 'datas-wrapper' },
-                H2({}, tr('mapDatas')),
+                H2({}, tr('mapData')),
+                DIV({ className: 'help-txt' }, tr('mapDataHelp')),
                 ...renderData(groupItems(mapInfo.layers))));
 
 

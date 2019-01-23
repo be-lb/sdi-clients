@@ -18,7 +18,7 @@ import * as debug from 'debug';
 import { fromNullable } from 'fp-ts/lib/Option';
 
 import tr from 'sdi/locale';
-import { DIV, H2 } from 'sdi/components/elements';
+import { DIV, H2, H3 } from 'sdi/components/elements';
 import { IMapInfo } from 'sdi/source';
 import { uniqId } from 'sdi/util';
 
@@ -51,31 +51,46 @@ const renderButton =
         }, label);
 
 
+const helptext =
+    () => DIV({ className: 'help-txt' },
+        tr('printMapHelp'));
+
+
+const choiceA4 =
+    () => DIV({ className: 'print-format' },
+        renderButton('A4', {
+            template: 'a4/landscape',
+            format: 'a4',
+            orientation: 'landscape',
+        }),
+        renderButton('A4', {
+            template: 'a4/portrait',
+            format: 'a4',
+            orientation: 'portrait',
+        }));
+
+const choiceA0 =
+    () => DIV({ className: 'print-format' },
+        renderButton('A0', {
+            template: 'a0/landscape',
+            format: 'a0',
+            orientation: 'landscape',
+        }),
+        renderButton('A0', {
+            template: 'a0/portrait',
+            format: 'a0',
+            orientation: 'portrait',
+        }));
+
+
 const renderBody =
     (mapInfo: IMapInfo) =>
         DIV({ className: 'tool-body' },
             renderCustom(mapInfo),
             DIV({ className: 'print-block' },
-                renderButton('A4', {
-                    template: 'a4/landscape',
-                    format: 'a4',
-                    orientation: 'landscape',
-                }),
-                renderButton('A4', {
-                    template: 'a4/portrait',
-                    format: 'a4',
-                    orientation: 'portrait',
-                }),
-                renderButton('A0', {
-                    template: 'a0/landscape',
-                    format: 'a0',
-                    orientation: 'landscape',
-                }),
-                renderButton('A0', {
-                    template: 'a0/portrait',
-                    format: 'a0',
-                    orientation: 'portrait',
-                }),
+                H3({}, tr('printFormatChoice')),
+                choiceA4(),
+                choiceA0(),
             ));
 
 
@@ -88,6 +103,7 @@ const render =
                     DIV({ className: 'tool-group share-embed' },
                         DIV({ className: 'tool print' },
                             H2({}, tr('printMap')),
+                            helptext(),
                             renderBody(mapInfo))));
 
 
