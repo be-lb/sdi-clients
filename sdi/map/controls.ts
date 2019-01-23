@@ -22,6 +22,7 @@ import { SetScaleLine, IMapScale } from '.';
 import { DIV } from '../components/elements';
 import { MessageRecord } from '../source';
 import tr, { fromRecord } from '../locale';
+import { TooltipPosition } from '../components/tooltip';
 
 const logger = debug('sdi:map/controls');
 
@@ -139,13 +140,23 @@ export const rotateControl =
     };
 
 
+
 const fsInNode = document.createElement('div');
 fsInNode.setAttribute('class', 'fullscreen-in');
 const fsOutNode = document.createElement('div');
 fsOutNode.setAttribute('class', 'fullscreen-out');
 
 export const fullscreenControl =
-    (target: Element) => {
+    (target: Element, tooltip: string, tooltipPos = 'left' as TooltipPosition) => {
+        const observer = new MutationObserver(
+            (_mutationsList, _observer) =>
+                target.querySelectorAll('.fullscreen')
+                    .forEach((n) => {
+                        n.setAttribute('data-tooltip', tooltip);
+                        n.setAttribute('data-tooltip-position', tooltipPos);
+                    }));
+
+        observer.observe(target, { childList: true });
         return (
             new control.FullScreen({
                 target,

@@ -21,6 +21,7 @@ import { Map, View, source, layer, proj, Feature, Collection, Extent } from 'ope
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition, FeatureCollection } from '../source';
+import tr, { fromRecord } from '../locale';
 
 import {
     ExtractOptions,
@@ -43,7 +44,6 @@ import { select, highlight } from './actions';
 import { measure, track, extract, mark, print, position, singleclick } from './tools';
 import { credit } from './credit';
 // import { setTimeout } from 'timers';
-import { fromRecord } from '../locale';
 
 
 const logger = debug('sdi:map');
@@ -487,7 +487,7 @@ export const create =
             controls: [
                 rotateControl(controlBox),
                 zoomControl(controlBox),
-                fullscreenControl(controlBox),
+                fullscreenControl(controlBox, tr('fullscreen')),
                 scaleLine({
                     setScaleLine: options.setScaleLine,
                     minWidth: 100,
