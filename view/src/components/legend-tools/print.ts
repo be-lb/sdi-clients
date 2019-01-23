@@ -21,6 +21,7 @@ import tr from 'sdi/locale';
 import { DIV, H2, H3 } from 'sdi/components/elements';
 import { IMapInfo } from 'sdi/source';
 import { uniqId } from 'sdi/util';
+import { helpText } from 'sdi/components/helptext';
 
 import queries from '../../queries/app';
 import events from '../../events/app';
@@ -50,10 +51,6 @@ const renderButton =
             },
         }, label);
 
-
-const helptext =
-    () => DIV({ className: 'help-txt' },
-        tr('printMapHelp'));
 
 
 const choiceA4 =
@@ -88,8 +85,9 @@ const renderBody =
         DIV({ className: 'tool-body' },
             renderCustom(mapInfo),
             DIV({ className: 'print-block' },
-                H3({}, tr('printFormatChoice')),
+                H3({}, tr('printSmallFormat')),
                 choiceA4(),
+                H3({}, tr('printBigFormat')),
                 choiceA0(),
             ));
 
@@ -103,7 +101,7 @@ const render =
                     DIV({ className: 'tool-group share-embed' },
                         DIV({ className: 'tool print' },
                             H2({}, tr('printMap')),
-                            helptext(),
+                            helpText(tr('printMapHelp')),
                             renderBody(mapInfo))));
 
 

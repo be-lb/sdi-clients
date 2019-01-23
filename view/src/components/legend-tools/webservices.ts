@@ -25,12 +25,13 @@ import { IMapBaseLayer } from 'sdi/source';
 
 import appQueries from '../../queries/app';
 import appEvents from '../../events/app';
+import { helpText } from 'sdi/components/helptext';
 
 const logger = debug('sdi:webservices');
 
 const renderCurrentBaseLayer =
     (bl: IMapBaseLayer) => {
-        const tl = translateMapBaseLayer(bl)
+        const tl = translateMapBaseLayer(bl);
         // const lyrs = tl.params.LAYERS.split(',');
         // const legends = lyrs.map(lyr => IMG({
         //     key: `legend-image-${tl.url}-${lyr}`,
@@ -38,7 +39,7 @@ const renderCurrentBaseLayer =
         // }));
 
         return DIV({ className: 'base-layer active' },
-            SPAN({}, tl.name))
+            SPAN({}, tl.name));
     };
 
 
@@ -71,6 +72,7 @@ const webservices =
         const services = appQueries.getBaseLayerServices();
         return DIV({ className: 'tool wms-picker' },
             H2({}, tr('wmsSwitch')),
+            helpText(tr('wmsSwitchHelpText')),
             DIV({ className: 'tool-body' }, services.map(renderService)));
     };
 

@@ -37,6 +37,7 @@ import print from '../legend-tools/print';
 import share from '../legend-tools/share';
 import location from '../legend-tools/location';
 import measure from '../legend-tools/measure';
+import { helpText } from 'sdi/components/helptext';
 // import mapInfo from './../map-info';
 
 
@@ -260,7 +261,7 @@ const renderMapData =
             renderMapInfoHeader(mapInfo, 'data'),
             DIV({ className: 'datas-wrapper' },
                 H2({}, tr('mapData')),
-                DIV({ className: 'help-txt' }, tr('mapDataHelp')),
+                helpText(tr('mapDataHelp')),
                 ...renderData(groupItems(mapInfo.layers))));
 
 
