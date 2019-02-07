@@ -825,9 +825,9 @@ export const messages: MessageDB = {
     },
 
     emptyMapTitle: {
-        fr: 'Titre de la carte',
-        nl: 'Kaarttitel',
-        en: 'Map title',
+        fr: 'Adapter le titre de la carte',
+        nl: 'Pas de kaarttitel aan',
+        en: 'Adjust map title',
     },
 
     export: {
