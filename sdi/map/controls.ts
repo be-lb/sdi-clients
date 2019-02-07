@@ -108,16 +108,34 @@ export const renderScaleline =
                 DIV({ className: 'half' })));
 
 
+const setTooltip =
+    (target: Element, selector: string, tooltip: string, tooltipPos: TooltipPosition) => {
+        const observer = new MutationObserver(
+            (_mutationsList, _observer) => {
+                target.querySelectorAll(selector)
+                    .forEach((n) => {
+                        n.setAttribute('data-tooltip', tooltip);
+                        n.setAttribute('data-tooltip-position', tooltipPos);
+                    });
+                observer.disconnect();
+            });
+
+        observer.observe(target, { childList: true });
+    };
+
+
 export const zoomControl =
     (target: Element) => {
+        setTooltip(target, '.zoom-in', tr('zoomIn'), 'left');
+        setTooltip(target, '.zoom-out', tr('zoomOut'), 'left');
         return (
             new control.Zoom({
                 target,
                 className: 'zoom',
-                zoomInLabel: '',
-                zoomOutLabel: '',
-                zoomInTipLabel: tr('zoomIn'),
-                zoomOutTipLabel: tr('zoomOut'),
+                zoomInLabel: '\uF067',
+                zoomOutLabel: '\uF068',
+                zoomInTipLabel: ' ',
+                zoomOutTipLabel: ' ',
             })
         );
     };
@@ -128,13 +146,14 @@ northArrow.setAttribute('class', 'north-arrow');
 
 export const rotateControl =
     (target: Element) => {
+        setTooltip(target, '.rotate', tr('north'), 'left');
         return (
             new control.Rotate({
                 target,
                 className: 'rotate',
-                tipLabel: tr('north'),
                 autoHide: false,
                 label: northArrow,
+                tipLabel: ' ',
             })
         );
     };
@@ -147,23 +166,15 @@ const fsOutNode = document.createElement('div');
 fsOutNode.setAttribute('class', 'fullscreen-out');
 
 export const fullscreenControl =
-    (target: Element, tooltip: string, tooltipPos = 'left' as TooltipPosition) => {
-        const observer = new MutationObserver(
-            (_mutationsList, _observer) =>
-                target.querySelectorAll('.fullscreen')
-                    .forEach((n) => {
-                        n.setAttribute('data-tooltip', tooltip);
-                        n.setAttribute('data-tooltip-position', tooltipPos);
-                    }));
-
-        observer.observe(target, { childList: true });
+    (target: Element) => {
+        setTooltip(target, '.fullscreen', tr('fullscreen'), 'left');
         return (
             new control.FullScreen({
                 target,
                 className: 'fullscreen',
-                tipLabel: tr('fullscreen'),
                 label: fsInNode,
                 labelActive: fsOutNode,
+                tipLabel: ' ',
             })
         );
     };
