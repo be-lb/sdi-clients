@@ -163,6 +163,8 @@ const switchItem = (p: LegendPage, tk: MessageKey, currentPage: LegendPage) => {
     return divTooltipLeft(tr(tk), {
         className: `switch-item switch-${p} ${p === currentPage ? 'active' : ''}`,
         onClick: () => {
+            appEvents.setLayout(AppLayout.MapFS);
+            appEvents.unsetCurrentFeature();
             events.setPage(p);
         },
     }, DIV({ className: 'picto' }));

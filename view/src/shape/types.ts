@@ -51,6 +51,7 @@ export type LegendPage =
     | 'share'
     | 'measure'
     | 'locate'
+    | 'feature-info'
     ;
 
 export interface ILegend {

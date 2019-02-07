@@ -74,7 +74,7 @@ export const main =
             'app/route': SDI.args,
 
             'component/legend': {
-                currentPage: 'legend',
+                currentPage: 'info',
             },
 
             'component/menu': {

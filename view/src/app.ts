@@ -24,7 +24,7 @@ import tr from 'sdi/locale';
 
 import map from './components/map';
 import table from './components/table/feature-collection';
-import feature, { switcher as featureSwitch } from './components/feature-view';
+import feature from './components/feature-view';
 import legend, { switcher as legendSwitch } from './components/legend';
 import mapnavigator from './components/mapnavigator';
 import tracker from './components/geo-tracker';
@@ -71,7 +71,7 @@ const renderMapAndInfo =
     () => wrappedMain('map-and-info', map(), legendSwitch(), legend());
 
 const renderMapAndFeature =
-    () => wrappedMain('map-and-feature', map(), featureSwitch(), feature());
+    () => wrappedMain('map-and-feature', map(), legendSwitch(), feature());
 
 const renderTableFs =
     () => wrappedMain('table-fs', table());
@@ -84,7 +84,7 @@ const renderMapNavigatorFS =
 
 
 const renderMapAndTableAndFeature =
-    () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), featureSwitch(), feature());
+    () => wrappedMain('map-and-table', DIV({ className: 'vertical-split' }, map(), table()), legendSwitch(), feature());
 
 const renderMapAndTracker =
     () => wrappedMain('map-and-tracker', map(), tracker());

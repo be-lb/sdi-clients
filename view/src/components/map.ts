@@ -25,6 +25,7 @@ import { MessageRecord } from 'sdi/source';
 
 import appQueries from '../queries/app';
 import appEvents from '../events/app';
+import legendEvents from '../events/legend';
 import {
     getInteraction,
     getInteractionMode,
@@ -74,12 +75,14 @@ const selectFeature =
     (lid: string, fid: string | number) => {
         appEvents.setCurrentFeatureById(lid, fid);
         appEvents.setLayout(AppLayout.MapAndFeature);
+        legendEvents.setPage('feature-info');
     };
 
 const clearSelection =
     () => {
         appEvents.unsetCurrentFeature();
         appEvents.setLayout(AppLayout.MapAndInfo);
+        legendEvents.setPage('info');
     };
 
 
