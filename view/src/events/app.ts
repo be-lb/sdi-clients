@@ -84,6 +84,8 @@ observe('data/maps',
     }));
 
 
+const findMap = (mid: string) => fromNullable(queries.getMap(mid));
+
 
 const attachments = dispatchK('data/attachments');
 
@@ -112,11 +114,21 @@ const events = {
     loadMap() {
         fromNullable(queries.getCurrentMap())
             .map(
-                mid => fetchMap(getApiUrl(`maps/${mid}`))
-                    .then((info) => {
-                        dispatch('data/maps', () => [info]);
-                        loadMap(info);
-                    }));
+                (mid) => {
+                    findMap(mid)
+                        .foldL(
+                            () => {
+                                fetchMap(getApiUrl(`maps/${mid}`))
+                                    .then((info) => {
+                                        dispatch('data/maps', maps => maps.concat([info]));
+                                        return loadMap(info);
+                                    });
+                            },
+                            loadMap,
+                        );
+
+
+                });
     },
 
     loadBaseLayer(id: string, url: string) {

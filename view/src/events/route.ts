@@ -41,7 +41,7 @@ const getNumber =
             }
         }
         return null;
-    }
+    };
 
 const setMapView =
     () => {
@@ -55,9 +55,9 @@ const setMapView =
                     dirty: 'geo',
                     center: [lat, lon],
                     zoom,
-                })
-            })
-    }
+                });
+            });
+    };
 
 export const navigate =
     () => {
@@ -70,7 +70,6 @@ export const navigate =
             setMapView();
         }
         else {
-            events.loadAllMaps();
             events.setLayout(AppLayout.MapNavigatorFS);
         }
     };

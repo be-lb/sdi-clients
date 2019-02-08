@@ -130,6 +130,7 @@ const effects =
         events.loadAllBaseLayers(getApiUrl(`wmsconfig/`));
         events.loadCategories(getApiUrl(`categories`));
         events.loadAlias(getApiUrl(`alias`));
+        events.loadAllMaps();
         navigate();
     };
 
