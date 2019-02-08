@@ -194,6 +194,15 @@ export const select =
             }
         });
 
+
+        const syncSelection =
+            () => {
+                const s = options.getSelected();
+                if (s.featureId === null && selectedFeature.getLength() > 0) {
+                    selectedFeature.clear();
+                }
+            };
+
         const init =
             (map: Map) => {
                 map.addInteraction(selectInteraction);
@@ -204,8 +213,14 @@ export const select =
             (state: Interaction) =>
                 fromInteraction('select', state)
                     .foldL(
-                        () => selectInteraction.setActive(false),
-                        () => selectInteraction.setActive(true));
+                        () => {
+                            syncSelection();
+                            selectInteraction.setActive(false);
+                        },
+                        () => {
+                            syncSelection();
+                            selectInteraction.setActive(true);
+                        });
 
 
         return { init, update };

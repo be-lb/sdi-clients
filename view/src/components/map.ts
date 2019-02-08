@@ -123,6 +123,7 @@ const attachMap =
                 selectable({
                     selectFeature,
                     clearSelection,
+                    getSelected,
                 }, getInteraction);
 
                 measurable({

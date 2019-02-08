@@ -212,6 +212,7 @@ export interface EditOptions {
 export interface SelectOptions {
     selectFeature(lid: string, id: string | number): void;
     clearSelection(): void;
+    getSelected: FeaturePathGetter;
 }
 
 
@@ -259,7 +260,7 @@ export interface PrintResponse<T> {
     id: string | null;
     status: PrintResponseStatus;
     data: string;
-    extent: [number, number, number, number],
+    extent: [number, number, number, number];
     props: T | null;
 }
 export const defaultPrintResponse =
