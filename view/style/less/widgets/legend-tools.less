@@ -165,53 +165,40 @@
 
 // TOOLS : LOCATION
 .tool.location {
-    .tool-help {
-        margin-bottom: @margin;
-    }
 
-    .lat-lon-inputs {
+    .point-location {
+        margin-bottom: @margin * 2;
+
+        .lat-lon-inputs {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        input {
-            width: calc(~"50% - @{margin} / 2 - @{small-margin} / 2 - 25px");
-            margin: 0;
+            input {
+                width: calc(~"50% - @{margin} / 2 - @{small-margin} / 2 - 25px");
+                margin: 0;
+            }
+            .btn-search {//refactor needed
+                color: #000;
+                font-size: 1rem;
+                &:before {font-size: 1rem;}
+                &:hover:before {color: @green;}
+            }
         }
-        .btn-search {//refactor needed
-            color: #000;
-            font-size: 1rem;
-            &:before {font-size: 1rem;}
-            &:hover:before {color: @green;}
+
+        .cursor-location {
+            margin-top: @margin;
+            .lat-lon-label,
+            .lat-lon-value {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: @small-margin;
+                > div {width: calc(~"50% - @{margin}")}
+            }
         }
     }
 
-    .cursor-location {
-        margin-top: @margin;
-        .lat-lon-label,
-        .lat-lon-value {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: @small-margin;
-            > div {width: calc(~"50% - @{margin}")}
-        }
-        .btn-check {//refactor needed
-            color: #000;
-            font-size: 1rem;
-            margin-bottom: @margin;
-            &:before {
-                .awsomefont;
-                font-size: 1em;
-                content: @fa-var-circle-o;
-            }
-            &:hover:before,
-            &.active:before {
-                content: @fa-var-dot-circle-o;
-            }
-            &.active:before {color: @green;}
-            &:hover.active:before {
-                content: @fa-var-circle-o;
-            }
-        }
+        .btn-gps {
+    font-size: @gui-font-size !important;
     }
 }
 
@@ -232,7 +219,8 @@
             margin-bottom: @small-margin;
         }
 
-        .btn-measure {//refactor needed
+        .btn-measure-length,
+        .btn-measure-area {//refactor needed
             color: #000;
             font-size: 1rem;
             &:before {font-size: 1rem;}
@@ -256,6 +244,7 @@
         overflow-y: auto;
     }
     span.text {
+        font-size: @gui-font-size * 0.8;
         font-family: monospace;
         color: @grey;
     }

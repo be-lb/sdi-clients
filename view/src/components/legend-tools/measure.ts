@@ -18,6 +18,7 @@
 
 import tr from 'sdi/locale';
 import { DIV, H2 } from 'sdi/components/elements';
+import { helpText } from 'sdi/components/helptext';
 
 import appEvents from '../../events/app';
 import { measureEvents } from '../../events/map';
@@ -38,14 +39,15 @@ const measureArea = () => {
 const render = () => {
     return (
         DIV({ className: 'tool measure' },
-            H2({}, tr('measure')),
+            H2({}, tr('measureTool')),
+            helpText(tr('helptext:measureTool')),
             DIV({ className: 'tool-body' },
                 DIV({
-                    className: 'btn-measure',
+                    className: 'btn-measure-length',
                     onClick: measureLength,
                 }, tr('measureLength')),
                 DIV({
-                    className: 'btn-measure',
+                    className: 'btn-measure-area',
                     onClick: measureArea,
                 }, tr('measureArea'))))
     );

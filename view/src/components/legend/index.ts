@@ -263,7 +263,7 @@ const renderMapData =
             renderMapInfoHeader(mapInfo, 'data'),
             DIV({ className: 'datas-wrapper' },
                 H2({}, tr('mapData')),
-                helpText(tr('mapDataHelp')),
+                helpText(tr('helptext:mapdataTool')),
                 ...renderData(groupItems(mapInfo.layers))));
 
 

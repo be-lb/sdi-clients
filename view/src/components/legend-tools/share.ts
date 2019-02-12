@@ -1,5 +1,4 @@
 
-
 /*
  *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
  *
@@ -84,7 +83,7 @@ const render = () => {
     return (
         DIV({ className: 'tool-group share-embed' },
             DIV({ className: 'tool share' },
-                H2({}, tr('share')),
+                H2({}, tr('sharingTools')),
                 DIV({ className: 'tool-body' },
                     DIV({ className: 'input-label' }, tr('mapLink')),
                     makeCopyable(url),

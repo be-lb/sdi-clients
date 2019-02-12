@@ -72,7 +72,7 @@ const webservices =
         const services = appQueries.getBaseLayerServices();
         return DIV({ className: 'tool wms-picker' },
             H2({}, tr('wmsSwitch')),
-            helpText(tr('wmsSwitchHelpText')),
+            helpText(tr('helptext:wmsSwitchTool')),
             DIV({ className: 'tool-body' }, services.map(renderService)));
     };
 
