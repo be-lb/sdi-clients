@@ -69,10 +69,10 @@ body[lang="nl"] .be-name {
     }
 
     .app-listwrapper {
-        .absolute(0px, @panel-rightW, auto, auto);
+        .absolute(0px, calc(~"@{panel-rightW} + 25px"), auto, auto);
 
         .app-listview:after {
-            content: @fa-var-table;
+            content: @fa-var-ellipsis-h;
         }
     }
 
