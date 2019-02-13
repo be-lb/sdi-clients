@@ -153,7 +153,7 @@ const renderInput =
         wrap(
             pointLocation(),
             gpsTracker(),
-            bookmark(),
+            bookmark(), 
             );
 
 

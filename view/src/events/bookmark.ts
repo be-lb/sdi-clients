@@ -14,9 +14,23 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { dispatch, query } from 'sdi/shape';
 import { right, left, Either } from 'fp-ts/lib/Either';
+import { some } from 'fp-ts/lib/Option';
 import { Coordinate } from 'openlayers';
+
+import { dispatch, query } from 'sdi/shape';
+import { getFeatureProp } from 'sdi/source';
+import { addLayer, removeLayer } from 'sdi/map';
+
+import { bookmarkLayerName, bookmarkLayerInfo, bookmarkLayerID } from '../components/bookmark';
+
+
+const updateBookmarks =
+    () => {
+        removeLayer(bookmarkLayerID);
+        addBookmarksToMap();
+    };
+
 
 export const addBookmarkFromMark =
     (): Either<boolean, boolean> => {
@@ -30,7 +44,7 @@ export const addBookmarkFromMark =
     };
 
 export const addBookmark =
-    (pos: Coordinate) =>
+    (pos: Coordinate) => {
         dispatch('component/bookmark', (state) => {
             const name = `Bookmark ${state.features.length}`;
             state.features.push({
@@ -44,3 +58,31 @@ export const addBookmark =
             });
             return state;
         });
+        updateBookmarks();
+    };
+
+export const removeBookmark =
+    (name: string) => {
+        dispatch('component/bookmark', (state) => {
+            const features = state.features.filter(f => getFeatureProp(f, 'name', '') !== name);
+            return { ...state, features };
+        });
+        updateBookmarks();
+    };
+
+
+
+export const addBookmarksToMap =
+    () => {
+        dispatch('data/maps', maps => maps.map(m => ({
+            ...m,
+            layers: m.layers.filter(l => l.id !== bookmarkLayerID).concat([bookmarkLayerInfo]),
+        })));
+        addLayer(
+            () => ({
+                name: bookmarkLayerName,
+                info: bookmarkLayerInfo,
+                metadata: null,
+            }),
+            () => right(some(query('component/bookmark'))));
+    };

@@ -15,6 +15,7 @@
  */
 
 import * as debug from 'debug';
+import { fromNullable, none } from 'fp-ts/lib/Option';
 
 import { dispatch, observe, dispatchK } from 'sdi/shape';
 import { Feature, IMapInfo, MessageRecord } from 'sdi/source';
@@ -26,7 +27,7 @@ import { AppLayout } from '../shape/types';
 import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment, fetchBaseLayer, fetchBaseLayerAll, fetchLinks } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
-import { fromNullable, none } from 'fp-ts/lib/Option';
+import { addBookmarksToMap } from './bookmark';
 
 const logger = debug('sdi:events/app');
 
@@ -56,6 +57,8 @@ const loadMap =
                         }
                     })
                     .catch(err => logger(`Failed to load MD ${l.metadataId}: ${err}`));
+
+                addBookmarksToMap();
             });
         }
         else {

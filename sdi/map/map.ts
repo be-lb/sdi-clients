@@ -15,13 +15,13 @@
  */
 
 import * as debug from 'debug';
-import { fromNullable } from 'fp-ts/lib/Option';
+import { fromNullable, Option, some, none } from 'fp-ts/lib/Option';
 import { Map, View, source, layer, proj, Feature, Collection, Extent } from 'openlayers';
 
 import { SyntheticLayerInfo } from '../app';
 import { translateMapBaseLayer, hashMapBaseLayer } from '../util';
 import { IMapBaseLayer, MessageRecord, getMessageRecord, DirectGeometryObject, Feature as GeoFeature, Position as GeoPosition, FeatureCollection } from '../source';
-import { fromRecord } from '../locale';
+// import { fromRecord } from '../locale';
 
 import {
     ExtractOptions,
@@ -127,15 +127,15 @@ const loadLayerData =
     };
 
 const getLayerData =
-    (fetchData: FetchData, vs: source.Vector, vl: layer.Vector, title: MessageRecord) => {
+    (fetchData: FetchData, vs: source.Vector, vl: layer.Vector, optTitle: Option<MessageRecord>) => {
         const fetcher =
             (count: number) => {
-                logger(`getLayerData ${fromRecord(title)} ${count}`);
+                // logger(`getLayerData ${fromRecord(title)} ${count}`);
 
                 const cleanup =
                     () => {
-                        logger(`getLayerData GiveUp on ${fromRecord(title)}`);
-                        loadingMonitor.remove(title);
+                        // logger(`getLayerData GiveUp on ${fromRecord(title)}`);
+                        optTitle.map(title => loadingMonitor.remove(title));
 
                     };
 
@@ -158,26 +158,8 @@ const getLayerData =
                             else {
                                 vl.once('change:visible', complete);
                             }
-                            loadingMonitor.remove(title);
+                            optTitle.map(title => loadingMonitor.remove(title));
                         }));
-
-                // if (data) {
-                //     const complete = () => loadLayerData(vs, data);
-                //     if (vl.getVisible()) {
-                //         complete();
-                //     }
-                //     else {
-                //         // setTimeout(complete, 3000 + (Math.random() * 10000));
-                //         vl.once('change:visible', complete);
-                //     }
-                //     loadingMonitor.remove(title);
-                // }
-                // else if (count < 100) {
-                //     setTimeout(() => fetcher(count + 1), 1000);
-                // }
-                // else {
-                //     logger(`getLayerData GiveUp on ${fromRecord(title)}`);
-                // }
             };
 
         fetcher(0);
@@ -208,11 +190,10 @@ export const removeLayerAll =
 export const addLayer =
     (layerInfo: () => SyntheticLayerInfo, fetchData: FetchData, retryCount = 0) => {
         const { info, metadata } = layerInfo();
-        if (info && metadata) {
+        if (info) {
             logger(`===== addLayer ${info.id} ====`);
             const layers = mainLayerGroup.getLayers();
             const alayers = layers.getArray();
-            const title = getMessageRecord(metadata.resourceTitle);
             if (alayers.find(l => l.get('id') === info.id)) {
                 logger(`addLayer.abort`);
                 return;
@@ -252,17 +233,17 @@ export const addLayer =
             vs.set('id', info.id);
             vl.set('id', info.id);
             vl.setVisible(info.visible);
-
-            loadingMonitor.add(title);
             layers.push(vl);
-            // logger(`addLayer.commit ${fromRecord(title)} ${layers.getArray().map(l => l.get('id')).join('; ')}`);
-            getLayerData(fetchData, vs, vl, title);
+            if (metadata) {
+                const title = getMessageRecord(metadata.resourceTitle);
+                loadingMonitor.add(title);
+                getLayerData(fetchData, vs, vl, some(title));
+            }
+            else {
+                getLayerData(fetchData, vs, vl, none);
+            }
 
-            // vl.on('render', (_e: any) => {
-            //     logger(`Layer Render ${info.id} ${vs.getState()} `);
-            // });
 
-            // return vl;
         }
         else if (retryCount < 120) {
             setTimeout(() => {
