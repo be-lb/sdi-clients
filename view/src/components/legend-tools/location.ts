@@ -18,7 +18,7 @@
 
 import { ReactNode } from 'react';
 
-import { DIV, H2 } from 'sdi/components/elements';
+import { DIV, H2, H3 } from 'sdi/components/elements';
 import { isENTER } from 'sdi/components/keycodes';
 import { inputNullableNumber } from 'sdi/components/input';
 import tr from 'sdi/locale';
@@ -31,6 +31,7 @@ import events from '../../events/legend';
 import { trackerEvents, viewEvents, startPointerPosition, stopPointerPosition, putMark } from '../../events/map';
 import { getPointerPosition } from '../../queries/map';
 import bookmark from '../bookmark';
+import { helpText } from 'sdi/components/helptext';
 
 
 const startTracker = () => {
@@ -58,17 +59,15 @@ const wrap =
         DIV({ className: 'tool location' },
             H2({}, tr('location')),
             DIV({ className: 'tool-body lat-lon' },
-                DIV({ className: 'tool-help' }, tr('locationHelp')),
+                helpText(tr('helptext:locationTool')),
                 ...children));
 
 
 const renderPointerPosition =
     ({ state }: InteractionPosition) =>
         wrap(DIV({ className: 'cursor-location' },
-            DIV({
-                className: 'btn-check active',
-                onClick: () => stopPointerPosition(state.coordinates),
-            }, tr('cursorLocalisation')),
+            H2({}, tr('cursorLocalisation')),
+            helpText(tr('helptext:cursorLocationOn')),
             DIV({ className: 'lat-lon-label' },
                 DIV({}, tr('longitude')),
                 DIV({}, tr('latitude')),
@@ -76,6 +75,12 @@ const renderPointerPosition =
             DIV({ className: 'lat-lon-value' },
                 DIV({}, state.coordinates[0].toFixed()),
                 DIV({}, state.coordinates[1].toFixed()),
+            ),
+            DIV({
+                className: 'btn-stop',
+                onClick: () => stopPointerPosition(state.coordinates),
+            },
+                tr('stop'),
             )));
 
 
@@ -115,27 +120,41 @@ const longitudeInput =
         },
     );
 
-const renderInput =
-    () =>
-        wrap(DIV({ className: 'lat-lon-inputs' },
+const pointLocation =
+    () => DIV({ className: 'point-location' },
+        H3({}, tr('pointLocation')),
+        helpText(tr('helptext:pointLocationTool')),
+        DIV({ className: 'lat-lon-inputs' },
             longitudeInput(),
             latitudeInput(),
             DIV({
                 className: 'btn-search',
                 onClick: position,
             })),
+        DIV({ className: 'cursor-location' },
+            DIV({
+                className: 'btn-gps high-btn ',
+                onClick: () => startPointerPosition(putMark),
+            }, tr('cursorLocalisation'))));
 
-            DIV({ className: 'cursor-location' },
-                DIV({
-                    className: 'btn-check',
-                    onClick: () => startPointerPosition(putMark),
-                }, tr('cursorLocalisation')),
-                DIV({
-                    className: 'btn-check',
-                    onClick: startTracker,
-                }, tr('startGPS'))),
+
+const gpsTracker =
+    () => DIV({},
+        H3({}, tr('gpsTracker')),
+        helpText(tr('helptext:gpsTracker')),
+        DIV({
+            className: 'btn-gps high-btn',
+            onClick: startTracker,
+        }, tr('startGPS')));
+
+
+const renderInput =
+    () =>
+        wrap(
+            pointLocation(),
+            gpsTracker(),
             bookmark(),
-        );
+            );
 
 
 const render =

@@ -147,6 +147,14 @@ export type MessageKey =
     | 'gpsTracker'
     | 'heat'
     | 'heatPump'
+    | 'helptext:measureTool'
+    | 'helptext:locationTool'
+    | 'helptext:pointLocationTool'
+    | 'helptext:gpsTracker'
+    | 'helptext:mapdataTool'
+    | 'helptext:printMapTool'
+    | 'helptext:wmsSwitchTool'
+    | 'helptext:cursorLocationOn'
     | 'highValue'
     | 'hotWaterDuringDay'
     | 'identifier'
@@ -194,14 +202,12 @@ export type MessageKey =
     | 'loanRate'
     | 'loanYes'
     | 'location'
-    | 'locationHelp'
     | 'login'
     | 'logout'
     | 'longitude'
     | 'lowValue'
     | 'map'
     | 'mapData'
-    | 'mapDataHelp'
     | 'mapEmbed'
     | 'mapEmbedWithView'
     | 'mapInfoAddIllustration'
@@ -213,7 +219,7 @@ export type MessageKey =
     | 'mapRefList'
     | 'mapTools'
     | 'maxZoom'
-    | 'measure'
+    | 'measureTool'
     | 'measureArea'
     | 'measureLength'
     | 'metaCommon'
@@ -249,6 +255,7 @@ export type MessageKey =
     | 'piechartScale'
     | 'pointColor'
     | 'pointLabelHelp'
+    | 'pointLocation'
     | 'pointOfContact'
     | 'polycristal'
     | 'power'
@@ -258,7 +265,6 @@ export type MessageKey =
     | 'printSmallFormat'
     | 'printBigFormat'
     | 'printMap'
-    | 'printMapHelp'
     | 'printNotStarted'
     | 'printPreparingPDF'
     | 'propName'
@@ -295,6 +301,7 @@ export type MessageKey =
     | 'setLongitude'
     | 'settings'
     | 'share'
+    | 'sharingTools'
     | 'shareWithView'
     | 'sheet'
     | 'sheetList'
@@ -540,7 +547,6 @@ export type MessageKey =
     | 'wmsLegendDisplay'
     | 'wmsLegendHide'
     | 'wmsSwitch'
-    | 'wmsSwitchHelpText'
     | 'yearConsumption'
     | 'yearProduction'
     | 'yes'
@@ -915,10 +921,22 @@ export const messages: MessageDB = {
         en: 'Geolocation tools',
     },
 
-    locationHelp: {
+    'helptext:locationTool': {
+        fr: 'Obtenez ou utilisez des données de géolocalisation à l\'aide des outils ci-dessous.',
+        nl: 'Verkrijgen of gebruiken van geolokalisatiegegevens met behulp van onderstaande tools.',
+        en: 'Obtain or use geolocation data using the tools below.',
+    },
+
+    'helptext:pointLocationTool': {
         fr: 'Les coordonnées doivent être encodées dans le système Lambert Belge 72 (EPSG:31370)',
         nl: 'Coördinaten moeten worden geëncodeerd in het Belgische Lambert systeem 72 (EPSG: 31370)',
         en: 'Coordinates must be encoded in Belgian Lambert 72 system (EPSG:31370)',
+    },
+
+    'helptext:gpsTracker': {
+        fr: 'Cette fonctionnalité requière d\'acceder à la localisation de votre appareil. Ces informations ne sont ni stockées, ni partagées.',
+        nl: 'Deze functie vereist dat u toegang hebt tot de locatie van uw apparaat. Deze informatie wordt niet opgeslagen of gedeeld.',
+        en: 'This feature requires the app to access the location of your device. This information is not stored nor shared.',
     },
 
     mapLegend: {
@@ -939,7 +957,7 @@ export const messages: MessageDB = {
         en: 'Data',
     },
 
-    mapDataHelp: {
+    'helptext:mapdataTool': {
         fr: 'Affichez ou masquez certaines couches, et explorez les données brutes en utilisant la table attributaire.',
         nl: 'Toon of verberg bepaalde lagen en verken de ruwe gegevens met behulp van de attribuutententabel.',
         en: 'Show or hide certain layers, and explore the raw data using the attribute table',
@@ -1066,22 +1084,22 @@ export const messages: MessageDB = {
         en: 'Longitude (X)',
     },
 
-    measure: {
-        fr: 'Mesurer',
-        nl: 'Meten',
-        en: 'Measure',
+    measureTool: {
+        fr: 'Outils de mesure',
+        nl: 'Meetinstrumenten',
+        en: 'Measure tools',
     },
 
     measureLength: {
-        fr: 'Longueur',
-        nl: 'Lengte',
-        en: 'Length',
+        fr: 'Mesurer une longueur',
+        nl: 'Meet een lengte',
+        en: 'Measure a length',
     },
 
     measureArea: {
-        fr: 'Superficie',
-        nl: 'Oppervlakte',
-        en: 'Area',
+        fr: 'Mesurer une superficie',
+        nl: 'Meet een oppervlakte',
+        en: 'Measure an area',
     },
 
     mapEmbed: {
@@ -1136,6 +1154,12 @@ export const messages: MessageDB = {
         fr: 'Partager',
         nl: 'Delen',
         en: 'Share',
+    },
+
+    sharingTools: {
+        fr: 'Partage de la carte',
+        nl: 'Deel de kaart',
+        en: 'Sharing the map',
     },
 
     shareWithView: {
@@ -1198,10 +1222,16 @@ export const messages: MessageDB = {
         en: 'Background map',
     },
 
-    wmsSwitchHelpText: {
+    'helptext:wmsSwitchTool': {
         fr: 'Sélectionnez un des webservices référencés ci-dessous pour changer le fond de carte.',
         nl: 'Selecteer een van de onderstaande webservices om de basiskaart te wijzigen.',
         en: 'Select one of the webservices listed below to change the base map.',
+    },
+
+    'helptext:cursorLocationOn': {
+        fr: 'Cliquez sur la carte pour enregistrer la position du curseur.',
+        nl: 'Klik op de kaart om de cursorpositie op te slaan.',
+        en: 'Click on the map to save the cursor position.',
     },
 
     loadingData: {
@@ -2046,7 +2076,7 @@ export const messages: MessageDB = {
         en: 'Export and print',
     },
 
-    printMapHelp: {
+    'helptext:printMapTool': {
         fr: 'Exportez la vue actuelle de la carte en un fichier .PDF prêt à imprimer en sélectionnant le format et l\'orientation souhaités.',
         nl: 'Exporteer de huidige kaartweergave als een drukklaar PDF-bestand door het gewenste formaat en oriëntatie te selecteren.',
         en: 'Export the current map view as a print-ready PDF file by selecting the desired format and orientation.',
@@ -3649,50 +3679,63 @@ export const messages: MessageDB = {
 
     'tooltip:info': {
         fr: 'Informations sur la carte',
-        nl: '',
-        en: '',
+        nl: 'Informatie op de kaart',
+        en: 'Map informations',
     },
 
     'tooltip:legend': {
         fr: 'Légende',
-        nl: '',
-        en: '',
+        nl: 'Legenda',
+        en: 'Legend',
     },
 
     'tooltip:data': {
         fr: 'Données',
-        nl: '',
-        en: '',
+        nl: 'Data',
+        en: 'Data',
     },
 
     'tooltip:base-map': {
         fr: 'Fond de carte',
-        nl: '',
-        en: '',
+        nl: 'Achtergrond',
+        en: 'Background map',
     },
 
     'tooltip:print': {
-        fr: 'Export et impression',
-        nl: '',
-        en: '',
+        fr: 'Exporter et imprimer',
+        nl: 'Exporteren en afdrukken',
+        en: 'Export and print',
     },
 
     'tooltip:ishare': {
         fr: 'Partager la carte',
-        nl: '',
-        en: '',
+        nl: 'Deel de kaart',
+        en: 'Share the map',
     },
 
     'tooltip:measure': {
         fr: 'Faire des mesures',
-        nl: '',
-        en: '',
+        nl: 'Metingen uitvoeren',
+        en: 'Take measurements',
     },
 
     'tooltip:locate': {
         fr: 'Outils de géolocalisation',
-        nl: '',
-        en: '',
+        nl: 'Geolokalisatie',
+        en: 'Geolocation tools',
+    },
+
+    'helptext:measureTool': {
+        fr: 'Effectuez des mesures sur la carte à l\'aide des outils ci-dessous. ',
+        nl: 'Maak metingen op de kaart met behulp van de onderstaande tools.',
+        en: 'Make measurements on the map using the tools below.',
+    },
+
+
+    pointLocation: {
+        fr: 'Localisation d\'un point',
+        nl: 'ligging van een punt',
+        en: 'Point location',
     },
 
 };

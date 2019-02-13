@@ -101,7 +101,7 @@ const render =
                     DIV({ className: 'tool-group share-embed' },
                         DIV({ className: 'tool print' },
                             H2({}, tr('printMap')),
-                            helpText(tr('printMapHelp')),
+                            helpText(tr('helptext:printMapTool')),
                             renderBody(mapInfo))));
 
 

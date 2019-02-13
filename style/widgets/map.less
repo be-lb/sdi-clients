@@ -23,9 +23,6 @@
         .absolute(initial, 0, 0, initial);
         width: 25px;
         background: #fff;
-        // padding: @small-margin;
-        // padding-right: 0px;
-        // padding-bottom: 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -36,14 +33,12 @@
         border-left-color: inherit;
 
         > div {
-            // margin-bottom: @small-margin;
-            // width: 1em;
             position: relative;
 
             & button {
+                .awsomefont;
                 width: 25px;
                 height: 25px;
-                font-family: @gui-font;
                 background-color: @white;
                 border: 0px;
                 font-size: 11px;
@@ -84,28 +79,6 @@
             // flex: 1;
             &.fullscreen-false:before {content: @fa-var-expand;}
             &.fullscreen-true:before {content: @fa-var-compress;}
-        }
-    }
-
-    .zoom {
-        // display: flex;
-        // align-items: center;
-        // flex-direction: column;
-
-        button {
-            // padding: 5px 5px;
-            // height: 1em;
-            width: 25px;
-            height: 25px;
-            // flex: 1;
-
-            &.zoom-in:before {content: @fa-var-plus;}
-            &.zoom-out {
-                // margin-top: @small-margin !important;
-                margin-top: 0 !important;
-                margin-bottom: 0px !important;
-                &:before {content: @fa-var-minus;}
-            }
         }
     }
 
