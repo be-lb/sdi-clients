@@ -1,7 +1,5 @@
-
-
 /*
- *  Copyright (C) 2017 Atelier Cartographique <contact@atelier-cartographique.be>
+ *  Copyright (C) 2019 Atelier Cartographique <contact@atelier-cartographique.be>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -16,19 +14,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-export * from './alias';
-export * from './app';
-export * from './attachment';
-export * from './category';
-export * from './chart';
-export * from './dataset-metadata';
-export * from './geojson';
-export * from './inspire';
-export * from './map';
-export * from './row-config';
-export * from './style';
-export * from './timeserie';
-export * from './user';
-export * from './uuid';
-export * from './maplink';
-export { MessageRecord, MessageRecordLang, makeRecord } from './io';
+import { query } from 'sdi/shape';
+
+export const getBookmarks =
+    () => {
+        const bookmarks = query('component/bookmark');
+        return bookmarks.features;
+    }; 

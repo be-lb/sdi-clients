@@ -146,6 +146,12 @@ export interface FeaturePath {
 export type FeaturePathGetter = Getter<FeaturePath>;
 
 
+
+export interface IPosition {
+    coordinates: Coordinate;
+    after: (c: Coordinate) => void;
+}
+
 export interface InteractionBase<L extends string, T> {
     label: L;
     state: T;
@@ -159,7 +165,7 @@ export interface InteractionMeasure extends InteractionBase<'measure', IGeoMeasu
 export interface InteractionExtract extends InteractionBase<'extract', ExtractFeature[]> { }
 export interface InteractionMark extends InteractionBase<'mark', IMark> { }
 export interface InteractionPrint extends InteractionBase<'print', null> { }
-export interface InteractionPosition extends InteractionBase<'position', Coordinate> { }
+export interface InteractionPosition extends InteractionBase<'position', IPosition> { }
 export interface InteractionSingleClick extends InteractionBase<'singleclick', null> { }
 
 interface InteractionMap {

@@ -27,6 +27,7 @@ import { initialTableState } from 'sdi/components/table';
 import App from './app';
 import { AppLayout } from './shape/types';
 import { defaultPrintState } from './components/print';
+import { defaultBookmarks } from './components/bookmark';
 
 const logger = debug('sdi:index');
 
@@ -116,6 +117,7 @@ export const main =
             },
 
             'component/button': {},
+            'component/bookmark': defaultBookmarks(),
 
 
             'port/map/scale': {
@@ -127,7 +129,7 @@ export const main =
             'port/map/view': {
                 dirty: 'geo',
                 srs: 'EPSG:31370',
-                center: [149546.27830713114, 169775.91753364357],
+                center: [149546, 169775],
                 rotation: 0,
                 zoom: 6,
                 feature: null,
@@ -149,6 +151,7 @@ export const main =
             'data/datasetMetadata': {},
             'data/attachments': [],
             'data/baselayers': {},
+            'data/links': {},
 
             'remote/errors': {},
         };

@@ -24,6 +24,7 @@ import { filterNotNull } from 'sdi/util';
 import queries from '../queries/app';
 import { getAttachment } from '../queries/attachments';
 import { navigateMap } from '../events/route';
+import { getLinks } from '../queries/map';
 
 const logger = debug('sdi:map-info');
 
@@ -55,13 +56,33 @@ const isInternal =
 const isExternal =
     (a: Attachment) => !isInternal(a);
 
+const renderRelated =
+    () => {
+        const links = getLinks('forward')
+            .fold([NODISPLAY()],
+                ls => ls.map(l => DIV({
+                    className: 'link forward',
+                    onClick: () => navigateMap(l.id || '###'),
+                }, fromRecord(l.title))))
+            .concat(getLinks('backward')
+                .fold([NODISPLAY()],
+                    ls => ls.map(l => DIV({
+                        className: 'link backward',
+                        onClick: () => navigateMap(l.id || '###'),
+                    }, fromRecord(l.title)))));
 
+        return DIV({ className: 'related-maps' },
+            H2({}, tr('relatedMapsLabel')), links);
+    };
 
 const renderAttachments =
     (info: IMapInfo) => {
         const ats = filterNotNull(
             info.attachments.map(
                 id => getAttachment(id).fold(null, a => a)));
+
+
+
 
         if (ats.length > 0) {
             const ints = ats.filter(isInternal);
@@ -114,6 +135,7 @@ export default () => {
                 //         formatDate(new Date(mapInfo.lastModified)))),
                 mapImage,
                 mapDescription,
+                renderRelated(),
                 renderAttachments(mapInfo)));
     }
     return NODISPLAY();

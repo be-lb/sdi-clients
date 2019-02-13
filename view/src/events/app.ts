@@ -23,7 +23,7 @@ import { getApiUrl } from 'sdi/app';
 import { scopeOption } from 'sdi/lib';
 
 import { AppLayout } from '../shape/types';
-import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment, fetchBaseLayer, fetchBaseLayerAll } from '../remote';
+import { fetchLayer, fetchAlias, fetchAllMaps, fetchCategories, fetchDatasetMetadata, fetchMap, fetchAttachment, fetchBaseLayer, fetchBaseLayerAll, fetchLinks } from '../remote';
 // import { addAppIdToFeature } from '../util/app';
 import queries from '../queries/app';
 import { fromNullable, none } from 'fp-ts/lib/Option';
@@ -96,7 +96,12 @@ observe('data/maps',
                 aid => fetchAttachment(getApiUrl(`attachments/${aid}`))
                     .then(a => attachments(s => s.concat([a]))))));
 
-
+const loadLinks =
+    (mid: string) =>
+        fetchLinks(getApiUrl(`map/links/${mid}`))
+            .then((links) => {
+                dispatch('data/links', data => ({ ...data, [mid]: links }));
+            });
 
 const events = {
 
@@ -121,10 +126,14 @@ const events = {
                                 fetchMap(getApiUrl(`maps/${mid}`))
                                     .then((info) => {
                                         dispatch('data/maps', maps => maps.concat([info]));
-                                        return loadMap(info);
-                                    });
+                                        loadMap(info);
+                                    })
+                                    .then(() => loadLinks(mid));
                             },
-                            loadMap,
+                            (info) => {
+                                loadLinks(mid);
+                                loadMap(info);
+                            },
                         );
 
 

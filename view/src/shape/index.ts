@@ -21,6 +21,8 @@ import {
     IMapBaseLayer,
     IMapInfo,
     MessageRecord,
+    MapLink,
+    FeatureCollection,
 } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
@@ -41,11 +43,10 @@ import {
     RemoteErrors,
 } from './types';
 import { PrintProps, PrintState } from '../components/print';
+import { Collection } from 'sdi/util';
 
 
-interface BaseLayerCollection {
-    [k: string]: IMapBaseLayer;
-}
+
 
 
 declare module 'sdi/shape' {
@@ -62,7 +63,7 @@ declare module 'sdi/shape' {
         'component/table': IDataTable;
         'component/table/extract': IDataTable;
         'component/mapnavigator': IMapNavigator;
-        'component/timeserie': { [id: string]: ITimeserieInteractive };
+        'component/timeserie': Collection<ITimeserieInteractive>;
         'component/legend/show-wms-legend': boolean;
         'component/legend/webservices': IToolWebServices;
         'component/legend/geocoder': IToolGeocoder;
@@ -70,6 +71,7 @@ declare module 'sdi/shape' {
         'component/legend/share': IShare;
         'component/button': ButtonComponent;
         'component/print': PrintState;
+        'component/bookmark': FeatureCollection;
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
@@ -85,7 +87,8 @@ declare module 'sdi/shape' {
         'data/categories': Category[];
         'data/datasetMetadata': IDatasetMetadataCollection;
         'data/attachments': Attachment[];
-        'data/baselayers': BaseLayerCollection;
+        'data/baselayers': Collection<IMapBaseLayer>;
+        'data/links': Collection<MapLink[]>;
         'remote/errors': RemoteErrors;
     }
 }

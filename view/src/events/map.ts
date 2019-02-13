@@ -17,7 +17,7 @@
 import { } from 'fp-ts/lib/Array';
 import { Coordinate } from 'openlayers';
 
-import { dispatch, dispatchK } from 'sdi/shape';
+import { dispatch, dispatchK, queryK } from 'sdi/shape';
 import { viewEventsFactory, scaleEventsFactory, trackerEventsFactory, measureEventsFactory, ExtractFeature, defaultInteraction, PrintRequest, PrintResponse } from 'sdi/map';
 import { tableEvents } from 'sdi/components/table';
 import { MessageRecord } from 'sdi/source';
@@ -26,7 +26,8 @@ import { withExtract } from '../queries/map';
 import { PrintProps } from '../components/print';
 import legendEvents from './legend';
 
-const interaction = dispatchK('port/map/interaction');
+const setInteraction = dispatchK('port/map/interaction');
+const getInteraction = queryK('port/map/interaction');
 
 
 // export const selectBaseLayer =
@@ -49,17 +50,17 @@ const interaction = dispatchK('port/map/interaction');
 
 export const scalelineEvents = scaleEventsFactory(dispatchK('port/map/scale'));
 export const viewEvents = viewEventsFactory(dispatchK('port/map/view'));
-export const trackerEvents = trackerEventsFactory(interaction);
-export const measureEvents = measureEventsFactory(interaction);
+export const trackerEvents = trackerEventsFactory(setInteraction);
+export const measureEvents = measureEventsFactory(setInteraction);
 
 export const startExtract =
-    () => interaction(() => ({
+    () => setInteraction(() => ({
         label: 'extract',
         state: [],
     }));
 
 export const stopExtract =
-    () => interaction(() => defaultInteraction());
+    () => setInteraction(() => defaultInteraction());
 
 const eq =
     (a: ExtractFeature[], b: ExtractFeature[]) => (
@@ -77,13 +78,13 @@ export const setExtractCollection =
     (es: ExtractFeature[]) =>
         withNewExtracted(es)
             .fold(
-                interaction(() => ({
+                setInteraction(() => ({
                     label: 'extract',
                     state: es,
                 })),
                 (isEq) => {
                     if (!isEq) {
-                        interaction(() => ({
+                        setInteraction(() => ({
                             label: 'extract',
                             state: es,
                         }));
@@ -96,7 +97,7 @@ export const extractTableEvents = tableEvents(
 
 
 export const startMark =
-    () => interaction((s) => {
+    () => setInteraction((s) => {
         if (s.label === 'mark') {
             return { ...s, state: { ...s.state, started: true } };
         }
@@ -104,12 +105,12 @@ export const startMark =
     });
 
 export const endMark =
-    () => interaction(() => defaultInteraction());
+    () => setInteraction(() => defaultInteraction());
 
 
 export const putMark =
     (coordinates: Coordinate) =>
-        interaction(() => ({
+        setInteraction(() => ({
             label: 'mark',
             state: {
                 started: false,
@@ -120,22 +121,33 @@ export const putMark =
 
 
 export const startPointerPosition =
-    () => interaction(() => ({
+    (after: (c: Coordinate) => void) => setInteraction(() => ({
         label: 'position',
-        state: [0, 0],
+        state: { coordinates: [0, 0], after },
     }));
 
 export const setPointerPosition =
-    (c: Coordinate) => interaction(() => ({
-        label: 'position',
-        state: c,
-    }));
+    (coordinates: Coordinate) => setInteraction((it) => {
+        if ('position' === it.label) {
+            return {
+                ...it,
+                state: { ...it.state, coordinates },
+            };
+        }
+        return it;
+    });
 
 export const stopPointerPosition =
     (c: Coordinate) => {
-        legendEvents.updatePositionerLongitude(Math.floor(c[0]));
-        legendEvents.updatePositionerLatitude(Math.floor(c[1]));
-        putMark(c);
+        const it = getInteraction();
+        if (it.label === 'position') {
+            const after = it.state.after;
+            const coordinates = it.state.coordinates;
+            legendEvents.updatePositionerLongitude(Math.floor(c[0]));
+            legendEvents.updatePositionerLatitude(Math.floor(c[1]));
+            setInteraction(() => defaultInteraction());
+            setTimeout(() => after(coordinates), 1);
+        }
     };
 
 
@@ -157,4 +169,4 @@ export const setPrintResponse =
 
 
 export const stopPrint =
-    () => interaction(() => defaultInteraction());
+    () => setInteraction(() => defaultInteraction());

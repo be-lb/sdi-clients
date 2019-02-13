@@ -4,6 +4,10 @@ import { MessageKey } from '../locale/message-db';
 import { Setoid } from 'fp-ts/lib/Setoid';
 
 
+export interface Collection<T> {
+    [k: string]: T;
+}
+
 export interface IMapBaseLayerTranslated {
     name: string;
     srs: string;

@@ -28,8 +28,9 @@ import appEvents from '../../events/app';
 
 import queries from '../../queries/legend';
 import events from '../../events/legend';
-import { trackerEvents, viewEvents, startPointerPosition, stopPointerPosition } from '../../events/map';
+import { trackerEvents, viewEvents, startPointerPosition, stopPointerPosition, putMark } from '../../events/map';
 import { getPointerPosition } from '../../queries/map';
+import bookmark from '../bookmark';
 
 
 const startTracker = () => {
@@ -66,15 +67,15 @@ const renderPointerPosition =
         wrap(DIV({ className: 'cursor-location' },
             DIV({
                 className: 'btn-check active',
-                onClick: () => stopPointerPosition(state),
+                onClick: () => stopPointerPosition(state.coordinates),
             }, tr('cursorLocalisation')),
             DIV({ className: 'lat-lon-label' },
                 DIV({}, tr('longitude')),
                 DIV({}, tr('latitude')),
             ),
             DIV({ className: 'lat-lon-value' },
-                DIV({}, state[0].toFixed()),
-                DIV({}, state[1].toFixed()),
+                DIV({}, state.coordinates[0].toFixed()),
+                DIV({}, state.coordinates[1].toFixed()),
             )));
 
 
@@ -127,12 +128,14 @@ const renderInput =
             DIV({ className: 'cursor-location' },
                 DIV({
                     className: 'btn-check',
-                    onClick: startPointerPosition,
+                    onClick: () => startPointerPosition(putMark),
                 }, tr('cursorLocalisation')),
                 DIV({
                     className: 'btn-check',
                     onClick: startTracker,
-                }, tr('startGPS'))));
+                }, tr('startGPS'))),
+            bookmark(),
+        );
 
 
 const render =

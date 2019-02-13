@@ -14,7 +14,29 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { FeatureCollection, IMapInfoIO, IMapInfo, IAliasCollection, IAliasCollectionIO, IUserIO, IUser, InspireIO, Inspire, ITimeserieIO, ITimeserie, fetchIO, Category, CategoryCollectionIO, AttachmentIO, Attachment, fetchPaginatedIO, fetchWithoutValidationIO, IMapBaseLayer, IMapBaseLayerIO } from 'sdi/source';
+import {
+    Attachment,
+    AttachmentIO,
+    Category,
+    CategoryCollectionIO,
+    FeatureCollection,
+    fetchIO,
+    fetchPaginatedIO,
+    fetchWithoutValidationIO,
+    IAliasCollection,
+    IAliasCollectionIO,
+    IMapBaseLayer,
+    IMapBaseLayerIO,
+    IMapInfo,
+    IMapInfoIO,
+    Inspire,
+    InspireIO,
+    ITimeserie,
+    ITimeserieIO,
+    IUser,
+    IUserIO,
+    MapLinkListIO,
+} from 'sdi/source';
 
 import * as io from 'io-ts';
 
@@ -51,6 +73,9 @@ export const fetchCategories =
     (url: string): Promise<Category[]> => fetchIO(CategoryCollectionIO, url);
 export const fetchAttachment =
     (url: string): Promise<Attachment> => fetchIO(AttachmentIO, url);
+
+export const fetchLinks =
+    (url: string) => fetchIO(MapLinkListIO, url);
 
 
 
