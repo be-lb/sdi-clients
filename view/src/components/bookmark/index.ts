@@ -1,6 +1,7 @@
 
 import { FeatureCollection, Feature, getFeatureProp, MessageRecord, ILayerInfo } from 'sdi/source';
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
+import tr from 'sdi/locale'
 
 import { viewEvents, startPointerPosition } from '../../events/map';
 import { addBookmark, addBookmarkFromMark, removeBookmark } from '../../events/bookmark';
@@ -67,14 +68,14 @@ const renderAddBookmark =
             onClick: () => addBookmarkFromMark().mapLeft(
                 () => startPointerPosition(addBookmark),
             ),
-        }, '[TR#Add bookmark]');
+        }, tr('addBookmark'));
 
 export const render =
     () =>
         DIV({
             className: 'bookmark',
         },
-            H2({}, '..TR#bookmarks..'),
+            H2({}, tr('bookmarks')),
             renderAddBookmark(),
             ...(getBookmarks().map(renderBookmark)),
         );

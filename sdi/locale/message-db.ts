@@ -25,6 +25,7 @@ import { MessageRecord } from '../source';
 export type MessageKey =
     | '__empty__'
     | 'add'
+    | 'addBookmark'
     | 'addInterval'
     | 'addLayer'
     | 'address'
@@ -51,6 +52,7 @@ export type MessageKey =
     | 'backToMap'
     | 'boiler'
     | 'bonus'
+    | 'bookmarks'
     | 'browseMaps'
     | 'buyingPrice'
     | 'cancel'
@@ -3736,6 +3738,20 @@ export const messages: MessageDB = {
         fr: 'Localisation d\'un point',
         nl: 'ligging van een punt',
         en: 'Point location',
+    },
+
+
+    bookmarks: {
+        fr: 'Marque-pages',
+        nl: 'Bladwijzers',
+        en: 'Bookmarks',
+    },
+
+
+    addBookmark: {
+        fr: 'Ajout de marque-page',
+        nl: 'Voeg bladwijzer toe',
+        en: 'Add bookmark',
     },
 
 };
