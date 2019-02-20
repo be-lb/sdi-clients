@@ -1,6 +1,6 @@
 import { Coordinate } from 'openlayers';
 
-import { Inspire, IMapBaseLayer, FeatureCollection } from 'sdi/source';
+import { IMapBaseLayer } from 'sdi/source';
 
 import { IUgWsResponse } from '../ports/geocoder';
 
@@ -92,15 +92,3 @@ export interface IShare {
     withView: boolean;
 }
 
-export interface ILayerColection {
-    [id: string]: FeatureCollection;
-}
-
-export interface IDatasetMetadataCollection {
-    [id: string]: Inspire;
-}
-
-
-export interface RemoteErrors {
-    [k: string]: string;
-}

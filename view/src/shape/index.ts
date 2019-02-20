@@ -23,6 +23,7 @@ import {
     MessageRecord,
     MapLink,
     FeatureCollection,
+    Inspire,
 } from 'sdi/source';
 import { IDataTable } from 'sdi/components/table';
 import { ITimeserieInteractive, ITimeserieCollection } from 'sdi/components/timeserie';
@@ -38,9 +39,6 @@ import {
     IToolGeocoder,
     IPositioner,
     IShare,
-    ILayerColection,
-    IDatasetMetadataCollection,
-    RemoteErrors,
 } from './types';
 import { PrintProps, PrintState } from '../components/print';
 import { Collection } from 'sdi/util';
@@ -71,7 +69,7 @@ declare module 'sdi/shape' {
         'component/legend/share': IShare;
         'component/button': ButtonComponent;
         'component/print': PrintState;
-        'component/bookmark': FeatureCollection;
+        // 'component/bookmark': FeatureCollection;
 
         'port/map/view': IMapViewData;
         'port/map/scale': IMapScale;
@@ -81,15 +79,15 @@ declare module 'sdi/shape' {
         'port/map/printResponse': PrintResponse<PrintProps>;
 
 
-        'data/layers': ILayerColection;
+        'data/layers': Collection<FeatureCollection>;
         'data/maps': IMapInfo[];
         'data/timeseries': ITimeserieCollection;
         'data/categories': Category[];
-        'data/datasetMetadata': IDatasetMetadataCollection;
+        'data/datasetMetadata': Collection<Inspire>;
         'data/attachments': Attachment[];
         'data/baselayers': Collection<IMapBaseLayer>;
         'data/links': Collection<MapLink[]>;
-        'remote/errors': RemoteErrors;
+        'remote/errors': Collection<string>;
     }
 }
 

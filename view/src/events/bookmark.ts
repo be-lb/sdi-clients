@@ -21,8 +21,10 @@ import { Coordinate } from 'openlayers';
 import { dispatch, query } from 'sdi/shape';
 import { getFeatureProp } from 'sdi/source';
 import { addLayer, removeLayer } from 'sdi/map';
+import tr from 'sdi/locale';
 
-import { bookmarkLayerName, bookmarkLayerInfo, bookmarkLayerID } from '../components/bookmark';
+import { bookmarkLayerName, bookmarkLayerInfo, bookmarkLayerID, defaultBookmarks, bookmarkMetadataID, bookmarkMetadata } from '../components/bookmark';
+import { getBookmarks } from '../queries/bookmark';
 
 
 const updateBookmarks =
@@ -45,27 +47,32 @@ export const addBookmarkFromMark =
 
 export const addBookmark =
     (pos: Coordinate) => {
-        dispatch('component/bookmark', (state) => {
-            const name = `Bookmark ${state.features.length}`;
-            state.features.push({
+        dispatch('data/layers', (state) => {
+            const fc = (bookmarkLayerID in state) ? state[bookmarkLayerID] : defaultBookmarks();
+
+            const n = fc.features.length + 1;
+            const name = `${tr('bookmark')} ${n}`;
+            fc.features.push({
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
                     coordinates: pos,
                 },
                 properties: { name },
-                id: `ID_${state.features.length + 1}`,
+                id: `ID_${n}`,
             });
-            return state;
+            return { ...state, [bookmarkLayerID]: fc };
         });
         updateBookmarks();
     };
 
 export const removeBookmark =
     (name: string) => {
-        dispatch('component/bookmark', (state) => {
-            const features = state.features.filter(f => getFeatureProp(f, 'name', '') !== name);
-            return { ...state, features };
+        dispatch('data/layers', (state) => {
+            const fc = (bookmarkLayerID in state) ? state[bookmarkLayerID] : defaultBookmarks();
+            const features = fc.features.filter(f => getFeatureProp(f, 'name', '') !== name);
+            const newFc = { ...fc, features };
+            return { ...state, [bookmarkLayerID]: newFc };
         });
         updateBookmarks();
     };
@@ -74,6 +81,7 @@ export const removeBookmark =
 
 export const addBookmarksToMap =
     () => {
+        dispatch('data/datasetMetadata', state => ({ ...state, [bookmarkMetadataID]: bookmarkMetadata }));
         dispatch('data/maps', maps => maps.map(m => ({
             ...m,
             layers: m.layers.filter(l => l.id !== bookmarkLayerID).concat([bookmarkLayerInfo]),
@@ -82,7 +90,7 @@ export const addBookmarksToMap =
             () => ({
                 name: bookmarkLayerName,
                 info: bookmarkLayerInfo,
-                metadata: null,
+                metadata: bookmarkMetadata,
             }),
-            () => right(some(query('component/bookmark'))));
+            () => right(some(getBookmarks())));
     };

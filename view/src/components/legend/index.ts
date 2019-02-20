@@ -38,6 +38,7 @@ import share from '../legend-tools/share';
 import location from '../legend-tools/location';
 import measure from '../legend-tools/measure';
 import { helpText } from 'sdi/components/helptext';
+import { bookmarkLayerID } from '../bookmark/index';
 // import mapInfo from './../map-info';
 
 
@@ -102,11 +103,19 @@ const renderLegend =
         });
 
 
+type InfoRender = (info: ILayerInfo) => ReactNode;
+
+const branchInfo =
+    (a: InfoRender, b: InfoRender) =>
+        (c: boolean, info: ILayerInfo) => {
+            if (c) { return a(info); }
+            return b(info);
+        };
 
 
-const dataItem =
-    (info: ILayerInfo) =>
-        DIV({ className: 'layer-item' },
+const dataActions =
+    branchInfo(
+        (info: ILayerInfo) => // normal
             DIV({ className: 'layer-actions' },
                 divTooltipTopRight(
                     tr('visible'),
@@ -128,7 +137,24 @@ const dataItem =
                         },
                     })),
             ),
+        (info: ILayerInfo) => // bookmark
+            DIV({ className: 'layer-actions bookmark' },
+                divTooltipTopRight(
+                    tr('visible'),
+                    {},
+                    SPAN({
+                        className: info.visible ? 'visible' : 'hidden',
+                        onClick: () => {
+                            appEvents.setLayerVisibility(info.id, !info.visible);
+                        },
+                    })),
+            ),
+    );
 
+
+const dataTitle =
+    branchInfo(
+        (info: ILayerInfo) => // normal
             DIV({ className: 'layer-title' },
                 fromNullable(
                     appQueries.getDatasetMetadata(info.metadataId))
@@ -140,7 +166,18 @@ const dataItem =
                                     className: 'error',
                                     title: err,
                                 }, fromRecord(getMessageRecord(md.resourceTitle))),
-                                () => SPAN({}, fromRecord(getMessageRecord(md.resourceTitle)))))));
+                                () => SPAN({}, fromRecord(getMessageRecord(md.resourceTitle)))))),
+        (_info: ILayerInfo) => // bookmark
+            DIV({ className: 'layer-title bookmark' }, tr('bookmarks')),
+    );
+
+
+const dataItem =
+    (info: ILayerInfo) =>
+        DIV({ className: 'layer-item' },
+            dataActions(info.id !== bookmarkLayerID, info),
+            dataTitle(info.id !== bookmarkLayerID, info),
+        );
 
 const renderData =
     (groups: Group[]) =>

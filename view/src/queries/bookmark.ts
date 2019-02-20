@@ -15,9 +15,13 @@
  */
 
 import { query } from 'sdi/shape';
+import { bookmarkLayerID, defaultBookmarks } from '../components/bookmark';
 
 export const getBookmarks =
     () => {
-        const bookmarks = query('component/bookmark');
-        return bookmarks.features;
+        const layers = query('data/layers');
+        if (bookmarkLayerID in layers) {
+            return layers[bookmarkLayerID];
+        }
+        return defaultBookmarks();
     }; 

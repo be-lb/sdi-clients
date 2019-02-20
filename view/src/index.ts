@@ -27,7 +27,6 @@ import { initialTableState } from 'sdi/components/table';
 import App from './app';
 import { AppLayout } from './shape/types';
 import { defaultPrintState } from './components/print';
-import { defaultBookmarks } from './components/bookmark';
 
 const logger = debug('sdi:index');
 
@@ -117,7 +116,7 @@ export const main =
             },
 
             'component/button': {},
-            'component/bookmark': defaultBookmarks(),
+            // 'component/bookmark': defaultBookmarks(),
 
 
             'port/map/scale': {

@@ -1,7 +1,7 @@
 
-import { FeatureCollection, Feature, getFeatureProp, MessageRecord, ILayerInfo } from 'sdi/source';
+import { FeatureCollection, Feature, getFeatureProp, MessageRecord, ILayerInfo, Inspire } from 'sdi/source';
 import { DIV, SPAN, H2 } from 'sdi/components/elements';
-import tr from 'sdi/locale'
+import tr from 'sdi/locale';
 
 import { viewEvents, startPointerPosition } from '../../events/map';
 import { addBookmark, addBookmarkFromMark, removeBookmark } from '../../events/bookmark';
@@ -12,7 +12,8 @@ export interface BookmarkProperties {
     name: string;
 }
 
-export const bookmarkLayerID = '__bookmarks__';
+export const bookmarkLayerID = '__bookmarks_info__';
+export const bookmarkMetadataID = '__bookmarks_meta__';
 export const bookmarkLayerName: MessageRecord = {
     en: 'Bookmarks',
     fr: 'Bookmarks',
@@ -21,7 +22,7 @@ export const bookmarkLayerName: MessageRecord = {
 
 export const bookmarkLayerInfo: ILayerInfo = {
     id: bookmarkLayerID,
-    metadataId: '####',
+    metadataId: bookmarkMetadataID,
     visible: true,
     featureViewOptions: { type: 'default' },
     style: {
@@ -34,6 +35,23 @@ export const bookmarkLayerInfo: ILayerInfo = {
     },
     group: null,
     legend: null,
+};
+
+
+export const bookmarkMetadata: Inspire = {
+    id: bookmarkMetadataID,
+    uniqueResourceIdentifier: bookmarkLayerID,
+    resourceTitle: bookmarkLayerName,
+    geographicBoundingBox: { east: 0, west: 0, south: 0, north: 0 },
+    keywords: [],
+    geometryType: 'Point',
+    metadataDate: '',
+    metadataPointOfContact: [],
+    published: false,
+    resourceAbstract: { fr: '', nl: '', en: '' },
+    responsibleOrganisation: [],
+    temporalReference: { revision: '' },
+    topicCategory: [],
 };
 
 export const defaultBookmarks =
@@ -77,7 +95,7 @@ export const render =
         },
             H2({}, tr('bookmarks')),
             renderAddBookmark(),
-            ...(getBookmarks().map(renderBookmark)),
+            ...(getBookmarks().features.map(renderBookmark)),
         );
 
 export default render;

@@ -52,6 +52,7 @@ export type MessageKey =
     | 'backToMap'
     | 'boiler'
     | 'bonus'
+    | 'bookmark'
     | 'bookmarks'
     | 'browseMaps'
     | 'buyingPrice'
@@ -3740,6 +3741,12 @@ export const messages: MessageDB = {
         en: 'Point location',
     },
 
+
+    bookmark: {
+        fr: 'Marque-page',
+        nl: 'Bladwijzer',
+        en: 'Bookmark',
+    },
 
     bookmarks: {
         fr: 'Marque-pages',
